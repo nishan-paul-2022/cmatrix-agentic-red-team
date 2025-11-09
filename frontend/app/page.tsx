@@ -32,6 +32,9 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [animationSteps, setAnimationSteps] = useState<Array<any>>([])
+  const [currentAnimationStep, setCurrentAnimationStep] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -50,6 +53,9 @@ export default function ChatPage() {
     setInput("")
     setMessages((prev) => [...prev, { role: "user", content: userMessage }])
     setIsLoading(true)
+    setAnimationSteps([])
+    setCurrentAnimationStep(0)
+    setIsAnimating(false)
 
     try {
       const response = await fetch("/api/chat", {
@@ -69,6 +75,7 @@ export default function ChatPage() {
       const reader = response.body?.getReader()
       const decoder = new TextDecoder()
       let assistantMessage = ""
+      let receivedAnimationSteps: any[] = []
 
       // Add empty assistant message
       setMessages((prev) => [...prev, { role: "assistant", content: "" }])
@@ -91,9 +98,21 @@ export default function ChatPage() {
 
             try {
               const parsed = JSON.parse(data)
-              if (parsed.token) {
+              if (parsed.animation_step) {
+                // Handle animation step
+                receivedAnimationSteps.push(parsed.animation_step)
+                setAnimationSteps([...receivedAnimationSteps])
+                setIsAnimating(true)
+
+                // Auto-advance through animation steps
+                setTimeout(() => {
+                  setCurrentAnimationStep(prev => Math.min(prev + 1, receivedAnimationSteps.length))
+                }, parsed.animation_step.duration)
+
+              } else if (parsed.token) {
+                // Handle regular token streaming
                 assistantMessage += parsed.token
-                // Update the last message with accumulated content
+                // Keep animation visible and update the last message with accumulated content
                 setMessages((prev) => {
                   const updated = [...prev]
                   updated[updated.length - 1] = {
@@ -125,6 +144,7 @@ export default function ChatPage() {
       ])
     } finally {
       setIsLoading(false)
+      setIsAnimating(false)
     }
   }
 
@@ -203,7 +223,14 @@ export default function ChatPage() {
           ) : (
             <div className="space-y-6">
               {messages.map((message, index) => (
-                <ChatMessage key={index} role={message.role} content={message.content} />
+                <ChatMessage
+                  key={index}
+                  role={message.role}
+                  content={message.content}
+                  animationSteps={message.role === "assistant" ? animationSteps : []}
+                  currentAnimationStep={currentAnimationStep}
+                  isAnimating={isAnimating && index === messages.length - 1 && message.role === "assistant"}
+                />
               ))}
               {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <ChatMessage role="assistant" content="" isLoading />

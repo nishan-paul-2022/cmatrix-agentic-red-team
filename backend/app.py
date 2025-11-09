@@ -88,31 +88,63 @@ async def chat_stream(request: ChatRequest):
             try:
                 run_agent = get_agent()
                 response = run_agent(request.message, request.history)
-                
+
                 if not response:
                     yield f"data: {json.dumps({'error': 'Empty response from agent'})}\n\n"
                     return
-                
-                print(f'📤 Streaming response ({len(response)} chars)')
-                
-                # Stream by words for better readability
-                words = response.split()
-                newline_token = '\n'
-                for i, word in enumerate(words):
-                    # Preserve line breaks
-                    if newline_token in word:
-                        parts = word.split(newline_token)
-                        for j, part in enumerate(parts):
-                            if part:
-                                yield f"data: {json.dumps({'token': part})}\n\n"
-                            if j < len(parts) - 1:
-                                yield f"data: {json.dumps({'token': newline_token})}\n\n"
-                    else:
-                        chunk = word + (" " if i < len(words) - 1 else "")
-                        yield f"data: {json.dumps({'token': chunk})}\n\n"
-                    
-                    await asyncio.sleep(0.03)  # Slightly faster streaming
-                
+
+                # Check if response is a dict with animation steps (demo mode)
+                if isinstance(response, dict) and "animation_steps" in response:
+                    animation_steps = response["animation_steps"]
+                    final_answer = response["final_answer"]
+
+                    print(f'📤 Streaming animated response with {len(animation_steps)} steps')
+
+                    # First, send animation steps
+                    for step in animation_steps:
+                        yield f"data: {json.dumps({'animation_step': step})}\n\n"
+                        await asyncio.sleep(step["duration"] / 1000)  # Convert ms to seconds
+
+                    # Then stream the final answer
+                    words = final_answer.split()
+                    newline_token = '\n'
+                    for i, word in enumerate(words):
+                        # Preserve line breaks
+                        if newline_token in word:
+                            parts = word.split(newline_token)
+                            for j, part in enumerate(parts):
+                                if part:
+                                    yield f"data: {json.dumps({'token': part})}\n\n"
+                                if j < len(parts) - 1:
+                                    yield f"data: {json.dumps({'token': newline_token})}\n\n"
+                        else:
+                            chunk = word + (" " if i < len(words) - 1 else "")
+                            yield f"data: {json.dumps({'token': chunk})}\n\n"
+
+                        await asyncio.sleep(0.03)  # Slightly faster streaming
+
+                else:
+                    # Regular streaming for non-demo responses
+                    print(f'📤 Streaming regular response ({len(response)} chars)')
+
+                    # Stream by words for better readability
+                    words = response.split()
+                    newline_token = '\n'
+                    for i, word in enumerate(words):
+                        # Preserve line breaks
+                        if newline_token in word:
+                            parts = word.split(newline_token)
+                            for j, part in enumerate(parts):
+                                if part:
+                                    yield f"data: {json.dumps({'token': part})}\n\n"
+                                if j < len(parts) - 1:
+                                    yield f"data: {json.dumps({'token': newline_token})}\n\n"
+                        else:
+                            chunk = word + (" " if i < len(words) - 1 else "")
+                            yield f"data: {json.dumps({'token': chunk})}\n\n"
+
+                        await asyncio.sleep(0.03)  # Slightly faster streaming
+
                 yield "data: [DONE]\n\n"
             
             except Exception as e:
