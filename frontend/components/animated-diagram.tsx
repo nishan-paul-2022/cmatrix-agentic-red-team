@@ -89,7 +89,7 @@ export function AnimatedDiagram({ nodes, edges, currentStep = 0, isAnimating = f
       </div>
 
       {/* SVG Diagram */}
-      <svg width="100%" height="100%" viewBox="0 0 850 180" className="absolute inset-0">
+      <svg width="100%" height="100%" viewBox="-20 0 900 180" className="absolute inset-0">
         {/* Edges */}
         {animatedEdges.map((edge, index) => {
           const fromNode = animatedNodes.find(n => n.id === edge.from)
