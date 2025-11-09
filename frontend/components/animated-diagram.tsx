@@ -218,60 +218,73 @@ export function AnimatedDiagram({
     })
 
     network.on("stabilizationIterationsDone", () => {
-      // The physics simulation is intentionally kept enabled for a more dynamic feel.
+      // Disable physics after stabilization to prevent circulating movement
+      network.setOptions({ physics: { enabled: false } });
     });
 
     let animationFrameId: number;
 
     if (isAnimating) {
-      const activeEdge = initialEdges.find((edge, index) => index === currentStep - 1);
-      if (activeEdge) {
+      // Animate data flow from start node to end node sequentially
+      const animateFlow = (edgeIndex: number) => {
+        if (edgeIndex >= initialEdges.length) {
+          // Animation complete, reset to start if needed
+          return;
+        }
+
+        const activeEdge = initialEdges[edgeIndex];
         const fromNodeId = activeEdge.from;
         const toNodeId = activeEdge.to;
 
-        const particleId = "flow-particle";
+        const particleId = `flow-particle-${edgeIndex}`;
         if (!nodes.get(particleId)) {
           nodes.add({
             id: particleId,
             shape: "dot",
-            size: 3,
-            color: "#ffffff",
+            size: 4,
+            color: "#60a5fa",
             physics: false,
           });
         }
 
-        const animate = () => {
-          const fromNode = network.getPositions([fromNodeId])[fromNodeId];
-          const toNode = network.getPositions([toNodeId])[toNodeId];
+        const fromNode = network.getPositions([fromNodeId])[fromNodeId];
+        const toNode = network.getPositions([toNodeId])[toNodeId];
 
-          if (fromNode && toNode) {
-            const distance = Math.sqrt(Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2));
-            const duration = distance / 100; // Adjust speed
-            const startTime = Date.now();
+        if (fromNode && toNode) {
+          const distance = Math.sqrt(Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2));
+          const duration = distance / 80; // Adjust speed for smoother flow
+          const startTime = Date.now();
 
-            const step = () => {
-              const now = Date.now();
-              const time = (now - startTime) / 1000;
-              const progress = Math.min(time / duration, 1);
+          const step = () => {
+            const now = Date.now();
+            const time = (now - startTime) / 1000;
+            const progress = Math.min(time / duration, 1);
 
-              const x = fromNode.x + (toNode.x - fromNode.x) * progress;
-              const y = fromNode.y + (toNode.y - fromNode.y) * progress;
+            const x = fromNode.x + (toNode.x - fromNode.x) * progress;
+            const y = fromNode.y + (toNode.y - fromNode.y) * progress;
 
-              nodes.update({ id: particleId, x, y });
+            nodes.update({ id: particleId, x, y });
 
-              if (progress < 1) {
-                animationFrameId = requestAnimationFrame(step);
-              } else {
-                if (nodes.get(particleId)) {
-                  nodes.remove(particleId);
-                }
+            if (progress < 1) {
+              animationFrameId = requestAnimationFrame(step);
+            } else {
+              // Remove particle and move to next edge
+              if (nodes.get(particleId)) {
+                nodes.remove(particleId);
               }
-            };
-            step();
-          }
-        };
-        animate();
-      }
+              // Continue to next edge after a brief delay
+              setTimeout(() => animateFlow(edgeIndex + 1), 200);
+            }
+          };
+          step();
+        } else {
+          // If nodes not found, continue to next edge
+          setTimeout(() => animateFlow(edgeIndex + 1), 200);
+        }
+      };
+
+      // Start animation from first edge
+      animateFlow(0);
     }
 
     return () => {
