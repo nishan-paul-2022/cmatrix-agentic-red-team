@@ -11,10 +11,10 @@
       ],
       "diagram": {
         "nodes": [
-          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
-          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
-          {"id": "scan", "label": "Security Scan", "x": 350, "y": 50, "type": "tool"},
-          {"id": "result", "label": "Scan Results", "x": 500, "y": 50, "type": "result"}
+          {"id": "user", "label": "User Query", "x": 20, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 170, "y": 50, "type": "ai"},
+          {"id": "scan", "label": "Security Scan", "x": 320, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Scan Results", "x": 470, "y": 50, "type": "result"}
         ],
         "edges": [
           {"from": "user", "to": "ai"},
@@ -33,11 +33,11 @@
       ],
       "diagram": {
         "nodes": [
-          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
-          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
-          {"id": "connect", "label": "Server Connect", "x": 350, "y": 20, "type": "tool"},
-          {"id": "check", "label": "Service Check", "x": 350, "y": 80, "type": "tool"},
-          {"id": "metrics", "label": "Metrics", "x": 480, "y": 50, "type": "result"}
+          {"id": "user", "label": "User Query", "x": 20, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 170, "y": 50, "type": "ai"},
+          {"id": "connect", "label": "Server Connect", "x": 320, "y": 20, "type": "tool"},
+          {"id": "check", "label": "Service Check", "x": 320, "y": 80, "type": "tool"},
+          {"id": "metrics", "label": "Metrics", "x": 470, "y": 50, "type": "result"}
         ],
         "edges": [
           {"from": "user", "to": "ai"},
@@ -59,13 +59,13 @@
       ],
       "diagram": {
         "nodes": [
-          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
-          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
-          {"id": "logs", "label": "Access Logs", "x": 350, "y": 30, "type": "tool"},
-          {"id": "filter", "label": "Time Filter", "x": 350, "y": 70, "type": "tool"},
-          {"id": "analyze", "label": "Pattern Analysis", "x": 500, "y": 30, "type": "tool"},
-          {"id": "detect", "label": "Anomaly Detection", "x": 500, "y": 70, "type": "tool"},
-          {"id": "report", "label": "Analysis Report", "x": 650, "y": 50, "type": "result"}
+          {"id": "user", "label": "User Query", "x": 20, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 170, "y": 50, "type": "ai"},
+          {"id": "logs", "label": "Access Logs", "x": 320, "y": 30, "type": "tool"},
+          {"id": "filter", "label": "Time Filter", "x": 320, "y": 70, "type": "tool"},
+          {"id": "analyze", "label": "Pattern Analysis", "x": 470, "y": 30, "type": "tool"},
+          {"id": "detect", "label": "Anomaly Detection", "x": 470, "y": 70, "type": "tool"},
+          {"id": "report", "label": "Analysis Report", "x": 620, "y": 50, "type": "result"}
         ],
         "edges": [
           {"from": "user", "to": "ai"},
@@ -89,14 +89,14 @@
       ],
       "diagram": {
         "nodes": [
-          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
-          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
-          {"id": "validate", "label": "Validate Config", "x": 350, "y": 20, "type": "tool"},
-          {"id": "backup", "label": "Create Backup", "x": 350, "y": 50, "type": "tool"},
-          {"id": "staging", "label": "Staging Deploy", "x": 350, "y": 80, "type": "tool"},
-          {"id": "prod", "label": "Production Deploy", "x": 500, "y": 50, "type": "tool"},
-          {"id": "verify", "label": "Verify Success", "x": 650, "y": 50, "type": "tool"},
-          {"id": "result", "label": "Deployment Complete", "x": 800, "y": 50, "type": "result"}
+          {"id": "user", "label": "User Query", "x": 20, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 170, "y": 50, "type": "ai"},
+          {"id": "validate", "label": "Validate Config", "x": 320, "y": -20, "type": "tool"},
+          {"id": "backup", "label": "Create Backup", "x": 320, "y": 50, "type": "tool"},
+          {"id": "staging", "label": "Staging Deploy", "x": 320, "y": 120, "type": "tool"},
+          {"id": "prod", "label": "Production Deploy", "x": 470, "y": 50, "type": "tool"},
+          {"id": "verify", "label": "Verify Success", "x": 620, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Deployment Complete", "x": 770, "y": 50, "type": "result"}
         ],
         "edges": [
           {"from": "user", "to": "ai"},
