@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils"
 import { User, Shield, Loader2, Activity, CheckCircle, AlertTriangle } from "lucide-react"
 import ReactMarkdown from "react-markdown"
+import { AnimatedDiagram } from "./animated-diagram"
 
 interface ChatMessageProps {
   role: "user" | "assistant"
@@ -9,9 +10,13 @@ interface ChatMessageProps {
   animationSteps?: any[]
   currentAnimationStep?: number
   isAnimating?: boolean
+  diagram?: {
+    nodes: any[]
+    edges: any[]
+  }
 }
 
-export function ChatMessage({ role, content, isLoading, animationSteps = [], currentAnimationStep = 0, isAnimating = false }: ChatMessageProps) {
+export function ChatMessage({ role, content, isLoading, animationSteps = [], currentAnimationStep = 0, isAnimating = false, diagram }: ChatMessageProps) {
   const isUser = role === "user"
 
   return (
@@ -41,11 +46,24 @@ export function ChatMessage({ role, content, isLoading, animationSteps = [], cur
           )}
         >
           {animationSteps.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="flex items-center gap-2 terminal-text mb-3">
                 <Activity className="w-4 h-4 animate-pulse text-blue-400" />
                 <span className="text-muted-foreground">[DEMO MODE - AGENT WORKING...]</span>
               </div>
+
+              {/* Animated Diagram */}
+              {diagram && (
+                <div className="mb-4">
+                  <AnimatedDiagram
+                    nodes={diagram.nodes}
+                    edges={diagram.edges}
+                    currentStep={currentAnimationStep}
+                    isAnimating={isAnimating}
+                    className="w-full"
+                  />
+                </div>
+              )}
               <div className="space-y-2">
                 {animationSteps.map((step, index) => {
                   const isActive = index === currentAnimationStep - 1 && isAnimating

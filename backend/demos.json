@@ -8,7 +8,20 @@
         {"step": 3, "title": "Checking CORS Configuration", "description": "Validating cross-origin resource sharing settings...", "duration": 1500, "icon": "🌐", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Password Policy Analysis", "description": "Reviewing authentication strength requirements...", "duration": 1500, "icon": "🔐", "bgColor": "#fff3e0"},
         {"step": 5, "title": "Generating Report", "description": "Compiling findings and recommendations...", "duration": 1000, "icon": "📊", "bgColor": "#fce4ec"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "scan", "label": "Security Scan", "x": 350, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Scan Results", "x": 500, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "scan"},
+          {"from": "scan", "to": "result"}
+        ]
+      }
     },
     "What's the current status of the nginx service on my server?": {
       "final_answer": "Service 'nginx' is running. CPU: 45%, Memory: 2.3GB, Uptime: 7 days.",
@@ -17,7 +30,23 @@
         {"step": 2, "title": "Service Discovery", "description": "Locating nginx service in process list...", "duration": 1000, "icon": "🔍", "bgColor": "#e8f5e8"},
         {"step": 3, "title": "Performance Metrics", "description": "Collecting CPU, memory, and uptime statistics...", "duration": 1500, "icon": "📈", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Health Check", "description": "Verifying service responsiveness and configuration...", "duration": 1000, "icon": "❤️", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "connect", "label": "Server Connect", "x": 350, "y": 30, "type": "tool"},
+          {"id": "check", "label": "Service Check", "x": 350, "y": 70, "type": "tool"},
+          {"id": "metrics", "label": "Metrics", "x": 500, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "connect"},
+          {"from": "ai", "to": "check"},
+          {"from": "connect", "to": "metrics"},
+          {"from": "check", "to": "metrics"}
+        ]
+      }
     },
     "Please analyze the nginx access logs for any errors or unusual activity in the last 24 hours.": {
       "final_answer": "Analyzed logs from nginx. Found 12 errors in the last hour, mostly connection timeouts to external API.",
@@ -27,7 +56,27 @@
         {"step": 3, "title": "Pattern Analysis", "description": "Scanning for error codes, timeouts, and suspicious patterns...", "duration": 2000, "icon": "🔍", "bgColor": "#f3e5f5"},
         {"step": 4, "title": "Anomaly Detection", "description": "Identifying unusual request patterns and potential attacks...", "duration": 1500, "icon": "🚨", "bgColor": "#e3f2fd"},
         {"step": 5, "title": "Report Generation", "description": "Summarizing findings and recommendations...", "duration": 1000, "icon": "📋", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "logs", "label": "Access Logs", "x": 350, "y": 30, "type": "tool"},
+          {"id": "filter", "label": "Time Filter", "x": 350, "y": 70, "type": "tool"},
+          {"id": "analyze", "label": "Pattern Analysis", "x": 500, "y": 30, "type": "tool"},
+          {"id": "detect", "label": "Anomaly Detection", "x": 500, "y": 70, "type": "tool"},
+          {"id": "report", "label": "Analysis Report", "x": 650, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "logs"},
+          {"from": "ai", "to": "filter"},
+          {"from": "logs", "to": "analyze"},
+          {"from": "filter", "to": "analyze"},
+          {"from": "analyze", "to": "detect"},
+          {"from": "detect", "to": "report"}
+        ]
+      }
     },
     "Deploy the updated firewall configuration to the production environment.": {
       "final_answer": "Configuration 'firewall' successfully deployed to production environment. Rollback available if needed.",
@@ -37,7 +86,30 @@
         {"step": 3, "title": "Staging Deployment", "description": "Applying changes to staging environment for testing...", "duration": 2000, "icon": "🧪", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Production Rollout", "description": "Deploying configuration to production servers...", "duration": 1800, "icon": "🚀", "bgColor": "#fff3e0"},
         {"step": 5, "title": "Verification", "description": "Confirming deployment success and service continuity...", "duration": 1000, "icon": "🎯", "bgColor": "#fce4ec"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "validate", "label": "Validate Config", "x": 350, "y": 20, "type": "tool"},
+          {"id": "backup", "label": "Create Backup", "x": 350, "y": 50, "type": "tool"},
+          {"id": "staging", "label": "Staging Deploy", "x": 350, "y": 80, "type": "tool"},
+          {"id": "prod", "label": "Production Deploy", "x": 500, "y": 50, "type": "tool"},
+          {"id": "verify", "label": "Verify Success", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Deployment Complete", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "validate"},
+          {"from": "ai", "to": "backup"},
+          {"from": "ai", "to": "staging"},
+          {"from": "validate", "to": "prod"},
+          {"from": "backup", "to": "prod"},
+          {"from": "staging", "to": "prod"},
+          {"from": "prod", "to": "verify"},
+          {"from": "verify", "to": "result"}
+        ]
+      }
     },
     "Scan ports 1-1000 on the target IP 10.0.0.5 to see what's open.": {
       "final_answer": "Port scan results for 10.0.0.5:\nPort 22: open (ssh)\nPort 80: open (http)\nPort 443: open (https)",
@@ -47,7 +119,29 @@
         {"step": 3, "title": "TCP SYN Scanning", "description": "Sending SYN packets and analyzing responses...", "duration": 3000, "icon": "📡", "bgColor": "#f3e5f5"},
         {"step": 4, "title": "Service Detection", "description": "Identifying running services on open ports...", "duration": 1500, "icon": "🔍", "bgColor": "#e3f2fd"},
         {"step": 5, "title": "Results Compilation", "description": "Organizing findings by port number and service...", "duration": 1000, "icon": "📋", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "recon", "label": "Network Recon", "x": 350, "y": 30, "type": "tool"},
+          {"id": "setup", "label": "Port Setup", "x": 350, "y": 70, "type": "tool"},
+          {"id": "scan", "label": "SYN Scan", "x": 500, "y": 30, "type": "tool"},
+          {"id": "detect", "label": "Service Detect", "x": 500, "y": 70, "type": "tool"},
+          {"id": "compile", "label": "Compile Results", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Port Results", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "recon"},
+          {"from": "ai", "to": "setup"},
+          {"from": "recon", "to": "scan"},
+          {"from": "setup", "to": "scan"},
+          {"from": "scan", "to": "detect"},
+          {"from": "detect", "to": "compile"},
+          {"from": "compile", "to": "result"}
+        ]
+      }
     },
     "Run a vulnerability assessment on my local machine at 127.0.0.1 to identify potential security issues.": {
       "final_answer": "Basic Vulnerability Assessment for 127.0.0.1:\n\n⚠️  WARNING: FTP service detected on port 21 - consider using SFTP (secure)\n⚠️  WARNING: SMB service detected - check for known vulnerabilities\n\nOpen ports found: 3\n  - Port 21: ftp\n  - Port 22: ssh\n  - Port 445: microsoft-ds\n\nGeneral Recommendations:\n• Ensure all services are up-to-date\n• Use strong authentication mechanisms\n• Implement proper firewall rules\n• Regularly scan for vulnerabilities",
@@ -57,7 +151,29 @@
         {"step": 3, "title": "Service Classification", "description": "Categorizing detected services by security risk level...", "duration": 1500, "icon": "🏷️", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Vulnerability Matching", "description": "Cross-referencing services with known vulnerability databases...", "duration": 2000, "icon": "⚠️", "bgColor": "#fff3e0"},
         {"step": 5, "title": "Recommendations", "description": "Generating security hardening suggestions...", "duration": 1200, "icon": "💡", "bgColor": "#fce4ec"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "analyze", "label": "Target Analysis", "x": 350, "y": 30, "type": "tool"},
+          {"id": "discover", "label": "Port Discovery", "x": 350, "y": 70, "type": "tool"},
+          {"id": "classify", "label": "Service Classification", "x": 500, "y": 30, "type": "tool"},
+          {"id": "match", "label": "Vulnerability Matching", "x": 500, "y": 70, "type": "tool"},
+          {"id": "recommend", "label": "Generate Recommendations", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Assessment Report", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "analyze"},
+          {"from": "ai", "to": "discover"},
+          {"from": "analyze", "to": "classify"},
+          {"from": "discover", "to": "classify"},
+          {"from": "classify", "to": "match"},
+          {"from": "match", "to": "recommend"},
+          {"from": "recommend", "to": "result"}
+        ]
+      }
     },
     "Test the security of my website at https://example.com for common vulnerabilities and check security headers.": {
       "final_answer": "Web Application Security Test for https://example.com\nStatus Code: 200\nServer: nginx/1.18.0\nContent-Type: text/html\n\nSecurity Headers Check:\n❌ Missing X-Frame-Options header (Clickjacking vulnerability)\n❌ Missing X-Content-Type-Options header (MIME sniffing vulnerability)\n❌ Missing X-XSS-Protection header (XSS vulnerability)\n❌ Missing Strict-Transport-Security header (No HTTPS enforcement)\n❌ Missing Content-Security-Policy header (XSS/injection vulnerabilities)\n\nCommon Vulnerability Checks:\n⚠️  Potential admin panel found at /admin (status: 200)\n⚠️  Potentially outdated Nginx version",
@@ -67,7 +183,30 @@
         {"step": 3, "title": "Vulnerability Scanning", "description": "Testing for common web application vulnerabilities...", "duration": 2000, "icon": "🔍", "bgColor": "#f3e5f5"},
         {"step": 4, "title": "Admin Panel Detection", "description": "Checking for exposed administrative interfaces...", "duration": 1500, "icon": "🚪", "bgColor": "#e3f2fd"},
         {"step": 5, "title": "Software Version Check", "description": "Analyzing server software versions for known issues...", "duration": 1200, "icon": "📊", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "request", "label": "HTTP Request", "x": 350, "y": 30, "type": "tool"},
+          {"id": "headers", "label": "Header Analysis", "x": 350, "y": 70, "type": "tool"},
+          {"id": "scan", "label": "Vulnerability Scan", "x": 500, "y": 30, "type": "tool"},
+          {"id": "admin", "label": "Admin Panel Check", "x": 500, "y": 70, "type": "tool"},
+          {"id": "version", "label": "Version Check", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Security Report", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "request"},
+          {"from": "ai", "to": "headers"},
+          {"from": "request", "to": "scan"},
+          {"from": "headers", "to": "scan"},
+          {"from": "scan", "to": "admin"},
+          {"from": "scan", "to": "version"},
+          {"from": "admin", "to": "result"},
+          {"from": "version", "to": "result"}
+        ]
+      }
     },
     "Check if my website at example.com properly enforces HTTPS and has HSTS enabled.": {
       "final_answer": "✅ HTTP redirects to HTTPS\n✅ HTTPS is accessible\n❌ HSTS not enabled",
@@ -76,7 +215,27 @@
         {"step": 2, "title": "Redirect Analysis", "description": "Verifying HTTP to HTTPS redirection behavior...", "duration": 1200, "icon": "🔄", "bgColor": "#f3e5f5"},
         {"step": 3, "title": "HTTPS Validation", "description": "Confirming HTTPS certificate and connection security...", "duration": 1500, "icon": "🔒", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "HSTS Header Check", "description": "Examining Strict-Transport-Security header presence...", "duration": 1000, "icon": "🛡️", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "http_test", "label": "HTTP Test", "x": 350, "y": 30, "type": "tool"},
+          {"id": "redirect", "label": "Redirect Analysis", "x": 350, "y": 70, "type": "tool"},
+          {"id": "https", "label": "HTTPS Validation", "x": 500, "y": 30, "type": "tool"},
+          {"id": "hsts", "label": "HSTS Check", "x": 500, "y": 70, "type": "tool"},
+          {"id": "result", "label": "HTTPS Report", "x": 650, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "http_test"},
+          {"from": "ai", "to": "redirect"},
+          {"from": "http_test", "to": "https"},
+          {"from": "redirect", "to": "https"},
+          {"from": "https", "to": "hsts"},
+          {"from": "hsts", "to": "result"}
+        ]
+      }
     },
     "Analyze the login form on my website https://mysite.com/login for security best practices.": {
       "final_answer": "Login Form Analysis for https://mysite.com/login\nFound 1 potential login form(s)\n\nForm 1 Analysis:\n✅ Form uses POST method\n✅ Form action uses HTTPS\nUsername fields: 1\nPassword fields: 1\n✅ Potential CSRF protection detected",
@@ -86,7 +245,29 @@
         {"step": 3, "title": "Method Verification", "description": "Checking form submission method (GET/POST)...", "duration": 1000, "icon": "📝", "bgColor": "#f3e5f5"},
         {"step": 4, "title": "Security Analysis", "description": "Evaluating HTTPS usage, CSRF tokens, and input validation...", "duration": 1800, "icon": "🔐", "bgColor": "#e3f2fd"},
         {"step": 5, "title": "Compliance Check", "description": "Comparing against security best practices...", "duration": 1200, "icon": "✅", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "fetch", "label": "Page Retrieval", "x": 350, "y": 30, "type": "tool"},
+          {"id": "detect", "label": "Form Detection", "x": 350, "y": 70, "type": "tool"},
+          {"id": "method", "label": "Method Check", "x": 500, "y": 30, "type": "tool"},
+          {"id": "security", "label": "Security Analysis", "x": 500, "y": 70, "type": "tool"},
+          {"id": "compliance", "label": "Compliance Check", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Form Analysis", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "fetch"},
+          {"from": "ai", "to": "detect"},
+          {"from": "fetch", "to": "method"},
+          {"from": "detect", "to": "method"},
+          {"from": "method", "to": "security"},
+          {"from": "security", "to": "compliance"},
+          {"from": "compliance", "to": "result"}
+        ]
+      }
     },
     "Check the session security and cookie configuration on https://secureapp.com.": {
       "final_answer": "Session Security Check for https://secureapp.com\nInitial request cookies: 2\nSecond request cookies: 2\n\nSession-related cookies found: 1\n✅ session_id: Secure, HttpOnly, SameSite=Strict\n⚠️  Same cookies returned in both requests",
@@ -96,7 +277,29 @@
         {"step": 3, "title": "Security Flag Analysis", "description": "Checking Secure, HttpOnly, and SameSite attributes...", "duration": 1800, "icon": "🛡️", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Session Persistence", "description": "Testing cookie behavior across multiple requests...", "duration": 1500, "icon": "🔄", "bgColor": "#fff3e0"},
         {"step": 5, "title": "Risk Assessment", "description": "Evaluating session security posture...", "duration": 1000, "icon": "⚠️", "bgColor": "#fce4ec"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "init", "label": "Session Init", "x": 350, "y": 30, "type": "tool"},
+          {"id": "collect", "label": "Cookie Collection", "x": 350, "y": 70, "type": "tool"},
+          {"id": "flags", "label": "Security Flags", "x": 500, "y": 30, "type": "tool"},
+          {"id": "persistence", "label": "Session Persistence", "x": 500, "y": 70, "type": "tool"},
+          {"id": "assess", "label": "Risk Assessment", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Security Report", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "init"},
+          {"from": "ai", "to": "collect"},
+          {"from": "init", "to": "flags"},
+          {"from": "collect", "to": "flags"},
+          {"from": "flags", "to": "persistence"},
+          {"from": "persistence", "to": "assess"},
+          {"from": "assess", "to": "result"}
+        ]
+      }
     },
     "Test if the login endpoint at https://myapp.com/api/auth/login has proper rate limiting to prevent brute force attacks.": {
       "final_answer": "Rate Limiting Test for https://myapp.com/api/auth/login\nTotal requests: 10\nStatus codes: [200, 200, 200, 200, 200, 429, 429, 429, 429, 429]\n✅ Rate limiting detected (HTTP 429)\nAverage response time: 0.15s\nMax response time: 0.23s",
@@ -106,7 +309,29 @@
         {"step": 3, "title": "Rate Limiting Trigger", "description": "Continuing requests to activate rate limiting mechanisms...", "duration": 2500, "icon": "🚦", "bgColor": "#f3e5f5"},
         {"step": 4, "title": "Response Analysis", "description": "Monitoring HTTP status codes and response times...", "duration": 1500, "icon": "📊", "bgColor": "#e3f2fd"},
         {"step": 5, "title": "Protection Verification", "description": "Confirming brute force protection effectiveness...", "duration": 1000, "icon": "🛡️", "bgColor": "#fff3e0"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "config", "label": "Endpoint Config", "x": 350, "y": 30, "type": "tool"},
+          {"id": "initial", "label": "Initial Requests", "x": 350, "y": 70, "type": "tool"},
+          {"id": "trigger", "label": "Rate Limit Trigger", "x": 500, "y": 30, "type": "tool"},
+          {"id": "analyze", "label": "Response Analysis", "x": 500, "y": 70, "type": "tool"},
+          {"id": "verify", "label": "Protection Verify", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Rate Limit Report", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "config"},
+          {"from": "ai", "to": "initial"},
+          {"from": "config", "to": "trigger"},
+          {"from": "initial", "to": "trigger"},
+          {"from": "trigger", "to": "analyze"},
+          {"from": "analyze", "to": "verify"},
+          {"from": "verify", "to": "result"}
+        ]
+      }
     },
     "Review the password policy and security features on the registration page at https://account.example.com/register.": {
       "final_answer": "Password Policy Check for https://account.example.com/register\n✅ Password input fields found\nℹ️  Password policy indicators found: password, must contain, at least, characters, uppercase, lowercase, number\n\nSecurity Features:\n❌ Password strength meter\n❌ Password visibility toggle\n❌ Password generator",
@@ -116,7 +341,29 @@
         {"step": 3, "title": "Policy Text Extraction", "description": "Scanning for password requirement descriptions...", "duration": 1800, "icon": "📖", "bgColor": "#e3f2fd"},
         {"step": 4, "title": "Feature Detection", "description": "Checking for password strength meters and security tools...", "duration": 1500, "icon": "🔧", "bgColor": "#fff3e0"},
         {"step": 5, "title": "Compliance Evaluation", "description": "Assessing password policy against security standards...", "duration": 1200, "icon": "✅", "bgColor": "#fce4ec"}
-      ]
+      ],
+      "diagram": {
+        "nodes": [
+          {"id": "user", "label": "User Query", "x": 50, "y": 50, "type": "user"},
+          {"id": "ai", "label": "AI Agent", "x": 200, "y": 50, "type": "ai"},
+          {"id": "load", "label": "Page Load", "x": 350, "y": 30, "type": "tool"},
+          {"id": "analyze", "label": "Input Analysis", "x": 350, "y": 70, "type": "tool"},
+          {"id": "extract", "label": "Policy Extraction", "x": 500, "y": 30, "type": "tool"},
+          {"id": "detect", "label": "Feature Detection", "x": 500, "y": 70, "type": "tool"},
+          {"id": "evaluate", "label": "Compliance Eval", "x": 650, "y": 50, "type": "tool"},
+          {"id": "result", "label": "Policy Report", "x": 800, "y": 50, "type": "result"}
+        ],
+        "edges": [
+          {"from": "user", "to": "ai"},
+          {"from": "ai", "to": "load"},
+          {"from": "ai", "to": "analyze"},
+          {"from": "load", "to": "extract"},
+          {"from": "analyze", "to": "extract"},
+          {"from": "extract", "to": "detect"},
+          {"from": "detect", "to": "evaluate"},
+          {"from": "evaluate", "to": "result"}
+        ]
+      }
     }
   }
 }

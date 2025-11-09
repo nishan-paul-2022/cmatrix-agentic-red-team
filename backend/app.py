@@ -97,10 +97,15 @@ async def chat_stream(request: ChatRequest):
                 if isinstance(response, dict) and "animation_steps" in response:
                     animation_steps = response["animation_steps"]
                     final_answer = response["final_answer"]
+                    diagram_data = response.get("diagram")
 
                     print(f'📤 Streaming DEMO response with {len(animation_steps)} steps')
 
-                    # First, send animation steps
+                    # First, send diagram data if available
+                    if diagram_data:
+                        yield f"data: {json.dumps({'diagram': diagram_data})}\n\n"
+
+                    # Then send animation steps
                     for step in animation_steps:
                         yield f"data: {json.dumps({'animation_step': step})}\n\n"
                         await asyncio.sleep(step["duration"] / 1000)  # Convert ms to seconds

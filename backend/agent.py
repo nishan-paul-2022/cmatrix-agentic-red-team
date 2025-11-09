@@ -784,9 +784,10 @@ def run_agent(message: str, history: list = None):
         print(f'✅ DEMO MATCH FOUND (similarity: {similarity:.2f}) - Using default answer, NOT calling LLM')
         print(f'Demo prompt: {best_match[:100]}...')
         print(f'Final answer: {demo_data["final_answer"][:100]}...')
-        # Return both the animation steps and final answer - LLM is NEVER called for demo matches
+        # Return both the animation steps, diagram data, and final answer - LLM is NEVER called for demo matches
         return {
             "animation_steps": demo_data["animation_steps"],
+            "diagram": demo_data.get("diagram"),
             "final_answer": demo_data["final_answer"]
         }
 

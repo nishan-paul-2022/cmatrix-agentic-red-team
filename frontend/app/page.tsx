@@ -29,7 +29,7 @@ import { Send, Loader2, Shield, Zap } from "lucide-react"
 import { ChatMessage } from "@/components/chat-message"
 
 export default function ChatPage() {
-   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string; animationSteps?: any[] }>>([])
+   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string; animationSteps?: any[]; diagram?: { nodes: any[]; edges: any[] } }>>([])
    const [input, setInput] = useState("")
    const [isLoading, setIsLoading] = useState(false)
    const [animationSteps, setAnimationSteps] = useState<Array<any>>([])
@@ -77,6 +77,7 @@ export default function ChatPage() {
       const decoder = new TextDecoder()
       let assistantMessage = ""
       let receivedAnimationSteps: any[] = []
+      let receivedDiagram: any = null
 
       // Add empty assistant message
       setMessages((prev) => [...prev, { role: "assistant", content: "", animationSteps: [] }])
@@ -107,12 +108,15 @@ export default function ChatPage() {
                 setIsAnimating(true)
                 setIsLoading(false) // Turn off loading when animation starts
 
-                // Store animation steps in the message for persistence
+                // Store animation steps and diagram in the message for persistence
                 setMessages((prev) => {
                   const updated = [...prev]
                   const lastMsg = updated[updated.length - 1]
                   if (lastMsg.role === "assistant") {
                     lastMsg.animationSteps = [...receivedAnimationSteps]
+                    if (receivedDiagram) {
+                      lastMsg.diagram = receivedDiagram
+                    }
                   }
                   return updated
                 })
@@ -121,6 +125,19 @@ export default function ChatPage() {
                 setTimeout(() => {
                   setCurrentAnimationStep(prev => Math.min(prev + 1, receivedAnimationSteps.length))
                 }, parsed.animation_step.duration)
+
+              } else if (parsed.diagram) {
+                // Handle diagram data
+                console.log("[v0] Received diagram data")
+                receivedDiagram = parsed.diagram
+                setMessages((prev) => {
+                  const updated = [...prev]
+                  const lastMsg = updated[updated.length - 1]
+                  if (lastMsg.role === "assistant") {
+                    lastMsg.diagram = receivedDiagram
+                  }
+                  return updated
+                })
 
               } else if (parsed.token) {
                 // Handle regular token streaming
@@ -243,6 +260,7 @@ export default function ChatPage() {
                   animationSteps={message.role === "assistant" ? (message.animationSteps || animationSteps) : []}
                   currentAnimationStep={currentAnimationStep}
                   isAnimating={isAnimating && index === messages.length - 1 && message.role === "assistant"}
+                  diagram={message.role === "assistant" ? message.diagram : undefined}
                 />
               ))}
               {isLoading && messages[messages.length - 1]?.role === "user" && (
