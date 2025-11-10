@@ -60,7 +60,7 @@ export function AnimatedDiagram({
 
         return {
           id: node.id,
-          label: `${getIcon(node.type)}\n${node.label}`,
+          label: `${getIcon(node.type)}\n\n${node.label}`,
           shape: "box",
           font: {
             color: isCompleted ? "#94a3b8" : "#ffffff",
@@ -71,6 +71,9 @@ export function AnimatedDiagram({
           color: {
             border: isActive ? "#ffffff" : isCompleted ? "#475569" : "#334155",
             background: "#2d3748",
+            hover: {
+              background: "#475569",
+            },
           },
           margin: {
             top: 10,
