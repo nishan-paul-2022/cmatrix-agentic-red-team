@@ -1,211 +1,244 @@
-# DeepHat - AI Agent for Cybersecurity & DevOps
+# CMatrix - Multi-Agent Security Orchestration Platform
 
-An intelligent AI assistant powered by LangGraph and the DeepHat model, specialized in cybersecurity and DevOps tasks with autonomous tool calling capabilities.
+**AI-powered security assessment with real command execution**
 
-## 🏗️ Architecture
-
-```
-User Browser
-     ↓
-Next.js Frontend (Port 3000)
-     ↓ HTTP/SSE
-Python Backend (Port 8000)
-     ↓ LangGraph Agent + Tools
-HuggingFace API (DeepHat Model)
-```
-
-**Key Feature**: Frontend exclusively communicates with Python backend - no direct HuggingFace API calls from the browser.
+---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 18+ and pnpm
-- Python 3.8+
-- HuggingFace API key
-
 ### 1. Start Backend
-
 ```bash
-cd backend
-./dev.sh
+cd backend && ./dev.sh
 ```
-
-Backend will start on http://localhost:8000
 
 ### 2. Start Frontend
-
 ```bash
-cd frontend
-pnpm install
-pnpm dev
+cd frontend && pnpm dev
 ```
 
-Frontend will start on http://localhost:3000
+### 3. Open Web Interface
 
-### 3. Test Integration
+**Web UI:** http://localhost:3000
 
-```bash
-./test-integration.sh
+Type commands like:
+```
+scan_network(target=localhost, ports=1-10000)
+search_cve(keyword="apache", limit=5)
+check_compliance(standard="CIS")
 ```
 
-## 🔧 Configuration
-
-### Backend (`backend/.env`)
-```env
-HUGGINGFACE_API_KEY=your_key_here
-HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B
-PORT=8000
-```
-
-### Frontend (`frontend/.env`)
-```env
-PYTHON_BACKEND_URL=http://localhost:8000
-```
+---
 
 ## 🛠️ Features
 
-### AI Agent Capabilities
-- **Autonomous Tool Calling**: Agent decides when to use tools
-- **Security Scanning**: Vulnerability assessment
-- **System Monitoring**: Service status checks
-- **Log Analysis**: Error detection and analysis
-- **Configuration Deployment**: Automated deployments
+### 7 Specialized Agents
+- **Network Agent** - Port scanning, vulnerability assessment
+- **Web Security Agent** - HTTP headers, HTTPS/HSTS validation
+- **Authentication Agent** - Login forms, sessions, rate limiting
+- **Configuration Agent** - Cloud config, system hardening, compliance
+- **Vulnerability Intelligence Agent** - CVE search, threat intelligence
+- **API Security Agent** - REST/GraphQL testing
+- **Command Execution Agent** - Terminal command execution
 
-### Technical Features
-- **Hot Reload**: Both frontend and backend support live reloading
-- **Streaming Responses**: Real-time SSE streaming
-- **Retry Logic**: Automatic retry for model loading
-- **Error Handling**: User-friendly error messages
-- **API Documentation**: Interactive docs at `/docs`
+### 22 Security Tools
+All tools execute real commands (nmap, curl, etc.) with full audit logging.
 
-## 📚 Documentation
+### Key Features
+- ✅ Real command execution in terminal
+- ✅ Multi-agent orchestration
+- ✅ Authorization & audit logging
+- ✅ Web-based interface
+- ✅ CVE database integration
+- ✅ Compliance checking (CIS, PCI-DSS, HIPAA, SOC2)
 
-- **[SETUP.md](frontend/SETUP.md)** - Detailed setup instructions
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture details
-- **[backend/README.md](backend/README.md)** - Backend documentation
+---
 
-## 🧪 Testing
+## 📚 Architecture
 
-### Test Backend Directly
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Chat request
-curl -X POST http://localhost:8000/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Scan my web application"}'
+```
+User → Next.js Frontend (3000) → FastAPI Backend (8000) → Orchestrator
+                                                              ↓
+                                                    7 Specialized Agents
+                                                              ↓
+                                                    22 Security Tools
+                                                              ↓
+                                                    Real Command Execution
 ```
 
-### Test Full Integration
-```bash
-./test-integration.sh
+**Tech Stack:**
+- Frontend: Next.js 16, React 19, TypeScript
+- Backend: FastAPI, Python 3.11
+- AI: LangGraph (Multi-Agent), LangChain
+- Security Tools: nmap, curl, requests, BeautifulSoup4
+- Database: JSON-based (auth config, audit logs)
+
+---
+
+## 🎯 Usage Examples
+
+### Web UI (http://localhost:3000)
+
+Type commands directly:
+```
+scan_network(target=localhost, ports=1-10000)
+search_cve(keyword="apache", limit=5)
+check_compliance(standard="CIS")
 ```
 
-## 🔐 Security
-
-- ✅ API keys stored only in backend
-- ✅ Frontend never accesses HuggingFace directly
-- ✅ CORS protection enabled
-- ✅ Environment variables for sensitive data
-
-## 🎯 Example Queries
-
-Try these to see the agent in action:
-
-- "Scan my web application for vulnerabilities"
-- "Check the status of the nginx service"
-- "Analyze the application logs for errors"
-- "Deploy the production config to staging environment"
-
-## 🛠️ Development
-
-### Adding New Tools
-
-Edit `backend/agent.py`:
-
-```python
-TOOLS = {
-    "your_tool": {
-        "description": "What your tool does",
-        "parameters": ["param1"],
-        "function": lambda param1: f"Result: {param1}"
-    }
-}
+Or use natural language:
+```
+Scan localhost for open ports
+Search for Apache vulnerabilities
+Check CIS compliance requirements
+What are the PCI-DSS requirements?
 ```
 
-### Project Structure
+---
+
+## 🔒 Security
+
+### Authorization
+- Target whitelist system
+- API key authentication
+- Scope-based permissions
+
+### Audit Logging
+- All commands logged to `backend/audit_logs/`
+- JSON format for compliance
+- Daily log rotation
+
+### Command Whitelist
+Only approved commands can execute:
+- nmap, curl, wget, dig, ping
+- systemctl, ps, top
+- sudo (for privileged scans)
+- 40+ security tools
+
+---
+
+## 📁 Project Structure
 
 ```
 cmatrix/
 ├── frontend/              # Next.js app
-│   ├── app/api/chat/     # API route (proxies to backend)
-│   └── .env              # Frontend config
-├── backend/              # Python app
-│   ├── app.py           # FastAPI server
-│   ├── agent.py         # LangGraph agent
-│   └── .env             # Backend config (API keys)
-├── ARCHITECTURE.md      # Architecture details
+│   ├── app/              # Pages and API routes
+│   └── components/       # React components
+├── backend/              # Python backend
+│   ├── orchestrator.py   # Multi-agent orchestrator
+│   ├── agents/          # 7 worker agents
+│   ├── authorization.py  # Auth system
+│   ├── audit_logger.py   # Audit logging
+│   └── command_executor.py # Command execution
 └── README.md           # This file
 ```
 
-## 🐛 Troubleshooting
+---
 
-### "Cannot connect to Python backend"
-- Ensure backend is running: `cd backend && ./dev.sh`
-- Check: `curl http://localhost:8000/health`
+## 🧪 Testing
 
-### "Model is loading"
-- First request takes 15-30 seconds (cold start)
-- Backend automatically retries
-- Subsequent requests are fast
-
-### Port conflicts
 ```bash
-# Kill process on port 8000
-lsof -ti:8000 | xargs kill -9
+# Integration tests
+./test-integration.sh
 
-# Kill process on port 3000
-lsof -ti:3000 | xargs kill -9
+# System tests
+./test-system.sh
+
+# Command execution test
+./test-command-execution.sh
 ```
-
-## 📊 API Endpoints
-
-### Backend (Port 8000)
-- `GET /` - API info
-- `GET /health` - Health check
-- `POST /chat` - Non-streaming chat
-- `POST /chat/stream` - Streaming chat
-- `GET /docs` - Interactive API docs
-
-### Frontend (Port 3000)
-- `POST /api/chat` - Chat endpoint (proxies to backend)
-
-## 🌟 Tech Stack
-
-- **Frontend**: Next.js 16, React 19, TypeScript
-- **Backend**: FastAPI, Python 3.11
-- **AI Framework**: LangGraph, LangChain
-- **Model**: DeepHat-V1-7B (via HuggingFace)
-- **Streaming**: Server-Sent Events (SSE)
-
-## 📝 License
-
-This project is for educational and development purposes.
-
-## 🤝 Contributing
-
-1. Add new tools in `backend/agent.py`
-2. Update frontend UI as needed
-3. Test with `./test-integration.sh`
-4. Document changes
-
-## 🔗 Links
-
-- **Backend API Docs**: http://localhost:8000/docs
-- **Frontend**: http://localhost:3000
-- **HuggingFace Model**: DeepHat/DeepHat-V1-7B
 
 ---
 
-Built with ❤️ using LangGraph, FastAPI, and Next.js
+## 📊 Status
+
+**Phase 1: 100% Complete** ✅
+
+- ✅ 7 specialized agents
+- ✅ 22 security tools
+- ✅ Real command execution
+- ✅ Authorization system
+- ✅ Audit logging
+- ✅ Web interface
+- ✅ CVE integration
+- ✅ Compliance checking
+
+---
+
+## 🔧 Configuration
+
+### Backend (.env)
+```env
+HUGGINGFACE_API_KEY=your_key_here
+PORT=8000
+```
+
+### Frontend (.env)
+```env
+PYTHON_BACKEND_URL=http://localhost:8000
+```
+
+---
+
+## 📝 Documentation
+
+- **README.md** - This file (quick start & overview)
+- **ARCHITECTURE.md** - Detailed architecture
+- **project-proposal.md** - Original vision
+
+---
+
+## 🐛 Troubleshooting
+
+**Backend won't start:**
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Port already in use:**
+```bash
+lsof -ti:8000 | xargs kill -9
+lsof -ti:3000 | xargs kill -9
+```
+
+**nmap not found:**
+```bash
+sudo apt install nmap  # Ubuntu/Debian
+sudo yum install nmap  # CentOS/RHEL
+```
+
+---
+
+## 🌟 Key Capabilities
+
+1. **Real Command Execution** - Actually runs nmap, curl, etc.
+2. **Multi-Agent Orchestration** - 7 specialized security agents
+3. **CVE Intelligence** - Real-time NVD database queries
+4. **Compliance Checking** - CIS, PCI-DSS, HIPAA, SOC2
+5. **Audit Trail** - Complete logging for compliance
+6. **Authorization** - Target and API key management
+
+---
+
+## 📞 API Endpoints
+
+- `GET /health` - Health check
+- `POST /chat` - Non-streaming chat
+- `POST /chat/stream` - Streaming chat (SSE)
+- `GET /docs` - Interactive API documentation
+
+---
+
+## 🎊 Summary
+
+CMatrix is a production-ready multi-agent security orchestration platform that performs real security assessments with proper authorization and comprehensive audit logging.
+
+**Built with:** LangGraph, FastAPI, Next.js, nmap, and ❤️
+
+---
+
+**License:** Educational and development purposes
+
+**Version:** 1.0.0 (Phase 1 Complete)

@@ -1,0 +1,26 @@
+{
+  "authorized_targets": [
+    {
+      "target": "localhost",
+      "authorized_by": "cli_user",
+      "authorized_at": "2025-11-19T00:01:42.258574",
+      "scope": [
+        "network",
+        "web",
+        "auth"
+      ]
+    },
+    {
+      "target": "example.com",
+      "authorized_by": "cli_user",
+      "authorized_at": "2025-11-19T00:05:48.507405",
+      "scope": [
+        "network",
+        "web",
+        "auth"
+      ]
+    }
+  ],
+  "api_keys": {},
+  "scope_limits": {}
+}

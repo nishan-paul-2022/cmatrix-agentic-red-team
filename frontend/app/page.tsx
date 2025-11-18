@@ -230,7 +230,7 @@ export default function ChatPage() {
                   Agent capabilities: security scanning, system monitoring, log analysis, configuration deployment.
                 </p>
                 <div className="text-xs text-muted-foreground terminal-text">
-                  [SYSTEM STATUS: OPERATIONAL] [AGENT: DEEPHAT-V1-7B]
+                  [SYSTEM STATUS: OPERATIONAL] [AGENT: CMATRIX-CORE-V1]
                 </div>
               </div>
               <div className="grid gap-3 mt-4 sm:grid-cols-2">

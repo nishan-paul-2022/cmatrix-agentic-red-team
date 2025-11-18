@@ -38,10 +38,10 @@ class ChatResponse(BaseModel):
     response: str
 
 def get_agent():
-    """Dynamically import agent to support hot reloading."""
-    import agent
-    importlib.reload(agent)
-    return agent.run_agent
+    """Dynamically import orchestrator to support hot reloading."""
+    import orchestrator
+    importlib.reload(orchestrator)
+    return orchestrator.run_orchestrator
 
 @app.get("/")
 async def root():

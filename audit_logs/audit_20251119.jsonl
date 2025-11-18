@@ -1,0 +1,10 @@
+{"timestamp": "2025-11-19T00:01:42.260617", "event_type": "TARGET_AUTHORIZED", "user_id": "cli_user", "target": "localhost", "action": "authorize", "result": "success", "severity": "INFO", "details": {}}
+TARGET_AUTHORIZED | User: cli_user | Target: localhost | Action: authorize | Result: success
+{"timestamp": "2025-11-19T00:05:47.018265", "event_type": "TARGET_AUTHORIZED", "user_id": "cli_user", "target": "localhost", "action": "authorize", "result": "success", "severity": "INFO", "details": {}}
+TARGET_AUTHORIZED | User: cli_user | Target: localhost | Action: authorize | Result: success
+{"timestamp": "2025-11-19T00:05:48.507947", "event_type": "TARGET_AUTHORIZED", "user_id": "cli_user", "target": "example.com", "action": "authorize", "result": "success", "severity": "INFO", "details": {}}
+TARGET_AUTHORIZED | User: cli_user | Target: example.com | Action: authorize | Result: success
+{"timestamp": "2025-11-19T00:31:07.648295", "event_type": "SCAN_START", "user_id": "cli_user", "target": "localhost", "action": "start_network_scan", "result": "initiated", "severity": "INFO", "details": {}}
+SCAN_START | User: cli_user | Target: localhost | Action: start_network_scan | Result: initiated
+{"timestamp": "2025-11-19T00:31:12.675760", "event_type": "SCAN_COMPLETE", "user_id": "cli_user", "target": "localhost", "action": "complete_network_scan", "result": "success", "severity": "INFO", "details": {"findings_count": 0}}
+SCAN_COMPLETE | User: cli_user | Target: localhost | Action: complete_network_scan | Result: success

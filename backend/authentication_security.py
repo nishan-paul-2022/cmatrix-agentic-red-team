@@ -178,8 +178,8 @@ def test_rate_limiting(url, endpoint="/login"):
         # Check for timing patterns
         avg_time = sum(times) / len(times) if times else 0
         max_time = max(times) if times else 0
-        results.append(".2f")
-        results.append(".2f")
+        results.append(f"Average response time: {avg_time:.2f}s")
+        results.append(f"Max response time: {max_time:.2f}s")
 
         if max_time > avg_time * 2:
             results.append("⚠️  Significant timing variations detected")

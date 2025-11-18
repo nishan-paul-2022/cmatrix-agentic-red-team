@@ -33,7 +33,7 @@ export function ChatMessage({ role, content, isLoading, animationSteps = [], cur
         {!isUser && (
           <div className="text-xs text-muted-foreground terminal-text flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-            DEEPHAT AGENT
+            CMATRIX AGENT
           </div>
         )}
         <div
