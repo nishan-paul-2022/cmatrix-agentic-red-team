@@ -157,32 +157,6 @@ export function AnimatedDiagram({
     const canvas = visJsRef.current.getElementsByTagName("canvas")[0]
     const ctx = canvas.getContext("2d")
 
-    function drawGrid() {
-      if (!ctx) return
-      const gridSize = 20
-      const width = canvas.width
-      const height = canvas.height
-
-      ctx.save()
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
-      ctx.lineWidth = 0.5
-
-      for (let x = 0; x <= width; x += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, height)
-        ctx.stroke()
-      }
-
-      for (let y = 0; y <= height; y += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(width, y)
-        ctx.stroke()
-      }
-      ctx.restore()
-    }
-
     network.on("beforeDrawing", (ctx) => {
       // Get the canvas dimensions
       const canvasWidth = canvas.width
@@ -226,10 +200,14 @@ export function AnimatedDiagram({
     });
 
     let animationFrameId: number;
+    let timeoutId: NodeJS.Timeout;
+    let isMounted = true;
 
     if (isAnimating) {
       // Animate data flow from start node to end node sequentially
       const animateFlow = (edgeIndex: number) => {
+        if (!isMounted) return;
+        
         if (edgeIndex >= initialEdges.length) {
           // Animation complete, reset to start if needed
           return;
@@ -241,48 +219,73 @@ export function AnimatedDiagram({
 
         const particleId = `flow-particle-${edgeIndex}`;
         if (!nodes.get(particleId)) {
-          nodes.add({
-            id: particleId,
-            shape: "dot",
-            size: 4,
-            color: "#60a5fa",
-            physics: false,
-          });
+          try {
+            nodes.add({
+              id: particleId,
+              shape: "dot",
+              size: 4,
+              color: "#60a5fa",
+              physics: false,
+            });
+          } catch (e) {
+            console.warn("Failed to add particle node:", e);
+            return;
+          }
         }
 
-        const fromNode = network.getPositions([fromNodeId])[fromNodeId];
-        const toNode = network.getPositions([toNodeId])[toNodeId];
+        // Check if network is still valid and has the method
+        if (!network || !network.getPositions) {
+            return;
+        }
 
-        if (fromNode && toNode) {
-          const distance = Math.sqrt(Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2));
-          const duration = distance / 80; // Adjust speed for smoother flow
-          const startTime = Date.now();
+        try {
+            const positions = network.getPositions([fromNodeId, toNodeId]);
+            const fromNode = positions[fromNodeId];
+            const toNode = positions[toNodeId];
 
-          const step = () => {
-            const now = Date.now();
-            const time = (now - startTime) / 1000;
-            const progress = Math.min(time / duration, 1);
+            if (fromNode && toNode) {
+              const distance = Math.sqrt(Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2));
+              const duration = distance / 80; // Adjust speed for smoother flow
+              const startTime = Date.now();
 
-            const x = fromNode.x + (toNode.x - fromNode.x) * progress;
-            const y = fromNode.y + (toNode.y - fromNode.y) * progress;
+              const step = () => {
+                if (!isMounted) return;
+                
+                const now = Date.now();
+                const time = (now - startTime) / 1000;
+                const progress = Math.min(time / duration, 1);
 
-            nodes.update({ id: particleId, x, y });
+                const x = fromNode.x + (toNode.x - fromNode.x) * progress;
+                const y = fromNode.y + (toNode.y - fromNode.y) * progress;
 
-            if (progress < 1) {
-              animationFrameId = requestAnimationFrame(step);
+                try {
+                    nodes.update({ id: particleId, x, y });
+                } catch (e) {
+                    // Ignore update errors if node is gone
+                }
+
+                if (progress < 1) {
+                  animationFrameId = requestAnimationFrame(step);
+                } else {
+                  // Remove particle and move to next edge
+                  try {
+                      if (nodes.get(particleId)) {
+                        nodes.remove(particleId);
+                      }
+                  } catch (e) {
+                      // Ignore removal errors
+                  }
+                  // Continue to next edge after a brief delay
+                  timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
+                }
+              };
+              step();
             } else {
-              // Remove particle and move to next edge
-              if (nodes.get(particleId)) {
-                nodes.remove(particleId);
-              }
-              // Continue to next edge after a brief delay
-              setTimeout(() => animateFlow(edgeIndex + 1), 200);
+              // If nodes not found, continue to next edge
+              timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
             }
-          };
-          step();
-        } else {
-          // If nodes not found, continue to next edge
-          setTimeout(() => animateFlow(edgeIndex + 1), 200);
+        } catch (e) {
+            console.error("Error in animateFlow:", e);
         }
       };
 
@@ -291,11 +294,21 @@ export function AnimatedDiagram({
     }
 
     return () => {
+      isMounted = false;
       cancelAnimationFrame(animationFrameId);
-      if (nodes.get("flow-particle")) {
-        nodes.remove("flow-particle");
+      clearTimeout(timeoutId);
+      
+      try {
+          if (nodes.get("flow-particle")) {
+            nodes.remove("flow-particle");
+          }
+      } catch (e) {
+          // Ignore
       }
-      network.destroy();
+      
+      if (network) {
+          network.destroy();
+      }
     };
   }, [initialNodes, initialEdges, currentStep, isAnimating])
 

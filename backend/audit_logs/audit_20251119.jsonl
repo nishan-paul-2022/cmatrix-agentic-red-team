@@ -50,3 +50,23 @@ COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Res
 COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
 {"timestamp": "2025-11-19T02:33:54.016944", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost", "returncode": 0, "output_length": 699}}
 COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T04:18:52.460393", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T04:18:55.215575", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost", "returncode": 0, "output_length": 700}}
+COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T04:18:55.216018", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T04:18:56.940496", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost", "returncode": 0, "output_length": 700}}
+COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T04:24:20.379944", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T04:24:21.868015", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost", "returncode": 0, "output_length": 700}}
+COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T04:24:21.868871", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T04:24:24.261251", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- -T4 --open localhost", "returncode": 0, "output_length": 700}}
+COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T04:24:33.774618", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "nmap -p- --open -T4 localhost"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T04:24:34.861352", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- --open -T4 localhost", "returncode": 0, "output_length": 700}}
+COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
