@@ -1,0 +1,59 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    
+    - name: Build backend image
+      run: |
+        docker build -t cmatrix-backend:test ./backend
+    
+    - name: Build frontend image
+      run: |
+        docker build -t cmatrix-frontend:test ./frontend
+    
+    - name: Create .env file
+      run: |
+        echo "HUGGINGFACE_API_KEY=${{ secrets.HUGGINGFACE_API_KEY }}" > .env
+        echo "HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B" >> .env
+        echo "PORT=8000" >> .env
+    
+    - name: Start services
+      run: |
+        docker-compose up -d
+    
+    - name: Wait for services to be healthy
+      run: |
+        timeout 120 bash -c 'until docker inspect cmatrix-backend --format="{{.State.Health.Status}}" | grep -q healthy; do sleep 2; done'
+        timeout 120 bash -c 'until docker inspect cmatrix-frontend --format="{{.State.Health.Status}}" | grep -q healthy; do sleep 2; done'
+    
+    - name: Test backend health
+      run: |
+        curl -f http://localhost:8000/health || exit 1
+    
+    - name: Test frontend
+      run: |
+        curl -f http://localhost:3000 || exit 1
+    
+    - name: Show logs on failure
+      if: failure()
+      run: |
+        docker-compose logs
+    
+    - name: Stop services
+      if: always()
+      run: |
+        docker-compose down -v

@@ -1,0 +1,50 @@
+
+
+services:
+  # Backend Service (Development Mode)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cmatrix-backend-dev
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL:-DeepHat/DeepHat-V1-7B}
+    volumes:
+      # Mount entire backend for hot reload
+      - ./backend:/app
+      - /app/venv  # Exclude venv from mount
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend Service (Development Mode)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: cmatrix-frontend-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PYTHON_BACKEND_URL=http://backend:8000
+    volumes:
+      # Mount entire frontend for hot reload
+      - ./frontend:/app
+      - /app/node_modules  # Exclude node_modules from mount
+      - /app/.next  # Exclude .next from mount
+    depends_on:
+      - backend
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    command: pnpm dev
+
+networks:
+  cmatrix-network:
+    driver: bridge

@@ -1,0 +1,63 @@
+
+
+services:
+  # Backend Service (Python/FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cmatrix-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL:-DeepHat/DeepHat-V1-7B}
+    volumes:
+      # Mount audit logs for persistence
+      - ./backend/audit_logs:/app/audit_logs
+      # Mount auth config for persistence
+      - ./auth_config.json:/app/auth_config.json
+      # Mount backend code for development (comment out for production)
+      - ./backend:/app
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service (Next.js)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cmatrix-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PYTHON_BACKEND_URL=http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  cmatrix-network:
+    driver: bridge
+
+volumes:
+  audit_logs:
+    driver: local

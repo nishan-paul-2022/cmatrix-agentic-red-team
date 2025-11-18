@@ -6,17 +6,38 @@
 
 ## 🚀 Quick Start
 
-### 1. Start Backend
+### Option 1: Docker (Recommended)
+
+```bash
+# Setup environment
+./docker.sh setup
+# Edit .env and add your HUGGINGFACE_API_KEY
+
+# Start all services
+./docker.sh start
+
+# Or for development with hot reload
+./docker.sh dev
+```
+
+**Web UI:** http://localhost:3000  
+**API Docs:** http://localhost:8000/docs
+
+See [DOCKER.md](./DOCKER.md) for detailed Docker documentation.
+
+### Option 2: Manual Setup
+
+#### 1. Start Backend
 ```bash
 cd backend && ./dev.sh
 ```
 
-### 2. Start Frontend
+#### 2. Start Frontend
 ```bash
 cd frontend && pnpm dev
 ```
 
-### 3. Open Web Interface
+#### 3. Open Web Interface
 
 **Web UI:** http://localhost:3000
 
@@ -182,6 +203,7 @@ PYTHON_BACKEND_URL=http://localhost:8000
 ## 📝 Documentation
 
 - **README.md** - This file (quick start & overview)
+- **DOCKER.md** - Docker deployment guide
 - **ARCHITECTURE.md** - Detailed architecture
 - **project-proposal.md** - Original vision
 

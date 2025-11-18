@@ -1,0 +1,14 @@
+.git
+.gitignore
+.vscode
+*.md
+.env
+.env.local
+node_modules
+venv
+__pycache__
+*.pyc
+.next
+audit_logs/*.jsonl
+cmatrix-demo.mp4
+cloudflared

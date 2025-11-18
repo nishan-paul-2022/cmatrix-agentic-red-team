@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.git
+.gitignore
+.vscode
+*.md
+.env*.local
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+*.pem
