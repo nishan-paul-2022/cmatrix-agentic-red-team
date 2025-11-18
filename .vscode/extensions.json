@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "ms-vscode.cpptools",
     "dbaeumer.vscode-eslint",
     "mhutchie.git-graph",
     "kilocode.kilo-code",
