@@ -760,3 +760,50 @@ An AI-orchestrated vulnerability assessment platform using a master-worker agent
 4. Trust Building: Strong brand, transparent practices, security researcher endorsements
 5. Integration: Seamless fit into existing security workflows
 6. Support: White-glove enterprise support and incident response
+
+---
+
+## Login Field Security Checklist
+
+| Question | How to check |
+|----------|--------------|
+| Is the login page served over HTTPS only (no HTTP)? | Open page in browser and confirm URL starts with https://. Try http:// and observe redirect behavior. Check Network tab for mixed-content warnings. |
+| Is HSTS enabled for the domain? | Inspect response headers in DevTools → Network for Strict-Transport-Security or use an HSTS checker. |
+| Are credentials ever sent in URL/query strings? | Observe requests in DevTools/Proxy and check request line and query string for credential parameters. |
+| Is the login request sent as POST (not GET)? | Inspect the HTTP method of the login request in DevTools/Network or proxy. |
+| Is the Content-Type appropriate (form/json) and consistent? | Check the request header Content-Type and the request body format in the proxy. |
+| Is there server-side input validation for username/password? | Submit unusual inputs (long strings, special chars) and observe server responses for validation or errors. |
+| Are client-side validations present only as UX (not relied on)? | Disable JavaScript or modify the form in DevTools then submit to verify server enforces constraints. |
+| Does the app accept extremely long or binary inputs without error? | Send very long username/password values and watch for 500 errors, stack traces, or other failures. |
+| Are error messages generic (no internal info or stack traces)? | Trigger failed logins and inspect response bodies and UI for debug info, file paths, or stack traces. |
+| Do responses differ between valid vs invalid usernames (timing/message)? | Try existing-user + wrong-password vs non-existent-user and compare response bodies, status codes, and timing. |
+| Can you enumerate accounts from error messages or behavior? | Use differences observed above (messages or timing) to determine if enumeration is possible. |
+| Is there rate-limiting or progressive delay on failed attempts? | Perform multiple failed login attempts and watch for increased latency, HTTP 429, or lockout responses. |
+| Are CAPTCHAs or lockouts applied after repeated failures? | Repeat failed attempts and observe when CAPTCHA appears or when IP/account is blocked. |
+| Are cookies set with Secure, HttpOnly, and appropriate SameSite? | After login, inspect cookies in DevTools → Application → Cookies and check flags. |
+| Does the session token rotate after login and after privilege changes? | Capture session token before and after login or privilege change and verify the token value changes. |
+| Is session invalidated on logout and after password reset? | Log out and attempt reuse of old cookie/token; after password reset, confirm old tokens no longer work. |
+| Is MFA/2FA enforced or available for users with elevated access? | Check account settings for MFA enrollment and perform a login that should trigger 2FA to observe the extra step. |
+| Can MFA be bypassed by parameter tampering or code reuse? | Inspect MFA request/response flow in proxy for client-side parameters that could be modified (do not brute-force codes). |
+| Are password complexity rules enforced server-side? | Attempt to set weak passwords via change/reset endpoints with JS disabled and see if server rejects them. |
+| Does password reset use single-use, short-lived tokens? | Request password reset and inspect token characteristics (length, reuse behavior, expiry info). |
+| Does password reset reveal account existence? | Submit password reset for existing vs non-existing emails and compare responses and timing. |
+| Are security questions/recovery options implemented securely? | Review recovery flow for weak fallback mechanisms or exposure of answers/hints. |
+| Are SSO/OAuth redirect URIs strictly whitelisted and validated? | Inspect auth request/redirect parameters and test redirect_uri handling in a controlled environment. |
+| Are tokens from IdP validated for audience, scope, and expiry? | Capture IdP tokens and inspect claims (aud, exp, scope) or review token-validation on app side. |
+| Are there open-redirects in the auth or callback parameters? | Controlled test: alter redirect parameters and observe if app redirects to arbitrary domains. |
+| Are login-related endpoints protected against CSRF where applicable? | Check for anti-CSRF tokens in forms or confirm SameSite cookie settings; attempt state-changing requests without token. |
+| Is X-Frame-Options / CSP frame-ancestors set to prevent clickjacking? | Inspect response headers for X-Frame-Options or CSP frame-ancestors directives. |
+| Are error messages and client responses free of sensitive data? | Review response bodies/headers for secrets, internal IPs, DB IDs, or debug info. |
+| Does the app implement breached-password checks or block reused passwords? | Attempt password change/reset with known-breached or reused passwords and observe server response. |
+| Are API/mobile auth endpoints subject to the same checks as web form? | Identify API endpoints via Network tab and test them separately for validation, rate-limiting, and error handling. |
+| Are logs recording failed/successful logins with IP and user-agent? | If you have access, inspect logs for timestamp, IP, user-agent; otherwise request log policy from devs/ops. |
+| Do logs avoid storing plaintext passwords or sensitive tokens? | Search server logs (if accessible) for password strings; otherwise request logging policies and evidence. |
+| Are alerts triggered for suspicious login patterns (mass failures)? | Simulate suspicious patterns safely and verify detection/alerts in monitoring or ask ops for examples. |
+| Is CSP, XSS protections, and secure headers applied on the login page? | Inspect response headers for Content-Security-Policy and other security headers. |
+| Is any secret (key/token) embedded in client-side JavaScript? | View served JS files in DevTools → Sources and search for hard-coded keys or tokens. |
+| Is input reflected anywhere (error messages, profile) without encoding? | Submit data with special characters and inspect pages/HTML responses for reflected content lacking encoding. |
+| Are account lockouts recoverable only through secure channels? | Trigger lockout in test account and attempt recovery; document required verification steps and weaknesses. |
+| Is there protection against credential stuffing (rate-limits, device fingerprint)? | Review rate-limiting behavior and check for device fingerprinting or anomaly detection that blocks stuffing. |
+| Are OAuth scopes limited and tokens short-lived? | Inspect issued tokens for expiry and scope claims or review OAuth client configuration. |
+| Is there a documented admin/privileged-account recovery process with audit? | Request internal procedure documentation and confirm recovery requires strong controls and audit trail. |
