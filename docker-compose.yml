@@ -1,6 +1,27 @@
 
 
 services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: cmatrix-postgres
+    environment:
+      - POSTGRES_USER=cmatrix
+      - POSTGRES_PASSWORD=cmatrix
+      - POSTGRES_DB=cmatrix
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cmatrix"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
   # Backend Service (Python/FastAPI)
   backend:
     build:
@@ -13,6 +34,8 @@ services:
       - PORT=8000
       - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
       - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL:-DeepHat/DeepHat-V1-7B}
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
     volumes:
       # Mount logs for persistence
       - ./backend/logs:/app/logs
@@ -22,6 +45,9 @@ services:
       - ./backend:/app
     networks:
       - cmatrix-network
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
@@ -59,5 +85,8 @@ networks:
     driver: bridge
 
 volumes:
+  postgres_data:
+    driver: local
   audit_logs:
     driver: local
+

@@ -47,10 +47,20 @@ class Settings(BaseSettings):
     DEMOS_FILE: str = Field(default="data/demos.json")
     AUTH_CONFIG_FILE: str = Field(default="data/auth_config.json")
     
-    # Security
-    SECRET_KEY: Optional[str] = Field(default=None, env="SECRET_KEY")
+    # Database
+    DATABASE_URL: str = Field(
+        default="postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix",
+        env="DATABASE_URL"
+    )
+    
+    # Security & JWT
+    SECRET_KEY: str = Field(
+        default="your-secret-key-change-this-in-production-make-it-very-long-and-random",
+        env="SECRET_KEY"
+    )
     ALGORITHM: str = Field(default="HS256", env="ALGORITHM")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=30, env="ACCESS_TOKEN_EXPIRE_MINUTES")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=10080, env="ACCESS_TOKEN_EXPIRE_MINUTES")  # 7 days
+
     
     # Command Execution
     COMMAND_TIMEOUT: int = Field(default=30, env="COMMAND_TIMEOUT")

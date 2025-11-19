@@ -2,16 +2,19 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Shield } from "lucide-react";
+import { Shield, LogOut, User } from "lucide-react";
 import { MESSAGES } from "@/constants/messages";
 import { ROUTES } from "@/constants/routes";
 import { siteConfig } from "@/config/site.config";
+import { useAuth } from "@/contexts/auth-context";
 
 /**
  * Chat header component
  * Displays app branding, status, and navigation
  */
 export function ChatHeader() {
+  const { user, logout } = useAuth();
+
   return (
     <header className="border-b border-border bg-card cyber-border scan-line">
       <div className="container flex items-center justify-between h-14 px-4 mx-auto">
@@ -24,7 +27,7 @@ export function ChatHeader() {
             <div className="text-xs text-muted-foreground">{MESSAGES.LABELS.NEURAL_INTERFACE}</div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Link href={ROUTES.DEMO} className="cursor-pointer">
             <Button
               variant="outline"
@@ -34,6 +37,24 @@ export function ChatHeader() {
               View Demo
             </Button>
           </Link>
+          
+          {user && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-secondary/20 rounded-md border border-primary/20">
+              <User className="w-4 h-4 text-primary" />
+              <span className="text-xs text-foreground">{user.username}</span>
+            </div>
+          )}
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={logout}
+            className="cyber-border terminal-text cursor-pointer"
+          >
+            <LogOut className="w-4 h-4 mr-1" />
+            Logout
+          </Button>
+          
           <div className="w-2 h-2 bg-chart-1 rounded-full animate-pulse"></div>
           <div className="text-xs text-muted-foreground terminal-text">
             {MESSAGES.SYSTEM.ONLINE}
@@ -43,3 +64,4 @@ export function ChatHeader() {
     </header>
   );
 }
+

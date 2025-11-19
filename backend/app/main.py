@@ -26,6 +26,16 @@ async def lifespan(app: FastAPI):
     logger.info(f"🔧 Debug mode: {settings.DEBUG}")
     logger.info(f"🌐 CORS origins: {settings.CORS_ORIGINS}")
     
+    # Initialize database
+    try:
+        from app.core.database import init_db
+        logger.info("🗄️  Initializing database...")
+        await init_db()
+        logger.info("✅ Database initialized successfully")
+    except Exception as e:
+        logger.error(f"❌ Database initialization failed: {e}")
+        raise
+    
     yield
     
     # Shutdown

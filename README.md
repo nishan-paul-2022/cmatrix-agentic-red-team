@@ -51,7 +51,7 @@ Getting started with CMatrix is straightforward, whether you prefer Docker for p
 **1. Setup** (First time only)
 ```bash
 ./docker.sh setup    # Creates .env file
-nano .env            # Add your HUGGINGFACE_API_KEY
+nano .env            # Add your HUGGINGFACE_API_KEY and SECRET_KEY
 ```
 
 **2. Run**
@@ -59,8 +59,10 @@ nano .env            # Add your HUGGINGFACE_API_KEY
 ./docker.sh start    # Starts everything in background
 ```
 
-**3. Access**
+**3. Access & Authenticate**
 - **App:** http://localhost:3000
+- **First Run:** You will be redirected to `/setup` to create your admin credentials.
+- **Subsequent Runs:** You will be redirected to `/login`.
 - **API Docs:** http://localhost:8000/docs
 
 ### Option 2: Manual Setup
@@ -125,7 +127,7 @@ Understanding CMatrix's architecture is key to appreciating how it achieves both
 │                         User Browser                         │
 └────────────────────────────┬────────────────────────────────┘
                              │
-                             │ HTTP/WebSocket
+                             │ HTTP/WebSocket + JWT Token
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    Next.js Frontend (Port 3000)              │
@@ -138,41 +140,32 @@ Understanding CMatrix's architecture is key to appreciating how it achieves both
 └────────────────────────────┬────────────────────────────────┘
                              │
                              │ HTTP POST /chat/stream
+                             │ Authorization: Bearer <token>
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                  Python Backend (Port 8000)                  │
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │  FastAPI Server (app.py)                             │   │
-│  │  - Receives requests from frontend                   │   │
+│  │  - Authenticates Request (JWT)                       │   │
 │  │  - Manages agent execution                           │   │
 │  │  - Streams responses                                 │   │
-│  └────────────────────┬─────────────────────────────────┘   │
-│                       │                                      │
-│                       ▼                                      │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  LangGraph Agent (agent.py)                          │   │
-│  │  - Processes user queries                            │   │
-│  │  - Decides when to use tools                         │   │
-│  │  - Executes tool calls                               │   │
-│  │  - Formats responses                                 │   │
-│  └────────────────────┬─────────────────────────────────┘   │
-│                       │                                      │
-│                       ▼                                      │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  Tools                                               │   │
-│  │  - security_scan()                                   │   │
-│  │  - check_system_status()                             │   │
-│  │  - analyze_logs()                                    │   │
-│  │  - deploy_config()                                   │   │
-│  └──────────────────────────────────────────────────────┘   │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ HTTPS API Call
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│              HuggingFace Router API                          │
-│  Model: DeepHat/DeepHat-V1-7B:featherless-ai                │
-└─────────────────────────────────────────────────────────────┘
+│  └────────────────────┬──────────────┬──────────────────┘   │
+│                       │              │                       │
+│                       ▼              ▼                       │
+│  ┌─────────────────────────┐    ┌─────────────────────────┐ │
+│  │  LangGraph Agent        │    │  Auth Service           │ │
+│  │  - Agent Orchestration  │    │  - Login/Setup          │ │
+│  │  - Tool Execution       │    │  - Token Validation     │ │
+│  └─────────────────────────┘    └─────────────────────────┘ │
+└────────────────────────────┬────────────────┬────────────────┘
+                             │                │
+                             │ HTTPS API      │ SQL (Async)
+                             ▼                ▼
+┌────────────────────────────────┐   ┌────────────────────────────────┐
+│      HuggingFace Router API    │   │   PostgreSQL Database (5432)   │
+│  Model: DeepHat/DeepHat-V1-7B  │   │   - Users Table                │
+│                                │   │   - Persistent Storage         │
+└────────────────────────────────┘   └────────────────────────────────┘
 ```
 
 ### Data Flow
@@ -402,6 +395,23 @@ Only approved commands can execute:
 
 ---
 
+## 🔐 Authentication
+
+CMatrix features a robust single-user authentication system designed for secure, personal deployments.
+
+### Features
+- **Single-User Setup**: The first user to access the system sets the admin credentials.
+- **JWT Tokens**: Secure, stateless authentication using JSON Web Tokens (7-day expiry).
+- **PostgreSQL Storage**: User credentials are securely hashed (Bcrypt) and stored in a persistent PostgreSQL database.
+- **Protected Routes**: All API endpoints are protected and require a valid token.
+
+### Setup Flow
+1. **First Access**: Redirects to `/setup`. Create your username and password.
+2. **Login**: Subsequent access redirects to `/login`. Use your created credentials.
+3. **Logout**: Use the logout button in the header to end your session.
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -460,6 +470,8 @@ Proper configuration is essential for both security and functionality. CMatrix u
 ```env
 HUGGINGFACE_API_KEY=your_key_here
 PORT=8000
+DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+SECRET_KEY=your_secret_key_here
 ```
 
 ### Frontend (.env)
@@ -496,6 +508,14 @@ pip install -r requirements.txt
 ```bash
 lsof -ti:8000 | xargs kill -9
 lsof -ti:3000 | xargs kill -9
+```
+
+**Database connection failed:**
+```bash
+# Check if postgres is running
+docker compose ps postgres
+# Restart postgres
+docker compose restart postgres
 ```
 
 **nmap not found:**

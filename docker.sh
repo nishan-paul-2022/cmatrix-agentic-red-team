@@ -35,7 +35,7 @@ check_env() {
         print_warning ".env file not found!"
         print_info "Creating .env from .env.example..."
         cp .env.example .env
-        print_warning "Please edit .env and add your HUGGINGFACE_API_KEY"
+        print_warning "Please edit .env and add your HUGGINGFACE_API_KEY and SECRET_KEY"
         exit 1
     fi
 }
@@ -78,12 +78,14 @@ ${YELLOW}Commands:${NC}
   ${BLUE}logs${NC}           Show logs from all services
   ${BLUE}logs-backend${NC}   Show backend logs only
   ${BLUE}logs-frontend${NC}  Show frontend logs only
+  ${BLUE}logs-db${NC}        Show database logs only
   ${BLUE}build${NC}          Build all Docker images
   ${BLUE}rebuild${NC}        Rebuild all images from scratch (no cache)
   ${BLUE}clean${NC}          Stop and remove all containers, networks, and volumes
   ${BLUE}status${NC}         Show status of all services
   ${BLUE}shell-backend${NC}  Open a shell in the backend container
   ${BLUE}shell-frontend${NC} Open a shell in the frontend container
+  ${BLUE}shell-db${NC}       Open a shell in the database container
   ${BLUE}health${NC}         Check health status of all services
   ${BLUE}setup${NC}          Initial setup (create .env file)
 
@@ -112,7 +114,7 @@ setup() {
     
     cp .env.example .env
     print_success "Created .env file"
-    print_warning "Please edit .env and add your HUGGINGFACE_API_KEY"
+    print_warning "Please edit .env and add your HUGGINGFACE_API_KEY and SECRET_KEY"
     print_info "You can edit it with: nano .env"
 }
 
@@ -125,6 +127,7 @@ start_prod() {
     print_success "Services started!"
     print_info "Frontend: http://localhost:3000"
     print_info "Backend: http://localhost:8000"
+    print_info "Database: Port 5432 (Internal)"
     print_info "API Docs: http://localhost:8000/docs"
 }
 
@@ -168,6 +171,12 @@ show_backend_logs() {
 show_frontend_logs() {
     check_docker
     $COMPOSE_CMD logs -f frontend
+}
+
+# Show database logs
+show_db_logs() {
+    check_docker
+    $COMPOSE_CMD logs -f postgres
 }
 
 # Build images
@@ -222,11 +231,26 @@ shell_frontend() {
     $COMPOSE_CMD exec frontend sh
 }
 
+# Open shell in database
+shell_db() {
+    check_docker
+    print_info "Opening shell in database container..."
+    $COMPOSE_CMD exec postgres bash
+}
+
 # Check health
 check_health() {
     check_docker
     print_info "Checking service health..."
     
+    echo ""
+    print_info "Database Health:"
+    if docker inspect cmatrix-postgres --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "Database is running"
+    else
+        print_error "Database is not running or unhealthy"
+    fi
+
     echo ""
     print_info "Backend Health:"
     if docker inspect cmatrix-backend --format='{{.State.Health.Status}}' 2>/dev/null; then
@@ -267,6 +291,9 @@ case "${1:-}" in
     logs-frontend)
         show_frontend_logs
         ;;
+    logs-db)
+        show_db_logs
+        ;;
     build)
         build
         ;;
@@ -284,6 +311,9 @@ case "${1:-}" in
         ;;
     shell-frontend)
         shell_frontend
+        ;;
+    shell-db)
+        shell_db
         ;;
     health)
         check_health

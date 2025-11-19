@@ -36,9 +36,18 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
       setCurrentAnimationStep(0);
 
       try {
+        // Get auth token from localStorage
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+          throw new Error('Not authenticated. Please log in.');
+        }
+
         const response = await fetch(apiConfig.endpoints.chat, {
           method: "POST",
-          headers: apiConfig.headers,
+          headers: {
+            ...apiConfig.headers,
+            'Authorization': `Bearer ${token}`,
+          },
           body: JSON.stringify({
             message: userMessage,
             history: messages.slice(-10), // Last 10 messages for context

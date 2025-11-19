@@ -8,7 +8,8 @@ from fastapi.responses import StreamingResponse
 from loguru import logger
 
 from app.models.chat import ChatRequest, ChatResponse
-from app.api.deps import get_orchestrator
+from app.api.deps import get_orchestrator, get_current_user
+from app.models.user import User
 
 router = APIRouter()
 
@@ -22,7 +23,8 @@ router = APIRouter()
 )
 async def chat(
     request: ChatRequest,
-    orchestrator=Depends(get_orchestrator)
+    orchestrator=Depends(get_orchestrator),
+    current_user: User = Depends(get_current_user)
 ) -> ChatResponse:
     """
     Non-streaming chat endpoint.
@@ -58,7 +60,8 @@ async def chat(
 )
 async def chat_stream(
     request: ChatRequest,
-    orchestrator=Depends(get_orchestrator)
+    orchestrator=Depends(get_orchestrator),
+    current_user: User = Depends(get_current_user)
 ):
     """
     Streaming chat endpoint using Server-Sent Events (SSE).
