@@ -70,3 +70,15 @@ COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Res
 COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
 {"timestamp": "2025-11-19T04:24:34.861352", "event_type": "COMMAND_EXECUTED", "user_id": "system", "target": null, "action": "command_completed", "result": "success", "severity": "INFO", "details": {"command": "nmap -p- --open -T4 localhost", "returncode": 0, "output_length": 700}}
 COMMAND_EXECUTED | User: system | Target: None | Action: command_completed | Result: success
+{"timestamp": "2025-11-19T00:11:38.091420", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "systemctl status nginx"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T00:11:38.093069", "event_type": "COMMAND_NOT_FOUND", "user_id": "system", "target": null, "action": "command_not_found", "result": "error", "severity": "ERROR", "details": {"command": "systemctl status nginx"}}
+COMMAND_NOT_FOUND | User: system | Target: None | Action: command_not_found | Result: error
+{"timestamp": "2025-11-19T00:11:38.094354", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "systemctl status nginx"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T00:11:38.095867", "event_type": "COMMAND_NOT_FOUND", "user_id": "system", "target": null, "action": "command_not_found", "result": "error", "severity": "ERROR", "details": {"command": "systemctl status nginx"}}
+COMMAND_NOT_FOUND | User: system | Target: None | Action: command_not_found | Result: error
+{"timestamp": "2025-11-19T00:11:42.055500", "event_type": "COMMAND_EXECUTION", "user_id": "system", "target": null, "action": "execute_command", "result": null, "severity": "INFO", "details": {"command": "systemctl status nginx"}}
+COMMAND_EXECUTION | User: system | Target: None | Action: execute_command | Result: None
+{"timestamp": "2025-11-19T00:11:42.057139", "event_type": "COMMAND_NOT_FOUND", "user_id": "system", "target": null, "action": "command_not_found", "result": "error", "severity": "ERROR", "details": {"command": "systemctl status nginx"}}
+COMMAND_NOT_FOUND | User: system | Target: None | Action: command_not_found | Result: error

@@ -17,7 +17,7 @@ services:
       # Mount audit logs for persistence
       - ./backend/audit_logs:/app/audit_logs
       # Mount auth config for persistence
-      - ./auth_config.json:/app/auth_config.json
+      - ./backend/auth_config.json:/app/auth_config.json
       # Mount backend code for development (comment out for production)
       - ./backend:/app
     networks:

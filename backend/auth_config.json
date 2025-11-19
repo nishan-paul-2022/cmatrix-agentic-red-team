@@ -20,7 +20,5 @@
         "auth"
       ]
     }
-  ],
-  "api_keys": {},
-  "scope_limits": {}
+  ]
 }

@@ -3,9 +3,6 @@
 .env.local
 .env.*.local
 
-# Security
-backend/auth_config.json
-
 # Dependencies
 node_modules/
 venv/
