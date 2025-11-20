@@ -1,7 +1,7 @@
 """Conversation database models."""
 
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Boolean
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 
@@ -16,6 +16,7 @@ class Conversation(Base):
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    is_visible = Column(Boolean, default=True, nullable=False)
     
     # Relationships
     user = relationship("User", back_populates="conversations")
@@ -35,6 +36,7 @@ class ConversationHistory(Base):
     role = Column(String(50), nullable=False)  # 'user' or 'assistant'
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    is_visible_in_dashboard = Column(Boolean, default=True, nullable=False)
     
     # Relationships
     conversation = relationship("Conversation", back_populates="history")

@@ -20,17 +20,12 @@ function DashboardContent() {
     <div className="flex h-screen bg-background">
       <div className="matrix-rain"></div>
 
-      {/* Sidebar */}
-      <ConversationSidebar className="w-80 flex-shrink-0" />
-
       {/* Main Content Area */}
-      <div className="flex flex-col flex-1">
+      <div className="flex-1 flex flex-col min-w-0 bg-background">
         {/* Header */}
         <ChatHeader />
-
-        {/* Dashboard Content */}
-        <div className="flex-1 overflow-y-auto p-8">
-          <div className="container max-w-6xl mx-auto space-y-8">
+        <main className="flex-1 overflow-auto p-6">
+          <div className="max-w-5xl mx-auto space-y-6">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
               <p className="text-muted-foreground">
@@ -49,7 +44,7 @@ function DashboardContent() {
               />
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

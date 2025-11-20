@@ -3,7 +3,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, desc
+from sqlalchemy import select, func, desc, update
 from sqlalchemy.orm import selectinload
 
 from app.api.deps import get_current_user
@@ -65,6 +65,8 @@ async def create_conversation(
 
 @router.get("", response_model=ConversationListResponse)
 async def list_conversations(
+    skip: int = 0,
+    limit: int = 50,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
@@ -78,28 +80,37 @@ async def list_conversations(
     Returns:
         List of conversations with metadata
     """
-    # Query conversations with message count
+    # Query conversations
     query = (
-        select(
-            Conversation,
-            func.count(ConversationHistory.id).label("message_count"),
-            func.max(ConversationHistory.content).label("last_message"),
+        select(Conversation)
+        .where(
+            Conversation.user_id == current_user.id,
+            Conversation.is_visible == True
         )
-        .outerjoin(ConversationHistory)
-        .where(Conversation.user_id == current_user.id)
-        .group_by(Conversation.id)
         .order_by(desc(Conversation.updated_at))
+        .offset(skip)
+        .limit(limit)
     )
     
     result = await db.execute(query)
-    rows = result.all()
+    conversations_db = result.scalars().all() # Renamed to avoid conflict with list 'conversations'
     
     # Build response
     conversations = []
-    for row in rows:
-        conv = row[0]
-        message_count = row[1]
-        last_message = row[2]
+    for conv in conversations_db:
+        # Get message count for each conversation (ALL messages, regardless of dashboard visibility)
+        count_query = select(func.count(ConversationHistory.id)).where(
+            ConversationHistory.conversation_id == conv.id
+        )
+        count_result = await db.execute(count_query)
+        message_count = count_result.scalar_one()
+
+        # Get last message for each conversation (ALL messages)
+        last_message_query = select(ConversationHistory.content).where(
+            ConversationHistory.conversation_id == conv.id
+        ).order_by(desc(ConversationHistory.created_at)).limit(1)
+        last_message_result = await db.execute(last_message_query)
+        last_message = last_message_result.scalar_one_or_none()
         
         # Truncate last message for preview
         if last_message and len(last_message) > 100:
@@ -117,9 +128,17 @@ async def list_conversations(
             )
         )
     
+    # Get total count for pagination metadata
+    total_query = select(func.count(Conversation.id)).where(
+        Conversation.user_id == current_user.id,
+        Conversation.is_visible == True
+    )
+    total_result = await db.execute(total_query)
+    total_conversations = total_result.scalar_one()
+
     return ConversationListResponse(
         conversations=conversations,
-        total=len(conversations),
+        total=total_conversations,
     )
 
 
@@ -150,6 +169,7 @@ async def get_conversation(
         .where(
             Conversation.id == conversation_id,
             Conversation.user_id == current_user.id,
+            Conversation.is_visible == True # Only retrieve visible conversations
         )
     )
     
@@ -191,6 +211,7 @@ async def update_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
+        Conversation.is_visible == True # Only update visible conversations
     )
     
     result = await db.execute(query)
@@ -209,11 +230,24 @@ async def update_conversation(
     
     # Get message count
     count_query = select(func.count(ConversationHistory.id)).where(
-        ConversationHistory.conversation_id == conversation.id
+        ConversationHistory.conversation_id == conversation.id,
+        ConversationHistory.is_visible_in_dashboard == True # Only count visible messages
     )
     count_result = await db.execute(count_query)
     message_count = count_result.scalar()
     
+    # Get last message
+    last_message_query = select(ConversationHistory.content).where(
+        ConversationHistory.conversation_id == conversation.id,
+        ConversationHistory.is_visible_in_dashboard == True
+    ).order_by(desc(ConversationHistory.created_at)).limit(1)
+    last_message_result = await db.execute(last_message_query)
+    last_message = last_message_result.scalar_one_or_none()
+
+    # Truncate last message for preview
+    if last_message and len(last_message) > 100:
+        last_message = last_message[:100] + "..."
+
     return ConversationResponse(
         id=conversation.id,
         name=conversation.name,
@@ -221,7 +255,7 @@ async def update_conversation(
         created_at=conversation.created_at,
         updated_at=conversation.updated_at,
         message_count=message_count,
-        last_message=None,
+        last_message=last_message,
     )
 
 
@@ -246,6 +280,7 @@ async def delete_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
+        Conversation.is_visible == True # Only delete visible conversations
     )
     
     result = await db.execute(query)
@@ -256,9 +291,9 @@ async def delete_conversation(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Conversation not found",
         )
-    
-    # Delete conversation (cascade will delete history)
-    await db.delete(conversation)
+        
+    # Soft delete: just mark as not visible
+    conversation.is_visible = False
     await db.commit()
     
     return None
@@ -294,7 +329,8 @@ async def get_global_history(
         .join(Conversation)
         .where(
             Conversation.user_id == current_user.id,
-            ConversationHistory.role == "user"
+            ConversationHistory.role == "user",
+            ConversationHistory.is_visible_in_dashboard == True
         )
         .order_by(desc(ConversationHistory.created_at))
     )
@@ -325,7 +361,8 @@ async def get_global_history(
             .where(
                 ConversationHistory.conversation_id == prompt.conversation_id,
                 ConversationHistory.role == "assistant",
-                ConversationHistory.id > prompt.id
+                ConversationHistory.id > prompt.id,
+                ConversationHistory.is_visible_in_dashboard == True # Only retrieve visible responses
             )
             .order_by(ConversationHistory.id.asc())
             .limit(1)
@@ -368,7 +405,8 @@ async def delete_history_item(
         .join(Conversation)
         .where(
             ConversationHistory.id == history_id,
-            Conversation.user_id == current_user.id
+            Conversation.user_id == current_user.id,
+            ConversationHistory.is_visible_in_dashboard == True # Only delete visible items
         )
     )
     
@@ -388,7 +426,8 @@ async def delete_history_item(
             .where(
                 ConversationHistory.conversation_id == prompt.conversation_id,
                 ConversationHistory.role == "assistant",
-                ConversationHistory.id > prompt.id
+                ConversationHistory.id > prompt.id,
+                ConversationHistory.is_visible_in_dashboard == True # Only delete visible responses
             )
             .order_by(ConversationHistory.id.asc())
             .limit(1)
@@ -397,9 +436,9 @@ async def delete_history_item(
         response = response_result.scalar_one_or_none()
         
         if response:
-            await db.delete(response)
+            response.is_visible_in_dashboard = False
             
-    await db.delete(prompt)
+    prompt.is_visible_in_dashboard = False
     await db.commit()
     return None
 
@@ -421,7 +460,8 @@ async def clear_conversation_history(
     # Verify conversation ownership
     query = select(Conversation).where(
         Conversation.id == conversation_id,
-        Conversation.user_id == current_user.id
+        Conversation.user_id == current_user.id,
+        Conversation.is_visible == True # Only clear history for visible conversations
     )
     
     result = await db.execute(query)
@@ -433,16 +473,18 @@ async def clear_conversation_history(
             detail="Conversation not found",
         )
         
-    # Delete all history for this conversation
-    delete_query = (
-        select(ConversationHistory)
-        .where(ConversationHistory.conversation_id == conversation_id)
-    )
-    result = await db.execute(delete_query)
-    history_items = result.scalars().all()
+    # Soft delete all history items for this conversation
+    # We want to hide them from dashboard, but keep them for the conversation view if needed?
+    # The requirement is "delete from dashboard, not from conversation list".
+    # So we mark is_visible_in_dashboard = False.
     
-    for item in history_items:
-        await db.delete(item)
-        
+    stmt = (
+        update(ConversationHistory)
+        .where(ConversationHistory.conversation_id == conversation_id)
+        .values(is_visible_in_dashboard=False)
+    )
+    
+    await db.execute(stmt)
     await db.commit()
+    
     return None
