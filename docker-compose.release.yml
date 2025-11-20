@@ -54,8 +54,7 @@ services:
       - NODE_ENV=production
       - PYTHON_BACKEND_URL=http://backend:8000
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - cmatrix-network
     restart: unless-stopped
