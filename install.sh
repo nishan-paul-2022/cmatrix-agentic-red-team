@@ -32,8 +32,8 @@ fi
 cd "$INSTALL_DIR"
 
 # 3. Download Configuration
-# NOTE: This URL points to your repository. Ensure the file exists on the 'main' branch.
-COMPOSE_URL="https://raw.githubusercontent.com/Sajid576/cmatrix/main/docker-compose.release.yml"
+# NOTE: This URL points to your repository. Ensure the file exists on the 'api-key' branch.
+COMPOSE_URL="https://raw.githubusercontent.com/Sajid576/cmatrix/api-key/docker-compose.release.yml"
 
 echo -e "${BLUE}⬇️  Downloading configuration...${NC}"
 # We use curl to fetch the file. We use -f to fail silently on server errors (like 404) so we can catch it.
