@@ -7,7 +7,8 @@ import { MESSAGES } from "@/constants/messages";
 import { ROUTES } from "@/constants/routes";
 import { siteConfig } from "@/config/site.config";
 import { useAuth } from "@/contexts/auth-context";
-import { ModelSelector } from "./model-selector";
+import { ConfigurationProfileSelector } from "./configuration-profile-selector";
+import { ModelDropdown } from "./model-dropdown";
 
 /**
  * Chat header component
@@ -30,12 +31,10 @@ export function ChatHeader() {
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <ModelSelector />
+            <ConfigurationProfileSelector />
+            <ModelDropdown />
             <Button variant="ghost" size="sm" asChild>
               <a href="/dashboard">Dashboard</a>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Settings className="w-5 h-5" />
             </Button>
           </div>
           <Link href={ROUTES.DEMO} className="cursor-pointer">
