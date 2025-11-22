@@ -182,7 +182,7 @@ class APIProviderService:
                 
                 models = []
                 for model in data.get("data", []):
-                    # Filter for free models if possible
+                    # Filter for free models
                     pricing = model.get("pricing", {})
                     is_free = (
                         pricing.get("prompt") == "0" or 
@@ -190,14 +190,15 @@ class APIProviderService:
                         ":free" in model.get("id", "")
                     )
                     
-                    models.append(AvailableModel(
-                        id=model.get("id", ""),
-                        name=model.get("name", model.get("id", "")),
-                        description=model.get("description", ""),
-                        context_length=model.get("context_length")
-                    ))
+                    if is_free:
+                        models.append(AvailableModel(
+                            id=model.get("id", ""),
+                            name=model.get("name", model.get("id", "")),
+                            description=model.get("description", ""),
+                            context_length=model.get("context_length")
+                        ))
                 
-                logger.info(f"Fetched {len(models)} models from OpenRouter")
+                logger.info(f"Fetched {len(models)} free models from OpenRouter")
                 return models
         except httpx.HTTPError as e:
             logger.error(f"Failed to fetch OpenRouter models: {e}")

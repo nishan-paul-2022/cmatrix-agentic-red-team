@@ -85,8 +85,8 @@ export function SettingsSidebar({
   };
 
   const handleSaveProfile = async () => {
-    if (!profileName || !selectedProvider || !apiKey || !selectedModelName) {
-      alert("Please fill all fields");
+    if (!profileName || !selectedProvider || !apiKey) {
+      alert("Please fill all fields (Model selection is optional)");
       return;
     }
 
@@ -307,7 +307,7 @@ export function SettingsSidebar({
                   <Button
                     size="sm"
                     onClick={handleSaveProfile}
-                    disabled={!profileName || !selectedProvider || !apiKey || !selectedModelName}
+                    disabled={!profileName || !selectedProvider || !apiKey}
                   >
                     <Save className="w-4 h-4 mr-2" />
                     Save
