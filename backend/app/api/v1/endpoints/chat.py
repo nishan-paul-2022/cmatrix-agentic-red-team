@@ -14,7 +14,6 @@ from app.api.deps import get_orchestrator, get_current_user
 from app.models.user import User
 from app.models.conversation import Conversation, ConversationHistory
 from app.core.database import get_db
-from app.services.llm import get_available_providers, switch_provider, get_provider_info
 
 
 router = APIRouter()
@@ -243,106 +242,4 @@ async def chat_stream(
     
     except Exception as e:
         logger.error(f"Error in /chat/stream endpoint: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get(
-    "/providers",
-    summary="Get Available LLM Providers",
-    description="Get list of available LLM providers and their status",
-    tags=["Providers"]
-)
-async def get_providers(current_user: User = Depends(get_current_user)):
-    """
-    Get available LLM providers.
-
-    Returns:
-        List of available providers with their info
-    """
-    try:
-        providers = get_available_providers()
-        provider_info = []
-
-        for provider_name in providers:
-            info = get_provider_info(provider_name)
-            provider_info.append({
-                "name": provider_name,
-                **info
-            })
-
-        return {"providers": provider_info}
-
-    except Exception as e:
-        logger.error(f"Error getting providers: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post(
-    "/providers/switch",
-    summary="Switch LLM Provider",
-    description="Switch the default LLM provider",
-    tags=["Providers"]
-)
-async def switch_llm_provider(
-    provider_name: str,
-    current_user: User = Depends(get_current_user)
-):
-    """
-    Switch the default LLM provider.
-
-    Args:
-        provider_name: Name of the provider to switch to
-
-    Returns:
-        Success status
-    """
-    try:
-        success = switch_provider(provider_name)
-
-        if success:
-            return {"message": f"Successfully switched to provider: {provider_name}"}
-        else:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Failed to switch to provider: {provider_name}. Provider may not be available."
-            )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error switching provider: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get(
-    "/providers/{provider_name}",
-    summary="Get Provider Information",
-    description="Get detailed information about a specific LLM provider",
-    tags=["Providers"]
-)
-async def get_provider_details(
-    provider_name: str,
-    current_user: User = Depends(get_current_user)
-):
-    """
-    Get detailed information about a provider.
-
-    Args:
-        provider_name: Name of the provider
-
-    Returns:
-        Provider information
-    """
-    try:
-        info = get_provider_info(provider_name)
-
-        if "error" in info:
-            raise HTTPException(status_code=404, detail=info["error"])
-
-        return {"provider": provider_name, **info}
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting provider info: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
