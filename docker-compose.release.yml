@@ -1,5 +1,3 @@
-
-
 services:
   # PostgreSQL Database
   postgres:
@@ -22,25 +20,20 @@ services:
     ports:
       - "5432:5432"
 
-  # Backend Service (Python/FastAPI)
+  # Backend Service
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: hello1996007/cmatrix-backend:latest
     container_name: cmatrix-backend
     ports:
       - "8000:8000"
     environment:
       - PORT=8000
       - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
-      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+      # You should change this secret key in production!
+      - SECRET_KEY=change-this-in-production-make-it-very-long-and-random
     volumes:
-      # Mount logs for persistence
-      - ./backend/logs:/app/logs
-      # Mount data files for persistence
-      - ./backend/data:/app/data
-      # Mount backend code for development (comment out for production)
-      - ./backend:/app
+
+      - ./cmatrix_data/data:/app/data
     networks:
       - cmatrix-network
     depends_on:
@@ -51,14 +44,12 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
       start_period: 40s
+      retries: 3
 
-  # Frontend Service (Next.js)
+  # Frontend Service
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: hello1996007/cmatrix-frontend:latest
     container_name: cmatrix-frontend
     ports:
       - "3000:3000"
@@ -71,12 +62,6 @@ services:
     networks:
       - cmatrix-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 networks:
   cmatrix-network:
@@ -85,6 +70,3 @@ networks:
 volumes:
   postgres_data:
     driver: local
-  audit_logs:
-    driver: local
-

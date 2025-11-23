@@ -75,8 +75,7 @@ class Settings(BaseSettings):
     # Paths
     BASE_DIR: str = Field(default_factory=lambda: os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
     DATA_DIR: str = Field(default="data")
-    LOGS_DIR: str = Field(default="logs")
-    AUDIT_LOGS_DIR: str = Field(default="logs/audit_logs")
+
     
     # Demo Configuration
     DEMOS_FILE: str = Field(default="data/demos.json")

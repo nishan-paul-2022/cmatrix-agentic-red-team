@@ -1,28 +1,15 @@
 """Audit logging system for CMatrix."""
-import json
 import logging
 from datetime import datetime
-from pathlib import Path
 from typing import Dict, Optional, Any
 
 class AuditLogger:
     """Structured audit logging for security operations."""
     
-    def __init__(self, log_dir: str = "logs/audit_logs"):
-        self.log_dir = Path(log_dir)
-        self.log_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Setup JSON file logger
-        self.log_file = self.log_dir / f"audit_{datetime.now().strftime('%Y%m%d')}.jsonl"
-        
+    def __init__(self):
         # Setup Python logger
         self.logger = logging.getLogger("cmatrix.audit")
         self.logger.setLevel(logging.INFO)
-        
-        # File handler removed to prevent mixed content in JSONL file
-        # handler = logging.FileHandler(self.log_file)
-        # handler.setLevel(logging.INFO)
-        # self.logger.addHandler(handler)
         
         # Console handler for important events
         console = logging.StreamHandler()
@@ -42,20 +29,9 @@ class AuditLogger:
         severity: str = "INFO"
     ):
         """Log an audit event."""
-        event = {
-            "timestamp": datetime.now().isoformat(),
-            "event_type": event_type,
-            "user_id": user_id,
-            "target": target,
-            "action": action,
-            "result": result,
-            "severity": severity,
-            "details": details or {}
-        }
+
         
-        # Write to JSON log file
-        with open(self.log_file, 'a') as f:
-            f.write(json.dumps(event) + '\n')
+
         
         # Log to Python logger
         log_msg = f"{event_type} | User: {user_id} | Target: {target} | Action: {action} | Result: {result}"
@@ -139,16 +115,7 @@ class AuditLogger:
     
     def get_recent_logs(self, limit: int = 100) -> list:
         """Get recent audit logs."""
-        logs = []
-        if self.log_file.exists():
-            with open(self.log_file, 'r') as f:
-                lines = f.readlines()
-                for line in lines[-limit:]:
-                    try:
-                        logs.append(json.loads(line))
-                    except json.JSONDecodeError:
-                        continue
-        return logs
+        return []
 
 # Global audit logger instance
 audit_logger = AuditLogger()

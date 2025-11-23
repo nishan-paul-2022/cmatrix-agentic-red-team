@@ -136,7 +136,7 @@ start_dev() {
     check_docker
     check_env
     print_info "Starting CMatrix in development mode..."
-    $COMPOSE_CMD -f docker-compose.dev.yml up
+    $COMPOSE_CMD -f docker-compose.yml -f docker-compose.dev.yml up
 }
 
 # Stop services

@@ -39,9 +39,7 @@ ENV/
 *~
 
 # Logs
-logs/
-*.log
-audit_logs/
+
 
 # Testing
 .pytest_cache/

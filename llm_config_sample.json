@@ -1,0 +1,64 @@
+{
+  "profiles": [
+    {
+      "name": "Gemini-01",
+      "api_provider": "Gemini",
+      "api_key": ""
+    },
+    {
+      "name": "Gemini-02",
+      "api_provider": "Gemini",
+      "api_key": ""
+    },
+    {
+      "name": "Gemini-03",
+      "api_provider": "Gemini",
+      "api_key": ""
+    },
+    {
+      "name": "OpenRouter",
+      "api_provider": "Openrouter",
+      "api_key": ""
+    },
+    {
+      "name": "Kilo Code",
+      "api_provider": "Kilo Code",
+      "api_key": ""
+    },
+    {
+      "name": "Cerebras-01",
+      "api_provider": "Cerebras",
+      "api_key": ""
+    },
+    {
+      "name": "Cerebras-02",
+      "api_provider": "Cerebras",
+      "api_key": ""
+    },
+    {
+      "name": "Cerebras-03",
+      "api_provider": "Cerebras",
+      "api_key": ""
+    },
+    {
+      "name": "HuggingFace-01",
+      "api_provider": "Hugging Face",
+      "api_key": ""
+    },
+    {
+      "name": "HuggingFace-02",
+      "api_provider": "Hugging Face",
+      "api_key": ""
+    },
+    {
+      "name": "HuggingFace-03",
+      "api_provider": "Hugging Face",
+      "api_key": ""
+    },
+    {
+      "name": "HuggingFace-04",
+      "api_provider": "Hugging Face",
+      "api_key": ""
+    }
+  ]
+}

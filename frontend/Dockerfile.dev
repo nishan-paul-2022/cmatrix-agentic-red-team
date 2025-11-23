@@ -6,17 +6,27 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm
 
+# Configure pnpm
+RUN pnpm config set store-dir /root/.pnpm-store
+
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm config set package-import-method copy && pnpm install
 
+# Copy entrypoint script
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 # Copy the rest of the application
 COPY . .
 
 # Expose the port
 EXPOSE 3000
+
+# Use entrypoint to fix permissions
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Start development server
 CMD ["pnpm", "dev"]

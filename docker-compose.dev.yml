@@ -11,16 +11,19 @@ services:
       - "8000:8000"
     environment:
       - PORT=8000
-      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
-      - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL:-DeepHat/DeepHat-V1-7B}
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
     volumes:
       # Mount entire backend for hot reload
       - ./backend:/app
-      - /app/venv  # Exclude venv from mount
+      - backend-venv:/app/venv  # Exclude venv from mount
     networks:
       - cmatrix-network
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
-    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   # Frontend Service (Development Mode)
   frontend:
@@ -36,8 +39,8 @@ services:
     volumes:
       # Mount entire frontend for hot reload
       - ./frontend:/app
-      - /app/node_modules  # Exclude node_modules from mount
-      - /app/.next  # Exclude .next from mount
+      - frontend-node-modules:/app/node_modules  # Exclude node_modules from mount
+      - frontend-next:/app/.next  # Use named volume for .next to avoid permission issues
     depends_on:
       - backend
     networks:
@@ -48,3 +51,11 @@ services:
 networks:
   cmatrix-network:
     driver: bridge
+
+volumes:
+  backend-venv:
+    driver: local
+  frontend-node-modules:
+    driver: local
+  frontend-next:
+    driver: local

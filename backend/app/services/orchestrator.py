@@ -4,9 +4,9 @@ from typing import TypedDict, Sequence, Literal, Dict, Any, Optional, Union
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage
 from langgraph.graph import StateGraph, END
 from loguru import logger
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.llm.factory import get_llm_provider
-from app.services.llm.providers import Message
+from app.services.llm.providers import Message, LLMProvider
 from app.tools.execution import parse_tool_calls
 from app.tools.registry import get_tool_registry
 from app.utils.helpers import clean_response, find_demo_match, load_demo_prompts
@@ -49,11 +49,12 @@ class OrchestratorService:
     
     def __init__(self):
         """Initialize the orchestrator service."""
-        self.llm = get_llm_provider()  # Use new provider system
         self.tool_registry = get_tool_registry()
         self.demo_prompts = load_demo_prompts()
         self.workflow = self._create_workflow()
-        logger.info("Orchestrator service initialized")
+        self.llm_provider = None  # Will be set per request
+        logger.info("Orchestrator service initialized (database-aware)")
+
     
     def _should_continue(self, state: AgentState) -> Literal["tools", "end"]:
         """
@@ -119,8 +120,8 @@ class OrchestratorService:
                 # Fallback for unknown message types
                 provider_messages.append(Message(role="user", content=str(msg.content)))
 
-        # Use new provider interface with Message objects
-        response = self.llm.invoke(provider_messages)
+        # Use provider interface with Message objects
+        response = self.llm_provider.invoke(provider_messages)
 
         # Validate response is not empty
         if not response or not response.strip():
@@ -247,12 +248,21 @@ class OrchestratorService:
 
         return workflow.compile()
     
-    def run(self, message: str, history: Optional[list] = None, is_demo_page: bool = False) -> Union[str, Dict[str, Any]]:
+    async def run(
+        self,
+        message: str,
+        user_id: int,
+        db: AsyncSession,
+        history: Optional[list] = None,
+        is_demo_page: bool = False
+    ) -> Union[str, Dict[str, Any]]:
         """
         Run the orchestrator with a message and optional history.
         
         Args:
             message: User message
+            user_id: User ID for loading LLM configuration
+            db: Database session
             history: Optional conversation history
             is_demo_page: Whether the request is from the demo page
             
@@ -271,8 +281,19 @@ class OrchestratorService:
                     "final_answer": demo_data["final_answer"]
                 }
 
+        # Load user's active LLM provider from database
+        from app.services.llm.db_factory import get_db_provider_factory
+        factory = get_db_provider_factory()
+        llm_provider = await factory.get_active_provider(db, user_id)
+        
+        if not llm_provider:
+            raise ValueError("No active LLM model configured. Please configure an API key and activate a model in settings.")
+        
+        # Set the provider for this request
+        self.llm_provider = llm_provider
+        
         # No demo match found - proceed with LLM processing
-        logger.info('No demo match found - calling LLM for response')
+        logger.info(f'No demo match found - calling LLM for user {user_id}')
         messages = []
 
         # Add history
@@ -372,7 +393,13 @@ def get_orchestrator_service() -> OrchestratorService:
     return _orchestrator_service
 
 
-def run_orchestrator(message: str, history: Optional[list] = None, is_demo_page: bool = False) -> Union[str, Dict[str, Any]]:
+async def run_orchestrator(
+    message: str,
+    user_id: int,
+    db: AsyncSession,
+    history: Optional[list] = None,
+    is_demo_page: bool = False
+) -> Union[str, Dict[str, Any]]:
     """
     Run the orchestrator with a message and optional history.
     
@@ -380,6 +407,8 @@ def run_orchestrator(message: str, history: Optional[list] = None, is_demo_page:
     
     Args:
         message: User message
+        user_id: User ID for loading LLM configuration
+        db: Database session
         history: Optional conversation history
         is_demo_page: Whether the request is from the demo page
         
@@ -387,4 +416,5 @@ def run_orchestrator(message: str, history: Optional[list] = None, is_demo_page:
         Response string or dict with animation data
     """
     orchestrator = get_orchestrator_service()
-    return orchestrator.run(message, history, is_demo_page)
+    return await orchestrator.run(message, user_id, db, history, is_demo_page)
+
