@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+
 import { siteConfig } from '@/config/site.config'
 import { AuthProvider } from '@/contexts/auth-context'
 import { AuthGuard } from '@/components/auth/auth-guard'
@@ -47,7 +47,7 @@ export default function RootLayout({
             {children}
           </AuthGuard>
         </AuthProvider>
-        <Analytics />
+
       </body>
     </html>
   )
