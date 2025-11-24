@@ -35,7 +35,7 @@ check_env() {
         print_warning ".env file not found!"
         print_info "Creating .env from .env.example..."
         cp .env.example .env
-        print_warning "Please edit .env and add your HUGGINGFACE_API_KEY and SECRET_KEY"
+        print_warning "Please edit .env and add your SECRET_KEY"
         exit 1
     fi
 }
@@ -114,7 +114,7 @@ setup() {
     
     cp .env.example .env
     print_success "Created .env file"
-    print_warning "Please edit .env and add your HUGGINGFACE_API_KEY and SECRET_KEY"
+    print_warning "Please edit .env and add your SECRET_KEY"
     print_info "You can edit it with: nano .env"
 }
 

@@ -51,7 +51,7 @@ Getting started with CMatrix is straightforward, whether you prefer Docker for p
 **1. Setup** (First time only)
 ```bash
 ./docker.sh setup    # Creates .env file
-nano .env            # Add your HUGGINGFACE_API_KEY and SECRET_KEY
+nano .env            # Add your SECRET_KEY
 ```
 
 **2. Run**
@@ -217,7 +217,7 @@ Format: Server-Sent Events (SSE)
 ### Security & Configuration
 
 #### API Keys
-- **HuggingFace API Key**: Only stored in `backend/.env`
+- **API Keys**: Stored securely in the database
 - **Frontend**: No API keys needed (proxies through backend)
 
 #### CORS
@@ -233,8 +233,7 @@ PYTHON_BACKEND_URL=http://localhost:8000
 
 **Backend** (`backend/.env`):
 ```env
-HUGGINGFACE_API_KEY=your_key_here
-HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B
+
 PORT=8000
 ```
 
@@ -292,7 +291,7 @@ Docker deployment provides a production-ready, containerized environment that en
 **1. Setup** (First time only)
 ```bash
 ./docker.sh setup    # Creates .env file
-nano .env            # Add your HUGGINGFACE_API_KEY
+nano .env            # Configure SECRET_KEY
 ```
 
 **2. Run**
@@ -319,7 +318,7 @@ nano .env            # Add your HUGGINGFACE_API_KEY
 
 **Environment Variables (`.env`)**
 ```env
-HUGGINGFACE_API_KEY=your_key_here  # Required
+
 PORT=8000                          # Backend port
 ```
 
@@ -468,42 +467,7 @@ Proper configuration is essential for both security and functionality. CMatrix u
 
 ### Backend (.env)
 ```env
-# LLM Configuration (Multi-Provider Support)
-DEFAULT_LLM_PROVIDER=huggingface  # Choose: huggingface, ollama, openrouter, kilocode, gemini, cerebras
 
-# HuggingFace (Legacy - kept for backward compatibility)
-HUGGINGFACE_API_KEY=your_huggingface_api_key_here
-HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B
-ENABLE_HUGGINGFACE=true
-
-# Ollama (Local Models)
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=gemma3:4b
-ENABLE_OLLAMA=false
-
-# OpenRouter
-OPENROUTER_API_KEY=your_openrouter_api_key_here
-OPENROUTER_MODEL=x-ai/grok-4-fast:free
-ENABLE_OPENROUTER=false
-
-# Kilo Code
-KILOCODE_TOKEN=your_kilocode_jwt_token_here
-KILOCODE_MODEL=x-ai/grok-code-fast-1
-ENABLE_KILOCODE=false
-
-# Gemini (Google) - Multiple API keys for different instances
-GEMINI_API_KEY_1=your_gemini_api_key_1_here
-GEMINI_API_KEY_2=your_gemini_api_key_2_here
-GEMINI_API_KEY_3=your_gemini_api_key_3_here
-GEMINI_MODEL=gemini-2.5-pro
-ENABLE_GEMINI=false
-
-# Cerebras - Multiple API keys for different instances
-CEREBRAS_API_KEY_1=your_cerebras_api_key_1_here
-CEREBRAS_API_KEY_2=your_cerebras_api_key_2_here
-CEREBRAS_API_KEY_3=your_cerebras_api_key_3_here
-CEREBRAS_MODEL=gpt-oss-120b
-ENABLE_CEREBRAS=false
 
 # Server Configuration
 PORT=8000
