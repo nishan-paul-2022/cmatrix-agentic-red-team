@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.llm.providers import Message, LLMProvider
 from app.tools.execution import parse_tool_calls
 from app.tools.registry import get_tool_registry
-from app.utils.helpers import clean_response, find_demo_match, load_demo_prompts
+from app.utils.helpers import clean_response
 from app.core.config import settings
 
 
@@ -50,7 +50,6 @@ class OrchestratorService:
     def __init__(self):
         """Initialize the orchestrator service."""
         self.tool_registry = get_tool_registry()
-        self.demo_prompts = load_demo_prompts()
         self.workflow = self._create_workflow()
         self.llm_provider = None  # Will be set per request
         logger.info("Orchestrator service initialized (database-aware)")
@@ -253,8 +252,7 @@ class OrchestratorService:
         message: str,
         user_id: int,
         db: AsyncSession,
-        history: Optional[list] = None,
-        is_demo_page: bool = False
+        history: Optional[list] = None
     ) -> Union[str, Dict[str, Any]]:
         """
         Run the orchestrator with a message and optional history.
@@ -264,22 +262,10 @@ class OrchestratorService:
             user_id: User ID for loading LLM configuration
             db: Database session
             history: Optional conversation history
-            is_demo_page: Whether the request is from the demo page
             
         Returns:
             Response string or dict with animation data
         """
-        # Check if the message matches any demo prompt using fuzzy matching
-        if is_demo_page:
-            best_match = find_demo_match(message, self.demo_prompts)
-            if best_match:
-                demo_data = self.demo_prompts[best_match]
-                logger.info(f'DEMO MATCH FOUND - Using default answer, NOT calling LLM')
-                return {
-                    "animation_steps": demo_data["animation_steps"],
-                    "diagram": demo_data.get("diagram"),
-                    "final_answer": demo_data["final_answer"]
-                }
 
         # Load user's active LLM provider from database
         from app.services.llm.db_factory import get_db_provider_factory
@@ -397,8 +383,7 @@ async def run_orchestrator(
     message: str,
     user_id: int,
     db: AsyncSession,
-    history: Optional[list] = None,
-    is_demo_page: bool = False
+    history: Optional[list] = None
 ) -> Union[str, Dict[str, Any]]:
     """
     Run the orchestrator with a message and optional history.
@@ -416,5 +401,5 @@ async def run_orchestrator(
         Response string or dict with animation data
     """
     orchestrator = get_orchestrator_service()
-    return await orchestrator.run(message, user_id, db, history, is_demo_page)
+    return await orchestrator.run(message, user_id, db, history)
 

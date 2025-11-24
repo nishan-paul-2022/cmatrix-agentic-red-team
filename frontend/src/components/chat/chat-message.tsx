@@ -56,10 +56,7 @@ export function ChatMessage({
         >
           {animationSteps.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center gap-2 terminal-text mb-3">
-                <Activity className="w-4 h-4 animate-pulse text-blue-400" />
-                <span className="text-muted-foreground">{MESSAGES.SYSTEM.DEMO_MODE}</span>
-              </div>
+
 
               {/* Animated Diagram */}
               {diagram && (

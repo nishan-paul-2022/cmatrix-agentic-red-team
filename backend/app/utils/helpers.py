@@ -9,29 +9,7 @@ from typing import Dict, Tuple, Optional
 from loguru import logger
 
 
-def load_demo_prompts() -> Dict:
-    """
-    Load demo prompts from demos.json file.
-    
-    Returns:
-        Dictionary of demo prompts
-    """
-    try:
-        # Get the base directory (backend/)
-        base_dir = Path(__file__).parent.parent.parent
-        demos_path = base_dir / "data" / "demos.json"
-        
-        with open(demos_path, 'r') as f:
-            data = json.load(f)
-            demo_prompts = data.get('demo_prompts', {})
-            logger.info(f"✅ Loaded {len(demo_prompts)} demo prompts from {demos_path}")
-            return demo_prompts
-    except FileNotFoundError:
-        logger.warning("⚠️  demos.json file not found, using empty demo prompts")
-        return {}
-    except json.JSONDecodeError as e:
-        logger.error(f"❌ Error parsing demos.json: {e}")
-        return {}
+
 
 def clean_response(content: str) -> str:
     """Clean up the response by removing tool call syntax and extra whitespace."""
@@ -84,25 +62,3 @@ def normalize_text(text: str) -> str:
     # Remove all whitespace
     text = "".join(text.split())
     return text
-
-def find_demo_match(message: str, demo_prompts: Optional[Dict] = None) -> Optional[str]:
-    """
-    Find a matching demo prompt using strict normalization.
-    
-    Args:
-        message: The user input message
-        demo_prompts: Dictionary of demo prompts (optional, will load if not provided)
-        
-    Returns:
-        The matching demo prompt key or None
-    """
-    if demo_prompts is None:
-        demo_prompts = load_demo_prompts()
-    
-    normalized_message = normalize_text(message)
-    
-    for demo_prompt in demo_prompts.keys():
-        if normalize_text(demo_prompt) == normalized_message:
-            return demo_prompt
-            
-    return None

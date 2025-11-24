@@ -22,10 +22,7 @@ export const siteConfig = {
       maxHistoryLength: 10,
       streamingEnabled: true,
     },
-    demo: {
-      enabled: true,
-      autoPlay: false,
-    },
+
     analytics: {
       enabled: true,
     },

@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Shield, LogOut, User, Settings } from "lucide-react";
 import { MESSAGES } from "@/constants/messages";
-import { ROUTES } from "@/constants/routes";
 import { siteConfig } from "@/config/site.config";
 import { useAuth } from "@/contexts/auth-context";
 import { ConfigurationProfileSelector } from "./configuration-profile-selector";
@@ -44,15 +42,7 @@ export function ChatHeader() {
               <a href="/dashboard">Dashboard</a>
             </Button>
           </div>
-          <Link href={ROUTES.DEMO} className="cursor-pointer">
-            <Button
-              variant="outline"
-              size="sm"
-              className="cyber-border terminal-text cursor-pointer"
-            >
-              View Demo
-            </Button>
-          </Link>
+
           
           {user && (
             <div className="flex items-center gap-2 px-3 py-1 bg-secondary/20 rounded-md border border-primary/20">

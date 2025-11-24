@@ -32,7 +32,7 @@ class Settings(BaseSettings):
 
     
     # Demo Configuration
-    DEMOS_FILE: str = Field(default="data/demos.json")
+
     AUTH_CONFIG_FILE: str = Field(default="data/auth_config.json")
     
     # Database

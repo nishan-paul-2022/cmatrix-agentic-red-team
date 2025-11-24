@@ -46,10 +46,7 @@ mkdir -p logs/audit_logs
 mkdir -p data
 
 # 5. Data Initialization
-if [ ! -f "data/demos.json" ]; then
-    echo "📝 Creating default data/demos.json..."
-    echo '[]' > data/demos.json
-fi
+
 
 if [ ! -f "data/auth_config.json" ]; then
     echo "📝 Creating default data/auth_config.json..."

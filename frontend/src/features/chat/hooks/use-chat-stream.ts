@@ -20,7 +20,7 @@ interface UseChatStreamReturn {
 /**
  * Hook for handling chat streaming functionality
  */
-export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStreamReturn {
+export function useChatStream(): UseChatStreamReturn {
   const { activeConversation, loadConversationHistory, createConversation } = useConversations();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -90,7 +90,6 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
             message: userMessage,
             conversation_id: conversationId,
             history: messages.slice(-10), // Last 10 messages for context
-            is_demo_page: options?.isDemoPage || false,
           }),
         });
 

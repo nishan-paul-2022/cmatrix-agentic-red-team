@@ -54,8 +54,7 @@ async def chat(
             request.message,
             current_user.id,
             db,
-            request.history,
-            request.is_demo_page
+            request.history
         )
         
         logger.info(f"Generated response: {len(response)} characters")
@@ -131,8 +130,7 @@ async def chat_stream(
                     request.message,
                     current_user.id,
                     db,
-                    request.history,
-                    request.is_demo_page
+                    request.history
                 )
 
                 if not response:

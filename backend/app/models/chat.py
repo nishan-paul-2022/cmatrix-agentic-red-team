@@ -12,10 +12,7 @@ class ChatRequest(BaseModel):
         default_factory=list,
         description="Conversation history"
     )
-    is_demo_page: bool = Field(
-        default=False,
-        description="Whether the request is from the demo page"
-    )
+
     conversation_id: Optional[int] = Field(
         default=None,
         description="ID of the conversation to add this message to"

@@ -7,7 +7,7 @@ export const MESSAGES = {
     ONLINE: "AGENT ONLINE",
     OPERATIONAL: "[SYSTEM STATUS: OPERATIONAL] [AGENT: CMATRIX-CORE-V1]",
     PROCESSING: "[PROCESSING QUERY...]",
-    DEMO_MODE: "[DEMO MODE - AGENT WORKING...]",
+
     SECURITY_NOTICE: "[SECURITY NOTICE] Neural responses may contain classified information. Handle with care.",
   },
 

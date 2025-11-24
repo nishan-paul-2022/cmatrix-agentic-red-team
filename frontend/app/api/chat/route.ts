@@ -6,7 +6,7 @@ const PYTHON_BACKEND_URL = process.env.PYTHON_BACKEND_URL || "http://localhost:8
 
 export async function POST(req: NextRequest) {
   try {
-    const { message, history = [], is_demo_page = false } = await req.json()
+    const { message, history = [] } = await req.json()
 
     if (!message) {
       return new Response("Message is required", { status: 400 })
@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         message,
         history,
-        is_demo_page,
       }),
     })
 
