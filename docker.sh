@@ -254,7 +254,9 @@ check_health() {
     echo ""
     print_info "Backend Health:"
     if docker inspect cmatrix-backend --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Backend is running"
+        print_success "Backend (Prod) is running"
+    elif docker inspect cmatrix-backend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "Backend (Dev) is running"
     else
         print_error "Backend is not running or unhealthy"
     fi
@@ -262,7 +264,9 @@ check_health() {
     echo ""
     print_info "Frontend Health:"
     if docker inspect cmatrix-frontend --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Frontend is running"
+        print_success "Frontend (Prod) is running"
+    elif docker inspect cmatrix-frontend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "Frontend (Dev) is running"
     else
         print_error "Frontend is not running or unhealthy"
     fi
