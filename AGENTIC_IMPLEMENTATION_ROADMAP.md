@@ -605,11 +605,12 @@ if reflection.suggests_additional_scans:
 ### Phase 1: Foundation (Weeks 1-4) - **CRITICAL**
 
 #### 1.1 Add Background Job Queue
-- [ ] Install Redis
-- [ ] Integrate BullMQ or Celery
-- [ ] Refactor `orchestrator.run()` to create jobs
-- [ ] Build job status polling endpoint
-- [ ] Update frontend to poll job status
+- [x] Install Redis
+- [x] Integrate BullMQ or Celery
+- [x] Refactor `orchestrator.run()` to create jobs
+- [x] Build job status polling endpoint
+- [x] Update frontend to poll job status
+
 
 **Deliverable**: Scans run in background, no HTTP timeouts
 

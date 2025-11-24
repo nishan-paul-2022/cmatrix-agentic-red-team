@@ -15,6 +15,12 @@ export const apiConfig = {
     chatStream: "/chat/stream",
     health: "/health",
     conversations: "/conversations",
+    jobs: {
+      create: "/jobs/scan",
+      get: (id: string) => `/jobs/${id}`,
+      list: "/jobs",
+      cancel: (id: string) => `/jobs/${id}`,
+    },
   },
 
   timeout: 30000, // 30 seconds

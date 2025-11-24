@@ -49,7 +49,17 @@ class Settings(BaseSettings):
     ALGORITHM: str = Field(default="HS256", env="ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=10080, env="ACCESS_TOKEN_EXPIRE_MINUTES")  # 7 days
 
+    # Celery & Background Jobs
+    CELERY_BROKER_URL: str = Field(
+        default="redis://localhost:6379/0",
+        env="CELERY_BROKER_URL"
+    )
+    CELERY_RESULT_BACKEND: str = Field(
+        default="redis://localhost:6379/1",
+        env="CELERY_RESULT_BACKEND"
+    )
     
+
     # Command Execution
     COMMAND_TIMEOUT: int = Field(default=30, env="COMMAND_TIMEOUT")
     ENABLE_SUDO: bool = Field(default=False, env="ENABLE_SUDO")

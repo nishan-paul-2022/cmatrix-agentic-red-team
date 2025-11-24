@@ -1,6 +1,24 @@
 
 
 services:
+  # Redis for Celery message broker
+  redis:
+    image: redis:7-alpine
+    container_name: cmatrix-redis
+    command: redis-server --appendonly yes --appendfsync everysec --save 60 1000
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
@@ -33,7 +51,10 @@ services:
     environment:
       - PORT=8000
       - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+
     volumes:
       # Mount logs for persistence
       - ./backend/logs:/app/logs
@@ -44,8 +65,11 @@ services:
     networks:
       - cmatrix-network
     depends_on:
+      redis:
+        condition: service_healthy
       postgres:
         condition: service_healthy
+
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
@@ -54,7 +78,39 @@ services:
       retries: 3
       start_period: 40s
 
+  # Celery Worker for background jobs
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cmatrix-worker
+    command: celery -A app.worker worker --loglevel=info --concurrency=4
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./backend/data:/app/data
+      - ./backend:/app
+    networks:
+      - cmatrix-network
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.worker inspect ping -d celery@$$HOSTNAME"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   # Frontend Service (Next.js)
+
   frontend:
     build:
       context: ./frontend
@@ -85,6 +141,9 @@ networks:
 volumes:
   postgres_data:
     driver: local
+  redis_data:
+    driver: local
   audit_logs:
     driver: local
+
 

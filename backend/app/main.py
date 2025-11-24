@@ -28,6 +28,8 @@ async def lifespan(app: FastAPI):
     
     # Initialize database
     try:
+        # Import models to register them with Base
+        import app.models  # noqa: F401
         from app.core.database import init_db
         logger.info("🗄️  Initializing database...")
         await init_db()
