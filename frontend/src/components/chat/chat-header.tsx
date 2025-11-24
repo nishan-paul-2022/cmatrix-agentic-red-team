@@ -60,11 +60,7 @@ export function ChatHeader() {
             <LogOut className="w-4 h-4 mr-1" />
             Logout
           </Button>
-          
-          <div className="w-2 h-2 bg-chart-1 rounded-full animate-pulse"></div>
-          <div className="text-xs text-muted-foreground terminal-text">
-            {MESSAGES.SYSTEM.ONLINE}
-          </div>
+
         </div>
       </div>
     </header>

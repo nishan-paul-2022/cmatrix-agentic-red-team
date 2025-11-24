@@ -4,7 +4,7 @@
 
 export const MESSAGES = {
   SYSTEM: {
-    ONLINE: "AGENT ONLINE",
+
     OPERATIONAL: "[SYSTEM STATUS: OPERATIONAL] [AGENT: CMATRIX-CORE-V1]",
     PROCESSING: "[PROCESSING QUERY...]",
 
@@ -12,8 +12,7 @@ export const MESSAGES = {
   },
 
   LABELS: {
-    AGENT: "CMATRIX AGENT",
-    USER: "HUMAN OPERATOR",
+
     NEURAL_INTERFACE: "Neural Interface Active",
   },
 

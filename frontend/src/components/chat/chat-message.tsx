@@ -38,12 +38,7 @@ export function ChatMessage({
       )}
 
       <div className={cn("flex flex-col gap-2 max-w-[80%] sm:max-w-[70%]", isUser && "items-end")}>
-        {!isUser && (
-          <div className="text-xs text-muted-foreground terminal-text flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-            {MESSAGES.LABELS.AGENT}
-          </div>
-        )}
+
 
         <div
           className={cn(
@@ -151,12 +146,7 @@ export function ChatMessage({
           )}
         </div>
 
-        {isUser && (
-          <div className="text-xs text-muted-foreground terminal-text flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-            {MESSAGES.LABELS.USER}
-          </div>
-        )}
+
       </div>
 
       {isUser && (
