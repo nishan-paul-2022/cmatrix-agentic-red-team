@@ -1,15 +1,39 @@
 #!/bin/bash
-# Script to run database migrations
+# Modern migration script using Alembic
+# This replaces the old run_migration.sh
 
-echo "Running LLM models migration..."
+set -e
+
+echo "🔄 Running Database Migrations with Alembic"
+echo "==========================================="
 
 # Check if running in Docker or local
 if [ -f "/.dockerenv" ]; then
-    # Running in Docker
-    psql -U $POSTGRES_USER -d $POSTGRES_DB -f /app/migrations/002_add_llm_models.sql
+    echo "📦 Running in Docker container"
+    cd /app
 else
-    # Running locally with Docker Compose
-    docker-compose exec -T postgres psql -U cmatrix -d cmatrix < migrations/002_add_llm_models.sql
+    echo "💻 Running locally"
+    cd "$(dirname "$0")/.."
 fi
 
-echo "Migration completed successfully!"
+# Activate virtual environment if it exists (local only)
+if [ -d "venv" ] && [ ! -f "/.dockerenv" ]; then
+    echo "🐍 Activating virtual environment..."
+    source venv/bin/activate
+fi
+
+# Run Alembic migrations
+echo ""
+echo "⬆️  Upgrading database to latest version..."
+alembic upgrade head
+
+echo ""
+echo "✅ Migrations completed successfully!"
+echo ""
+
+# Show current migration status
+echo "📊 Current Migration Status:"
+alembic current
+
+echo ""
+echo "==========================================="
