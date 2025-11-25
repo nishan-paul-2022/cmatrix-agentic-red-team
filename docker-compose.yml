@@ -1,4 +1,9 @@
+version: '3.8'
 
+# Enable BuildKit for optimal caching
+x-buildkit-config: &buildkit-config
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
 
 services:
   # Redis for Celery message broker

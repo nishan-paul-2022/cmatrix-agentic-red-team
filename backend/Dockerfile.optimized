@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile for CMatrix Backend (Optimized for caching)
 
-# Stage 1: Base image with system dependencies
+# Stage 1: Base image with dependencies
 FROM python:3.11-slim as base
 
 # Set environment variables
@@ -18,31 +18,26 @@ RUN apt-get update && apt-get install -y \
 # Create app user
 RUN useradd -m -u 1000 appuser
 
-# Stage 2: Install base (heavy) dependencies
-FROM base as base-deps
+# Stage 2: Dependencies
+FROM base as dependencies
 
 WORKDIR /app
 
-# Install heavy ML/AI dependencies first (cached unless requirements.base.txt changes)
-COPY requirements.base.txt .
+# Copy requirements
+COPY requirements.txt .
+
+# Install Python dependencies with BuildKit cache mount
+# This caches pip downloads across builds even when requirements.txt changes
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip && \
-    pip install -r requirements.base.txt
+    pip install -r requirements.txt
 
-# Stage 3: Install project dependencies
-FROM base-deps as dependencies
-
-# Install lighter project dependencies (cached unless requirements.project.txt changes)
-COPY requirements.project.txt .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install -r requirements.project.txt
-
-# Stage 4: Production
+# Stage 3: Production
 FROM base as production
 
 WORKDIR /app
 
-# Copy all installed dependencies from dependencies stage
+# Copy installed dependencies from dependencies stage
 COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=dependencies /usr/local/bin /usr/local/bin
 
