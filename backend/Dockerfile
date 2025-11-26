@@ -58,8 +58,7 @@ COPY warmup_models.py .
 COPY .env.example .env.example
 
 # Create necessary directories and warmup models
-RUN mkdir -p logs/audit_logs && \
-    chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /app
 
 # Pre-load ML models to cache them (run as root before switching to appuser)
 # This ensures fast startup and no slow first requests

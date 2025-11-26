@@ -48,8 +48,7 @@ COPY data/ ./data/
 COPY scripts/ ./scripts/
 COPY .env.example .env.example
 
-RUN mkdir -p logs/audit_logs && \
-    chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /app
 
 USER appuser
 

@@ -48,8 +48,7 @@ COPY scripts/ ./scripts/
 COPY .env.example .env.example
 
 # Create necessary directories
-RUN mkdir -p logs/audit_logs && \
-    chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /app
 
 # Switch to non-root user
 USER appuser
