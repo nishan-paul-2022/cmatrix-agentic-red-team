@@ -21,7 +21,7 @@ export function ChatHeader() {
   const [activeProfile, setActiveProfile] = useState<ConfigurationProfile | null>(null);
 
   return (
-    <header className="border-b border-border bg-card cyber-border scan-line">
+    <header className="border-b border-border bg-card cyber-border">
       <div className="container flex items-center justify-between h-14 px-4 mx-auto">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary cyber-border">
