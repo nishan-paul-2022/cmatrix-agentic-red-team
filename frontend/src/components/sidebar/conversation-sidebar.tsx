@@ -51,7 +51,7 @@ export function ConversationSidebar({ className }: ConversationSidebarProps) {
   };
 
   return (
-    <div className={cn("flex flex-col h-full bg-background border-r", className)}>
+    <div className={cn("flex flex-col h-full bg-sidebar border-r", className)}>
       {/* Header */}
       <div className="p-4 border-b">
         <div className="flex items-center justify-between mb-4">
