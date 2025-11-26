@@ -1,7 +1,23 @@
-"""Vulnerability Intelligence Agent - CVE and threat intelligence integration."""
+"""
+Vulnerability Intelligence Agent Subgraph.
+
+This agent specializes in CVE research, threat intelligence, and vulnerability
+correlation. It operates as an autonomous LangGraph subgraph with its own
+reasoning loop and LLM instance.
+"""
+
+from typing import List, Dict, Any
 from langchain_core.tools import tool
+from loguru import logger
 import requests
 from datetime import datetime, timedelta
+
+from app.agents.base.subgraph import BaseAgentSubgraph
+from app.services.llm.providers import LLMProvider
+
+
+# Tool implementations (keeping existing logic)
+
 
 @tool
 def search_cve(keyword: str, limit: int = 5) -> str:
@@ -189,4 +205,156 @@ def check_vulnerability_by_product(product: str, version: str = "") -> str:
     except Exception as e:
         return f"Vulnerability check failed: {str(e)}"
 
+
+# Legacy tool list for backward compatibility
 VULN_INTEL_TOOLS = [search_cve, get_recent_cves, check_vulnerability_by_product]
+
+
+class VulnIntelAgentSubgraph(BaseAgentSubgraph):
+    """
+    Vulnerability Intelligence Agent Subgraph.
+    
+    This agent is responsible for:
+    - CVE research and vulnerability discovery
+    - Threat intelligence gathering
+    - Vulnerability correlation and impact analysis
+    - Patch prioritization and remediation planning
+    - Security advisory monitoring
+    
+    The agent uses the NVD (National Vulnerability Database) and other
+    threat intelligence sources to provide comprehensive vulnerability intelligence.
+    """
+    
+    def __init__(self, llm_provider: LLMProvider):
+        """
+        Initialize the Vulnerability Intelligence Agent.
+        
+        Args:
+            llm_provider: LLM provider instance for this agent
+        """
+        super().__init__(llm_provider, agent_name="VulnIntelAgent")
+        logger.info("Vulnerability Intelligence Agent initialized with autonomous reasoning")
+    
+    def _register_tools(self) -> List[Dict[str, Any]]:
+        """
+        Register vulnerability intelligence tools.
+        
+        Returns:
+            List of tool definitions
+        """
+        return [
+            {
+                "name": "search_cve",
+                "function": search_cve,
+                "description": (
+                    "Search for CVE vulnerabilities by keyword. "
+                    "Use this to find vulnerabilities related to specific software, "
+                    "vendors, or vulnerability types. Returns CVE IDs, severity scores, "
+                    "and descriptions from the NVD database."
+                ),
+                "parameters": {
+                    "keyword": "Search keyword (e.g., 'apache', 'nginx', 'openssl', 'log4j')",
+                    "limit": "Maximum number of results to return (default: 5, max: 10)"
+                }
+            },
+            {
+                "name": "get_recent_cves",
+                "function": get_recent_cves,
+                "description": (
+                    "Get recent high-severity CVEs from the last N days. "
+                    "Use this to stay updated on the latest vulnerabilities and "
+                    "emerging threats. Filters by severity level to focus on "
+                    "critical and high-risk vulnerabilities."
+                ),
+                "parameters": {
+                    "days": "Number of days to look back (default: 7)",
+                    "severity": "Minimum severity level: LOW, MEDIUM, HIGH, or CRITICAL (default: HIGH)"
+                }
+            },
+            {
+                "name": "check_vulnerability_by_product",
+                "function": check_vulnerability_by_product,
+                "description": (
+                    "Check for known vulnerabilities in a specific product or software. "
+                    "Use this when you know the software name and optionally the version. "
+                    "Returns all known CVEs affecting that product with severity scores."
+                ),
+                "parameters": {
+                    "product": "Product name (e.g., 'apache', 'nginx', 'wordpress', 'openssl')",
+                    "version": "Optional version number (e.g., '2.4.49', '1.21.0')"
+                }
+            }
+        ]
+    
+    def _get_system_prompt(self) -> str:
+        """
+        Get the system prompt for the Vulnerability Intelligence Agent.
+        
+        Returns:
+            System prompt defining the agent's role and expertise
+        """
+        return """You are the Vulnerability Intelligence Agent, a specialized AI expert in CVE research and threat intelligence.
+
+Your core responsibilities:
+1. **CVE Research**: Discover and analyze Common Vulnerabilities and Exposures
+2. **Threat Intelligence**: Monitor emerging threats and security advisories
+3. **Vulnerability Correlation**: Connect CVEs to affected products and versions
+4. **Impact Analysis**: Assess the business impact and exploitability of vulnerabilities
+5. **Patch Prioritization**: Help prioritize remediation based on risk and criticality
+
+Your expertise includes:
+- CVE database navigation and research (NVD, MITRE)
+- CVSS scoring and severity assessment (v2, v3, v3.1)
+- Vulnerability lifecycle and disclosure timelines
+- Exploit availability and weaponization trends
+- Patch management and remediation strategies
+- Zero-day vulnerabilities and emerging threats
+- Vendor security advisories and bulletins
+
+When analyzing vulnerabilities:
+- Always provide CVE IDs for traceability
+- Include CVSS scores and severity ratings
+- Explain the vulnerability type (e.g., RCE, XSS, SQLi, buffer overflow)
+- Describe the attack vector and prerequisites
+- Assess exploitability (PoC available, active exploitation, etc.)
+- Identify affected products and versions
+- Recommend specific patches or mitigations
+- Prioritize by risk = (severity × exploitability × exposure)
+
+Vulnerability assessment framework:
+- **Critical (CVSS 9.0-10.0)**: Remote code execution, authentication bypass, critical data exposure
+- **High (CVSS 7.0-8.9)**: Privilege escalation, significant data exposure, DoS
+- **Medium (CVSS 4.0-6.9)**: Information disclosure, limited DoS, XSS
+- **Low (CVSS 0.1-3.9)**: Minor information leaks, low-impact issues
+
+Communication style:
+- Be precise with CVE IDs, CVSS scores, and affected versions
+- Clearly explain the vulnerability and its implications
+- Distinguish between theoretical and actively exploited vulnerabilities
+- Provide actionable remediation steps (patch versions, workarounds)
+- Reference official security advisories when available
+- Explain complex vulnerabilities in accessible terms
+- Prioritize findings by actual risk, not just CVSS score
+
+Threat intelligence best practices:
+- Consider the threat landscape and attacker motivation
+- Factor in exploit availability and ease of exploitation
+- Account for asset criticality and exposure
+- Recommend defense-in-depth strategies
+- Suggest monitoring and detection mechanisms
+
+Remember: You are an autonomous agent. Use your tools to gather real CVE data, correlate vulnerabilities, and provide comprehensive threat intelligence with actionable remediation guidance."""
+
+
+def create_vuln_intel_agent(llm_provider: LLMProvider) -> VulnIntelAgentSubgraph:
+    """
+    Factory function to create a Vulnerability Intelligence Agent instance.
+    
+    Args:
+        llm_provider: LLM provider instance
+        
+    Returns:
+        Initialized VulnIntelAgentSubgraph
+    """
+    return VulnIntelAgentSubgraph(llm_provider)
+

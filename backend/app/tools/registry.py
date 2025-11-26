@@ -1,18 +1,7 @@
 """Tool registry for managing all available tools."""
 
 from typing import Dict, Any, Callable
-from app.agents import (
-    NETWORK_TOOLS,
-    WEB_TOOLS,
-    AUTH_TOOLS,
-    CONFIG_TOOLS,
-    VULN_INTEL_TOOLS,
-    API_SECURITY_TOOLS,
-    COMMAND_TOOLS,
-)
 
-
-from app.tools.memory import search_knowledge_base, save_to_knowledge_base
 
 class ToolRegistry:
     """Central registry for all available tools."""
@@ -24,6 +13,18 @@ class ToolRegistry:
     
     def _register_all_tools(self):
         """Register all tools from specialized agents."""
+        # Lazy import to avoid circular dependencies
+        from app.agents import (
+            NETWORK_TOOLS,
+            WEB_TOOLS,
+            AUTH_TOOLS,
+            CONFIG_TOOLS,
+            VULN_INTEL_TOOLS,
+            API_SECURITY_TOOLS,
+            COMMAND_TOOLS,
+        )
+        from app.tools.memory import search_knowledge_base, save_to_knowledge_base
+        
         all_tool_lists = [
             NETWORK_TOOLS,
             WEB_TOOLS,
