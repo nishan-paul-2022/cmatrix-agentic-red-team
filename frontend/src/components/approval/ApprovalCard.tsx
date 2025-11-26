@@ -130,7 +130,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
           </button>
         </div>
 
-        <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+        <div className="bg-gray-900 text-sky-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
           {isEditing ? (
             <div className="space-y-2">
               {Object.entries(modifiedArgs).map(([key, value]) => (
@@ -140,7 +140,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
                     type="text"
                     value={String(value)}
                     onChange={(e) => handleArgChange(key, e.target.value)}
-                    className="flex-1 bg-gray-800 text-green-400 px-2 py-1 rounded border border-gray-700 focus:border-green-500 focus:outline-none"
+                    className="flex-1 bg-gray-800 text-sky-400 px-2 py-1 rounded border border-gray-700 focus:border-sky-500 focus:outline-none"
                   />
                 </div>
               ))}
@@ -173,7 +173,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
         <button
           onClick={handleApprove}
           disabled={isProcessing}
-          className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+          className="flex-1 bg-sky-600 hover:bg-sky-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
         >
           {isProcessing ? (
             <>

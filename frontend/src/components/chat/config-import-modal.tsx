@@ -120,7 +120,7 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
                   </p>
                 </div>
                 {selectedFile && (
-                  <div className="flex items-center gap-2 text-sm text-green-500">
+                  <div className="flex items-center gap-2 text-sm text-sky-500">
                     <FileText className="w-4 h-4" />
                     <span>{selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)</span>
                   </div>
@@ -140,7 +140,7 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
           {/* Import Result */}
           {importResult && (
             <div className="space-y-4">
-              <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg text-green-700 dark:text-green-400">
+              <div className="flex items-center gap-2 p-3 bg-sky-500/10 border border-sky-500/20 rounded-lg text-sky-700 dark:text-sky-400">
                 <CheckCircle2 className="w-4 h-4" />
                 <span className="text-sm font-medium">{importResult.message}</span>
               </div>
@@ -161,8 +161,8 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
                         <span className="text-muted-foreground">({config.model})</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        {config.has_api_key && <Key className="w-3 h-3 text-green-500" />}
-                        {config.activated && <CheckCircle2 className="w-3 h-3 text-green-500" />}
+                        {config.has_api_key && <Key className="w-3 h-3 text-sky-500" />}
+                        {config.activated && <CheckCircle2 className="w-3 h-3 text-sky-500" />}
                         <span className="text-xs text-muted-foreground">
                           {config.has_api_key ? "Key set" : "No key"}
                           {config.activated ? " • Active" : ""}

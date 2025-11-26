@@ -91,13 +91,13 @@ export function ChatMessage({
                       className={cn(
                         "flex items-start gap-3 p-2 rounded transition-all duration-300",
                         isActive && "bg-blue-500/10 border border-blue-500/20",
-                        isCompleted && "bg-green-500/10 border border-green-500/20"
+                        isCompleted && "bg-sky-500/10 border border-sky-500/20"
                       )}
                       style={{ backgroundColor: step.bgColor + "30" }}
                     >
                       <div className="flex-shrink-0 mt-0.5">
                         {isCompleted ? (
-                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <CheckCircle className="w-4 h-4 text-sky-400" />
                         ) : isActive ? (
                           <Activity className="w-4 h-4 animate-spin text-blue-400" />
                         ) : (
@@ -145,7 +145,7 @@ export function ChatMessage({
             </div>
           ) : isLoading ? (
             <div className="flex items-center gap-2 terminal-text">
-              <Loader2 className="w-4 h-4 animate-spin text-green-400" />
+              <Loader2 className="w-4 h-4 animate-spin text-sky-400" />
               <span className="text-muted-foreground">{MESSAGES.SYSTEM.PROCESSING}</span>
             </div>
           ) : (

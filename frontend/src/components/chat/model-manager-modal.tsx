@@ -101,8 +101,8 @@ export function ModelManagerModal({ isOpen, onClose, onModelChange }: ModelManag
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold">{model.name}</h3>
-                    {model.is_active && <CheckCircle2 className="w-4 h-4 text-green-500" />}
-                    {model.has_api_key && <Key className="w-4 h-4 text-green-500" />}
+                    {model.is_active && <CheckCircle2 className="w-4 h-4 text-sky-500" />}
+                    {model.has_api_key && <Key className="w-4 h-4 text-sky-500" />}
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">{model.description || model.provider}</p>
                   
@@ -179,7 +179,7 @@ export function ModelManagerModal({ isOpen, onClose, onModelChange }: ModelManag
                         </Button>
                       )}
                       {model.is_active && (
-                        <span className="text-xs text-green-500 text-center">Active</span>
+                        <span className="text-xs text-sky-500 text-center">Active</span>
                       )}
                     </>
                   )}
