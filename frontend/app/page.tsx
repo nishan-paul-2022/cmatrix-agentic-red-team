@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ChatHeader } from "@/components/chat/chat-header";
 import { ChatMessage } from "@/components/chat/chat-message";
 import { ChatInput } from "@/components/chat/chat-input";
@@ -8,6 +9,7 @@ import { ConversationSidebar } from "@/components/sidebar/conversation-sidebar";
 import { ConversationProvider } from "@/contexts/conversation-context";
 import { useScrollToBottom } from "@/lib/hooks";
 import { useChatStream } from "@/features/chat/hooks/use-chat-stream";
+import { cn } from "@/lib/utils";
 
 /**
  * Main chat page
@@ -26,6 +28,7 @@ function ChatContent() {
   } = useChatStream();
 
   const { ref: messagesEndRef } = useScrollToBottom([messages]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,15 +43,30 @@ function ChatContent() {
     setInput(prompt);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background overflow-hidden">
       <div className="matrix-rain"></div>
 
       {/* Sidebar */}
-      <ConversationSidebar className="w-80 flex-shrink-0" />
+      <div 
+        className={cn(
+          "flex-shrink-0 transition-all duration-300 ease-in-out border-r border-border bg-sidebar",
+          isSidebarOpen ? "w-[260px]" : "w-[60px]"
+        )}
+      >
+        <ConversationSidebar 
+          isOpen={isSidebarOpen} 
+          onToggle={toggleSidebar}
+          className="h-full" 
+        />
+      </div>
 
       {/* Main Chat Area */}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 min-w-0">
         {/* Header */}
         <ChatHeader />
 

@@ -1,18 +1,21 @@
 "use client";
 
 import React from 'react';
-import { Plus, Search, MessageSquare } from 'lucide-react';
+import { Plus, Search, MessageSquare, PanelLeft, SquarePen, Library, FolderKanban } from 'lucide-react';
 import { useConversations } from '@/contexts/conversation-context';
 import { ConversationItem } from './conversation-item';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ConversationSidebarProps {
   className?: string;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }
 
-export function ConversationSidebar({ className }: ConversationSidebarProps) {
+export function ConversationSidebar({ className, isOpen = true, onToggle }: ConversationSidebarProps) {
   const {
     conversations,
     activeConversation,
@@ -50,65 +53,118 @@ export function ConversationSidebar({ className }: ConversationSidebarProps) {
     selectConversation(conversation);
   };
 
-  return (
-    <div className={cn("flex flex-col h-full bg-sidebar border-r", className)}>
-      {/* Header */}
-      <div className="p-4 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Conversations</h2>
+  const SidebarItem = ({ icon: Icon, label, onClick, active }: { icon: any, label: string, onClick?: () => void, active?: boolean }) => (
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
           <Button
-            onClick={handleCreateConversation}
-            disabled={isCreating}
-            size="sm"
-            className="h-8 w-8 p-0"
+            variant="ghost"
+            className={cn(
+              "w-full justify-start h-10 px-2",
+              !isOpen && "justify-center px-0",
+              active && "bg-secondary/50"
+            )}
+            onClick={onClick}
           >
-            <Plus className="h-4 w-4" />
+            <Icon className={cn("h-5 w-5", isOpen && "mr-2")} />
+            {isOpen && <span className="truncate">{label}</span>}
           </Button>
+        </TooltipTrigger>
+        {!isOpen && <TooltipContent side="right">{label}</TooltipContent>}
+      </Tooltip>
+    </TooltipProvider>
+  );
+
+  return (
+    <div className={cn("flex flex-col h-full bg-sidebar custom-scrollbar overflow-y-auto overflow-x-hidden", className)}>
+      {/* Top Actions */}
+      <div className="p-2 space-y-1 sticky top-0 bg-sidebar z-10">
+        {/* Toggle & Brand/Logo area if needed */}
+        <div className={cn("flex items-center", isOpen ? "justify-between px-2 mb-2" : "justify-center mb-1")}>
+           {isOpen && <span className="font-semibold text-sm">Chats</span>}
+           {onToggle && (
+            <TooltipProvider delayDuration={0}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className={cn(
+                      isOpen ? "h-8 w-8 p-0" : "h-10 w-full justify-center"
+                    )} 
+                    onClick={onToggle}
+                  >
+                    <PanelLeft className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  {isOpen ? "Close sidebar" : "Open sidebar"}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+           )}
         </div>
 
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search conversations..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
-          />
-        </div>
+        <SidebarItem 
+          icon={SquarePen} 
+          label="New chat" 
+          onClick={handleCreateConversation} 
+        />
+        
+        <SidebarItem 
+          icon={Search} 
+          label="Search chats" 
+          onClick={() => {}} // TODO: Implement search focus or modal
+        />
+
+        {/* Placeholder items from design */}
+        {/* <SidebarItem icon={Library} label="Library" /> */}
+        {/* <SidebarItem icon={FolderKanban} label="Projects" /> */}
       </div>
 
       {/* Conversations List */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="p-2">
+      <div className="flex-1">
+        {isOpen && (
+          <div className="px-4 py-2 text-xs font-semibold text-muted-foreground">
+            Your chats
+          </div>
+        )}
+        
+        <div className="p-2 space-y-1">
           {isLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+            <div className="flex items-center justify-center py-4">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
             </div>
           ) : filteredConversations.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-              <p className="text-sm text-muted-foreground mb-2">
-                {searchQuery ? 'No conversations found' : 'No conversations yet'}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {searchQuery ? 'Try a different search term' : 'Create your first conversation to get started'}
-              </p>
-            </div>
+            isOpen && (
+              <div className="text-center py-8 px-2">
+                <p className="text-xs text-muted-foreground">No conversations yet</p>
+              </div>
+            )
           ) : (
-            <div className="space-y-1">
-              {filteredConversations.map((conversation) => (
+            conversations.map((conversation) => (
+              isOpen ? (
                 <ConversationItem
                   key={conversation.id}
                   conversation={conversation}
                   isActive={activeConversation?.id === conversation.id}
                   onClick={() => handleSelectConversation(conversation)}
                 />
-              ))}
-            </div>
+              ) : (
+                 // Mini item for closed state - just a clickable dot or initial if we had one, 
+                 // but for now maybe just the Message icon or similar if we want to show history in closed state.
+                 // The user design shows icons in closed state. 
+                 // Since we don't have icons per chat, we might just hide the list or show a generic history icon.
+                 // However, the user said "tiny sidebar should have icon for 'folding icon', 'new chat', 'search chats'".
+                 // It implies the list might NOT be visible or just not the main focus.
+                 // Let's hide the list items in closed state for now as per standard "folded" behavior unless specified otherwise.
+                 null
+              )
+            ))
           )}
         </div>
       </div>
+      
+      {/* User Profile or Bottom Actions could go here */}
     </div>
   );
 }

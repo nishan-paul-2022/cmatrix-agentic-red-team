@@ -8,14 +8,8 @@ import { useAuth } from "@/contexts/auth-context";
 import { BrandLogo } from "@/components/brand-logo";
 import { ConfigurationProfileSelector } from "./configuration-profile-selector";
 import { ModelDropdown } from "./model-dropdown";
-
-/**
- * Chat header component
- * Displays app branding, status, and navigation
- */
 import { useState } from "react";
 import { ConfigurationProfile } from "@/lib/api/llm";
-// ... imports
 
 export function ChatHeader() {
   const { user, logout } = useAuth();
