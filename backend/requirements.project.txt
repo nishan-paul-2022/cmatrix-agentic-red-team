@@ -26,3 +26,7 @@ pytest-cov==5.0.0
 black==24.10.0
 flake8==7.1.1
 mypy==1.13.0
+
+# Agentic RAG (Phase 3)
+networkx==3.2.1
+cpe==1.2.1

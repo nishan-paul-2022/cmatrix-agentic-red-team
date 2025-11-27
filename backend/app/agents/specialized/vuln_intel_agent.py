@@ -14,6 +14,9 @@ from datetime import datetime, timedelta
 
 from app.agents.base.subgraph import BaseAgentSubgraph
 from app.services.llm.providers import LLMProvider
+from app.services.rag import CVEGraphTraversal
+import asyncio
+import json
 
 
 # Tool implementations (keeping existing logic)
@@ -235,6 +238,96 @@ def check_vulnerability_by_product(product: str, version: str = "") -> str:
     except Exception as e:
         return f"Vulnerability check failed: {str(e)}"
 
+@tool
+def explore_cve_relationships(cve_id: str, depth: int = 2) -> str:
+    """
+    Explore relationships between CVEs to discover hidden vulnerabilities.
+    
+    Args:
+        cve_id: The starting CVE ID (e.g., "CVE-2021-44228")
+        depth: How many hops to traverse (default: 2, max: 3)
+    """
+    try:
+        # Ensure cve_id is a string
+        cve_id = str(cve_id).strip().upper()
+        if not cve_id.startswith("CVE-"):
+            return "Invalid CVE ID format. Must start with 'CVE-'."
+            
+        # Ensure depth is an integer
+        try:
+            depth = int(depth)
+        except (ValueError, TypeError):
+            depth = 2
+        
+        # Clamp depth
+        depth = max(1, min(depth, 3))
+        
+        # Run async traversal in a sync wrapper
+        async def _run_traversal():
+            traversal = CVEGraphTraversal()
+            return await traversal.build_graph(cve_id, max_depth=depth)
+            
+        # Run the async function
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+        if loop.is_running():
+            # If we are already in an event loop (e.g. in a web server), we can't block.
+            # But since this is a tool called by the agent, we might be in a thread.
+            # For now, let's try to run it. If it fails, we might need a different approach.
+            # However, standard LangChain tools are often sync.
+            # A safe way in many environments is using asyncio.run if no loop is running,
+            # or just returning a coroutine if the caller expects it (but LangChain tools usually don't).
+            # Given the constraints, we'll try a simple approach.
+            graph_data = asyncio.run(_run_traversal())
+        else:
+            graph_data = loop.run_until_complete(_run_traversal())
+            
+        # Format the output for the LLM
+        nodes = graph_data.get("nodes", [])
+        links = graph_data.get("links", [])
+        
+        if not nodes:
+            return f"No data found for {cve_id}"
+            
+        results = [f"CVE Relationship Graph for {cve_id} (Depth: {depth})"]
+        results.append(f"Found {len(nodes)} related CVEs and {len(links)} relationships.")
+        results.append("")
+        
+        # List critical nodes
+        results.append("Critical Vulnerabilities in Graph:")
+        sorted_nodes = sorted(nodes, key=lambda x: x.get("score", 0), reverse=True)
+        
+        for node in sorted_nodes:
+            nid = node.get("id")
+            score = node.get("score", "N/A")
+            severity = node.get("severity", "UNKNOWN")
+            desc = node.get("description", "No description")
+            
+            results.append(f"• {nid} - {severity} (Score: {score})")
+            results.append(f"  {desc}")
+            
+            # Find relationships for this node
+            rels = []
+            for link in links:
+                if link.get("source") == nid:
+                    rels.append(f"-> {link.get('target')} ({link.get('relation')})")
+                elif link.get("target") == nid:
+                    rels.append(f"<- {link.get('source')} ({link.get('relation')})")
+            
+            if rels:
+                results.append(f"  Relationships: {', '.join(rels)}")
+            results.append("")
+            
+        return "\n".join(results)
+        
+    except Exception as e:
+        return f"Graph traversal failed: {str(e)}"
+
+
 
 # Legacy tool list for backward compatibility
 VULN_INTEL_TOOLS = [search_cve, get_recent_cves, check_vulnerability_by_product]
@@ -312,6 +405,19 @@ class VulnIntelAgentSubgraph(BaseAgentSubgraph):
                 "parameters": {
                     "product": "Product name (e.g., 'apache', 'nginx', 'wordpress', 'openssl')",
                     "version": "Optional version number (e.g., '2.4.49', '1.21.0')"
+                }
+            },
+            {
+                "name": "explore_cve_relationships",
+                "function": explore_cve_relationships,
+                "description": (
+                    "Explore relationships between CVEs to discover hidden vulnerabilities. "
+                    "Use this to find related vulnerabilities that might be part of a larger attack chain "
+                    "or share common root causes. Returns a graph of related CVEs."
+                ),
+                "parameters": {
+                    "cve_id": "The starting CVE ID (e.g., 'CVE-2021-44228')",
+                    "depth": "How many hops to traverse (default: 2, max: 3)"
                 }
             }
         ]
