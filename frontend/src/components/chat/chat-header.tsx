@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { LogOut, User, Settings } from "lucide-react";
 import { MESSAGES } from "@/constants/messages";
@@ -18,7 +20,7 @@ export function ChatHeader() {
   return (
     <header className="border-b border-border bg-card cyber-border">
       <div className="container flex items-center justify-between h-14 px-4 mx-auto">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/10 cyber-border overflow-hidden">
             <BrandLogo size={24} />
           </div>
@@ -26,7 +28,7 @@ export function ChatHeader() {
             <h1 className="text-lg font-semibold terminal-text">{siteConfig.name}</h1>
             <div className="text-xs text-muted-foreground">{MESSAGES.LABELS.NEURAL_INTERFACE}</div>
           </div>
-        </div>
+        </Link>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <ConfigurationProfileSelector 
