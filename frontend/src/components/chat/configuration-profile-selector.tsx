@@ -63,7 +63,7 @@ export function ConfigurationProfileSelector({
       <Button
         variant="outline"
         size="sm"
-        className="gap-2 cyber-border terminal-text min-w-[180px] justify-between"
+        className="gap-2 cyber-border terminal-text min-w-[180px] justify-between cursor-pointer"
         onClick={() => {
             setIsModalOpen(true);
             fetchProfiles();

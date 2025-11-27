@@ -62,7 +62,7 @@ export function ConversationSidebar({ className, isOpen = true, onToggle }: Conv
           <Button
             variant="ghost"
             className={cn(
-              "w-full justify-start h-10 px-2",
+              "w-full justify-start h-10 px-2 cursor-pointer",
               !isOpen && "justify-center px-0",
               active && "bg-secondary/50"
             )}
@@ -91,7 +91,7 @@ export function ConversationSidebar({ className, isOpen = true, onToggle }: Conv
                   <Button 
                     variant="ghost" 
                     className={cn(
-                      isOpen ? "h-8 w-8 p-0" : "h-10 w-full justify-center"
+                      isOpen ? "h-8 w-8 p-0 cursor-ew-resize" : "h-10 w-full justify-center cursor-ew-resize"
                     )} 
                     onClick={onToggle}
                   >

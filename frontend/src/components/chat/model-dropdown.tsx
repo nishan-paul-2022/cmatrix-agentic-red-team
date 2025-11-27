@@ -93,7 +93,7 @@ export function ModelDropdown({ activeProfile }: ModelDropdownProps) {
         <Button
           variant="outline"
           size="sm"
-          className="gap-2 cyber-border terminal-text min-w-[200px] justify-between"
+          className="gap-2 cyber-border terminal-text min-w-[200px] justify-between cursor-pointer"
           disabled={!activeProfile}
         >
           <span className="truncate flex items-center gap-2">
