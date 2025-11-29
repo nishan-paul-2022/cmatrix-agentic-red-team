@@ -25,11 +25,20 @@ async def search_cve(
     query: str,
     limit: int = 10,
     strategy: str = "balanced",
+    min_cvss_score: Optional[float] = Query(None, ge=0.0, le=10.0, description="Minimum CVSS score (0-10)"),
+    severity: Optional[str] = Query(None, regex="^(LOW|MEDIUM|HIGH|CRITICAL)$", description="Severity level"),
+    exploit_available: Optional[bool] = Query(None, description="Filter by exploit availability"),
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """
-    Search for CVEs using the Smart CVE Search tool.
+    Search for CVEs using the Smart CVE Search tool with vector store.
+    
+    Supports semantic search with advanced filtering:
+    - min_cvss_score: Filter by minimum CVSS score
+    - severity: Filter by severity (LOW, MEDIUM, HIGH, CRITICAL)
+    - exploit_available: Filter by exploit availability
+    
     Returns structured data including reranking details and correction history.
     """
     try:
@@ -49,7 +58,10 @@ async def search_cve(
         result = await service.search(
             query=query,
             limit=limit,
-            strategy=strategy
+            strategy=strategy,
+            min_cvss_score=min_cvss_score,
+            severity=severity,
+            exploit_available=exploit_available
         )
         logger.debug("Search completed successfully")
         
@@ -61,3 +73,58 @@ async def search_cve(
     except Exception as e:
         logger.exception(f"Error in CVE search: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+from fastapi import BackgroundTasks
+from app.services.rag.nvd_sync_service import NVDSyncService
+from app.services.rag.cve_vector_store import get_cve_vector_store
+
+class SyncResponse(BaseModel):
+    message: str
+    task_id: str
+
+async def run_sync_task(full: bool, days: int, api_key: Optional[str]):
+    """Background task to run NVD sync."""
+    try:
+        logger.info(f"Starting background NVD sync (full={full}, days={days})")
+        vector_store = get_cve_vector_store()
+        await vector_store.initialize()
+        
+        sync_service = NVDSyncService(api_key=api_key)
+        
+        if full:
+            await sync_service.sync_full(vector_store)
+        else:
+            await sync_service.sync_incremental(vector_store, days=days)
+            
+        logger.info("Background NVD sync completed successfully")
+    except Exception as e:
+        logger.exception(f"Background NVD sync failed: {e}")
+
+from app.core.config import settings
+
+@router.post("/sync", response_model=SyncResponse)
+async def sync_cves(
+    background_tasks: BackgroundTasks,
+    full: bool = False,
+    days: int = 7,
+    api_key: Optional[str] = None,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Trigger NVD CVE synchronization.
+    
+    - **full**: If true, performs a full sync (takes hours).
+    - **days**: Number of days to look back for incremental sync (default: 7).
+    - **api_key**: Optional NVD API key for higher rate limits.
+    """
+    # Use configured API key if not provided
+    if not api_key:
+        api_key = settings.NVD_API_KEY
+        
+    task_id = f"sync_{'full' if full else 'inc'}_{days}d"
+    background_tasks.add_task(run_sync_task, full, days, api_key)
+    
+    return SyncResponse(
+        message=f"CVE sync started in background ({'Full' if full else 'Incremental'}, {days} days)",
+        task_id=task_id
+    )

@@ -1,7 +1,7 @@
 """Application configuration and settings management."""
 
 import os
-from typing import List
+from typing import List, Optional
 from pydantic_settings import BaseSettings
 from pydantic import Field, validator
 from functools import lru_cache
@@ -15,8 +15,6 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.0.1"
     APP_DESCRIPTION: str = "AI Agent with LangGraph and tool calling"
     DEBUG: bool = Field(default=False, env="DEBUG")
-    
-
     
     # CORS
     CORS_ORIGINS: List[str] = Field(
@@ -32,7 +30,6 @@ class Settings(BaseSettings):
 
     
     # Demo Configuration
-
     AUTH_CONFIG_FILE: str = Field(default="data/auth_config.json")
     
     # Database
@@ -68,6 +65,9 @@ class Settings(BaseSettings):
     # Embeddings
     EMBEDDING_MODEL: str = Field(default="BAAI/bge-base-en-v1.5", env="EMBEDDING_MODEL")
     EMBEDDING_DEVICE: str = Field(default="cpu", env="EMBEDDING_DEVICE")
+    
+    # External APIs
+    NVD_API_KEY: Optional[str] = Field(default=None, env="NVD_API_KEY")
     
 
     # Command Execution

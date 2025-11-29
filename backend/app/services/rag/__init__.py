@@ -25,6 +25,15 @@ from app.services.rag.ab_testing import (
     ExperimentStatus,
     FeedbackType
 )
+from app.services.rag.cve_vector_store import (
+    CVEVectorStore,
+    CVEMetadata,
+    CVSSScore,
+    CVESearchResult,
+    CVESearchResponse,
+    CVSSVersion,
+    get_cve_vector_store
+)
 
 __all__ = [
     # Query Reformulation
@@ -46,4 +55,13 @@ __all__ = [
     "ABTestingFramework",
     "ExperimentStatus",
     "FeedbackType",
+    
+    # CVE Vector Store
+    "CVEVectorStore",
+    "CVEMetadata",
+    "CVSSScore",
+    "CVESearchResult",
+    "CVESearchResponse",
+    "CVSSVersion",
+    "get_cve_vector_store",
 ]
