@@ -52,7 +52,7 @@ class TestNetworkAgentSubgraph:
         assert "port scanning" in system_prompt.lower()
         assert "vulnerability" in system_prompt.lower()
     
-    @patch('app.tools.network_tools.port_scan')
+    @patch('app.agents.specialized.network_agent.port_scan')
     def test_invoke_with_scan_task(self, mock_port_scan, mock_llm_provider):
         """Test agent invocation with a network scan task."""
         # Mock the port scan tool
@@ -60,7 +60,7 @@ class TestNetworkAgentSubgraph:
         
         # Mock LLM to request a tool call, then synthesize
         mock_llm_provider.invoke = Mock(side_effect=[
-            "TOOL: scan_network(target=localhost, ports=1-1024)",
+            "TOOL: scan_network(target='localhost', ports='1-1024')",
             "Based on the scan results, ports 22, 80, and 443 are open."
         ])
         
@@ -113,7 +113,7 @@ class TestVulnIntelAgentSubgraph:
         
         assert isinstance(agent, VulnIntelAgentSubgraph)
         assert agent.agent_name == "VulnIntelAgent"
-        assert len(agent.tools) == 3
+        assert len(agent.tools) == 5
     
     def test_tool_registration(self, mock_llm_provider):
         """Test that tools are properly registered."""

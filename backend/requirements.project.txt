@@ -28,5 +28,6 @@ flake8==7.1.1
 mypy==1.13.0
 
 # Agentic RAG (Phase 3)
-networkx==3.2.1
+networkx==3.6
 cpe==1.2.1
+nest_asyncio==1.6.0

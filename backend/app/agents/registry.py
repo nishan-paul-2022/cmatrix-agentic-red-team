@@ -9,10 +9,12 @@ from typing import Dict, Optional, List
 from sqlalchemy.ext.asyncio import AsyncSession
 from loguru import logger
 
-from app.agents.base.subgraph import BaseAgentSubgraph
+from app.agents.base.agent import BaseAgentSubgraph
 from app.agents.specialized.network_agent import NetworkAgentSubgraph, create_network_agent
 from app.agents.specialized.web_agent import WebAgentSubgraph, create_web_agent
 from app.agents.specialized.vuln_intel_agent import VulnIntelAgentSubgraph, create_vuln_intel_agent
+from app.agents.specialized.auth_agent import AuthAgentSubgraph, create_auth_agent
+from app.agents.specialized.config_agent import ConfigAgentSubgraph, create_config_agent
 from app.services.llm.pool import get_llm_pool
 from app.services.llm.providers import LLMProvider
 
@@ -32,6 +34,8 @@ class AgentRegistry:
     NETWORK_AGENT = "network_agent"
     WEB_AGENT = "web_agent"
     VULN_INTEL_AGENT = "vuln_intel_agent"
+    AUTH_AGENT = "auth_agent"
+    CONFIG_AGENT = "config_agent"
     
     # Keywords for agent selection
     AGENT_KEYWORDS = {
@@ -46,6 +50,14 @@ class AgentRegistry:
         VULN_INTEL_AGENT: [
             "cve", "vulnerability", "exploit", "patch", "nvd",
             "security advisory", "threat", "zero-day", "cvss"
+        ],
+        AUTH_AGENT: [
+            "auth", "login", "password", "session", "credential",
+            "brute force", "rate limit", "mfa", "2fa", "token", "jwt"
+        ],
+        CONFIG_AGENT: [
+            "config", "compliance", "hardening", "cis", "pci", "hipaa",
+            "soc2", "cloud", "aws", "azure", "gcp", "iam", "policy"
         ]
     }
     
@@ -91,6 +103,10 @@ class AgentRegistry:
             agent = create_web_agent(llm_provider)
         elif agent_type == self.VULN_INTEL_AGENT:
             agent = create_vuln_intel_agent(llm_provider)
+        elif agent_type == self.AUTH_AGENT:
+            agent = create_auth_agent(llm_provider)
+        elif agent_type == self.CONFIG_AGENT:
+            agent = create_config_agent(llm_provider)
         else:
             raise ValueError(f"Unknown agent type: {agent_type}")
         
@@ -131,6 +147,10 @@ class AgentRegistry:
             agent = create_web_agent(llm_provider)
         elif agent_type == self.VULN_INTEL_AGENT:
             agent = create_vuln_intel_agent(llm_provider)
+        elif agent_type == self.AUTH_AGENT:
+            agent = create_auth_agent(llm_provider)
+        elif agent_type == self.CONFIG_AGENT:
+            agent = create_config_agent(llm_provider)
         else:
             raise ValueError(f"Unknown agent type: {agent_type}")
         
@@ -211,7 +231,9 @@ class AgentRegistry:
         return [
             self.NETWORK_AGENT,
             self.WEB_AGENT,
-            self.VULN_INTEL_AGENT
+            self.VULN_INTEL_AGENT,
+            self.AUTH_AGENT,
+            self.CONFIG_AGENT
         ]
     
     def get_agent_info(self, agent_type: str) -> Dict:
@@ -242,6 +264,18 @@ class AgentRegistry:
                 "description": "Specializes in CVE research and threat intelligence",
                 "capabilities": ["CVE search", "Threat intelligence", "Vulnerability correlation"],
                 "keywords": self.AGENT_KEYWORDS[self.VULN_INTEL_AGENT]
+            },
+            self.AUTH_AGENT: {
+                "name": "Authentication Security Agent",
+                "description": "Specializes in authentication security, session management, and password policies",
+                "capabilities": ["Login analysis", "Session check", "Rate limit testing", "Password policy audit"],
+                "keywords": self.AGENT_KEYWORDS[self.AUTH_AGENT]
+            },
+            self.CONFIG_AGENT: {
+                "name": "Configuration Analysis Agent",
+                "description": "Specializes in cloud and system configuration security and compliance",
+                "capabilities": ["Cloud config check", "System hardening", "Compliance audit (CIS, PCI, etc.)"],
+                "keywords": self.AGENT_KEYWORDS[self.CONFIG_AGENT]
             }
         }
         

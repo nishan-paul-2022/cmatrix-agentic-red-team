@@ -7,8 +7,8 @@ from langgraph.graph import StateGraph, END
 from loguru import logger
 
 from app.agents.base.state import SubgraphState
-from app.services.llm.providers import LLMProvider, Message
-from app.tools.execution import parse_tool_calls
+from app.services.llm.providers.base import LLMProvider, Message
+
 
 
 class BaseAgentSubgraph(ABC):
@@ -112,6 +112,7 @@ class BaseAgentSubgraph(ABC):
             messages.append(AIMessage(content=response))
             
             # Parse tool calls from response
+            from app.tools.execution import parse_tool_calls
             tool_calls = parse_tool_calls(response)
             
             logger.info(f"{self.agent_name}: Reasoning complete, found {len(tool_calls)} tool calls")

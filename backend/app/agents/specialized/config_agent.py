@@ -1,7 +1,11 @@
-"""Configuration Analysis Agent - Cloud and system configuration security."""
+"""Configuration Analysis Agent Subgraph."""
+from typing import List, Dict, Any
 from langchain_core.tools import tool
+from loguru import logger
 import subprocess
-import json
+
+from app.agents.base.agent import BaseAgentSubgraph
+from app.services.llm.providers.base import LLMProvider
 
 @tool
 def check_cloud_config(provider: str = "aws") -> str:
@@ -138,4 +142,70 @@ def check_compliance(standard: str = "CIS") -> str:
     
     return "\n".join(results)
 
+# Legacy tool list for backward compatibility
 CONFIG_TOOLS = [check_cloud_config, check_system_hardening, check_compliance]
+
+
+class ConfigAgentSubgraph(BaseAgentSubgraph):
+    """
+    Configuration Analysis Agent Subgraph.
+    
+    This agent is responsible for:
+    - Cloud configuration security (AWS, GCP, Azure)
+    - System hardening checks (Linux, Windows)
+    - Compliance auditing (CIS, PCI-DSS, HIPAA, SOC2)
+    """
+    
+    def __init__(self, llm_provider: LLMProvider):
+        """Initialize the Configuration Analysis Agent."""
+        super().__init__(llm_provider, agent_name="ConfigAnalysisAgent")
+        logger.info("Config Analysis Agent initialized with autonomous reasoning")
+    
+    def _register_tools(self) -> List[Dict[str, Any]]:
+        """Register configuration analysis tools."""
+        return [
+            {
+                "name": "check_cloud_config",
+                "function": check_cloud_config,
+                "description": "Check cloud configuration security for providers like AWS, GCP, Azure.",
+                "parameters": {"provider": "Cloud provider (aws, gcp, azure)"}
+            },
+            {
+                "name": "check_system_hardening",
+                "function": check_system_hardening,
+                "description": "Check system hardening configuration for a target system.",
+                "parameters": {"target": "Target system to check (e.g., 'localhost')"}
+            },
+            {
+                "name": "check_compliance",
+                "function": check_compliance,
+                "description": "Check compliance with security standards like CIS, PCI-DSS, HIPAA, SOC2.",
+                "parameters": {"standard": "Security standard (CIS, PCI-DSS, HIPAA, SOC2)"}
+            }
+        ]
+    
+    def _get_system_prompt(self) -> str:
+        """Get the system prompt for the Config Analysis Agent."""
+        return """You are the Configuration Analysis Agent, a specialized AI expert in system hardening and compliance.
+
+Your core responsibilities:
+1. **Cloud Security**: Audit cloud configurations (IAM, S3, Security Groups) for misconfigurations.
+2. **System Hardening**: Verify system settings (Firewall, Updates, Services) against best practices.
+3. **Compliance**: Check adherence to standards like CIS, PCI-DSS, HIPAA, and SOC2.
+
+When analyzing configurations:
+- Always recommend least privilege principles.
+- Verify that encryption is enabled at rest and in transit.
+- Check for default credentials and insecure default settings.
+- Ensure logging and monitoring are active.
+- Provide specific remediation steps for non-compliant items.
+
+Communication style:
+- Be precise and technical.
+- Reference specific security controls (e.g., "CIS 1.1.1").
+- Prioritize findings by risk and compliance impact.
+"""
+
+def create_config_agent(llm_provider: LLMProvider) -> ConfigAgentSubgraph:
+    """Factory function to create a Config Analysis Agent instance."""
+    return ConfigAgentSubgraph(llm_provider)

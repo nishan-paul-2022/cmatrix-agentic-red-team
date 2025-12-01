@@ -10,8 +10,8 @@ from typing import List, Dict, Any
 from langchain_core.tools import tool
 from loguru import logger
 
-from app.agents.base.subgraph import BaseAgentSubgraph
-from app.services.llm.providers import LLMProvider
+from app.agents.base.agent import BaseAgentSubgraph
+from app.services.llm.providers.base import LLMProvider
 from app.tools.network_tools import port_scan, vulnerability_assessment
 
 

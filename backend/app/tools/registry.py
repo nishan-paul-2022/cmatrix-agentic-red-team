@@ -14,15 +14,13 @@ class ToolRegistry:
     def _register_all_tools(self):
         """Register all tools from specialized agents."""
         # Lazy import to avoid circular dependencies
-        from app.agents import (
-            NETWORK_TOOLS,
-            WEB_TOOLS,
-            AUTH_TOOLS,
-            CONFIG_TOOLS,
-            VULN_INTEL_TOOLS,
-            API_SECURITY_TOOLS,
-            COMMAND_TOOLS,
-        )
+        from app.agents.specialized.network_agent import NETWORK_TOOLS
+        from app.agents.specialized.web_agent import WEB_TOOLS
+        from app.agents.specialized.auth_agent import AUTH_TOOLS
+        from app.agents.specialized.config_agent import CONFIG_TOOLS
+        from app.agents.specialized.vuln_intel_agent import VULN_INTEL_TOOLS
+        from app.agents.specialized.api_security_agent import API_SECURITY_TOOLS
+        from app.agents.specialized.command_agent import COMMAND_TOOLS
         from app.tools.memory import search_knowledge_base, save_to_knowledge_base
         
         all_tool_lists = [

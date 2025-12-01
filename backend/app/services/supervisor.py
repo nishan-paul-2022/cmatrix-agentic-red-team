@@ -120,6 +120,24 @@ class SupervisorService:
         vuln_score = sum(1 for kw in vuln_keywords if kw in task_lower)
         if vuln_score > 0:
             agent_scores["vuln_intel"] = vuln_score
+            
+        # Auth agent keywords
+        auth_keywords = [
+            "auth", "login", "password", "session", "credential",
+            "brute force", "rate limit", "mfa", "2fa", "token", "jwt"
+        ]
+        auth_score = sum(1 for kw in auth_keywords if kw in task_lower)
+        if auth_score > 0:
+            agent_scores["auth"] = auth_score
+            
+        # Config agent keywords
+        config_keywords = [
+            "config", "compliance", "hardening", "cis", "pci", "hipaa",
+            "soc2", "cloud", "aws", "azure", "gcp", "iam", "policy"
+        ]
+        config_score = sum(1 for kw in config_keywords if kw in task_lower)
+        if config_score > 0:
+            agent_scores["config"] = config_score
         
         # Determine primary and secondary agents
         if not agent_scores:
@@ -164,7 +182,9 @@ class SupervisorService:
         max_possible_score = max(
             len(network_keywords),
             len(web_keywords),
-            len(vuln_keywords)
+            len(vuln_keywords),
+            len(auth_keywords),
+            len(config_keywords)
         )
         confidence = min(primary_score / max_possible_score, 1.0)
         

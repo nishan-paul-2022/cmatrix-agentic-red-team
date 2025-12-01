@@ -12,8 +12,8 @@ from loguru import logger
 import requests
 from datetime import datetime, timedelta
 
-from app.agents.base.subgraph import BaseAgentSubgraph
-from app.services.llm.providers import LLMProvider
+from app.agents.base.agent import BaseAgentSubgraph
+from app.services.llm.providers.base import LLMProvider
 from app.services.rag import CVEGraphTraversal
 from app.services.rag.cve_reranker import get_cve_reranker, RankingStrategy
 from app.services.rag.self_correction import get_self_correction_service, CorrectionAction
@@ -253,6 +253,77 @@ def check_vulnerability_by_product(product: str, version: str = "") -> str:
             
     except Exception as e:
         return f"Vulnerability check failed: {str(e)}"
+
+@tool
+def explore_cve_relationships(cve_id: str, depth: int = 2) -> str:
+    """
+    Explore relationships between CVEs to discover hidden vulnerabilities.
+    
+    Args:
+        cve_id: The starting CVE ID (e.g., "CVE-2021-44228")
+        depth: How many hops to traverse (default: 2, max: 3)
+    """
+    try:
+        # Ensure depth is an integer
+        try:
+            depth = int(depth)
+        except (ValueError, TypeError):
+            depth = 2
+        depth = max(1, min(depth, 3))
+        
+        cve_id = str(cve_id).strip().upper()
+        if not cve_id.startswith("CVE-"):
+            return "Invalid CVE ID format. Must start with 'CVE-'."
+            
+        async def _run_traversal():
+            traversal = CVEGraphTraversal()
+            return await traversal.build_graph(start_cve_id=cve_id, max_depth=depth)
+            
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            
+        if loop.is_running():
+            # If loop is running, we can't use run_until_complete directly
+            # This is a hack for tools running in async context
+            # Ideally tools should be async
+            import nest_asyncio
+            nest_asyncio.apply()
+            graph_data = loop.run_until_complete(_run_traversal())
+        else:
+            graph_data = loop.run_until_complete(_run_traversal())
+            
+        # Format the output
+        nodes = graph_data.get("nodes", [])
+        links = graph_data.get("links", [])
+        
+        if not nodes:
+            return f"No relationships found for {cve_id}."
+            
+        results = [f"CVE Relationship Graph for {cve_id} (Depth: {depth}):"]
+        results.append(f"Found {len(nodes)} related CVEs and {len(links)} connections.")
+        results.append("")
+        
+        # List critical nodes
+        results.append("Critical Nodes:")
+        sorted_nodes = sorted(nodes, key=lambda x: x.get("score", 0), reverse=True)
+        for node in sorted_nodes[:5]:
+            results.append(f"🔴 {node['id']} (Score: {node.get('score', 'N/A')}) - {node.get('description', '')[:100]}...")
+            
+        results.append("")
+        results.append("Relationships:")
+        for link in links[:10]:
+            results.append(f"  {link['source']} -> {link['target']} ({link.get('relation', 'related')})")
+            
+        if len(links) > 10:
+            results.append(f"  ... and {len(links) - 10} more connections.")
+            
+        return "\n".join(results)
+        
+    except Exception as e:
+        return f"Graph traversal failed: {str(e)}"
 
 def smart_cve_search(
     keyword: str, 
