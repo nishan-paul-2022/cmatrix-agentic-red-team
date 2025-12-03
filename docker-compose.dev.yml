@@ -1,6 +1,4 @@
-
 services:
-  # Backend Service (Development Mode)
   backend:
     build:
       context: ./backend
@@ -16,20 +14,15 @@ services:
       - QDRANT_PORT=6333
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
     volumes:
-      # Mount entire backend for hot reload
       - ./backend:/app
-      - backend-venv:/app/venv  # Exclude venv from mount
-      # Cache HuggingFace models to avoid re-downloading
+      - backend-venv:/app/venv
       - huggingface_cache:/root/.cache/huggingface
-    # Note: network_mode: "host" is inherited from docker-compose.yml
-    # Cannot use 'networks' with network_mode: "host"
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Frontend Service (Development Mode)
   frontend:
     build:
       context: ./frontend
@@ -43,10 +36,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      # Mount entire frontend for hot reload
       - ./frontend:/app
-      - frontend-node-modules:/app/node_modules  # Exclude node_modules from mount
-      # Note: .next is NOT excluded - it will be created in ./frontend/.next on host
+      - frontend-node-modules:/app/node_modules
     depends_on:
       - backend
     networks:
@@ -65,4 +56,3 @@ volumes:
     driver: local
   huggingface_cache:
     driver: local
-
