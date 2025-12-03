@@ -178,8 +178,20 @@ async def get_job_status(
         # Wrap in try-except to catch ValueError from corrupted exception data
         try:
             if task_result.successful():
-                response.result = task_result.result
-                response.meta = task_result.info if isinstance(task_result.info, dict) else None
+                result_data = task_result.result
+
+                # Check if the result is actually a structured error (task returned error dict)
+                if isinstance(result_data, dict) and result_data.get("status") == "failed":
+                    response.status = "failed"
+                    response.error = result_data.get("error", "Task failed")
+                    response.meta = {
+                        "error_type": result_data.get("error_type", "Unknown"),
+                        "message": result_data.get("error", "Task failed"),
+                    }
+                else:
+                    # Normal successful result
+                    response.result = result_data
+                    response.meta = task_result.info if isinstance(task_result.info, dict) else None
 
             elif task_result.failed():
                 response.error = str(task_result.info) if task_result.info else "Task failed"

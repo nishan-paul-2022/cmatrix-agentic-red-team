@@ -71,10 +71,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkSetupStatus = async (): Promise<boolean> => {
     try {
+      console.log("Checking setup status from:", `${API_BASE_URL}/auth/setup/status`);
       const response = await fetch(`${API_BASE_URL}/auth/setup/status`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       return data.is_setup_complete;
     } catch (error) {
+      console.error("Setup check failed:", error);
+      console.error("API_BASE_URL was:", API_BASE_URL);
       console.error("Failed to check setup status:", error);
       return false;
     }

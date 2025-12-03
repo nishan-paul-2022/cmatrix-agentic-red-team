@@ -36,16 +36,36 @@ export function useChatStream(): UseChatStreamReturn {
   useEffect(() => {
     const loadMessages = async () => {
       if (activeConversation) {
-        try {
-          const conversationData = await loadConversationHistory(activeConversation.id);
-          const chatMessages: ChatMessage[] = conversationData.history.map((h) => ({
-            role: h.role as "user" | "assistant",
-            content: h.content,
-          }));
-          setMessages(chatMessages);
-        } catch (error) {
-          console.error("Failed to load conversation history:", error);
-          setMessages([]);
+        // Retry logic for newly created conversations (race condition handling)
+        let retries = 3;
+        let delay = 100; // Start with 100ms delay
+
+        while (retries > 0) {
+          try {
+            const conversationData = await loadConversationHistory(activeConversation.id);
+            const chatMessages: ChatMessage[] = conversationData.history.map((h) => ({
+              role: h.role as "user" | "assistant",
+              content: h.content,
+            }));
+            setMessages(chatMessages);
+            break; // Success, exit retry loop
+          } catch (error) {
+            retries--;
+
+            // If it's a 404 and we have retries left, wait and retry
+            if (error instanceof Error && error.message.includes("not found") && retries > 0) {
+              console.warn(
+                `Conversation ${activeConversation.id} not found, retrying in ${delay}ms... (${retries} retries left)`
+              );
+              await new Promise((resolve) => setTimeout(resolve, delay));
+              delay *= 2; // Exponential backoff
+            } else {
+              // For other errors or no retries left, log and clear messages
+              console.error("Failed to load conversation history:", error);
+              setMessages([]);
+              break;
+            }
+          }
         }
       } else {
         setMessages([]);

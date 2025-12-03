@@ -42,6 +42,7 @@ async def create_conversation(
     conversation = Conversation(
         name=conversation_data.name,
         user_id=current_user.id,
+        is_visible=True,  # Explicitly set to ensure immediate queryability
     )
 
     db.add(conversation)
@@ -78,7 +79,7 @@ async def list_conversations(
     # Query conversations
     query = (
         select(Conversation)
-        .where(Conversation.user_id == current_user.id, Conversation.is_visible is True)
+        .where(Conversation.user_id == current_user.id, Conversation.is_visible == True)
         .order_by(desc(Conversation.updated_at))
         .offset(skip)
         .limit(limit)
@@ -101,7 +102,7 @@ async def list_conversations(
 
     # Get total count for pagination metadata
     total_query = select(func.count(Conversation.id)).where(
-        Conversation.user_id == current_user.id, Conversation.is_visible is True
+        Conversation.user_id == current_user.id, Conversation.is_visible == True
     )
     total_result = await db.execute(total_query)
     total_conversations = total_result.scalar_one()
@@ -139,7 +140,7 @@ async def get_conversation(
         .where(
             Conversation.id == conversation_id,
             Conversation.user_id == current_user.id,
-            Conversation.is_visible is True,  # Only retrieve visible conversations
+            Conversation.is_visible == True,  # Only retrieve visible conversations
         )
     )
 
@@ -181,7 +182,7 @@ async def update_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible is True,  # Only update visible conversations
+        Conversation.is_visible == True,  # Only update visible conversations
     )
 
     result = await db.execute(query)
@@ -228,7 +229,7 @@ async def delete_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible is True,  # Only delete visible conversations
+        Conversation.is_visible == True,  # Only delete visible conversations
     )
 
     result = await db.execute(query)
@@ -275,7 +276,7 @@ async def get_global_history(
         .where(
             Conversation.user_id == current_user.id,
             ConversationHistory.role == "user",
-            ConversationHistory.is_visible_in_dashboard is True,
+            ConversationHistory.is_visible_in_dashboard == True,
         )
         .order_by(desc(ConversationHistory.created_at))
     )
@@ -352,7 +353,7 @@ async def delete_history_item(
         .where(
             ConversationHistory.id == history_id,
             Conversation.user_id == current_user.id,
-            ConversationHistory.is_visible_in_dashboard is True,  # Only delete visible items
+            ConversationHistory.is_visible_in_dashboard == True,  # Only delete visible items
         )
     )
 
@@ -408,7 +409,7 @@ async def clear_conversation_history(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible is True,  # Only clear history for visible conversations
+        Conversation.is_visible == True,  # Only clear history for visible conversations
     )
 
     result = await db.execute(query)

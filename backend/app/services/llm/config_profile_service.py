@@ -140,7 +140,7 @@ class ConfigProfileService:
         """Get user's currently active profile."""
         result = await db.execute(
             select(ConfigurationProfile)
-            .where(ConfigurationProfile.user_id == user_id, ConfigurationProfile.is_active is True)
+            .where(ConfigurationProfile.user_id == user_id, ConfigurationProfile.is_active == True)
             .order_by(ConfigurationProfile.updated_at.desc())
         )
         profiles = result.scalars().all()

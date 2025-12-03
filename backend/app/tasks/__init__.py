@@ -153,22 +153,34 @@ async def run_scan_task(
 
     except Exception as exc:
         error_msg = str(exc)
+        error_type = type(exc).__name__
         logger.error(f"Scan task failed for user {user_id}: {error_msg}", exc_info=True)
 
-        # Update task state to FAILURE with error details (JSON-serializable)
-        self.update_state(
-            state="FAILURE",
-            meta={
-                "error": error_msg,
-                "error_type": type(exc).__name__,
-                "user_id": user_id,
-                "conversation_id": conversation_id,
-            },
-        )
+        # Ensure all metadata is JSON-serializable to prevent Redis corruption
+        try:
+            # Update task state to FAILURE with properly structured error details
+            self.update_state(
+                state="FAILURE",
+                meta={
+                    "error": error_msg,
+                    "error_type": error_type,
+                    "user_id": user_id,
+                    "conversation_id": conversation_id,
+                    "exc_type": error_type,  # Required by Celery for proper exception handling
+                    "exc_message": error_msg,
+                },
+            )
+        except Exception as state_update_error:
+            # If state update fails, log it but don't crash
+            logger.error(f"Failed to update task state: {state_update_error}")
 
-        # Re-raise the original exception to preserve type information
-        # This prevents "Exception information must include the exception type" errors
-        raise
+        # Return a structured error instead of raising to avoid serialization issues
+        # This ensures the task completes with a FAILURE state but with valid data
+        return {
+            "error": error_msg,
+            "error_type": error_type,
+            "status": "failed",
+        }
 
 
 @celery_app.task(name="app.tasks.orchestrator.cleanup_old_results")
