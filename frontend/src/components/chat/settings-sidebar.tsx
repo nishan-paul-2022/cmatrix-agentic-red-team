@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  X, 
-  Upload, 
-  Download, 
-  Plus, 
-  Trash2, 
-  Save, 
-  Loader2, 
+import {
+  X,
+  Upload,
+  Download,
+  Plus,
+  Trash2,
+  Save,
+  Loader2,
   Edit2,
   Key,
   Sparkles,
@@ -29,11 +29,7 @@ interface SettingsSidebarProps {
   onProfilesChange: () => void;
 }
 
-export function SettingsSidebar({
-  isOpen,
-  onClose,
-  onProfilesChange,
-}: SettingsSidebarProps) {
+export function SettingsSidebar({ isOpen, onClose, onProfilesChange }: SettingsSidebarProps) {
   const [profiles, setProfiles] = useState<ConfigurationProfile[]>([]);
   const [providers, setProviders] = useState<Provider[]>([]);
   const [isCreating, setIsCreating] = useState(false);
@@ -99,10 +95,10 @@ export function SettingsSidebar({
         } finally {
           setIsFetchingModels(false);
         }
-      } 
+      }
       // Case 2: Editing existing profile (using stored key)
       else if (editingProfileId) {
-        const profile = profiles.find(p => p.id === editingProfileId);
+        const profile = profiles.find((p) => p.id === editingProfileId);
         // Only fetch if the selected provider matches the profile's provider
         if (profile && profile.api_provider === selectedProvider) {
           setIsFetchingModels(true);
@@ -130,7 +126,7 @@ export function SettingsSidebar({
   const handleSaveProfile = async () => {
     // Validation logic
     const isEditing = !!editingProfileId;
-    const profile = profiles.find(p => p.id === editingProfileId);
+    const profile = profiles.find((p) => p.id === editingProfileId);
     const isProviderChanged = isEditing && profile?.api_provider !== selectedProvider;
 
     // Require API key if:
@@ -138,7 +134,7 @@ export function SettingsSidebar({
     // 2. Editing and provider changed
     // 3. Editing and user explicitly cleared/changed key (handled by apiKey state being non-empty if typed, but here we check if it's required)
     // Actually, if apiKey is empty string, it means user didn't type anything.
-    
+
     const isApiKeyRequired = !isEditing || isProviderChanged;
 
     if (!profileName || !selectedProvider || (isApiKeyRequired && !apiKey)) {
@@ -153,7 +149,7 @@ export function SettingsSidebar({
           api_provider: selectedProvider,
           selected_model_name: selectedModelName,
         };
-        
+
         // Only include API key if user entered one
         if (apiKey) {
           updateData.api_key = apiKey;
@@ -240,29 +236,33 @@ export function SettingsSidebar({
   };
 
   // Filter profiles by provider
-  const filteredProfiles = selectedProviderFilter === "all" 
-    ? profiles 
-    : profiles.filter(p => p.api_provider === selectedProviderFilter);
+  const filteredProfiles =
+    selectedProviderFilter === "all"
+      ? profiles
+      : profiles.filter((p) => p.api_provider === selectedProviderFilter);
 
   // Group profiles by provider for display
-  const profilesByProvider = profiles.reduce((acc, profile) => {
-    if (!acc[profile.api_provider]) {
-      acc[profile.api_provider] = [];
-    }
-    acc[profile.api_provider].push(profile);
-    return acc;
-  }, {} as Record<string, ConfigurationProfile[]>);
+  const profilesByProvider = profiles.reduce(
+    (acc, profile) => {
+      if (!acc[profile.api_provider]) {
+        acc[profile.api_provider] = [];
+      }
+      acc[profile.api_provider].push(profile);
+      return acc;
+    },
+    {} as Record<string, ConfigurationProfile[]>
+  );
 
   // Get provider name from ID
   const getProviderName = (providerId: string) => {
-    return providers.find(p => p.id === providerId)?.name || providerId;
+    return providers.find((p) => p.id === providerId)?.name || providerId;
   };
 
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
+    <div
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
       onClick={onClose}
     >
       <div
@@ -281,9 +281,9 @@ export function SettingsSidebar({
                 <p className="text-xs text-muted-foreground mt-0.5">Provider Configurations</p>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
               className="hover:bg-destructive/10 hover:text-destructive transition-colors cursor-pointer"
             >
@@ -298,9 +298,9 @@ export function SettingsSidebar({
           <div className="mb-6">
             <div className="flex items-center gap-2 p-3 rounded-lg bg-secondary/30 border border-border/50">
               <div className="flex gap-2 flex-1">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={handleExport}
                   className="hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all cursor-pointer"
                 >
@@ -308,9 +308,9 @@ export function SettingsSidebar({
                   Export
                 </Button>
                 <label>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     asChild
                     className="hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-all cursor-pointer"
                   >
@@ -319,12 +319,7 @@ export function SettingsSidebar({
                       Import
                     </span>
                   </Button>
-                  <input
-                    type="file"
-                    accept=".json"
-                    className="hidden"
-                    onChange={handleImport}
-                  />
+                  <input type="file" accept=".json" className="hidden" onChange={handleImport} />
                 </label>
               </div>
               <div className="text-xs font-medium text-foreground/80">
@@ -356,15 +351,14 @@ export function SettingsSidebar({
             {profiles.length > 0 && (
               <div className="flex items-center gap-2 p-2.5 rounded-lg bg-secondary/20 border border-border/30">
                 <Filter className="w-3.5 h-3.5 text-muted-foreground" />
-                <Select
-                  value={selectedProviderFilter}
-                  onValueChange={setSelectedProviderFilter}
-                >
+                <Select value={selectedProviderFilter} onValueChange={setSelectedProviderFilter}>
                   <SelectTrigger className="h-7 w-[160px] bg-background/50 border-border/50 text-xs cursor-pointer">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all" className="cursor-pointer">All Providers ({profiles.length})</SelectItem>
+                    <SelectItem value="all" className="cursor-pointer">
+                      All Providers ({profiles.length})
+                    </SelectItem>
                     {Object.keys(profilesByProvider).map((providerId) => (
                       <SelectItem key={providerId} value={providerId} className="cursor-pointer">
                         {getProviderName(providerId)} ({profilesByProvider[providerId].length})
@@ -392,7 +386,7 @@ export function SettingsSidebar({
                     Cancel
                   </Button>
                 </div>
-                
+
                 <div className="space-y-2.5">
                   <div className="grid grid-cols-2 gap-3">
                     <Input
@@ -409,7 +403,11 @@ export function SettingsSidebar({
                       </SelectTrigger>
                       <SelectContent>
                         {providers.map((provider) => (
-                          <SelectItem key={provider.id} value={provider.id} className="cursor-pointer">
+                          <SelectItem
+                            key={provider.id}
+                            value={provider.id}
+                            className="cursor-pointer"
+                          >
                             {provider.name}
                           </SelectItem>
                         ))}
@@ -426,7 +424,11 @@ export function SettingsSidebar({
                     autoComplete="off"
                   />
 
-                  <Select value={selectedModelName} onValueChange={setSelectedModelName} disabled={isFetchingModels}>
+                  <Select
+                    value={selectedModelName}
+                    onValueChange={setSelectedModelName}
+                    disabled={isFetchingModels}
+                  >
                     <SelectTrigger className="bg-background/50 h-9 text-sm cursor-pointer">
                       {isFetchingModels ? (
                         <div className="flex items-center text-muted-foreground">
@@ -440,15 +442,21 @@ export function SettingsSidebar({
                     <SelectContent>
                       {!selectedProvider && !apiKey ? (
                         <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                          <span className="text-xs text-muted-foreground">Please select a provider and enter an API key</span>
+                          <span className="text-xs text-muted-foreground">
+                            Please select a provider and enter an API key
+                          </span>
                         </div>
                       ) : !selectedProvider ? (
                         <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                          <span className="text-xs text-muted-foreground">Please select a provider first</span>
+                          <span className="text-xs text-muted-foreground">
+                            Please select a provider first
+                          </span>
                         </div>
                       ) : !apiKey ? (
                         <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                          <span className="text-xs text-muted-foreground">Please enter an API key first</span>
+                          <span className="text-xs text-muted-foreground">
+                            Please enter an API key first
+                          </span>
                         </div>
                       ) : availableModels.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
@@ -498,16 +506,16 @@ export function SettingsSidebar({
               <div className="space-y-2.5">
                 {filteredProfiles.map((profile) => {
                   const isEditing = editingProfileId === profile.id;
-                  
+
                   return (
                     <div
                       key={profile.id}
                       className={`group relative rounded-xl border transition-all duration-200 ${
                         isEditing
-                          ? 'border-primary/30 bg-muted/30 shadow-md'
+                          ? "border-primary/30 bg-muted/30 shadow-md"
                           : profile.is_active
-                          ? 'border-primary/30 bg-primary/5 shadow-sm hover:shadow-md'
-                          : 'border-border/40 bg-card hover:border-border/60 hover:bg-secondary/20 hover:shadow-sm'
+                            ? "border-primary/30 bg-primary/5 shadow-sm hover:shadow-md"
+                            : "border-border/40 bg-card hover:border-border/60 hover:bg-secondary/20 hover:shadow-sm"
                       }`}
                     >
                       {isEditing ? (
@@ -527,7 +535,7 @@ export function SettingsSidebar({
                               Cancel
                             </Button>
                           </div>
-                          
+
                           <div className="space-y-2.5">
                             <div className="grid grid-cols-2 gap-3">
                               <Input
@@ -544,7 +552,11 @@ export function SettingsSidebar({
                                 </SelectTrigger>
                                 <SelectContent>
                                   {providers.map((provider) => (
-                                    <SelectItem key={provider.id} value={provider.id} className="cursor-pointer">
+                                    <SelectItem
+                                      key={provider.id}
+                                      value={provider.id}
+                                      className="cursor-pointer"
+                                    >
                                       {provider.name}
                                     </SelectItem>
                                   ))}
@@ -561,7 +573,11 @@ export function SettingsSidebar({
                               autoComplete="off"
                             />
 
-                            <Select value={selectedModelName} onValueChange={setSelectedModelName} disabled={isFetchingModels}>
+                            <Select
+                              value={selectedModelName}
+                              onValueChange={setSelectedModelName}
+                              disabled={isFetchingModels}
+                            >
                               <SelectTrigger className="bg-background/50 h-9 text-sm cursor-pointer">
                                 {isFetchingModels ? (
                                   <div className="flex items-center text-muted-foreground">
@@ -575,25 +591,39 @@ export function SettingsSidebar({
                               <SelectContent>
                                 {!selectedProvider && !apiKey ? (
                                   <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                                    <span className="text-xs text-muted-foreground">Please select a provider and enter an API key</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      Please select a provider and enter an API key
+                                    </span>
                                   </div>
                                 ) : !selectedProvider ? (
                                   <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                                    <span className="text-xs text-muted-foreground">Please select a provider first</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      Please select a provider first
+                                    </span>
                                   </div>
-                                ) : (!apiKey && profiles.find(p => p.id === editingProfileId)?.api_provider !== selectedProvider) ? (
+                                ) : !apiKey &&
+                                  profiles.find((p) => p.id === editingProfileId)?.api_provider !==
+                                    selectedProvider ? (
                                   <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
-                                    <span className="text-xs text-muted-foreground">Please enter an API key first</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      Please enter an API key first
+                                    </span>
                                   </div>
                                 ) : availableModels.length === 0 ? (
                                   <div className="flex flex-col items-center justify-center py-3 px-2 text-center">
                                     <span className="text-xs text-muted-foreground">
-                                      {isFetchingModels ? "Loading models..." : "No models available"}
+                                      {isFetchingModels
+                                        ? "Loading models..."
+                                        : "No models available"}
                                     </span>
                                   </div>
                                 ) : (
                                   availableModels.map((model) => (
-                                    <SelectItem key={model.id} value={model.id} className="cursor-pointer">
+                                    <SelectItem
+                                      key={model.id}
+                                      value={model.id}
+                                      className="cursor-pointer"
+                                    >
                                       {model.name}
                                     </SelectItem>
                                   ))
@@ -618,12 +648,16 @@ export function SettingsSidebar({
                           <div className="flex items-center gap-3">
                             {/* Status Indicator & Icon */}
                             <div className="relative flex-shrink-0">
-                              <div className={`p-2 rounded-lg transition-colors ${
-                                profile.is_active ? 'bg-primary/10' : 'bg-secondary'
-                              }`}>
-                                <Key className={`w-4 h-4 ${
-                                  profile.is_active ? 'text-primary' : 'text-muted-foreground'
-                                }`} />
+                              <div
+                                className={`p-2 rounded-lg transition-colors ${
+                                  profile.is_active ? "bg-primary/10" : "bg-secondary"
+                                }`}
+                              >
+                                <Key
+                                  className={`w-4 h-4 ${
+                                    profile.is_active ? "text-primary" : "text-muted-foreground"
+                                  }`}
+                                />
                               </div>
                               {profile.is_active && (
                                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-primary rounded-full border-2 border-card" />

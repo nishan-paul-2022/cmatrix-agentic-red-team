@@ -1,7 +1,7 @@
 """Create system_settings table
 
 Revision ID: add_system_settings
-Revises: 
+Revises:
 Create Date: 2025-11-29
 
 """
@@ -25,7 +25,7 @@ def upgrade():
             created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
             updated_at TIMESTAMP WITH TIME ZONE
         );
-        
+
         CREATE INDEX IF NOT EXISTS idx_system_settings_key ON system_settings(key);
     """)
 

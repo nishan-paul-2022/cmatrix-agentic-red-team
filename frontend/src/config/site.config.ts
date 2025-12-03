@@ -4,10 +4,11 @@
 
 export const siteConfig = {
   name: "CMatrix",
-  
+
   metadata: {
     title: "CMatrix",
-    description: "Advanced AI agent for security scanning, system monitoring, log analysis, and configuration deployment",
+    description:
+      "Advanced AI agent for security scanning, system monitoring, log analysis, and configuration deployment",
     keywords: ["AI", "Security", "Orchestration", "Automation", "CMatrix"],
     author: "KAI Team",
     generator: "CMatrix",

@@ -113,7 +113,7 @@ EOF
 # Setup environment
 setup() {
     print_info "Setting up CMatrix Docker environment..."
-    
+
     if [ -f .env ]; then
         print_warning ".env file already exists"
         read -p "Do you want to overwrite it? (y/N) " -n 1 -r
@@ -123,7 +123,7 @@ setup() {
             return
         fi
     fi
-    
+
     cp .env.example .env
     print_success "Created .env file"
     print_warning "Please edit .env and add your SECRET_KEY"
@@ -196,7 +196,7 @@ build() {
     check_docker
     print_info "Building Docker images with optimizations..."
     print_info "Using BuildKit cache mounts for faster builds"
-    
+
     # Check if user wants detailed progress
     if [[ "${2}" == "--verbose" ]] || [[ "${2}" == "-v" ]]; then
         print_info "Building with detailed progress..."
@@ -204,7 +204,7 @@ build() {
     else
         $COMPOSE_CMD build
     fi
-    
+
     print_success "Build complete"
     print_info "Tip: Heavy ML dependencies are cached separately for faster rebuilds"
     print_info "     Use './docker.sh build --verbose' for detailed build output"
@@ -276,7 +276,7 @@ shell_db() {
 check_health() {
     check_docker
     print_info "Checking service health..."
-    
+
     echo ""
     print_info "Database Health:"
     if docker inspect cmatrix-postgres --format='{{.State.Health.Status}}' 2>/dev/null; then
@@ -294,7 +294,7 @@ check_health() {
     else
         print_error "Backend is not running or unhealthy"
     fi
-    
+
     echo ""
     print_info "Frontend Health:"
     if docker inspect cmatrix-frontend --format='{{.State.Health.Status}}' 2>/dev/null; then

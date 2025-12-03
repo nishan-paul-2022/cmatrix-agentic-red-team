@@ -1,24 +1,29 @@
 """Authentication and session security testing tools."""
 
+
 def analyze_login_form(url):
     """Analyze login form for security best practices."""
     try:
         import requests
         from bs4 import BeautifulSoup
+
         response = requests.get(url, timeout=10, verify=False)
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
 
         results = []
         results.append(f"Login Form Analysis for {url}")
 
         # Find login forms
-        forms = soup.find_all('form')
+        forms = soup.find_all("form")
         login_forms = []
 
         for form in forms:
-            inputs = form.find_all('input')
-            has_username = any(inp.get('name', '').lower() in ['username', 'user', 'email', 'login'] for inp in inputs)
-            has_password = any(inp.get('type', '').lower() == 'password' for inp in inputs)
+            inputs = form.find_all("input")
+            has_username = any(
+                inp.get("name", "").lower() in ["username", "user", "email", "login"]
+                for inp in inputs
+            )
+            has_password = any(inp.get("type", "").lower() == "password" for inp in inputs)
 
             if has_username and has_password:
                 login_forms.append(form)
@@ -32,37 +37,41 @@ def analyze_login_form(url):
             results.append(f"\nForm {i+1} Analysis:")
 
             # Check method
-            method = form.get('method', 'get').upper()
-            if method == 'POST':
+            method = form.get("method", "get").upper()
+            if method == "POST":
                 results.append("✅ Form uses POST method")
             else:
                 results.append("❌ Form uses GET method (credentials may be in URL)")
 
             # Check action
-            action = form.get('action', '')
-            if action.startswith('https://'):
+            action = form.get("action", "")
+            if action.startswith("https://"):
                 results.append("✅ Form action uses HTTPS")
-            elif action.startswith('http://'):
+            elif action.startswith("http://"):
                 results.append("❌ Form action uses HTTP")
             else:
                 results.append("⚠️  Form action is relative (depends on page protocol)")
 
             # Analyze inputs
-            inputs = form.find_all('input')
-            username_fields = [inp for inp in inputs if inp.get('name', '').lower() in ['username', 'user', 'email', 'login']]
-            password_fields = [inp for inp in inputs if inp.get('type', '').lower() == 'password']
+            inputs = form.find_all("input")
+            username_fields = [
+                inp
+                for inp in inputs
+                if inp.get("name", "").lower() in ["username", "user", "email", "login"]
+            ]
+            password_fields = [inp for inp in inputs if inp.get("type", "").lower() == "password"]
 
             results.append(f"Username fields: {len(username_fields)}")
             results.append(f"Password fields: {len(password_fields)}")
 
             # Check for autocomplete
             for inp in inputs:
-                if inp.get('autocomplete') == 'off':
+                if inp.get("autocomplete") == "off":
                     results.append("⚠️  Autocomplete disabled (may reduce UX)")
 
             # Check for CSRF tokens
-            hidden_inputs = [inp for inp in inputs if inp.get('type') == 'hidden']
-            potential_csrf = [inp for inp in hidden_inputs if len(inp.get('value', '')) > 10]
+            hidden_inputs = [inp for inp in inputs if inp.get("type") == "hidden"]
+            potential_csrf = [inp for inp in hidden_inputs if len(inp.get("value", "")) > 10]
             if potential_csrf:
                 results.append("✅ Potential CSRF protection detected")
             else:
@@ -73,10 +82,12 @@ def analyze_login_form(url):
     except Exception as e:
         return f"Login form analysis failed: {str(e)}"
 
+
 def check_session_security(url):
     """Check session management security."""
     try:
         import requests
+
         results = []
         results.append(f"Session Security Check for {url}")
 
@@ -93,7 +104,11 @@ def check_session_security(url):
 
         # Check cookie security flags
         all_cookies = list(cookies1) + list(cookies2)
-        session_cookies = [c for c in all_cookies if 'session' in c.name.lower() or 'auth' in c.name.lower() or 'token' in c.name.lower()]
+        session_cookies = [
+            c
+            for c in all_cookies
+            if "session" in c.name.lower() or "auth" in c.name.lower() or "token" in c.name.lower()
+        ]
 
         if session_cookies:
             results.append(f"\nSession-related cookies found: {len(session_cookies)}")
@@ -101,20 +116,22 @@ def check_session_security(url):
                 flags = []
                 if cookie.secure:
                     flags.append("Secure")
-                if cookie.has_nonstandard_attr('HttpOnly'):
+                if cookie.has_nonstandard_attr("HttpOnly"):
                     flags.append("HttpOnly")
-                if cookie.has_nonstandard_attr('SameSite'):
+                if cookie.has_nonstandard_attr("SameSite"):
                     flags.append(f"SameSite={cookie.get_nonstandard_attr('SameSite')}")
 
-                status = "✅" if 'Secure' in flags and 'HttpOnly' in flags else "⚠️"
-                results.append(f"{status} {cookie.name}: {', '.join(flags) if flags else 'No security flags'}")
+                status = "✅" if "Secure" in flags and "HttpOnly" in flags else "⚠️"
+                results.append(
+                    f"{status} {cookie.name}: {', '.join(flags) if flags else 'No security flags'}"
+                )
         else:
             results.append("No obvious session cookies detected")
 
         # Check for session fixation (basic)
         if len(cookies1) > 0 and len(cookies2) > 0:
-            cookie_names1 = set(c.name for c in cookies1)
-            cookie_names2 = set(c.name for c in cookies2)
+            cookie_names1 = {c.name for c in cookies1}
+            cookie_names2 = {c.name for c in cookies2}
             if cookie_names1 == cookie_names2:
                 results.append("⚠️  Same cookies returned in both requests")
             else:
@@ -125,11 +142,14 @@ def check_session_security(url):
     except Exception as e:
         return f"Session security check failed: {str(e)}"
 
+
 def test_rate_limiting(url, endpoint="/login"):
     """Test for rate limiting on authentication endpoints."""
     try:
-        import requests
         import time
+
+        import requests
+
         results = []
         results.append(f"Rate Limiting Test for {url}{endpoint}")
 
@@ -139,30 +159,31 @@ def test_rate_limiting(url, endpoint="/login"):
         for i in range(10):
             try:
                 start_time = time.time()
-                response = requests.post(url.rstrip('/') + endpoint,
-                                       data={'username': f'test{i}', 'password': 'wrong'},
-                                       timeout=5, verify=False)
+                response = requests.post(
+                    url.rstrip("/") + endpoint,
+                    data={"username": f"test{i}", "password": "wrong"},
+                    timeout=5,
+                    verify=False,
+                )
                 end_time = time.time()
 
-                responses.append({
-                    'attempt': i+1,
-                    'status': response.status_code,
-                    'time': end_time - start_time
-                })
+                responses.append(
+                    {
+                        "attempt": i + 1,
+                        "status": response.status_code,
+                        "time": end_time - start_time,
+                    }
+                )
 
                 # Small delay to avoid overwhelming
                 time.sleep(0.1)
 
             except Exception as e:
-                responses.append({
-                    'attempt': i+1,
-                    'error': str(e),
-                    'time': 0
-                })
+                responses.append({"attempt": i + 1, "error": str(e), "time": 0})
 
         # Analyze responses
-        status_codes = [r.get('status', 0) for r in responses if 'status' in r]
-        times = [r['time'] for r in responses]
+        status_codes = [r.get("status", 0) for r in responses if "status" in r]
+        times = [r["time"] for r in responses]
 
         results.append(f"Total requests: {len(responses)}")
         results.append(f"Status codes: {status_codes}")
@@ -189,11 +210,13 @@ def test_rate_limiting(url, endpoint="/login"):
     except Exception as e:
         return f"Rate limiting test failed: {str(e)}"
 
+
 def check_password_policy(url):
     """Check password policy requirements."""
     try:
         import requests
         from bs4 import BeautifulSoup
+
         results = []
         results.append(f"Password Policy Check for {url}")
 
@@ -201,10 +224,10 @@ def check_password_policy(url):
         response = requests.get(url, timeout=10, verify=False)
 
         # Look for client-side password requirements in JavaScript or HTML
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
 
         # Check for password strength indicators
-        password_scripts = soup.find_all(['script', 'input'], {'type': 'password'})
+        password_scripts = soup.find_all(["script", "input"], {"type": "password"})
 
         if password_scripts:
             results.append("✅ Password input fields found")
@@ -212,7 +235,16 @@ def check_password_policy(url):
             results.append("❌ No password input fields found")
 
         # Look for password policy text
-        policy_indicators = ['password', 'must contain', 'at least', 'characters', 'uppercase', 'lowercase', 'number', 'special']
+        policy_indicators = [
+            "password",
+            "must contain",
+            "at least",
+            "characters",
+            "uppercase",
+            "lowercase",
+            "number",
+            "special",
+        ]
         text_content = soup.get_text().lower()
 
         policy_mentions = [word for word in policy_indicators if word in text_content]
@@ -223,9 +255,11 @@ def check_password_policy(url):
 
         # Check for common security features
         security_features = {
-            'Password strength meter': 'password-strength' in text_content or 'strength' in text_content,
-            'Password visibility toggle': 'show password' in text_content or 'toggle' in text_content,
-            'Password generator': 'generate' in text_content and 'password' in text_content
+            "Password strength meter": "password-strength" in text_content
+            or "strength" in text_content,
+            "Password visibility toggle": "show password" in text_content
+            or "toggle" in text_content,
+            "Password generator": "generate" in text_content and "password" in text_content,
         }
 
         results.append("\nSecurity Features:")

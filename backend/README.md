@@ -78,9 +78,29 @@ pytest --cov=app tests/ # Run with coverage
 
 **Code Quality:**
 ```bash
-black app/   # Format code
-flake8 app/  # Lint code
-mypy app/    # Type check
+# Linting and formatting (Ruff replaces black, flake8, isort)
+ruff check .            # Check for issues
+ruff check --fix .      # Auto-fix issues
+ruff format .           # Format code
+
+# Type checking
+mypy app/               # Check types
+
+# Run all checks (recommended before commit)
+ruff check --fix . && ruff format . && mypy app/
+```
+
+**Pre-commit Hooks (Automated):**
+```bash
+# Install hooks (one-time setup)
+pre-commit install
+
+# Hooks will run automatically on git commit
+# To run manually on all files:
+pre-commit run --all-files
+
+# Update hooks to latest versions:
+pre-commit autoupdate
 ```
 
 ## 🔐 Security Features
@@ -88,3 +108,9 @@ mypy app/    # Type check
 - **Input Validation**: Strict Pydantic models.
 - **Command Whitelisting**: Restricted execution environment.
 - **Audit Logging**: Comprehensive operation tracking in `logs/audit_logs/`.
+
+## 📚 Documentation
+
+For comprehensive code quality, linting, and development workflows, see:
+- **[Code Quality Guide](../docs/CODE_QUALITY_GUIDE.md)** - Complete guide to linting, formatting, and development workflows
+- **[Makefile Commands](Makefile)** - Run `make help` for available commands

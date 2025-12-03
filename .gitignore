@@ -1,2 +1,4 @@
 .env
 .vscode/
+.ruff_cache/
+.mypy_cache/

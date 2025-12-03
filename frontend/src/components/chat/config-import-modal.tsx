@@ -115,14 +115,14 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
                   <p className="text-lg font-medium">
                     {selectedFile ? selectedFile.name : "Drop your JSON config file here"}
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    or click to browse files
-                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">or click to browse files</p>
                 </div>
                 {selectedFile && (
                   <div className="flex items-center gap-2 text-sm text-sky-500">
                     <FileText className="w-4 h-4" />
-                    <span>{selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)</span>
+                    <span>
+                      {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
+                    </span>
                   </div>
                 )}
               </div>
@@ -155,7 +155,10 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
                 <h4 className="font-medium">Imported Configurations:</h4>
                 <div className="max-h-40 overflow-y-auto space-y-1">
                   {importResult.imported_configs.map((config, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 bg-secondary/50 rounded text-sm">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-2 bg-secondary/50 rounded text-sm"
+                    >
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{config.provider}</span>
                         <span className="text-muted-foreground">({config.model})</span>
@@ -182,17 +185,12 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
                 <Button variant="outline" onClick={handleClose}>
                   Cancel
                 </Button>
-                <Button
-                  onClick={handleImport}
-                  disabled={!selectedFile || isImporting}
-                >
+                <Button onClick={handleImport} disabled={!selectedFile || isImporting}>
                   {isImporting ? "Importing..." : "Import Configuration"}
                 </Button>
               </>
             ) : (
-              <Button onClick={handleClose}>
-                Close
-              </Button>
+              <Button onClick={handleClose}>Close</Button>
             )}
           </div>
 
@@ -200,7 +198,7 @@ export function ConfigImportModal({ isOpen, onClose, onImportSuccess }: ConfigIm
           <div className="text-sm text-muted-foreground border-t pt-4">
             <p className="font-medium mb-2">Expected JSON format:</p>
             <pre className="bg-secondary/50 p-3 rounded text-xs overflow-x-auto">
-{`{
+              {`{
   "default_provider": "gemini",
   "providers": {
     "gemini": {

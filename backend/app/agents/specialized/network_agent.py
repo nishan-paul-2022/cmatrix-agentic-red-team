@@ -6,7 +6,8 @@ and vulnerability assessment. It operates as an autonomous LangGraph
 subgraph with its own reasoning loop and LLM instance.
 """
 
-from typing import List, Dict, Any
+from typing import Any
+
 from langchain_core.tools import tool
 from loguru import logger
 
@@ -20,7 +21,7 @@ from app.tools.network_tools import port_scan, vulnerability_assessment
 def scan_network(target: str, ports: str = "1-65535") -> str:
     """
     Scan a network target for open ports using nmap.
-    
+
     Args:
         target: Target IP address or hostname (e.g., "localhost", "192.168.1.1")
         ports: Port range to scan (e.g., "1-65535", "80,443", "all" for all ports, "1-1024" for common ports)
@@ -32,7 +33,7 @@ def scan_network(target: str, ports: str = "1-65535") -> str:
 def assess_vulnerabilities(target: str) -> str:
     """
     Perform a comprehensive vulnerability assessment on a target.
-    
+
     Args:
         target: Target IP address or hostname
     """
@@ -46,32 +47,32 @@ NETWORK_TOOLS = [scan_network, assess_vulnerabilities]
 class NetworkAgentSubgraph(BaseAgentSubgraph):
     """
     Network Security Agent Subgraph.
-    
+
     This agent is responsible for:
     - Network reconnaissance and port scanning
     - Service identification and version detection
     - Vulnerability assessment of network services
     - Security posture analysis
     - Remediation recommendations
-    
+
     The agent uses nmap and other network security tools to perform
     comprehensive network security assessments.
     """
-    
+
     def __init__(self, llm_provider: LLMProvider):
         """
         Initialize the Network Security Agent.
-        
+
         Args:
             llm_provider: LLM provider instance for this agent
         """
         super().__init__(llm_provider, agent_name="NetworkSecurityAgent")
         logger.info("Network Security Agent initialized with autonomous reasoning")
-    
-    def _register_tools(self) -> List[Dict[str, Any]]:
+
+    def _register_tools(self) -> list[dict[str, Any]]:
         """
         Register network security tools.
-        
+
         Returns:
             List of tool definitions
         """
@@ -86,8 +87,8 @@ class NetworkAgentSubgraph(BaseAgentSubgraph):
                 ),
                 "parameters": {
                     "target": "IP address or hostname to scan",
-                    "ports": "Port range (e.g., '1-65535', '80,443', '1-1024')"
-                }
+                    "ports": "Port range (e.g., '1-65535', '80,443', '1-1024')",
+                },
             },
             {
                 "name": "assess_vulnerabilities",
@@ -97,16 +98,14 @@ class NetworkAgentSubgraph(BaseAgentSubgraph):
                     "This includes checking for known vulnerabilities, misconfigurations, "
                     "and security weaknesses in discovered services."
                 ),
-                "parameters": {
-                    "target": "IP address or hostname to assess"
-                }
-            }
+                "parameters": {"target": "IP address or hostname to assess"},
+            },
         ]
-    
+
     def _get_system_prompt(self) -> str:
         """
         Get the system prompt for the Network Security Agent.
-        
+
         Returns:
             System prompt defining the agent's role and expertise
         """
@@ -148,10 +147,10 @@ Remember: You are an autonomous agent. Use your tools to gather real data, then 
 def create_network_agent(llm_provider: LLMProvider) -> NetworkAgentSubgraph:
     """
     Factory function to create a Network Security Agent instance.
-    
+
     Args:
         llm_provider: LLM provider instance
-        
+
     Returns:
         Initialized NetworkAgentSubgraph
     """

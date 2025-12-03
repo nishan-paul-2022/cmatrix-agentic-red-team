@@ -50,7 +50,7 @@ if ! docker info > /dev/null 2>&1; then
     exit 1
 fi
 
-# We can't easily check if logged in to Hub specifically without trying to push, 
+# We can't easily check if logged in to Hub specifically without trying to push,
 # but we can remind the user.
 echo "Please ensure you are logged in to Docker Hub."
 echo "Run 'docker login' if you haven't already."

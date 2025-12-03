@@ -80,132 +80,130 @@ export function ModelManagerModal({ isOpen, onClose, onModelChange }: ModelManag
           <DialogHeader>
             <div className="flex items-center justify-between">
               <DialogTitle className="terminal-text text-xl">Manage LLM API Keys</DialogTitle>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowImportModal(true)}
-              >
+              <Button variant="outline" size="sm" onClick={() => setShowImportModal(true)}>
                 <Upload className="w-4 h-4 mr-2" />
                 Import Config
               </Button>
             </div>
           </DialogHeader>
 
-        <div className="space-y-4 max-h-[500px] overflow-y-auto">
-          {models.map((model) => (
-            <div 
-              key={model.id} 
-              className={`p-4 rounded border ${editingModelId === model.id ? 'bg-secondary border-primary' : 'border-border hover:bg-secondary/50'}`}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold">{model.name}</h3>
-                    {model.is_active && <CheckCircle2 className="w-4 h-4 text-sky-500" />}
-                    {model.has_api_key && <Key className="w-4 h-4 text-sky-500" />}
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-2">{model.description || model.provider}</p>
-                  
-                  {editingModelId === model.id ? (
-                    <div className="space-y-3 mt-3">
-                      <div className="flex gap-2">
-                        <div className="relative flex-1">
-                          <Input 
-                            type={showApiKey ? "text" : "password"}
-                            value={apiKey} 
-                            onChange={(e) => setApiKey(e.target.value)}
-                            placeholder="Enter API key..."
-                            className="pr-10"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowApiKey(!showApiKey)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          <div className="space-y-4 max-h-[500px] overflow-y-auto">
+            {models.map((model) => (
+              <div
+                key={model.id}
+                className={`p-4 rounded border ${
+                  editingModelId === model.id
+                    ? "bg-secondary border-primary"
+                    : "border-border hover:bg-secondary/50"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold">{model.name}</h3>
+                      {model.is_active && <CheckCircle2 className="w-4 h-4 text-sky-500" />}
+                      {model.has_api_key && <Key className="w-4 h-4 text-sky-500" />}
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {model.description || model.provider}
+                    </p>
+
+                    {editingModelId === model.id ? (
+                      <div className="space-y-3 mt-3">
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <Input
+                              type={showApiKey ? "text" : "password"}
+                              value={apiKey}
+                              onChange={(e) => setApiKey(e.target.value)}
+                              placeholder="Enter API key..."
+                              className="pr-10"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowApiKey(!showApiKey)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                            >
+                              {showApiKey ? (
+                                <EyeOff className="w-4 h-4" />
+                              ) : (
+                                <Eye className="w-4 h-4" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button size="sm" onClick={handleSave} disabled={isLoading || !apiKey}>
+                            <Save className="w-4 h-4 mr-2" />
+                            Save API Key
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setEditingModelId(null);
+                              setApiKey("");
+                              setShowApiKey(false);
+                            }}
                           >
-                            {showApiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                          </button>
+                            Cancel
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          size="sm" 
-                          onClick={handleSave} 
-                          disabled={isLoading || !apiKey}
-                        >
-                          <Save className="w-4 h-4 mr-2" />
-                          Save API Key
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
-                          onClick={() => {
-                            setEditingModelId(null);
-                            setApiKey("");
-                            setShowApiKey(false);
-                          }}
-                        >
-                          Cancel
-                        </Button>
+                    ) : (
+                      <div className="flex items-center gap-2 mt-2">
+                        {model.has_api_key && (
+                          <span className="text-xs text-muted-foreground">
+                            API Key: {model.api_key_masked}
+                          </span>
+                        )}
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 mt-2">
-                      {model.has_api_key && (
-                        <span className="text-xs text-muted-foreground">
-                          API Key: {model.api_key_masked}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  {editingModelId !== model.id && (
-                    <>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleEdit(model)}
-                      >
-                        {model.has_api_key ? "Update Key" : "Add Key"}
-                      </Button>
-                      {model.has_api_key && !model.is_active && (
-                        <Button 
-                          size="sm" 
-                          onClick={() => handleActivate(model.id)}
-                          disabled={isLoading}
-                        >
-                          Activate
+                  <div className="flex flex-col gap-2">
+                    {editingModelId !== model.id && (
+                      <>
+                        <Button size="sm" variant="outline" onClick={() => handleEdit(model)}>
+                          {model.has_api_key ? "Update Key" : "Add Key"}
                         </Button>
-                      )}
-                      {model.is_active && (
-                        <span className="text-xs text-sky-500 text-center">Active</span>
-                      )}
-                    </>
-                  )}
+                        {model.has_api_key && !model.is_active && (
+                          <Button
+                            size="sm"
+                            onClick={() => handleActivate(model.id)}
+                            disabled={isLoading}
+                          >
+                            Activate
+                          </Button>
+                        )}
+                        {model.is_active && (
+                          <span className="text-xs text-sky-500 text-center">Active</span>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="text-sm text-muted-foreground mt-4">
-          <p>• Configure API keys for the models you want to use</p>
-          <p>• Only one model can be active at a time</p>
-          <p>• API keys are stored securely in the database</p>
-        </div>
-      </DialogContent>
-    </Dialog>
+          <div className="text-sm text-muted-foreground mt-4">
+            <p>• Configure API keys for the models you want to use</p>
+            <p>• Only one model can be active at a time</p>
+            <p>• API keys are stored securely in the database</p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-    <ConfigImportModal
-      isOpen={showImportModal}
-      onClose={() => setShowImportModal(false)}
-      onImportSuccess={() => {
-        setShowImportModal(false);
-        fetchModels();
-        onModelChange();
-      }}
-    />
+      <ConfigImportModal
+        isOpen={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        onImportSuccess={() => {
+          setShowImportModal(false);
+          fetchModels();
+          onModelChange();
+        }}
+      />
     </>
   );
 }

@@ -52,17 +52,13 @@ function ChatContent() {
       <div className="matrix-rain"></div>
 
       {/* Sidebar */}
-      <div 
+      <div
         className={cn(
           "flex-shrink-0 transition-all duration-300 ease-in-out border-r border-border bg-sidebar",
           isSidebarOpen ? "w-[260px]" : "w-[60px]"
         )}
       >
-        <ConversationSidebar 
-          isOpen={isSidebarOpen} 
-          onToggle={toggleSidebar}
-          className="h-full" 
-        />
+        <ConversationSidebar isOpen={isSidebarOpen} onToggle={toggleSidebar} className="h-full" />
       </div>
 
       {/* Main Chat Area */}
@@ -83,18 +79,13 @@ function ChatContent() {
                     message={message}
                     currentAnimationStep={currentAnimationStep}
                     isAnimating={
-                      isAnimating &&
-                      index === messages.length - 1 &&
-                      message.role === "assistant"
+                      isAnimating && index === messages.length - 1 && message.role === "assistant"
                     }
                     onRefresh={refreshMessages}
                   />
                 ))}
                 {isLoading && messages[messages.length - 1]?.role === "user" && (
-                  <ChatMessage
-                    message={{ role: "assistant", content: "" }}
-                    isLoading
-                  />
+                  <ChatMessage message={{ role: "assistant", content: "" }} isLoading />
                 )}
                 <div ref={messagesEndRef} />
               </div>

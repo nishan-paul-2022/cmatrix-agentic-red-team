@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import React, { useEffect, useRef } from "react"
-import { DataSet, DataView } from "vis-data/peer"
-import { Network } from "vis-network/peer"
-import type { Node, Edge, Options } from "vis-network/peer"
-import "vis-network/styles/vis-network.css"
-import { cn } from "@/lib/utils"
-import "./vis-styles.css"
+import React, { useEffect, useRef } from "react";
+import { DataSet, DataView } from "vis-data/peer";
+import { Network } from "vis-network/peer";
+import type { Node, Edge, Options } from "vis-network/peer";
+import "vis-network/styles/vis-network.css";
+import { cn } from "@/lib/utils";
+import "./vis-styles.css";
 
 interface DiagramNode {
-  id: string
-  label: string
-  type?: "user" | "ai" | "tool" | "result"
-  active?: boolean
-  completed?: boolean
-  [key: string]: any  // Allow additional properties from backend
+  id: string;
+  label: string;
+  type?: "user" | "ai" | "tool" | "result";
+  active?: boolean;
+  completed?: boolean;
+  [key: string]: any; // Allow additional properties from backend
 }
 
 interface DiagramEdge {
-  from: string
-  to: string
-  active?: boolean
-  completed?: boolean
+  from: string;
+  to: string;
+  active?: boolean;
+  completed?: boolean;
 }
 
 interface AnimatedDiagramProps {
-  nodes: DiagramNode[]
-  edges: DiagramEdge[]
-  currentStep?: number
-  isAnimating?: boolean
-  className?: string
+  nodes: DiagramNode[];
+  edges: DiagramEdge[];
+  currentStep?: number;
+  isAnimating?: boolean;
+  className?: string;
 }
 
 export function AnimatedDiagram({
@@ -39,25 +39,30 @@ export function AnimatedDiagram({
   isAnimating = false,
   className,
 }: AnimatedDiagramProps) {
-  const visJsRef = useRef<HTMLDivElement>(null)
+  const visJsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!visJsRef.current) return
+    if (!visJsRef.current) return;
 
     const getIcon = (type?: string) => {
       switch (type) {
-        case 'user': return '👤'
-        case 'ai': return '🤖'
-        case 'tool': return '🔧'
-        case 'result': return '📊'
-        default: return '●'
+        case "user":
+          return "👤";
+        case "ai":
+          return "🤖";
+        case "tool":
+          return "🔧";
+        case "result":
+          return "📊";
+        default:
+          return "●";
       }
-    }
+    };
 
     const nodes = new DataSet<Node>(
       initialNodes.map((node, index) => {
-        const isActive = index === currentStep
-        const isCompleted = index < currentStep
+        const isActive = index === currentStep;
+        const isCompleted = index < currentStep;
 
         return {
           id: node.id,
@@ -88,14 +93,14 @@ export function AnimatedDiagram({
           shadow: isActive
             ? { enabled: true, color: "rgba(255,255,255,0.5)", size: 20 }
             : { enabled: false },
-        }
+        };
       })
-    )
+    );
 
     const edges = new DataSet<Edge>(
       initialEdges.map((edge, index) => {
-        const isActive = index === currentStep - 1
-        const isCompleted = index < currentStep - 1
+        const isActive = index === currentStep - 1;
+        const isCompleted = index < currentStep - 1;
         return {
           from: edge.from,
           to: edge.to,
@@ -115,14 +120,14 @@ export function AnimatedDiagram({
             type: "curvedCW",
             roundness: 0.2,
           },
-        }
+        };
       })
-    )
+    );
 
     const data = {
       nodes: nodes as DataSet<Node, "id"> | DataView<Node, "id">,
       edges: edges as DataSet<Edge, "id"> | DataView<Edge, "id">,
-    }
+    };
 
     const options: Options = {
       autoResize: true,
@@ -150,50 +155,50 @@ export function AnimatedDiagram({
       layout: {
         hierarchical: false,
       },
-    }
+    };
 
-    const network = new Network(visJsRef.current, data, options)
+    const network = new Network(visJsRef.current, data, options);
 
     // Add a background grid
-    const canvas = visJsRef.current.getElementsByTagName("canvas")[0]
-    const ctx = canvas.getContext("2d")
+    const canvas = visJsRef.current.getElementsByTagName("canvas")[0];
+    const ctx = canvas.getContext("2d");
 
     network.on("beforeDrawing", (ctx) => {
       // Get the canvas dimensions
-      const canvasWidth = canvas.width
-      const canvasHeight = canvas.height
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
 
       // Clear the entire canvas
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
       // Save the current transformation matrix
-      ctx.save()
+      ctx.save();
 
       // Reset transformation to draw grid in canvas coordinates
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
 
       // Draw grid covering the entire canvas
-      const gridSize = 20
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.1)"
-      ctx.lineWidth = 0.5
+      const gridSize = 20;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+      ctx.lineWidth = 0.5;
 
       for (let x = 0; x <= canvasWidth; x += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, canvasHeight)
-        ctx.stroke()
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasHeight);
+        ctx.stroke();
       }
 
       for (let y = 0; y <= canvasHeight; y += gridSize) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(canvasWidth, y)
-        ctx.stroke()
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvasWidth, y);
+        ctx.stroke();
       }
 
       // Restore the transformation matrix
-      ctx.restore()
-    })
+      ctx.restore();
+    });
 
     network.on("stabilizationIterationsDone", () => {
       // Disable physics after stabilization to prevent circulating movement
@@ -208,7 +213,7 @@ export function AnimatedDiagram({
       // Animate data flow from start node to end node sequentially
       const animateFlow = (edgeIndex: number) => {
         if (!isMounted) return;
-        
+
         if (edgeIndex >= initialEdges.length) {
           // Animation complete, reset to start if needed
           return;
@@ -236,57 +241,59 @@ export function AnimatedDiagram({
 
         // Check if network is still valid and has the method
         if (!network || !network.getPositions) {
-            return;
+          return;
         }
 
         try {
-            const positions = network.getPositions([fromNodeId, toNodeId]);
-            const fromNode = positions[fromNodeId];
-            const toNode = positions[toNodeId];
+          const positions = network.getPositions([fromNodeId, toNodeId]);
+          const fromNode = positions[fromNodeId];
+          const toNode = positions[toNodeId];
 
-            if (fromNode && toNode) {
-              const distance = Math.sqrt(Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2));
-              const duration = distance / 80; // Adjust speed for smoother flow
-              const startTime = Date.now();
+          if (fromNode && toNode) {
+            const distance = Math.sqrt(
+              Math.pow(toNode.x - fromNode.x, 2) + Math.pow(toNode.y - fromNode.y, 2)
+            );
+            const duration = distance / 80; // Adjust speed for smoother flow
+            const startTime = Date.now();
 
-              const step = () => {
-                if (!isMounted) return;
-                
-                const now = Date.now();
-                const time = (now - startTime) / 1000;
-                const progress = Math.min(time / duration, 1);
+            const step = () => {
+              if (!isMounted) return;
 
-                const x = fromNode.x + (toNode.x - fromNode.x) * progress;
-                const y = fromNode.y + (toNode.y - fromNode.y) * progress;
+              const now = Date.now();
+              const time = (now - startTime) / 1000;
+              const progress = Math.min(time / duration, 1);
 
+              const x = fromNode.x + (toNode.x - fromNode.x) * progress;
+              const y = fromNode.y + (toNode.y - fromNode.y) * progress;
+
+              try {
+                nodes.update({ id: particleId, x, y });
+              } catch (e) {
+                // Ignore update errors if node is gone
+              }
+
+              if (progress < 1) {
+                animationFrameId = requestAnimationFrame(step);
+              } else {
+                // Remove particle and move to next edge
                 try {
-                    nodes.update({ id: particleId, x, y });
-                } catch (e) {
-                    // Ignore update errors if node is gone
-                }
-
-                if (progress < 1) {
-                  animationFrameId = requestAnimationFrame(step);
-                } else {
-                  // Remove particle and move to next edge
-                  try {
-                      if (nodes.get(particleId)) {
-                        nodes.remove(particleId);
-                      }
-                  } catch (e) {
-                      // Ignore removal errors
+                  if (nodes.get(particleId)) {
+                    nodes.remove(particleId);
                   }
-                  // Continue to next edge after a brief delay
-                  timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
+                } catch (e) {
+                  // Ignore removal errors
                 }
-              };
-              step();
-            } else {
-              // If nodes not found, continue to next edge
-              timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
-            }
+                // Continue to next edge after a brief delay
+                timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
+              }
+            };
+            step();
+          } else {
+            // If nodes not found, continue to next edge
+            timeoutId = setTimeout(() => animateFlow(edgeIndex + 1), 200);
+          }
         } catch (e) {
-            console.error("Error in animateFlow:", e);
+          console.error("Error in animateFlow:", e);
         }
       };
 
@@ -298,32 +305,32 @@ export function AnimatedDiagram({
       isMounted = false;
       cancelAnimationFrame(animationFrameId);
       clearTimeout(timeoutId);
-      
+
       try {
-          if (nodes.get("flow-particle")) {
-            nodes.remove("flow-particle");
-          }
+        if (nodes.get("flow-particle")) {
+          nodes.remove("flow-particle");
+        }
       } catch (e) {
-          // Ignore
+        // Ignore
       }
-      
+
       if (network) {
-          network.destroy();
+        network.destroy();
       }
     };
-  }, [initialNodes, initialEdges, currentStep, isAnimating])
+  }, [initialNodes, initialEdges, currentStep, isAnimating]);
 
   return (
     <div
       className={cn(
         "relative w-full h-64 bg-card rounded-lg border border-border overflow-hidden",
         className
-        )}
-      >
-        <div ref={visJsRef} className="w-full h-full" key={initialNodes.length} />
-        <div className="absolute bottom-2 left-2 text-xs text-muted-foreground terminal-text">
-          {isAnimating ? (
-            <span className="flex items-center gap-1">
+      )}
+    >
+      <div ref={visJsRef} className="w-full h-full" key={initialNodes.length} />
+      <div className="absolute bottom-2 left-2 text-xs text-muted-foreground terminal-text">
+        {isAnimating ? (
+          <span className="flex items-center gap-1">
             <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
             PROCESSING STEP {currentStep + 1}
           </span>
@@ -332,5 +339,5 @@ export function AnimatedDiagram({
         )}
       </div>
     </div>
-  )
+  );
 }

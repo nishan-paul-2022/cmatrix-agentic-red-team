@@ -1,8 +1,9 @@
 """Celery worker configuration for background job processing."""
 
 from celery import Celery
-from app.core.config import settings
+
 import app.models  # noqa: F401 - Register models
+from app.core.config import settings
 
 # Initialize Celery app
 celery_app = Celery(

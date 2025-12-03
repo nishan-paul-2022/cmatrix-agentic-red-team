@@ -1,25 +1,22 @@
 """Conversation management API endpoints."""
 
-from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import desc, func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, desc, update
 from sqlalchemy.orm import selectinload
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
-from app.models.user import User
 from app.models.conversation import Conversation, ConversationHistory
 from app.models.conversation_schemas import (
     ConversationCreate,
-    ConversationUpdate,
-    ConversationResponse,
-    ConversationWithHistory,
-    ConversationListResponse,
-    ConversationListResponse,
-    ConversationHistoryDetail,
     ConversationExchange,
+    ConversationListResponse,
+    ConversationResponse,
+    ConversationUpdate,
+    ConversationWithHistory,
 )
+from app.models.user import User
 
 router = APIRouter()
 
@@ -32,12 +29,12 @@ async def create_conversation(
 ):
     """
     Create a new conversation.
-    
+
     Args:
         conversation_data: Conversation creation data
         current_user: Authenticated user
         db: Database session
-        
+
     Returns:
         Created conversation
     """
@@ -46,11 +43,11 @@ async def create_conversation(
         name=conversation_data.name,
         user_id=current_user.id,
     )
-    
+
     db.add(conversation)
     await db.commit()
     await db.refresh(conversation)
-    
+
     # Return response
     return ConversationResponse(
         id=conversation.id,
@@ -70,29 +67,26 @@ async def list_conversations(
 ):
     """
     List all conversations for the current user.
-    
+
     Args:
         current_user: Authenticated user
         db: Database session
-        
+
     Returns:
         List of conversations with metadata
     """
     # Query conversations
     query = (
         select(Conversation)
-        .where(
-            Conversation.user_id == current_user.id,
-            Conversation.is_visible == True
-        )
+        .where(Conversation.user_id == current_user.id, Conversation.is_visible is True)
         .order_by(desc(Conversation.updated_at))
         .offset(skip)
         .limit(limit)
     )
-    
+
     result = await db.execute(query)
-    conversations_db = result.scalars().all() # Renamed to avoid conflict with list 'conversations'
-    
+    conversations_db = result.scalars().all()  # Renamed to avoid conflict with list 'conversations'
+
     # Build response
     conversations = [
         ConversationResponse(
@@ -104,11 +98,10 @@ async def list_conversations(
         )
         for conv in conversations_db
     ]
-    
+
     # Get total count for pagination metadata
     total_query = select(func.count(Conversation.id)).where(
-        Conversation.user_id == current_user.id,
-        Conversation.is_visible == True
+        Conversation.user_id == current_user.id, Conversation.is_visible is True
     )
     total_result = await db.execute(total_query)
     total_conversations = total_result.scalar_one()
@@ -127,15 +120,15 @@ async def get_conversation(
 ):
     """
     Get a specific conversation with its full history.
-    
+
     Args:
         conversation_id: Conversation ID
         current_user: Authenticated user
         db: Database session
-        
+
     Returns:
         Conversation with full message history
-        
+
     Raises:
         HTTPException: If conversation not found or unauthorized
     """
@@ -146,19 +139,19 @@ async def get_conversation(
         .where(
             Conversation.id == conversation_id,
             Conversation.user_id == current_user.id,
-            Conversation.is_visible == True # Only retrieve visible conversations
+            Conversation.is_visible is True,  # Only retrieve visible conversations
         )
     )
-    
+
     result = await db.execute(query)
     conversation = result.scalar_one_or_none()
-    
+
     if not conversation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Conversation not found",
         )
-    
+
     return conversation
 
 
@@ -171,16 +164,16 @@ async def update_conversation(
 ):
     """
     Update a conversation (rename).
-    
+
     Args:
         conversation_id: Conversation ID
         conversation_data: Update data
         current_user: Authenticated user
         db: Database session
-        
+
     Returns:
         Updated conversation
-        
+
     Raises:
         HTTPException: If conversation not found or unauthorized
     """
@@ -188,18 +181,18 @@ async def update_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible == True # Only update visible conversations
+        Conversation.is_visible is True,  # Only update visible conversations
     )
-    
+
     result = await db.execute(query)
     conversation = result.scalar_one_or_none()
-    
+
     if not conversation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Conversation not found",
         )
-    
+
     # Update conversation
     conversation.name = conversation_data.name
     await db.commit()
@@ -222,12 +215,12 @@ async def delete_conversation(
 ):
     """
     Delete a conversation and all its history.
-    
+
     Args:
         conversation_id: Conversation ID
         current_user: Authenticated user
         db: Database session
-        
+
     Raises:
         HTTPException: If conversation not found or unauthorized
     """
@@ -235,26 +228,26 @@ async def delete_conversation(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible == True # Only delete visible conversations
+        Conversation.is_visible is True,  # Only delete visible conversations
     )
-    
+
     result = await db.execute(query)
     conversation = result.scalar_one_or_none()
-    
+
     if not conversation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Conversation not found",
         )
-        
+
     # Soft delete: just mark as not visible
     conversation.is_visible = False
     await db.commit()
-    
+
     return None
 
 
-@router.get("/history/all", response_model=List[ConversationExchange])
+@router.get("/history/all", response_model=list[ConversationExchange])
 async def get_global_history(
     skip: int = 0,
     limit: int = 50,
@@ -264,50 +257,47 @@ async def get_global_history(
 ):
     """
     Get global conversation history as prompt-response pairs.
-    
+
     Args:
         skip: Number of records to skip
         limit: Number of records to return
         search: Optional search term for content
         current_user: Authenticated user
         db: Database session
-        
+
     Returns:
         List of conversation exchanges
     """
     # Query for user messages (prompts)
     query = (
-        select(
-            ConversationHistory,
-            Conversation.name.label("conversation_name")
-        )
+        select(ConversationHistory, Conversation.name.label("conversation_name"))
         .join(Conversation)
         .where(
             Conversation.user_id == current_user.id,
             ConversationHistory.role == "user",
-            ConversationHistory.is_visible_in_dashboard == True
+            ConversationHistory.is_visible_in_dashboard is True,
         )
         .order_by(desc(ConversationHistory.created_at))
     )
-    
+
     if search:
-        # Search in both prompt and potentially join response? 
+        # Search in both prompt and potentially join response?
         # For simplicity and performance, let's search prompts first.
         # If we want to search responses too, it gets complex without a self-join.
         # Let's stick to searching prompts for now or try to search both if feasible.
         # Searching both requires a more complex query. Let's search prompts.
         query = query.where(ConversationHistory.content.ilike(f"%{search}%"))
-        
+
     query = query.offset(skip).limit(limit)
-    
+
     result = await db.execute(query)
     rows = result.all()
-    
+
     exchanges = []
     for row in rows:
         prompt = row[0]
         conversation_name = row[1]
-        
+
         # Find the corresponding response (next message in conversation)
         # We assume the response is the immediate next message by ID or time.
         # A safer bet is the next message with role='assistant' and id > prompt.id
@@ -317,15 +307,16 @@ async def get_global_history(
                 ConversationHistory.conversation_id == prompt.conversation_id,
                 ConversationHistory.role == "assistant",
                 ConversationHistory.id > prompt.id,
-                ConversationHistory.is_visible_in_dashboard == True # Only retrieve visible responses
+                ConversationHistory.is_visible_in_dashboard
+                is True,  # Only retrieve visible responses
             )
             .order_by(ConversationHistory.id.asc())
             .limit(1)
         )
-        
+
         response_result = await db.execute(response_query)
         response = response_result.scalar_one_or_none()
-        
+
         exchange = ConversationExchange(
             conversation_id=prompt.conversation_id,
             conversation_name=conversation_name,
@@ -336,7 +327,7 @@ async def get_global_history(
             created_at=prompt.created_at,
         )
         exchanges.append(exchange)
-        
+
     return exchanges
 
 
@@ -348,7 +339,7 @@ async def delete_history_item(
 ):
     """
     Delete a history exchange (prompt and response).
-    
+
     Args:
         history_id: ID of the prompt message to delete
         current_user: Authenticated user
@@ -361,19 +352,19 @@ async def delete_history_item(
         .where(
             ConversationHistory.id == history_id,
             Conversation.user_id == current_user.id,
-            ConversationHistory.is_visible_in_dashboard == True # Only delete visible items
+            ConversationHistory.is_visible_in_dashboard is True,  # Only delete visible items
         )
     )
-    
+
     result = await db.execute(query)
     prompt = result.scalar_one_or_none()
-    
+
     if not prompt:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="History item not found",
         )
-    
+
     # If it's a user message, try to find and delete the associated response
     if prompt.role == "user":
         response_query = (
@@ -382,17 +373,18 @@ async def delete_history_item(
                 ConversationHistory.conversation_id == prompt.conversation_id,
                 ConversationHistory.role == "assistant",
                 ConversationHistory.id > prompt.id,
-                ConversationHistory.is_visible_in_dashboard == True # Only delete visible responses
+                ConversationHistory.is_visible_in_dashboard
+                is True,  # Only delete visible responses
             )
             .order_by(ConversationHistory.id.asc())
             .limit(1)
         )
         response_result = await db.execute(response_query)
         response = response_result.scalar_one_or_none()
-        
+
         if response:
             response.is_visible_in_dashboard = False
-            
+
     prompt.is_visible_in_dashboard = False
     await db.commit()
     return None
@@ -406,7 +398,7 @@ async def clear_conversation_history(
 ):
     """
     Clear all history for a specific conversation.
-    
+
     Args:
         conversation_id: Conversation ID
         current_user: Authenticated user
@@ -416,30 +408,30 @@ async def clear_conversation_history(
     query = select(Conversation).where(
         Conversation.id == conversation_id,
         Conversation.user_id == current_user.id,
-        Conversation.is_visible == True # Only clear history for visible conversations
+        Conversation.is_visible is True,  # Only clear history for visible conversations
     )
-    
+
     result = await db.execute(query)
     conversation = result.scalar_one_or_none()
-    
+
     if not conversation:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Conversation not found",
         )
-        
+
     # Soft delete all history items for this conversation
     # We want to hide them from dashboard, but keep them for the conversation view if needed?
     # The requirement is "delete from dashboard, not from conversation list".
     # So we mark is_visible_in_dashboard = False.
-    
+
     stmt = (
         update(ConversationHistory)
         .where(ConversationHistory.conversation_id == conversation_id)
         .values(is_visible_in_dashboard=False)
     )
-    
+
     await db.execute(stmt)
     await db.commit()
-    
+
     return None

@@ -37,14 +37,14 @@ def upgrade() -> None:
         sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
-    
+
     # Create indexes for common queries
     op.create_index('idx_approval_logs_user_id', 'approval_logs', ['user_id'])
     op.create_index('idx_approval_logs_thread_id', 'approval_logs', ['thread_id'])
     op.create_index('idx_approval_logs_created_at', 'approval_logs', ['created_at'])
     op.create_index('idx_approval_logs_action', 'approval_logs', ['action'])
     op.create_index('idx_approval_logs_risk_level', 'approval_logs', ['risk_level'])
-    
+
     # Add foreign key constraint to users table
     op.create_foreign_key(
         'fk_approval_logs_user_id',

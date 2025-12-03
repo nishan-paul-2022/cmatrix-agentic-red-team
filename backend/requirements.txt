@@ -61,9 +61,9 @@ pytest-asyncio==0.24.0
 pytest-cov==5.0.0
 
 # Development (optional)
-black==24.10.0
-flake8==7.1.1
+ruff==0.8.4
 mypy==1.13.0
+pre-commit==4.0.1
 
 # Agentic RAG (Phase 3)
 networkx==3.6

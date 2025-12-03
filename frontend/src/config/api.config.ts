@@ -9,7 +9,7 @@ const getBaseUrl = (): string => {
 
 export const apiConfig = {
   baseUrl: getBaseUrl(),
-  
+
   endpoints: {
     chat: "/chat",
     chatStream: "/chat/stream",
@@ -24,7 +24,7 @@ export const apiConfig = {
   },
 
   timeout: 30000, // 30 seconds
-  
+
   retryConfig: {
     maxRetries: 3,
     retryDelay: 1000,

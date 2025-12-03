@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState } from 'react';
-import { MoreVertical, Edit2, Trash2 } from 'lucide-react';
-import type { Conversation } from '@/types/conversation.types';
-import { useConversations } from '@/contexts/conversation-context';
-import { Button } from '@/components/ui/button';
+import React, { useState } from "react";
+import { MoreVertical, Edit2, Trash2 } from "lucide-react";
+import type { Conversation } from "@/types/conversation.types";
+import { useConversations } from "@/contexts/conversation-context";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -18,9 +18,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 interface ConversationItemProps {
   conversation: Conversation;
@@ -53,7 +53,7 @@ export function ConversationItem({ conversation, isActive, onClick }: Conversati
       await updateConversation(conversation.id, editName.trim());
       setIsEditing(false);
     } catch (error) {
-      console.error('Failed to update conversation:', error);
+      console.error("Failed to update conversation:", error);
       // Reset to original name on error
       setEditName(conversation.name);
     } finally {
@@ -72,16 +72,16 @@ export function ConversationItem({ conversation, isActive, onClick }: Conversati
       await deleteConversation(conversation.id);
       setShowDeleteDialog(false);
     } catch (error) {
-      console.error('Failed to delete conversation:', error);
+      console.error("Failed to delete conversation:", error);
     } finally {
       setIsDeleting(false);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.currentTarget.blur();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       handleCancelEdit();
     }
   };
@@ -108,9 +108,7 @@ export function ConversationItem({ conversation, isActive, onClick }: Conversati
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
-            <div className="truncate text-sm font-medium">
-              {conversation.name}
-            </div>
+            <div className="truncate text-sm font-medium">{conversation.name}</div>
           )}
         </div>
 
@@ -153,15 +151,15 @@ export function ConversationItem({ conversation, isActive, onClick }: Conversati
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" disabled={isDeleting} onClick={() => setShowDeleteDialog(false)}>
+            <Button
+              variant="outline"
+              disabled={isDeleting}
+              onClick={() => setShowDeleteDialog(false)}
+            >
               Cancel
             </Button>
-            <Button
-              onClick={handleDelete}
-              disabled={isDeleting}
-              variant="destructive"
-            >
-              {isDeleting ? 'Deleting...' : 'Delete'}
+            <Button onClick={handleDelete} disabled={isDeleting} variant="destructive">
+              {isDeleting ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

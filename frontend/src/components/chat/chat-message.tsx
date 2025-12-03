@@ -41,11 +41,10 @@ export function ChatMessage({
       )}
 
       <div className={cn("flex flex-col gap-2 max-w-[80%] sm:max-w-[70%]", isUser && "items-end")}>
-        
         {/* Render Approval Card if pending approval exists */}
         {pending_approval && thread_id && (
           <div className="mb-4 w-full">
-            <ApprovalMessage 
+            <ApprovalMessage
               threadId={thread_id}
               pendingApproval={pending_approval}
               onActionComplete={onRefresh}
@@ -56,9 +55,7 @@ export function ChatMessage({
         <div
           className={cn(
             "rounded-lg px-4 py-3 text-sm leading-relaxed cyber-border",
-            isUser
-              ? "bg-black text-white"
-              : "bg-muted text-foreground terminal-text",
+            isUser ? "bg-black text-white" : "bg-muted text-foreground terminal-text",
             !isUser && (isLoading || isAnimating) && "scan-line"
           )}
         >
@@ -158,8 +155,6 @@ export function ChatMessage({
             </div>
           )}
         </div>
-
-
       </div>
 
       {isUser && (

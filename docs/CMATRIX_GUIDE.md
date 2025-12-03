@@ -43,7 +43,7 @@ nano .env            # Add your SECRET_KEY
 # API Docs: http://localhost:8000/docs
 ```
 
-**First Run:** Redirected to `/setup` to create admin credentials  
+**First Run:** Redirected to `/setup` to create admin credentials
 **Subsequent Runs:** Redirected to `/login`
 
 ### Option 2: Manual Setup
@@ -159,10 +159,10 @@ All tools execute real commands (nmap, curl, etc.) with full audit logging.
 - Key Files: `backend/app.py`, `backend/agent.py`
 
 ### Benefits
-✅ Security: API keys never exposed to frontend  
-✅ Flexibility: Easy to add new tools  
-✅ Scalability: Backend deployed independently  
-✅ Monitoring: Centralized logging  
+✅ Security: API keys never exposed to frontend
+✅ Flexibility: Easy to add new tools
+✅ Scalability: Backend deployed independently
+✅ Monitoring: Centralized logging
 
 ---
 

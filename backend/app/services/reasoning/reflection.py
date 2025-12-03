@@ -24,19 +24,19 @@ References:
 """
 
 import json
-import re
-from typing import List, Dict, Any, Optional, Tuple
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
-from loguru import logger
+from typing import Any, Optional
 
-from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_core.language_models import BaseChatModel
+from langchain_core.messages import HumanMessage, SystemMessage
+from loguru import logger
 
 
 class ReflectionTrigger(str, Enum):
     """Triggers for self-reflection."""
+
     TASK_COMPLETION = "task_completion"
     USER_REQUEST = "user_request"
     ANOMALY_DETECTED = "anomaly_detected"
@@ -46,6 +46,7 @@ class ReflectionTrigger(str, Enum):
 
 class ImprovementPriority(str, Enum):
     """Priority levels for improvement actions."""
+
     CRITICAL = "critical"  # Must fix immediately
     HIGH = "high"  # Should fix soon
     MEDIUM = "medium"  # Nice to have
@@ -56,7 +57,7 @@ class ImprovementPriority(str, Enum):
 class Gap:
     """
     Represents a detected gap or issue in execution.
-    
+
     Attributes:
         category: Type of gap (e.g., "missed_ports", "incomplete_scan")
         description: Detailed description of the gap
@@ -64,12 +65,13 @@ class Gap:
         evidence: Supporting evidence for this gap
         suggested_fix: How to address this gap
     """
+
     category: str
     description: str
     severity: float
-    evidence: List[str] = field(default_factory=list)
+    evidence: list[str] = field(default_factory=list)
     suggested_fix: str = ""
-    
+
     def __str__(self) -> str:
         return f"[{self.category}] {self.description} (severity: {self.severity:.2f})"
 
@@ -78,7 +80,7 @@ class Gap:
 class ImprovementAction:
     """
     Represents a suggested improvement action.
-    
+
     Attributes:
         action_id: Unique identifier
         action_type: Type of action (e.g., "rescan", "additional_check")
@@ -89,15 +91,16 @@ class ImprovementAction:
         expected_benefit: What improvement this will bring
         estimated_time: Estimated execution time (seconds)
     """
+
     action_id: str
     action_type: str
     description: str
     tool_name: str
-    parameters: Dict[str, Any]
+    parameters: dict[str, Any]
     priority: ImprovementPriority
     expected_benefit: str
     estimated_time: float = 5.0
-    
+
     def __str__(self) -> str:
         return f"[{self.priority.value}] {self.description} (ETA: {self.estimated_time}s)"
 
@@ -106,7 +109,7 @@ class ImprovementAction:
 class ReflectionResult:
     """
     Result of self-reflection analysis.
-    
+
     Attributes:
         reflection_id: Unique identifier
         task_description: Original task that was executed
@@ -119,29 +122,31 @@ class ReflectionResult:
         created_at: Timestamp
         metadata: Additional context
     """
+
     reflection_id: str
     task_description: str
-    execution_results: Dict[str, Any]
+    execution_results: dict[str, Any]
     quality_score: float
-    gaps: List[Gap]
-    improvements: List[ImprovementAction]
+    gaps: list[Gap]
+    improvements: list[ImprovementAction]
     reasoning: str
     trigger: ReflectionTrigger
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
+    metadata: dict[str, Any] = field(default_factory=dict)
+
     def has_critical_gaps(self) -> bool:
         """Check if there are any critical gaps."""
         return any(gap.severity >= 0.8 for gap in self.gaps)
-    
-    def get_high_priority_actions(self) -> List[ImprovementAction]:
+
+    def get_high_priority_actions(self) -> list[ImprovementAction]:
         """Get high and critical priority improvement actions."""
         return [
-            action for action in self.improvements
+            action
+            for action in self.improvements
             if action.priority in [ImprovementPriority.CRITICAL, ImprovementPriority.HIGH]
         ]
-    
-    def get_summary(self) -> Dict[str, Any]:
+
+    def get_summary(self) -> dict[str, Any]:
         """Get a summary of reflection results."""
         return {
             "reflection_id": self.reflection_id,
@@ -158,10 +163,10 @@ class ReflectionResult:
 class SelfReflection:
     """
     Self-Reflection service for post-execution analysis.
-    
+
     Enables the agent to critique its own work, identify gaps, and suggest
     improvements for better security assessment quality.
-    
+
     Example:
         >>> reflection = SelfReflection(llm)
         >>> result = reflection.reflect(
@@ -174,10 +179,10 @@ class SelfReflection:
         >>> print(result.gaps)
         [Gap: Missed critical ports (22, 3389)]
     """
-    
+
     # Critical ports that should always be checked
     CRITICAL_PORTS = [21, 22, 23, 25, 80, 443, 445, 3306, 3389, 5432, 8080, 8443]
-    
+
     # Common security checks
     SECURITY_CHECKS = [
         "service_version_detection",
@@ -186,16 +191,16 @@ class SelfReflection:
         "security_header_analysis",
         "authentication_testing",
     ]
-    
+
     def __init__(
         self,
         llm: BaseChatModel,
         enable_auto_reflection: bool = True,
-        quality_threshold: float = 0.7
+        quality_threshold: float = 0.7,
     ):
         """
         Initialize the Self-Reflection service.
-        
+
         Args:
             llm: Language model for reflection analysis
             enable_auto_reflection: Whether to automatically reflect after tasks
@@ -204,45 +209,47 @@ class SelfReflection:
         self.llm = llm
         self.enable_auto_reflection = enable_auto_reflection
         self.quality_threshold = quality_threshold
-        
+
         # Reflection history for learning
-        self._reflection_history: List[ReflectionResult] = []
-        
-        logger.info(f"🔍 Self-Reflection initialized (auto: {enable_auto_reflection}, threshold: {quality_threshold})")
-    
+        self._reflection_history: list[ReflectionResult] = []
+
+        logger.info(
+            f"🔍 Self-Reflection initialized (auto: {enable_auto_reflection}, threshold: {quality_threshold})"
+        )
+
     def reflect(
         self,
         task: str,
-        execution_results: Dict[str, Any],
+        execution_results: dict[str, Any],
         trigger: ReflectionTrigger = ReflectionTrigger.TASK_COMPLETION,
-        context: Optional[Dict[str, Any]] = None
+        context: Optional[dict[str, Any]] = None,
     ) -> ReflectionResult:
         """
         Perform self-reflection on task execution.
-        
+
         Args:
             task: Original task description
             execution_results: Results from task execution
             trigger: What triggered this reflection
             context: Optional additional context
-            
+
         Returns:
             ReflectionResult with quality assessment and improvements
         """
         logger.info(f"🔍 Reflecting on task: {task} (trigger: {trigger.value})")
-        
+
         # Step 1: Assess quality
         quality_score = self._assess_quality(task, execution_results)
-        
+
         # Step 2: Detect gaps
         gaps = self._detect_gaps(task, execution_results, context)
-        
+
         # Step 3: Generate improvements
         improvements = self._generate_improvements(task, execution_results, gaps, context)
-        
+
         # Step 4: Get LLM reasoning
         reasoning = self._llm_reflect(task, execution_results, gaps, improvements, context)
-        
+
         # Create reflection result
         reflection_id = self._generate_reflection_id(task)
         result = ReflectionResult(
@@ -254,58 +261,51 @@ class SelfReflection:
             improvements=improvements,
             reasoning=reasoning,
             trigger=trigger,
-            metadata={"context": context or {}}
+            metadata={"context": context or {}},
         )
-        
+
         # Store in history
         self._reflection_history.append(result)
-        
+
         # Log summary
         logger.info(
             f"✅ Reflection complete: quality={quality_score:.2f}, "
             f"gaps={len(gaps)}, improvements={len(improvements)}"
         )
-        
+
         if result.has_critical_gaps():
-            logger.warning(f"⚠️ Critical gaps detected! Review recommended.")
-        
+            logger.warning("⚠️ Critical gaps detected! Review recommended.")
+
         return result
-    
-    def _assess_quality(
-        self,
-        task: str,
-        execution_results: Dict[str, Any]
-    ) -> float:
+
+    def _assess_quality(self, task: str, execution_results: dict[str, Any]) -> float:
         """
         Assess the quality of task execution.
-        
+
         Returns quality score from 0.0 (poor) to 1.0 (excellent)
         """
         score = 1.0
-        
+
         # Check for errors
         if execution_results.get("error"):
             score -= 0.5
-        
+
         # Check for empty results
         if not execution_results or len(execution_results) == 0:
             score -= 0.3
-        
+
         # Check for incomplete scans (network scanning)
         if "scan" in task.lower():
             open_ports = execution_results.get("open_ports", [])
             if not open_ports:
                 score -= 0.2
-            
+
             # Check if critical ports were scanned
             scanned_ports = set(open_ports)
-            critical_ports_checked = sum(
-                1 for port in self.CRITICAL_PORTS
-                if port in scanned_ports
-            )
+            critical_ports_checked = sum(1 for port in self.CRITICAL_PORTS if port in scanned_ports)
             if critical_ports_checked < len(self.CRITICAL_PORTS) * 0.5:
                 score -= 0.1
-        
+
         # Check for CVE search quality
         if "cve" in task.lower() or "vulnerability" in task.lower():
             cves = execution_results.get("cves", [])
@@ -313,183 +313,197 @@ class SelfReflection:
                 score -= 0.3
             elif len(cves) < 3:
                 score -= 0.1
-        
+
         # Clamp to [0, 1]
         return max(0.0, min(1.0, score))
-    
+
     def _detect_gaps(
-        self,
-        task: str,
-        execution_results: Dict[str, Any],
-        context: Optional[Dict[str, Any]]
-    ) -> List[Gap]:
+        self, task: str, execution_results: dict[str, Any], context: Optional[dict[str, Any]]
+    ) -> list[Gap]:
         """Detect gaps and issues in execution."""
         gaps = []
-        
+
         # Gap 1: Missed critical ports (for network scans)
         if "scan" in task.lower():
             open_ports = set(execution_results.get("open_ports", []))
-            missed_critical = [
-                port for port in self.CRITICAL_PORTS
-                if port not in open_ports
-            ]
-            
+            missed_critical = [port for port in self.CRITICAL_PORTS if port not in open_ports]
+
             if missed_critical:
-                gaps.append(Gap(
-                    category="missed_ports",
-                    description=f"Did not scan critical ports: {missed_critical}",
-                    severity=0.7,
-                    evidence=[f"Critical ports not in results: {missed_critical}"],
-                    suggested_fix="Rescan with focus on critical ports"
-                ))
-        
+                gaps.append(
+                    Gap(
+                        category="missed_ports",
+                        description=f"Did not scan critical ports: {missed_critical}",
+                        severity=0.7,
+                        evidence=[f"Critical ports not in results: {missed_critical}"],
+                        suggested_fix="Rescan with focus on critical ports",
+                    )
+                )
+
         # Gap 2: Missing service version information
         if "scan" in task.lower():
             services = execution_results.get("services", [])
             if not services:
-                gaps.append(Gap(
-                    category="missing_service_info",
-                    description="No service version information detected",
-                    severity=0.6,
-                    evidence=["'services' field is empty or missing"],
-                    suggested_fix="Run service version detection"
-                ))
-        
+                gaps.append(
+                    Gap(
+                        category="missing_service_info",
+                        description="No service version information detected",
+                        severity=0.6,
+                        evidence=["'services' field is empty or missing"],
+                        suggested_fix="Run service version detection",
+                    )
+                )
+
         # Gap 3: No CVE search performed
         if "scan" in task.lower() or "security" in task.lower():
             cves = execution_results.get("cves", [])
             if not cves:
-                gaps.append(Gap(
-                    category="no_vulnerability_check",
-                    description="No vulnerability/CVE search performed",
-                    severity=0.8,
-                    evidence=["No CVEs found in results"],
-                    suggested_fix="Search for CVEs related to detected services"
-                ))
-        
+                gaps.append(
+                    Gap(
+                        category="no_vulnerability_check",
+                        description="No vulnerability/CVE search performed",
+                        severity=0.8,
+                        evidence=["No CVEs found in results"],
+                        suggested_fix="Search for CVEs related to detected services",
+                    )
+                )
+
         # Gap 4: Inconsistent results
         if "open_ports" in execution_results and "services" in execution_results:
             num_ports = len(execution_results["open_ports"])
             num_services = len(execution_results["services"])
             if num_ports > 0 and num_services == 0:
-                gaps.append(Gap(
-                    category="inconsistent_results",
-                    description=f"Found {num_ports} open ports but no services identified",
-                    severity=0.5,
-                    evidence=[f"open_ports: {num_ports}, services: {num_services}"],
-                    suggested_fix="Verify service detection on open ports"
-                ))
-        
+                gaps.append(
+                    Gap(
+                        category="inconsistent_results",
+                        description=f"Found {num_ports} open ports but no services identified",
+                        severity=0.5,
+                        evidence=[f"open_ports: {num_ports}, services: {num_services}"],
+                        suggested_fix="Verify service detection on open ports",
+                    )
+                )
+
         # Gap 5: Low result count (for CVE searches)
         if "cve" in task.lower() or "vulnerability" in task.lower():
             cves = execution_results.get("cves", [])
             if 0 < len(cves) < 3:
-                gaps.append(Gap(
-                    category="low_result_count",
-                    description=f"Only {len(cves)} CVE(s) found, may be incomplete",
-                    severity=0.4,
-                    evidence=[f"CVE count: {len(cves)}"],
-                    suggested_fix="Broaden search query or try alternative keywords"
-                ))
-        
+                gaps.append(
+                    Gap(
+                        category="low_result_count",
+                        description=f"Only {len(cves)} CVE(s) found, may be incomplete",
+                        severity=0.4,
+                        evidence=[f"CVE count: {len(cves)}"],
+                        suggested_fix="Broaden search query or try alternative keywords",
+                    )
+                )
+
         return gaps
-    
+
     def _generate_improvements(
         self,
         task: str,
-        execution_results: Dict[str, Any],
-        gaps: List[Gap],
-        context: Optional[Dict[str, Any]]
-    ) -> List[ImprovementAction]:
+        execution_results: dict[str, Any],
+        gaps: list[Gap],
+        context: Optional[dict[str, Any]],
+    ) -> list[ImprovementAction]:
         """Generate actionable improvement suggestions."""
         improvements = []
         action_counter = 1
-        
+
         for gap in gaps:
             # Map gaps to improvement actions
             if gap.category == "missed_ports":
-                improvements.append(ImprovementAction(
-                    action_id=f"improve_{action_counter}",
-                    action_type="rescan",
-                    description="Rescan critical ports that were missed",
-                    tool_name="scan_network",
-                    parameters={
-                        "target": execution_results.get("target", "unknown"),
-                        "ports": ",".join(map(str, self.CRITICAL_PORTS))
-                    },
-                    priority=ImprovementPriority.HIGH,
-                    expected_benefit="Discover services on critical ports",
-                    estimated_time=15.0
-                ))
+                improvements.append(
+                    ImprovementAction(
+                        action_id=f"improve_{action_counter}",
+                        action_type="rescan",
+                        description="Rescan critical ports that were missed",
+                        tool_name="scan_network",
+                        parameters={
+                            "target": execution_results.get("target", "unknown"),
+                            "ports": ",".join(map(str, self.CRITICAL_PORTS)),
+                        },
+                        priority=ImprovementPriority.HIGH,
+                        expected_benefit="Discover services on critical ports",
+                        estimated_time=15.0,
+                    )
+                )
                 action_counter += 1
-            
+
             elif gap.category == "missing_service_info":
-                improvements.append(ImprovementAction(
-                    action_id=f"improve_{action_counter}",
-                    action_type="service_detection",
-                    description="Detect service versions on open ports",
-                    tool_name="check_service_version",
-                    parameters={
-                        "target": execution_results.get("target", "unknown"),
-                        "ports": execution_results.get("open_ports", [])
-                    },
-                    priority=ImprovementPriority.HIGH,
-                    expected_benefit="Identify vulnerable service versions",
-                    estimated_time=10.0
-                ))
+                improvements.append(
+                    ImprovementAction(
+                        action_id=f"improve_{action_counter}",
+                        action_type="service_detection",
+                        description="Detect service versions on open ports",
+                        tool_name="check_service_version",
+                        parameters={
+                            "target": execution_results.get("target", "unknown"),
+                            "ports": execution_results.get("open_ports", []),
+                        },
+                        priority=ImprovementPriority.HIGH,
+                        expected_benefit="Identify vulnerable service versions",
+                        estimated_time=10.0,
+                    )
+                )
                 action_counter += 1
-            
+
             elif gap.category == "no_vulnerability_check":
                 # Extract service names from results
                 services = execution_results.get("services", [])
                 if services:
                     for service in services[:3]:  # Top 3 services
-                        improvements.append(ImprovementAction(
-                            action_id=f"improve_{action_counter}",
-                            action_type="cve_search",
-                            description=f"Search for CVEs affecting {service}",
-                            tool_name="search_cve",
-                            parameters={"keyword": service},
-                            priority=ImprovementPriority.CRITICAL,
-                            expected_benefit=f"Discover vulnerabilities in {service}",
-                            estimated_time=5.0
-                        ))
+                        improvements.append(
+                            ImprovementAction(
+                                action_id=f"improve_{action_counter}",
+                                action_type="cve_search",
+                                description=f"Search for CVEs affecting {service}",
+                                tool_name="search_cve",
+                                parameters={"keyword": service},
+                                priority=ImprovementPriority.CRITICAL,
+                                expected_benefit=f"Discover vulnerabilities in {service}",
+                                estimated_time=5.0,
+                            )
+                        )
                         action_counter += 1
                 else:
-                    improvements.append(ImprovementAction(
-                        action_id=f"improve_{action_counter}",
-                        action_type="cve_search",
-                        description="Search for general vulnerabilities",
-                        tool_name="search_cve",
-                        parameters={"keyword": task},
-                        priority=ImprovementPriority.MEDIUM,
-                        expected_benefit="Discover relevant vulnerabilities",
-                        estimated_time=5.0
-                    ))
+                    improvements.append(
+                        ImprovementAction(
+                            action_id=f"improve_{action_counter}",
+                            action_type="cve_search",
+                            description="Search for general vulnerabilities",
+                            tool_name="search_cve",
+                            parameters={"keyword": task},
+                            priority=ImprovementPriority.MEDIUM,
+                            expected_benefit="Discover relevant vulnerabilities",
+                            estimated_time=5.0,
+                        )
+                    )
                     action_counter += 1
-            
+
             elif gap.category == "low_result_count":
-                improvements.append(ImprovementAction(
-                    action_id=f"improve_{action_counter}",
-                    action_type="query_expansion",
-                    description="Broaden CVE search with alternative keywords",
-                    tool_name="search_cve",
-                    parameters={"keyword": task, "expand_query": True},
-                    priority=ImprovementPriority.MEDIUM,
-                    expected_benefit="Find additional related CVEs",
-                    estimated_time=5.0
-                ))
+                improvements.append(
+                    ImprovementAction(
+                        action_id=f"improve_{action_counter}",
+                        action_type="query_expansion",
+                        description="Broaden CVE search with alternative keywords",
+                        tool_name="search_cve",
+                        parameters={"keyword": task, "expand_query": True},
+                        priority=ImprovementPriority.MEDIUM,
+                        expected_benefit="Find additional related CVEs",
+                        estimated_time=5.0,
+                    )
+                )
                 action_counter += 1
-        
+
         return improvements
-    
+
     def _llm_reflect(
         self,
         task: str,
-        execution_results: Dict[str, Any],
-        gaps: List[Gap],
-        improvements: List[ImprovementAction],
-        context: Optional[Dict[str, Any]]
+        execution_results: dict[str, Any],
+        gaps: list[Gap],
+        improvements: list[ImprovementAction],
+        context: Optional[dict[str, Any]],
     ) -> str:
         """Use LLM to provide deeper reflection and reasoning."""
         system_prompt = """You are a security assessment expert performing self-reflection.
@@ -504,11 +518,13 @@ Focus on:
 5. **Follow-up**: What additional steps would improve results?
 
 Provide concise, actionable reflection in 2-3 sentences."""
-        
+
         # Build context
         gaps_str = "\n".join(f"- {gap}" for gap in gaps) if gaps else "None detected"
-        improvements_str = "\n".join(f"- {imp}" for imp in improvements) if improvements else "None suggested"
-        
+        improvements_str = (
+            "\n".join(f"- {imp}" for imp in improvements) if improvements else "None suggested"
+        )
+
         user_prompt = f"""Reflect on this security assessment:
 
 Task: "{task}"
@@ -523,51 +539,46 @@ Suggested Improvements:
 {improvements_str}
 
 Provide your reflection and reasoning."""
-        
+
         try:
-            messages = [
-                SystemMessage(content=system_prompt),
-                HumanMessage(content=user_prompt)
-            ]
-            
+            messages = [SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]
+
             response = self.llm.invoke(messages)
             reasoning = response.content.strip()
-            
+
             return reasoning
-            
+
         except Exception as e:
             logger.warning(f"⚠️ LLM reflection failed: {e}")
             return "Reflection analysis completed with detected gaps and improvement suggestions."
-    
+
     def _generate_reflection_id(self, task: str) -> str:
         """Generate unique reflection ID."""
         import hashlib
+
         timestamp = datetime.now(timezone.utc).isoformat()
         id_str = f"{task}:{timestamp}"
         return f"reflect_{hashlib.md5(id_str.encode()).hexdigest()[:12]}"
-    
-    def get_reflection_history(
-        self,
-        limit: int = 10
-    ) -> List[ReflectionResult]:
+
+    def get_reflection_history(self, limit: int = 10) -> list[ReflectionResult]:
         """Get recent reflection history."""
         return self._reflection_history[-limit:]
-    
-    def get_common_gaps(self) -> Dict[str, int]:
+
+    def get_common_gaps(self) -> dict[str, int]:
         """Analyze reflection history to find common gap patterns."""
         gap_counts = {}
         for reflection in self._reflection_history:
             for gap in reflection.gaps:
                 gap_counts[gap.category] = gap_counts.get(gap.category, 0) + 1
-        
+
         # Sort by frequency
         return dict(sorted(gap_counts.items(), key=lambda x: x[1], reverse=True))
-    
+
     def get_average_quality_score(self) -> float:
         """Get average quality score across all reflections."""
         if not self._reflection_history:
             return 0.0
-        
+
         total = sum(r.quality_score for r in self._reflection_history)
         return total / len(self._reflection_history)
 
@@ -579,10 +590,10 @@ _self_reflection: Optional[SelfReflection] = None
 def get_self_reflection(llm: BaseChatModel) -> SelfReflection:
     """
     Get or create global SelfReflection instance.
-    
+
     Args:
         llm: Language model for reflection
-        
+
     Returns:
         SelfReflection instance
     """

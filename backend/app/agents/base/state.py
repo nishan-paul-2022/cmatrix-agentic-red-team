@@ -1,16 +1,18 @@
 """Base state definition for all agent subgraphs."""
 
-from typing import TypedDict, Sequence, Dict, Any, List
+from collections.abc import Sequence
+from typing import Any, TypedDict
+
 from langchain_core.messages import BaseMessage
 
 
 class SubgraphState(TypedDict):
     """
     Base state for all agent subgraphs.
-    
+
     This state structure is used by all specialized agents to maintain
     consistency across the multi-agent system.
-    
+
     Attributes:
         messages: Conversation history with the agent
         task: The specific task assigned to this agent
@@ -21,11 +23,12 @@ class SubgraphState(TypedDict):
         completed: Whether the agent has completed its task
         tool_calls: Pending tool calls to execute
     """
+
     messages: Sequence[BaseMessage]
     task: str
-    context: Dict[str, Any]
-    results: List[Dict[str, Any]]
-    metadata: Dict[str, Any]
+    context: dict[str, Any]
+    results: list[dict[str, Any]]
+    metadata: dict[str, Any]
     error: str
     completed: bool
-    tool_calls: List[tuple]
+    tool_calls: list[tuple]

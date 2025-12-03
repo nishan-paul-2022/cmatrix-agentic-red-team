@@ -1,12 +1,13 @@
 """HuggingFace LLM provider (migrated from existing implementation)."""
 
-import time
+from typing import Any
+
 import requests
-from typing import List, Any, Dict
 from loguru import logger
 
 from app.models.llm import AvailableModel
-from .base import LLMProvider, ProviderConfig, Message, StreamingProviderMixin
+
+from .base import LLMProvider, Message, ProviderConfig, StreamingProviderMixin
 
 
 class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
@@ -37,7 +38,7 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
 
         logger.info(f"🤗 HuggingFace provider initialized with model: {self.model}")
 
-    def invoke(self, messages: List[Message], **kwargs) -> str:
+    def invoke(self, messages: list[Message], **kwargs) -> str:
         """
         Invoke HuggingFace model using chat completions format.
 
@@ -50,24 +51,21 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
         """
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
         # Use chat completions format for all models
         payload = {
             "model": self.model,
             "messages": self._prepare_messages(messages),
-            "max_tokens": kwargs.get('max_tokens', self.config.max_tokens or 512),
-            "temperature": kwargs.get('temperature', self.config.temperature),
-            "stream": False
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "temperature": kwargs.get("temperature", self.config.temperature),
+            "stream": False,
         }
 
         def make_request():
             response = requests.post(
-                self.endpoint,
-                json=payload,
-                headers=headers,
-                timeout=self.config.timeout
+                self.endpoint, json=payload, headers=headers, timeout=self.config.timeout
             )
             response.raise_for_status()
             return response.json()
@@ -80,7 +78,7 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
         else:
             raise ValueError(f"Unexpected response format from HuggingFace: {result}")
 
-    def invoke_stream(self, messages: List[Message], **kwargs):
+    def invoke_stream(self, messages: list[Message], **kwargs):
         """
         Invoke HuggingFace model with streaming (not natively supported by Router API).
 
@@ -101,10 +99,10 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
             logger.error(f"Error in HuggingFace streaming: {str(e)}")
             raise
 
-    def get_available_models(self) -> List[AvailableModel]:
+    def get_available_models(self) -> list[AvailableModel]:
         """
         Get list of available FREE models from HuggingFace Router API.
-        
+
         Filters for models that are likely free-tier eligible:
         - Models smaller than 10GB (free serverless inference)
         - Popular open-source models with free access
@@ -115,9 +113,7 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
         """
         try:
             url = "https://router.huggingface.co/v1/models"
-            headers = {
-                "Authorization": f"Bearer {self.config.api_key}"
-            }
+            headers = {"Authorization": f"Bearer {self.config.api_key}"}
 
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
@@ -133,12 +129,15 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
                 "HuggingFaceH4/zephyr-7b",
                 "tiiuae/falcon-7b",
             ]
-            
+
             # Exclude large/commercial model patterns
             exclude_patterns = [
-                "70b", "70B",  # 70B models are too large
-                "405b", "405B",  # Very large models
-                "gpt-4", "claude",  # Commercial models
+                "70b",
+                "70B",  # 70B models are too large
+                "405b",
+                "405B",  # Very large models
+                "gpt-4",
+                "claude",  # Commercial models
                 "gemini-pro",  # Commercial
                 "embedding",
                 "embed",
@@ -156,27 +155,35 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
                 for model in data["data"]:
                     if "id" in model:
                         model_id = model["id"].lower()
-                        
-                        is_free_pattern = any(pattern.lower() in model_id for pattern in free_model_patterns)
-                        is_excluded = any(pattern.lower() in model_id for pattern in exclude_patterns)
-                        
+
+                        is_free_pattern = any(
+                            pattern.lower() in model_id for pattern in free_model_patterns
+                        )
+                        is_excluded = any(
+                            pattern.lower() in model_id for pattern in exclude_patterns
+                        )
+
                         if is_free_pattern or not is_excluded:
-                            models.append(AvailableModel(
-                                id=model["id"],
-                                name=model.get("name", model["id"]),
-                                description=model.get("description", f"HuggingFace - {model['id']}"),
-                                context_length=model.get("context_length")
-                            ))
+                            models.append(
+                                AvailableModel(
+                                    id=model["id"],
+                                    name=model.get("name", model["id"]),
+                                    description=model.get(
+                                        "description", f"HuggingFace - {model['id']}"
+                                    ),
+                                    context_length=model.get("context_length"),
+                                )
+                            )
 
             models.sort(key=lambda model: model.id.lower())
-            
+
             logger.info(f"Found {len(models)} free text generation models for HuggingFace")
             return models
         except Exception as e:
             logger.error(f"Failed to get HuggingFace models: {str(e)}")
             return []
 
-    def _prepare_messages(self, messages: List[Message]) -> List[Dict[str, Any]]:
+    def _prepare_messages(self, messages: list[Message]) -> list[dict[str, Any]]:
         """
         Prepare messages for HuggingFace format.
 
@@ -191,16 +198,12 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
         # Add system message if not present
         has_system = any(msg.role == "system" for msg in messages)
         if not has_system:
-            prepared_messages.append({
-                "role": "system",
-                "content": "You are a helpful AI assistant."
-            })
+            prepared_messages.append(
+                {"role": "system", "content": "You are a helpful AI assistant."}
+            )
 
         # Add user messages
         for msg in messages:
-            prepared_messages.append({
-                "role": msg.role,
-                "content": msg.content
-            })
+            prepared_messages.append({"role": msg.role, "content": msg.content})
 
         return prepared_messages

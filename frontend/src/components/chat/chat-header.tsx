@@ -29,7 +29,10 @@ export function ChatHeader() {
   return (
     <header className="border-b border-border bg-card cyber-border">
       <div className="container flex items-center justify-between h-14 px-4 mx-auto">
-        <Link href="/" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+        <Link
+          href="/"
+          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+        >
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/10 cyber-border overflow-hidden">
             <BrandLogo size={24} />
           </div>
@@ -40,24 +43,24 @@ export function ChatHeader() {
         </Link>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <ConfigurationProfileSelector 
+            <ConfigurationProfileSelector
               onActiveProfileChange={setActiveProfile}
               onProfileChange={() => {
                 // Refresh profiles when changed
               }}
             />
             <ModelDropdown activeProfile={activeProfile} />
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               asChild
               className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
             >
               <a href="/dashboard">Dashboard</a>
             </Button>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               asChild
               className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
             >
@@ -66,8 +69,8 @@ export function ChatHeader() {
                 CVE Search
               </a>
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
               onClick={() => setIsSettingsSidebarOpen(true)}
               className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
@@ -76,7 +79,6 @@ export function ChatHeader() {
             </Button>
           </div>
 
-          
           {user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -101,7 +103,6 @@ export function ChatHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
           )}
-          
         </div>
       </div>
 
@@ -115,4 +116,3 @@ export function ChatHeader() {
     </header>
   );
 }
-

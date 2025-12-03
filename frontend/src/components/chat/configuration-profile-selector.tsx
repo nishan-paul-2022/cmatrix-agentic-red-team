@@ -8,12 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ConfigurationProfileSelectorProps {
   onProfileChange?: () => void;
@@ -57,8 +52,8 @@ export function ConfigurationProfileSelector({
     if (activeProfile && onActiveProfileChange) {
       onActiveProfileChange(activeProfile);
     } else if (!activeProfile && onActiveProfileChange) {
-        // Handle case where no profile is active
-        onActiveProfileChange(null);
+      // Handle case where no profile is active
+      onActiveProfileChange(null);
     }
   }, [activeProfile?.id, onActiveProfileChange]); // Only trigger if ID changes
 
@@ -69,7 +64,9 @@ export function ConfigurationProfileSelector({
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <span tabIndex={0} className="inline-block"> {/* Wrapper for disabled button tooltip */}
+            <span tabIndex={0} className="inline-block">
+              {" "}
+              {/* Wrapper for disabled button tooltip */}
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
@@ -80,9 +77,7 @@ export function ConfigurationProfileSelector({
                   }}
                   disabled={!hasProfiles}
                 >
-                  <span className="truncate">
-                    {activeProfile?.name || "Load Configuration"}
-                  </span>
+                  <span className="truncate">{activeProfile?.name || "Load Configuration"}</span>
                   <ChevronDown className="w-4 h-4 opacity-50" />
                 </Button>
               </DropdownMenuTrigger>
@@ -90,13 +85,18 @@ export function ConfigurationProfileSelector({
           </TooltipTrigger>
           {!hasProfiles && (
             <TooltipContent>
-              <p>Setup Required • Open Settings <span className="text-primary">⚙️</span></p>
+              <p>
+                Setup Required • Open Settings <span className="text-primary">⚙️</span>
+              </p>
             </TooltipContent>
           )}
         </Tooltip>
       </TooltipProvider>
-      
-      <DropdownMenuContent align="start" className="w-[320px] bg-card cyber-border max-h-[400px] overflow-y-auto custom-scrollbar">
+
+      <DropdownMenuContent
+        align="start"
+        className="w-[320px] bg-card cyber-border max-h-[400px] overflow-y-auto custom-scrollbar"
+      >
         {profiles.length === 0 ? (
           <div className="text-center text-muted-foreground py-8 px-4 text-sm">
             No profiles configured. Click Settings to create one.
@@ -119,9 +119,7 @@ export function ConfigurationProfileSelector({
                       {profile.api_provider} • {profile.selected_model_name || "No model"}
                     </div>
                   </div>
-                  {isActive && (
-                    <CheckCircle2 className="w-5 h-5 text-primary ml-2 flex-shrink-0" />
-                  )}
+                  {isActive && <CheckCircle2 className="w-5 h-5 text-primary ml-2 flex-shrink-0" />}
                 </div>
               </DropdownMenuItem>
             );

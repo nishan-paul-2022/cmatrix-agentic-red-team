@@ -399,11 +399,11 @@ Supported providers: `google`, `openai`, `anthropic`, `ollama`
 
    ```
    User: Scan 192.168.1.1 for open ports
-   
+
    User: Check if example.com has proper SSL configuration
-   
+
    User: Search for CVEs related to Apache 2.4
-   
+
    User: Analyze the security headers of https://example.com
    ```
 
@@ -525,10 +525,10 @@ from langchain.tools import StructuredTool
 def my_security_tool(target: str) -> str:
     """
     Description of what this tool does.
-    
+
     Args:
         target: The target to scan
-        
+
     Returns:
         Scan results as string
     """

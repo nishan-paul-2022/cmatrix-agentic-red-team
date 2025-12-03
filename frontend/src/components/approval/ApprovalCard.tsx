@@ -1,12 +1,12 @@
 /**
  * ApprovalCard Component
- * 
+ *
  * Displays a rich UI for approving/rejecting dangerous tool executions
  * with risk visualization, parameter editing, and audit trail support.
  */
 
-import React, { useState } from 'react';
-import { ApprovalCardProps, RiskLevel } from '@/types/approval.types';
+import React, { useState } from "react";
+import { ApprovalCardProps, RiskLevel } from "@/types/approval.types";
 
 const ApprovalCard: React.FC<ApprovalCardProps> = ({
   threadId,
@@ -18,35 +18,35 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [modifiedArgs, setModifiedArgs] = useState<Record<string, any>>(toolArgs);
-  const [approvalReason, setApprovalReason] = useState('');
+  const [approvalReason, setApprovalReason] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Risk-based styling
   const getRiskColor = (level: RiskLevel): string => {
     const colors = {
-      CRITICAL: 'border-red-500 bg-red-50',
-      HIGH: 'border-orange-500 bg-orange-50',
-      MEDIUM: 'border-yellow-500 bg-yellow-50',
-      LOW: 'border-green-500 bg-green-50',
+      CRITICAL: "border-red-500 bg-red-50",
+      HIGH: "border-orange-500 bg-orange-50",
+      MEDIUM: "border-yellow-500 bg-yellow-50",
+      LOW: "border-green-500 bg-green-50",
     };
-    return colors[level] || 'border-gray-500 bg-gray-50';
+    return colors[level] || "border-gray-500 bg-gray-50";
   };
 
   const getRiskBadgeColor = (level: RiskLevel): string => {
     const colors = {
-      CRITICAL: 'bg-red-600 text-white',
-      HIGH: 'bg-orange-600 text-white',
-      MEDIUM: 'bg-yellow-600 text-white',
-      LOW: 'bg-green-600 text-white',
+      CRITICAL: "bg-red-600 text-white",
+      HIGH: "bg-orange-600 text-white",
+      MEDIUM: "bg-yellow-600 text-white",
+      LOW: "bg-green-600 text-white",
     };
-    return colors[level] || 'bg-gray-600 text-white';
+    return colors[level] || "bg-gray-600 text-white";
   };
 
   const formatToolName = (name: string): string => {
     return name
-      .split('_')
+      .split("_")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   };
 
   const handleApprove = async () => {
@@ -90,14 +90,10 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
           >
             {riskInfo.risk_level} RISK
           </span>
-          <span className="text-sm text-gray-600">
-            ⏱️ {riskInfo.estimated_duration}
-          </span>
+          <span className="text-sm text-gray-600">⏱️ {riskInfo.estimated_duration}</span>
         </div>
         {!riskInfo.reversible && (
-          <span className="text-xs text-red-600 font-semibold">
-            ⚠️ IRREVERSIBLE
-          </span>
+          <span className="text-xs text-red-600 font-semibold">⚠️ IRREVERSIBLE</span>
         )}
       </div>
 
@@ -118,15 +114,13 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
       {/* Parameters Display/Edit */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="block text-sm font-medium text-gray-700">
-            Tool Parameters
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Tool Parameters</label>
           <button
             onClick={() => setIsEditing(!isEditing)}
             className="text-blue-600 hover:text-blue-800 text-sm font-medium"
             disabled={isProcessing}
           >
-            {isEditing ? '❌ Cancel Editing' : '✏️ Modify Parameters'}
+            {isEditing ? "❌ Cancel Editing" : "✏️ Modify Parameters"}
           </button>
         </div>
 
@@ -146,9 +140,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
               ))}
             </div>
           ) : (
-            <pre className="whitespace-pre-wrap">
-              {JSON.stringify(toolArgs, null, 2)}
-            </pre>
+            <pre className="whitespace-pre-wrap">{JSON.stringify(toolArgs, null, 2)}</pre>
           )}
         </div>
       </div>
@@ -181,9 +173,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
               Processing...
             </>
           ) : (
-            <>
-              ✅ Approve & Execute
-            </>
+            <>✅ Approve & Execute</>
           )}
         </button>
 
@@ -198,9 +188,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
               Processing...
             </>
           ) : (
-            <>
-              ❌ Reject
-            </>
+            <>❌ Reject</>
           )}
         </button>
       </div>
@@ -210,9 +198,7 @@ const ApprovalCard: React.FC<ApprovalCardProps> = ({
         <div className="flex items-center justify-between text-xs text-gray-500">
           <span>Thread ID: {threadId}</span>
           {!riskInfo.reversible && (
-            <span className="text-red-600 font-semibold">
-              ⚠️ This operation cannot be undone
-            </span>
+            <span className="text-red-600 font-semibold">⚠️ This operation cannot be undone</span>
           )}
         </div>
       </div>

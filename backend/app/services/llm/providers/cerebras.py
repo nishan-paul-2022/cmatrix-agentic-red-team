@@ -1,11 +1,13 @@
 """Cerebras LLM provider."""
 
+from typing import Any
+
 import requests
-from typing import List, Any, Dict
 from loguru import logger
 
 from app.models.llm import AvailableModel
-from .base import LLMProvider, ProviderConfig, Message, StreamingProviderMixin
+
+from .base import LLMProvider, Message, ProviderConfig, StreamingProviderMixin
 
 
 class CerebrasProvider(LLMProvider, StreamingProviderMixin):
@@ -31,7 +33,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
 
         logger.info(f"🧠 Cerebras provider initialized with model: {self.config.model}")
 
-    def invoke(self, messages: List[Message], **kwargs) -> str:
+    def invoke(self, messages: list[Message], **kwargs) -> str:
         """
         Invoke Cerebras model.
 
@@ -46,23 +48,20 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
 
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
         payload = {
             "model": self.config.model,
             "messages": self._prepare_messages(messages),
-            "temperature": kwargs.get('temperature', self.config.temperature),
-            "max_tokens": kwargs.get('max_tokens', self.config.max_tokens or 512),
-            "stream": False
+            "temperature": kwargs.get("temperature", self.config.temperature),
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "stream": False,
         }
 
         def make_request():
             response = requests.post(
-                url,
-                headers=headers,
-                json=payload,
-                timeout=self.config.timeout
+                url, headers=headers, json=payload, timeout=self.config.timeout
             )
             response.raise_for_status()
             return response.json()
@@ -75,7 +74,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
         else:
             raise ValueError(f"Unexpected response format from Cerebras: {result}")
 
-    def invoke_stream(self, messages: List[Message], **kwargs):
+    def invoke_stream(self, messages: list[Message], **kwargs):
         """
         Invoke Cerebras model with streaming.
 
@@ -90,24 +89,20 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
 
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
         payload = {
             "model": self.config.model,
             "messages": self._prepare_messages(messages),
-            "temperature": kwargs.get('temperature', self.config.temperature),
-            "max_tokens": kwargs.get('max_tokens', self.config.max_tokens or 512),
-            "stream": True
+            "temperature": kwargs.get("temperature", self.config.temperature),
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "stream": True,
         }
 
         def make_request():
             response = requests.post(
-                url,
-                headers=headers,
-                json=payload,
-                timeout=self.config.timeout,
-                stream=True
+                url, headers=headers, json=payload, timeout=self.config.timeout, stream=True
             )
             response.raise_for_status()
             return response
@@ -117,11 +112,11 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
         try:
             for line in response.iter_lines():
                 if line:
-                    line = line.decode('utf-8')
-                    if line.startswith('data: '):
+                    line = line.decode("utf-8")
+                    if line.startswith("data: "):
                         line = line[6:]  # Remove 'data: ' prefix
 
-                    if line.strip() == '[DONE]':
+                    if line.strip() == "[DONE]":
                         break
 
                     try:
@@ -136,7 +131,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
             logger.error(f"Error in Cerebras streaming: {str(e)}")
             raise
 
-    def get_available_models(self) -> List[AvailableModel]:
+    def get_available_models(self) -> list[AvailableModel]:
         """
         Get list of available models from Cerebras.
 
@@ -145,9 +140,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
         """
         try:
             url = f"{self.base_url}/models"
-            headers = {
-                "Authorization": f"Bearer {self.config.api_key}"
-            }
+            headers = {"Authorization": f"Bearer {self.config.api_key}"}
 
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
@@ -157,22 +150,24 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
             if "data" in data:
                 for model in data["data"]:
                     if "id" in model:
-                        models.append(AvailableModel(
-                            id=model["id"],
-                            name=model["id"],
-                            description=f"Cerebras - {model['id']}",
-                            context_length=model.get("context_length")
-                        ))
+                        models.append(
+                            AvailableModel(
+                                id=model["id"],
+                                name=model["id"],
+                                description=f"Cerebras - {model['id']}",
+                                context_length=model.get("context_length"),
+                            )
+                        )
 
             # Sort models alphabetically by ID
             models.sort(key=lambda model: model.id.lower())
-            
+
             return models
         except Exception as e:
             logger.error(f"Failed to get Cerebras models: {str(e)}")
             return []
 
-    def _prepare_messages(self, messages: List[Message]) -> List[Dict[str, Any]]:
+    def _prepare_messages(self, messages: list[Message]) -> list[dict[str, Any]]:
         """
         Prepare messages for Cerebras format (OpenAI-compatible).
 
@@ -184,8 +179,5 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
         """
         prepared_messages = []
         for msg in messages:
-            prepared_messages.append({
-                "role": msg.role,
-                "content": msg.content
-            })
+            prepared_messages.append({"role": msg.role, "content": msg.content})
         return prepared_messages

@@ -1,9 +1,9 @@
 "use client";
 
-import React from 'react';
-import ApprovalCard from '@/components/approval/ApprovalCard';
-import { useApproval } from '@/hooks/use-approval';
-import { PendingApproval } from '@/types/approval.types';
+import React from "react";
+import ApprovalCard from "@/components/approval/ApprovalCard";
+import { useApproval } from "@/hooks/use-approval";
+import { PendingApproval } from "@/types/approval.types";
 
 interface ApprovalMessageProps {
   threadId: string;
@@ -11,10 +11,10 @@ interface ApprovalMessageProps {
   onActionComplete?: () => void;
 }
 
-export function ApprovalMessage({ 
-  threadId, 
+export function ApprovalMessage({
+  threadId,
   pendingApproval,
-  onActionComplete 
+  onActionComplete,
 }: ApprovalMessageProps) {
   const { approve, reject } = useApproval(threadId);
   const [isActionTaken, setIsActionTaken] = React.useState(false);

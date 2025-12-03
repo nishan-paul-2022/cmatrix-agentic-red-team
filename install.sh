@@ -82,4 +82,3 @@ echo ""
 echo -e "${BLUE}ℹ️  Sample config location:${NC} $PWD/llm_config_sample.json"
 echo ""
 echo "To stop CMatrix, run: cd $INSTALL_DIR && docker compose down"
-
