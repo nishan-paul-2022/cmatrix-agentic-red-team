@@ -26,18 +26,21 @@ export function useDashboard() {
         skip: skip.toString(),
         limit: pageSize.toString(),
       });
-      
+
       if (search) {
         queryParams.append("search", search);
       }
 
-      const token = localStorage.getItem('auth_token');
-      const response = await fetch(`${apiConfig.baseUrl}/conversations/history/all?${queryParams.toString()}`, {
-        headers: {
-          ...apiConfig.headers,
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      const token = localStorage.getItem("auth_token");
+      const response = await fetch(
+        `${apiConfig.baseUrl}/conversations/history/all?${queryParams.toString()}`,
+        {
+          headers: {
+            ...apiConfig.headers,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -62,12 +65,12 @@ export function useDashboard() {
 
   const deleteExchange = async (promptId: number) => {
     try {
-      const token = localStorage.getItem('auth_token');
+      const token = localStorage.getItem("auth_token");
       const response = await fetch(`${apiConfig.baseUrl}/conversations/history/${promptId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           ...apiConfig.headers,
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -81,12 +84,12 @@ export function useDashboard() {
 
   const clearConversationHistory = async (conversationId: number) => {
     try {
-      const token = localStorage.getItem('auth_token');
+      const token = localStorage.getItem("auth_token");
       const response = await fetch(`${apiConfig.baseUrl}/conversations/${conversationId}/history`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           ...apiConfig.headers,
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

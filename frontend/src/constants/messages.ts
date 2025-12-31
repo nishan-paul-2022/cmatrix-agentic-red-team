@@ -4,21 +4,16 @@
 
 export const MESSAGES = {
   SYSTEM: {
-    ONLINE: "AGENT ONLINE",
-    OPERATIONAL: "[SYSTEM STATUS: OPERATIONAL] [AGENT: CMATRIX-CORE-V1]",
     PROCESSING: "[PROCESSING QUERY...]",
-    DEMO_MODE: "[DEMO MODE - AGENT WORKING...]",
-    SECURITY_NOTICE: "[SECURITY NOTICE] Neural responses may contain classified information. Handle with care.",
+    SECURITY_NOTICE: "CMatrix can make mistakes. Check important info.",
   },
 
   LABELS: {
-    AGENT: "CMATRIX AGENT",
-    USER: "HUMAN OPERATOR",
-    NEURAL_INTERFACE: "Neural Interface Active",
+    NEURAL_INTERFACE: "Agentic AI for Security",
   },
 
   PLACEHOLDERS: {
-    INPUT: "Enter command or query...",
+    INPUT: "How can I help you today?",
   },
 
   ERRORS: {
@@ -29,8 +24,8 @@ export const MESSAGES = {
 
   WELCOME: {
     TITLE: "CMatrix",
-    SUBTITLE: "Neural Interface",
-    DESCRIPTION: "Agent capabilities: security scanning, system monitoring, log analysis, configuration deployment.",
+    SUBTITLE: "Agentic AI for Security",
+    DESCRIPTION: "AI-powered platform that unifies Red, Blue, and Purple teaming into one autonomous system for continuous attack simulation, defense, and security validation.",
   },
 
   SUGGESTIONS: {

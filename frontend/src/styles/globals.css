@@ -1,16 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
-  --background: oklch(0.08 0 0);
+  --background: oklch(0.13 0 0);
   --foreground: oklch(0.95 0 0);
   --card: oklch(0.12 0 0);
   --card-foreground: oklch(0.95 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.65 0.15 180);
+  --primary: oklch(0.6 0.15 220);
   --primary-foreground: oklch(0.08 0 0);
   --secondary: oklch(0.18 0 0);
   --secondary-foreground: oklch(0.95 0 0);
@@ -22,14 +20,14 @@
   --destructive-foreground: oklch(0.95 0 0);
   --border: oklch(0.25 0 0);
   --input: oklch(0.25 0 0);
-  --ring: oklch(0.7 0.2 150);
-  --chart-1: oklch(0.7 0.25 150);
+  --ring: oklch(0.7 0.2 220);
+  --chart-1: oklch(0.7 0.25 220);
   --chart-2: oklch(0.65 0.2 200);
   --chart-3: oklch(0.75 0.15 280);
   --chart-4: oklch(0.8 0.1 220);
   --chart-5: oklch(0.85 0.05 240);
   --radius: 0.5rem;
-  --sidebar: oklch(0.12 0 0);
+  --sidebar: oklch(0.07 0 0);
   --sidebar-foreground: oklch(0.95 0 0);
   --sidebar-primary: oklch(0.7 0.2 150);
   --sidebar-primary-foreground: oklch(0.08 0 0);
@@ -40,13 +38,13 @@
 }
 
 .dark {
-  --background: oklch(0.05 0 0);
+  --background: oklch(0.13 0 0);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.08 0 0);
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.08 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.7 0.2 160);
+  --primary: oklch(0.7 0.2 220);
   --primary-foreground: oklch(0.05 0 0);
   --secondary: oklch(0.15 0 0);
   --secondary-foreground: oklch(0.98 0 0);
@@ -58,20 +56,20 @@
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.2 0 0);
   --input: oklch(0.2 0 0);
-  --ring: oklch(0.75 0.3 150);
-  --chart-1: oklch(0.75 0.3 150);
+  --ring: oklch(0.75 0.3 220);
+  --chart-1: oklch(0.75 0.3 220);
   --chart-2: oklch(0.7 0.25 200);
   --chart-3: oklch(0.8 0.2 280);
   --chart-4: oklch(0.85 0.15 220);
   --chart-5: oklch(0.9 0.1 240);
-  --sidebar: oklch(0.08 0 0);
+  --sidebar: oklch(0.07 0 0);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.75 0.3 150);
+  --sidebar-primary: oklch(0.75 0.3 220);
   --sidebar-primary-foreground: oklch(0.05 0 0);
   --sidebar-accent: oklch(0.15 0 0);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.2 0 0);
-  --sidebar-ring: oklch(0.75 0.3 150);
+  --sidebar-ring: oklch(0.75 0.3 220);
 }
 
 @theme inline {
@@ -123,8 +121,8 @@
     @apply bg-background text-foreground;
     font-family: 'Courier New', monospace;
     background-image:
-      radial-gradient(circle at 25% 25%, rgba(0, 255, 0, 0.01) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(0, 255, 0, 0.01) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.01) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(14, 165, 233, 0.01) 0%, transparent 50%);
     background-attachment: fixed;
   }
 
@@ -147,7 +145,7 @@
     left: 10%;
     width: 1px;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 255, 0, 0.3), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.15), transparent);
     animation: matrix-fall 12s linear infinite;
   }
 
@@ -158,7 +156,7 @@
     right: 15%;
     width: 1px;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 255, 0, 0.2), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.1), transparent);
     animation: matrix-fall 18s linear infinite;
     animation-delay: 4s;
   }
@@ -170,11 +168,11 @@
 
   /* Glow effects */
   .glow {
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.15);
   }
 
   .glow-primary {
-    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.2);
   }
 
   /* Scan line effect */
@@ -190,7 +188,7 @@
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.8), transparent);
+    background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.5), transparent);
     animation: scan 3s linear infinite;
   }
 
@@ -202,13 +200,13 @@
   /* Terminal-style text */
   .terminal-text {
     font-family: 'Courier New', monospace;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    text-shadow: 0 0 5px rgba(14, 165, 233, 0.3);
   }
 
   /* Cybersecurity-themed borders */
   .cyber-border {
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), rgba(0, 255, 0, 0.02));
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.03), rgba(14, 165, 233, 0.01));
   }
 
   /* Agent status indicators */
@@ -217,67 +215,87 @@
   }
 
   @keyframes pulse-glow {
-    from { box-shadow: 0 0 3px rgba(0, 255, 0, 0.2); }
-    to { box-shadow: 0 0 8px rgba(0, 255, 0, 0.4); }
+    from { box-shadow: 0 0 3px rgba(14, 165, 233, 0.15); }
+    to { box-shadow: 0 0 8px rgba(14, 165, 233, 0.3); }
   }
 }
 
-/* Markdown styling for chat messages */
-.prose {
-  color: inherit;
-}
+@layer components {
+  /* Markdown styling for chat messages */
+  .prose {
+    color: inherit;
+  }
 
-.prose p {
-  margin: 0.5em 0;
-}
+  .prose p {
+    margin: 0.5em 0;
+  }
 
-.prose p:first-child {
-  margin-top: 0;
-}
+  .prose p:first-child {
+    margin-top: 0;
+  }
 
-.prose p:last-child {
-  margin-bottom: 0;
-}
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
 
-.prose code {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
-}
+  .prose code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+  }
 
-.prose pre {
-  @apply bg-muted p-3 rounded-lg overflow-x-auto my-2;
-}
+  .prose pre {
+    @apply bg-muted p-3 rounded-lg overflow-x-auto my-2;
+  }
 
-.prose pre code {
-  @apply bg-transparent p-0;
-}
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
 
-.prose ul,
-.prose ol {
-  margin: 0.5em 0;
-  padding-left: 1.5em;
-}
+  .prose ul,
+  .prose ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
 
-.prose li {
-  margin: 0.25em 0;
-}
+  .prose li {
+    margin: 0.25em 0;
+  }
 
-/* Loading spinner */
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 255, 0, 0.1);
-  border-top-color: rgba(0, 255, 0, 0.8);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
+  /* Loading spinner */
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(14, 165, 233, 0.1);
+    border-top-color: rgba(14, 165, 233, 0.8);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 
-/* Shadow glow for cards */
-.shadow-glow {
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-}
+  /* Shadow glow for cards */
+  .shadow-glow {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.08);
+  }
 
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.3);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.5);
+  }
+}

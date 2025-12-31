@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/auth-context';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated, checkSetupStatus } = useAuth();
   const router = useRouter();
@@ -19,10 +19,10 @@ export default function LoginPage() {
         const isComplete = await checkSetupStatus();
         if (!isComplete) {
           // Setup not done, redirect to setup
-          router.push('/setup');
+          router.push("/setup");
         }
       } catch (error) {
-        console.error('Failed to check setup status:', error);
+        console.error("Failed to check setup status:", error);
       }
     };
 
@@ -32,20 +32,20 @@ export default function LoginPage() {
   useEffect(() => {
     // If already authenticated, redirect to home
     if (isAuthenticated) {
-      router.push('/');
+      router.push("/");
     }
   }, [isAuthenticated, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
       await login(username, password);
       // Redirect happens in the login function
     } catch (err: any) {
-      setError(err.message || 'Invalid username or password');
+      setError(err.message || "Invalid username or password");
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +54,7 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <div className="matrix-rain"></div>
-      
+
       <div className="w-full max-w-md p-8 space-y-6 bg-card border border-primary/20 rounded-lg shadow-glow z-10">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-primary mb-2">CMatrix Login</h1>
@@ -107,7 +107,7 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

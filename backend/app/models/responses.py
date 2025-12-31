@@ -1,52 +1,49 @@
 """Common response models."""
 
-from typing import Dict, Any, Optional
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
 class HealthResponse(BaseModel):
     """Health check response."""
-    
+
     status: str = Field(..., description="Service status")
     service: str = Field(..., description="Service name")
     version: Optional[str] = Field(None, description="Service version")
-    
+
     class Config:
         """Pydantic configuration."""
+
         json_schema_extra = {
-            "example": {
-                "status": "healthy",
-                "service": "DeepHat Agent API",
-                "version": "1.0.0"
-            }
+            "example": {"status": "healthy", "service": "DeepHat Agent API", "version": "1.0.0"}
         }
 
 
 class ErrorResponse(BaseModel):
     """Error response."""
-    
+
     detail: str = Field(..., description="Error detail message")
     error_code: Optional[str] = Field(None, description="Error code")
-    
+
     class Config:
         """Pydantic configuration."""
+
         json_schema_extra = {
-            "example": {
-                "detail": "An error occurred",
-                "error_code": "INTERNAL_ERROR"
-            }
+            "example": {"detail": "An error occurred", "error_code": "INTERNAL_ERROR"}
         }
 
 
 class RootResponse(BaseModel):
     """Root endpoint response."""
-    
+
     message: str
     version: str
-    endpoints: Dict[str, str]
-    
+    endpoints: dict[str, str]
+
     class Config:
         """Pydantic configuration."""
+
         json_schema_extra = {
             "example": {
                 "message": "DeepHat Agent API is running",
@@ -54,7 +51,7 @@ class RootResponse(BaseModel):
                 "endpoints": {
                     "health": "/health",
                     "chat": "/api/v1/chat",
-                    "stream": "/api/v1/chat/stream"
-                }
+                    "stream": "/api/v1/chat/stream",
+                },
             }
         }

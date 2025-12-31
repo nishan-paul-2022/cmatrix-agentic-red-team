@@ -1,16 +1,13 @@
 """API dependencies and dependency injection."""
 
-from typing import Generator
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.orchestrator import get_orchestrator_service
-from app.core.config import settings
 from app.core.database import get_db
-from app.services.auth import auth_service
 from app.models.user import User
-
+from app.services.auth import auth_service
+from app.services.orchestrator import get_orchestrator_service
 
 security = HTTPBearer()
 
@@ -18,7 +15,7 @@ security = HTTPBearer()
 def get_orchestrator():
     """
     Dependency to get orchestrator service.
-    
+
     Returns:
         Orchestrator service instance
     """
@@ -27,18 +24,18 @@ def get_orchestrator():
 
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
 ) -> User:
     """
     Dependency to get current authenticated user.
-    
+
     Args:
         credentials: HTTP Bearer token
         db: Database session
-        
+
     Returns:
         Current authenticated user
-        
+
     Raises:
         HTTPException: If authentication fails
     """
@@ -50,7 +47,7 @@ async def get_current_user(
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Get user from database
     user = await auth_service.get_user_by_username(db, token_data.username)
     if user is None:
@@ -59,12 +56,8 @@ async def get_current_user(
             detail="User not found",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Inactive user"
-        )
-    
-    return user
 
+    if not user.is_active:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Inactive user")
+
+    return user

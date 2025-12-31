@@ -1,945 +1,830 @@
-# CMatrix - Multi-Agent Security Orchestration Platform
+# CMatrix
 
-**AI-powered security assessment with real command execution**
+<div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](.)
-[![License](https://img.shields.io/badge/license-Educational-green.svg)](.)
+![CMatrix Logo](frontend/public/icon.svg)
 
-CMatrix combines multi-agent AI orchestration with real security tool execution for comprehensive vulnerability assessments through natural language commands, maintaining strict authorization and audit trails.
+**AI-Powered Multi-Agent Security Orchestration Platform**
 
----
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Next.js](https://img.shields.io/badge/next.js-16.0-black)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)](https://fastapi.tiangolo.com/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-0.2.45-purple)](https://github.com/langchain-ai/langgraph)
 
-## Table of Contents
+[Features](#features) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Contributing](#contributing)
 
-- [🚀 Quick Start](#quick-start)
-- [🛠️ Features](#features)
-- [📚 Architecture & Deployment](#architecture--deployment)
-  - [System Overview](#system-overview)
-  - [Data Flow](#data-flow)
-  - [Key Components](#key-components)
-  - [Security & Configuration](#security--configuration)
-  - [Communication Protocol](#communication-protocol)
-  - [Agent Workflow](#agent-workflow)
-  - [Benefits](#benefits-of-this-architecture)
-  - [🐳 Docker Guide](#docker-guide)
-- [🎯 Usage Examples](#usage-examples)
-- [🔒 Security & Authorization](#security--authorization)
-- [📁 Project Structure](#project-structure)
-- [🧪 Testing](#testing)
-- [📊 Development Status](#development-status)
-- [🔧 Configuration](#configuration)
-- [📞 API Reference](#api-reference)
-- [🐛 Troubleshooting](#troubleshooting)
-- [🌟 Key Capabilities](#key-capabilities)
-- [🎊 Summary](#summary)
-- [📋 Project Vision & Roadmap](#project-vision--roadmap)
-  - [The Core Idea](#the-core-idea)
-  - [Feasibility & Growth Potential](#feasibility--growth-potential)
-  - [Technology Stack & Tools](#technology-stack--tools)
-  - [Development Roadmap](#development-roadmap)
-  - [Projected Impact](#projected-impact)
-  - [Critical Success Factors](#critical-success-factors)
+</div>
 
 ---
 
-## 🚀 Quick Start
+## 📋 Table of Contents
 
-Getting started with CMatrix is straightforward, whether you prefer Docker for production deployments or manual setup for development. The platform is designed to be operational within minutes, with comprehensive security controls built-in from the start.
-
-### Option 1: Docker (Recommended)
-
-**1. Setup** (First time only)
-```bash
-./docker.sh setup    # Creates .env file
-nano .env            # Add your HUGGINGFACE_API_KEY and SECRET_KEY
-```
-
-**2. Run**
-```bash
-./docker.sh start    # Starts everything in background
-```
-
-**3. Access & Authenticate**
-- **App:** http://localhost:3000
-- **First Run:** You will be redirected to `/setup` to create your admin credentials.
-- **Subsequent Runs:** You will be redirected to `/login`.
-- **API Docs:** http://localhost:8000/docs
-
-### Option 2: Manual Setup
-
-#### 1. Start Backend
-```bash
-cd backend && ./dev.sh
-```
-
-#### 2. Start Frontend
-```bash
-cd frontend && pnpm dev
-```
-
-#### 3. Open Web Interface
-
-**Web UI:** http://localhost:3000
-
-Type commands like:
-```
-scan_network(target=localhost, ports=1-10000)
-search_cve(keyword="apache", limit=5)
-check_compliance(standard="CIS")
-```
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+  - [Docker Setup (Recommended)](#docker-setup-recommended)
+  - [Manual Setup](#manual-setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Development](#development)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 ---
 
-## 🛠️ Features
+## 🎯 Overview
 
-CMatrix's feature set is built around a sophisticated multi-agent architecture that enables comprehensive security assessments while maintaining enterprise-grade security and compliance standards.
+**CMatrix** is an advanced AI-powered security orchestration platform that leverages multi-agent architecture to automate security assessments, vulnerability scanning, and threat intelligence gathering. Built with LangGraph and FastAPI, CMatrix provides intelligent, autonomous security operations through specialized AI agents.
 
-### 7 Specialized Agents
-- **Network Agent** - Port scanning, vulnerability assessment
-- **Web Security Agent** - HTTP headers, HTTPS/HSTS validation
-- **Authentication Agent** - Login forms, sessions, rate limiting
-- **Configuration Agent** - Cloud config, system hardening, compliance
-- **Vulnerability Intelligence Agent** - CVE search, threat intelligence
-- **API Security Agent** - REST/GraphQL testing
-- **Command Execution Agent** - Terminal command execution
+### What Makes CMatrix Different?
 
-### 22 Security Tools
-All tools execute real commands (nmap, curl, etc.) with full audit logging.
-
-### Key Features
-- ✅ Real command execution in terminal
-- ✅ Multi-agent orchestration
-- ✅ Authorization & audit logging
-- ✅ Web-based interface
-- ✅ CVE database integration
-- ✅ Compliance checking (CIS, PCI-DSS, HIPAA, SOC2)
+- 🤖 **Agentic AI Architecture**: Powered by LangGraph for sophisticated reasoning and tool orchestration
+- 🔄 **Persistent Workflows**: Background job processing with state checkpointing for long-running security scans
+- 🧠 **Vector Memory**: Qdrant-powered knowledge base for contextual awareness across sessions
+- 🛡️ **Security-First**: Human-in-the-loop approvals for dangerous operations
+- 📊 **Real-Time Streaming**: Server-Sent Events (SSE) for live scan updates
+- 🎨 **Modern UI**: Beautiful Next.js frontend with real-time chat interface
 
 ---
 
-## 📚 Architecture & Deployment
+## ✨ Features
 
-Understanding CMatrix's architecture is key to appreciating how it achieves both powerful security capabilities and robust safety controls. The system is built on a layered architecture that separates concerns while enabling seamless communication between components.
+### Core Capabilities
 
-### System Overview
+- **🔍 Network Security Scanning**
+  - Port scanning and service detection
+  - Network topology discovery
+  - SSL/TLS certificate validation
+
+- **🌐 Web Application Security**
+  - HTTP/HTTPS endpoint validation
+  - Security header analysis
+  - Authentication mechanism testing
+
+- **🔐 Vulnerability Intelligence**
+  - CVE database search and analysis
+  - Threat intelligence gathering
+  - Security advisory tracking
+
+- **⚙️ Configuration Compliance**
+  - Security configuration auditing
+  - Compliance checking
+  - Best practice validation
+
+- **🔧 Command Execution**
+  - Secure terminal command execution
+  - Approval-based dangerous operations
+  - Command output streaming
+
+### AI Agent Features
+
+- **Reasoning & Planning**: ReAct (Reasoning + Acting) pattern for intelligent decision-making
+- **Tool Orchestration**: 22+ specialized security tools across 7 agent categories
+- **Memory Management**: Short-term conversation memory + long-term vector storage
+- **State Persistence**: Checkpoint-based workflow resumption
+- **Background Processing**: Celery-based job queue for long-running tasks
+
+---
+
+## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                         User Browser                         │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ HTTP/WebSocket + JWT Token
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Next.js Frontend (Port 3000)              │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  /app/api/chat/route.ts                              │   │
-│  │  - Receives user messages                            │   │
-│  │  - Forwards to Python backend                        │   │
-│  │  - Streams responses back to user                    │   │
-│  └──────────────────────────────────────────────────────┘   │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ HTTP POST /chat/stream
-                             │ Authorization: Bearer <token>
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  Python Backend (Port 8000)                  │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  FastAPI Server (app.py)                             │   │
-│  │  - Authenticates Request (JWT)                       │   │
-│  │  - Manages agent execution                           │   │
-│  │  - Streams responses                                 │   │
-│  └────────────────────┬──────────────┬──────────────────┘   │
-│                       │              │                       │
-│                       ▼              ▼                       │
-│  ┌─────────────────────────┐    ┌─────────────────────────┐ │
-│  │  LangGraph Agent        │    │  Auth Service           │ │
-│  │  - Agent Orchestration  │    │  - Login/Setup          │ │
-│  │  - Tool Execution       │    │  - Token Validation     │ │
-│  └─────────────────────────┘    └─────────────────────────┘ │
-└────────────────────────────┬────────────────┬────────────────┘
-                             │                │
-                             │ HTTPS API      │ SQL (Async)
-                             ▼                ▼
-┌────────────────────────────────┐   ┌────────────────────────────────┐
-│      HuggingFace Router API    │   │   PostgreSQL Database (5432)   │
-│  Model: DeepHat/DeepHat-V1-7B  │   │   - Users Table                │
-│                                │   │   - Persistent Storage         │
-└────────────────────────────────┘   └────────────────────────────────┘
+│                     Frontend (Next.js)                      │
+│  ┌─────────────┐  ┌──────────────┐  ┌──────────────────┐  │
+│  │   Chat UI   │  │  Job Status  │  │  Approval Gates  │  │
+│  └─────────────┘  └──────────────┘  └──────────────────┘  │
+└────────────────────────┬────────────────────────────────────┘
+                         │ SSE Streaming / REST API
+┌────────────────────────┴────────────────────────────────────┐
+│                   Backend (FastAPI)                         │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │           LangGraph Orchestrator                     │  │
+│  │  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐    │  │
+│  │  │Network │  │  Web   │  │ Vuln   │  │Command │    │  │
+│  │  │ Agent  │  │ Agent  │  │ Agent  │  │ Agent  │    │  │
+│  │  └────────┘  └────────┘  └────────┘  └────────┘    │  │
+│  └──────────────────────────────────────────────────────┘  │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────▼──────┐  ┌─────▼──────┐
+│  PostgreSQL  │  │    Redis    │  │   Qdrant   │
+│  (State +    │  │  (Jobs +    │  │  (Vector   │
+│   Users)     │  │   Cache)    │  │   Memory)  │
+└──────────────┘  └─────────────┘  └────────────┘
 ```
 
-### Data Flow
+### Technology Stack
 
-#### 1. User Sends Message
+**Backend:**
+- Python 3.12+
+- FastAPI 0.115 (async web framework)
+- LangChain 0.3.7 + LangGraph 0.2.45 (AI orchestration)
+- SQLAlchemy 2.0 (ORM)
+- Celery 5.4 (background jobs)
+- Alembic (database migrations)
+
+**Frontend:**
+- Next.js 16.0 (React framework)
+- TypeScript 5+
+- Tailwind CSS 4.1
+- Radix UI components
+- React Markdown
+
+**Databases:**
+- PostgreSQL 16 (primary database + checkpointing)
+- Redis 7 (job queue + caching)
+- Qdrant (vector database for embeddings)
+
+---
+
+## 📦 Prerequisites
+
+### Required Software
+
+- **Docker & Docker Compose** (recommended) OR
+- **Python 3.12+** and **Node.js 18+** (for manual setup)
+- **Git** for version control
+
+### API Keys (Optional)
+
+CMatrix supports multiple LLM providers. You'll need at least one:
+
+- **Google Gemini API** (recommended for free tier)
+- **OpenAI API** (GPT-4, GPT-3.5)
+- **Anthropic API** (Claude)
+- **Ollama** (local LLMs)
+
+---
+
+## 🚀 Installation
+
+### Docker Setup (Recommended)
+
+This is the easiest way to get started with CMatrix.
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/cmatrix.git
+cd cmatrix
 ```
-User → Next.js Frontend → /api/chat (POST)
+
+#### 2. Configure Environment Variables
+
+```bash
+# Copy example environment file
+cp .env.example .env
+
+# Edit .env with your preferred editor
+nano .env
 ```
 
-#### 2. Frontend Forwards to Backend
-```
-Next.js → Python Backend → /chat/stream (POST)
-Payload: { message: string, history: array }
-```
+**Minimum required configuration:**
 
-#### 3. Backend Processes with Agent
-```
-Python Backend → LangGraph Agent
-   ├─ Analyzes message
-   ├─ Decides if tools needed
-   ├─ Calls HuggingFace API
-   └─ Returns formatted response
-```
-
-#### 4. Response Streams Back
-```
-Python Backend → Next.js → User Browser
-Format: Server-Sent Events (SSE)
-```
-
-### Key Components
-
-#### Frontend (Next.js)
-- **Location**: `frontend/`
-- **Port**: 3000
-- **Role**: User interface and API proxy
-- **Key File**: `frontend/app/api/chat/route.ts`
-- **Environment**: `frontend/.env`
-
-#### Backend (Python)
-- **Location**: `backend/`
-- **Port**: 8000
-- **Role**: AI agent orchestration and tool execution
-- **Key Files**:
-  - `backend/app.py` - FastAPI server
-  - `backend/agent.py` - LangGraph agent with tools
-- **Environment**: `backend/.env`
-
-### Security & Configuration
-
-#### API Keys
-- **HuggingFace API Key**: Only stored in `backend/.env`
-- **Frontend**: No API keys needed (proxies through backend)
-
-#### CORS
-- Backend allows requests from `localhost:3000` and `localhost:3001`
-- Configured in `backend/app.py`
-
-#### Environment Variables
-
-**Frontend** (`frontend/.env`):
 ```env
-PYTHON_BACKEND_URL=http://localhost:8000
+# Database (auto-configured in Docker)
+DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+
+# Security - CHANGE THIS!
+SECRET_KEY=your-super-secret-key-change-this-in-production-min-32-chars
+
+# LLM Provider (choose one)
+# Option 1: Google Gemini (Free tier available)
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Option 2: OpenAI
+# OPENAI_API_KEY=your_openai_api_key_here
+
+# Option 3: Ollama (local)
+# OLLAMA_BASE_URL=http://localhost:11434
 ```
 
-**Backend** (`backend/.env`):
+#### 3. Start All Services
+
+```bash
+# Start all services in detached mode
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Check service health
+docker-compose ps
+```
+
+#### 4. Initialize the Database
+
+```bash
+# Run database migrations
+docker-compose exec backend alembic upgrade head
+
+# (Optional) Initialize knowledge base
+docker-compose exec backend python init_knowledge_base.py
+```
+
+#### 5. Access the Application
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
+- **Qdrant Dashboard**: http://localhost:6333/dashboard
+
+#### 6. Create Your First User
+
+Visit http://localhost:3000 and click "Sign Up" to create an account.
+
+---
+
+### Manual Setup
+
+For development or if you prefer not to use Docker.
+
+#### Backend Setup
+
+```bash
+# Navigate to backend directory
+cd backend
+
+# Create virtual environment
+python3.12 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+nano .env  # Edit with your settings
+
+# Start PostgreSQL (if not using Docker)
+# Install PostgreSQL 16 from https://www.postgresql.org/download/
+
+# Create database
+createdb cmatrix
+
+# Run migrations
+alembic upgrade head
+
+# Start Redis (required for Celery)
+redis-server
+
+# Start Qdrant (in another terminal)
+docker run -p 6333:6333 -p 6334:6334 \
+    -v $(pwd)/qdrant_storage:/qdrant/storage \
+    qdrant/qdrant
+
+# Initialize knowledge base
+python init_knowledge_base.py
+
+# Start backend server
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# In a new terminal, start Celery worker
+celery -A app.worker worker --loglevel=info
+```
+
+#### Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Configure environment
+echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
+
+# Start development server
+npm run dev
+```
+
+Access the application at http://localhost:3000
+
+---
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+#### Application Settings
+
 ```env
-HUGGINGFACE_API_KEY=your_key_here
-HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B
-PORT=8000
+APP_NAME=CMatrix
+APP_VERSION=0.0.1
+DEBUG=false
+LOG_LEVEL=INFO
 ```
 
-### Communication Protocol
+#### Database Configuration
 
-#### Request Format
+```env
+DATABASE_URL=postgresql+asyncpg://user:password@host:port/database
+```
+
+#### Security Settings
+
+```env
+SECRET_KEY=your-secret-key-min-32-characters
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=10080  # 7 days
+```
+
+#### Vector Database (Qdrant)
+
+```env
+QDRANT_URL=http://localhost:6333
+QDRANT_HOST=localhost
+QDRANT_PORT=6333
+QDRANT_COLLECTION_NAME=cmatrix_memory
+```
+
+#### Embeddings
+
+```env
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+EMBEDDING_DEVICE=cpu  # or 'cuda' for GPU
+```
+
+#### Command Execution
+
+```env
+COMMAND_TIMEOUT=30
+ENABLE_SUDO=false  # Set to true only if needed
+```
+
+#### Celery (Background Jobs)
+
+```env
+CELERY_BROKER_URL=redis://localhost:6379/0
+CELERY_RESULT_BACKEND=redis://localhost:6379/1
+```
+
+### LLM Configuration
+
+Create `llm_config.json` in the backend directory:
+
 ```json
 {
-  "message": "User's question",
-  "history": [
-    { "role": "user", "content": "Previous message" },
-    { "role": "assistant", "content": "Previous response" }
-  ]
+  "provider": "google",
+  "model": "gemini-2.0-flash-exp",
+  "temperature": 0.7,
+  "max_tokens": 8192,
+  "streaming": true
 }
 ```
 
-#### Response Format (SSE)
+Supported providers: `google`, `openai`, `anthropic`, `ollama`
+
+---
+
+## 💻 Usage
+
+### Basic Workflow
+
+1. **Sign Up / Login**: Create an account or login at http://localhost:3000
+
+2. **Start a Conversation**: Click "New Chat" to start interacting with the AI agent
+
+3. **Security Scanning Examples**:
+
+   ```
+   User: Scan 192.168.1.1 for open ports
+
+   User: Check if example.com has proper SSL configuration
+
+   User: Search for CVEs related to Apache 2.4
+
+   User: Analyze the security headers of https://example.com
+   ```
+
+4. **Approve Dangerous Operations**: When the agent requests to execute potentially dangerous commands, you'll see an approval dialog
+
+5. **View Job Status**: Long-running scans run in the background. Monitor progress in real-time
+
+### Advanced Features
+
+#### Using the Knowledge Base
+
 ```
-data: {"token": "word "}
-data: {"token": "by "}
-data: {"token": "word"}
-data: [DONE]
-```
+User: Remember that server-01 is our production database server
 
-#### Error Format
-```
-data: {"error": "Error message"}
-```
-
-### Agent Workflow
-
-1. **Receive Message**: User query arrives at agent
-2. **Analyze Intent**: Determine if tools are needed
-3. **Tool Execution**: If needed, execute relevant tools
-4. **Generate Response**: Call LLM with context
-5. **Format Output**: Clean and format response
-6. **Stream Back**: Send to frontend via SSE
-
-### Benefits of This Architecture
-
-✅ **Security**: API keys never exposed to frontend
-✅ **Flexibility**: Easy to add new tools without frontend changes
-✅ **Scalability**: Backend can be deployed independently
-✅ **Monitoring**: Centralized logging in backend
-✅ **Caching**: Can add caching layer in backend
-✅ **Rate Limiting**: Control API usage in backend
-✅ **Tool Calling**: Advanced AI capabilities with LangGraph
-
-### 🐳 Docker Guide
-
-Docker deployment provides a production-ready, containerized environment that ensures consistency across different systems while maintaining the security and performance characteristics of the platform.
-
-#### 🚀 Quick Start
-
-**1. Setup** (First time only)
-```bash
-./docker.sh setup    # Creates .env file
-nano .env            # Add your HUGGINGFACE_API_KEY
+User: What do you know about server-01?
 ```
 
-**2. Run**
-```bash
-./docker.sh start    # Starts everything in background
+#### Multi-Step Security Assessment
+
 ```
-
-**3. Access**
-- **App:** http://localhost:3000
-- **API Docs:** http://localhost:8000/docs
-
-#### 🛠️ Common Commands
-
-| Action | Command | Description |
-|--------|---------|-------------|
-| **Start** | `./docker.sh start` | Run in production mode (background) |
-| **Dev** | `./docker.sh dev` | Run with hot-reload (live editing) |
-| **Stop** | `./docker.sh stop` | Stop all services |
-| **Logs** | `./docker.sh logs` | View server logs (Ctrl+C to exit) |
-| **Clean** | `./docker.sh clean` | Wipe all containers & volumes |
-| **Shell** | `./docker.sh shell-backend` | Open terminal inside backend |
-
-#### ⚙️ Configuration
-
-**Environment Variables (`.env`)**
-```env
-HUGGINGFACE_API_KEY=your_key_here  # Required
-PORT=8000                          # Backend port
-```
-
-**Project Structure**
-- `docker-compose.yml` - Production config
-- `docker-compose.dev.yml` - Development config (hot-reload)
-- `backend/Dockerfile` - Python/FastAPI image
-- `frontend/Dockerfile` - Next.js image
-
-#### 🐛 Troubleshooting
-
-**Port already in use?**
-```bash
-./docker.sh clean
-./docker.sh start
-```
-
-**Build failing?**
-```bash
-./docker.sh rebuild
-```
-
-**Check Health**
-```bash
-./docker.sh health
+User: Perform a comprehensive security assessment of 10.0.0.5:
+1. Scan for open ports
+2. Identify running services
+3. Check for known vulnerabilities
+4. Provide a security report
 ```
 
 ---
 
-## 🎯 Usage Examples
+## 🛠️ Development
 
-With the platform running, you can interact with CMatrix through its web interface to perform various security assessments. The system accepts both structured commands and natural language queries, making it accessible to both technical and non-technical users.
-
-### Web UI (http://localhost:3000)
-
-Type commands directly:
-```
-scan_network(target=localhost, ports=1-10000)
-search_cve(keyword="apache", limit=5)
-check_compliance(standard="CIS")
-```
-
-Or use natural language:
-```
-Scan localhost for open ports
-Search for Apache vulnerabilities
-Check CIS compliance requirements
-What are the PCI-DSS requirements?
-```
-
----
-
-## 🔒 Security & Authorization
-
-Security is not an afterthought in CMatrix - it's the foundation. Every aspect of the platform is designed with security-first principles, ensuring that powerful assessment capabilities are matched with equally powerful protective measures.
-
-### Authorization
-- Target whitelist system
-- API key authentication
-- Scope-based permissions
-
-### Audit Logging
-- All commands logged to `backend/audit_logs/`
-- JSON format for compliance
-- Daily log rotation
-
-### Command Whitelist
-Only approved commands can execute:
-- nmap, curl, wget, dig, ping
-- systemctl, ps, top
-- sudo (for privileged scans)
-- 40+ security tools
-
----
-
-## 🔐 Authentication
-
-CMatrix features a robust single-user authentication system designed for secure, personal deployments.
-
-### Features
-- **Single-User Setup**: The first user to access the system sets the admin credentials.
-- **JWT Tokens**: Secure, stateless authentication using JSON Web Tokens (7-day expiry).
-- **PostgreSQL Storage**: User credentials are securely hashed (Bcrypt) and stored in a persistent PostgreSQL database.
-- **Protected Routes**: All API endpoints are protected and require a valid token.
-
-### Setup Flow
-1. **First Access**: Redirects to `/setup`. Create your username and password.
-2. **Login**: Subsequent access redirects to `/login`. Use your created credentials.
-3. **Logout**: Use the logout button in the header to end your session.
-
----
-
-## 📁 Project Structure
+### Project Structure
 
 ```
 cmatrix/
-├── frontend/              # Next.js app
-│   ├── app/              # Pages and API routes
-│   └── components/       # React components
-├── backend/              # Python backend
-│   ├── orchestrator.py   # Multi-agent orchestrator
-│   ├── agents/          # 7 worker agents
-│   ├── authorization.py  # Auth system
-│   ├── audit_logger.py   # Audit logging
-│   └── command_executor.py # Command execution
-└── README.md           # This file
+├── backend/
+│   ├── app/
+│   │   ├── agents/           # AI agent definitions
+│   │   │   └── specialized/  # Network, Web, Vuln agents
+│   │   ├── api/              # FastAPI routes
+│   │   ├── core/             # Config, security, database
+│   │   ├── models/           # SQLAlchemy models
+│   │   ├── schemas/          # Pydantic schemas
+│   │   ├── services/         # Business logic
+│   │   ├── tools/            # LangChain tools
+│   │   └── worker.py         # Celery worker
+│   ├── migrations/           # Alembic migrations
+│   ├── requirements.txt      # Python dependencies
+│   └── Dockerfile
+├── frontend/
+│   ├── src/
+│   │   ├── app/              # Next.js app router
+│   │   ├── components/       # React components
+│   │   ├── hooks/            # Custom React hooks
+│   │   ├── lib/              # Utilities
+│   │   └── types/            # TypeScript types
+│   ├── package.json
+│   └── Dockerfile
+├── docker-compose.yml        # Docker orchestration
+├── .env.example              # Environment template
+└── README.md
+```
+
+### Running Tests
+
+```bash
+# Backend tests
+cd backend
+pytest
+
+# With coverage
+pytest --cov=app --cov-report=html
+
+# Frontend tests
+cd frontend
+npm test
+```
+
+### Code Quality
+
+```bash
+# Backend linting
+cd backend
+black .                    # Format code
+flake8 .                   # Lint
+mypy app/                  # Type checking
+
+# Frontend linting
+cd frontend
+npm run lint
+```
+
+### Database Migrations
+
+```bash
+# Create a new migration
+alembic revision --autogenerate -m "Description of changes"
+
+# Apply migrations
+alembic upgrade head
+
+# Rollback one migration
+alembic downgrade -1
+```
+
+### Adding New Tools
+
+1. Create tool function in `backend/app/tools/`
+2. Register in appropriate agent file in `backend/app/agents/specialized/`
+3. Update agent prompts to include new tool
+4. Test tool execution
+
+Example:
+
+```python
+# backend/app/tools/my_tool.py
+from langchain.tools import StructuredTool
+
+def my_security_tool(target: str) -> str:
+    """
+    Description of what this tool does.
+
+    Args:
+        target: The target to scan
+
+    Returns:
+        Scan results as string
+    """
+    # Implementation
+    return "Results"
+
+# Register in agent
+MY_TOOL = StructuredTool.from_function(
+    func=my_security_tool,
+    name="my_security_tool",
+    description="Tool description for LLM"
+)
 ```
 
 ---
 
 ## 🧪 Testing
 
-Comprehensive testing ensures the reliability and security of CMatrix's assessment capabilities. The platform includes multiple testing layers to validate everything from individual components to full system integration.
+### Health Checks
 
 ```bash
-# Integration tests
-./test-integration.sh
+# Check all services
+./health_check.sh
 
-# System tests
-./test-system.sh
+# Check specific service
+curl http://localhost:8000/api/v1/health
+```
 
-# Command execution test
-./test-command-execution.sh
+### Test Scripts
+
+```bash
+# Test knowledge base
+./test_knowledge_base.sh
+
+# Test memory functionality
+./test_memory_demo.sh
+
+# Test backend API
+python backend/test_backend.py
 ```
 
 ---
 
-## 📊 Development Status
+## 🚢 Deployment
 
-**Phase 1: 100% Complete** ✅
+### Production Deployment
 
-- ✅ 7 specialized agents
-- ✅ 22 security tools
-- ✅ Real command execution
-- ✅ Authorization system
-- ✅ Audit logging
-- ✅ Web interface
-- ✅ CVE integration
-- ✅ Compliance checking
+#### Using Docker Compose (Production)
+
+```bash
+# Use production compose file
+docker-compose -f docker-compose.release.yml up -d
+
+# Or use the deployment script
+./docker.sh release
+```
+
+#### Environment Hardening
+
+1. **Change default credentials**:
+   ```env
+   SECRET_KEY=<generate-strong-random-key>
+   POSTGRES_PASSWORD=<strong-password>
+   ```
+
+2. **Disable debug mode**:
+   ```env
+   DEBUG=false
+   LOG_LEVEL=WARNING
+   ```
+
+3. **Enable HTTPS**: Configure reverse proxy (nginx/Caddy)
+
+4. **Restrict command execution**:
+   ```env
+   ENABLE_SUDO=false
+   COMMAND_TIMEOUT=30
+   ```
+
+#### Scaling
+
+```bash
+# Scale Celery workers
+docker-compose up -d --scale worker=4
+
+# Scale backend instances (with load balancer)
+docker-compose up -d --scale backend=3
+```
+
+### Monitoring
+
+- **Logs**: `docker-compose logs -f [service]`
+- **Metrics**: Backend logs in `backend/logs/`
+- **Health**: http://localhost:8000/api/v1/health
 
 ---
 
-## 🔧 Configuration
+## 🤝 Contributing
 
-Proper configuration is essential for both security and functionality. CMatrix uses environment variables to manage sensitive information and system settings, ensuring clean separation between code and configuration.
+We welcome contributions! Here's how to get started:
 
-### Backend (.env)
-```env
-# LLM Configuration (Multi-Provider Support)
-DEFAULT_LLM_PROVIDER=huggingface  # Choose: huggingface, ollama, openrouter, kilocode, gemini, cerebras
+### Getting Started
 
-# HuggingFace (Legacy - kept for backward compatibility)
-HUGGINGFACE_API_KEY=your_huggingface_api_key_here
-HUGGINGFACE_MODEL=DeepHat/DeepHat-V1-7B
-ENABLE_HUGGINGFACE=true
+1. **Fork the repository**
+2. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Make your changes**
+4. **Run tests**:
+   ```bash
+   pytest
+   npm test
+   ```
+5. **Commit with conventional commits**:
+   ```bash
+   git commit -m "feat: add amazing feature"
+   ```
+6. **Push to your fork**:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+7. **Open a Pull Request**
 
-# Ollama (Local Models)
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=gemma3:4b
-ENABLE_OLLAMA=false
+### Contribution Guidelines
 
-# OpenRouter
-OPENROUTER_API_KEY=your_openrouter_api_key_here
-OPENROUTER_MODEL=x-ai/grok-4-fast:free
-ENABLE_OPENROUTER=false
+- **Code Style**: Follow PEP 8 (Python) and ESLint rules (TypeScript)
+- **Tests**: Add tests for new features
+- **Documentation**: Update README and code comments
+- **Commits**: Use [Conventional Commits](https://www.conventionalcommits.org/)
+- **Issues**: Check existing issues before creating new ones
 
-# Kilo Code
-KILOCODE_TOKEN=your_kilocode_jwt_token_here
-KILOCODE_MODEL=x-ai/grok-code-fast-1
-ENABLE_KILOCODE=false
+### Development Workflow
 
-# Gemini (Google) - Multiple API keys for different instances
-GEMINI_API_KEY_1=your_gemini_api_key_1_here
-GEMINI_API_KEY_2=your_gemini_api_key_2_here
-GEMINI_API_KEY_3=your_gemini_api_key_3_here
-GEMINI_MODEL=gemini-2.5-pro
-ENABLE_GEMINI=false
+1. **Pick an issue** or create one describing your feature
+2. **Discuss approach** in the issue before major changes
+3. **Write tests** alongside your code
+4. **Update documentation** if needed
+5. **Request review** from maintainers
 
-# Cerebras - Multiple API keys for different instances
-CEREBRAS_API_KEY_1=your_cerebras_api_key_1_here
-CEREBRAS_API_KEY_2=your_cerebras_api_key_2_here
-CEREBRAS_API_KEY_3=your_cerebras_api_key_3_here
-CEREBRAS_MODEL=gpt-oss-120b
-ENABLE_CEREBRAS=false
+### Code of Conduct
 
-# Server Configuration
-PORT=8000
-DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
-SECRET_KEY=your_secret_key_here
-```
-
-### Frontend (.env)
-```env
-PYTHON_BACKEND_URL=http://localhost:8000
-```
-
-### LLM Provider Management
-
-CMatrix now supports multiple LLM providers for enhanced flexibility and reliability:
-
-#### Available Providers
-
-1. **HuggingFace** - Router API (default, backward compatible)
-   - Models: DeepHat/DeepHat-V1-7B, custom models
-   - Best for: Cybersecurity-focused responses
-
-2. **Ollama** - Local model inference
-   - Models: gemma3:4b, llama3, mistral, etc.
-   - Best for: Local deployment, privacy, no API costs
-
-3. **OpenRouter** - Multi-provider API
-   - Models: x-ai/grok-4-fast:free, GPT-4, Claude, etc.
-   - Best for: Access to multiple models through single API
-
-4. **Kilo Code** - Custom xAI Grok Code models
-   - Models: x-ai/grok-code-fast-1
-   - Best for: Code generation and technical tasks
-
-5. **Gemini (Google)** - Google's Gemini models
-   - Models: gemini-2.5-pro, gemini-pro, gemini-pro-vision
-   - Best for: Multimodal tasks, Google's ecosystem
-
-6. **Cerebras** - High-performance inference
-   - Models: gpt-oss-120b, qwen-3-coder-480b, llama3.1-70b
-   - Best for: Fast inference, large context windows
-
-#### Provider Switching
-
-You can switch providers dynamically via API:
-
-```bash
-# Get available providers
-curl -X GET "http://localhost:8000/api/v1/chat/providers" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-
-# Switch to a different provider
-curl -X POST "http://localhost:8000/api/v1/chat/providers/switch" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '"ollama"'
-```
-
-#### Configuration Tips
-
-- **Enable only needed providers** to reduce API costs and complexity
-- **Use local Ollama** for development and testing
-- **Multiple API keys** for Gemini/Cerebras provide redundancy
-- **Provider fallbacks** ensure system reliability
-- **Monitor usage** across different providers for cost optimization
-
----
-
-## 📞 API Reference
-
-The RESTful API provides programmatic access to CMatrix's capabilities, enabling integration with other security tools and workflows.
-
-### Core Endpoints
-- `GET /health` - Health check
-- `POST /api/v1/chat` - Non-streaming chat
-- `POST /api/v1/chat/stream` - Streaming chat (SSE)
-
-### LLM Provider Management
-- `GET /api/v1/chat/providers` - List available LLM providers
-- `POST /api/v1/chat/providers/switch` - Switch default LLM provider
-- `GET /api/v1/chat/providers/{provider_name}` - Get provider details
-
-- `GET /docs` - Interactive API documentation (Swagger UI)
-
-### Provider Management Examples
-
-```bash
-# List all available providers
-curl -X GET "http://localhost:8000/api/v1/chat/providers" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-
-# Switch to Ollama provider
-curl -X POST "http://localhost:8000/api/v1/chat/providers/switch" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '"ollama"'
-
-# Get Gemini provider info
-curl -X GET "http://localhost:8000/api/v1/chat/providers/gemini" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
+- Be respectful and inclusive
+- Provide constructive feedback
+- Focus on the code, not the person
+- Help others learn and grow
 
 ---
 
 ## 🐛 Troubleshooting
 
-Despite careful design, issues can occur. This troubleshooting guide helps resolve common problems and get you back to securing systems effectively.
+### Common Issues
 
-**Backend won't start:**
+#### Docker Issues
+
+**Problem**: Services won't start
 ```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+# Check logs
+docker-compose logs
+
+# Rebuild containers
+docker-compose down
+docker-compose build --no-cache
+docker-compose up -d
 ```
 
-**Port already in use:**
+**Problem**: Port already in use
 ```bash
-lsof -ti:8000 | xargs kill -9
-lsof -ti:3000 | xargs kill -9
+# Find process using port
+lsof -i :3000  # or :8000, :6379, etc.
+
+# Kill process or change port in docker-compose.yml
 ```
 
-**Database connection failed:**
+#### Database Issues
+
+**Problem**: Migration errors
 ```bash
-# Check if postgres is running
-docker compose ps postgres
-# Restart postgres
-docker compose restart postgres
+# Reset database (WARNING: deletes all data)
+docker-compose down -v
+docker-compose up -d postgres
+docker-compose exec backend alembic upgrade head
 ```
 
-**nmap not found:**
+**Problem**: Connection refused
 ```bash
-sudo apt install nmap  # Ubuntu/Debian
-sudo yum install nmap  # CentOS/RHEL
+# Check PostgreSQL is running
+docker-compose ps postgres
+
+# Check connection string in .env
+# Ensure DATABASE_URL matches docker-compose.yml
 ```
+
+#### Celery Worker Issues
+
+**Problem**: Jobs not processing
+```bash
+# Check worker logs
+docker-compose logs worker
+
+# Restart worker
+docker-compose restart worker
+
+# Check Redis connection
+docker-compose exec backend python check_redis.py
+```
+
+#### Frontend Issues
+
+**Problem**: API connection errors
+```bash
+# Check NEXT_PUBLIC_API_URL in .env.local
+# Ensure backend is running on correct port
+curl http://localhost:8000/api/v1/health
+```
+
+**Problem**: Build errors
+```bash
+# Clear Next.js cache
+cd frontend
+rm -rf .next
+npm run build
+```
+
+#### LLM Issues
+
+**Problem**: Agent not responding
+```bash
+# Check LLM configuration
+cat backend/llm_config.json
+
+# Verify API key is set
+echo $GOOGLE_API_KEY  # or OPENAI_API_KEY
+
+# Test LLM setup
+docker-compose exec backend python setup_llm.py
+```
+
+### Getting Help
+
+- **Documentation**: Check this README and code comments
+- **Issues**: Search [existing issues](https://github.com/yourusername/cmatrix/issues)
+- **Discussions**: Join [GitHub Discussions](https://github.com/yourusername/cmatrix/discussions)
+- **Logs**: Always include relevant logs when reporting issues
 
 ---
 
-## 🌟 Key Capabilities
+## 📚 Additional Resources
 
-CMatrix's capabilities represent a significant advancement in automated security assessment, combining AI intelligence with real-world tool execution in a secure, auditable framework.
+### Documentation
 
-1. **Real Command Execution** - Actually runs nmap, curl, etc.
-2. **Multi-Agent Orchestration** - 7 specialized security agents
-3. **CVE Intelligence** - Real-time NVD database queries
-4. **Compliance Checking** - CIS, PCI-DSS, HIPAA, SOC2
-5. **Audit Trail** - Complete logging for compliance
-6. **Authorization** - Target and API key management
+- [Architecture Overview](docs/architecture.md)
+- [API Documentation](http://localhost:8000/docs) (when running)
+- [Agentic Implementation Roadmap](AGENTIC_IMPLEMENTATION_ROADMAP.md)
 
----
+### Related Projects
 
-## 🎊 Summary
+- [LangChain](https://github.com/langchain-ai/langchain)
+- [LangGraph](https://github.com/langchain-ai/langgraph)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Next.js](https://nextjs.org/)
 
-CMatrix is a production-ready multi-agent security orchestration platform that performs real security assessments with proper authorization and comprehensive audit logging.
+### Learning Resources
 
-**Built with:** LangGraph, FastAPI, Next.js, nmap, and ❤️
-
----
-
-## 📋 Project Vision & Roadmap
-
-Looking beyond the current implementation, CMatrix represents a comprehensive vision for the future of automated security assessment. This section outlines the strategic direction and long-term goals that guide the platform's evolution.
-
-### 1. The Core Idea
-
-#### Concept:
-An AI-orchestrated vulnerability assessment platform using a master-worker agent architecture where a central "Red Agent" coordinates specialized worker agents, each focused on specific security assessment domains.
-
-#### Legitimate Scope (Critical Clarification):
-- Vulnerability Discovery: Identifying weaknesses through passive and active scanning
-- Configuration Analysis: Detecting misconfigurations and weak security postures
-- Compliance Testing: Automated security compliance verification
-- Simulated Attack Scenarios: Controlled proof-of-concept demonstrations in authorized environments
-
-### 2. Feasibility & Growth Potential
-
-#### Feasibility: MEDIUM
-
-#### Positive Factors:
-- Existing agent frameworks (LangChain, AutoGen, CrewAI) make multi-agent systems more accessible
-- Security testing APIs and tools are available (Nmap, OWASP ZAP, etc.)
-- Growing demand for automated security solutions
-- Cloud infrastructure makes deployment scalable
-
-#### Critical Challenges:
-- Legal & Compliance: Requires robust authorization systems, audit trails, and legal frameworks
-- Technical Complexity: Integrating diverse security tools reliably is non-trivial
-- False Positives: AI agents may generate unreliable results requiring human verification
-- Liability: Significant legal exposure if the system causes unintended damage
-- Authorization Controls: Must prevent unauthorized use - this is paramount
-
-#### Growth Potential: MODERATE-HIGH
-
-##### Market Opportunity:
-- Global cybersecurity market: $200B+ and growing 12% annually
-- Penetration testing market: ~$2B with 15%+ CAGR
-- Enterprise spending on security automation increasing rapidly
-
-##### Growth Drivers:
-- Cybersecurity talent shortage (3.5M+ unfilled positions globally)
-- Increasing regulatory requirements (GDPR, SOC2, ISO 27001)
-- Rising attack frequency and sophistication
-- Shift toward continuous security testing (DevSecOps)
-
-##### Growth Constraints:
-- Dominated by established players (Rapid7, Qualys, Tenable, CrowdStrike)
-- High customer acquisition costs in enterprise security
-- Long sales cycles for enterprise security products
-- Trust barrier - security teams are conservative about automation
-
-### 3. Technology Stack & Tools
-
-#### Architecture Layer
-
-##### Master Agent (Red Agent Orchestrator)
-- Framework: LangGraph, LangChain or AutoGen for agent orchestration
-- Semantic Caching: Redis
-- LLM: Gemini, Qwen or LLama3
-- Workflow Engine: Apache Airflow or Temporal for task orchestration
-- Database: PostgreSQL for task management, MongoDB for unstructured scan data
-
-##### Worker Agents (Specialized Assessment Modules)
-
-1. **Network Discovery Agent**
-   - Nmap, Masscan for port scanning
-   - Shodan API integration
-   - Asset inventory management
-
-2. **Web Application Assessment Agent**
-   - OWASP ZAP (Zed Attack Proxy)
-   - Burp Suite API
-   - Nuclei for template-based scanning
-   - SQLMap for database security testing (detection only)
-
-3. **Configuration Analysis Agent**
-   - ScoutSuite (cloud security auditing)
-   - Lynis (system hardening scan)
-   - OpenSCAP for compliance checking
-
-4. **Vulnerability Intelligence Agent**
-   - NVD (National Vulnerability Database) API
-   - CVE database integration
-   - Threat intelligence feeds (MISP, OTX)
-
-5. **Authentication Testing Agent**
-   - Hydra for credential testing (authorized only)
-   - John the Ripper for password policy analysis
-   - OAuth/SAML misconfiguration detection
-
-6. **API Security Agent**
-   - Postman/Newman for API testing
-   - OWASP API Security testing tools
-   - GraphQL security scanners
-
-#### Infrastructure & DevOps
-
-##### Backend
-- Language: Python (primary) with Go for performance-critical components
-- API Framework: FastAPI or Flask
-- Message Queue: RabbitMQ or Apache Kafka for agent communication
-- Container Orchestration: Kubernetes + Docker
-- CI/CD: GitLab CI or GitHub Actions
-
-##### Frontend
-- Framework: React or Vue.js
-- Visualization: D3.js, Plotly for attack graphs and vulnerability mapping
-- Dashboard: Grafana for real-time monitoring
-
-##### Security & Compliance
-- Authorization System: OAuth 2.0 + custom authorization engine
-- Audit Logging: ELK Stack (Elasticsearch, Logstash, Kibana)
-- Secrets Management: HashiCorp Vault
-- Network Isolation: VPC, security groups, network segmentation
-
-##### Cloud Infrastructure
-- Primary: AWS (EC2, ECS, Lambda) or Google Cloud
-- Storage: S3 for reports, RDS for structured data
-- Monitoring: Prometheus + Grafana, DataDog
-
-### 4. Development Roadmap
-
-#### Phase 1: Foundation (Months 1-4)
-- Core architecture design and authorization framework
-- Master agent orchestration engine
-- Basic worker agents (2-3 modules): Network discovery, Web scanning
-- Authorization and audit logging system
-- MVP with CLI interface
-
-**Deliverable:** Proof of concept that can perform basic authorized scans
-
-#### Phase 2: Core Platform (Months 5-9)
-- Complete all 6+ worker agent modules
-- Web-based dashboard and reporting
-- Scan scheduling and automation
-- Integration with common CI/CD pipelines
-- Enhanced authorization controls (scope limiting, time-boxing)
-
-**Deliverable:** Beta product for early adopters
-
-#### Phase 3: Intelligence & Automation (Months 10-14)
-- AI-driven vulnerability prioritization
-- Automated remediation suggestions
-- Threat intelligence integration
-- Custom agent creation framework
-- API for third-party integrations
-
-**Deliverable:** Production-ready platform v1.0
-
-#### Phase 4: Enterprise Features (Months 15-18)
-- Multi-tenancy and role-based access control (RBAC)
-- Compliance reporting (SOC2, ISO 27001, PCI-DSS)
-- Integration marketplace
-- Advanced analytics and trend analysis
-- Enterprise support infrastructure
-
-**Deliverable:** Enterprise-grade solution
-
-#### Phase 5: Scale & Expansion (Months 19-24)
-- Cloud-native agent deployment
-- Real-time continuous monitoring
-- Collaborative features for security teams
-- AI model fine-tuning on customer data (with permission)
-- International compliance (GDPR, regional requirements)
-
-**Deliverable:** Market-leading position in automated VAPT
-
-### 5. Projected Impact
-
-#### People's Lives Touched: 10M-100M+ (Indirect)
-
-##### Direct Users (Conservative 3-Year Projection):
-- Year 1: 50-100 organizations (500-2,000 security professionals)
-- Year 2: 500-1,000 organizations (5,000-20,000 security professionals)
-- Year 3: 2,000-5,000 organizations (20,000-100,000 security professionals)
-
-##### Indirect Beneficiaries (customers of organizations using the platform):
-- Each organization serves 1,000-10M+ customers
-- If protecting 1,000 organizations → 10M-100M+ end-users benefit from improved security
-
-#### Industry Impact: SIGNIFICANT
-
-1. **Security Team Productivity (⭐⭐⭐⭐)**
-   - Time Savings: 60-80% reduction in manual testing time
-   - Coverage Increase: 3-5x more assets tested regularly
-   - Earlier Detection: Shift-left security, catching vulnerabilities in development
-   - Impact: Empowers understaffed security teams to do more with less
-
-2. **Vulnerability Remediation Speed (⭐⭐⭐⭐⭐)**
-   - Current Average: 60-120 days from discovery to patch
-   - With Automation: Reduce to 7-30 days
-   - Impact: Massive reduction in exposure windows, preventing breaches
-
-3. **Cost Reduction (⭐⭐⭐⭐)**
-   - Manual VAPT: $15,000-$100,000 per engagement
-   - Automated Solution: $10,000-$50,000 annually for continuous testing
-   - ROI: 200-500% for medium-large enterprises
-   - Impact: Makes comprehensive security testing accessible to SMBs
-
-4. **Breach Prevention (⭐⭐⭐⭐⭐)**
-   - Current: Average breach costs $4.45M (IBM 2023)
-   - If preventing just 1% of breaches: Billions saved globally
-   - Impact: Potentially prevent thousands of security incidents annually
-
-5. **Compliance & Regulatory (⭐⭐⭐)**
-   - Simplifies compliance for SOC2, ISO 27001, PCI-DSS
-   - Reduces audit preparation time by 50%+
-   - Impact: Accelerates time-to-market for regulated products
-
-6. **Democratization of Security (⭐⭐⭐⭐)**
-   - Makes enterprise-grade security testing accessible to startups and SMBs
-   - Levels the playing field between large and small organizations
-   - Impact: Raises the baseline security posture across industries
-
-#### Potential Market Capture
-
-##### Addressable Market:
-- Total Available Market (TAM): $15-20B (VAPT + Security Automation)
-- Serviceable Addressable Market (SAM): $3-5B (AI-powered automated testing)
-- Serviceable Obtainable Market (SOM): $50-200M in 5 years (1-4% of SAM)
-
-##### Conservative 5-Year Projection:
-- Year 1: $500K-1M ARR
-- Year 2: $10-20M ARR
-- Year 3: $50-100M ARR
-
-### Critical Success Factors
-1. Authorization System: Bulletproof controls preventing misuse
-2. Accuracy: Low false positive rate (<5%)
-3. Compliance: SOC2 Type II, ISO 27001 certified from day one
-4. Trust Building: Strong brand, transparent practices, security researcher endorsements
-5. Integration: Seamless fit into existing security workflows
-6. Support: White-glove enterprise support and incident response
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
+- [Next.js Learn](https://nextjs.org/learn)
 
 ---
 
-## Login Field Security Checklist
+## 📄 License
 
-| Question | How to check |
-|----------|--------------|
-| Is the login page served over HTTPS only (no HTTP)? | Open page in browser and confirm URL starts with https://. Try http:// and observe redirect behavior. Check Network tab for mixed-content warnings. |
-| Is HSTS enabled for the domain? | Inspect response headers in DevTools → Network for Strict-Transport-Security or use an HSTS checker. |
-| Are credentials ever sent in URL/query strings? | Observe requests in DevTools/Proxy and check request line and query string for credential parameters. |
-| Is the login request sent as POST (not GET)? | Inspect the HTTP method of the login request in DevTools/Network or proxy. |
-| Is the Content-Type appropriate (form/json) and consistent? | Check the request header Content-Type and the request body format in the proxy. |
-| Is there server-side input validation for username/password? | Submit unusual inputs (long strings, special chars) and observe server responses for validation or errors. |
-| Are client-side validations present only as UX (not relied on)? | Disable JavaScript or modify the form in DevTools then submit to verify server enforces constraints. |
-| Does the app accept extremely long or binary inputs without error? | Send very long username/password values and watch for 500 errors, stack traces, or other failures. |
-| Are error messages generic (no internal info or stack traces)? | Trigger failed logins and inspect response bodies and UI for debug info, file paths, or stack traces. |
-| Do responses differ between valid vs invalid usernames (timing/message)? | Try existing-user + wrong-password vs non-existent-user and compare response bodies, status codes, and timing. |
-| Can you enumerate accounts from error messages or behavior? | Use differences observed above (messages or timing) to determine if enumeration is possible. |
-| Is there rate-limiting or progressive delay on failed attempts? | Perform multiple failed login attempts and watch for increased latency, HTTP 429, or lockout responses. |
-| Are CAPTCHAs or lockouts applied after repeated failures? | Repeat failed attempts and observe when CAPTCHA appears or when IP/account is blocked. |
-| Are cookies set with Secure, HttpOnly, and appropriate SameSite? | After login, inspect cookies in DevTools → Application → Cookies and check flags. |
-| Does the session token rotate after login and after privilege changes? | Capture session token before and after login or privilege change and verify the token value changes. |
-| Is session invalidated on logout and after password reset? | Log out and attempt reuse of old cookie/token; after password reset, confirm old tokens no longer work. |
-| Is MFA/2FA enforced or available for users with elevated access? | Check account settings for MFA enrollment and perform a login that should trigger 2FA to observe the extra step. |
-| Can MFA be bypassed by parameter tampering or code reuse? | Inspect MFA request/response flow in proxy for client-side parameters that could be modified (do not brute-force codes). |
-| Are password complexity rules enforced server-side? | Attempt to set weak passwords via change/reset endpoints with JS disabled and see if server rejects them. |
-| Does password reset use single-use, short-lived tokens? | Request password reset and inspect token characteristics (length, reuse behavior, expiry info). |
-| Does password reset reveal account existence? | Submit password reset for existing vs non-existing emails and compare responses and timing. |
-| Are security questions/recovery options implemented securely? | Review recovery flow for weak fallback mechanisms or exposure of answers/hints. |
-| Are SSO/OAuth redirect URIs strictly whitelisted and validated? | Inspect auth request/redirect parameters and test redirect_uri handling in a controlled environment. |
-| Are tokens from IdP validated for audience, scope, and expiry? | Capture IdP tokens and inspect claims (aud, exp, scope) or review token-validation on app side. |
-| Are there open-redirects in the auth or callback parameters? | Controlled test: alter redirect parameters and observe if app redirects to arbitrary domains. |
-| Are login-related endpoints protected against CSRF where applicable? | Check for anti-CSRF tokens in forms or confirm SameSite cookie settings; attempt state-changing requests without token. |
-| Is X-Frame-Options / CSP frame-ancestors set to prevent clickjacking? | Inspect response headers for X-Frame-Options or CSP frame-ancestors directives. |
-| Are error messages and client responses free of sensitive data? | Review response bodies/headers for secrets, internal IPs, DB IDs, or debug info. |
-| Does the app implement breached-password checks or block reused passwords? | Attempt password change/reset with known-breached or reused passwords and observe server response. |
-| Are API/mobile auth endpoints subject to the same checks as web form? | Identify API endpoints via Network tab and test them separately for validation, rate-limiting, and error handling. |
-| Are logs recording failed/successful logins with IP and user-agent? | If you have access, inspect logs for timestamp, IP, user-agent; otherwise request log policy from devs/ops. |
-| Do logs avoid storing plaintext passwords or sensitive tokens? | Search server logs (if accessible) for password strings; otherwise request logging policies and evidence. |
-| Are alerts triggered for suspicious login patterns (mass failures)? | Simulate suspicious patterns safely and verify detection/alerts in monitoring or ask ops for examples. |
-| Is CSP, XSS protections, and secure headers applied on the login page? | Inspect response headers for Content-Security-Policy and other security headers. |
-| Is any secret (key/token) embedded in client-side JavaScript? | View served JS files in DevTools → Sources and search for hard-coded keys or tokens. |
-| Is input reflected anywhere (error messages, profile) without encoding? | Submit data with special characters and inspect pages/HTML responses for reflected content lacking encoding. |
-| Are account lockouts recoverable only through secure channels? | Trigger lockout in test account and attempt recovery; document required verification steps and weaknesses. |
-| Is there protection against credential stuffing (rate-limits, device fingerprint)? | Review rate-limiting behavior and check for device fingerprinting or anomaly detection that blocks stuffing. |
-| Are OAuth scopes limited and tokens short-lived? | Inspect issued tokens for expiry and scope claims or review OAuth client configuration. |
-| Is there a documented admin/privileged-account recovery process with audit? | Request internal procedure documentation and confirm recovery requires strong controls and audit trail. |
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [LangChain](https://github.com/langchain-ai/langchain) and [LangGraph](https://github.com/langchain-ai/langgraph)
+- UI components from [Radix UI](https://www.radix-ui.com/)
+- Inspired by modern AI agent architectures and security automation tools
+
+---
+
+## 📞 Contact
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/cmatrix/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/cmatrix/discussions)
+- **Email**: your.email@example.com
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the CMatrix Team**
+
+[⬆ Back to Top](#cmatrix)
+
+</div>

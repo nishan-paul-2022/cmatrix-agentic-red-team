@@ -6,6 +6,7 @@ import type { ConversationWithHistory } from "@/types/conversation.types";
 import { apiConfig } from "@/config/api.config";
 import { MESSAGES } from "@/constants/messages";
 import { useConversations } from "@/contexts/conversation-context";
+import { useAuth } from "@/contexts/auth-context";
 
 interface UseChatStreamReturn {
   messages: ChatMessage[];
@@ -15,13 +16,16 @@ interface UseChatStreamReturn {
   sendMessage: (message: string) => Promise<void>;
   setInput: (input: string) => void;
   input: string;
+  refreshMessages: () => Promise<void>;
 }
 
 /**
  * Hook for handling chat streaming functionality
  */
-export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStreamReturn {
-  const { activeConversation, loadConversationHistory, createConversation } = useConversations();
+export function useChatStream(): UseChatStreamReturn {
+  const { activeConversation, loadConversationHistory, createConversation, loadConversations } =
+    useConversations();
+  const { user } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,16 +36,36 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
   useEffect(() => {
     const loadMessages = async () => {
       if (activeConversation) {
-        try {
-          const conversationData = await loadConversationHistory(activeConversation.id);
-          const chatMessages: ChatMessage[] = conversationData.history.map(h => ({
-            role: h.role as "user" | "assistant",
-            content: h.content,
-          }));
-          setMessages(chatMessages);
-        } catch (error) {
-          console.error('Failed to load conversation history:', error);
-          setMessages([]);
+        // Retry logic for newly created conversations (race condition handling)
+        let retries = 3;
+        let delay = 100; // Start with 100ms delay
+
+        while (retries > 0) {
+          try {
+            const conversationData = await loadConversationHistory(activeConversation.id);
+            const chatMessages: ChatMessage[] = conversationData.history.map((h) => ({
+              role: h.role as "user" | "assistant",
+              content: h.content,
+            }));
+            setMessages(chatMessages);
+            break; // Success, exit retry loop
+          } catch (error) {
+            retries--;
+
+            // If it's a 404 and we have retries left, wait and retry
+            if (error instanceof Error && error.message.includes("not found") && retries > 0) {
+              console.warn(
+                `Conversation ${activeConversation.id} not found, retrying in ${delay}ms... (${retries} retries left)`
+              );
+              await new Promise((resolve) => setTimeout(resolve, delay));
+              delay *= 2; // Exponential backoff
+            } else {
+              // For other errors or no retries left, log and clear messages
+              console.error("Failed to load conversation history:", error);
+              setMessages([]);
+              break;
+            }
+          }
         }
       } else {
         setMessages([]);
@@ -62,7 +86,7 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
           const newConversation = await createConversation();
           conversationId = newConversation.id;
         } catch (error) {
-          console.error('Failed to create conversation:', error);
+          console.error("Failed to create conversation:", error);
           return;
         }
       }
@@ -75,123 +99,261 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
 
       try {
         // Get auth token from localStorage
-        const token = localStorage.getItem('auth_token');
+        const token = localStorage.getItem("auth_token");
         if (!token) {
-          throw new Error('Not authenticated. Please log in.');
+          throw new Error("Not authenticated. Please log in.");
         }
 
-        const response = await fetch(`${apiConfig.baseUrl}${apiConfig.endpoints.chatStream}`, {
-          method: "POST",
-          headers: {
-            ...apiConfig.headers,
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            message: userMessage,
-            conversation_id: conversationId,
-            history: messages.slice(-10), // Last 10 messages for context
-            is_demo_page: options?.isDemoPage || false,
-          }),
+        // 1. Create Background Job
+        const createResponse = await fetch(
+          `${apiConfig.baseUrl}${apiConfig.endpoints.jobs.create}`,
+          {
+            method: "POST",
+            headers: {
+              ...apiConfig.headers,
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              message: userMessage,
+              conversation_id: conversationId,
+              history: messages.slice(-10), // Last 10 messages for context
+            }),
+          }
+        );
+
+        if (!createResponse.ok) {
+          const errorData = await createResponse.json().catch(() => ({}));
+          let errorMessage: string = MESSAGES.ERRORS.FETCH_FAILED;
+
+          if (errorData.detail) {
+            if (typeof errorData.detail === "string") {
+              errorMessage = errorData.detail;
+            } else if (Array.isArray(errorData.detail)) {
+              // Handle FastAPI validation errors
+              errorMessage = errorData.detail
+                .map((err: any) => `${err.loc?.join(".")} ${err.msg}`)
+                .join(", ");
+            } else if (typeof errorData.detail === "object") {
+              errorMessage = JSON.stringify(errorData.detail);
+            }
+          }
+
+          throw new Error(errorMessage);
+        }
+
+        const { job_id } = await createResponse.json();
+
+        // Add empty assistant message with loading state
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Processing request...", animationSteps: [] },
+        ]);
+
+        // 2. Poll for Completion
+        let jobResult: any = null;
+        let pollCount = 0;
+        const MAX_POLLS = 600; // 20 minutes max (2s interval)
+
+        while (pollCount < MAX_POLLS) {
+          await new Promise((resolve) => setTimeout(resolve, 2000)); // Poll every 2s
+          pollCount++;
+
+          const statusResponse = await fetch(
+            `${apiConfig.baseUrl}${apiConfig.endpoints.jobs.get(job_id)}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          // Handle 410 - job expired/cleared from Redis (graceful degradation)
+          if (statusResponse.status === 410) {
+            console.warn(`Job ${job_id} has expired or was cleared from cache`);
+            // Break polling and show a friendly message
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                role: "assistant",
+                content:
+                  "Your request took too long and the result has expired. Please try sending your message again.",
+              };
+              return updated;
+            });
+            return; // Exit gracefully without throwing
+          }
+
+          // Handle 404 - job not found (should rarely happen with new logic)
+          if (statusResponse.status === 404) {
+            console.warn(`Job ${job_id} not found`);
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                role: "assistant",
+                content: "Unable to find your request. Please try sending your message again.",
+              };
+              return updated;
+            });
+            return; // Exit gracefully without throwing
+          }
+
+          // Retry on other errors (network issues, temporary 500s, etc.)
+          if (!statusResponse.ok) continue;
+
+          const statusData = await statusResponse.json();
+
+          if (statusData.status === "success") {
+            jobResult = statusData.result;
+            break;
+          } else if (statusData.status === "failed") {
+            throw new Error(statusData.error || "Job failed during execution");
+          } else if (statusData.status === "cancelled") {
+            throw new Error("Job was cancelled");
+          }
+
+          // Optional: Update loading message with duration
+          if (pollCount % 5 === 0) {
+            // Every 10s
+            setMessages((prev) => {
+              const updated = [...prev];
+              const lastMsg = updated[updated.length - 1];
+              if (lastMsg.role === "assistant" && lastMsg.content.startsWith("Processing")) {
+                updated[updated.length - 1] = {
+                  ...lastMsg,
+                  content: `Processing request... (${Math.floor(pollCount * 2)}s)`,
+                };
+              }
+              return updated;
+            });
+          }
+        }
+
+        if (!jobResult) {
+          throw new Error("Job timed out or returned no result");
+        }
+
+        // 3. Playback Result (Simulate Streaming)
+
+        // Clear the "Processing..." message
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "assistant", content: "", animationSteps: [] };
+          return updated;
         });
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({
-            error: MESSAGES.ERRORS.GENERIC,
-          }));
-          throw new Error(errorData.error || MESSAGES.ERRORS.FETCH_FAILED);
-        }
-
-        const reader = response.body?.getReader();
-        if (!reader) {
-          throw new Error(MESSAGES.ERRORS.NO_RESPONSE);
-        }
-
-        const decoder = new TextDecoder();
         let assistantMessage = "";
         let receivedAnimationSteps: AnimationStep[] = [];
         let receivedDiagram: NetworkDiagram | null = null;
 
-        // Add empty assistant message
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: "", animationSteps: [] },
-        ]);
+        // Check for Pending Approval
+        if (typeof jobResult === "object" && jobResult.pending_approval) {
+          const threadId = `user_${user?.id}_conv_${conversationId}`;
+          // Extract content from messages list if available
+          let content = "Approval Required";
+          if (
+            jobResult.messages &&
+            Array.isArray(jobResult.messages) &&
+            jobResult.messages.length > 0
+          ) {
+            content = jobResult.messages[0].content || content;
+          }
 
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+          setMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              role: "assistant",
+              content: content,
+              pending_approval: jobResult.pending_approval,
+              thread_id: threadId,
+              animationSteps: [],
+            };
+            return updated;
+          });
+          setIsLoading(false);
+          return;
+        }
 
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split("\n").filter((line) => line.trim() !== "");
+        // Check if result is complex object or string
+        if (typeof jobResult === "object" && jobResult.animation_steps) {
+          // Complex result with animations
+          const { animation_steps, diagram, final_answer } = jobResult;
 
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") continue;
-
-              try {
-                const parsed: StreamChunk = JSON.parse(data);
-
-                if (parsed.animation_step) {
-                  // Handle animation step
-                  receivedAnimationSteps.push(parsed.animation_step);
-                  setIsAnimating(true);
-                  setIsLoading(false);
-
-                  // Update message with animation steps
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.role === "assistant") {
-                      lastMsg.animationSteps = [...receivedAnimationSteps];
-                      if (receivedDiagram) {
-                        lastMsg.diagram = receivedDiagram;
-                      }
-                    }
-                    return updated;
-                  });
-
-                  // Auto-advance animation
-                  setTimeout(() => {
-                    setCurrentAnimationStep((prev) =>
-                      Math.min(prev + 1, receivedAnimationSteps.length)
-                    );
-                  }, parsed.animation_step.duration);
-                } else if (parsed.diagram) {
-                  // Handle diagram
-                  receivedDiagram = parsed.diagram;
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.role === "assistant") {
-                      lastMsg.diagram = receivedDiagram!;
-                    }
-                    return updated;
-                  });
-                } else if (parsed.token) {
-                  // Handle regular token streaming
-                  assistantMessage += parsed.token;
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = {
-                      ...updated[updated.length - 1],
-                      content: assistantMessage,
-                    };
-                    return updated;
-                  });
-                } else if (parsed.error) {
-                  throw new Error(parsed.error);
-                }
-              } catch (e) {
-                if (e instanceof Error && e.message !== "Unexpected end of JSON input") {
-                  console.error("[Chat Stream] Parse error:", e);
-                }
+          // Handle Diagram
+          if (diagram) {
+            receivedDiagram = diagram;
+            setMessages((prev) => {
+              const updated = [...prev];
+              const lastMsg = updated[updated.length - 1];
+              if (lastMsg.role === "assistant") {
+                lastMsg.diagram = receivedDiagram!;
               }
+              return updated;
+            });
+          }
+
+          // Handle Animations
+          if (animation_steps && animation_steps.length > 0) {
+            setIsAnimating(true);
+            setIsLoading(false); // Stop loading spinner, start animation
+
+            for (const step of animation_steps) {
+              receivedAnimationSteps.push(step);
+
+              // Update message with new step
+              setMessages((prev) => {
+                const updated = [...prev];
+                const lastMsg = updated[updated.length - 1];
+                if (lastMsg.role === "assistant") {
+                  lastMsg.animationSteps = [...receivedAnimationSteps];
+                }
+                return updated;
+              });
+
+              // Advance step counter
+              setCurrentAnimationStep(receivedAnimationSteps.length);
+
+              // Wait for duration
+              await new Promise((resolve) => setTimeout(resolve, step.duration || 1500));
             }
           }
+
+          // Handle Final Text
+          const words = (final_answer || "").split(" ");
+          for (let i = 0; i < words.length; i++) {
+            assistantMessage += words[i] + " ";
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                ...updated[updated.length - 1],
+                content: assistantMessage,
+              };
+              return updated;
+            });
+            await new Promise((resolve) => setTimeout(resolve, 30)); // Fast typing
+          }
+        } else {
+          // Simple string result
+          const text = typeof jobResult === "string" ? jobResult : JSON.stringify(jobResult);
+          const words = text.split(" ");
+
+          for (let i = 0; i < words.length; i++) {
+            assistantMessage += words[i] + " ";
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                ...updated[updated.length - 1],
+                content: assistantMessage,
+              };
+              return updated;
+            });
+            await new Promise((resolve) => setTimeout(resolve, 30));
+          }
         }
+
+        // Refresh conversations list to update title if generated
+        loadConversations();
       } catch (error) {
-        console.error("[Chat Stream] Error:", error);
+        console.error("[Chat Job] Error:", error);
         setMessages((prev) => {
           const updated = [...prev];
           const lastMsg = updated[updated.length - 1];
@@ -200,9 +362,10 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
           if (lastMsg && lastMsg.role === "assistant") {
             updated[updated.length - 1] = {
               ...lastMsg,
-              content: lastMsg.content 
-                ? `${lastMsg.content}\n\n[Error: ${errorMessage}]`
-                : errorMessage,
+              content:
+                lastMsg.content && !lastMsg.content.startsWith("Processing")
+                  ? `${lastMsg.content}\n\n[Error: ${errorMessage}]`
+                  : errorMessage,
             };
             return updated;
           }
@@ -223,6 +386,49 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
     [messages, isLoading, activeConversation, createConversation, loadConversationHistory]
   );
 
+  const refreshMessages = useCallback(async () => {
+    if (activeConversation) {
+      try {
+        const conversationData = await loadConversationHistory(activeConversation.id);
+        const chatMessages: ChatMessage[] = conversationData.history.map((h) => ({
+          role: h.role as "user" | "assistant",
+          content: h.content,
+        }));
+        setMessages(chatMessages);
+      } catch (error) {
+        console.error("Failed to refresh conversation history:", error);
+      }
+    }
+  }, [activeConversation, loadConversationHistory]);
+
+  const startPolling = useCallback(async () => {
+    // Optimistic update: Remove pending_approval immediately
+    setMessages((prev) => {
+      const updated = [...prev];
+      const lastMsgIndex = updated.findIndex((m) => m.pending_approval);
+      if (lastMsgIndex !== -1) {
+        updated[lastMsgIndex] = {
+          ...updated[lastMsgIndex],
+          pending_approval: undefined,
+          content: "Processing approval...",
+        };
+      }
+      return updated;
+    });
+
+    const POLL_DURATION = 30000; // 30 seconds
+    const POLL_INTERVAL = 2000; // 2 seconds
+    const startTime = Date.now();
+
+    const poll = async () => {
+      if (Date.now() - startTime > POLL_DURATION) return;
+      await refreshMessages();
+      setTimeout(poll, POLL_INTERVAL);
+    };
+
+    poll();
+  }, [refreshMessages]);
+
   return {
     messages,
     isLoading,
@@ -231,5 +437,6 @@ export function useChatStream(options?: { isDemoPage?: boolean }): UseChatStream
     sendMessage,
     setInput,
     input,
+    refreshMessages: startPolling, // Expose startPolling as refreshMessages
   };
 }

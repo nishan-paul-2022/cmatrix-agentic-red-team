@@ -1,6 +1,27 @@
-
+# Enable BuildKit for optimal caching
+x-buildkit-config: &buildkit-config
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
 
 services:
+  # Redis for Celery message broker
+  redis:
+    image: redis:7-alpine
+    container_name: cmatrix-redis
+    command: redis-server --appendonly yes --appendfsync everysec --save 60 1000
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
@@ -22,30 +43,59 @@ services:
     ports:
       - "5432:5432"
 
+  # Qdrant Vector Database for Knowledge Base
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: cmatrix-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - cmatrix-network
+    restart: unless-stopped
+
   # Backend Service (Python/FastAPI)
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: cmatrix-backend
-    ports:
-      - "8000:8000"
+    # Enable privileged mode for full host access (required for cybersecurity tool)
+    privileged: true
+    # Use host network for full network visibility (see all host interfaces)
+    network_mode: "host"
+    # Share host PID namespace for full process visibility
+    pid: "host"
     environment:
       - PORT=8000
-      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - CELERY_RESULT_BACKEND=redis://localhost:6379/1
+      - QDRANT_URL=http://localhost:6333
+      - QDRANT_HOST=localhost
+      - QDRANT_PORT=6333
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+      - HOST_ROOT=/host  # Path to mounted host filesystem
+
     volumes:
-      # Mount logs for persistence
-      - ./backend/logs:/app/logs
+      # Mount entire host filesystem for full access
+      - /:/host
       # Mount data files for persistence
       - ./backend/data:/app/data
       # Mount backend code for development (comment out for production)
       - ./backend:/app
-    networks:
-      - cmatrix-network
+      # Cache HuggingFace models to avoid re-downloading on every build
+      - huggingface_cache:/root/.cache/huggingface
     depends_on:
+      redis:
+        condition: service_healthy
       postgres:
         condition: service_healthy
+      qdrant:
+        condition: service_started
+
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
@@ -54,7 +104,45 @@ services:
       retries: 3
       start_period: 40s
 
+  # Celery Worker for background jobs
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cmatrix-worker
+    command: celery -A app.worker worker --loglevel=info --concurrency=4
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend:/app
+      # Cache HuggingFace models to avoid re-downloading
+      - huggingface_cache:/root/.cache/huggingface
+    networks:
+      - cmatrix-network
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.worker inspect ping -d celery@$$HOSTNAME"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   # Frontend Service (Next.js)
+
   frontend:
     build:
       context: ./frontend
@@ -85,6 +173,11 @@ networks:
 volumes:
   postgres_data:
     driver: local
+  redis_data:
+    driver: local
+  qdrant_data:
+    driver: local
   audit_logs:
     driver: local
-
+  huggingface_cache:
+    driver: local

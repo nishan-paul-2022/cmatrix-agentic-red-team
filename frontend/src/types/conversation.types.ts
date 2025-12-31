@@ -8,8 +8,6 @@ export interface Conversation {
   user_id: number;
   created_at: string;
   updated_at: string;
-  message_count?: number;
-  last_message?: string;
 }
 
 export interface ConversationHistory {

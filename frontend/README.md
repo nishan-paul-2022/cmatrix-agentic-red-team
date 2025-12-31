@@ -1,30 +1,70 @@
-# Huggingface agentic UI
+# CMatrix Frontend
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Modern web interface for CMatrix AI-powered cybersecurity agent system.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/sajid576s-projects/v0-huggingface-agentic-ui)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/b7BHNWSAkZ3)
+## 🛠️ Tech Stack
 
-## Overview
+- **Next.js 16** - React framework with App Router
+- **React 19** - Latest React with Server Components
+- **TypeScript** - Type-safe development
+- **Tailwind CSS 4** - Utility-first styling
+- **Radix UI** - Accessible component primitives
+- **Shadcn/ui** - Beautiful component library
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## 🚀 Quick Start
 
-## Deployment
+### Development
 
-Your project is live at:
+```bash
+# Install dependencies
+npm install
 
-**[https://vercel.com/sajid576s-projects/v0-huggingface-agentic-ui](https://vercel.com/sajid576s-projects/v0-huggingface-agentic-ui)**
+# Start development server
+npm run dev
+# or
+make dev
+```
 
-## Build your app
+### Build
 
-Continue building your app on:
+```bash
+# Build for production
+npm run build
 
-**[https://v0.app/chat/b7BHNWSAkZ3](https://v0.app/chat/b7BHNWSAkZ3)**
+# Start production server
+npm start
+```
 
-## How It Works
+## 📋 Available Commands
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+```bash
+# Development
+npm run dev              # Start dev server
+make dev                 # Start dev server (Makefile)
+
+# Code Quality
+npm run quality          # Run all quality checks
+npm run lint             # Run ESLint
+npm run lint:fix         # Run ESLint with auto-fix
+npm run format           # Format with Prettier
+npm run typecheck        # TypeScript type checking
+
+# Or use Makefile
+make quality             # Run all quality checks
+make lint-fix            # ESLint with auto-fix
+make format              # Format code
+make typecheck           # Type check
+```
+
+## 📚 Documentation
+
+For comprehensive code quality, linting, and development workflows, see:
+- **[Code Quality Guide](../docs/CODE_QUALITY_GUIDE.md)** - Complete guide to linting, formatting, and development workflows
+- **[Makefile Commands](Makefile)** - Run `make help` for available commands
+
+## 🔧 Configuration
+
+- **ESLint**: `.eslintrc.json` - Next.js + TypeScript + Prettier compatible
+- **Prettier**: `.prettierrc.json` - Code formatting with Tailwind class sorting
+- **TypeScript**: `tsconfig.json` - Strict mode enabled
+- **Next.js**: `next.config.mjs` - Framework configuration

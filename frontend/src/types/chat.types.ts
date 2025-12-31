@@ -42,6 +42,8 @@ export interface ChatMessage {
   diagram?: NetworkDiagram;
   timestamp?: Date;
   id?: string;
+  pending_approval?: any; // Using any for now to avoid circular deps, or import PendingApproval type
+  thread_id?: string;
 }
 
 export interface StreamChunk {

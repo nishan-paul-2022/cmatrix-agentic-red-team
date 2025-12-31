@@ -1,0 +1,60 @@
+# Multi-stage Dockerfile with split requirements for optimal caching
+
+FROM python:3.11-slim as base
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    nmap \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -u 1000 appuser
+
+# Stage 2: Install base (heavy) dependencies
+FROM base as base-deps
+
+WORKDIR /app
+
+# Install heavy dependencies first (cached unless requirements.base.txt changes)
+COPY requirements.base.txt .
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install -r requirements.base.txt
+
+# Stage 3: Install project dependencies
+FROM base-deps as dependencies
+
+# Install lighter project dependencies (cached unless requirements.project.txt changes)
+COPY requirements.project.txt .
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.project.txt
+
+# Stage 4: Production
+FROM base as production
+
+WORKDIR /app
+
+# Copy all installed dependencies
+COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=dependencies /usr/local/bin /usr/local/bin
+
+# Copy application code
+COPY app/ ./app/
+COPY data/ ./data/
+COPY scripts/ ./scripts/
+COPY .env.example .env.example
+
+RUN chown -R appuser:appuser /app
+
+USER appuser
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8000/api/v1/health || exit 1
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

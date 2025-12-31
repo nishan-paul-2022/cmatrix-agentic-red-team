@@ -27,25 +27,25 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: cmatrix-backend-dev
-    ports:
-      - "8000:8000"
     environment:
       - PORT=8000
-      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - CELERY_RESULT_BACKEND=redis://localhost:6379/1
+      - QDRANT_URL=http://localhost:6333
+      - QDRANT_HOST=localhost
+      - QDRANT_PORT=6333
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
     volumes:
-      # Mount entire backend for hot reload
       - ./backend:/app
-      - backend-venv:/app/venv  # Exclude venv from mount
-    networks:
-      - cmatrix-network
+      - backend-venv:/app/venv
+      - huggingface_cache:/root/.cache/huggingface
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Frontend Service (Development Mode)
   frontend:
     build:
       context: ./frontend
@@ -55,9 +55,10 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - PYTHON_BACKEND_URL=http://backend:8000
+      - PYTHON_BACKEND_URL=http://host.docker.internal:8000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
-      # Mount entire frontend for hot reload
       - ./frontend:/app
       # Keep node_modules in container to avoid overwriting with local (possibly empty) node_modules
       - /app/node_modules

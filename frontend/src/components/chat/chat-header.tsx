@@ -1,83 +1,118 @@
 "use client";
 
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
-import { Shield, LogOut, User, Settings } from "lucide-react";
+import { LogOut, User, Settings, ChevronDown, Shield } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { MESSAGES } from "@/constants/messages";
-import { ROUTES } from "@/constants/routes";
 import { siteConfig } from "@/config/site.config";
 import { useAuth } from "@/contexts/auth-context";
+import { BrandLogo } from "@/components/brand-logo";
 import { ConfigurationProfileSelector } from "./configuration-profile-selector";
 import { ModelDropdown } from "./model-dropdown";
-
-/**
- * Chat header component
- * Displays app branding, status, and navigation
- */
+import { SettingsSidebar } from "./settings-sidebar";
 import { useState } from "react";
 import { ConfigurationProfile } from "@/lib/api/llm";
-// ... imports
 
 export function ChatHeader() {
   const { user, logout } = useAuth();
   const [activeProfile, setActiveProfile] = useState<ConfigurationProfile | null>(null);
+  const [isSettingsSidebarOpen, setIsSettingsSidebarOpen] = useState(false);
 
   return (
-    <header className="border-b border-border bg-card cyber-border scan-line">
+    <header className="border-b border-border bg-card cyber-border">
       <div className="container flex items-center justify-between h-14 px-4 mx-auto">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary cyber-border">
-            <Shield className="w-5 h-5 text-secondary-foreground" />
+        <Link
+          href="/"
+          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/10 cyber-border overflow-hidden">
+            <BrandLogo size={24} />
           </div>
           <div>
             <h1 className="text-lg font-semibold terminal-text">{siteConfig.name}</h1>
             <div className="text-xs text-muted-foreground">{MESSAGES.LABELS.NEURAL_INTERFACE}</div>
           </div>
-        </div>
+        </Link>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <ConfigurationProfileSelector 
+            <ConfigurationProfileSelector
               onActiveProfileChange={setActiveProfile}
+              onProfileChange={() => {
+                // Refresh profiles when changed
+              }}
             />
             <ModelDropdown activeProfile={activeProfile} />
-            <Button variant="ghost" size="sm" asChild>
-              <a href="/dashboard">Dashboard</a>
-            </Button>
-          </div>
-          <Link href={ROUTES.DEMO} className="cursor-pointer">
             <Button
               variant="outline"
               size="sm"
-              className="cyber-border terminal-text cursor-pointer"
+              asChild
+              className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
             >
-              View Demo
+              <a href="/dashboard">Dashboard</a>
             </Button>
-          </Link>
-          
-          {user && (
-            <div className="flex items-center gap-2 px-3 py-1 bg-secondary/20 rounded-md border border-primary/20">
-              <User className="w-4 h-4 text-primary" />
-              <span className="text-xs text-foreground">{user.username}</span>
-            </div>
-          )}
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={logout}
-            className="cyber-border terminal-text cursor-pointer"
-          >
-            <LogOut className="w-4 h-4 mr-1" />
-            Logout
-          </Button>
-          
-          <div className="w-2 h-2 bg-chart-1 rounded-full animate-pulse"></div>
-          <div className="text-xs text-muted-foreground terminal-text">
-            {MESSAGES.SYSTEM.ONLINE}
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
+            >
+              <a href="/tools/cve" className="flex items-center gap-2">
+                <Shield className="w-4 h-4" />
+                CVE Search
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsSettingsSidebarOpen(true)}
+              className="cursor-pointer cyber-border terminal-text hover:bg-secondary/50 transition-colors"
+            >
+              <Settings className="w-4 h-4" />
+            </Button>
           </div>
+
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center gap-2 px-3 py-1 hover:bg-secondary/50 transition-colors cursor-pointer"
+                >
+                  <User className="w-4 h-4 text-primary" />
+                  <span className="text-sm text-foreground">{user.username}</span>
+                  <ChevronDown className="w-3 h-3 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-card cyber-border">
+                <DropdownMenuItem
+                  onClick={logout}
+                  className="cursor-pointer flex items-center gap-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
+
+      <SettingsSidebar
+        isOpen={isSettingsSidebarOpen}
+        onClose={() => setIsSettingsSidebarOpen(false)}
+        onProfilesChange={() => {
+          // Profiles will be refreshed automatically by the selector
+        }}
+      />
     </header>
   );
 }
-

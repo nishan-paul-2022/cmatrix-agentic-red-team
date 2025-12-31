@@ -1,15 +1,20 @@
 """Base LLM provider interface and common functionality."""
 
-from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass
 import time
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Any, Optional
+
+from langchain_core.language_models import BaseChatModel
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
+from langchain_core.outputs import ChatGeneration, ChatResult
 from loguru import logger
 
 
 @dataclass
 class ProviderConfig:
     """Configuration for an LLM provider."""
+
     api_key: Optional[str] = None
     model: Optional[str] = None
     endpoint: Optional[str] = None
@@ -24,6 +29,7 @@ class ProviderConfig:
 @dataclass
 class Message:
     """Represents a chat message."""
+
     role: str  # "system", "user", "assistant"
     content: str
 
@@ -39,11 +45,11 @@ class LLMProvider(ABC):
             config: Provider configuration
         """
         self.config = config
-        self.provider_name = self.__class__.__name__.replace('Provider', '').lower()
+        self.provider_name = self.__class__.__name__.replace("Provider", "").lower()
         logger.info(f"🤖 Initialized {self.provider_name} provider with model: {config.model}")
 
     @abstractmethod
-    def invoke(self, messages: List[Message], **kwargs) -> str:
+    def invoke(self, messages: list[Message], **kwargs) -> str:
         """
         Invoke the LLM with messages.
 
@@ -60,7 +66,7 @@ class LLMProvider(ABC):
         pass
 
     @abstractmethod
-    def invoke_stream(self, messages: List[Message], **kwargs):
+    def invoke_stream(self, messages: list[Message], **kwargs):
         """
         Invoke the LLM with streaming response.
 
@@ -77,12 +83,12 @@ class LLMProvider(ABC):
         pass
 
     @abstractmethod
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[Any]:
         """
         Get list of available models for this provider.
 
         Returns:
-            List of model names/IDs
+            List of AvailableModel objects
         """
         pass
 
@@ -109,7 +115,7 @@ class LLMProvider(ABC):
             except Exception as e:
                 last_exception = e
                 if attempt < self.config.retry_attempts - 1:
-                    delay = self.config.retry_delay * (2 ** attempt)  # Exponential backoff
+                    delay = self.config.retry_delay * (2**attempt)  # Exponential backoff
                     logger.warning(
                         f"⚠️ {self.provider_name} request failed (attempt {attempt + 1}/{self.config.retry_attempts}): {str(e)}"
                     )
@@ -121,7 +127,7 @@ class LLMProvider(ABC):
                     )
                     raise last_exception
 
-    def _prepare_messages(self, messages: List[Message]) -> Any:
+    def _prepare_messages(self, messages: list[Message]) -> Any:
         """
         Prepare messages for the specific provider format.
 
@@ -170,7 +176,9 @@ class ToolCallingProviderMixin:
         """Check if this provider supports tool calling."""
         return True
 
-    def invoke_with_tools(self, messages: List[Message], tools: List[Dict[str, Any]], **kwargs) -> Dict[str, Any]:
+    def invoke_with_tools(
+        self, messages: list[Message], tools: list[dict[str, Any]], **kwargs
+    ) -> dict[str, Any]:
         """
         Invoke the LLM with tool calling support.
 
@@ -183,3 +191,49 @@ class ToolCallingProviderMixin:
             Response with tool calls if any
         """
         raise NotImplementedError("Tool calling not implemented for this provider")
+
+
+class LangChainAdapter(BaseChatModel):
+    """Adapter to make LLMProvider compatible with LangChain BaseChatModel."""
+
+    provider: Any = (
+        None  # Type hint as Any to avoid Pydantic validation issues with abstract base classes
+    )
+
+    def __init__(self, provider: LLMProvider):
+        """Initialize the adapter."""
+        super().__init__()
+        self.provider = provider
+
+    def _generate(
+        self,
+        messages: list[BaseMessage],
+        stop: Optional[list[str]] = None,
+        run_manager: Optional[Any] = None,
+        **kwargs: Any,
+    ) -> ChatResult:
+        """Generate a response from the model."""
+        # Convert LangChain messages to Provider messages
+        provider_messages = []
+        for msg in messages:
+            if isinstance(msg, SystemMessage):
+                provider_messages.append(Message(role="system", content=msg.content))
+            elif isinstance(msg, HumanMessage):
+                provider_messages.append(Message(role="user", content=msg.content))
+            elif isinstance(msg, AIMessage):
+                provider_messages.append(Message(role="assistant", content=msg.content))
+            else:
+                provider_messages.append(Message(role="user", content=str(msg.content)))
+
+        # Invoke provider
+        response_text = self.provider.invoke(provider_messages)
+
+        # Create ChatResult
+        message = AIMessage(content=response_text)
+        generation = ChatGeneration(message=message)
+        return ChatResult(generations=[generation])
+
+    @property
+    def _llm_type(self) -> str:
+        """Return type of llm."""
+        return "cmatrix_adapter"

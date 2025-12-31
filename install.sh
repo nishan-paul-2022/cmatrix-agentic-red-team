@@ -33,7 +33,7 @@ cd "$INSTALL_DIR"
 
 # 3. Download Configuration
 # NOTE: This URL points to your repository. Ensure the file exists on the 'api-key' branch.
-COMPOSE_URL="https://raw.githubusercontent.com/Sajid576/cmatrix/api-key/docker-compose.release.yml"
+COMPOSE_URL="https://raw.githubusercontent.com/kai-2025/cmatrix/bugfix/frontend-backend-cleanup/docker-compose.release.yml"
 
 echo -e "${BLUE}⬇️  Downloading configuration...${NC}"
 # We use curl to fetch the file. We use -f to fail silently on server errors (like 404) so we can catch it.
@@ -46,7 +46,7 @@ if ! curl -fsSL "$COMPOSE_URL" -o docker-compose.yml; then
 fi
 
 # 4. Download Sample LLM Configuration
-CONFIG_SAMPLE_URL="https://raw.githubusercontent.com/Sajid576/cmatrix/api-key/llm_config_sample.json"
+CONFIG_SAMPLE_URL="https://raw.githubusercontent.com/kai-2025/cmatrix/bugfix/frontend-backend-cleanup/llm_config_sample.json"
 
 echo -e "${BLUE}⬇️  Downloading sample LLM configuration...${NC}"
 if curl -fsSL "$CONFIG_SAMPLE_URL" -o llm_config_sample.json 2>/dev/null; then
@@ -82,4 +82,3 @@ echo ""
 echo -e "${BLUE}ℹ️  Sample config location:${NC} $PWD/llm_config_sample.json"
 echo ""
 echo "To stop CMatrix, run: cd $INSTALL_DIR && docker compose down"
-

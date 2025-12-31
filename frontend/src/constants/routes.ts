@@ -4,7 +4,7 @@
 
 export const ROUTES = {
   HOME: "/",
-  DEMO: "/demo",
+
   API: {
     CHAT: "/api/chat",
   },

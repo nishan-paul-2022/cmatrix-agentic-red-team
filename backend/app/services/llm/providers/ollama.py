@@ -1,10 +1,13 @@
 """Ollama LLM provider for local model inference."""
 
+from typing import Any
+
 import requests
-from typing import List, Any, Dict
 from loguru import logger
 
-from .base import LLMProvider, ProviderConfig, Message, StreamingProviderMixin
+from app.models.llm import AvailableModel
+
+from .base import LLMProvider, Message, ProviderConfig, StreamingProviderMixin
 
 
 class OllamaProvider(LLMProvider, StreamingProviderMixin):
@@ -20,13 +23,13 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
         super().__init__(config)
         self.base_url = config.base_url or "http://localhost:11434"
 
-        # Validate configuration
+        # Validate configuration - model is optional when just fetching available models
         if not self.config.model:
-            raise ValueError("Model must be specified for Ollama provider")
+            logger.warning("No model specified for Ollama provider (OK for fetching models)")
 
         logger.info(f"🐳 Ollama provider initialized with base_url: {self.base_url}")
 
-    def invoke(self, messages: List[Message], **kwargs) -> str:
+    def invoke(self, messages: list[Message], **kwargs) -> str:
         """
         Invoke Ollama model.
 
@@ -44,17 +47,13 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             "messages": self._prepare_messages(messages),
             "stream": False,
             "options": {
-                "temperature": kwargs.get('temperature', self.config.temperature),
-                "num_predict": kwargs.get('max_tokens', self.config.max_tokens or 512),
-            }
+                "temperature": kwargs.get("temperature", self.config.temperature),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            },
         }
 
         def make_request():
-            response = requests.post(
-                url,
-                json=payload,
-                timeout=self.config.timeout
-            )
+            response = requests.post(url, json=payload, timeout=self.config.timeout)
             response.raise_for_status()
             return response.json()
 
@@ -68,7 +67,7 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
         else:
             raise ValueError(f"Unexpected response format from Ollama: {result}")
 
-    def invoke_stream(self, messages: List[Message], **kwargs):
+    def invoke_stream(self, messages: list[Message], **kwargs):
         """
         Invoke Ollama model with streaming.
 
@@ -86,18 +85,13 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             "messages": self._prepare_messages(messages),
             "stream": True,
             "options": {
-                "temperature": kwargs.get('temperature', self.config.temperature),
-                "num_predict": kwargs.get('max_tokens', self.config.max_tokens or 512),
-            }
+                "temperature": kwargs.get("temperature", self.config.temperature),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            },
         }
 
         def make_request():
-            response = requests.post(
-                url,
-                json=payload,
-                timeout=self.config.timeout,
-                stream=True
-            )
+            response = requests.post(url, json=payload, timeout=self.config.timeout, stream=True)
             response.raise_for_status()
             return response
 
@@ -106,8 +100,8 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
         try:
             for line in response.iter_lines():
                 if line:
-                    line = line.decode('utf-8')
-                    if line.startswith('data: '):
+                    line = line.decode("utf-8")
+                    if line.startswith("data: "):
                         line = line[6:]  # Remove 'data: ' prefix
 
                     try:
@@ -122,12 +116,12 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             logger.error(f"Error in Ollama streaming: {str(e)}")
             raise
 
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[AvailableModel]:
         """
         Get list of available models from Ollama.
 
         Returns:
-            List of model names
+            List of AvailableModel objects
         """
         try:
             url = f"{self.base_url}/api/tags"
@@ -139,14 +133,24 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             if "models" in data:
                 for model in data["models"]:
                     if "name" in model:
-                        models.append(model["name"])
+                        models.append(
+                            AvailableModel(
+                                id=model["name"],
+                                name=model["name"],
+                                description=f"Ollama - {model['name']}",
+                                context_length=None,
+                            )
+                        )
+
+            # Sort models alphabetically by ID
+            models.sort(key=lambda model: model.id.lower())
 
             return models
         except Exception as e:
             logger.error(f"Failed to get Ollama models: {str(e)}")
             return []
 
-    def _prepare_messages(self, messages: List[Message]) -> List[Dict[str, Any]]:
+    def _prepare_messages(self, messages: list[Message]) -> list[dict[str, Any]]:
         """
         Prepare messages for Ollama format.
 
@@ -158,8 +162,5 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
         """
         ollama_messages = []
         for msg in messages:
-            ollama_messages.append({
-                "role": msg.role,
-                "content": msg.content
-            })
+            ollama_messages.append({"role": msg.role, "content": msg.content})
         return ollama_messages

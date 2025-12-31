@@ -1,41 +1,52 @@
-# Multi-stage Dockerfile for CMatrix Backend
+# Multi-stage Dockerfile for CMatrix Backend (Optimized for caching)
 
-# Stage 1: Base image with dependencies
+# Stage 1: Base image with system dependencies
 FROM python:3.11-slim as base
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install system dependencies
+# Install system dependencies and common security/monitoring tools
 RUN apt-get update && apt-get install -y \
     gcc \
+    libpq-dev \
     nmap \
     curl \
+    procps \
+    iproute2 \
+    net-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # Create app user
 RUN useradd -m -u 1000 appuser
 
-# Stage 2: Dependencies
-FROM base as dependencies
+# Stage 2: Install base (heavy) dependencies
+FROM base as base-deps
 
 WORKDIR /app
 
-# Copy requirements
-COPY requirements.txt .
+# Install heavy ML/AI dependencies first (cached unless requirements.base.txt changes)
+COPY requirements.base.txt .
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install -r requirements.base.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Stage 3: Install project dependencies
+FROM base-deps as dependencies
 
-# Stage 3: Production
+# Install lighter project dependencies (cached unless requirements.project.txt changes)
+COPY requirements.project.txt .
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.project.txt
+
+# Stage 4: Production
 FROM base as production
 
 WORKDIR /app
 
-# Copy installed dependencies from dependencies stage
+# Copy all installed dependencies from dependencies stage
 COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=dependencies /usr/local/bin /usr/local/bin
 
@@ -43,11 +54,17 @@ COPY --from=dependencies /usr/local/bin /usr/local/bin
 COPY app/ ./app/
 COPY data/ ./data/
 COPY scripts/ ./scripts/
+COPY warmup_models.py .
 COPY .env.example .env.example
 
-# Create necessary directories
-RUN mkdir -p logs/audit_logs && \
-    chown -R appuser:appuser /app
+# Create necessary directories and warmup models
+RUN chown -R appuser:appuser /app
+
+# Pre-load ML models to cache them (run as root before switching to appuser)
+# This ensures fast startup and no slow first requests
+# Use cache mount to persist models between builds
+RUN --mount=type=cache,target=/root/.cache/huggingface \
+    python warmup_models.py || echo "⚠️  Model warmup failed, models will load on first request"
 
 # Switch to non-root user
 USER appuser
