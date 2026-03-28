@@ -80,16 +80,16 @@ ${YELLOW}Commands:${NC}
   ${BLUE}stop${NC}           Stop all services
   ${BLUE}restart${NC}        Restart all services
   ${BLUE}logs${NC}           Show logs from all services
-  ${BLUE}logs-backend${NC}   Show backend logs only
-  ${BLUE}logs-frontend${NC}  Show frontend logs only
+  ${BLUE}logs-app-backend${NC}   Show app-app-backend logs only
+  ${BLUE}logs-app-frontend${NC}  Show app-app-frontend logs only
   ${BLUE}logs-db${NC}        Show database logs only
   ${BLUE}build${NC}          Build all Docker images (with optimized caching)
   ${BLUE}build --verbose${NC} Build with detailed progress output
   ${BLUE}rebuild${NC}        Rebuild all images from scratch (no cache, slower)
   ${BLUE}clean${NC}          Stop and remove all containers, networks, and volumes
   ${BLUE}status${NC}         Show status of all services
-  ${BLUE}shell-backend${NC}  Open a shell in the backend container
-  ${BLUE}shell-frontend${NC} Open a shell in the frontend container
+  ${BLUE}shell-app-backend${NC}  Open a shell in the app-app-backend container
+  ${BLUE}shell-app-frontend${NC} Open a shell in the app-app-frontend container
   ${BLUE}shell-db${NC}       Open a shell in the database container
   ${BLUE}health${NC}         Check health status of all services
   ${BLUE}setup${NC}          Initial setup (create .env file)
@@ -135,7 +135,7 @@ start_prod() {
     check_docker
     check_env
     print_info "Starting CMatrix in production mode..."
-    $COMPOSE_CMD up -d
+    $COMPOSE_CMD up -d --remove-orphans
     print_success "Services started!"
     print_info "Frontend: http://localhost:3000"
     print_info "Backend: http://localhost:8000"
@@ -173,13 +173,13 @@ show_logs() {
     $COMPOSE_CMD logs -f
 }
 
-# Show backend logs
+# Show app-app-backend logs
 show_backend_logs() {
     check_docker
     $COMPOSE_CMD logs -f backend
 }
 
-# Show frontend logs
+# Show app-app-frontend logs
 show_frontend_logs() {
     check_docker
     $COMPOSE_CMD logs -f frontend
@@ -254,15 +254,15 @@ status() {
 # Open shell in backend
 shell_backend() {
     check_docker
-    print_info "Opening shell in backend container..."
-    $COMPOSE_CMD exec backend bash
+    print_info "Opening shell in app-app-backend container..."
+    $COMPOSE_CMD exec app-backend bash
 }
 
 # Open shell in frontend
 shell_frontend() {
     check_docker
-    print_info "Opening shell in frontend container..."
-    $COMPOSE_CMD exec frontend sh
+    print_info "Opening shell in app-app-frontend container..."
+    $COMPOSE_CMD exec app-frontend sh
 }
 
 # Open shell in database
@@ -286,21 +286,21 @@ check_health() {
     fi
 
     echo ""
-    print_info "Backend Health:"
-    if docker inspect cmatrix-backend --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Backend (Prod) is running"
-    elif docker inspect cmatrix-backend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Backend (Dev) is running"
+    print_info "App-Backend Health:"
+    if docker inspect cmatrix-app-backend --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "App-Backend (Production) is running"
+    elif docker inspect cmatrix-app-backend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "App-Backend (Development) is running"
     else
         print_error "Backend is not running or unhealthy"
     fi
 
     echo ""
-    print_info "Frontend Health:"
-    if docker inspect cmatrix-frontend --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Frontend (Prod) is running"
-    elif docker inspect cmatrix-frontend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
-        print_success "Frontend (Dev) is running"
+    print_info "App-Frontend Health:"
+    if docker inspect cmatrix-app-frontend --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "App-Frontend (Production) is running"
+    elif docker inspect cmatrix-app-frontend-dev --format='{{.State.Health.Status}}' 2>/dev/null; then
+        print_success "App-Frontend (Development) is running"
     else
         print_error "Frontend is not running or unhealthy"
     fi
@@ -323,10 +323,10 @@ case "${1:-}" in
     logs)
         show_logs
         ;;
-    logs-backend)
+    logs-app-backend)
         show_backend_logs
         ;;
-    logs-frontend)
+    logs-app-frontend)
         show_frontend_logs
         ;;
     logs-db)
@@ -344,10 +344,10 @@ case "${1:-}" in
     status)
         status
         ;;
-    shell-backend)
+    shell-app-backend)
         shell_backend
         ;;
-    shell-frontend)
+    shell-app-frontend)
         shell_frontend
         ;;
     shell-db)

@@ -21,9 +21,9 @@ services:
       - "5432:5432"
 
   # Backend Service
-  backend:
+  app-backend:
     image: xor2025/cmatrix-backend:latest
-    container_name: cmatrix-backend
+    container_name: cmatrix-app-backend
     ports:
       - "8000:8000"
     environment:
@@ -45,16 +45,16 @@ services:
     restart: unless-stopped
 
   # Frontend Service
-  frontend:
+  app-frontend:
     image: xor2025/cmatrix-frontend:latest
-    container_name: cmatrix-frontend
+    container_name: cmatrix-app-frontend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - PYTHON_BACKEND_URL=http://app-backend:8000
     depends_on:
-      backend:
+      app-backend:
         condition: service_healthy
     networks:
       - cmatrix-network

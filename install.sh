@@ -61,7 +61,7 @@ echo "This might take a few minutes depending on your internet speed."
 
 # Stop and remove existing containers to avoid name conflicts
 echo -e "${BLUE}🧹 Cleaning up old containers...${NC}"
-docker rm -f cmatrix-postgres cmatrix-backend cmatrix-frontend 2>/dev/null || true
+docker rm -f cmatrix-postgres cmatrix-app-backend cmatrix-app-frontend 2>/dev/null || true
 
 docker compose pull
 docker compose up -d

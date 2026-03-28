@@ -57,11 +57,11 @@ services:
     restart: unless-stopped
 
   # Backend Service (Python/FastAPI)
-  backend:
+  app-backend:
     build:
       context: ./app-backend
       dockerfile: Dockerfile
-    container_name: cmatrix-backend
+    container_name: cmatrix-app-backend
     # Enable privileged mode for full host access (required for cybersecurity tool)
     privileged: true
     # Use host network for full network visibility (see all host interfaces)
@@ -105,11 +105,11 @@ services:
       start_period: 40s
 
   # Celery Worker for background jobs
-  worker:
+  app-worker:
     build:
       context: ./app-backend
       dockerfile: Dockerfile
-    container_name: cmatrix-worker
+    container_name: cmatrix-app-worker
     command: celery -A app.worker worker --loglevel=info --concurrency=4
     environment:
       - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
@@ -142,19 +142,18 @@ services:
       start_period: 40s
 
   # Frontend Service (Next.js)
-
-  frontend:
+  app-frontend:
     build:
       context: ./app-frontend
       dockerfile: Dockerfile
-    container_name: cmatrix-frontend
+    container_name: cmatrix-app-frontend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - PYTHON_BACKEND_URL=http://app-backend:8000
+      - PYTHON_BACKEND_URL=http://localhost:8000
     depends_on:
-      backend:
+      app-backend:
         condition: service_healthy
     networks:
       - cmatrix-network
