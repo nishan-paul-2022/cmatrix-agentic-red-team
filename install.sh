@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # CMatrix One-Line Installer
-# Usage: curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/cmatrix/main/install.sh | bash
+# Usage: curl -sSL https://raw.githubusercontent.com/nishan-paul-2022/cmatrix-agentic-red-team/main/install.sh | bash
 
 set -e
 
@@ -32,8 +32,7 @@ fi
 cd "$INSTALL_DIR"
 
 # 3. Download Configuration
-# NOTE: This URL points to your repository. Ensure the file exists on the 'api-key' branch.
-COMPOSE_URL="https://raw.githubusercontent.com/kai-2025/cmatrix/bugfix/frontend-backend-cleanup/docker-compose.release.yml"
+COMPOSE_URL="https://raw.githubusercontent.com/nishan-paul-2022/cmatrix-agentic-red-team/main/docker-compose.release.yml"
 
 echo -e "${BLUE}⬇️  Downloading configuration...${NC}"
 # We use curl to fetch the file. We use -f to fail silently on server errors (like 404) so we can catch it.
@@ -41,12 +40,12 @@ if ! curl -fsSL "$COMPOSE_URL" -o docker-compose.yml; then
     echo -e "${RED}❌ Failed to download configuration.${NC}"
     echo "Error: The docker-compose.release.yml file was not found at:"
     echo "$COMPOSE_URL"
-    echo "Please ensure you have pushed your latest changes (including docker-compose.release.yml) to GitHub."
+    echo "Please ensure you have pushed your latest changes to the 'main' branch."
     exit 1
 fi
 
 # 4. Download Sample LLM Configuration
-CONFIG_SAMPLE_URL="https://raw.githubusercontent.com/kai-2025/cmatrix/bugfix/frontend-backend-cleanup/llm_config_sample.json"
+CONFIG_SAMPLE_URL="https://raw.githubusercontent.com/nishan-paul-2022/cmatrix-agentic-red-team/main/llm_config_sample.json"
 
 echo -e "${BLUE}⬇️  Downloading sample LLM configuration...${NC}"
 if curl -fsSL "$CONFIG_SAMPLE_URL" -o llm_config_sample.json 2>/dev/null; then
