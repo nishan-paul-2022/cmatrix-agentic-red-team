@@ -1,5 +1,9 @@
 # Human-in-the-Loop (HITL) Approval System
 
+**Status:** ✅ Production Ready
+
+---
+
 ## 1. Overview
 The HITL system ensures that dangerous or sensitive operations (e.g., system commands, network scans) require explicit user approval before execution. It acts as a security layer for the autonomous agent, preventing unauthorized actions on the host system.
 
