@@ -2,9 +2,9 @@ name: Docker Build and Test
 
 on:
   push:
-    branches: [ main, dev, bugfix/frontend-backend-cleanup ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, dev, bugfix/frontend-backend-cleanup ]
+    branches: [ main ]
 
 jobs:
   build-and-test:
@@ -19,11 +19,11 @@ jobs:
 
     - name: Build backend image
       run: |
-        docker build -t cmatrix-backend:test ./backend
+        docker build -t cmatrix-backend:test ./app-backend
 
     - name: Build frontend image
       run: |
-        docker build -t cmatrix-frontend:test ./frontend
+        docker build -t cmatrix-frontend:test ./app-frontend
 
     - name: Create .env file
       run: |
@@ -42,7 +42,7 @@ jobs:
 
     - name: Test backend health
       run: |
-        curl -f http://localhost:8000/health || exit 1
+        curl -f http://localhost:8000/api/v1/health || exit 1
 
     - name: Test frontend
       run: |
