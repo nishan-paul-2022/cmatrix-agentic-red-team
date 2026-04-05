@@ -65,6 +65,7 @@ get_compose_cmd() {
 }
 
 COMPOSE_CMD=$(get_compose_cmd)
+[ -f .env ] && export $(grep -v '^#' .env | xargs)
 
 
 # Show usage
@@ -137,10 +138,10 @@ start_prod() {
     print_info "Starting CMatrix in production mode..."
     $COMPOSE_CMD up -d --remove-orphans
     print_success "Services started!"
-    print_info "Frontend: http://localhost:3000"
-    print_info "Backend: http://localhost:8000"
-    print_info "Database: Port 5432 (Internal)"
-    print_info "API Docs: http://localhost:8000/docs"
+    print_info "Frontend: http://localhost:${FRONTEND_PORT:-3000}"
+    print_info "Backend: http://localhost:${BACKEND_PORT:-8000}"
+    print_info "Database: Port ${POSTGRES_PORT:-5432} (Internal)"
+    print_info "API Docs: http://localhost:${BACKEND_PORT:-8000}/docs"
 }
 
 # Start services in development mode

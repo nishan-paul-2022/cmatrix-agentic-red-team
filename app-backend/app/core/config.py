@@ -17,9 +17,15 @@ class Settings(BaseSettings):
     APP_DESCRIPTION: str = "AI Agent with LangGraph and tool calling"
     DEBUG: bool = Field(default=False, env="DEBUG")
 
+    # Ports
+    BACKEND_PORT: int = Field(default=8000, env="BACKEND_PORT")
+    FRONTEND_PORT: int = Field(default=3000, env="FRONTEND_PORT")
+    POSTGRES_PORT: int = Field(default=5432, env="POSTGRES_PORT")
+    REDIS_PORT: int = Field(default=6379, env="REDIS_PORT")
+
     # CORS
     CORS_ORIGINS: list[str] = Field(
-        default=[
+        default_factory=lambda: [
             "http://localhost:3000",
             "http://127.0.0.1:3000",
         ]
@@ -35,9 +41,7 @@ class Settings(BaseSettings):
     AUTH_CONFIG_FILE: str = Field(default="data/auth_config.json")
 
     # Database
-    DATABASE_URL: str = Field(
-        default="postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix", env="DATABASE_URL"
-    )
+    DATABASE_URL: str = Field(default="${COMPUTE}", env="DATABASE_URL")
 
     # Security & JWT
     SECRET_KEY: str = Field(
@@ -50,15 +54,13 @@ class Settings(BaseSettings):
     )  # 7 days
 
     # Celery & Background Jobs
-    CELERY_BROKER_URL: str = Field(default="redis://localhost:6379/0", env="CELERY_BROKER_URL")
-    CELERY_RESULT_BACKEND: str = Field(
-        default="redis://localhost:6379/1", env="CELERY_RESULT_BACKEND"
-    )
+    CELERY_BROKER_URL: str = Field(default="${COMPUTE}", env="CELERY_BROKER_URL")
+    CELERY_RESULT_BACKEND: str = Field(default="${COMPUTE}", env="CELERY_RESULT_BACKEND")
 
     # Vector Database (Qdrant)
     QDRANT_HOST: str = Field(default="localhost", env="QDRANT_HOST")
     QDRANT_PORT: int = Field(default=6333, env="QDRANT_PORT")
-    QDRANT_URL: str = Field(default="http://localhost:6333", env="QDRANT_URL")
+    QDRANT_URL: str = Field(default="${COMPUTE}", env="QDRANT_URL")
     QDRANT_COLLECTION_NAME: str = Field(default="cmatrix_memory", env="QDRANT_COLLECTION_NAME")
 
     # Embeddings
@@ -75,20 +77,64 @@ class Settings(BaseSettings):
     # Logging
     LOG_LEVEL: str = Field(default="INFO", env="LOG_LEVEL")
 
-    @validator("CORS_ORIGINS", pre=True)
-    def parse_cors_origins(cls, v):
-        """Parse CORS origins from string or list."""
-        if isinstance(v, str):
-            # Parse from string (comma-separated)
-            return [origin.strip() for origin in v.split(",")]
-        return v
-
     class Config:
         """Pydantic configuration."""
 
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = True
+
+    @validator("DATABASE_URL", pre=True, always=True)
+    def compute_db_url(cls, v, values):
+        """Compute database URL if not provided or contains ${PORT} placeholders."""
+        if v and not v.startswith("${"):
+            return v
+        port = values.get("POSTGRES_PORT", 5432)
+        user = os.getenv("POSTGRES_USER", "cmatrix")
+        pw = os.getenv("POSTGRES_PASSWORD", "cmatrix")
+        db = os.getenv("POSTGRES_DB", "cmatrix")
+        return f"postgresql+asyncpg://{user}:{pw}@localhost:{port}/{db}"
+
+    @validator("CELERY_BROKER_URL", pre=True, always=True)
+    def compute_broker_url(cls, v, values):
+        """Compute celery broker URL if not provided."""
+        if v and not v.startswith("${"):
+            return v
+        port = values.get("REDIS_PORT", 6379)
+        return f"redis://localhost:{port}/0"
+
+    @validator("CELERY_RESULT_BACKEND", pre=True, always=True)
+    def compute_backend_url(cls, v, values):
+        """Compute celery result backend URL if not provided."""
+        if v and not v.startswith("${"):
+            return v
+        port = values.get("REDIS_PORT", 6379)
+        return f"redis://localhost:{port}/1"
+
+    @validator("QDRANT_URL", pre=True, always=True)
+    def compute_qdrant_url(cls, v, values):
+        """Compute Qdrant URL if not provided."""
+        if v and not v.startswith("${"):
+            return v
+        host = values.get("QDRANT_HOST", "localhost")
+        port = values.get("QDRANT_PORT", 6333)
+        return f"http://{host}:{port}"
+
+    @validator("CORS_ORIGINS", pre=True, always=True)
+    def compute_cors_origins(cls, v, values):
+        """Compute CORS origins using FRONTEND_PORT."""
+        if v and not isinstance(v, list):
+            # Parse from comma-separated string if provided
+            v = [origin.strip() for origin in v.split(",")]
+
+        if v:
+            return v
+
+        port = values.get("FRONTEND_PORT", 3000)
+        return [
+            f"http://localhost:{port}",
+            f"http://127.0.0.1:{port}",
+        ]
 
 
 @lru_cache

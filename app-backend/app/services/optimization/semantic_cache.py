@@ -39,6 +39,8 @@ from redis import Redis
 from redis.exceptions import RedisError
 from sentence_transformers import SentenceTransformer
 
+from app.core.config import settings
+
 
 class CacheConfig(BaseModel):
     """Configuration for semantic cache."""
@@ -58,7 +60,7 @@ class CacheConfig(BaseModel):
         default="all-MiniLM-L6-v2", description="Sentence transformer model for embeddings"
     )
     redis_host: str = Field(default="localhost", description="Redis host")
-    redis_port: int = Field(default=6379, description="Redis port")
+    redis_port: int = Field(default=None, description="Redis port")
     redis_db: int = Field(default=2, description="Redis database number for cache")
     redis_password: Optional[str] = Field(default=None, description="Redis password")
 
@@ -549,7 +551,11 @@ def get_semantic_cache(config: Optional[CacheConfig] = None) -> SemanticCache:
 
     if _semantic_cache is None:
         if config is None:
-            config = CacheConfig()
+            config = CacheConfig(
+                redis_port=settings.REDIS_PORT, embedding_model=settings.EMBEDDING_MODEL
+            )
+        elif config.redis_port is None:
+            config.redis_port = settings.REDIS_PORT
         _semantic_cache = SemanticCache(config)
 
     return _semantic_cache

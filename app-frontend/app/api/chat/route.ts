@@ -64,8 +64,9 @@ export async function POST(req: NextRequest) {
     if (error?.cause?.code === "ECONNREFUSED" || error?.message?.includes("fetch failed")) {
       return new Response(
         JSON.stringify({
-          error:
-            "Cannot connect to Python backend. Please ensure the backend is running on port 8000.",
+          error: `Cannot connect to Python backend. Please ensure the backend is running on ${PYTHON_BACKEND_URL.split(
+            ":"
+          ).pop()}.`,
         }),
         {
           status: 503,

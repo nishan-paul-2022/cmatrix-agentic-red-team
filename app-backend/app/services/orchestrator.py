@@ -8,6 +8,7 @@ from langgraph.graph import END, StateGraph
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.services.checkpoint import get_checkpointer
 from app.services.llm.providers import Message
 from app.services.reasoning.reflection import ReflectionTrigger, get_self_reflection
@@ -449,8 +450,8 @@ class OrchestratorService:
             "http": ["http", "port 80", "apache", "nginx"],
             "https": ["https", "port 443", "ssl", "tls"],
             "mysql": ["mysql", "port 3306", "mariadb"],
-            "postgresql": ["postgres", "port 5432"],
-            "redis": ["redis", "port 6379"],
+            "postgresql": ["postgres", f"port {settings.POSTGRES_PORT}"],
+            "redis": ["redis", f"port {settings.REDIS_PORT}"],
             "mongodb": ["mongo", "port 27017"],
             "ftp": ["ftp", "port 21"],
             "smtp": ["smtp", "port 25", "port 587"],

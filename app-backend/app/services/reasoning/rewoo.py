@@ -254,7 +254,7 @@ class ReWOOPlanner:
 
                 self._cache = Redis(
                     host=settings.CELERY_BROKER_URL.split("//")[1].split(":")[0],
-                    port=6379,
+                    port=settings.REDIS_PORT,
                     db=3,  # Use db 3 for reasoning caching
                     decode_responses=True,
                 )
