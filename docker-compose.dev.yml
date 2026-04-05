@@ -27,15 +27,8 @@ services:
       context: ./app-backend
       dockerfile: Dockerfile
     container_name: cmatrix-app-backend-dev
-    environment:
-      - PORT=${BACKEND_PORT}
-      - DATABASE_URL=${DATABASE_URL}
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
-      - QDRANT_URL=${QDRANT_URL}
-      - QDRANT_HOST=localhost
-      - QDRANT_PORT=${QDRANT_PORT}
-      - SECRET_KEY=${SECRET_KEY}
+    env_file:
+      - .env
     volumes:
       - ./app-backend:/app
       - backend-venv:/app/venv
@@ -55,6 +48,8 @@ services:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
       - NODE_ENV=development
+      - PORT=${FRONTEND_PORT}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - PYTHON_BACKEND_URL=http://host.docker.internal:${BACKEND_PORT}
     extra_hosts:
       - "host.docker.internal:host-gateway"

@@ -107,7 +107,16 @@ class Settings(BaseSettings):
     class Config:
         """Pydantic configuration."""
 
-        env_file = ".env"
+        # Resolve path to the root .env regardless of CWD.
+        # __file__ = app-backend/app/core/config.py → go up 4 levels to project root.
+        _root = os.path.dirname(  # project root
+            os.path.dirname(  # app-backend/
+                os.path.dirname(  # app/
+                    os.path.dirname(os.path.abspath(__file__))  # core/
+                )
+            )
+        )
+        env_file = os.path.join(_root, ".env")
         env_file_encoding = "utf-8"
         case_sensitive = True
 

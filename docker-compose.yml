@@ -147,6 +147,8 @@ services:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
       - NODE_ENV=production
+      - PORT=${FRONTEND_PORT}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - PYTHON_BACKEND_URL=http://localhost:${BACKEND_PORT}
     depends_on:
       app-backend:
