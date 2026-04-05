@@ -59,6 +59,7 @@ make typecheck           # Type check
 ## 📚 Documentation
 
 For comprehensive code quality, linting, and development workflows, see:
+
 - **[Code Quality Guide](../docs/CODE_QUALITY_GUIDE.md)** - Complete guide to linting, formatting, and development workflows
 - **[Makefile Commands](Makefile)** - Run `make help` for available commands
 

@@ -32,7 +32,19 @@ export function ConfigurationProfileSelector({
   };
 
   useEffect(() => {
-    fetchProfiles();
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const data = await llmService.getProfiles();
+        if (!cancelled) setProfiles(data);
+      } catch (error) {
+        console.error("Failed to fetch profiles", error);
+      }
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleActivateProfile = async (profileId: number) => {
@@ -55,7 +67,7 @@ export function ConfigurationProfileSelector({
       // Handle case where no profile is active
       onActiveProfileChange(null);
     }
-  }, [activeProfile?.id, onActiveProfileChange]); // Only trigger if ID changes
+  }, [activeProfile, onActiveProfileChange]); // Only trigger if active profile changes
 
   const hasProfiles = profiles.length > 0;
 

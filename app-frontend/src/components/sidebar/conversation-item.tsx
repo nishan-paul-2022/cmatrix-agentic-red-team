@@ -147,7 +147,8 @@ export function ConversationItem({ conversation, isActive, onClick }: Conversati
           <DialogHeader>
             <DialogTitle>Delete Conversation</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{conversation.name}"? This action cannot be undone.
+              Are you sure you want to delete &quot;{conversation.name}&quot;? This action cannot be
+              undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
