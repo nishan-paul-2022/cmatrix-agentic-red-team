@@ -55,7 +55,6 @@ COPY app/ ./app/
 COPY data/ ./data/
 COPY scripts/ ./scripts/
 COPY warmup_models.py .
-COPY .env.example .env.example
 
 # Create necessary directories and warmup models
 RUN chown -R appuser:appuser /app
