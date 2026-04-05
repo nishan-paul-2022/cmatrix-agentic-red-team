@@ -156,7 +156,7 @@
 
 ### API Keys (Optional)
 
-CMatrix supports multiple LLM providers. You'll need at least one:
+CMatrix supports multiple LLM providers. Once you've signed in, you can configure these keys in **Settings > LLM Profiles**.
 
 - **Google Gemini API** (recommended for free tier)
 - **OpenAI API** (GPT-4, GPT-3.5)
@@ -197,9 +197,9 @@ DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
 # Security - CHANGE THIS!
 SECRET_KEY=your-super-secret-key-change-this-in-production-min-32-chars
 
-# LLM Provider (choose one)
-# Option 1: Google Gemini (Free tier available)
-GOOGLE_API_KEY=your_google_api_key_here
+# LLM Configuration (Set up in UI)
+# After signing in, go to Settings -> LLM Profiles to add your API keys.
+# Supports: Google Gemini, OpenAI, Claude, Ollama.
 
 # Option 2: OpenAI
 # OPENAI_API_KEY=your_openai_api_key_here
@@ -760,8 +760,8 @@ npm run build
 # Check LLM configuration
 cat backend/llm_config.json
 
-# Verify API key is set
-echo $GOOGLE_API_KEY  # or OPENAI_API_KEY
+# Verify API key is set in the UI / Database
+# Profiles can be checked at http://localhost:8000/api/v1/profiles
 
 # Test LLM setup
 docker-compose exec backend python setup_llm.py
