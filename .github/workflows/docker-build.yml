@@ -1,4 +1,4 @@
-name: Build, Push & Deploy
+name: Quality, Build & Deploy
 
 on:
   push:
@@ -12,7 +12,60 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-push:
+  quality-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: app-frontend/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: app-backend/requirements.txt
+
+      - name: Install Frontend Dependencies
+        working-directory: app-frontend
+        run: npm ci
+
+      - name: Install Backend Dependencies
+        working-directory: app-backend
+        run: pip install -r requirements.txt
+
+      - name: Run Global Quality Checks (Lint, Format, Typecheck)
+        run: make quality
+
+      - name: Create minimal CI .env for tests
+        run: |
+          echo "APP_NAME=CMatrix" >> .env
+          echo "BACKEND_PORT=8000" >> .env
+          echo "FRONTEND_PORT=3000" >> .env
+          echo "SECRET_KEY=ci-test-key-not-for-production" >> .env
+          echo "ALGORITHM=HS256" >> .env
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=10080" >> .env
+          echo "DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix" >> .env
+          echo "REDIS_PORT=6379" >> .env
+          echo "QDRANT_HOST=localhost" >> .env
+          echo "QDRANT_PORT=6333" >> .env
+          echo "QDRANT_URL=http://localhost:6333" >> .env
+          echo "QDRANT_COLLECTION_NAME=cmatrix_memory" >> .env
+          echo "EMBEDDING_MODEL=BAAI/bge-base-en-v1.5" >> .env
+          echo "EMBEDDING_DEVICE=cpu" >> .env
+          echo "LOG_LEVEL=INFO" >> .env
+
+      - name: Run Backend Tests
+        run: make test
+
+  build-and-verify:
+    needs: quality-and-test
     runs-on: ubuntu-latest
     if: vars.ENABLE_DEPLOY == 'true'
 
@@ -30,26 +83,60 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push backend image
+      # Step 1: Build & Load (into local runner daemon for testing)
+      - name: Build backend image (local load)
         uses: docker/build-push-action@v5
         with:
           context: ./app-backend
-          push: ${{ github.event_name == 'push' }}
-          tags: ghcr.io/nishan-paul-2022/cmatrix-backend:latest
+          load: true
+          tags: cmatrix-backend:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and push frontend image
+      - name: Build frontend image (local load)
         uses: docker/build-push-action@v5
         with:
           context: ./app-frontend
-          push: ${{ github.event_name == 'push' }}
-          tags: ghcr.io/nishan-paul-2022/cmatrix-frontend:latest
+          load: true
+          tags: cmatrix-frontend:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # Step 2: Runtime verification (The Pre-flight Check)
+      - name: Start services for verification
+        run: |
+          # Use the dedicated test compose file to verify our built images
+          docker-compose -f docker-compose.test.yml up -d --remove-orphans
+        env:
+          # Point the compose file to our test-tagged images loaded into the daemon
+          BACKEND_IMAGE: cmatrix-backend:test
+          FRONTEND_IMAGE: cmatrix-frontend:test
+
+      - name: Wait for Backend Health (at port 8000)
+        run: |
+          timeout 120 bash -c 'until curl -fsS http://localhost:8000/api/v1/health; do echo "Waiting for backend..."; sleep 5; done'
+
+      - name: Wait for Frontend Health (at port 3000)
+        run: |
+          timeout 120 bash -c 'until curl -fsS http://localhost:3000; do echo "Waiting for frontend..."; sleep 5; done'
+
+      - name: Stop and Cleanup Verification Containers
+        if: always()
+        run: docker-compose -f docker-compose.test.yml down -v
+
+      # Step 3: Push (Only if verification passes AND on main branch)
+      - name: Push verified images to GHCR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          # Re-tag and push verified images
+          docker tag cmatrix-backend:test ghcr.io/nishan-paul-2022/cmatrix-backend:latest
+          docker tag cmatrix-frontend:test ghcr.io/nishan-paul-2022/cmatrix-frontend:latest
+          docker push ghcr.io/nishan-paul-2022/cmatrix-backend:latest
+          docker push ghcr.io/nishan-paul-2022/cmatrix-frontend:latest
+
+      # Step 4: Deploy
       - name: Copy release compose file to server
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -59,7 +146,7 @@ jobs:
           target: "/var/www/cmatrix/"
 
       - name: Deploy on server
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}

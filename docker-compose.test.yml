@@ -1,0 +1,117 @@
+# 🧪 CI Verification Compose File
+# Used by GitHub Actions to verify that the built images actually start correctly.
+# DO NOT use this file for local development or production.
+
+services:
+  # Redis for Celery message broker
+  redis:
+    image: redis:7-alpine
+    container_name: cmatrix-redis-test
+    networks:
+      - cmatrix-network-test
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: cmatrix-postgres-test
+    environment:
+      - POSTGRES_USER=cmatrix
+      - POSTGRES_PASSWORD=cmatrix
+      - POSTGRES_DB=cmatrix
+    networks:
+      - cmatrix-network-test
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cmatrix"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Qdrant Vector Database
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: cmatrix-qdrant-test
+    networks:
+      - cmatrix-network-test
+    restart: on-failure
+
+  # Backend Service (Using the image built in CI)
+  app-backend:
+    image: ${BACKEND_IMAGE}
+    container_name: cmatrix-app-backend-test
+    environment:
+      # Core
+      - APP_NAME=CMatrix
+      - BACKEND_PORT=8000
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+      # Security
+      - SECRET_KEY=ci-test-secret-key-not-for-production-use-only
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=10080
+      # Database (using Docker service name)
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:5432/cmatrix
+      # Redis / Celery (using Docker service name)
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - REDIS_DOCKER_HOST=redis
+      - POSTGRES_DOCKER_HOST=postgres
+      - QDRANT_DOCKER_HOST=qdrant
+      # Qdrant (using Docker service name)
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - QDRANT_COLLECTION_NAME=cmatrix_memory
+      # Embeddings
+      - EMBEDDING_MODEL=BAAI/bge-base-en-v1.5
+      - EMBEDDING_DEVICE=cpu
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    networks:
+      - cmatrix-network-test
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Frontend Service (Using the image built in CI)
+  app-frontend:
+    image: ${FRONTEND_IMAGE}
+    container_name: cmatrix-app-frontend-test
+    environment:
+      - PORT=3000
+      - PYTHON_BACKEND_URL=http://cmatrix-app-backend-test:8000
+    depends_on:
+      app-backend:
+        condition: service_healthy
+    networks:
+      - cmatrix-network-test
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+networks:
+  cmatrix-network-test:
+    driver: bridge

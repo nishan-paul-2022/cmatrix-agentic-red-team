@@ -48,6 +48,9 @@ services:
   app-backend:
     image: ghcr.io/nishan-paul-2022/cmatrix-backend:latest
     container_name: cmatrix-app-backend
+    # Required for cybersecurity red-team capabilities
+    privileged: true
+    pid: "host"
     ports:
       - "3012:8000"
     env_file:
