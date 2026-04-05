@@ -2,9 +2,9 @@
 
 import os
 from functools import lru_cache
-from typing import Optional
+from typing import Any, Optional
 
-from pydantic import Field, validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -12,70 +12,97 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Application
-    APP_NAME: str = "CMatrix"
-    APP_VERSION: str = "0.0.1"
-    APP_DESCRIPTION: str = "AI Agent with LangGraph and tool calling"
-    DEBUG: bool = Field(default=False, env="DEBUG")
+    APP_NAME: str = Field(..., env="APP_NAME")
+    APP_VERSION: str = Field(..., env="APP_VERSION")
+    APP_DESCRIPTION: str = Field(..., env="APP_DESCRIPTION")
+    DEBUG: bool = Field(..., env="DEBUG")
 
     # Ports
-    BACKEND_PORT: int = Field(default=8000, env="BACKEND_PORT")
-    FRONTEND_PORT: int = Field(default=3000, env="FRONTEND_PORT")
-    POSTGRES_PORT: int = Field(default=5432, env="POSTGRES_PORT")
-    REDIS_PORT: int = Field(default=6379, env="REDIS_PORT")
+    BACKEND_PORT: int = Field(..., env="BACKEND_PORT")
+    FRONTEND_PORT: int = Field(..., env="FRONTEND_PORT")
+    POSTGRES_PORT: int = Field(..., env="POSTGRES_PORT")
+    REDIS_PORT: int = Field(..., env="REDIS_PORT")
 
     # CORS
-    CORS_ORIGINS: list[str] = Field(
-        default_factory=lambda: [
-            "http://localhost:3000",
-            "http://127.0.0.1:3000",
-        ]
-    )
+    CORS_ORIGINS: Any = Field(..., env="CORS_ORIGINS")
 
     # Paths
     BASE_DIR: str = Field(
         default_factory=lambda: os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     )
-    DATA_DIR: str = Field(default="data")
+    DATA_DIR: str = Field(..., env="DATA_DIR")
 
     # Demo Configuration
-    AUTH_CONFIG_FILE: str = Field(default="data/auth_config.json")
+    AUTH_CONFIG_FILE: str = Field(..., env="AUTH_CONFIG_FILE")
 
     # Database
-    DATABASE_URL: str = Field(default="${COMPUTE}", env="DATABASE_URL")
+    DATABASE_URL: str = Field(..., env="DATABASE_URL")
 
     # Security & JWT
-    SECRET_KEY: str = Field(
-        default="your-secret-key-change-this-in-production-make-it-very-long-and-random",
-        env="SECRET_KEY",
-    )
-    ALGORITHM: str = Field(default="HS256", env="ALGORITHM")
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(
-        default=10080, env="ACCESS_TOKEN_EXPIRE_MINUTES"
-    )  # 7 days
+    SECRET_KEY: str = Field(..., env="SECRET_KEY")
+    ALGORITHM: str = Field(..., env="ALGORITHM")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(..., env="ACCESS_TOKEN_EXPIRE_MINUTES")
 
     # Celery & Background Jobs
-    CELERY_BROKER_URL: str = Field(default="${COMPUTE}", env="CELERY_BROKER_URL")
-    CELERY_RESULT_BACKEND: str = Field(default="${COMPUTE}", env="CELERY_RESULT_BACKEND")
+    CELERY_BROKER_URL: str = Field(..., env="CELERY_BROKER_URL")
+    CELERY_RESULT_BACKEND: str = Field(..., env="CELERY_RESULT_BACKEND")
 
     # Vector Database (Qdrant)
-    QDRANT_HOST: str = Field(default="localhost", env="QDRANT_HOST")
-    QDRANT_PORT: int = Field(default=6333, env="QDRANT_PORT")
-    QDRANT_URL: str = Field(default="${COMPUTE}", env="QDRANT_URL")
-    QDRANT_COLLECTION_NAME: str = Field(default="cmatrix_memory", env="QDRANT_COLLECTION_NAME")
+    QDRANT_HOST: str = Field(..., env="QDRANT_HOST")
+    QDRANT_PORT: int = Field(..., env="QDRANT_PORT")
+    QDRANT_URL: str = Field(..., env="QDRANT_URL")
+    QDRANT_COLLECTION_NAME: str = Field(..., env="QDRANT_COLLECTION_NAME")
 
     # Embeddings
-    EMBEDDING_MODEL: str = Field(default="BAAI/bge-base-en-v1.5", env="EMBEDDING_MODEL")
-    EMBEDDING_DEVICE: str = Field(default="cpu", env="EMBEDDING_DEVICE")
+    EMBEDDING_MODEL: str = Field(..., env="EMBEDDING_MODEL")
+    EMBEDDING_DEVICE: str = Field(..., env="EMBEDDING_DEVICE")
 
     # External APIs
     NVD_API_KEY: Optional[str] = Field(default=None, env="NVD_API_KEY")
 
     # Command Execution
-    COMMAND_TIMEOUT: int = Field(default=30, env="COMMAND_TIMEOUT")
-    ENABLE_SUDO: bool = Field(default=False, env="ENABLE_SUDO")
+    COMMAND_TIMEOUT: int = Field(..., env="COMMAND_TIMEOUT")
+    ENABLE_SUDO: bool = Field(..., env="ENABLE_SUDO")
 
     # Logging
-    LOG_LEVEL: str = Field(default="INFO", env="LOG_LEVEL")
+    LOG_LEVEL: str = Field(..., env="LOG_LEVEL")
+
+    # Optimization: Cache
+    CACHE_ENABLED: bool = Field(..., env="CACHE_ENABLED")
+    CACHE_SIMILARITY_THRESHOLD: float = Field(..., env="CACHE_SIMILARITY_THRESHOLD")
+    CACHE_TTL_SECONDS: int = Field(..., env="CACHE_TTL_SECONDS")
+    CACHE_MAX_SIZE: int = Field(..., env="CACHE_MAX_SIZE")
+    REDIS_HOST: str = Field(..., env="REDIS_HOST")
+
+    # Optimization: Backpressure
+    BP_ENABLED: bool = Field(..., env="BP_ENABLED")
+    BP_BATCH_SIZE: int = Field(..., env="BP_BATCH_SIZE")
+    BP_BATCH_TIMEOUT_MS: int = Field(..., env="BP_BATCH_TIMEOUT_MS")
+    BP_MAX_EVENTS_PER_SEC: int = Field(..., env="BP_MAX_EVENTS_PER_SEC")
+    BP_COMPRESSION_THRESHOLD: int = Field(..., env="BP_COMPRESSION_THRESHOLD")
+
+    # Optimization: Token Optimizer
+    TOKEN_OPT_ENABLED: bool = Field(..., env="TOKEN_OPT_ENABLED")
+    TOKEN_SUMMARIZATION_THRESHOLD: int = Field(..., env="TOKEN_SUMMARIZATION_THRESHOLD")
+    TOKEN_MAX_CONTEXT_MESSAGES: int = Field(..., env="TOKEN_MAX_CONTEXT_MESSAGES")
+    TOKEN_DYNAMIC_TOOL_FILTERING: bool = Field(..., env="TOKEN_DYNAMIC_TOOL_FILTERING")
+    TOKEN_COMPRESS_PROMPTS: bool = Field(..., env="TOKEN_COMPRESS_PROMPTS")
+    TOKEN_TRACK_COSTS: bool = Field(..., env="TOKEN_TRACK_COSTS")
+    TOKEN_MODEL_NAME: str = Field(..., env="TOKEN_MODEL_NAME")
+    TOKEN_INPUT_COST: float = Field(..., env="TOKEN_INPUT_COST")
+    TOKEN_OUTPUT_COST: float = Field(..., env="TOKEN_OUTPUT_COST")
+
+    # Reasoning: ReWOO
+    REWOO_CACHE_TTL: int = Field(..., env="REWOO_CACHE_TTL")
+    REWOO_ENABLE_CACHE: bool = Field(..., env="REWOO_ENABLE_CACHE")
+    REWOO_ENABLE_TEMPLATES: bool = Field(..., env="REWOO_ENABLE_TEMPLATES")
+
+    # LLM Provider Defaults (used when constructing ProviderConfig)
+    LLM_TEMPERATURE: float = Field(..., env="LLM_TEMPERATURE")
+    LLM_MAX_TOKENS: int = Field(..., env="LLM_MAX_TOKENS")
+    LLM_TIMEOUT: int = Field(..., env="LLM_TIMEOUT")
+    LLM_RETRY_ATTEMPTS: int = Field(..., env="LLM_RETRY_ATTEMPTS")
+    LLM_RETRY_DELAY: float = Field(..., env="LLM_RETRY_DELAY")
 
     class Config:
         """Pydantic configuration."""
@@ -84,57 +111,15 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
         case_sensitive = True
 
-    @validator("DATABASE_URL", pre=True, always=True)
-    def compute_db_url(cls, v, values):
-        """Compute database URL if not provided or contains ${PORT} placeholders."""
-        if v and not v.startswith("${"):
-            return v
-        port = values.get("POSTGRES_PORT", 5432)
-        user = os.getenv("POSTGRES_USER", "cmatrix")
-        pw = os.getenv("POSTGRES_PASSWORD", "cmatrix")
-        db = os.getenv("POSTGRES_DB", "cmatrix")
-        return f"postgresql+asyncpg://{user}:{pw}@localhost:{port}/{db}"
-
-    @validator("CELERY_BROKER_URL", pre=True, always=True)
-    def compute_broker_url(cls, v, values):
-        """Compute celery broker URL if not provided."""
-        if v and not v.startswith("${"):
-            return v
-        port = values.get("REDIS_PORT", 6379)
-        return f"redis://localhost:{port}/0"
-
-    @validator("CELERY_RESULT_BACKEND", pre=True, always=True)
-    def compute_backend_url(cls, v, values):
-        """Compute celery result backend URL if not provided."""
-        if v and not v.startswith("${"):
-            return v
-        port = values.get("REDIS_PORT", 6379)
-        return f"redis://localhost:{port}/1"
-
-    @validator("QDRANT_URL", pre=True, always=True)
-    def compute_qdrant_url(cls, v, values):
-        """Compute Qdrant URL if not provided."""
-        if v and not v.startswith("${"):
-            return v
-        host = values.get("QDRANT_HOST", "localhost")
-        port = values.get("QDRANT_PORT", 6333)
-        return f"http://{host}:{port}"
-
-    @validator("CORS_ORIGINS", pre=True, always=True)
-    def compute_cors_origins(cls, v, values):
-        """Compute CORS origins using FRONTEND_PORT."""
-        if v and not isinstance(v, list):
-            # Parse from comma-separated string if provided
-            v = [origin.strip() for origin in v.split(",")]
-
-        if v:
-            return v
-
-        port = values.get("FRONTEND_PORT", 3000)
-        return [
-            f"http://localhost:{port}",
-            f"http://127.0.0.1:{port}",
-        ]
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v):
+        """Parse comma-separated string into a list."""
+        if isinstance(v, str):
+            # Remove brackets and quotes if present
+            v = v.replace("[", "").replace("]", "").replace('"', "").replace("'", "")
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        return v
 
 
 @lru_cache

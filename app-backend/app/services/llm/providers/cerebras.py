@@ -55,7 +55,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
             "model": self.config.model,
             "messages": self._prepare_messages(messages),
             "temperature": kwargs.get("temperature", self.config.temperature),
-            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens),
             "stream": False,
         }
 
@@ -96,7 +96,7 @@ class CerebrasProvider(LLMProvider, StreamingProviderMixin):
             "model": self.config.model,
             "messages": self._prepare_messages(messages),
             "temperature": kwargs.get("temperature", self.config.temperature),
-            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens),
             "stream": True,
         }
 

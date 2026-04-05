@@ -55,7 +55,7 @@ class GeminiProvider(LLMProvider, StreamingProviderMixin):
             # Configure generation parameters
             generation_config = genai.types.GenerationConfig(
                 temperature=kwargs.get("temperature", self.config.temperature),
-                max_output_tokens=kwargs.get("max_tokens", self.config.max_tokens or 512),
+                max_output_tokens=kwargs.get("max_tokens", self.config.max_tokens),
             )
 
             # Generate response
@@ -87,7 +87,7 @@ class GeminiProvider(LLMProvider, StreamingProviderMixin):
             # Configure generation parameters
             generation_config = genai.types.GenerationConfig(
                 temperature=kwargs.get("temperature", self.config.temperature),
-                max_output_tokens=kwargs.get("max_tokens", self.config.max_tokens or 512),
+                max_output_tokens=kwargs.get("max_tokens", self.config.max_tokens),
             )
 
             # Generate streaming response

@@ -21,7 +21,7 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             config: Provider configuration with base_url and model
         """
         super().__init__(config)
-        self.base_url = config.base_url or "http://localhost:11434"
+        self.base_url = config.base_url
 
         # Validate configuration - model is optional when just fetching available models
         if not self.config.model:
@@ -48,7 +48,7 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             "stream": False,
             "options": {
                 "temperature": kwargs.get("temperature", self.config.temperature),
-                "num_predict": kwargs.get("max_tokens", self.config.max_tokens or 512),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens),
             },
         }
 
@@ -86,7 +86,7 @@ class OllamaProvider(LLMProvider, StreamingProviderMixin):
             "stream": True,
             "options": {
                 "temperature": kwargs.get("temperature", self.config.temperature),
-                "num_predict": kwargs.get("max_tokens", self.config.max_tokens or 512),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens),
             },
         }
 

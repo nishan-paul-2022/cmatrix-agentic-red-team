@@ -81,12 +81,12 @@ class OptimizationManager:
         if self.enable_caching:
             try:
                 cache_config = CacheConfig(
-                    enabled=True,
-                    similarity_threshold=getattr(settings, "CACHE_SIMILARITY_THRESHOLD", 0.95),
-                    ttl_seconds=getattr(settings, "CACHE_TTL_SECONDS", 3600),
-                    max_cache_size=getattr(settings, "CACHE_MAX_SIZE", 10000),
-                    redis_host=getattr(settings, "REDIS_HOST", "localhost"),
-                    redis_port=getattr(settings, "REDIS_PORT", 6379),
+                    enabled=settings.CACHE_ENABLED,
+                    similarity_threshold=settings.CACHE_SIMILARITY_THRESHOLD,
+                    ttl_seconds=settings.CACHE_TTL_SECONDS,
+                    max_cache_size=settings.CACHE_MAX_SIZE,
+                    redis_host=settings.REDIS_HOST,
+                    redis_port=settings.REDIS_PORT,
                     redis_db=2,  # Use DB 2 for cache
                 )
                 self.cache = get_semantic_cache(cache_config)
@@ -102,11 +102,11 @@ class OptimizationManager:
         if self.enable_backpressure:
             try:
                 bp_config = BackpressureConfig(
-                    enabled=True,
-                    batch_size=getattr(settings, "BP_BATCH_SIZE", 10),
-                    batch_timeout_ms=getattr(settings, "BP_BATCH_TIMEOUT_MS", 100),
-                    max_events_per_second=getattr(settings, "BP_MAX_EVENTS_PER_SEC", 100),
-                    compression_threshold_bytes=getattr(settings, "BP_COMPRESSION_THRESHOLD", 1024),
+                    enabled=settings.BP_ENABLED,
+                    batch_size=settings.BP_BATCH_SIZE,
+                    batch_timeout_ms=settings.BP_BATCH_TIMEOUT_MS,
+                    max_events_per_second=settings.BP_MAX_EVENTS_PER_SEC,
+                    compression_threshold_bytes=settings.BP_COMPRESSION_THRESHOLD,
                 )
                 self.backpressure = get_backpressure_manager(bp_config)
                 logger.info("✓ Backpressure manager initialized")
@@ -121,11 +121,11 @@ class OptimizationManager:
         if self.enable_token_optimization:
             try:
                 token_config = TokenOptimizerConfig(
-                    enabled=True,
-                    summarization_threshold=getattr(settings, "TOKEN_SUMMARIZATION_THRESHOLD", 20),
-                    max_context_messages=getattr(settings, "TOKEN_MAX_CONTEXT_MESSAGES", 10),
-                    dynamic_tool_filtering=getattr(settings, "TOKEN_DYNAMIC_TOOL_FILTERING", True),
-                    compress_prompts=getattr(settings, "TOKEN_COMPRESS_PROMPTS", True),
+                    enabled=settings.TOKEN_OPT_ENABLED,
+                    summarization_threshold=settings.TOKEN_SUMMARIZATION_THRESHOLD,
+                    max_context_messages=settings.TOKEN_MAX_CONTEXT_MESSAGES,
+                    dynamic_tool_filtering=settings.TOKEN_DYNAMIC_TOOL_FILTERING,
+                    compress_prompts=settings.TOKEN_COMPRESS_PROMPTS,
                     track_costs=True,
                 )
                 self.token_optimizer = get_token_optimizer(token_config)

@@ -37,23 +37,19 @@ from pydantic import BaseModel, Field
 class BackpressureConfig(BaseModel):
     """Configuration for backpressure management."""
 
-    enabled: bool = Field(default=True, description="Enable/disable backpressure handling")
-    batch_size: int = Field(default=10, gt=0, description="Maximum events per batch")
+    enabled: bool = Field(..., description="Enable/disable backpressure handling")
+    batch_size: int = Field(..., gt=0, description="Maximum events per batch")
     batch_timeout_ms: int = Field(
-        default=100, gt=0, description="Maximum time to wait for batch (milliseconds)"
+        ..., gt=0, description="Maximum time to wait for batch (milliseconds)"
     )
     max_events_per_second: int = Field(
-        default=100, gt=0, description="Maximum events per second (rate limit)"
+        ..., gt=0, description="Maximum events per second (rate limit)"
     )
     compression_threshold_bytes: int = Field(
-        default=1024, gt=0, description="Compress payloads larger than this (bytes)"
+        ..., gt=0, description="Compress payloads larger than this (bytes)"
     )
-    max_buffer_size: int = Field(
-        default=1000, gt=0, description="Maximum buffered events before blocking"
-    )
-    enable_compression: bool = Field(
-        default=True, description="Enable gzip compression for large payloads"
-    )
+    max_buffer_size: int = Field(..., gt=0, description="Maximum buffered events before blocking")
+    enable_compression: bool = Field(..., description="Enable gzip compression for large payloads")
 
 
 @dataclass
@@ -440,7 +436,7 @@ def get_backpressure_manager(config: Optional[BackpressureConfig] = None) -> Bac
     Get or create global backpressure manager instance.
 
     Args:
-        config: Backpressure configuration (uses default if None)
+        config: Backpressure configuration (MUST BE PROVIDED on first call)
 
     Returns:
         BackpressureManager instance
@@ -449,7 +445,18 @@ def get_backpressure_manager(config: Optional[BackpressureConfig] = None) -> Bac
 
     if _backpressure_manager is None:
         if config is None:
-            config = BackpressureConfig()
+            # Import settings locally to avoid circular dependencies
+            from app.core.config import settings
+
+            config = BackpressureConfig(
+                enabled=settings.BP_ENABLED,
+                batch_size=settings.BP_BATCH_SIZE,
+                batch_timeout_ms=settings.BP_BATCH_TIMEOUT_MS,
+                max_events_per_second=settings.BP_MAX_EVENTS_PER_SEC,
+                compression_threshold_bytes=settings.BP_COMPRESSION_THRESHOLD,
+                max_buffer_size=1000,  # Static internal default for safety
+                enable_compression=True,  # Static internal default for safety
+            )
         _backpressure_manager = BackpressureManager(config)
 
     return _backpressure_manager

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p ${FRONTEND_PORT}",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

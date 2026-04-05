@@ -45,24 +45,20 @@ from app.core.config import settings
 class CacheConfig(BaseModel):
     """Configuration for semantic cache."""
 
-    enabled: bool = Field(default=True, description="Enable/disable semantic caching")
+    enabled: bool = Field(..., description="Enable/disable semantic caching")
     similarity_threshold: float = Field(
-        default=0.95,
+        ...,
         ge=0.0,
         le=1.0,
         description="Minimum cosine similarity for cache hit (0.0-1.0)",
     )
-    ttl_seconds: int = Field(
-        default=3600, gt=0, description="Time-to-live for cached entries in seconds"
-    )
-    max_cache_size: int = Field(default=10000, gt=0, description="Maximum number of cached entries")
-    embedding_model: str = Field(
-        default="all-MiniLM-L6-v2", description="Sentence transformer model for embeddings"
-    )
-    redis_host: str = Field(default="localhost", description="Redis host")
-    redis_port: int = Field(default=None, description="Redis port")
-    redis_db: int = Field(default=2, description="Redis database number for cache")
-    redis_password: Optional[str] = Field(default=None, description="Redis password")
+    ttl_seconds: int = Field(..., gt=0, description="Time-to-live for cached entries in seconds")
+    max_cache_size: int = Field(..., gt=0, description="Maximum number of cached entries")
+    embedding_model: str = Field(..., description="Sentence transformer model for embeddings")
+    redis_host: str = Field(..., description="Redis host")
+    redis_port: int = Field(..., description="Redis port")
+    redis_db: int = Field(..., description="Redis database number for cache")
+    redis_password: Optional[str] = Field(..., description="Redis password")
 
 
 @dataclass

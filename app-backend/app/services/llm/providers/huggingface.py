@@ -58,7 +58,7 @@ class HuggingFaceProvider(LLMProvider, StreamingProviderMixin):
         payload = {
             "model": self.model,
             "messages": self._prepare_messages(messages),
-            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens or 512),
+            "max_tokens": kwargs.get("max_tokens", self.config.max_tokens),
             "temperature": kwargs.get("temperature", self.config.temperature),
             "stream": False,
         }

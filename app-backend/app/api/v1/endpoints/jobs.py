@@ -139,25 +139,14 @@ async def get_job_status(
                 )
             raise
 
-        # If status is PENDING and there's no info, the job might not exist or has been cleared
+        # If status is PENDING, the job is either queued or doesn't exist.
+        # We cannot reliably distinguish between a fresh job and one that never
+        # existed from the backend alone -- the client tracks poll timeouts.
+        # Just return PENDING so the frontend keeps polling normally.
         if task_status == "PENDING":
-            # Try to get task info to see if it ever existed
             try:
                 task_info = task_result.info
-                # If info is None and backend can't find it, job likely expired or never existed
-                if task_info is None:
-                    # Check if we can find any trace of this job
-                    # This is a heuristic - if truly pending, backend would have some info
-                    logger.warning(f"Job {job_id} appears to be expired or never existed")
-                    raise HTTPException(
-                        status_code=status.HTTP_410_GONE,
-                        detail="Job result has expired or was cleared. Please submit your request again.",
-                    )
-            except HTTPException:
-                # Re-raise HTTPException immediately
-                raise
             except ValueError as e:
-                # Celery raises ValueError when exception data is corrupted
                 if "Exception information must include" in str(e):
                     logger.warning(f"Job {job_id} has corrupted exception data in Redis")
                     raise HTTPException(
@@ -165,9 +154,6 @@ async def get_job_status(
                         detail="Job result data is corrupted. Please submit your request again.",
                     )
                 raise
-            except Exception:
-                # Other errors, treat as pending and continue
-                pass
 
         response = JobStatusResponse(
             job_id=job_id,

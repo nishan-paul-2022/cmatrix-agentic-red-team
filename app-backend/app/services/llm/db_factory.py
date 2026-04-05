@@ -58,13 +58,19 @@ class DatabaseLLMProviderFactory:
             logger.warning(f"Active profile {profile.id} missing API key or model")
             return None
 
+        from app.core.config import settings
+
         # Create provider config
         config = ProviderConfig(
             api_key=profile.api_key,
             model=profile.selected_model_name,
+            endpoint=None,
             base_url=None,
-            temperature=0.4,
-            max_tokens=4096,
+            temperature=settings.LLM_TEMPERATURE,
+            max_tokens=settings.LLM_MAX_TOKENS,
+            timeout=settings.LLM_TIMEOUT,
+            retry_attempts=settings.LLM_RETRY_ATTEMPTS,
+            retry_delay=settings.LLM_RETRY_DELAY,
         )
 
         # Get provider class

@@ -226,9 +226,9 @@ class ReWOOPlanner:
         self,
         llm: BaseChatModel,
         available_tools: dict[str, dict[str, Any]],
-        cache_ttl: int = 7200,  # 2 hours
-        enable_cache: bool = True,
-        enable_templates: bool = True,
+        cache_ttl: int,
+        enable_cache: bool,
+        enable_templates: bool,
     ):
         """
         Initialize the ReWOO Planner.
@@ -664,5 +664,13 @@ def get_rewoo_planner(
     """
     global _rewoo_planner
     if _rewoo_planner is None:
-        _rewoo_planner = ReWOOPlanner(llm, available_tools)
+        from app.core.config import settings
+
+        _rewoo_planner = ReWOOPlanner(
+            llm=llm,
+            available_tools=available_tools,
+            cache_ttl=settings.REWOO_CACHE_TTL,
+            enable_cache=settings.REWOO_ENABLE_CACHE,
+            enable_templates=settings.REWOO_ENABLE_TEMPLATES,
+        )
     return _rewoo_planner

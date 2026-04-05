@@ -15,15 +15,15 @@ from loguru import logger
 class ProviderConfig:
     """Configuration for an LLM provider."""
 
-    api_key: Optional[str] = None
-    model: Optional[str] = None
-    endpoint: Optional[str] = None
-    base_url: Optional[str] = None
-    temperature: float = 0.7
-    max_tokens: Optional[int] = None
-    timeout: int = 60
-    retry_attempts: int = 3
-    retry_delay: float = 1.0
+    api_key: Optional[str]
+    model: str
+    endpoint: Optional[str]
+    base_url: Optional[str]
+    temperature: float
+    max_tokens: int
+    timeout: int
+    retry_attempts: int
+    retry_delay: float
 
 
 @dataclass

@@ -55,11 +55,21 @@ class APIProviderService:
         if not provider_class:
             raise ValueError(f"Unsupported provider: {provider}")
 
+        from app.core.config import settings
+
         try:
             # Create provider config
+            # Note: base_url is handled inside specific providers from their config or settings
             config = ProviderConfig(
                 api_key=api_key,
                 model="dummy",  # Not needed for fetching models
+                endpoint=None,
+                base_url=None,
+                temperature=settings.LLM_TEMPERATURE,
+                max_tokens=settings.LLM_MAX_TOKENS,
+                timeout=settings.LLM_TIMEOUT,
+                retry_attempts=settings.LLM_RETRY_ATTEMPTS,
+                retry_delay=settings.LLM_RETRY_DELAY,
             )
 
             # Instantiate provider

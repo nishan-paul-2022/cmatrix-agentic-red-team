@@ -44,23 +44,21 @@ except ImportError:
 class TokenOptimizerConfig(BaseModel):
     """Configuration for token optimization."""
 
-    enabled: bool = Field(default=True, description="Enable/disable token optimization")
+    enabled: bool = Field(..., description="Enable/disable token optimization")
     summarization_threshold: int = Field(
-        default=20, gt=0, description="Summarize conversation after this many messages"
+        ..., gt=0, description="Summarize conversation after this many messages"
     )
-    max_context_messages: int = Field(
-        default=10, gt=0, description="Maximum messages to keep in context"
-    )
+    max_context_messages: int = Field(..., gt=0, description="Maximum messages to keep in context")
     dynamic_tool_filtering: bool = Field(
-        default=True, description="Enable dynamic tool filtering based on query"
+        ..., description="Enable dynamic tool filtering based on query"
     )
-    compress_prompts: bool = Field(default=True, description="Enable prompt compression")
-    track_costs: bool = Field(default=True, description="Track token usage and costs")
-    model_name: str = Field(default="gpt-4", description="Model name for token counting")
+    compress_prompts: bool = Field(..., description="Enable prompt compression")
+    track_costs: bool = Field(..., description="Track token usage and costs")
+    model_name: str = Field(..., description="Model name for token counting")
 
     # Pricing (per 1K tokens)
-    input_token_cost: float = Field(default=0.03, description="Cost per 1K input tokens (USD)")
-    output_token_cost: float = Field(default=0.06, description="Cost per 1K output tokens (USD)")
+    input_token_cost: float = Field(..., description="Cost per 1K input tokens (USD)")
+    output_token_cost: float = Field(..., description="Cost per 1K output tokens (USD)")
 
 
 @dataclass
@@ -621,7 +619,7 @@ def get_token_optimizer(config: Optional[TokenOptimizerConfig] = None) -> TokenO
     Get or create global token optimizer instance.
 
     Args:
-        config: Optimizer configuration (uses default if None)
+        config: Optimizer configuration (MUST BE PROVIDED on first call)
 
     Returns:
         TokenOptimizer instance
@@ -630,7 +628,19 @@ def get_token_optimizer(config: Optional[TokenOptimizerConfig] = None) -> TokenO
 
     if _token_optimizer is None:
         if config is None:
-            config = TokenOptimizerConfig()
+            from app.core.config import settings
+
+            config = TokenOptimizerConfig(
+                enabled=settings.TOKEN_OPT_ENABLED,
+                summarization_threshold=settings.TOKEN_SUMMARIZATION_THRESHOLD,
+                max_context_messages=settings.TOKEN_MAX_CONTEXT_MESSAGES,
+                dynamic_tool_filtering=settings.TOKEN_DYNAMIC_TOOL_FILTERING,
+                compress_prompts=settings.TOKEN_COMPRESS_PROMPTS,
+                track_costs=settings.TOKEN_TRACK_COSTS,
+                model_name=settings.TOKEN_MODEL_NAME,
+                input_token_cost=settings.TOKEN_INPUT_COST,
+                output_token_cost=settings.TOKEN_OUTPUT_COST,
+            )
         _token_optimizer = TokenOptimizer(config)
 
     return _token_optimizer
