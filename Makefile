@@ -63,7 +63,7 @@ dev-app-frontend:
 
 dev-app-backend:
 	@echo "🚀 Starting app-backend dev server..."
-	cd app-backend && source venv/bin/activate && uvicorn app.main:app --reload
+	cd app-backend && source venv/bin/activate && uvicorn app.main:app --port $${BACKEND_PORT} --reload
 
 # Code quality
 quality: quality-app-frontend quality-app-backend

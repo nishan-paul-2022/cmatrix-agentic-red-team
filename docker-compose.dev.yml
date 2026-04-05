@@ -19,7 +19,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - "${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
   # Backend Service (Development Mode)
   app-backend:
@@ -28,14 +28,14 @@ services:
       dockerfile: Dockerfile
     container_name: cmatrix-app-backend-dev
     environment:
-      - PORT=${BACKEND_PORT:-8000}
-      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:${POSTGRES_PORT:-5432}/cmatrix
-      - CELERY_BROKER_URL=redis://localhost:${REDIS_PORT:-6379}/0
-      - CELERY_RESULT_BACKEND=redis://localhost:${REDIS_PORT:-6379}/1
-      - QDRANT_URL=http://localhost:${QDRANT_PORT:-6333}
+      - PORT=${BACKEND_PORT}
+      - DATABASE_URL=${DATABASE_URL}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+      - QDRANT_URL=${QDRANT_URL}
       - QDRANT_HOST=localhost
-      - QDRANT_PORT=${QDRANT_PORT:-6333}
-      - SECRET_KEY=${SECRET_KEY:-your-secret-key-change-this-in-production-make-it-very-long-and-random}
+      - QDRANT_PORT=${QDRANT_PORT}
+      - SECRET_KEY=${SECRET_KEY}
     volumes:
       - ./app-backend:/app
       - backend-venv:/app/venv
@@ -44,7 +44,7 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
-    command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT:-8000} --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
 
   app-frontend:
     build:
@@ -52,10 +52,10 @@ services:
       dockerfile: Dockerfile.dev
     container_name: cmatrix-app-frontend-dev
     ports:
-      - "${FRONTEND_PORT:-3000}:${FRONTEND_PORT:-3000}"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
       - NODE_ENV=development
-      - PYTHON_BACKEND_URL=http://host.docker.internal:${BACKEND_PORT:-8000}
+      - PYTHON_BACKEND_URL=http://host.docker.internal:${BACKEND_PORT}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:

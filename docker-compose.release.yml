@@ -18,22 +18,22 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - "${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
   # Backend Service
   app-backend:
     image: xor2025/cmatrix-backend:latest
     container_name: cmatrix-app-backend
     ports:
-      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      - PORT=${BACKEND_PORT:-8000}
-      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@postgres:${POSTGRES_PORT:-5432}/cmatrix
+      - PORT=${BACKEND_PORT}
+      - DATABASE_URL=${DATABASE_URL}
       # You should change this secret key in production!
-      - SECRET_KEY=change-this-in-production-make-it-very-long-and-random
+      - SECRET_KEY=${SECRET_KEY}
       # Add your HuggingFace API key here if needed, or use a .env file
       - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
-      - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL:-DeepHat/DeepHat-V1-7B}
+      - HUGGINGFACE_MODEL=${HUGGINGFACE_MODEL}
     volumes:
       - ./cmatrix_data/logs:/app/logs
       - ./cmatrix_data/data:/app/data
@@ -49,10 +49,10 @@ services:
     image: xor2025/cmatrix-frontend:latest
     container_name: cmatrix-app-frontend
     ports:
-      - "${FRONTEND_PORT:-3000}:${FRONTEND_PORT:-3000}"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
       - NODE_ENV=production
-      - PYTHON_BACKEND_URL=http://app-backend:${BACKEND_PORT:-8000}
+      - PYTHON_BACKEND_URL=http://app-backend:${BACKEND_PORT}
     depends_on:
       app-backend:
         condition: service_healthy
