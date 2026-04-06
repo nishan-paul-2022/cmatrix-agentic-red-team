@@ -113,21 +113,26 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "app-backend/requirements*.txt"
 
+      - name: Create Virtual Environment
+        working-directory: app-backend
+        run: uv venv
+
       - name: Install Backend Dependencies
         working-directory: app-backend
-        run: uv pip install -r requirements.txt --system --break-system-packages
+        run: uv pip install -r requirements.txt
 
       - name: Run Parallel Quality Checks (Backend)
         working-directory: app-backend
         run: |
-          # Capture PIDs for all parallel background jobs
-          ruff check . & P1=$!
-          ruff format --check . & P2=$!
-          mypy app/ & P3=$!
-          bandit -r app/ -c pyproject.toml -s B101,B601 & P4=$!
+          # Use 'uv run' to execute tools within the managed environment
+          uv run ruff check . & P1=$!
+          uv run ruff format --check . & P2=$!
+          uv run ruff check --select TCH app/ & P3=$! # Check type-checking imports
+          uv run mypy app/ & P4=$!
+          uv run bandit -r app/ -c pyproject.toml -s B101,B601 & P5=$!
           
           # Wait and ensure all succeeded
-          wait $P1 && wait $P2 && wait $P3 && wait $P4
+          wait $P1 && wait $P2 && wait $P3 && wait $P4 && wait $P5
         continue-on-error: false
 
       - name: Create minimal CI .env for tests
@@ -153,7 +158,7 @@ jobs:
 
       - name: Run Backend Tests
         working-directory: app-backend
-        run: make test VENV=
+        run: uv run pytest app/tests
 
   quality-gate:
     needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]
