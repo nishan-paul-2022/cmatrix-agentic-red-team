@@ -3,6 +3,7 @@ Tests for HITL approval gates functionality.
 """
 
 import pytest
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 from app.core.approval_config import (
     RiskLevel,
@@ -10,6 +11,39 @@ from app.core.approval_config import (
     get_tool_risk_info,
     requires_approval,
 )
+from app.main import app
+
+
+@pytest.fixture
+def client():
+    """Create test client with dependency overrides."""
+    from fastapi.testclient import TestClient
+
+    from app.api.deps import get_current_user
+    from app.models.user import User
+
+    # Reset overrides
+    app.dependency_overrides = {}
+
+    def mock_get_current_user():
+        return User(id=1, username="user_1", is_active=True)
+
+    app.dependency_overrides[get_current_user] = mock_get_current_user
+    client = TestClient(app)
+    yield client
+    app.dependency_overrides = {}
+
+
+@pytest.fixture
+def auth_headers_user1():
+    """Mock auth headers for user 1."""
+    return {"Authorization": "Bearer user1_token"}
+
+
+@pytest.fixture
+def auth_headers_user2():
+    """Mock auth headers for user 2."""
+    return {"Authorization": "Bearer user2_token"}
 
 
 class TestApprovalConfig:
@@ -95,17 +129,13 @@ class TestOrchestratorApprovalGate:
 
     def test_should_continue_routes_to_approval_gate(self):
         """Test that dangerous tools route to approval gate."""
-        from langchain_core.messages import AIMessage
-
         from app.services.orchestrator import OrchestratorService
 
         orchestrator = OrchestratorService()
 
         # Create state with dangerous tool call
         state = {
-            "messages": [
-                AIMessage(content="TOOL: execute_terminal_command(command='rm -rf /tmp/test')")
-            ],
+            "messages": [AIMessage(content="TOOL: execute_terminal_command(command='ls -la')")],
             "tool_calls": [],
             "animation_steps": [],
             "diagram_nodes": [],
@@ -119,8 +149,6 @@ class TestOrchestratorApprovalGate:
 
     def test_should_continue_routes_to_tools_for_safe(self):
         """Test that safe tools route directly to tools."""
-        from langchain_core.messages import AIMessage
-
         from app.services.orchestrator import OrchestratorService
 
         orchestrator = OrchestratorService()
@@ -141,8 +169,6 @@ class TestOrchestratorApprovalGate:
 
     def test_auto_reject_routes_to_end(self):
         """Test that auto-rejected tools route to end."""
-        from langchain_core.messages import AIMessage
-
         from app.services.orchestrator import OrchestratorService
 
         orchestrator = OrchestratorService()
@@ -169,7 +195,7 @@ class TestOrchestratorApprovalGate:
 
         # Create state with pending approval
         state = {
-            "messages": [],
+            "messages": [AIMessage(content="TOOL: run_nmap_scan(target='192.168.1.1')")],
             "pending_approval": {
                 "tool_name": "run_nmap_scan",
                 "tool_args": {"target": "192.168.1.1"},
@@ -199,25 +225,31 @@ class TestApprovalAPI:
 
     async def test_get_pending_approval_unauthorized(self, client):
         """Test that unauthorized requests are rejected."""
-        response = await client.get("/api/v1/approvals/user_1_conv_1")
-        assert response.status_code == 401
+        # Restore real dependency for unauthorized test
+        from app.api.deps import get_current_user
+
+        app.dependency_overrides = {}
+        response = client.get("/api/v1/approvals/user_1_conv_1")
+        assert response.status_code == 403  # HTTPBearer returns 403 if missing
 
     async def test_get_pending_approval_wrong_user(
         self, client, auth_headers_user1, auth_headers_user2
     ):
         """Test that users can't access other users' approvals."""
         # User 1 tries to access user 2's approval
-        response = await client.get("/api/v1/approvals/user_2_conv_1", headers=auth_headers_user1)
+        response = client.get("/api/v1/approvals/user_2_conv_1", headers=auth_headers_user1)
         assert response.status_code == 403
 
     async def test_approve_tool_unauthorized(self, client):
         """Test that unauthorized approval requests are rejected."""
-        response = await client.post("/api/v1/approvals/user_1_conv_1", json={"action": "approve"})
-        assert response.status_code == 401
+        # Restore real dependency for unauthorized test
+        app.dependency_overrides = {}
+        response = client.post("/api/v1/approvals/user_1_conv_1", json={"action": "approve"})
+        assert response.status_code == 403
 
     async def test_approve_tool_invalid_action(self, client, auth_headers_user1):
         """Test that invalid actions are rejected."""
-        response = await client.post(
+        response = client.post(
             "/api/v1/approvals/user_1_conv_1",
             headers=auth_headers_user1,
             json={"action": "invalid"},

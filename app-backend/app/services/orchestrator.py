@@ -1,7 +1,7 @@
 """Orchestrator service for coordinating agent workflows."""
 
 from collections.abc import Sequence
-from typing import Any, Literal, Optional, TypedDict, Union
+from typing import Any, Literal, NoReturn, Optional, TypedDict, Union
 
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
@@ -114,7 +114,12 @@ class OrchestratorService:
 
         last_message = state["messages"][-1]
         if isinstance(last_message, AIMessage):
-            tool_calls = parse_tool_calls(last_message.content)
+            content = (
+                last_message.content
+                if isinstance(last_message.content, str)
+                else str(last_message.content)
+            )
+            tool_calls = parse_tool_calls(content)
             if tool_calls:
                 # Check if any tool requires approval
                 for tool_name, tool_args in tool_calls:
@@ -184,6 +189,7 @@ class OrchestratorService:
         messages = state["messages"]
 
         # Build prompt with tool information
+        prompt_messages: list[BaseMessage]
         if len(messages) == 1 or not any("TOOL_RESULT" in str(m.content) for m in messages):
             # Create a custom tool prompt that includes our tools
             tool_definitions = self.tool_registry.get_tool_definitions()
@@ -209,7 +215,7 @@ class OrchestratorService:
             )
             prompt_messages = [system_msg] + list(messages)
         else:
-            prompt_messages = messages
+            prompt_messages = list(messages)
 
         # Convert LangChain BaseMessage objects to provider Message objects
         provider_messages = []
@@ -219,7 +225,8 @@ class OrchestratorService:
             elif isinstance(msg, HumanMessage):
                 provider_messages.append(Message(role="user", content=msg.content))
             elif isinstance(msg, AIMessage):
-                provider_messages.append(Message(role="assistant", content=msg.content))
+                content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                provider_messages.append(Message(role="assistant", content=content))
             else:
                 # Fallback for unknown message types
                 provider_messages.append(Message(role="user", content=str(msg.content)))
@@ -263,7 +270,12 @@ class OrchestratorService:
         else:
             # Normal flow: get tool calls from last message
             last_message = state["messages"][-1]
-            tool_calls = parse_tool_calls(last_message.content)
+            content = (
+                last_message.content
+                if isinstance(last_message.content, str)
+                else str(last_message.content)
+            )
+            tool_calls = parse_tool_calls(content)
 
         # Get existing animation steps and diagram data
         animation_steps = state.get("animation_steps", [])
@@ -391,7 +403,7 @@ class OrchestratorService:
         else:
             return "general"
 
-    def _extract_target(self, tool_args: dict) -> str:
+    def _extract_target(self, tool_args: dict[str, Any]) -> str:
         """Extract target from tool arguments."""
         # Common parameter names for targets
         for key in ["target", "url", "host", "ip", "domain", "endpoint"]:
@@ -539,7 +551,7 @@ class OrchestratorService:
         )
 
         if risk_info.get("warning"):
-            approval_message += f"{risk_info['warning']}\n\n"
+            approval_message += f"{risk_info.get('warning')}\n\n"
 
         approval_message += (
             "This operation requires your approval before execution. "

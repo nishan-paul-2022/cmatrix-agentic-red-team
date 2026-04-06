@@ -10,7 +10,7 @@ Tests cover:
 - Performance
 """
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from unittest.mock import patch
 
 import pytest
@@ -27,7 +27,7 @@ from app.services.rag.cve_reranker import (
 @pytest.fixture
 def sample_cves():
     """Sample CVE candidates with varying characteristics."""
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     return [
         {
@@ -284,7 +284,7 @@ class TestCVEReranker:
             {
                 "id": f"CVE-2023-{i:05d}",
                 "descriptions": [{"value": f"Vulnerability {i}"}],
-                "published": datetime.now(timezone.utc).isoformat(),
+                "published": datetime.now(UTC).isoformat(),
                 "metrics": {"cvssMetricV31": [{"cvssData": {"baseScore": 5.0}}]},
                 "references": [],
             }

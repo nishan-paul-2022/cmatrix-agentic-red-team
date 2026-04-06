@@ -130,7 +130,7 @@ class TestSupervisorService:
                 task,
                 context,
                 mock_llm_provider,
-                timeout=1,  # 1 second timeout
+                execution_timeout=1,  # 1 second timeout
             )
 
             assert result["status"] == "timeout"

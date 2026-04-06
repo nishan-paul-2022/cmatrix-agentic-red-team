@@ -18,7 +18,7 @@ Design Principles:
 import json
 import random
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -95,7 +95,7 @@ class Experiment:
     confidence_level: float = 0.95  # Statistical confidence
 
     # Metadata
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     winner: Optional[str] = None
@@ -115,7 +115,7 @@ class FeedbackEvent:
     cve_id: str
     position: int
     feedback_type: FeedbackType
-    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -223,7 +223,7 @@ class ABTestingFramework:
 
         experiment = self._experiments[experiment_id]
         experiment.status = ExperimentStatus.RUNNING
-        experiment.started_at = datetime.now(timezone.utc).isoformat()
+        experiment.started_at = datetime.now(UTC).isoformat()
 
         logger.info(f"Started experiment: {experiment_id}")
 
@@ -234,7 +234,7 @@ class ABTestingFramework:
 
         experiment = self._experiments[experiment_id]
         experiment.status = ExperimentStatus.COMPLETED
-        experiment.completed_at = datetime.now(timezone.utc).isoformat()
+        experiment.completed_at = datetime.now(UTC).isoformat()
 
         logger.info(f"Stopped experiment: {experiment_id}")
 
@@ -486,7 +486,7 @@ class ABTestingFramework:
 
     def _generate_experiment_id(self, name: str) -> str:
         """Generate unique experiment ID."""
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
         name_slug = name.lower().replace(" ", "_")[:20]
         return f"exp_{name_slug}_{timestamp}"
 

@@ -25,7 +25,7 @@ References:
 
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -131,7 +131,7 @@ class ReflectionResult:
     improvements: list[ImprovementAction]
     reasoning: str
     trigger: ReflectionTrigger
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def has_critical_gaps(self) -> bool:
@@ -556,7 +556,7 @@ Provide your reflection and reasoning."""
         """Generate unique reflection ID."""
         import hashlib
 
-        timestamp = datetime.now(timezone.utc).isoformat()
+        timestamp = datetime.now(UTC).isoformat()
         id_str = f"{task}:{timestamp}"
         return f"reflect_{hashlib.md5(id_str.encode()).hexdigest()[:12]}"
 

@@ -253,7 +253,7 @@ class SupervisorService:
         task: str,
         context: dict[str, Any],
         llm_provider: LLMProvider,
-        timeout: Optional[int] = None,
+        execution_timeout: Optional[int] = None,
     ) -> dict[str, Any]:
         """
         Delegate a task to a specific agent with timeout handling.
@@ -262,8 +262,8 @@ class SupervisorService:
             agent_type: Type of agent to delegate to
             task: Task description
             context: Additional context for the task
-            llm_provider: LLM provider instance
-            timeout: Timeout in seconds (uses default if not provided)
+            llm_provider: LLMProvider instance
+            execution_timeout: Timeout in seconds (uses default if not provided)
 
         Returns:
             Dictionary with execution results:
@@ -276,10 +276,10 @@ class SupervisorService:
                 "timestamp": str
             }
         """
-        timeout = timeout or self.DEFAULT_AGENT_TIMEOUT
+        execution_timeout = execution_timeout or self.DEFAULT_AGENT_TIMEOUT
         start_time = datetime.now()
 
-        logger.info(f"Delegating task to {agent_type} agent (timeout: {timeout}s)")
+        logger.info(f"Delegating task to {agent_type} agent (timeout: {execution_timeout}s)")
         logger.debug(f"Task: {task[:100]}...")
 
         try:
@@ -287,7 +287,7 @@ class SupervisorService:
             agent = self.agent_registry.register_agent_sync(agent_type, llm_provider)
 
             # Execute with timeout
-            result = await asyncio.wait_for(agent.ainvoke(task, context), timeout=timeout)
+            result = await asyncio.wait_for(agent.ainvoke(task, context), timeout=execution_timeout)
 
             execution_time = (datetime.now() - start_time).total_seconds()
 
@@ -302,9 +302,9 @@ class SupervisorService:
                 "timestamp": datetime.now().isoformat(),
             }
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             execution_time = (datetime.now() - start_time).total_seconds()
-            error_msg = f"Agent execution timed out after {timeout}s"
+            error_msg = f"Agent execution timed out after {execution_timeout}s"
             logger.error(f"✗ {agent_type} agent timeout: {error_msg}")
 
             return {
@@ -412,7 +412,7 @@ class SupervisorService:
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Handle any exceptions from gather
-        processed_results = []
+        processed_results: list[dict[str, Any]] = []
         for i, result in enumerate(results):
             if isinstance(result, Exception):
                 processed_results.append(
@@ -426,7 +426,8 @@ class SupervisorService:
                     }
                 )
             else:
-                processed_results.append(result)
+                if isinstance(result, dict):
+                    processed_results.append(result)
 
         return processed_results
 
@@ -566,7 +567,7 @@ class SupervisorService:
         context: dict[str, Any],
         llm_provider: LLMProvider,
         force_strategy: Optional[DelegationStrategy] = None,
-        timeout: Optional[int] = None,
+        execution_timeout: Optional[int] = None,
     ) -> dict[str, Any]:
         """
         Main supervision method - analyzes task and delegates to appropriate agents.
@@ -578,7 +579,7 @@ class SupervisorService:
             context: Additional context for the task
             llm_provider: LLM provider instance
             force_strategy: Optional strategy override
-            timeout: Optional timeout override
+            execution_timeout: Optional timeout override
 
         Returns:
             Aggregated results from agent delegation
@@ -610,25 +611,29 @@ class SupervisorService:
         if strategy == DelegationStrategy.SINGLE:
             # Single agent delegation
             results = [
-                await self.delegate_to_agent(agents_to_use[0], task, context, llm_provider, timeout)
+                await self.delegate_to_agent(
+                    agents_to_use[0], task, context, llm_provider, execution_timeout
+                )
             ]
 
         elif strategy == DelegationStrategy.SEQUENTIAL:
             # Sequential delegation
             results = await self.delegate_sequential(
-                agents_to_use, task, context, llm_provider, timeout
+                agents_to_use, task, context, llm_provider, execution_timeout
             )
 
         elif strategy == DelegationStrategy.PARALLEL:
             # Parallel delegation
             results = await self.delegate_parallel(
-                agents_to_use, task, context, llm_provider, timeout
+                agents_to_use, task, context, llm_provider, execution_timeout
             )
 
         else:
             # Fallback to single
             results = [
-                await self.delegate_to_agent(agents_to_use[0], task, context, llm_provider, timeout)
+                await self.delegate_to_agent(
+                    agents_to_use[0], task, context, llm_provider, execution_timeout
+                )
             ]
 
         # Aggregate results

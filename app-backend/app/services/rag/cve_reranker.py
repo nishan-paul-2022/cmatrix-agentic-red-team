@@ -20,7 +20,7 @@ import asyncio
 import hashlib
 import json
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -113,7 +113,7 @@ class RerankingResult:
     execution_time_ms: float
     model_used: str
     cached: bool = False
-    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    timestamp: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
 
     def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
@@ -480,7 +480,7 @@ class CVEReranker:
             List of scores (0.0-1.0)
         """
         scores = []
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         for candidate in candidates:
             published_str = candidate.get("published", "")

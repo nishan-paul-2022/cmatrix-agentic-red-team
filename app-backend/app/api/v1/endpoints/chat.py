@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+from typing import NoReturn
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
@@ -21,7 +22,7 @@ from app.services.llm.providers import Message
 router = APIRouter()
 
 
-async def handle_chat_exception(e: Exception, endpoint_name: str):
+async def handle_chat_exception(e: Exception, endpoint_name: str) -> NoReturn:
     """Centralized exception handler for chat endpoints."""
     logger.error(f"Error in {endpoint_name}: {str(e)}")
     raise HTTPException(status_code=500, detail=str(e))

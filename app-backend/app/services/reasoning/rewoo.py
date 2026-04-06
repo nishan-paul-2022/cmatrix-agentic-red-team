@@ -27,7 +27,7 @@ import hashlib
 import json
 import re
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -115,7 +115,7 @@ class Plan:
     estimated_duration: float
     confidence: float
     reasoning: str
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     status: PlanStatus = PlanStatus.PENDING
     cached: bool = False
     metadata: dict[str, Any] = field(default_factory=dict)
@@ -575,7 +575,7 @@ Provide your response as JSON with 'steps', 'estimated_duration', 'confidence', 
 
     def _generate_plan_id(self, task: str) -> str:
         """Generate unique plan ID."""
-        timestamp = datetime.now(timezone.utc).isoformat()
+        timestamp = datetime.now(UTC).isoformat()
         id_str = f"{task}:{timestamp}"
         return f"plan_{hashlib.md5(id_str.encode()).hexdigest()[:12]}"
 

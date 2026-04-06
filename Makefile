@@ -126,3 +126,7 @@ test-app-frontend:
 test-app-backend:
 	@echo "🧪 Running app-backend tests..."
 	cd app-backend && make test
+
+# Unified Check (One-Click Verification)
+check: quality test-app-backend
+	@echo "✅ All quality checks and tests passed! You are ready to commit."

@@ -548,10 +548,16 @@ def get_semantic_cache(config: Optional[CacheConfig] = None) -> SemanticCache:
     if _semantic_cache is None:
         if config is None:
             config = CacheConfig(
-                redis_port=settings.REDIS_PORT, embedding_model=settings.EMBEDDING_MODEL
+                enabled=settings.CACHE_ENABLED,
+                similarity_threshold=settings.CACHE_SIMILARITY_THRESHOLD,
+                ttl_seconds=settings.CACHE_TTL_SECONDS,
+                max_cache_size=settings.CACHE_MAX_SIZE,
+                embedding_model=settings.EMBEDDING_MODEL,
+                redis_host=settings.REDIS_HOST,
+                redis_port=settings.REDIS_PORT,
+                redis_db=settings.REDIS_DB,
+                redis_password=settings.REDIS_PASSWORD,
             )
-        elif config.redis_port is None:
-            config.redis_port = settings.REDIS_PORT
         _semantic_cache = SemanticCache(config)
 
     return _semantic_cache

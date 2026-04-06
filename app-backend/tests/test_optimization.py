@@ -48,9 +48,11 @@ class TestSemanticCache:
             similarity_threshold=0.95,
             ttl_seconds=3600,
             max_cache_size=100,
+            embedding_model="BAAI/bge-base-en-v1.5",
             redis_host="localhost",
             redis_port=6379,
             redis_db=2,
+            redis_password=None,
         )
 
     @pytest.fixture
@@ -158,6 +160,8 @@ class TestBackpressureManager:
             batch_timeout_ms=50,
             max_events_per_second=100,
             compression_threshold_bytes=512,
+            max_buffer_size=1000,
+            enable_compression=True,
         )
 
     def test_rate_limiter(self):
@@ -262,6 +266,10 @@ class TestTokenOptimizer:
             max_context_messages=5,
             dynamic_tool_filtering=True,
             compress_prompts=True,
+            track_costs=True,
+            model_name="gpt-4o",
+            input_token_cost=0.03,
+            output_token_cost=0.06,
         )
 
     def test_token_counter(self):

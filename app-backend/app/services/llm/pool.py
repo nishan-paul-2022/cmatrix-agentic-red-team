@@ -6,7 +6,7 @@ enabling each agent to have its own dedicated LLM instance while
 optimizing resource usage through connection pooling and caching.
 """
 
-from typing import Optional
+from typing import Any, Optional
 
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -117,7 +117,7 @@ class AgentLLMPool:
             self.providers.clear()
             logger.info(f"Cleared all {count} cached providers")
 
-    def get_stats(self) -> dict[str, int]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get statistics about the LLM pool.
 

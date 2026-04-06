@@ -37,26 +37,33 @@ dev:
 # Code quality
 lint:
 	@echo "🔍 Running Ruff linter..."
-	ruff check .
+	./venv/bin/ruff check .
 
 lint-fix:
 	@echo "🔧 Running Ruff linter with auto-fix..."
-	ruff check --fix .
+	./venv/bin/ruff check --fix .
 
 format:
 	@echo "✨ Formatting code with Ruff..."
-	ruff format .
+	./venv/bin/ruff format .
 
 format-check:
 	@echo "🔍 Checking code formatting..."
-	ruff format --check .
+	./venv/bin/ruff format --check .
 
 typecheck:
 	@echo "🔎 Running mypy type checker..."
-	mypy app/
+	./venv/bin/mypy app/
 
-quality: lint-fix format typecheck
+bandit:
+	@echo "🛡️  Running bandit security scan..."
+	./venv/bin/bandit -r app/ -c pyproject.toml
+
+quality: lint-fix format typecheck bandit
 	@echo "✅ All quality checks passed!"
+
+check: quality test
+	@echo "✅ Backend check complete!"
 
 # Testing
 test:

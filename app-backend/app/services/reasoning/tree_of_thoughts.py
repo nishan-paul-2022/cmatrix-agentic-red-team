@@ -24,7 +24,7 @@ References:
 """
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -167,7 +167,7 @@ class StrategyEvaluation:
     selection_reasoning: str
     evaluation_criteria: list[EvaluationCriterion]
     criterion_weights: dict[EvaluationCriterion, float]
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def get_strategy_ranking(self) -> list[tuple[Strategy, float]]:
@@ -629,7 +629,7 @@ Provide selection reasoning."""
         """Generate unique evaluation ID."""
         import hashlib
 
-        timestamp = datetime.now(timezone.utc).isoformat()
+        timestamp = datetime.now(UTC).isoformat()
         id_str = f"{task}:{timestamp}"
         return f"eval_{hashlib.md5(id_str.encode()).hexdigest()[:12]}"
 
@@ -642,7 +642,7 @@ Provide selection reasoning."""
                 "task": task,
                 "selected_type": selected_strategy.strategy_type.value,
                 "preferences": user_preferences or {},
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
         )
 

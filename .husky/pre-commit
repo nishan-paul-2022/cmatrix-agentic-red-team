@@ -22,13 +22,36 @@ if [ -n "$STAGED_PY" ]; then
   echo "🐍 Processing staged Python files..."
   
   RUFF="./app-backend/venv/bin/ruff"
+  MYPY="./app-backend/venv/bin/mypy"
+  BANDIT="./app-backend/venv/bin/bandit"
   
   if [ -f "$RUFF" ]; then
-    # Format and Lint
+    echo "✨ Linting and formatting with Ruff..."
     $RUFF check --fix $STAGED_PY
     $RUFF format $STAGED_PY
     git add $STAGED_PY
     echo "✅ Python formatting/linting passed!"
+  fi
+
+  if [ -f "$MYPY" ]; then
+    echo "🔎 Running mypy type checker..."
+    # Explicitly use backend config to match make quality
+    $MYPY --config-file=app-backend/pyproject.toml app-backend/app
+    if [ $? -ne 0 ]; then
+      echo "❌ Backend type check failed. Fix type errors before committing."
+      exit 1
+    fi
+    echo "✅ Python type check passed!"
+  fi
+
+  if [ -f "$BANDIT" ]; then
+    echo "🛡️  Running bandit security scan..."
+    $BANDIT -r app-backend/app -c app-backend/pyproject.toml -s B101,B601
+    if [ $? -ne 0 ]; then
+      echo "❌ Security scan failed. Check bandit issues before committing."
+      exit 1
+    fi
+    echo "✅ Backend security scan passed!"
   fi
 
   # Run Backend Tests

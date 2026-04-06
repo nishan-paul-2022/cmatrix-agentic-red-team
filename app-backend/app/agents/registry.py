@@ -133,7 +133,7 @@ class AgentRegistry:
         Raises:
             ValueError: If agent type is unknown
         """
-        cache_key = f"{agent_type}_{user_id}"
+        cache_key: str = f"{agent_type}_{user_id}"
 
         if cache_key in self.agents:
             logger.debug(f"Using cached agent: {agent_type}")
@@ -143,6 +143,7 @@ class AgentRegistry:
         llm_provider = await self.llm_pool.get_provider(agent_type, db, user_id)
 
         # Create agent based on type
+        agent: BaseAgentSubgraph
         if agent_type == self.NETWORK_AGENT:
             agent = create_network_agent(llm_provider)
         elif agent_type == self.WEB_AGENT:
@@ -177,12 +178,13 @@ class AgentRegistry:
         Raises:
             ValueError: If agent type is unknown
         """
-        cache_key = f"{agent_type}_shared"
+        cache_key: str = f"{agent_type}_shared"
 
         if cache_key in self.agents:
             return self.agents[cache_key]
 
         # Create agent based on type
+        agent: BaseAgentSubgraph
         if agent_type == self.NETWORK_AGENT:
             agent = create_network_agent(llm_provider)
         elif agent_type == self.WEB_AGENT:
@@ -214,12 +216,12 @@ class AgentRegistry:
         Returns:
             Agent type string, or None if no specialized agent matches
         """
-        message_lower = user_message.lower()
+        message_lower: str = user_message.lower()
 
         # Score each agent based on keyword matches
-        scores = {}
+        scores: dict[str, int] = {}
         for agent_type, keywords in self.AGENT_KEYWORDS.items():
-            score = sum(1 for keyword in keywords if keyword in message_lower)
+            score: int = sum(1 for keyword in keywords if keyword in message_lower)
             if score > 0:
                 scores[agent_type] = score
 
@@ -228,7 +230,7 @@ class AgentRegistry:
             return None
 
         # Return agent with highest score
-        selected_agent = max(scores, key=scores.get)
+        selected_agent: str = max(scores, key=lambda k: scores[k])
         logger.info(f"Selected agent: {selected_agent} (score: {scores[selected_agent]})")
 
         return selected_agent

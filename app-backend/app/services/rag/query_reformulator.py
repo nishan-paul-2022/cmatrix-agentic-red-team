@@ -16,7 +16,7 @@ import hashlib
 import json
 import re
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, Optional
 
 from langchain_core.language_models import BaseChatModel
@@ -65,7 +65,7 @@ class ReformulatedQuery:
         if self.timestamp is None:
             from datetime import timezone
 
-            self.timestamp = datetime.now(timezone.utc).isoformat()
+            self.timestamp = datetime.now(UTC).isoformat()
 
 
 class QueryReformulator:
