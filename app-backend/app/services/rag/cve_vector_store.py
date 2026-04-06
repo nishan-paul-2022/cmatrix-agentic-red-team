@@ -220,7 +220,7 @@ class CVEVectorStore:
         """Initialize CVE vector store."""
         if not hasattr(self, "_initialized"):
             self._initialized = True
-            self.collection_name = "cve_knowledge"
+            self.collection_name = getattr(settings, "QDRANT_COLLECTION_NAME", "cve_knowledge")
             self.embedding_dimension = 768  # BGE-base dimension
 
             # Initialize cache if Redis is available

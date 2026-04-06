@@ -125,6 +125,28 @@ jobs:
         working-directory: app-backend
         run: uv pip install -r requirements.txt
 
+      - name: Create minimal CI .env for deployment prep
+        run: |
+          echo "APP_NAME=CMatrix" >> .env
+          echo "BACKEND_PORT=3012" >> .env
+          echo "FRONTEND_PORT=3011" >> .env
+          echo "SECRET_KEY=ci-test-key-not-for-production" >> .env
+          
+          echo "ALGORITHM=HS256" >> .env
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=10080" >> .env
+          echo "DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix" >> .env
+          echo "REDIS_HOST=localhost" >> .env
+          echo "REDIS_PORT=6379" >> .env
+          echo "CELERY_BROKER_URL=redis://localhost:6379/1" >> .env
+          echo "CELERY_RESULT_BACKEND=redis://localhost:6379/2" >> .env
+          echo "QDRANT_HOST=localhost" >> .env
+          echo "QDRANT_PORT=6333" >> .env
+          echo "QDRANT_URL=http://localhost:6333" >> .env
+          echo "QDRANT_COLLECTION_NAME=cve_shard_${{ matrix.shard }}" >> .env
+          echo "EMBEDDING_MODEL=BAAI/bge-base-en-v1.5" >> .env
+          echo "EMBEDDING_DEVICE=cpu" >> .env
+          echo "LOG_LEVEL=INFO" >> .env
+
       - name: Run Quality Checks and Core Tests (Shard 1 Only)
         if: matrix.shard == 1
         working-directory: app-backend
@@ -138,7 +160,7 @@ jobs:
           wait $P1 && wait $P2 && wait $P3 && wait $P4 && wait $P5
           
           # Run Core tests in shard 1
-          uv run --no-project pytest tests app/tests/api/
+          uv run --no-project pytest tests/ app-backend/tests/api/ || uv run --no-project pytest tests/ tests/api/
 
       - name: Run RAG Tests (Shard 2 Only)
         if: matrix.shard == 2
@@ -160,28 +182,6 @@ jobs:
         run: |
           export PYTHONPATH=.
           uv run --no-project pytest app/tests/agents/ app/tests/test_supervisor.py
-
-      - name: Create minimal CI .env for deployment prep
-        run: |
-          echo "APP_NAME=CMatrix" >> .env
-          echo "BACKEND_PORT=3012" >> .env
-          echo "FRONTEND_PORT=3011" >> .env
-          echo "SECRET_KEY=ci-test-key-not-for-production" >> .env
-          
-          echo "ALGORITHM=HS256" >> .env
-          echo "ACCESS_TOKEN_EXPIRE_MINUTES=10080" >> .env
-          echo "DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix" >> .env
-          echo "REDIS_HOST=localhost" >> .env
-          echo "REDIS_PORT=6379" >> .env
-          echo "CELERY_BROKER_URL=redis://localhost:6379/1" >> .env
-          echo "CELERY_RESULT_BACKEND=redis://localhost:6379/2" >> .env
-          echo "QDRANT_HOST=localhost" >> .env
-          echo "QDRANT_PORT=6333" >> .env
-          echo "QDRANT_URL=http://localhost:6333" >> .env
-          echo "QDRANT_COLLECTION_NAME=cmatrix_memory" >> .env
-          echo "EMBEDDING_MODEL=BAAI/bge-base-en-v1.5" >> .env
-          echo "EMBEDDING_DEVICE=cpu" >> .env
-          echo "LOG_LEVEL=INFO" >> .env
 
   quality-gate:
     needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]
