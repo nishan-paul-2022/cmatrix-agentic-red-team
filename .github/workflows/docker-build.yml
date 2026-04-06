@@ -124,7 +124,8 @@ jobs:
       - name: Run Parallel Quality Checks (Backend)
         working-directory: app-backend
         run: |
-          # Use 'uv run --no-project' to ignore package-building logic
+          # Set PYTHONPATH=. so 'app' module is found
+          export PYTHONPATH=.
           uv run --no-project ruff check . & P1=$!
           uv run --no-project ruff format --check . & P2=$!
           uv run --no-project ruff check --select TCH app/ & P3=$!
@@ -158,7 +159,9 @@ jobs:
 
       - name: Run Backend Tests
         working-directory: app-backend
-        run: uv run --no-project pytest app/tests
+        run: |
+          export PYTHONPATH=.
+          uv run --no-project pytest app/tests
 
   quality-gate:
     needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]
