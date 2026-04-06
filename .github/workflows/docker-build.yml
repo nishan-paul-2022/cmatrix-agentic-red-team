@@ -161,7 +161,7 @@ jobs:
         working-directory: app-backend
         run: |
           export PYTHONPATH=.
-          uv run --no-project pytest app/tests
+          uv run --no-project pytest tests app/tests
 
   quality-gate:
     needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]

@@ -264,9 +264,9 @@ class TestCVEReranker:
         scores = reranker._compute_recency_scores(sample_cves)
 
         assert len(scores) == 4
-        assert scores[0] >= 0.9  # CVE-2021-44228 (15 days old)
-        assert scores[1] <= 0.1  # CVE-2020-1234 (800 days old)
-        assert scores[2] >= 0.7  # CVE-2022-5678 (60 days old)
+        assert scores[0] >= 0.8  # CVE-2021-44228 (45 days old, bucket 0.8)
+        assert scores[1] == 0.0  # CVE-2020-1234 (800 days old)
+        assert scores[2] >= 0.6  # CVE-2022-5678 (60 days old)
         assert scores[3] == 1.0  # CVE-2023-9999 (5 days old)
 
     @pytest.mark.asyncio

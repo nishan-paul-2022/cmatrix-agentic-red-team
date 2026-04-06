@@ -692,15 +692,17 @@ class CVEVectorStore:
             return models.Filter(must=must_conditions)
         return None
 
-    def _get_highest_cvss_score(self, cve: CVEMetadata) -> float:
+    def _get_highest_cvss_score(self, cve: dict[str, Any]) -> float:
         """Get the highest CVSS score from all versions."""
         scores = []
-        if cve.cvss_v2:
-            scores.append(cve.cvss_v2.base_score)
-        if cve.cvss_v3:
-            scores.append(cve.cvss_v3.base_score)
-        if cve.cvss_v3_1:
-            scores.append(cve.cvss_v3_1.base_score)
+        if cve.get("cvss_v4"):
+            scores.append(cve["cvss_v4"].get("score", 0.0))
+        if cve.get("cvss_v31"):
+            scores.append(cve["cvss_v31"].get("score", 0.0))
+        if cve.get("cvss_v30"):
+            scores.append(cve["cvss_v30"].get("score", 0.0))
+        if cve.get("cvss_v2"):
+            scores.append(cve["cvss_v2"].get("score", 0.0))
         return max(scores) if scores else 0.0
 
     def _get_severity(self, cve: CVEMetadata) -> str:
