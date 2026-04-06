@@ -233,11 +233,17 @@ class TestReWOOPlanner:
 
     def test_planner_initialization(self, mock_llm, available_tools):
         """Test planner initialization."""
-        planner = ReWOOPlanner(llm=mock_llm, available_tools=available_tools, enable_cache=False)
-
+        planner = ReWOOPlanner(
+            llm=mock_llm,
+            available_tools=available_tools,
+            cache_ttl=3600,
+            enable_cache=False,
+            enable_templates=True,
+        )
         assert planner.llm == mock_llm
-        assert len(planner.available_tools) == 3
-        assert not planner.enable_cache
+        assert planner.available_tools == available_tools
+        assert planner.enable_cache is False
+        assert planner.enable_templates is True
 
     def test_generate_plan_llm(self, planner, mock_llm):
         """Test LLM-based plan generation."""

@@ -10,15 +10,15 @@
   },
   "lint-staged": {
     "app-frontend/**/*.{ts,tsx}": [
-      "npx --prefix ./app-frontend prettier --write",
-      "npx --prefix ./app-frontend eslint --config ./app-frontend/eslint.config.mjs --fix"
+      "cd app-frontend && npm run lint:fix",
+      "cd app-frontend && npm run format"
     ],
     "app-frontend/**/*.{css,json,mjs}": [
-      "npx --prefix ./app-frontend prettier --write"
+      "cd app-frontend && npm run format"
     ],
     "app-backend/**/*.py": [
-      "cd app-backend && ./venv/bin/ruff check --fix",
-      "cd app-backend && ./venv/bin/ruff format"
+      "app-backend/venv/bin/ruff check --fix",
+      "app-backend/venv/bin/ruff format"
     ]
   }
 }

@@ -106,7 +106,8 @@ async def test_evaluate_results_low_score(service):
 @pytest.mark.asyncio
 async def test_generate_correction(service, mock_llm):
     """Test query correction generation."""
-    mock_llm.generate.return_value = "corrected query"
+    # Use invoke instead of generate to match service implementation
+    mock_llm.invoke.return_value = "  corrected query  "
 
     evaluation = EvaluationResult(
         is_satisfactory=False,
@@ -119,9 +120,9 @@ async def test_generate_correction(service, mock_llm):
     new_query = await service.generate_correction("original", evaluation)
 
     assert new_query == "corrected query"
-    mock_llm.generate.assert_called_once()
+    mock_llm.invoke.assert_called_once()
 
     # Verify prompt contains key info
-    call_args = mock_llm.generate.call_args[0][0]
+    call_args = mock_llm.invoke.call_args[0][0]
     assert "original" in call_args
     assert "REFORMULATE" in call_args
