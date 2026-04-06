@@ -32,55 +32,45 @@ jobs:
             workflow:
               - '.github/workflows/**'
 
-  quality-frontend:
+  quality-frontend-lint:
     needs: changes
     if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.workflow == 'true'
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis:7-alpine
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 6379:6379
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: cmatrix
-          POSTGRES_PASSWORD: cmatrix
-          POSTGRES_DB: cmatrix
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-      qdrant:
-        image: qdrant/qdrant:latest
-        ports:
-          - 6333:6333
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
           cache-dependency-path: app-frontend/package-lock.json
-
       - name: Install Frontend Dependencies
         working-directory: app-frontend
         run: npm ci --legacy-peer-deps
-
-      - name: Run Global Quality Checks (Frontend)
+      - name: Run Linting (Fast)
         working-directory: app-frontend
-        run: npm run lint && npm run build
+        run: npm run lint
+
+  quality-frontend-build:
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.workflow == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: app-frontend/package-lock.json
+      - name: Install Frontend Dependencies
+        working-directory: app-frontend
+        run: npm ci --legacy-peer-deps
+      - name: Run Build Verification (Slow)
+        working-directory: app-frontend
+        run: npm run build
 
   quality-backend:
     needs: [changes]
@@ -125,11 +115,20 @@ jobs:
 
       - name: Install Backend Dependencies
         working-directory: app-backend
-        run: uv pip install -r requirements.txt --system
+        run: uv pip install -r requirements.txt --system --break-system-packages
 
-      - name: Run Global Quality Checks (Backend)
+      - name: Run Parallel Quality Checks (Backend)
         working-directory: app-backend
-        run: make quality VENV=
+        run: |
+          # Capture PIDs for all parallel background jobs
+          ruff check . & P1=$!
+          ruff format --check . & P2=$!
+          mypy app/ & P3=$!
+          bandit -r app/ -c pyproject.toml -s B101,B601 & P4=$!
+          
+          # Wait and ensure all succeeded
+          wait $P1 && wait $P2 && wait $P3 && wait $P4
+        continue-on-error: false
 
       - name: Create minimal CI .env for tests
         run: |
@@ -157,7 +156,7 @@ jobs:
         run: make test VENV=
 
   quality-gate:
-    needs: [changes, quality-frontend, quality-backend]
+    needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]
     if: always() && vars.ENABLE_DEPLOY == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -166,9 +165,11 @@ jobs:
           if [ "${{ needs.changes.result }}" == "skipped" ]; then exit 0; fi
           if [ "${{ needs.changes.result }}" != "success" ]; then exit 1; fi
           
-          if [ "${{ needs.changes.outputs.frontend }}" == "true" ] && [ "${{ needs.quality-frontend.result }}" != "success" ]; then
-            echo "❌ Frontend quality checks failed"
-            exit 1
+          if [ "${{ needs.changes.outputs.frontend }}" == "true" ]; then
+            if [ "${{ needs.quality-frontend-lint.result }}" != "success" ] || [ "${{ needs.quality-frontend-build.result }}" != "success" ]; then
+              echo "❌ Frontend quality checks failed"
+              exit 1
+            fi
           fi
           
           if [ "${{ needs.changes.outputs.backend }}" == "true" ] && [ "${{ needs.quality-backend.result }}" != "success" ]; then
@@ -177,17 +178,65 @@ jobs:
           fi
           echo "✅ All required quality gates passed"
 
-  build-and-verify:
+  build-backend:
     needs: [quality-gate, changes]
     runs-on: ubuntu-latest
-    if: vars.ENABLE_DEPLOY == 'true'
+    if: vars.ENABLE_DEPLOY == 'true' && (needs.changes.outputs.backend == 'true' || needs.changes.outputs.workflow == 'true')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Backend (Test)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./app-backend
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/cmatrix-backend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
+  build-frontend:
+    needs: [quality-gate, changes]
+    runs-on: ubuntu-latest
+    if: vars.ENABLE_DEPLOY == 'true' && (needs.changes.outputs.frontend == 'true' || needs.changes.outputs.workflow == 'true')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Frontend (Test)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./app-frontend
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  verify-and-deploy:
+    needs: [quality-gate, build-backend, build-frontend]
+    if: always() && needs.quality-gate.result == 'success' && (needs.build-backend.result == 'success' || needs.build-backend.result == 'skipped') && (needs.build-frontend.result == 'success' || needs.build-frontend.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -195,32 +244,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Step 1: Build & Load (Only if changed, else use latest from GHCR as cache)
-      - name: Build backend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./app-backend
-          load: true
-          tags: cmatrix-backend:test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Build frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./app-frontend
-          load: true
-          tags: cmatrix-frontend:test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      # Step 2: Runtime verification
+      # Runtime verification logic (The Pre-flight Check)
       - name: Start services for verification
         run: |
+          docker compose -f docker-compose.test.yml pull
           docker compose -f docker-compose.test.yml up -d --remove-orphans
         env:
-          BACKEND_IMAGE: cmatrix-backend:test
-          FRONTEND_IMAGE: cmatrix-frontend:test
+          BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test
+          FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test
 
       - name: Wait for Backend Health
         run: |
@@ -234,19 +265,20 @@ jobs:
         if: always()
         run: docker compose -f docker-compose.test.yml down -v
         env:
-          BACKEND_IMAGE: cmatrix-backend:test
-          FRONTEND_IMAGE: cmatrix-frontend:test
+          BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test
+          FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test
 
-      # Step 3: Push (Only if verification passes AND on main branch)
+      # Step 3: Promote Verified Images to Latest
       - name: Push verified images to GHCR
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          docker tag cmatrix-backend:test ghcr.io/nishan-paul-2022/cmatrix-backend:latest
-          docker tag cmatrix-frontend:test ghcr.io/nishan-paul-2022/cmatrix-frontend:latest
-          docker push ghcr.io/nishan-paul-2022/cmatrix-backend:latest
-          docker push ghcr.io/nishan-paul-2022/cmatrix-frontend:latest
+          # We use docker tag here because we already pulled them for the test
+          docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
+          docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
+          docker push ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
+          docker push ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
 
-      # Step 4: Deploy
+      # Step 4: Final Deploy to VPS
       - name: Copy release compose file to server
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: appleboy/scp-action@v0.1.7
