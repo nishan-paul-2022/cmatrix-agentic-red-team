@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { apiConfig } from "@/config/api.config";
 
 interface User {
   id: number;
@@ -28,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3012/api/v1";
+  const API_BASE_URL = apiConfig.baseUrl;
 
   const fetchCurrentUser = useCallback(
     async (authToken: string) => {
