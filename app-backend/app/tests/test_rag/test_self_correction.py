@@ -124,5 +124,7 @@ async def test_generate_correction(service, mock_llm):
 
     # Verify prompt contains key info
     call_args = mock_llm.invoke.call_args[0][0]
-    assert "original" in call_args
-    assert "REFORMULATE" in call_args
+    # call_args is a list of Message objects
+    prompt_content = call_args[0].content
+    assert "original" in prompt_content
+    assert "REFORMULATE" in prompt_content

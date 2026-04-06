@@ -72,7 +72,9 @@ def planner(mock_llm, available_tools):
     return ReWOOPlanner(
         llm=mock_llm,
         available_tools=available_tools,
+        cache_ttl=3600,
         enable_cache=False,  # Disable cache for testing
+        enable_templates=True,
     )
 
 
