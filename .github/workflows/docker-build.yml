@@ -255,11 +255,10 @@ jobs:
       # Runtime verification logic (The Pre-flight Check)
       - name: Start services for verification
         run: |
-          docker compose -f docker-compose.test.yml pull
           docker compose -f docker-compose.test.yml up -d --remove-orphans
         env:
-          BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test
-          FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test
+          BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-backend:${{ needs.build-backend.result == 'success' && 'test' || 'latest' }}
+          FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:${{ needs.build-frontend.result == 'success' && 'test' || 'latest' }}
 
       - name: Wait for Backend Health
         run: |
