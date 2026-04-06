@@ -1,58 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
 
+/**
+ * AuthGuard
+ *
+ * Public routes (no token required):
+ *   /              — landing page
+ *   /auth/callback — OAuth token receiver
+ *
+ * All other routes require authentication.
+ * Unauthenticated users are redirected to the landing page (/).
+ * Authenticated users visiting /auth/callback are redirected to /dashboard.
+ */
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading, checkSetupStatus } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [isCheckingSetup, setIsCheckingSetup] = useState(true);
+
+  const PUBLIC_ROUTES = ["/", "/auth/callback"];
+  const isPublic = PUBLIC_ROUTES.some((r) => pathname === r || pathname.startsWith(r + "?"));
 
   useEffect(() => {
-    const checkAuth = async () => {
-      // Public routes that don't require authentication
-      const publicRoutes = ["/login", "/setup"];
-      const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
+    if (isLoading) return;
 
-      if (isLoading) {
-        return; // Wait for auth to load
-      }
+    if (!isAuthenticated && !isPublic) {
+      // Protected route — send unauthenticated users to the landing page
+      router.replace("/");
+      return;
+    }
 
-      // Check if setup is complete
-      const isSetupComplete = await checkSetupStatus();
-      setIsCheckingSetup(false);
+    // Authenticated user hitting the raw callback page without params
+    if (isAuthenticated && pathname === "/auth/callback") {
+      router.replace("/dashboard");
+      return;
+    }
+  }, [isAuthenticated, isLoading, isPublic, pathname, router]);
 
-      if (!isSetupComplete) {
-        // Setup not complete, redirect to setup
-        if (pathname !== "/setup") {
-          router.push("/setup");
-        }
-        return;
-      }
-
-      // Setup is complete, check authentication
-      if (!isAuthenticated && !isPublicRoute) {
-        // Not authenticated and trying to access protected route
-        router.push("/login");
-      } else if (isAuthenticated && isPublicRoute) {
-        // Already authenticated, redirect to home
-        router.push("/");
-      }
-    };
-
-    checkAuth();
-  }, [isAuthenticated, isLoading, pathname, router, checkSetupStatus]);
-
-  // Show loading state
-  if (isLoading || isCheckingSetup) {
+  // Show a minimal loader while auth resolves
+  if (isLoading) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
-        <div className="matrix-rain"></div>
-        <div className="z-10 text-center">
-          <div className="loading-spinner mb-4"></div>
-          <p className="text-primary">Loading...</p>
+        <div className="matrix-rain" />
+        <div className="z-10 flex flex-col items-center gap-4">
+          <div className="loading-spinner" />
+          <p className="text-primary font-mono text-sm tracking-widest">INITIALIZING…</p>
         </div>
       </div>
     );

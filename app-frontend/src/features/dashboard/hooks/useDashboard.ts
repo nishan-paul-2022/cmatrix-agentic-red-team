@@ -31,7 +31,7 @@ export function useDashboard() {
         queryParams.append("search", search);
       }
 
-      const token = localStorage.getItem("auth_token");
+      const token = localStorage.getItem("cmatrix_auth_token");
       const response = await fetch(
         `${apiConfig.baseUrl}/conversations/history/all?${queryParams.toString()}`,
         {
@@ -65,7 +65,7 @@ export function useDashboard() {
 
   const deleteExchange = async (promptId: number) => {
     try {
-      const token = localStorage.getItem("auth_token");
+      const token = localStorage.getItem("cmatrix_auth_token");
       const response = await fetch(`${apiConfig.baseUrl}/conversations/history/${promptId}`, {
         method: "DELETE",
         headers: {
@@ -84,7 +84,7 @@ export function useDashboard() {
 
   const clearConversationHistory = async (conversationId: number) => {
     try {
-      const token = localStorage.getItem("auth_token");
+      const token = localStorage.getItem("cmatrix_auth_token");
       const response = await fetch(`${apiConfig.baseUrl}/conversations/${conversationId}/history`, {
         method: "DELETE",
         headers: {

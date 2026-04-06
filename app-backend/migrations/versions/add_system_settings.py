@@ -5,13 +5,13 @@ Revises:
 Create Date: 2025-11-29
 
 """
-from alembic import op
-import sqlalchemy as sa
 
+import sqlalchemy as sa
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = 'add_system_settings'
-down_revision = None
+revision = "add_system_settings"
+down_revision = "79d75099c35b"
 depends_on = None
 
 
@@ -31,4 +31,4 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_table('system_settings')
+    op.drop_table("system_settings")

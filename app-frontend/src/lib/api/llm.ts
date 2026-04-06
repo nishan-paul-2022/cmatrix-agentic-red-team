@@ -62,7 +62,7 @@ export const llmService = {
   getProfiles: async (): Promise<ConfigurationProfile[]> => {
     const response = await fetch(`${apiConfig.baseUrl}/llm/profiles`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to fetch profiles");
@@ -74,7 +74,7 @@ export const llmService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
       body: JSON.stringify(data),
     });
@@ -87,7 +87,7 @@ export const llmService = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
       body: JSON.stringify(data),
     });
@@ -99,7 +99,7 @@ export const llmService = {
     const response = await fetch(`${apiConfig.baseUrl}/llm/profiles/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to delete profile");
@@ -109,7 +109,7 @@ export const llmService = {
     const response = await fetch(`${apiConfig.baseUrl}/llm/profiles/${id}/activate`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to activate profile");
@@ -119,7 +119,7 @@ export const llmService = {
   getProviders: async (): Promise<{ providers: Provider[] }> => {
     const response = await fetch(`${apiConfig.baseUrl}/llm/providers`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to fetch providers");
@@ -131,7 +131,7 @@ export const llmService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
       body: JSON.stringify({ api_provider: provider, api_key: apiKey }),
     });
@@ -142,7 +142,7 @@ export const llmService = {
   fetchProfileModels: async (profileId: number): Promise<FetchModelsResponse> => {
     const response = await fetch(`${apiConfig.baseUrl}/llm/profiles/${profileId}/models`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to fetch profile models");
@@ -157,7 +157,7 @@ export const llmService = {
     const response = await fetch(`${apiConfig.baseUrl}/llm/config/import`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
       body: formData,
     });
@@ -168,7 +168,7 @@ export const llmService = {
   exportConfig: async (): Promise<unknown> => {
     const response = await fetch(`${apiConfig.baseUrl}/llm/config/export`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("cmatrix_auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to export config");

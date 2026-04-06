@@ -69,6 +69,15 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL: str = Field(default="all-MiniLM-L6-v2")
     EMBEDDING_DEVICE: str = Field(default="cpu")
 
+    # URLs (used for redirects, CORS, and OAuth)
+    FRONTEND_URL: str = Field(default="http://localhost:3011")
+    BACKEND_URL: str = Field(default="http://localhost:3012")
+
+    # Google OAuth 2.0
+    GOOGLE_CLIENT_ID: Optional[str] = Field(default=None)
+    GOOGLE_CLIENT_SECRET: Optional[str] = Field(default=None)
+    GOOGLE_REDIRECT_URI: Optional[str] = Field(default=None)
+
     # External APIs
     NVD_API_KEY: Optional[str] = Field(default=None)
 

@@ -6,12 +6,20 @@ export const siteConfig = {
   name: "CMatrix",
 
   metadata: {
-    title: "CMatrix",
+    title: "CMatrix | Autonomous Agentic Red Team Platform",
     description:
-      "Advanced AI agent for security scanning, system monitoring, log analysis, and configuration deployment",
-    keywords: ["AI", "Security", "Orchestration", "Automation", "CMatrix"],
-    author: "KAI Team",
-    generator: "CMatrix",
+      "CMatrix orchestrates specialized AI security agents to perform autonomous penetration testing, vulnerability assessment, and red-team operations — powered by advanced LLM reasoning.",
+    keywords: [
+      "Autonomous AI",
+      "Red Team",
+      "Security Automation",
+      "Penetration Testing",
+      "DeepHat",
+      "AI Security Agent",
+      "Cybersecurity",
+    ],
+    author: "CMatrix Team",
+    generator: "CMatrix V1",
   },
 
   ui: {

@@ -15,7 +15,7 @@ import type {
  * Get authorization headers
  */
 function getAuthHeaders(): Record<string, string> {
-  const token = localStorage.getItem("auth_token");
+  const token = localStorage.getItem("cmatrix_auth_token");
   return {
     ...apiConfig.headers,
     ...(token ? { Authorization: `Bearer ${token}` } : {}),

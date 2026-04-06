@@ -1,229 +1,195 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiConfig } from "@/config/api.config";
 
-interface User {
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+export interface AuthUser {
   id: number;
   username: string;
-  email?: string;
+  email?: string | null;
+  avatar_url?: string | null;
+  auth_provider: string;
+  is_active: boolean;
+  created_at: string;
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: AuthUser | null;
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<void>;
-  setup: (username: string, password: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
   logout: () => void;
-  checkSetupStatus: () => Promise<boolean>;
 }
+
+// ---------------------------------------------------------------------------
+// Context
+// ---------------------------------------------------------------------------
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+const TOKEN_KEY = "cmatrix_auth_token";
+
+async function fetchWithTimeout(
+  resource: string,
+  options: RequestInit = {},
+  timeout = 10_000
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeout);
+  try {
+    return await fetch(resource, { ...options, signal: controller.signal });
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("Request timed out. Please check your connection.");
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Provider
+// ---------------------------------------------------------------------------
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  const API_BASE_URL = apiConfig.baseUrl;
+  const API_BASE = apiConfig.baseUrl;
 
-  /**
-   * Helper for fetch with timeout to prevent infinite loading state
-   */
-  const fetchWithTimeout = useCallback(
-    async (resource: string, options: RequestInit = {}, timeout = 10000) => {
-      const controller = new AbortController();
-      const id = setTimeout(() => controller.abort(), timeout);
+  // -------------------------------------------------------------------------
+  // Fetch the current user from /auth/me using a stored JWT
+  // -------------------------------------------------------------------------
+  const hydrateUser = useCallback(
+    async (jwt: string) => {
       try {
-        const response = await fetch(resource, {
-          ...options,
-          signal: controller.signal,
-        });
-        return response;
-      } catch (error: Error | unknown) {
-        if (error instanceof Error && error.name === "AbortError") {
-          throw new Error("Request timed out. Please check your connection.");
-        }
-        throw error;
-      } finally {
-        clearTimeout(id);
-      }
-    },
-    []
-  );
-
-  const fetchCurrentUser = useCallback(
-    async (authToken: string) => {
-      try {
-        const response = await fetchWithTimeout(`${API_BASE_URL}/auth/me`, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
+        const resp = await fetchWithTimeout(`${API_BASE}/auth/me`, {
+          headers: { Authorization: `Bearer ${jwt}` },
         });
 
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
+        if (resp.ok) {
+          const data: AuthUser = await resp.json();
+          setUser(data);
+          setToken(jwt);
         } else {
-          localStorage.removeItem("auth_token");
-          setToken(null);
+          // Token is invalid / expired — clear it
+          localStorage.removeItem(TOKEN_KEY);
           setUser(null);
+          setToken(null);
         }
-      } catch (error) {
-        console.warn("Auth check failed:", error);
+      } catch {
+        // Network error — don't clear token so offline users aren't logged out
         setUser(null);
       } finally {
         setIsLoading(false);
       }
     },
-    [API_BASE_URL, fetchWithTimeout]
+    [API_BASE]
   );
 
-  // Load token from localStorage on mount
+  // -------------------------------------------------------------------------
+  // On mount — restore session from localStorage
+  // -------------------------------------------------------------------------
   useEffect(() => {
-    const storedToken = localStorage.getItem("auth_token");
-    if (storedToken) {
-      setToken(storedToken);
-
-      fetchCurrentUser(storedToken);
+    const stored = localStorage.getItem(TOKEN_KEY);
+    if (stored) {
+      hydrateUser(stored);
     } else {
       setIsLoading(false);
     }
-  }, [fetchCurrentUser]);
+  }, [hydrateUser]);
 
-  const checkSetupStatus = useCallback(async (): Promise<boolean> => {
+  // -------------------------------------------------------------------------
+  // Called from the OAuth callback page once a token is received
+  // -------------------------------------------------------------------------
+  const setTokenFromCallback = useCallback(
+    (jwt: string) => {
+      localStorage.setItem(TOKEN_KEY, jwt);
+      hydrateUser(jwt);
+    },
+    [hydrateUser]
+  );
+
+  // -------------------------------------------------------------------------
+  // loginWithGoogle — fetches the auth URL from backend and redirects
+  // -------------------------------------------------------------------------
+  const loginWithGoogle = useCallback(async () => {
     try {
-      const response = await fetchWithTimeout(`${API_BASE_URL}/auth/setup/status`, {}, 8000);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      return !!data.is_setup_complete;
-    } catch (error) {
-      console.error("Failed to check setup status:", error);
-      return false;
+      const resp = await fetchWithTimeout(`${API_BASE}/auth/google/login`, {}, 8_000);
+      if (!resp.ok) throw new Error("Failed to initiate Google OAuth.");
+      const { auth_url }: { auth_url: string } = await resp.json();
+      window.location.href = auth_url;
+    } catch (err) {
+      console.error("Google OAuth init error:", err);
+      throw err;
     }
-  }, [API_BASE_URL, fetchWithTimeout]);
+  }, [API_BASE]);
 
-  const setup = useCallback(
-    async (username: string, password: string) => {
-      try {
-        const response = await fetchWithTimeout(`${API_BASE_URL}/auth/setup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        });
-
-        if (!response.ok) {
-          let errorMessage = "Operation failed";
-          try {
-            const errorData = await response.json();
-            errorMessage = errorData.detail || errorMessage;
-          } catch (e) {
-            console.error("Failed to parse JSON error:", e);
-            // Fallback for non-JSON error responses (like 500 HTML/text)
-          }
-
-          if (errorMessage === "Operation failed") {
-            try {
-              const textError = await response.text();
-              if (textError.includes("Internal Server Error")) {
-                errorMessage = "The server encountered an error. Please check backend logs.";
-              } else {
-                errorMessage = textError.slice(0, 100) || errorMessage;
-              }
-            } catch {
-              errorMessage = "Unknown server error";
-            }
-          }
-          throw new Error(errorMessage);
-        }
-
-        const { access_token } = await response.json();
-        localStorage.setItem("auth_token", access_token);
-        setToken(access_token);
-
-        await fetchCurrentUser(access_token);
-        router.push("/");
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          throw err;
-        }
-        throw new Error("Setup failed");
-      }
-    },
-    [API_BASE_URL, fetchCurrentUser, router, fetchWithTimeout]
-  );
-
-  const login = useCallback(
-    async (username: string, password: string) => {
-      try {
-        const response = await fetchWithTimeout(`${API_BASE_URL}/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            username,
-            password,
-          }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.detail || "Login failed");
-        }
-
-        const { access_token } = await response.json();
-        localStorage.setItem("auth_token", access_token);
-        setToken(access_token);
-
-        await fetchCurrentUser(access_token);
-        router.push("/");
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          throw err;
-        }
-        throw new Error("Login failed");
-      }
-    },
-    [API_BASE_URL, fetchCurrentUser, router, fetchWithTimeout]
-  );
-
+  // -------------------------------------------------------------------------
+  // logout — clear state & storage, send back to landing page
+  // -------------------------------------------------------------------------
   const logout = useCallback(() => {
-    localStorage.removeItem("auth_token");
+    localStorage.removeItem(TOKEN_KEY);
     setToken(null);
     setUser(null);
-    router.push("/login");
+    router.push("/");
   }, [router]);
 
-  const contextValue = React.useMemo(
+  // -------------------------------------------------------------------------
+  // Expose setTokenFromCallback so the callback page can call it
+  // -------------------------------------------------------------------------
+  const contextValue = useMemo(
     () => ({
       user,
       token,
-      isAuthenticated: !!token,
+      isAuthenticated: !!token && !!user,
       isLoading,
-      login,
-      setup,
+      loginWithGoogle,
       logout,
-      checkSetupStatus,
+      /** @internal used only by /auth/callback page */
+      _setTokenFromCallback: setTokenFromCallback,
     }),
-    [user, token, isLoading, login, setup, logout, checkSetupStatus]
+    [user, token, isLoading, loginWithGoogle, logout, setTokenFromCallback]
   );
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue as AuthContextType}>{children}</AuthContext.Provider>
+  );
 }
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
+// ---------------------------------------------------------------------------
+// Hooks
+// ---------------------------------------------------------------------------
+
+export function useAuth(): AuthContextType {
+  const ctx = useContext(AuthContext);
+  if (ctx === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context;
-};
+  return ctx;
+}
+
+/**
+ * Internal hook used by the /auth/callback page to store the token received
+ * from the backend redirect without exposing it on the public AuthContextType.
+ */
+export function useAuthCallback(): (jwt: string) => void {
+  const ctx = useContext(AuthContext) as AuthContextType & {
+    _setTokenFromCallback: (jwt: string) => void;
+  };
+  if (!ctx) throw new Error("useAuthCallback must be used within AuthProvider");
+  return ctx._setTokenFromCallback;
+}

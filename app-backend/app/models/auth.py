@@ -1,81 +1,72 @@
-"""Authentication Pydantic models."""
+"""Authentication Pydantic models — Google OAuth only."""
 
 from typing import Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, EmailStr, Field
 
-
-class UserSetup(BaseModel):
-    """Model for initial user setup."""
-
-    username: str = Field(..., min_length=3, max_length=50, description="Username")
-    password: str = Field(..., min_length=8, description="Password (minimum 8 characters)")
-
-    @validator("username")
-    def username_alphanumeric(cls, v):
-        """Validate username is alphanumeric with underscores."""
-        if not v.replace("_", "").replace("-", "").isalnum():
-            raise ValueError("Username must be alphanumeric (underscores and hyphens allowed)")
-        return v.lower()
-
-    @validator("password")
-    def password_strength(cls, v):
-        """Validate password strength."""
-        if len(v) < 8:
-            raise ValueError("Password must be at least 8 characters long")
-        return v
-
-    class Config:
-        json_schema_extra = {"example": {"username": "admin", "password": "SecurePassword123"}}
-
-
-class UserLogin(BaseModel):
-    """Model for user login."""
-
-    username: str = Field(..., description="Username")
-    password: str = Field(..., description="Password")
-
-    class Config:
-        json_schema_extra = {"example": {"username": "admin", "password": "SecurePassword123"}}
+# ---------------------------------------------------------------------------
+# JWT / Token
+# ---------------------------------------------------------------------------
 
 
 class Token(BaseModel):
     """JWT token response."""
 
-    access_token: str = Field(..., description="JWT access token")
+    access_token: str = Field(..., description="CMatrix JWT access token")
     token_type: str = Field(default="bearer", description="Token type")
 
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
                 "token_type": "bearer",
             }
         }
+    }
 
 
 class TokenData(BaseModel):
-    """Token payload data."""
+    """JWT payload data extracted after verification."""
 
     username: Optional[str] = None
 
 
+# ---------------------------------------------------------------------------
+# User response
+# ---------------------------------------------------------------------------
+
+
 class UserResponse(BaseModel):
-    """User response model."""
+    """Authenticated user profile returned from /auth/me."""
 
     id: int
     username: str
+    email: Optional[str] = None
+    avatar_url: Optional[str] = None
+    auth_provider: str = "google"
     is_active: bool
     created_at: str
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
-class SetupStatusResponse(BaseModel):
-    """Setup status response."""
+# ---------------------------------------------------------------------------
+# Google OAuth
+# ---------------------------------------------------------------------------
 
-    is_setup_complete: bool = Field(..., description="Whether initial setup is complete")
 
-    class Config:
-        json_schema_extra = {"example": {"is_setup_complete": False}}
+class GoogleOAuthInitResponse(BaseModel):
+    """Google OAuth authorization URL — frontend redirects the browser here."""
+
+    auth_url: str = Field(..., description="Google authorization URL")
+
+
+class GoogleUserInfo(BaseModel):
+    """Parsed Google userinfo payload."""
+
+    sub: str  # Stable Google subject ID
+    email: EmailStr
+    email_verified: bool = False
+    name: Optional[str] = None
+    given_name: Optional[str] = None
+    picture: Optional[str] = None

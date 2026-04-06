@@ -99,7 +99,7 @@ export function useChatStream(): UseChatStreamReturn {
 
       try {
         // Get auth token from localStorage
-        const token = localStorage.getItem("auth_token");
+        const token = localStorage.getItem("cmatrix_auth_token");
         if (!token) {
           throw new Error("Not authenticated. Please log in.");
         }
