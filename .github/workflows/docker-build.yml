@@ -187,6 +187,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/cmatrix
+            # Log in to GHCR to pull private images
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            # Ensure the network exists
+            docker network inspect main_network >/dev/null 2>&1 || docker network create main_network
             mv docker-compose.release.yml docker-compose.yml
             docker compose pull
             docker compose up -d --remove-orphans
