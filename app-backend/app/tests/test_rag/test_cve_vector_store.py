@@ -289,7 +289,7 @@ class TestCVEVectorStore:
         if stats:  # If Qdrant is running
             assert "total_cves" in stats
             assert "collection_name" in stats
-            assert stats["collection_name"] == "cve_knowledge"
+            assert stats["collection_name"] == store.collection_name
 
     def test_get_highest_cvss_score(self):
         """Test CVSS score extraction."""
