@@ -296,14 +296,20 @@ jobs:
           FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test
 
       # Step 3: Promote Verified Images to Latest
-      - name: Push verified images to GHCR
+      - name: Push verified images to ghcr
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          # We use docker tag here because we already pulled them for the test
-          docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
-          docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
-          docker push ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
-          docker push ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
+          # Only promote backend if it was actually built this run
+          if [[ "${{ needs.build-backend.result }}" == "success" ]]; then
+            docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-backend:test ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
+            docker push ghcr.io/${{ github.repository_owner }}/cmatrix-backend:latest
+          fi
+          
+          # Only promote frontend if it was actually built this run
+          if [[ "${{ needs.build-frontend.result }}" == "success" ]]; then
+            docker tag ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:test ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
+            docker push ghcr.io/${{ github.repository_owner }}/cmatrix-frontend:latest
+          fi
 
       # Step 4: Final Deploy to VPS
       - name: Copy release compose file to server
