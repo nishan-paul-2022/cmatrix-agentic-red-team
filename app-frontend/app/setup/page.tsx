@@ -174,10 +174,6 @@ export default function SetupPage() {
             {isLoading ? "Setting up..." : "Complete Setup"}
           </button>
         </form>
-
-        <div className="text-muted-foreground text-center text-sm">
-          <p>This is a one-time setup. All users will use these credentials.</p>
-        </div>
       </div>
     </div>
   );
