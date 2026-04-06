@@ -124,12 +124,12 @@ jobs:
       - name: Run Parallel Quality Checks (Backend)
         working-directory: app-backend
         run: |
-          # Use 'uv run' to execute tools within the managed environment
-          uv run ruff check . & P1=$!
-          uv run ruff format --check . & P2=$!
-          uv run ruff check --select TCH app/ & P3=$! # Check type-checking imports
-          uv run mypy app/ & P4=$!
-          uv run bandit -r app/ -c pyproject.toml -s B101,B601 & P5=$!
+          # Use 'uv run --no-project' to ignore package-building logic
+          uv run --no-project ruff check . & P1=$!
+          uv run --no-project ruff format --check . & P2=$!
+          uv run --no-project ruff check --select TCH app/ & P3=$!
+          uv run --no-project mypy app/ & P4=$!
+          uv run --no-project bandit -r app/ -c pyproject.toml -s B101,B601 & P5=$!
           
           # Wait and ensure all succeeded
           wait $P1 && wait $P2 && wait $P3 && wait $P4 && wait $P5
@@ -158,7 +158,7 @@ jobs:
 
       - name: Run Backend Tests
         working-directory: app-backend
-        run: uv run pytest app/tests
+        run: uv run --no-project pytest app/tests
 
   quality-gate:
     needs: [changes, quality-frontend-lint, quality-frontend-build, quality-backend]
