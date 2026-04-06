@@ -77,7 +77,7 @@ check: quality test
 # Testing
 test:
 	@echo "🧪 Running tests..."
-	$(PYTEST)
+	cd $(CURDIR) && export PYTHONPATH=. && $(VENV)/bin/pytest tests app/tests
 
 test-cov:
 	@echo "🧪 Running tests with coverage..."

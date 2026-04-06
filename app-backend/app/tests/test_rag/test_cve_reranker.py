@@ -31,9 +31,9 @@ def sample_cves():
 
     return [
         {
-            "id": "CVE-2021-44228",  # Log4Shell - recent, high CVSS, exploited
+            "id": "CVE-2021-44228",  # Log4Shell - in a different recency bucket (0.8)
             "descriptions": [{"value": "Apache Log4j2 remote code execution vulnerability"}],
-            "published": (now - timedelta(days=15)).isoformat(),
+            "published": (now - timedelta(days=45)).isoformat(),
             "metrics": {
                 "cvssMetricV31": [{"cvssData": {"baseScore": 10.0, "baseSeverity": "CRITICAL"}}]
             },
@@ -379,10 +379,11 @@ class TestGlobalInstance:
         cve_module._cve_reranker = None
 
         reranker = get_cve_reranker(model_name="BAAI/bge-reranker-base", enable_cache=False)
+
         assert reranker is not None
         assert reranker.model_name == "BAAI/bge-reranker-base"
 
-        # Cleanup reset
+        # Cleanup
         cve_module._cve_reranker = None
 
 
