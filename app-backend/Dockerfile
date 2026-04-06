@@ -6,7 +6,8 @@ FROM python:3.11-slim as base
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    DOCKER_ENV=true
 
 # Install system dependencies and common security/monitoring tools
 RUN apt-get update && apt-get install -y \

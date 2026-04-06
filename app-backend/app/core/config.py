@@ -48,7 +48,36 @@ class Settings(BaseSettings):
     AUTH_CONFIG_FILE: str = Field(default="config/auth.yml")
 
     # Database
-    DATABASE_URL: str = Field(default="postgresql+asyncpg://cmatrix:cmatrix@localhost:5432/cmatrix")
+    POSTGRES_USER: str = Field(default="cmatrix")
+    POSTGRES_PASSWORD: str = Field(default="cmatrix")
+    POSTGRES_DB: str = Field(default="cmatrix")
+    POSTGRES_HOST: str = Field(default="localhost")
+    DATABASE_URL: Optional[str] = Field(default=None)
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def assemble_db_url(cls, v: Optional[str], info: Any) -> Any:
+        """Assemble DATABASE_URL from components if not provided."""
+        if isinstance(v, str) and v:
+            # If the user provided a URL pointing to localhost in a Docker environment,
+            # or if it's the hardcoded default we used to have, try to fix it.
+            if "localhost" in v and os.getenv("DOCKER_ENV") == "true":
+                v = v.replace("localhost", os.getenv("POSTGRES_DOCKER_HOST", "postgres"))
+                return v
+            return v
+
+        # Build from components
+        user = info.data.get("POSTGRES_USER", "cmatrix")
+        pw = info.data.get("POSTGRES_PASSWORD", "cmatrix")
+        host = info.data.get("POSTGRES_HOST", "localhost")
+        port = info.data.get("POSTGRES_PORT", 5432)
+        db = info.data.get("POSTGRES_DB", "cmatrix")
+
+        # Automatically use Docker service name if we detect we're in Docker
+        if host == "localhost" and os.getenv("POSTGRES_DOCKER_HOST"):
+            host = os.getenv("POSTGRES_DOCKER_HOST", "postgres")
+
+        return f"postgresql+asyncpg://{user}:{pw}@{host}:{port}/{db}"
 
     # Security & JWT
     SECRET_KEY: str = Field(default="cmatrix-secret-key-change-in-production")
@@ -59,11 +88,27 @@ class Settings(BaseSettings):
     CELERY_BROKER_URL: str = Field(default="redis://localhost:6379/1")
     CELERY_RESULT_BACKEND: str = Field(default="redis://localhost:6379/2")
 
+    @field_validator("CELERY_BROKER_URL", "CELERY_RESULT_BACKEND", mode="before")
+    @classmethod
+    def fix_redis_urls(cls, v: str) -> str:
+        """Fix Redis URLs in Docker environments."""
+        if isinstance(v, str) and "localhost" in v and os.getenv("DOCKER_ENV") == "true":
+            return v.replace("localhost", os.getenv("REDIS_DOCKER_HOST", "redis"))
+        return v
+
     # Vector Database (Qdrant)
     QDRANT_HOST: str = Field(default="localhost")
     QDRANT_PORT: int = Field(default=6333)
     QDRANT_URL: str = Field(default="http://localhost:6333")
     QDRANT_COLLECTION_NAME: str = Field(default="cmatrix_memory")
+
+    @field_validator("QDRANT_URL", mode="before")
+    @classmethod
+    def fix_qdrant_url(cls, v: str) -> str:
+        """Fix Qdrant URL in Docker environments."""
+        if isinstance(v, str) and "localhost" in v and os.getenv("DOCKER_ENV") == "true":
+            return v.replace("localhost", os.getenv("QDRANT_DOCKER_HOST", "qdrant"))
+        return v
 
     # Embeddings
     EMBEDDING_MODEL: str = Field(default="all-MiniLM-L6-v2")
