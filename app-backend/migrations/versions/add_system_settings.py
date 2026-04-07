@@ -25,7 +25,8 @@ def upgrade():
             created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
             updated_at TIMESTAMP WITH TIME ZONE
         );
-
+    """)
+    op.execute("""
         CREATE INDEX IF NOT EXISTS idx_system_settings_key ON system_settings(key);
     """)
 
