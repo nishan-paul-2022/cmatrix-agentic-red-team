@@ -7,10 +7,23 @@
     <img src="https://img.shields.io/badge/Live_App-barcody.kaiofficial.xyz-0070f3?style=for-the-badge&logo=next.js&logoColor=white" alt="Live App" />
   </a>
   <div>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="License" /></a>
-    <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.12+-blue.svg?style=for-the-badge" alt="Python" /></a>
-    <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/next.js-16.0-black?style=for-the-badge" alt="Next.js" /></a>
-    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-0.115-009688.svg?style=for-the-badge" alt="FastAPI" /></a>
+    <a href="https://github.com/langchain-ai/langgraph"><img src="https://img.shields.io/badge/LangGraph-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangGraph" /></a>
+    <a href="https://github.com/langchain-ai/langchain"><img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" /></a>
+    <img src="https://img.shields.io/badge/Multi--Agent-blue?style=for-the-badge" alt="Multi-Agent" />
+    <img src="https://img.shields.io/badge/ReWOO-orange?style=for-the-badge" alt="ReWOO" />
+    <img src="https://img.shields.io/badge/Self--Reflection-purple?style=for-the-badge" alt="Self-Reflection" />
+    <img src="https://img.shields.io/badge/Tree--of--Thoughts-green?style=for-the-badge" alt="Tree-of-Thoughts" />
+    <img src="https://img.shields.io/badge/Supervisor--Pattern-red?style=for-the-badge" alt="Supervisor Pattern" />
+    <img src="https://img.shields.io/badge/Agentic--RAG-cyan?style=for-the-badge" alt="Agentic RAG" />
+    <a href="https://qdrant.tech/"><img src="https://img.shields.io/badge/Qdrant-7B3F00?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant" /></a>
+    <img src="https://img.shields.io/badge/Vector--Database-black?style=for-the-badge" alt="Vector Database" />
+    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a>
+    <a href="https://docs.celeryq.dev/"><img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" /></a>
+    <a href="https://redis.io/"><img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" /></a>
+    <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
+    <a href="https://www.sqlalchemy.org/"><img src="https://img.shields.io/badge/SQLAlchemy-D71100?style=for-the-badge&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy" /></a>
+    <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" /></a>
   </div>
 </div>
 
@@ -172,4 +185,5 @@ CMatrix architecture treats AI agents as modular functions. Adding new tools inv
 <div align="center">
   <img src="assets/company-logo.svg" alt="Author Logo" width="80" height="80" />
   <p>Built with ❤️ by <b><a href="https://kaiofficial.xyz/">KAI</a></b></p>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="License" /></a>
 </div>
