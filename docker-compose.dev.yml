@@ -1,7 +1,7 @@
 
 services:
   # PostgreSQL Database
-  postgres:
+  cmatrix-postgres:
     image: postgres:16-alpine
     container_name: cmatrix-postgres-dev
     environment:
@@ -34,12 +34,13 @@ services:
       - backend-venv:/app/venv
       - huggingface_cache:/root/.cache/huggingface
     depends_on:
-      postgres:
+      cmatrix-postgres:
         condition: service_healthy
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
 
   app-frontend:
+    image: cmatrix-app-frontend-dev:latest   # distinct tag — never conflicts with production image
     build:
       context: ./app-frontend
       dockerfile: Dockerfile.dev
@@ -51,20 +52,23 @@ services:
       - PORT=${FRONTEND_PORT}
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - PYTHON_BACKEND_URL=http://host.docker.internal:3012
+      # Tell Node.js to look in /app_modules for packages (isolated from host mount)
+      - NODE_PATH=/app_modules/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
+      # Mount ONLY the source code — node_modules lives in /app_modules inside the image
+      # and is never written to your laptop's disk. No more EACCES errors!
       - ./app-frontend:/app
-      # Keep node_modules in container to avoid overwriting with local (possibly empty) node_modules
-      - /app/node_modules
     depends_on:
       app-backend:
         condition: service_healthy
     networks:
       - cmatrix-network
     restart: unless-stopped
-    user: "root"
-    command: sh -c "npm install --legacy-peer-deps && npm run dev"
+    # Non-root execution: run as your laptop's own user (UID/GID)
+    # so any files Docker touches are owned by YOU, not root
+    user: "${UID:-1000}:${GID:-1000}"
 
 networks:
   cmatrix-network:

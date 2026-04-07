@@ -144,19 +144,83 @@ start_prod() {
     print_info "API Docs: http://localhost:${BACKEND_PORT:-3012}/docs"
 }
 
+# ─────────────────────────────────────────────────────────
+# Automated Sanity Checker — runs before every `./docker.sh dev`
+# Catches the three most common failure modes automatically:
+#   1. Port conflicts (e.g. native Postgres hugging port 5432)
+#   2. Ghost/orphaned containers left from a previous crash
+#   3. package.json drift (new packages added but image not rebuilt)
+# ─────────────────────────────────────────────────────────
+sanity_check() {
+    print_info "Running pre-flight sanity checks..."
+
+    # ── 1. Port conflict check ──────────────────────────────
+    local PORTS=("${POSTGRES_PORT:-5432}" "${REDIS_PORT:-6379}" "${FRONTEND_PORT:-3011}" "${BACKEND_PORT:-3012}")
+    local PORT_CONFLICT=false
+    for PORT in "${PORTS[@]}"; do
+        if ss -tlnH "sport = :${PORT}" 2>/dev/null | grep -q ":${PORT}"; then
+            # Check if the process holding the port is a Docker container (safe) or not
+            local HOLDER
+            HOLDER=$(ss -tlnpH "sport = :${PORT}" 2>/dev/null | awk '{print $NF}')
+            if echo "$HOLDER" | grep -qv "docker"; then
+                print_warning "⚠ Port ${PORT} is already in use by a non-Docker process!"
+                print_info "  Hint: Run 'sudo ss -tlnp | grep :${PORT}' to identify it."
+                PORT_CONFLICT=true
+            fi
+        fi
+    done
+    if [ "$PORT_CONFLICT" = true ]; then
+        print_error "Port conflict detected. Please free the conflicting ports and try again."
+        exit 1
+    fi
+    print_success "Ports are free ✓"
+
+    # ── 2. Ghost container check ────────────────────────────
+    local GHOST_CONTAINERS
+    GHOST_CONTAINERS=$(docker ps -a --filter "name=cmatrix-" --filter "status=exited" --filter "status=dead" -q)
+    if [ -n "$GHOST_CONTAINERS" ]; then
+        print_warning "Detected ghost/orphaned CMatrix containers. Cleaning up..."
+        docker rm -f $GHOST_CONTAINERS > /dev/null 2>&1
+        print_success "Ghost containers removed ✓"
+    else
+        print_success "No ghost containers found ✓"
+    fi
+
+    # ── 3. package.json drift check ─────────────────────────
+    local PKG_HASH_FILE=".docker_pkg_hash"
+    local CURRENT_HASH
+    CURRENT_HASH=$(md5sum app-frontend/package.json 2>/dev/null | awk '{print $1}')
+    local STORED_HASH=""
+    [ -f "$PKG_HASH_FILE" ] && STORED_HASH=$(cat "$PKG_HASH_FILE")
+
+    if [ -n "$CURRENT_HASH" ] && [ "$CURRENT_HASH" != "$STORED_HASH" ]; then
+        print_warning "package.json has changed since last build! Triggering a frontend image rebuild..."
+        $COMPOSE_CMD -f docker-compose.yml -f docker-compose.dev.yml build --no-cache app-frontend
+        echo "$CURRENT_HASH" > "$PKG_HASH_FILE"
+        print_success "Frontend image rebuilt with latest packages ✓"
+    else
+        print_success "package.json unchanged — no rebuild needed ✓"
+    fi
+
+    print_success "All sanity checks passed! Starting services..."
+    echo ""
+}
+
 # Start services in development mode
 start_dev() {
     check_docker
     check_env
+    sanity_check
     print_info "Starting CMatrix in development mode..."
-    $COMPOSE_CMD -f docker-compose.yml -f docker-compose.dev.yml up
+    # --build ensures Docker always uses the correct dev image (not a stale production one)
+    $COMPOSE_CMD -f docker-compose.yml -f docker-compose.dev.yml up --build
 }
 
 # Stop services
 stop() {
     check_docker
     print_info "Stopping all services..."
-    $COMPOSE_CMD down
+    $COMPOSE_CMD -f docker-compose.yml -f docker-compose.dev.yml down --remove-orphans
     print_success "Services stopped"
 }
 
