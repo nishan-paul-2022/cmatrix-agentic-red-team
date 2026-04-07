@@ -151,6 +151,37 @@ CMatrix architecture treats AI agents as modular functions. Adding new tools inv
 
 ---
 
+## 🌐 Contemporary Works & Inspiration
+
+A curated list of state-of-the-art autonomous AI security agents and frameworks that share a similar vision of agentic red teaming and automated VAPT.
+
+### 🛡️ Autonomous Penetration Testing
+
+- **PentAGI**
+    - 🌐 **Website**: [pentagi.com](https://pentagi.com/)
+    - 📂 **GitHub**: [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi)
+    - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=R70x5Ddzs1o)
+    - *A self-hosted, multi-agent AI system designed for autonomous end-to-end penetration testing using sandboxed tools.*
+
+- **Shannon**
+    - 🌐 **Website**: [keygraph.io](https://keygraph.io/)
+    - 📂 **GitHub**: [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon)
+    - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=H7Xh-x_TVdQ)
+    - *An AI-powered "proof-by-exploitation" security agent that validates vulnerabilities through real-world attack simulations.*
+
+### ⚔️ Frameworks & MCP Servers
+
+- **HexStrike AI**
+    - 🌐 **Website**: [hexstrike.com](https://www.hexstrike.com/)
+    - 📂 **GitHub**: [0x4m4/hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)
+    - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=PQOwpjZXzMo)
+    - *A Model Context Protocol (MCP) server that empowers LLMs with 150+ professional security tools for autonomous offensive workflows.*
+
+
+
+
+---
+
 <div align="center">
   <img src="assets/company-logo.svg" alt="Author Logo" width="80" height="80" />
   <p>Built with ❤️ by <b><a href="https://kaiofficial.xyz/">KAI</a></b></p>
