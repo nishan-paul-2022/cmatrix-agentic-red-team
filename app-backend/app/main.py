@@ -29,15 +29,14 @@ async def lifespan(app: FastAPI):
 
     # Initialize database
     try:
-        # Import models to register them with Base
+        # Import models so they are registered with Base (needed by Alembic autogenerate)
         import app.models  # noqa: F401
         from app.core.database import init_db
 
-        logger.info("🗄️  Initializing database...")
+        logger.info("🗄️  Verifying database connectivity...")
         await init_db()
-        logger.info("✅ Database initialized successfully")
     except Exception as e:
-        logger.error(f"❌ Database initialization failed: {e}")
+        logger.error(f"❌ Database connectivity check failed: {e}")
         raise
 
     yield

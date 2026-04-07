@@ -1,11 +1,14 @@
 """Database configuration and session management."""
 
+import logging
 from collections.abc import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declarative_base
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 # Create async engine
 engine = create_async_engine(
@@ -44,7 +47,17 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
             await session.close()
 
 
-async def init_db():
-    """Initialize database tables."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+async def init_db() -> None:
+    """Verify database connectivity on startup.
+
+    Schema management is handled entirely by Alembic (``alembic upgrade head``
+    is executed before this app starts, both in the Dockerfile CMD and in
+    ``scripts/migrate.sh``).  Calling ``create_all`` here would bypass
+    migration history and risk silent schema drift, so we only confirm that
+    the engine can reach the database.
+    """
+    from sqlalchemy import text
+
+    async with engine.connect() as conn:
+        await conn.execute(text("SELECT 1"))
+    logger.info("✅ Database connectivity verified.")

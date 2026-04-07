@@ -10,11 +10,11 @@
   },
   "lint-staged": {
     "app-frontend/**/*.{ts,tsx}": [
-      "cd app-frontend && npm run lint:fix",
-      "cd app-frontend && npm run format"
+      "npm --prefix app-frontend run lint:fix --",
+      "npm --prefix app-frontend run format --"
     ],
     "app-frontend/**/*.{css,json,mjs}": [
-      "cd app-frontend && npm run format"
+      "npm --prefix app-frontend run format --"
     ],
     "app-backend/**/*.py": [
       "app-backend/venv/bin/ruff check --fix",

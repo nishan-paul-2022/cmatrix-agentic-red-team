@@ -5,7 +5,7 @@ x-buildkit-config: &buildkit-config
 
 services:
   # Redis for Celery message broker
-  redis:
+  cmatrix-redis:
     image: redis:7-alpine
     container_name: cmatrix-redis
     command: redis-server --appendonly yes --appendfsync everysec --save 60 1000
@@ -23,7 +23,7 @@ services:
       retries: 5
 
   # PostgreSQL Database
-  postgres:
+  cmatrix-postgres:
     image: postgres:16-alpine
     container_name: cmatrix-postgres
     environment:
@@ -44,7 +44,7 @@ services:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
   # Qdrant Vector Database for Knowledge Base
-  qdrant:
+  cmatrix-qdrant:
     image: qdrant/qdrant:latest
     container_name: cmatrix-qdrant
     ports:
@@ -72,6 +72,7 @@ services:
       - .env
     environment:
       - HOST_ROOT=/host  # Path to mounted host filesystem
+      - DOCKER_ENV=false # Stay on localhost since we use host network mode
 
     volumes:
       # Mount entire host filesystem for full access
@@ -83,11 +84,11 @@ services:
       # Cache HuggingFace models to avoid re-downloading on every build
       - huggingface_cache:/root/.cache/huggingface
     depends_on:
-      redis:
+      cmatrix-redis:
         condition: service_healthy
-      postgres:
+      cmatrix-postgres:
         condition: service_healthy
-      qdrant:
+      cmatrix-qdrant:
         condition: service_started
 
     restart: unless-stopped
@@ -109,12 +110,11 @@ services:
       - .env
     environment:
       # Containers on bridge network must use Docker service hostnames, not localhost.
-      # Using *_DOCKER_HOST vars (not shell-exported) so they don't conflict with localhost values.
-      - CELERY_BROKER_URL=redis://${REDIS_DOCKER_HOST}:${REDIS_PORT}/0
-      - CELERY_RESULT_BACKEND=redis://${REDIS_DOCKER_HOST}:${REDIS_PORT}/1
-      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@${POSTGRES_DOCKER_HOST}:${POSTGRES_PORT}/cmatrix
-      - QDRANT_URL=http://${QDRANT_DOCKER_HOST}:${QDRANT_PORT}
-      - QDRANT_HOST=${QDRANT_DOCKER_HOST}
+      - CELERY_BROKER_URL=redis://cmatrix-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://cmatrix-redis:6379/1
+      - DATABASE_URL=postgresql+asyncpg://cmatrix:cmatrix@cmatrix-postgres:5432/cmatrix
+      - QDRANT_URL=http://cmatrix-qdrant:6333
+      - QDRANT_HOST=cmatrix-qdrant
     volumes:
       - ./app-backend/data:/app/data
       - ./app-backend:/app
@@ -123,11 +123,11 @@ services:
     networks:
       - cmatrix-network
     depends_on:
-      redis:
+      cmatrix-redis:
         condition: service_healthy
-      postgres:
+      cmatrix-postgres:
         condition: service_healthy
-      qdrant:
+      cmatrix-qdrant:
         condition: service_started
     restart: unless-stopped
     healthcheck:
@@ -149,9 +149,7 @@ services:
       - NODE_ENV=production
       - PORT=${FRONTEND_PORT}
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-      - PYTHON_BACKEND_URL=http://host.docker.internal:${BACKEND_PORT:-3012}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - PYTHON_BACKEND_URL=http://172.17.0.1:3012
     depends_on:
       app-backend:
         condition: service_healthy

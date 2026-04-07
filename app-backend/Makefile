@@ -105,9 +105,9 @@ clean:
 
 # Development server
 run:
-	@echo "🚀 Starting development server..."
-	uvicorn app.main:app --host 0.0.0.0 --port 3012 --reload
+	@echo "🚀 Starting development server with auto-migrations..."
+	./scripts/migrate.sh --host 0.0.0.0 --port 3012 --reload
 
 run-prod:
-	@echo "🚀 Starting production server..."
-	uvicorn app.main:app --host 0.0.0.0 --port 3012 --workers 4
+	@echo "🚀 Starting production server with auto-migrations..."
+	./scripts/migrate.sh --host 0.0.0.0 --port 3012 --workers 4

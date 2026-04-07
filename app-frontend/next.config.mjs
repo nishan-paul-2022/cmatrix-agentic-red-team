@@ -11,7 +11,7 @@ const nextConfig = {
     // Determine backend URL at runtime (handled by Next.js in production)
     // In standalone mode, next.config.mjs is evaluated at startup.
     // If PYTHON_BACKEND_URL is missing, we default to the host gateway for Docker.
-    const backendUrl = process.env.PYTHON_BACKEND_URL || "http://host.docker.internal:3012";
+    const backendUrl = process.env.PYTHON_BACKEND_URL || "http://172.17.0.1:3012";
     console.warn(`[Next.js Config] Initializing rewrites with backend: ${backendUrl}`);
 
     return [

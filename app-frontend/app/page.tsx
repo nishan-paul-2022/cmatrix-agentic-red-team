@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
+import NextImage from "next/image";
 
 // ─── Feature card data ────────────────────────────────────────────────────────
 
@@ -121,10 +122,11 @@ export default function LandingPage() {
           <div className="landing-authenticated">
             <div className="landing-user-card">
               {user.avatar_url ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
+                <NextImage
                   src={user.avatar_url}
                   alt={user.username}
+                  width={64}
+                  height={64}
                   className="landing-avatar"
                   referrerPolicy="no-referrer"
                 />

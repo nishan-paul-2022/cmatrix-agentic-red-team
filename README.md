@@ -148,11 +148,17 @@
 
 ## 📦 Prerequisites
 
-### Required Software
+### Local Environment Configuration
 
-- **Docker & Docker Compose** (recommended) OR
-- **Python 3.12+** and **Node.js 18+** (for manual setup)
-- **Git** for version control
+When running the backend locally (e.g., using `make run`) while using Docker for infrastructure services (Postgres, Redis, Qdrant), you must ensure your local system can resolve the unified service hostnames.
+
+Run the following command on your local machine:
+
+```bash
+echo "127.0.0.1 cmatrix-postgres cmatrix-redis cmatrix-qdrant" | sudo tee -a /etc/hosts
+```
+
+This ensures that `DATABASE_URL`, `CELERY_BROKER_URL`, and other service links in your `.env` file work identically both locally and in the Docker-based production environment.
 
 ### API Keys (Optional)
 
