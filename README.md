@@ -7,25 +7,7 @@
     <img src="https://img.shields.io/badge/Live_App-cmatrix.kaiofficial.xyz-0070f3?style=for-the-badge&logo=next.js&logoColor=white" alt="Live App" />
   </a>
 
-  <div>
-    <a href="https://github.com/langchain-ai/langgraph"><img src="https://img.shields.io/badge/LangGraph-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangGraph" /></a>
-    <a href="https://github.com/langchain-ai/langchain"><img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" /></a>
-    <img src="https://img.shields.io/badge/Multi--Agent-blue?style=for-the-badge" alt="Multi-Agent" />
-    <img src="https://img.shields.io/badge/ReWOO-orange?style=for-the-badge" alt="ReWOO" />
-    <img src="https://img.shields.io/badge/Self--Reflection-purple?style=for-the-badge" alt="Self-Reflection" />
-    <img src="https://img.shields.io/badge/Tree--of--Thoughts-green?style=for-the-badge" alt="Tree-of-Thoughts" />
-    <img src="https://img.shields.io/badge/Supervisor--Pattern-red?style=for-the-badge" alt="Supervisor Pattern" />
-    <img src="https://img.shields.io/badge/Agentic--RAG-cyan?style=for-the-badge" alt="Agentic RAG" />
-    <a href="https://qdrant.tech/"><img src="https://img.shields.io/badge/Qdrant-7B3F00?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant" /></a>
-    <img src="https://img.shields.io/badge/Vector--Database-black?style=for-the-badge" alt="Vector Database" />
-    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a>
-    <a href="https://docs.celeryq.dev/"><img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" /></a>
-    <a href="https://redis.io/"><img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" /></a>
-    <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
-    <a href="https://www.sqlalchemy.org/"><img src="https://img.shields.io/badge/SQLAlchemy-D71100?style=for-the-badge&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy" /></a>
-    <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
-    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" /></a>
-  </div>
+
 </div>
 
 CMatrix is an advanced, AI-powered security orchestration platform utilizing a multi-agent architecture to automate security assessments, vulnerability scanning, and threat intelligence. Powered by **LangGraph** and **FastAPI** with a **Next.js** frontend, CMatrix acts as an autonomous security operations center.
@@ -55,13 +37,14 @@ CMatrix is an advanced, AI-powered security orchestration platform utilizing a m
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: [Next.js 16](https://nextjs.org/), [React](https://react.dev/), [Tailwind CSS v4](https://tailwindcss.com/)
-- **Backend**: [Python 3.12+](https://www.python.org/), [FastAPI](https://fastapi.tiangolo.com/)
-- **AI/Orchestration**: [LangGraph](https://github.com/langchain-ai/langgraph), [LangChain](https://github.com/langchain-ai/langchain)
-- **Database (Primary)**: [PostgreSQL](https://www.postgresql.org/) (via SQLAlchemy / Alembic)
-- **Queue/Cache**: [Redis](https://redis.io/), [Celery](https://docs.celeryq.dev/)
-- **Vector Database**: [Qdrant](https://qdrant.tech/)
-- **Infrastructure**: [Docker](https://www.docker.com/)
+| Category | Technology Stack |
+| :--- | :--- |
+| **AI Agents & Orchestration** | <a href="https://github.com/langchain-ai/langgraph"><img src="https://img.shields.io/badge/LangGraph-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangGraph" /></a> <a href="https://github.com/langchain-ai/langchain"><img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" /></a> <img src="https://img.shields.io/badge/Multi--Agent-blue?style=for-the-badge" alt="Multi-Agent" /> <img src="https://img.shields.io/badge/ReWOO-orange?style=for-the-badge" alt="ReWOO" /> <img src="https://img.shields.io/badge/Self--Reflection-purple?style=for-the-badge" alt="Self-Reflection" /> <img src="https://img.shields.io/badge/Tree--of--Thoughts-green?style=for-the-badge" alt="Tree-of-Thoughts" /> <img src="https://img.shields.io/badge/Supervisor--Pattern-red?style=for-the-badge" alt="Supervisor Pattern" /> <img src="https://img.shields.io/badge/Agentic--RAG-cyan?style=for-the-badge" alt="Agentic RAG" /> |
+| **Frontend & UI** | <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a> |
+| **Backend & API** | <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a> |
+| **Knowledge Base & Memory** | <a href="https://qdrant.tech/"><img src="https://img.shields.io/badge/Qdrant-7B3F00?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant" /></a> <img src="https://img.shields.io/badge/Vector--Database-black?style=for-the-badge" alt="Vector Database" /> <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /></a> <a href="https://www.sqlalchemy.org/"><img src="https://img.shields.io/badge/SQLAlchemy-D71100?style=for-the-badge&logo=sqlalchemy&logoColor=white" alt="SQLAlchemy" /></a> |
+| **Infrastructure & Queue** | <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" /></a> <a href="https://redis.io/"><img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" /></a> <a href="https://docs.celeryq.dev/"><img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" /></a> |
+
 
 ---
 
