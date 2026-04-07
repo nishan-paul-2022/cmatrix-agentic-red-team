@@ -6,6 +6,7 @@
   <a href="https://barcody.kaiofficial.xyz" target="_blank">
     <img src="https://img.shields.io/badge/Live_App-barcody.kaiofficial.xyz-0070f3?style=for-the-badge&logo=next.js&logoColor=white" alt="Live App" />
   </a>
+
   <div>
     <a href="https://github.com/langchain-ai/langgraph"><img src="https://img.shields.io/badge/LangGraph-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangGraph" /></a>
     <a href="https://github.com/langchain-ai/langchain"><img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" /></a>
@@ -46,24 +47,9 @@ CMatrix is an advanced, AI-powered security orchestration platform utilizing a m
 
 ## 📸 Application Preview
 
-*(GIFs to be added soon)*
-
-### 🌐 User Console
-Real-time interaction with the autonomous security agents.
-
-| Feature | Preview |
-|---|---|
-| **Intelligent Chat Console** | ![Chat UI Placeholder](assets/preview/cmatrix-01-chat.gif) |
-| **Live Scanning Streams** | ![Live Scan Placeholder](assets/preview/cmatrix-02-live-scan.gif) |
-| **Approval Gates & Safety** | ![Approval Placeholder](assets/preview/cmatrix-03-approvals.gif) |
-
-### 🛡️ System Operations
-Background processing and state visualization.
-
-| Module | Preview |
-|---|---|
-| **Job Monitoring** | ![Jobs Placeholder](assets/preview/cmatrix-04-jobs.gif) |
-| **Knowledge Base Memory** | ![Qdrant Vector Placeholder](assets/preview/cmatrix-05-qdrant.gif) |
+<div align="center">
+  <img src="assets/preview/cmatrix-main.gif" alt="CMatrix Main Preview" width="100%" />
+</div>
 
 ---
 
@@ -88,7 +74,7 @@ CMatrix supports both local development workflows and a fully containerized Dock
 Ensure you have the following installed:
 - **Docker** and **Docker Compose**
 - **Git**
-- *(Optional)* **Python 3.12+** and **Node.js** for local native development.
+- **Python 3.12+** and **Node.js** for local native development.
 
 ### 2. Clone the Repository
 
@@ -185,5 +171,4 @@ CMatrix architecture treats AI agents as modular functions. Adding new tools inv
 <div align="center">
   <img src="assets/company-logo.svg" alt="Author Logo" width="80" height="80" />
   <p>Built with ❤️ by <b><a href="https://kaiofficial.xyz/">KAI</a></b></p>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="License" /></a>
 </div>
