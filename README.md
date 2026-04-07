@@ -2,7 +2,10 @@
   <img src="app-frontend/public/icon.svg" alt="CMatrix Logo" width="120" height="120" />
   <h1>CMatrix</h1>
   <p>AI-Powered Multi-Agent Security Orchestration & VAPT Platform</p>
-  
+
+  <a href="https://barcody.kaiofficial.xyz" target="_blank">
+    <img src="https://img.shields.io/badge/Live_App-barcody.kaiofficial.xyz-0070f3?style=for-the-badge&logo=next.js&logoColor=white" alt="Live App" />
+  </a>
   <div>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="License" /></a>
     <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.12+-blue.svg?style=for-the-badge" alt="Python" /></a>
