@@ -81,21 +81,11 @@ export default function LandingPage() {
             <span className="landing-logo-text">CMatrix</span>
             <span className="landing-logo-bracket">]</span>
           </div>
-          <div className="landing-nav-badge">
-            <span className="landing-nav-dot" />
-            Agentic Red Team
-          </div>
         </div>
       </nav>
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="landing-hero">
-        {/* Status pill */}
-        <div className="landing-pill">
-          <span className="landing-pill-dot" />
-          <span>AI-Powered Security Platform</span>
-        </div>
-
         {/* Headline */}
         <h1 className="landing-headline">
           Autonomous
@@ -211,9 +201,7 @@ export default function LandingPage() {
             <span className="landing-logo-text">CMatrix</span>
             <span className="landing-logo-bracket">]</span>
           </span>
-          <span className="landing-footer-copy">
-            © {new Date().getFullYear()} CMatrix · Agentic Red Team Platform
-          </span>
+          <span className="landing-footer-copy">© {new Date().getFullYear()} CMatrix</span>
         </div>
       </footer>
     </div>
