@@ -1,7 +1,11 @@
-.PHONY: help install dev build quality clean pre-commit check
+.PHONY: help install dev build quality clean pre-commit check paper clean-paper
 
 # Global Environment Variables
 VENV ?= ./venv
+ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+RESEARCH_PAPER_DIR := $(ROOT_DIR)/build-paper/research-paper
+RESEARCH_OUT_DIR := $(ROOT_DIR)/build-paper/paper
+LATEXMK := latexmk -f -cd -pdf -pdflatex="pdflatex -interaction=nonstopmode -halt-on-error %O %S"
 
 # Default target
 help:
@@ -32,6 +36,7 @@ help:
 	@echo "🏗️  Build:"
 	@echo "  make build-app-frontend     Build app-frontend for production"
 	@echo "  make build-app-backend      Build app-backend (if applicable)"
+	@echo "  make paper              Build the Research Paper PDF"
 	@echo ""
 	@echo "🧹 Cleanup:"
 	@echo "  make clean              Clean all build artifacts and caches"
@@ -106,8 +111,16 @@ build-app-frontend:
 build-app-backend:
 	@echo "🏗️  Backend doesn't require build step"
 
+paper:
+	@echo "🏗️  Building Research Paper..."
+	mkdir -p $(RESEARCH_OUT_DIR)
+	$(LATEXMK) -jobname=research-paper -outdir="." -auxdir="build" $(RESEARCH_PAPER_DIR)/research-paper.tex
+	mv $(RESEARCH_PAPER_DIR)/research-paper.pdf $(RESEARCH_OUT_DIR)/
+	rm -rf $(RESEARCH_PAPER_DIR)/build
+
 # Cleanup
-clean: clean-app-frontend clean-app-backend
+clean: clean-app-frontend clean-app-backend clean-paper
+
 	@echo "✅ Cleanup complete!"
 
 clean-app-frontend:
@@ -117,6 +130,11 @@ clean-app-frontend:
 clean-app-backend:
 	@echo "🧹 Cleaning app-backend..."
 	cd app-backend && make clean
+
+clean-paper:
+	@echo "🧹 Cleaning Research Paper artifacts..."
+	rm -rf $(RESEARCH_PAPER_DIR)/build $(RESEARCH_PAPER_DIR)/*.pdf
+	rm -rf $(RESEARCH_OUT_DIR)
 
 # Testing
 test:
