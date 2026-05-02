@@ -1,7 +1,5 @@
 # Research Area 1: AI-Driven Agentic Red Teaming & Autonomous Penetration Testing
 
----
-
 ## [A] Research Area Overview
 
 ### What is this research area?

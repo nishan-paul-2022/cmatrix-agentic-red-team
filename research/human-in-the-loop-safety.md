@@ -1,7 +1,5 @@
 # Research Area 2: Human-in-the-Loop (HITL) Safety for Autonomous AI Security Agents
 
----
-
 ## [A] Research Area Overview
 
 ### What is this research area?

@@ -1,7 +1,5 @@
 # Research Area 5: LLM-Agnostic Multi-Provider Orchestration for Security AI Systems
 
----
-
 ## [A] Research Area Overview
 
 ### What is this research area?

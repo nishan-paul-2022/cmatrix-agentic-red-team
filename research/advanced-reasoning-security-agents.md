@@ -1,7 +1,5 @@
 # Research Area 3: Advanced Reasoning Patterns in Security Agents (ToT + ReWOO + Self-Reflection)
 
----
-
 ## [A] Research Area Overview
 
 ### What is this research area?
