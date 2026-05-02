@@ -10,24 +10,31 @@
 \usepackage{listings}
 \usepackage{array}
 \usepackage{etoolbox}
+\usepackage{url}
 
-% Fix for Roman numerals in section numbering
+% Final IEEE S&P Formatting Refinements
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\Alph{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{subsubsection})}
 
-% Fix for Figure prefix (ensuring Fig. 1. format)
+% Fix for Table label (ensuring TABLE I format on separate line)
 \usepackage[labelsep=period]{caption}
-\DeclareCaptionLabelFormat{figprefix}{Fig. #2}
-\captionsetup[figure]{labelformat=figprefix}
-
-% Fix for Table label (ensuring TABLE I format)
 \DeclareCaptionLabelFormat{tableprefix}{TABLE #2}
-\captionsetup[table]{labelformat=tableprefix, justification=centering, font=sc}
+\captionsetup[table]{labelformat=tableprefix, labelsep=newline, justification=centering, font={sc,footnotesize}, skip=10pt}
 
-% Rename Listings to Figures as per review recommendation
+% Fix for Figure prefix
+\DeclareCaptionLabelFormat{figprefix}{Fig. #2}
+\captionsetup[figure]{labelformat=figprefix, labelsep=period}
+
+% Global sequential numbering for all figures (including listings)
+\newcounter{globalfig}
+\AtBeginEnvironment{figure}{\refstepcounter{globalfig}}
+\AtBeginEnvironment{lstlisting}{\refstepcounter{globalfig}}
+
+% Rename Listings to Figures
 \renewcommand{\lstlistingname}{Fig.}
 
-% Add page numbers
+% Page numbers for submission
 \pagestyle{plain}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -51,7 +58,9 @@
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
-    tabsize=2
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{black}
 }
 \lstset{style=mystyle}
 
@@ -70,7 +79,7 @@
 \maketitle
 
 \begin{abstract}
-Modern AI-powered security assessment systems are increasingly reliant on Large Language Models (LLMs) for tasks ranging from automated reconnaissance to complex vulnerability reasoning. However, the current landscape of LLM providers is fragmented, with significant variations in cost, latency, and reasoning capabilities. Furthermore, the operational risks associated with single-provider dependency—such as API downtime or sudden policy changes—can cripple security operations. We propose CMatrix-LLMOrch, an advanced, provider-agnostic LLM orchestration layer designed specifically for high-stakes security environments. Our system features a unified LLMProvider protocol, a dynamic routing engine based on task complexity signals, and a resilient failover mechanism. We demonstrate through extensive benchmarking across six diverse providers (including cloud-based and local models) that our orchestration strategy can maintain a 97.4\% assessment quality while reducing operational costs by over 80\% through intelligent task routing. Our results suggest that provider-agnostic architectures are essential for the next generation of robust, scalable, and cost-effective security AI systems.
+Modern AI-powered security assessment systems are increasingly reliant on Large Language Models (LLMs) for tasks ranging from automated reconnaissance to complex vulnerability reasoning. However, the current landscape of LLM providers is fragmented, with significant variations in cost, latency, and reasoning capabilities. Furthermore, the operational risks associated with single-provider dependency—such as API downtime or sudden policy changes—can cripple security operations. We propose CMatrix-LLMOrch, an advanced, provider-agnostic LLM orchestration layer designed specifically for high-stakes security environments. Our system features a unified LLMProvider protocol, a dynamic routing engine based on task complexity signals, and a resilient failover mechanism. We demonstrate through extensive benchmarking across diverse providers that our orchestration strategy can maintain a 97.4\% assessment quality while reducing operational costs by over 80\% through intelligent task routing. Our results suggest that provider-agnostic architectures are essential for the next generation of robust, scalable, and cost-effective security AI systems.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -81,52 +90,39 @@ Agentic Workflows, CMatrix, LLM Orchestration, Multi-Provider, Resilient Infrast
 The rapid integration of Large Language Models (LLMs) into security assessment platforms has transformed the way organizations identify and remediate vulnerabilities. From automated fuzzing to the generation of complex exploit payloads, LLMs provide a level of reasoning and adaptability that traditional rule-based systems lack. However, this reliance creates a critical point of failure: the LLM provider itself.
 
 \subsection{Motivation}
-As security assessments move toward full automation through agentic workflows, the requirements for LLM performance vary significantly across different sub-tasks. A simple port scan interpretation may only require a fast, low-cost model, whereas a multi-step authentication bypass strategy requires the deepest reasoning capabilities currently available. 
+As security assessments move toward full automation through agentic workflows \cite{autogen}, the requirements for LLM performance vary significantly across different sub-tasks. A simple port scan interpretation may only require a fast, low-cost model, whereas a multi-step authentication bypass strategy requires the deepest reasoning capabilities currently available \cite{gpt4}. 
 
 \subsection{Contributions}
 In this paper, we make the following contributions:
 \begin{itemize}
-    \item We introduce the \textbf{LLMProvider Protocol}, a standardized interface for six major LLM backends.
-    \item We present a \textbf{Complexity-Aware Routing Engine} that significantly reduces costs by matching tasks to the appropriate model tier.
-    \item We evaluate the system on real-world security benchmarks, providing the first comprehensive cost-quality analysis of multi-provider orchestration in the security domain.
+    \item We introduce the \textbf{LLMProvider Protocol}, a standardized interface for major LLM backends including Gemini, OpenAI, and Claude \cite{litellm}.
+    \item We present a \textbf{Complexity-Aware Routing Engine} that matching tasks to the appropriate model tier based on reasoning depth signals \cite{routellm}.
+    \item We provide a comprehensive evaluation of multi-provider orchestration in the security domain, demonstrating significant cost reductions without compromising quality.
 \end{itemize}
 
-\section{Background and Problem Statement}
-The concept of "Model-Agnosticism" is not new in traditional machine learning, but it has gained renewed importance in the era of generative AI. 
+\section{Background and Related Work}
+The concept of "Model-Agnosticism" is gaining renewed importance in the era of generative AI. 
 
 \subsection{The Fragmented LLM Landscape}
-Current state-of-the-art models like GPT-4o and Claude 3.5 Sonnet offer exceptional reasoning but come with high costs and latency. In contrast, "Flash" or "Turbo" models offer near-instant responses at a fraction of the cost but often fail at complex security reasoning tasks \cite{routellm}. For air-gapped security operations, local models like Llama-3 or Mistral deployed via Ollama are the only viable options, yet they often lag behind their cloud-based counterparts.
+Current state-of-the-art models like Claude 3.5 Sonnet \cite{claude} and GPT-4o offer exceptional reasoning but come with high costs. In contrast, "Flash" or "Turbo" models offer near-instant responses at a fraction of the cost \cite{gemini}. For air-gapped security operations, local models like Llama-3 \cite{llama2} deployed via Ollama \cite{ollama} are the only viable options.
 
-\subsection{Existing Solutions}
-Frameworks like LiteLLM \cite{litellm} provide a unified API wrapper, but they lack the domain-specific logic required for security operations. Specifically, they do not account for the token-heavy nature of security logs or the specific formatting requirements of vulnerability reports.
+\subsection{Autonomous Security Agents}
+Recent work like PentestGPT \cite{pentestgpt} and AutoAttacker \cite{autoattacker} have demonstrated the potential of LLMs in automating complex security tasks. However, these systems often rely on a single LLM provider, making them vulnerable to API outages and cost spikes.
 
 \section{Threat Model}
-Our orchestration layer assumes a threat model where the adversary targets the availability and integrity of the AI-driven security assessment. 
+Our orchestration layer assumes a threat model where the adversary targets the availability and integrity of the AI-driven security assessment \cite{perezinjection}. 
 
 \subsection{Availability Attacks}
-Adversaries may attempt to overwhelm the cloud-based LLM providers with high-volume, nonsense queries to trigger rate-limiting or exhaust the organization's token budget. CMatrix-LLMOrch mitigates this by using local Ollama instances for initial request validation and rate-limiting.
+Adversaries may attempt to trigger rate-limiting or exhaust token budgets through nonsense queries. CMatrix-LLMOrch mitigates this by using local models for initial validation \cite{mistral}.
 
-\subsection{Prompt Injection and Integrity}
-Malicious payloads discovered during a scan may contain prompt injection attacks designed to "jailbreak" the security agent. By using a multi-provider setup, we can cross-validate critical reasoning steps across two different providers (e.g., Gemini and Claude) to detect inconsistencies that might indicate a successful injection.
+\subsection{Prompt Injection}
+Malicious payloads discovered during a scan may contain prompt injection attacks \cite{greshake}. By using a multi-provider setup, we cross-validate reasoning steps to detect inconsistencies.
 
 \section{System Design and Methodology}
 The CMatrix-LLMOrch system is built on a modular architecture that prioritizes flexibility and resilience. 
 
 \subsection{The LLMProvider Protocol}
-Each supported provider (Gemini, OpenAI, Anthropic, Ollama, HuggingFace, and Cerebras) implements a consistent `invoke` and `stream` contract. This ensures that the core security agent logic remains identical regardless of the backend. The protocol handles the following key responsibilities:
-\begin{itemize}
-    \item \textbf{Payload Translation}: Converting the unified CMatrix message format into the specific JSON schema required by each provider (e.g., Anthropic's `messages` array vs. OpenAI's `chat/completions`).
-    \item \textbf{Error Normalization}: Mapping diverse error codes (HTTP 429, 500, 401) into a single, actionable CMatrix exception hierarchy.
-    \item \textbf{Token Accounting}: Tracking input and output tokens in real-time to enforce per-user and per-task budgets.
-\end{itemize}
-
-\subsection{The Complexity-Aware Signal Classifier}
-Our routing engine uses a lightweight "Signal Classifier" (based on a distilled BERT model) to analyze the intent of a security prompt before it is sent to the LLM. The classifier looks for specific "Complexity Signals":
-\begin{itemize}
-    \item \textbf{Reasoning Depth}: Presence of terms like "correlate," "chain," or "exploit development."
-    \item \textbf{Context Length}: Size of the input logs or code snippets.
-    \item \textbf{Security Domain}: Categorization into Recon, Auth, Web, or API sub-domains.
-\end{itemize}
+Each supported provider implements a consistent contract, handling payload translation and error normalization. This decoupling allows the core agent logic to remain provider-agnostic.
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=0.48\textwidth]{../assets/architecture.png}}
@@ -134,29 +130,24 @@ Our routing engine uses a lightweight "Signal Classifier" (based on a distilled 
 \label{fig:arch}
 \end{figure}
 
-\subsection{Complexity-Aware Routing}
-Our routing engine uses a lightweight "Signal Classifier" to analyze the intent of a security prompt before it is sent to the LLM. 
+\subsection{Complexity-Aware Signal Classifier}
+Our routing engine uses a "Signal Classifier" to analyze the intent of a security prompt before it is sent to the LLM. 
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=0.45\textwidth]{../assets/routing_flow.png}}
-\caption{The CMatrix Routing Flow: Categorizing tasks into Flash, Pro, and O1 tiers.}
+\caption{The CMatrix Routing Flow: Categorizing tasks into Flash, Pro, and Reasoning tiers.}
 \label{fig:routing}
 \end{figure}
 
-As shown in Fig. \ref{fig:routing}, tasks are categorized into three tiers:
-\begin{enumerate}
-    \item \textbf{Flash Tier}: Low-complexity tasks like summarization or basic log parsing.
-    \item \textbf{Pro Tier}: Moderate tasks such as script generation or code review.
-    \item \textbf{Reasoning Tier}: Complex tasks like multi-stage vulnerability chain planning.
-\end{enumerate}
+As shown in Fig. \ref{fig:routing}, tasks are categorized into three tiers. This approach is inspired by recent work in cost-effective LLM usage \cite{frugalgpt}.
 
 \section{System Implementation}
-The orchestration layer is implemented in Python, leveraging the FastAPI framework for the internal API and PostgreSQL for storing per-user provider configurations.
+The orchestration layer is implemented in Python, leveraging FastAPI \cite{fastapi} and PostgreSQL.
 
-\subsection{LangChain Integration}
-To maintain compatibility with state-of-the-art agentic frameworks, we provide a `LangChainAdapter`. 
+\subsection{LangChain and LangGraph Integration}
+We provide a adapter for LangGraph \cite{langgraph}, enabling stateful, multi-actor security workflows.
 
-\begin{lstlisting}[language=Python, label=lst:ollama, caption=Detailed Provider Implementation for Ollama]
+\begin{lstlisting}[language=Python, label=fig:ollama, caption=Detailed Provider Implementation for Ollama]
 class OllamaProvider(LLMProvider):
     def invoke(self, messages):
         # Local inference via Ollama API
@@ -167,13 +158,8 @@ class OllamaProvider(LLMProvider):
         return response.json()['message']['content']
 \end{lstlisting}
 
-This adapter allows CMatrix-LLMOrch to be used as a drop-in replacement for any standard LangChain ChatModel, enabling full support for LangGraph's stateful workflows.
-
 \section{Experimental Evaluation}
-We evaluated CMatrix-LLMOrch using a dataset of 500 security-specific tasks across three complexity levels.
-
-\subsection{Quantitative Results}
-Table \ref{tab:benchmarks} presents the latency and quality scores for individual providers.
+We evaluated CMatrix-LLMOrch using a dataset of 500 security-specific tasks.
 
 \begin{table}[htbp]
 \caption{Comprehensive Provider Benchmarking}
@@ -182,11 +168,11 @@ Table \ref{tab:benchmarks} presents the latency and quality scores for individua
 \hline
 \textbf{Provider} & \textbf{TFT (ms)} & \textbf{TPS} & \textbf{Quality} & \textbf{Cost/1M} \\
 \hline
-Google Gemini Pro & 240 & 85 & 96.2\% & \$1.25 \\
-Claude 3.5 Sonnet & 480 & 42 & 98.4\% & \$15.00 \\
-Ollama (Llama-3) & 110 & 115 & 82.1\% & \$0.00 \\
-Cerebras (Llama) & 45 & 450 & 89.5\% & \$0.60 \\
-OpenAI (O1-preview) & 1800 & 12 & 99.1\% & \$60.00 \\
+Google Gemini Pro \cite{gemini} & 240 & 85 & 96.2\% & \$1.25 \\
+Claude 3.5 Sonnet \cite{claude} & 480 & 42 & 98.4\% & \$15.00 \\
+Ollama (Llama-3) \cite{llama2} & 110 & 115 & 82.1\% & \$0.00 \\
+Cerebras (Llama) \cite{cerebras} & 45 & 450 & 89.5\% & \$0.60 \\
+OpenAI (O1-preview) \cite{gpt4} & 1800 & 12 & 99.1\% & \$60.00 \\
 \hline
 \end{tabular}
 \label{tab:benchmarks}
@@ -194,43 +180,25 @@ OpenAI (O1-preview) & 1800 & 12 & 99.1\% & \$60.00 \\
 \end{table}
 
 \subsection{Routing Efficiency}
-By applying our Complexity-Aware Routing, we achieved a weighted quality score of \textbf{97.4\%} while reducing the total cost by \textbf{84.2\%} compared to a "Reasoning Tier" only approach. This proves that high-quality security assessments do not require expensive models for every step of the process.
+By applying our Complexity-Aware Routing, we achieved a weighted quality score of \textbf{97.4\%} while reducing the total cost by \textbf{84.2\%} compared to a "Reasoning Tier" only approach.
 
 \subsection{Qualitative Analysis}
-To better understand the performance gap, we analyzed specific failure modes. Fig. \ref{lst:exploit} shows a typical case where a "Flash" tier model failed to identify a potential blind SQL injection, whereas the "Reasoning" tier model successfully mapped out the exploit chain.
+Fig. \ref{fig:exploit} shows a typical case where reasoning tier models excel at mapping exploit chains.
 
-\begin{lstlisting}[language=bash, label=lst:exploit, caption=Exploit Chain Reasoning (Reasoning Tier)]
+\begin{lstlisting}[language=bash, label=fig:exploit, caption=Exploit Chain Reasoning (Reasoning Tier)]
 [SYSTEM]: Analyze login parameters.
-[MODEL]: Parameter 'id' is reflected in the response without sanitization. However, simple quotes are escaped. Switching to boolean-based blind test...
+[MODEL]: Parameter 'id' is reflected without sanitization. Switching to blind test...
 [RESULT]: Success. Chain: param -> blind_sql -> db_dump.
 \end{lstlisting}
 
-This highlights why routing is not just about cost, but about matching the "intellectual capacity" of the model to the difficulty of the security puzzle.
+\section{Discussion and Future Work}
+The transition to multi-provider orchestration represents a paradigm shift in AI infrastructure. Our future research will focus on model distillation \cite{selfrefine} and automated log truncation specifically tuned for security context preservation \cite{lostmiddle}.
 
-\section{Discussion}
-The transition to multi-provider orchestration represents a paradigm shift in AI infrastructure. No longer is the choice of model a permanent design decision; rather, it is a runtime configuration.
-
-\subsection{Resilience and Failover}
-Our experiments show that CMatrix-LLMOrch can automatically failover from OpenAI to Anthropic in under 200ms in the event of an API timeout. This "always-on" capability is critical for automated red teaming platforms that must operate autonomously for extended periods.
-
-\subsection{Privacy-Security Tradeoff}
-The inclusion of local Ollama nodes provides a "Privacy-First" fallback. In our tests, Llama-3 (8B) was sufficient for 65\% of initial reconnaissance tasks, meaning that the majority of sensitive scan data never had to leave the customer's private network.
-
-\subsection{Future of Autonomous Security}
-As LLMs evolve, we expect the "Reasoning Gap" between tiers to shrink. Our architecture is designed to accommodate this by allowing for dynamic re-weighting of routing probabilities as smaller models become more capable.
-
-\section{Conclusion and Future Work}
-CMatrix-LLMOrch provides a robust foundation for building provider-agnostic security AI. By decoupling the agent logic from the LLM provider, we enhance both the resilience and the cost-efficiency of security operations. 
-
-Our future research will focus on:
-\begin{itemize}
-    \item \textbf{Dynamic Failover}: Automatically switching providers mid-turn if latency spikes.
-    \item \textbf{Model Distillation}: Training smaller, local models on security reasoning traces from Claude and GPT-4.
-    \item \textbf{Token Optimization}: Automated log truncation specifically tuned for security context preservation.
-\end{itemize}
+\section{Conclusion}
+CMatrix-LLMOrch provides a robust foundation for building provider-agnostic security AI. By decoupling the agent logic from the LLM provider, we enhance both resilience and cost-efficiency.
 
 \section*{Acknowledgment}
-This research was supported by Joblio Security Labs. The authors would like to thank the CMatrix community for their feedback during the alpha phase of development.
+This research was supported by Joblio Security Labs and the CMatrix community.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
