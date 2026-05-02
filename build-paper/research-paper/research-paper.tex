@@ -13,7 +13,22 @@
 
 % Fix for Roman numerals in section numbering
 \renewcommand{\thesection}{\Roman{section}}
-\renewcommand{\thesubsection}{\thesection-\Alph{subsection}}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+% Fix for Figure prefix (ensuring Fig. 1. format)
+\usepackage[labelsep=period]{caption}
+\DeclareCaptionLabelFormat{figprefix}{Fig. #2}
+\captionsetup[figure]{labelformat=figprefix}
+
+% Fix for Table label (ensuring TABLE I format)
+\DeclareCaptionLabelFormat{tableprefix}{TABLE #2}
+\captionsetup[table]{labelformat=tableprefix, justification=centering, font=sc}
+
+% Rename Listings to Figures as per review recommendation
+\renewcommand{\lstlistingname}{Fig.}
+
+% Add page numbers
+\pagestyle{plain}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -141,7 +156,7 @@ The orchestration layer is implemented in Python, leveraging the FastAPI framewo
 \subsection{LangChain Integration}
 To maintain compatibility with state-of-the-art agentic frameworks, we provide a `LangChainAdapter`. 
 
-\begin{lstlisting}[language=Python, caption=Detailed Provider Implementation for Ollama]
+\begin{lstlisting}[language=Python, label=lst:ollama, caption=Detailed Provider Implementation for Ollama]
 class OllamaProvider(LLMProvider):
     def invoke(self, messages):
         # Local inference via Ollama API
@@ -182,9 +197,9 @@ OpenAI (O1-preview) & 1800 & 12 & 99.1\% & \$60.00 \\
 By applying our Complexity-Aware Routing, we achieved a weighted quality score of \textbf{97.4\%} while reducing the total cost by \textbf{84.2\%} compared to a "Reasoning Tier" only approach. This proves that high-quality security assessments do not require expensive models for every step of the process.
 
 \subsection{Qualitative Analysis}
-To better understand the performance gap, we analyzed specific failure modes. Listing 2 shows a typical case where a "Flash" tier model failed to identify a potential blind SQL injection, whereas the "Reasoning" tier model successfully mapped out the exploit chain.
+To better understand the performance gap, we analyzed specific failure modes. Fig. \ref{lst:exploit} shows a typical case where a "Flash" tier model failed to identify a potential blind SQL injection, whereas the "Reasoning" tier model successfully mapped out the exploit chain.
 
-\begin{lstlisting}[language=bash, caption=Exploit Chain Reasoning (Reasoning Tier)]
+\begin{lstlisting}[language=bash, label=lst:exploit, caption=Exploit Chain Reasoning (Reasoning Tier)]
 [SYSTEM]: Analyze login parameters.
 [MODEL]: Parameter 'id' is reflected in the response without sanitization. However, simple quotes are escaped. Switching to boolean-based blind test...
 [RESULT]: Success. Chain: param -> blind_sql -> db_dump.
