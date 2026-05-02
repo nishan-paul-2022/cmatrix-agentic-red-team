@@ -120,7 +120,6 @@ paper:
 
 # Cleanup
 clean: clean-app-frontend clean-app-backend clean-paper
-
 	@echo "✅ Cleanup complete!"
 
 clean-app-frontend:
