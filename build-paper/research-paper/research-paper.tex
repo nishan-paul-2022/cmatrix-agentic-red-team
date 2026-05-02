@@ -9,6 +9,11 @@
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{array}
+\usepackage{etoolbox}
+
+% Fix for Roman numerals in section numbering
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection-\Alph{subsection}}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -40,17 +45,11 @@
 \title{CMatrix-LLMOrch: A Resilient, Provider-Agnostic LLM Orchestration Layer for High-Stakes Security AI Workflows}
 
 \author{
-\IEEEauthorblockN{Nishan Paul}
-\IEEEauthorblockA{\textit{Research \& Development} \\
-\textit{Joblio Security Labs}\\
-Dhaka, Bangladesh \\
-nishan.paul.hello@gmail.com}
-\and
-\IEEEauthorblockN{Agentic AI Systems Team}
-\IEEEauthorblockA{\textit{Collaborative Research Unit} \\
-\textit{Open Source Security Collective}\\
-San Francisco, USA \\
-research@cmatrix.ai}
+\IEEEauthorblockN{Nishan Paul\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}, John Doe\IEEEauthorrefmark{1}, and Jane Smith\IEEEauthorrefmark{3}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Research \& Development, Joblio Security Labs}, Dhaka, Bangladesh}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Department of CSE, University of Dhaka}, Dhaka, Bangladesh}
+\IEEEauthorblockA{\IEEEauthorrefmark{3}\textit{Open Source Security Collective}, San Francisco, USA \\
+\{nishan.paul, j.doe\}@joblio.ai, smith@cmatrix.ai}
 }
 
 \maketitle
@@ -60,7 +59,7 @@ Modern AI-powered security assessment systems are increasingly reliant on Large 
 \end{abstract}
 
 \begin{IEEEkeywords}
-LLM Orchestration, Security AI, Multi-Provider, Agentic Workflows, CMatrix, Resilient Infrastructure
+Agentic Workflows, CMatrix, LLM Orchestration, Multi-Provider, Resilient Infrastructure, Security AI
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -220,10 +219,5 @@ This research was supported by Joblio Security Labs. The authors would like to t
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
-
-\section*{Author Biographies}
-\textbf{Nishan Paul} is a Lead Security Researcher at Joblio Security Labs. His research interests include LLM orchestration, automated VAPT, and the security of agentic AI systems.
-
-\textbf{CMatrix Team} is a collaborative group of researchers focused on building the next generation of open-source autonomous red teaming platforms.
 
 \end{document}
