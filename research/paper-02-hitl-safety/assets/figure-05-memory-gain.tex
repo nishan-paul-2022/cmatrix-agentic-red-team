@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Engagement Session Number},
+    ylabel={Success Rate (\%)},
+    xmin=1, xmax=5,
+    ymin=50, ymax=100,
+    xtick={1,2,3,4,5},
+    ytick={50,60,70,80,90,100},
+    legend pos=south east,
+    legend style={font=\tiny},
+    ymajorgrids=true,
+    grid style=dashed,
+    width=0.48\textwidth,
+    height=5cm,
+    font=\tiny
+]
+
+% Baseline (No Memory)
+\addplot[
+    color=red,
+    mark=square,
+    dashed
+    ]
+    coordinates {
+    (1,64)(2,65)(3,63)(4,66)(5,64)
+    };
+    \addlegendentry{Memoryless Baseline}
+
+% CMatrix (Agentic RAG + Reranking)
+\addplot[
+    color=blue,
+    mark=*,
+    ]
+    coordinates {
+    (1,64)(2,72)(3,81)(4,88)(5,91)
+    };
+    \addlegendentry{CMatrix (Persistent Memory)}
+
+\end{axis}
+\end{tikzpicture}

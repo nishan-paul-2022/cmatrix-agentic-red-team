@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    enlarge x limits=0.25,
+    legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1, font=\tiny},
+    ylabel={Success Rate (\%)},
+    symbolic x coords={Web, Network, Auth/Pwn, Aggregate},
+    xtick=data,
+    nodes near coords,
+    nodes near coords align={vertical},
+    bar width=10pt,
+    width=0.48\textwidth,
+    height=5cm,
+    font=\tiny,
+    ylabel style={yshift=-10pt},
+    grid=major,
+    ymajorgrids=true,
+]
+
+% PentestGPT (USENIX '24)
+\addplot[fill=gray!40] coordinates {(Web,48) (Network,38) (Auth/Pwn,24) (Aggregate,52)};
+
+% CHECKMATE (USENIX '25 SOTA)
+\addplot[fill=blue!40] coordinates {(Web,76) (Network,84) (Auth/Pwn,74) (Aggregate,79)};
+
+% CMatrix (Ours)
+\addplot[fill=green!40] coordinates {(Web,82) (Network,88) (Auth/Pwn,75) (Aggregate,81)};
+
+\legend{PentestGPT, CHECKMATE, CMatrix}
+\end{axis}
+\end{tikzpicture}

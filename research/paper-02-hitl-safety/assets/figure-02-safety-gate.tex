@@ -1,11 +1,8 @@
-% --- FIGURE 2: HITL SAFETY GATE FLOWCHART ---
-% Saved in assets/fig_hitl_flow.tex
-
 \begin{tikzpicture}[
     node distance=1cm and 1.5cm,
     font=\sffamily\tiny,
     >=stealth',
-    box/.style={rectangle, rounded corners=2pt, draw=black!80, fill=white, minimum width=2cm, minimum height=0.6cm, text centered, inner sep=3pt},
+    box/.style={rectangle, rounded corners=2pt, draw=black!80, fill=white, minimum width=2cm, minimum height=0.6cm, text centered, align=center, inner sep=3pt},
     decision/.style={diamond, draw=black!80, fill=yellow!5, minimum width=1.5cm, minimum height=1cm, text centered, inner sep=0pt},
     arrow/.style={->, draw=black!70, line width=0.5pt},
     label_text/.style={font=\sffamily\tiny\itshape, text=black!70}
@@ -42,35 +39,5 @@
 \draw [arrow] (human_dec) -- node[right, label_text] {Yes} (resume);
 \draw [arrow] (human_dec) -- node[above, label_text] {No} (terminate);
 \draw [arrow] (resume) |- (auto_execute);
-
-\end{tikzpicture}
-
-% --- FIGURE 3: AGENTIC RAG PIPELINE ---
-% Saved in assets/fig_rag_pipeline.tex
-
-\begin{tikzpicture}[
-    node distance=1.2cm,
-    font=\sffamily\tiny,
-    >=stealth',
-    box/.style={rectangle, rounded corners=2pt, draw=black!80, fill=white, minimum width=2.5cm, minimum height=0.6cm, text centered, inner sep=3pt},
-    db_node/.style={cylinder, draw=black!80, fill=gray!10, shape border rotate=90, minimum width=1.5cm, minimum height=1.5cm},
-    arrow/.style={->, draw=black!70, line width=0.5pt}
-]
-
-% Nodes
-\node (query) [box, fill=blue!5] {Natural Language Query ($q$)};
-\node (embed) [box, below=0.8cm of query] {BGE-Large Embedding};
-\node (qdrant) [db_node, right=2.5cm of embed] {Qdrant Vector DB};
-\node (candidates) [box, below=0.8cm of qdrant] {Top-$k$ Candidates ($k=20$)};
-\node (rerank) [box, left=2.5cm of candidates, fill=purple!5] {Cross-Encoder Reranker};
-\node (final) [box, below=0.8cm of rerank, fill=green!5] {Final Context ($k=5$)};
-
-% Paths
-\draw [arrow] (query) -- (embed);
-\draw [arrow] (embed) -- node[above, font=\tiny\itshape] {Cosine Similarity} (qdrant);
-\draw [arrow] (qdrant) -- (candidates);
-\draw [arrow] (candidates) -- node[above, font=\tiny\itshape] {Rerank Scoring} (rerank);
-\draw [arrow] (rerank) -- (final);
-\draw [arrow] (final) -- ++(-2,0) |- node[left, font=\tiny\itshape, pos=0.8] {Inject to Prompt} (query.west);
 
 \end{tikzpicture}
