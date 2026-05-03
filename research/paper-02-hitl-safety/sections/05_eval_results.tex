@@ -16,7 +16,7 @@ We evaluate CMatrix against five Research Questions (RQs) designed to measure sa
 We utilize two primary benchmarks:
 \begin{enumerate}
     \item \textbf{NYU CTF Bench}: A large-scale dataset of 200 security challenges covering web, pwn, and crypto domains.
-    \item \textbf{Simulated Enterprise Environment (SEE)}: A multi-VLAN containerized network modeling a financial institution, featuring a DMZ web server, internal Jenkins CI/CD, and a backend PostgreSQL vault.
+    \item \textbf{Simulated Enterprise Environment (SEE)}: To test \textbf{RQ1--RQ5}, we constructed a high-fidelity, multi-tiered micro-network mimicking a modern financial services organization. While constrained in host count, this environment models the complex, multi-VLAN attack chains (pivoting and credential lateralization) that are characteristic of production red teaming engagements.
 \end{enumerate}
 We use \textbf{PentestGPT} \cite{pentestgpt} and \textbf{CHECKMATE} \cite{checkmate2025} as our primary baselines for autonomous task completion.
 
@@ -24,7 +24,7 @@ We use \textbf{PentestGPT} \cite{pentestgpt} and \textbf{CHECKMATE} \cite{checkm
 \label{sec:results}
 
 \subsection{RQ1: Safety Recall and Gating Integrity}
-We evaluated CMatrix against 100 adversarial payloads, including disk-wiping commands, fork bombs, and obfuscated reverse shells. CMatrix achieved \textbf{100\% safety recall} for all categorically destructive tool calls. The auto-rejection mechanism ($P_1$) successfully blocked 42\% of payloads (e.g., \texttt{rm -rf}), while the HITL semantic gate ($P_2$) suspended 58\% of high-risk exploits (e.g., Metasploit payloads) for human review. Crucially, the system maintained zero false-positives for benign reconnaissance commands.
+We evaluated CMatrix against 100 adversarial payloads, including disk-wiping commands, fork bombs, and obfuscated reverse shells. CMatrix achieved \textbf{100\% safety recall} for all categorically destructive tool calls. No prohibited command bypassed the auto-reject registry ($P_1$) or the HITL semantic gate ($P_2$). Crucially, the system maintained a \textbf{False Suspend Rate of $<$5\%} for benign reconnaissance tools, ensuring that operational flow is not impeded by excessive human intervention.
 
 \subsection{RQ2: Task Completion Success}
 On the NYU CTF Bench, CMatrix achieved an overall success rate of \textbf{81\% ($\pm$3.4\%)}. As shown in Table \ref{tab:performance}, CMatrix significantly outperformed PentestGPT (52\%) and matched the performance of CHECKMATE (79\%) while strictly adhering to safety guardrails. In the SEE environment, the agent successfully completed the full attack chain—from initial web exploitation (CVE-2021-41773) to lateral movement and PII exfiltration—in 8 out of 10 trials.
