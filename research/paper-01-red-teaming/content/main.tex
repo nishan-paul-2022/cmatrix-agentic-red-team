@@ -163,6 +163,12 @@ We consider two primary classes of adversaries that interact with the CMatrix or
     \item \textbf{Adversary $\beta$ (Insider / Misconfigured Operator)}: An authorized operator who, through negligence or configuration error, may attempt to execute destructive commands (e.g., recursive root deletion) or approve high-risk operations without sufficient review. The goal is to mitigate accidental system destruction that could arise from the unconstrained autonomous execution of LLM-generated payloads.
 \end{itemize}
 
+\subsection{Adversary Capabilities and Goals}
+Adversaries $\alpha$ and $\beta$ possess the following capabilities within the CMatrix environment. Adversary $\alpha$ can inject semantic payloads into the long-term memory via the RAG pipeline, targeting the "Reasoning WithOut Observation" (ReWOO) planning stage. Their goal is the execution of arbitrary tool calls ($P1$ violation) or the exfiltration of engagement metadata. Adversary $\beta$ possesses legitimate access to the control interface but lacks the expertise or intent to filter high-risk LLM outputs, potentially leading to the approval of destructive system commands ($P2$ violation).
+
+\subsection{System Assumptions and Scope}
+Our threat model assumes that the underlying LLM provider (e.g., OpenAI, Anthropic) is not malicious and that the inference channel is secured via TLS. We further assume that the PostgreSQL and Qdrant storage backends are hardened against direct external access. Out-of-scope for this work are physical hardware attacks, side-channel leakage during inference, and the social engineering of the human approver.
+
 \subsection{Security Properties}
 CMatrix is designed to enforce four primary security properties ($P1$--$P4$) throughout the autonomous red teaming lifecycle:
 
