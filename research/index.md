@@ -9,11 +9,11 @@
 
 | File | Research Area | Recommended Venue | Effort |
 |------|--------------|-------------------|--------|
-| [`01-red-teaming.md`](../paper-01-red-teaming/01-red-teaming.md) | AI-Driven Agentic Red Teaming | USENIX Security 2026 | 4–6 months |
-| [`02-hitl-safety.md`](../paper-02-hitl-safety/02-hitl-safety.md) | HITL Safety for Security Agents | SOUPS 2026 | 3–4 months |
-| [`03-agent-reasoning.md`](../paper-03-agent-reasoning/03-agent-reasoning.md) | ToT + ReWOO + Self-Reflection in Security | ACM CCS 2026 | 4–5 months |
-| [`04-vulnerability-intelligence.md`](../paper-04-vulnerability-intelligence/04-vulnerability-intelligence.md) | Agentic RAG for CVE Intelligence | ACM SIGIR 2026 | 4–5 months |
-| [`05-model-orchestration.md`](../paper-05-model-orchestration/05-model-orchestration.md) | LLM-Agnostic Multi-Provider Orchestration | MLSys 2026 | 3–4 months |
+| [`01-red-teaming.md`](./paper-01-red-teaming/01-red-teaming.md) | AI-Driven Agentic Red Teaming | USENIX Security 2026 | 4–6 months |
+| [`02-hitl-safety.md`](./paper-02-hitl-safety/02-hitl-safety.md) | HITL Safety for Security Agents | SOUPS 2026 | 3–4 months |
+| [`03-agent-reasoning.md`](./paper-03-agent-reasoning/03-agent-reasoning.md) | ToT + ReWOO + Self-Reflection in Security | ACM CCS 2026 | 4–5 months |
+| [`04-vulnerability-intelligence.md`](./paper-04-vulnerability-intelligence/04-vulnerability-intelligence.md) | Agentic RAG for CVE Intelligence | ACM SIGIR 2026 | 4–5 months |
+| [`05-model-orchestration.md`](./paper-05-model-orchestration/05-model-orchestration.md) | LLM-Agnostic Multi-Provider Orchestration | MLSys 2026 | 3–4 months |
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### Rank #1 — AI-Driven Agentic Red Teaming & Autonomous Penetration Testing
 
-**File**: [`01-red-teaming.md`](../paper-01-red-teaming/01-red-teaming.md)
+**File**: [`01-red-teaming.md`](./paper-01-red-teaming/01-red-teaming.md)
 
 CMatrix implements the most complete, production-ready agentic penetration testing system in the open-source ecosystem. The combination of multi-agent supervisor coordination (5 specialized agents), Human-in-the-Loop approval gates with PostgreSQL checkpoint-based workflow resumption, and advanced reasoning patterns in a single integrated system has no published equivalent. This is the anchor paper — the one that establishes CMatrix's identity in the research community.
 
@@ -37,7 +37,7 @@ CMatrix implements the most complete, production-ready agentic penetration testi
 
 ### Rank #2 — Human-in-the-Loop Safety for Autonomous AI Security Agents
 
-**File**: [`02-hitl-safety.md`](../paper-02-hitl-safety/02-hitl-safety.md)
+**File**: [`02-hitl-safety.md`](./paper-02-hitl-safety/02-hitl-safety.md)
 
 The HITL implementation in CMatrix is technically sophisticated (interrupt-based LangGraph suspension, PostgreSQL state persistence, parameter modification at approval time) and raises important safety questions about automation bias in security tool oversight. This can be split into a focused paper on just the HITL safety framework — either as a companion to the main paper or standalone.
 
@@ -49,7 +49,7 @@ The HITL implementation in CMatrix is technically sophisticated (interrupt-based
 
 ### Rank #3 — Advanced Reasoning Patterns in Security Agents (ToT + ReWOO + Self-Reflection)
 
-**File**: [`03-agent-reasoning.md`](../paper-03-agent-reasoning/03-agent-reasoning.md)
+**File**: [`03-agent-reasoning.md`](./paper-03-agent-reasoning/03-agent-reasoning.md)
 
 CMatrix implements ToT, ReWOO, and Self-Reflection from the original papers but adapted entirely to security assessment. Each adaptation introduces novel security-specific design choices (CRITICAL_PORTS list for reflection, security strategy types for ToT, template plans for attack patterns in ReWOO). Ablation studies comparing all combinations would produce a strong ML+security paper.
 
@@ -61,7 +61,7 @@ CMatrix implements ToT, ReWOO, and Self-Reflection from the original papers but 
 
 ### Rank #4 — Agentic RAG for Vulnerability Intelligence
 
-**File**: [`04-vulnerability-intelligence.md`](../paper-04-vulnerability-intelligence/04-vulnerability-intelligence.md)
+**File**: [`04-vulnerability-intelligence.md`](./paper-04-vulnerability-intelligence/04-vulnerability-intelligence.md)
 
 The RAG module (CVE vector store + cross-encoder reranking + graph traversal + self-correction + A/B testing) is exceptionally well-engineered. The CVE graph traversal for attack chain discovery and the A/B testing framework for retrieval strategy evaluation are the most novel components. This paper requires a careful evaluation framework with annotated CVE queries.
 
@@ -73,7 +73,7 @@ The RAG module (CVE vector store + cross-encoder reranking + graph traversal + s
 
 ### Rank #5 — LLM-Agnostic Multi-Provider Orchestration for Security AI
 
-**File**: [`05-model-orchestration.md`](../paper-05-model-orchestration/05-model-orchestration.md)
+**File**: [`05-model-orchestration.md`](./paper-05-model-orchestration/05-model-orchestration.md)
 
 The 6-provider LLM abstraction layer with the `LangChainAdapter` pattern is a well-engineered systems contribution. However, as a standalone paper it's less novel (LiteLLM and similar tools exist), and the security-specific angle needs to be more pronounced. Best as a supporting section in the main paper or a short MLSys paper focused on the empirical benchmark.
 
