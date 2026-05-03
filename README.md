@@ -6,8 +6,6 @@
   <a href="https://cmatrix.kaiofficial.xyz" target="_blank">
     <img src="https://img.shields.io/badge/Live_App-cmatrix.kaiofficial.xyz-0070f3?style=for-the-badge&logo=next.js&logoColor=white" alt="Live App" />
   </a>
-
-
 </div>
 
 CMatrix is an advanced, AI-powered security orchestration platform utilizing a multi-agent architecture to automate security assessments, vulnerability scanning, and threat intelligence. Powered by **LangGraph** and **FastAPI** with a **Next.js** frontend, CMatrix acts as an autonomous security operations center.
@@ -32,7 +30,7 @@ CMatrix is an advanced, AI-powered security orchestration platform utilizing a m
 ## 📸 Application Preview
 
 <div align="center">
-  <img src="assets/preview/overview-web.gif" alt="CMatrix Overview" width="100%" />
+  <img src="assets/preview.gif" alt="CMatrix Overview" width="100%" />
 </div>
 
 ---
