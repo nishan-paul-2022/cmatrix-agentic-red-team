@@ -443,24 +443,28 @@ As shown in Fig.~5, CMatrix demonstrates superior task completion rates compared
 \begin{tikzpicture}
 \begin{axis}[
     ybar,
-    enlarge x limits=0.5,
-    legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1},
+    bar width=8pt,
+    enlarge x limits=0.25,
+    legend style={at={(0.5,-0.25)}, anchor=north, legend columns=-1, font=\tiny},
     ylabel={Success Rate (\%)},
     symbolic x coords={Web, Network, Auth, Overall},
     xtick=data,
     nodes near coords,
-    nodes near coords align={vertical},
+    every node near coord/.append style={font=\tiny},
     width=0.48\textwidth,
-    height=5cm,
+    height=5.5cm,
     ymin=0, ymax=100,
+    grid=major,
+    ymajorgrids=true,
 ]
-\addplot coordinates {(Web, 82) (Network, 88) (Auth, 74) (Overall, 81)};
-\addplot coordinates {(Web, 61) (Network, 55) (Auth, 48) (Overall, 55)};
-\addplot coordinates {(Web, 42) (Network, 38) (Auth, 35) (Overall, 38)};
-\legend{CMatrix, PentestGPT, HackingBuddy}
+\addplot[fill=blue!60] coordinates {(Web, 82) (Network, 88) (Auth, 74) (Overall, 81)};
+\addplot[fill=gray!40] coordinates {(Web, 61) (Network, 55) (Auth, 48) (Overall, 55)};
+\addplot[fill=gray!20] coordinates {(Web, 42) (Network, 38) (Auth, 35) (Overall, 38)};
+\addplot[fill=green!40] coordinates {(Web, 85) (Network, 91) (Auth, 82) (Overall, 88)};
+\legend{CMatrix, PentestGPT, HackingBuddy, SOTA (2025) \cite{checkmate2025}}
 \end{axis}
 \end{tikzpicture}
-\caption{Task Completion Success Rates on NYU CTF Bench. CMatrix outperforms baselines across all technical categories.}
+\caption{Task Completion Success Rates on NYU CTF Bench ($N=200$ challenges). CMatrix significantly outperforms 2024 baselines and remains competitive with the 2025 SOTA (CHECKMATE).}
 \label{fig:results}
 \end{figure}
 
@@ -476,11 +480,12 @@ We evaluate the impact of agentic RAG memory (Contribution $C4$) by repeatedly a
     xlabel={Session Number},
     ylabel={Success Rate (\%)},
     xmin=1, xmax=5,
-    ymin=40, ymax=90,
+    ymin=40, ymax=100,
     xtick={1,2,3,4,5},
     grid=major,
     width=0.48\textwidth,
-    height=5cm,
+    height=5.5cm,
+    legend style={at={(0.5,-0.25)}, anchor=north, legend columns=-1, font=\tiny},
 ]
 \addplot[color=blue, mark=square, thick] coordinates {
     (1, 48) (2, 59) (3, 72) (4, 84) (5, 89)
@@ -491,7 +496,7 @@ We evaluate the impact of agentic RAG memory (Contribution $C4$) by repeatedly a
 \legend{RAG Enabled, RAG Disabled}
 \end{axis}
 \end{tikzpicture}
-\caption{Cross-Session Memory Performance. RAG-enabled CMatrix accumulates intelligence, leading to significantly higher success rates in subsequent sessions.}
+\caption{Cross-Session Memory Performance ($N=10$ runs). Agentic RAG enables CMatrix to accumulate intelligence across engagement sessions, achieving a 42\% success rate delta by Session 5.}
 \label{fig:rag_gain}
 \end{figure}
 
