@@ -534,8 +534,8 @@ As identified in our threat model, CMatrix's RAG pipeline is potentially vulnera
 \subsection{Human Approver Social Engineering}
 The HITL framework assumes an attentive and informed human operator. If an operator suffers from "alert fatigue," they may approve a dangerous command that bypassed the automated auto-rejection filter. Future work could integrate "Explainable Safety" features, where the agent must provide a natural-language justification for high-risk actions to aid the human reviewer.
 
-\subsection{Lexicon Brittleness}
-The current keyword-confidence router relies on static domain lexicons. While effective for standard security tasks, this approach may be brittle when faced with highly ambiguous task descriptions. Transitioning to a learned routing model, similar to RouteLLM \cite{routellm}, could improve the supervisor's adaptability.
+\subsection{Future Work}
+We identify three primary directions for the evolution of CMatrix. First, the integration of \textit{Explainable Safety} (X-Safety) would provide natural-language justifications for high-risk tool calls, mitigating operator alert fatigue. Second, we plan to transition from deterministic keyword routing to a \textit{learned routing model} to improve adaptability in ambiguous environments. Finally, we aim to incorporate \textit{Formal Verification} of the safety control graph to mathematically prove that no execution path can bypass the mandatory oversight gate under specified adversarial conditions.
 
 \section{Ethical Considerations}
 The development of autonomous offensive AI agents necessitates rigorous ethical oversight. CMatrix is designed exclusively for use in authorized red teaming engagements where written consent has been obtained. To mitigate dual-use risks, we implement mandatory audit logging (P3) and categorical auto-rejection (P1), ensuring that the system cannot be easily repurposed for uncontrolled or destructive activities. We responsibly disclose our findings to the security community to advance the state of AI safety governance.
