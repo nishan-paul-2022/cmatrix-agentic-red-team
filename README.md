@@ -153,21 +153,25 @@ CMatrix architecture treats AI agents as modular functions. Adding new tools inv
 
 ## 📜 Research & Documentation
 
-CMatrix includes a professional, independent LaTeX build system for documenting research findings and publishing academic papers (specifically formatted for **IEEE S&P**).
+CMatrix includes a professional, independent LaTeX build system for documenting research findings. We have five specialized research papers (formatted for **IEEE S&P**) covering different aspects of agentic security.
 
-### ✍️ Writing the Paper
-The source files for research documentation are located in:
-`build-paper/research-paper/research-paper.tex`
+### 📚 Available Research Papers
 
-### 🏗️ Building the PDF
-To compile the research paper into a professional 2-column IEEE format:
+| Index | Paper Topic | Build Command | Output Path |
+| :--- | :--- | :--- | :--- |
+| 01 | **Red Teaming** | `make paper-01` | `paper-01-red-teaming/paper/research-paper.pdf` |
+| 02 | **HITL Safety** | `make paper-02` | `paper-02-hitl-safety/paper/research-paper.pdf` |
+| 03 | **Agent Reasoning** | `make paper-03` | `paper-03-agent-reasoning/paper/research-paper.pdf` |
+| 04 | **Vulnerability Intelligence** | `make paper-04` | `paper-04-vulnerability-intelligence/paper/research-paper.pdf` |
+| 05 | **Model Orchestration** | `make paper-05` | `paper-05-model-orchestration/paper/research-paper.pdf` |
+
+### 🏗️ Building the Papers
+
+To build a specific paper, use its corresponding command listed above. To build **all** papers at once, run:
 
 ```bash
 make paper
 ```
-
-The generated PDF will be available at:
-`build-paper/paper/research-paper.pdf`
 
 > **Note:** This requires `latexmk` and a standard LaTeX distribution (like TeX Live) installed on your system.
 

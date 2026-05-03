@@ -111,12 +111,50 @@ build-app-frontend:
 build-app-backend:
 	@echo "🏗️  Backend doesn't require build step"
 
-paper:
-	@echo "🏗️  Building Research Paper..."
-	mkdir -p $(RESEARCH_OUT_DIR)
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(RESEARCH_PAPER_DIR)/main.tex
-	mv $(RESEARCH_PAPER_DIR)/main.pdf $(RESEARCH_OUT_DIR)/research-paper.pdf
-	rm -rf $(RESEARCH_PAPER_DIR)/build
+# Paper Build Directories
+PAPER_DIR_01 := paper-01-red-teaming
+PAPER_DIR_02 := paper-02-hitl-safety
+PAPER_DIR_03 := paper-03-agent-reasoning
+PAPER_DIR_04 := paper-04-vulnerability-intelligence
+PAPER_DIR_05 := paper-05-model-orchestration
+
+paper: paper-01 paper-02 paper-03 paper-04 paper-05
+	@echo "✅ All papers built successfully!"
+
+paper-01:
+	@echo "🏗️  Building Research Paper: 01-red-teaming..."
+	mkdir -p $(PAPER_DIR_01)/paper
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_01)/research-paper/main.tex
+	mv $(PAPER_DIR_01)/research-paper/main.pdf $(PAPER_DIR_01)/paper/research-paper.pdf
+	rm -rf $(PAPER_DIR_01)/research-paper/build
+
+paper-02:
+	@echo "🏗️  Building Research Paper: 02-hitl-safety..."
+	mkdir -p $(PAPER_DIR_02)/paper
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_02)/research-paper/main.tex
+	mv $(PAPER_DIR_02)/research-paper/main.pdf $(PAPER_DIR_02)/paper/research-paper.pdf
+	rm -rf $(PAPER_DIR_02)/research-paper/build
+
+paper-03:
+	@echo "🏗️  Building Research Paper: 03-agent-reasoning..."
+	mkdir -p $(PAPER_DIR_03)/paper
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_03)/research-paper/main.tex
+	mv $(PAPER_DIR_03)/research-paper/main.pdf $(PAPER_DIR_03)/paper/research-paper.pdf
+	rm -rf $(PAPER_DIR_03)/research-paper/build
+
+paper-04:
+	@echo "🏗️  Building Research Paper: 04-vulnerability-intelligence..."
+	mkdir -p $(PAPER_DIR_04)/paper
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_04)/research-paper/main.tex
+	mv $(PAPER_DIR_04)/research-paper/main.pdf $(PAPER_DIR_04)/paper/research-paper.pdf
+	rm -rf $(PAPER_DIR_04)/research-paper/build
+
+paper-05:
+	@echo "🏗️  Building Research Paper: 05-model-orchestration..."
+	mkdir -p $(PAPER_DIR_05)/paper
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_05)/research-paper/main.tex
+	mv $(PAPER_DIR_05)/research-paper/main.pdf $(PAPER_DIR_05)/paper/research-paper.pdf
+	rm -rf $(PAPER_DIR_05)/research-paper/build
 
 # Cleanup
 clean: clean-app-frontend clean-app-backend clean-paper
@@ -132,8 +170,8 @@ clean-app-backend:
 
 clean-paper:
 	@echo "🧹 Cleaning Research Paper artifacts..."
-	rm -rf $(RESEARCH_PAPER_DIR)/build $(RESEARCH_PAPER_DIR)/*.pdf
-	rm -rf $(RESEARCH_OUT_DIR)
+	rm -rf paper-*/paper paper-*/research-paper/*.pdf paper-*/research-paper/build
+	rm -rf build-paper/paper build-paper/research-paper/*.pdf build-paper/research-paper/build
 
 # Testing
 test:
