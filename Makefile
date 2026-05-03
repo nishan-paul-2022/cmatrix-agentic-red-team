@@ -121,33 +121,33 @@ paper: paper-01 paper-02 paper-03 paper-04 paper-05
 
 paper-01:
 	@echo "🏗️  Building Research Paper: 01-red-teaming..."
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_01)/research-paper/main.tex
-	mv $(PAPER_DIR_01)/research-paper/main.pdf $(PAPER_DIR_01)/research-paper.pdf
-	rm -rf $(PAPER_DIR_01)/research-paper/build
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_01)/content/main.tex
+	mv $(PAPER_DIR_01)/content/main.pdf $(PAPER_DIR_01)/paper.pdf
+	rm -rf $(PAPER_DIR_01)/content/build
 
 paper-02:
 	@echo "🏗️  Building Research Paper: 02-hitl-safety..."
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_02)/research-paper/main.tex
-	mv $(PAPER_DIR_02)/research-paper/main.pdf $(PAPER_DIR_02)/research-paper.pdf
-	rm -rf $(PAPER_DIR_02)/research-paper/build
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_02)/content/main.tex
+	mv $(PAPER_DIR_02)/content/main.pdf $(PAPER_DIR_02)/paper.pdf
+	rm -rf $(PAPER_DIR_02)/content/build
 
 paper-03:
 	@echo "🏗️  Building Research Paper: 03-agent-reasoning..."
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_03)/research-paper/main.tex
-	mv $(PAPER_DIR_03)/research-paper/main.pdf $(PAPER_DIR_03)/research-paper.pdf
-	rm -rf $(PAPER_DIR_03)/research-paper/build
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_03)/content/main.tex
+	mv $(PAPER_DIR_03)/content/main.pdf $(PAPER_DIR_03)/paper.pdf
+	rm -rf $(PAPER_DIR_03)/content/build
 
 paper-04:
 	@echo "🏗️  Building Research Paper: 04-vulnerability-intelligence..."
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_04)/research-paper/main.tex
-	mv $(PAPER_DIR_04)/research-paper/main.pdf $(PAPER_DIR_04)/research-paper.pdf
-	rm -rf $(PAPER_DIR_04)/research-paper/build
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_04)/content/main.tex
+	mv $(PAPER_DIR_04)/content/main.pdf $(PAPER_DIR_04)/paper.pdf
+	rm -rf $(PAPER_DIR_04)/content/build
 
 paper-05:
 	@echo "🏗️  Building Research Paper: 05-model-orchestration..."
-	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_05)/research-paper/main.tex
-	mv $(PAPER_DIR_05)/research-paper/main.pdf $(PAPER_DIR_05)/research-paper.pdf
-	rm -rf $(PAPER_DIR_05)/research-paper/build
+	$(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_05)/content/main.tex
+	mv $(PAPER_DIR_05)/content/main.pdf $(PAPER_DIR_05)/paper.pdf
+	rm -rf $(PAPER_DIR_05)/content/build
 
 # Cleanup
 clean: clean-app-frontend clean-app-backend clean-paper
@@ -163,8 +163,7 @@ clean-app-backend:
 
 clean-paper:
 	@echo "🧹 Cleaning Research Paper artifacts..."
-	rm -rf research/paper-*/*.pdf research/paper-*/research-paper/build
-	rm -rf research/paper-*/paper
+	rm -rf research/paper-*/*.pdf research/paper-*/content/build
 
 # Testing
 test:
