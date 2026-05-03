@@ -1,0 +1,37 @@
+\section{Advanced Reasoning Stack}
+\label{sec:reasoning_stack}
+
+To achieve human-level offensive capability, CMatrix integrates three advanced reasoning patterns: Tree of Thoughts (ToT) for tactical strategy, ReWOO for efficient planning, and Self-Reflection for autonomous gap detection.
+
+\subsection{Security-Specialized Tree of Thoughts (ToT)}
+Conventional agents use a single ReAct loop that often converges on suboptimal tactics. CMatrix implements a security-specialized ToT module that generates multiple tactical branches for a given objective. Each branch is evaluated against five criteria: (1) Stealth, (2) Speed, (3) Coverage, (4) Complexity, and (5) Probability of Success. By traversing this tree, the orchestrator selects the most appropriate tactical posture (e.g., a \textit{Stealthy Recon} vs. a \textit{Comprehensive Audit}) based on user constraints.
+
+\subsection{Efficient Planning via ReWOO}
+To reduce the latency and cost overhead of iterative LLM calls, CMatrix utilizes the \textit{Reasoning Without Observation} (ReWOO) pattern. The ReWOO planner decomposes a high-level goal into a series of decoupled sub-tasks. By planning the sequence upfront and caching the strategy in Redis, CMatrix reduces redundant LLM invocations by approximately 40\% compared to reactive ReAct loops. This is particularly effective for reconnaissance phases where the tool chain (e.g., \texttt{nmap} $\to$ \texttt{curl} $\to$ \texttt{dirsearch}) is predictable.
+
+\subsection{Autonomous Self-Reflection}
+Following each delegation phase, a dedicated reflection node audits the worker's results. The reflection engine utilizes a five-category "Execution Gap Taxonomy":
+\begin{itemize}
+    \item \textit{Missed Surface}: Unidentified ports or subdomains.
+    \item \textit{Tool Failure}: Errors in command syntax or timeouts.
+    \item \textit{Logic Gap}: Misinterpretation of service banners or version strings.
+    \item \textit{Safety Violation}: Interrupted or blocked actions.
+    \item \textit{Incomplete Evidence}: Lack of sufficient artifacts for a finding.
+\end{itemize}
+If the quality score falls below a predefined threshold, the orchestrator triggers a self-correction loop, re-tasking the worker with refined parameters.
+
+\section{Agentic RAG Memory Pipeline}
+\label{sec:memory_pipeline}
+
+Long-term red teaming engagements suffer from "context fragmentation," where the agent loses track of earlier findings as the conversation history grows. CMatrix addresses this via a multi-stage Agentic RAG pipeline.
+
+\subsection{Two-Stage Retrieval Architecture}
+CMatrix utilizes a high-precision retrieval pipeline integrated with the Qdrant vector database:
+\begin{enumerate}
+    \item \textbf{Stage 1: Semantic Retrieval}. The system uses the \textit{BGE-large-en} embedding model to retrieve the top $k=20$ candidate chunks from the engagement memory.
+    \item \textbf{Stage 2: Cross-Encoder Reranking}. Candidates are passed to a \textit{BGE-Reranker-Large} model, which calculates a high-fidelity relevance score for the query-document pair.
+\end{enumerate}
+This two-stage process (formalized in Eq. \ref{eq:rag_final}) ensures that the agent receives the most tactically relevant artifacts even in the presence of noisy scan outputs.
+
+\subsection{Longitudinal Memory Persistence}
+Unlike state-of-the-art agents that reset their memory after each session, CMatrix persists findings across disparate engagement phases. By storing scan results, credential hashes, and service fingerprints in a persistent vector store, the agent builds a "Cumulative Threat Model." Our experiments show that this longitudinal memory enables a 42\% improvement in task success rates by the fifth sequential session, as the agent avoids redundant reconnaissance and builds upon prior insights.
