@@ -220,9 +220,58 @@ def check_api_rate_limiting(api_url: str, requests_count: int = 10) -> str:
     return "\n".join(results)
 
 
-API_SECURITY_TOOLS = [
-    test_api_endpoints,
-    check_api_authentication,
-    test_graphql_introspection,
-    check_api_rate_limiting,
-]
+from typing import Any
+
+from loguru import logger
+
+from app.agents.base.agent import BaseAgentSubgraph
+from app.services.llm.providers.base import LLMProvider
+
+
+class APISecurityAgentSubgraph(BaseAgentSubgraph):
+    """
+    API Security Agent Subgraph.
+    Specializes in REST and GraphQL security testing.
+    """
+
+    def __init__(self, llm_provider: LLMProvider):
+        super().__init__(llm_provider, agent_name="APISecurityAgent")
+        logger.info("API Security Agent initialized")
+
+    def _register_tools(self) -> list[dict[str, Any]]:
+        return [
+            {
+                "name": "test_api_endpoints",
+                "function": test_api_endpoints,
+                "description": "Test REST API endpoints for security headers and error disclosure.",
+                "parameters": {
+                    "base_url": "Base URL of the API",
+                    "endpoints": "Comma-separated list of endpoints",
+                },
+            },
+            {
+                "name": "check_api_auth",
+                "function": check_api_authentication,
+                "description": "Check API authentication mechanisms.",
+                "parameters": {"api_url": "API endpoint URL"},
+            },
+            {
+                "name": "test_graphql",
+                "function": test_graphql_introspection,
+                "description": "Test GraphQL introspection and common security issues.",
+                "parameters": {"graphql_url": "GraphQL endpoint URL"},
+            },
+            {
+                "name": "test_api_rate_limit",
+                "function": check_api_rate_limiting,
+                "description": "Test API rate limiting by sending rapid requests.",
+                "parameters": {"api_url": "API endpoint URL"},
+            },
+        ]
+
+    def _get_system_prompt(self) -> str:
+        return "You are the API Security Agent. You specialize in identifying vulnerabilities in REST and GraphQL APIs. Focus on broken authentication, excessive data exposure, and lack of rate limiting."
+
+
+def create_api_agent(llm_provider: LLMProvider) -> APISecurityAgentSubgraph:
+    return APISecurityAgentSubgraph(llm_provider)

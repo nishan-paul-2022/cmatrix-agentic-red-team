@@ -11,6 +11,7 @@ from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.agents.base.agent import BaseAgentSubgraph
+from app.agents.specialized.api_security_agent import create_api_agent
 from app.agents.specialized.auth_agent import create_auth_agent
 from app.agents.specialized.config_agent import create_config_agent
 from app.agents.specialized.network_agent import create_network_agent
@@ -37,6 +38,7 @@ class AgentRegistry:
     VULN_INTEL_AGENT = "vuln_intel_agent"
     AUTH_AGENT = "auth_agent"
     CONFIG_AGENT = "config_agent"
+    API_AGENT = "api_agent"
 
     # Keywords for agent selection
     AGENT_KEYWORDS = {
@@ -107,6 +109,19 @@ class AgentRegistry:
             "gcp",
             "iam",
             "policy",
+        ],
+        API_AGENT: [
+            "api",
+            "rest",
+            "graphql",
+            "endpoint",
+            "json",
+            "xml",
+            "soap",
+            "swagger",
+            "openapi",
+            "v1",
+            "v2",
         ],
     }
 
@@ -195,6 +210,8 @@ class AgentRegistry:
             agent = create_auth_agent(llm_provider)
         elif agent_type == self.CONFIG_AGENT:
             agent = create_config_agent(llm_provider)
+        elif agent_type == self.API_AGENT:
+            agent = create_api_agent(llm_provider)
         else:
             raise ValueError(f"Unknown agent type: {agent_type}")
 
