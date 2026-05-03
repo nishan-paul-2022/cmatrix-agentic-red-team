@@ -94,7 +94,7 @@ The emergence of Large Language Model (LLM) agents has enabled autonomous multi-
 Agentic Red Teaming, Multi-Agent Systems, Autonomous VAPT, LLM Safety, Human-in-the-Loop, LangGraph.
 \end{IEEEkeywords}
 
-\section{Introduction}
+\section{Introduction} \label{sec:intro}
 The integration of Large Language Models (LLMs) into cybersecurity operations has shifted from simple assistant-based querying to the development of fully autonomous agents capable of conducting multi-step offensive operations. Recent research demonstrates that LLM agents, specifically those powered by frontier models like GPT-4, can autonomously exploit up to 87\% of publicly disclosed one-day vulnerabilities when provided with basic CVE descriptions \cite{fang2024}. While this capability offers significant potential for automating defensive red teaming and scaling vulnerability assessments, the unconstrained use of such agents in production environments is fraught with operational and safety risks.
 
 Existing autonomous penetration testing systems, such as PentestGPT \cite{pentestgpt} and HackingBuddyGPT \cite{hackingbuddygpt}, and AutoAttacker \cite{autoattacker}, primarily focus on maximizing offensive capability. However, as noted in a recent systematic review \cite{xu2024sok}, these systems suffer from three fundamental limitations that preclude their adoption in enterprise security operations. First, they exhibit a \textbf{safety deficit}: they execute arbitrary tool calls and system commands without a formal governance layer, risking accidental destruction of production assets or susceptibility to indirect prompt injection. Second, they suffer from \textbf{context fragmentation}: most agents are stateless, losing critical threat model context between sessions or even between distinct attack phases. Finally, they demonstrate \textbf{reasoning fragility}: monolithic agents often struggle with the specialized toolchains required for diverse domains such as network reconnaissance, web exploitation, and vulnerability intelligence.
@@ -107,14 +107,16 @@ Our primary technical contributions are as follows:
     
     \item \textbf{Keyword-Confidence Supervisor Routing}: We present a deterministic routing mechanism that normalizes task descriptions against specialized agent lexicons. The supervisor dynamically selects between single, sequential, or parallel delegation strategies to construct complex, multi-agent attack chains.
 
+    \item \textbf{Domain-Specialized Worker Subgraphs}: We define a set of six specialized worker agents (Network, Web, Auth, Config, VulnIntel, and API Security), each isolated with a domain-specific tool registry and reasoning constraints to prevent monolithic failure patterns.
+
     \item \textbf{Agentic RAG for Longitudinal Memory}: We adapt the retrieve-then-rerank paradigm to the security domain, utilizing BGE-large embeddings and cross-encoder reranking to maintain a persistent threat model across disparate assessment sessions.
 \end{itemize}
 
 Empirical evaluation on the NYU CTF Bench and simulated enterprise networks demonstrates that CMatrix achieves competitive task completion while maintaining an absolute safety record. CMatrix provides a scalable and robust foundation for the next generation of autonomous security assessment platforms.
 
-The remainder of this paper is organized as follows. Section II reviews the related work in autonomous penetration testing and LLM safety. Section III formalizes our threat model and safety properties. Section IV details the CMatrix system architecture, including the supervisor routing and multi-agent coordination. Section V describes our hierarchical HITL safety framework and checkpointing mechanism. Section VI presents our agentic RAG memory pipeline. Section VII details our reasoning and self-reflection loops. Section VIII presents our experimental evaluation and results. Section IX discusses the implications and limitations of our findings, and Section X concludes the paper.
+The remainder of this paper is organized as follows. Section~\ref{sec:related} reviews the related work in autonomous penetration testing and LLM safety. Section~\ref{sec:threat} formalizes our threat model and safety properties. Section~\ref{sec:arch} details the CMatrix system architecture, including the supervisor routing and multi-agent coordination. Section~\ref{sec:safety} describes our hierarchical HITL safety framework and checkpointing mechanism. Section~\ref{sec:memory} presents our agentic RAG memory pipeline. Section~\ref{sec:reasoning} details our reasoning and self-reflection loops. Section~\ref{sec:eval} presents our experimental evaluation and results. Section~\ref{sec:discussion} discusses the implications and limitations of our findings, and Section~\ref{sec:conclusion} concludes the paper.
 
-\section{Background and Related Work}
+\section{Background and Related Work} \label{sec:related}
 The development of CMatrix is situated at the intersection of autonomous penetration testing, multi-agent orchestration, and LLM safety.
 
 \subsection{Autonomous Penetration Testing Systems}
@@ -137,6 +139,7 @@ HackingBuddy \cite{hackingbuddygpt} & \texttimes & \texttimes & \texttimes & \te
 AutoAttacker \cite{autoattacker} & \texttimes & \texttimes & \texttimes & \texttimes & Partial & \texttimes & \texttimes & \texttimes \\
 CHECKMATE \cite{checkmate2025} & \texttimes & \texttimes & \checkmark & \texttimes & \checkmark & \texttimes & \texttimes & \texttimes \\
 xOffense \cite{xoffense2025} & \texttimes & \texttimes & \checkmark & \texttimes & \texttimes & \texttimes & \texttimes & \texttimes \\
+CurriculumPT \cite{curriculumpt2025} & \texttimes & \texttimes & \checkmark & \texttimes & \checkmark & \texttimes & \texttimes & \texttimes \\
 \textbf{CMatrix (Ours)} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \bottomrule
 \end{tabular}
@@ -151,7 +154,7 @@ CMatrix leverages and extends several foundational reasoning patterns. The ReAct
 \subsection{Safety, Alignment, and Red Teaming}
 The security community has long recognized the risks associated with autonomous AI. Frameworks like Constitutional AI \cite{constitutionalai} attempt to ensure harmlessness during the training phase, yet these do not protect against runtime misuse or indirect prompt injection \cite{greshake}. Traditional "red teaming" research, such as that conducted by Anthropic \cite{ganguli2022red, perez2022red}, focuses on finding vulnerabilities \textit{within} the LLM. In contrast, CMatrix focuses on using LLMs \textit{for} red teaming while enforcing runtime safety properties. By incorporating the OWASP Top 10 for LLMs \cite{owaspllm} into our auto-reject patterns, we provide a runtime governance layer that ensures the agent remains within the bounds of its authorized mission.
 
-\section{Threat Model}
+\section{Threat Model} \label{sec:threat}
 CMatrix operates as a dual-purpose system: it is simultaneously a security assessment tool and a potential vector for unintended system damage if misconfigured or compromised. In this section, we formalize the security properties that CMatrix enforces and the adversaries it is designed to mitigate.
 
 \subsection{Adversary Model}
@@ -182,7 +185,7 @@ CMatrix is designed to enforce four primary security properties ($P1$--$P4$) thr
 \subsection{Residual Risks}
 While CMatrix provides a robust runtime governance layer, we acknowledge certain residual risks that are outside the current framework's TCB. Specifically, the system relies on the human operator to make informed decisions at the HITL gate; social engineering of the approver is not prevented. Additionally, while metadata filtering mitigates cross-session leakage, the vulnerability to sophisticated prompt injection within target documents remains an open research problem that we discuss in Section~IX.
 
-\section{System Architecture}
+\section{System Architecture} \label{sec:arch}
 CMatrix is architected as a modular, stateful orchestration framework designed to bridge the gap between high-level reasoning and low-level security tool execution. The system's core is built upon the LangGraph state machine substrate, which enables cyclic reasoning loops while maintaining strict state persistence.
 
 \subsection{System Overview}
@@ -202,10 +205,12 @@ The high-level architecture (Fig.~1) follows a master-worker paradigm. A central
     \node (router) [box, below=0.8cm of state, fill=orange!10] {Supervisor Router};
     
     % Agents
-    \node (net) [agent, below left=1cm and 0.5cm of router] {Network Agent};
-    \node (web) [agent, left=0.2cm of net] {Web Agent};
-    \node (auth) [agent, right=0.2cm of net] {Auth Agent};
-    \node (intel) [agent, right=0.2cm of auth] {VulnIntel Agent};
+    \node (net) [agent, below=1cm of router] {Network Agent};
+    \node (web) [agent, left=0.1cm of net] {Web Agent};
+    \node (api) [agent, left=0.1cm of web] {API Agent};
+    \node (auth) [agent, right=0.1cm of net] {Auth Agent};
+    \node (intel) [agent, right=0.1cm of auth] {VulnIntel};
+    \node (config) [agent, right=0.1cm of intel] {Config};
     
     % Storage
     \node (db) [box, right=1.5cm of orch, fill=gray!10, minimum width=2.5cm] {PostgreSQL / Qdrant};
@@ -215,12 +220,14 @@ The high-level architecture (Fig.~1) follows a master-worker paradigm. A central
     \draw [arrow] (state) -- (router);
     \draw [arrow] (router) -- (net);
     \draw [arrow] (router) -- (web);
+    \draw [arrow] (router) -- (api);
     \draw [arrow] (router) -- (auth);
     \draw [arrow] (router) -- (intel);
+    \draw [arrow] (router) -- (config);
     \draw [arrow] (orch) -- (db);
     
-    \draw [dashed] ($(web.north west)+(-0.2,0.2)$) rectangle ($(intel.south east)+(0.2,-0.2)$);
-    \node at ($(net.south)+(0,-0.8)$) {Specialized Agent Subgraphs (Workers)};
+    \draw [dashed] ($(api.north west)+(-0.1,0.2)$) rectangle ($(config.south east)+(0.1,-0.2)$);
+    \node at ($(net.south)+(0,-0.8)$) {Specialized Agent Subgraphs (6 Workers)};
 \end{tikzpicture}
 \caption{The CMatrix Multi-Agent Architecture. The Master Orchestrator coordinates specialized workers through a shared state and a deterministic router.}
 \label{fig:arch}
@@ -286,8 +293,8 @@ def supervisor_route(task: str, agents: List[Agent]):
 
 We utilize a deterministic lexicon approach...
 
-\begin{equation}
-\mathcal{C}(T, A) = \frac{\sum_{w \in \mathcal{L}_A} \text{freq}(w, T)}{\max_{i \in \mathcal{A}} |\mathcal{L}_i|}
+\begin{equation} \label{eq:confidence}
+\mathcal{C}(T, A) = \frac{\sum_{w \in \mathcal{L}_A} \text{freq}(w, T)}{\max_{i \in \mathcal{A}} |\mathcal{L}_i|}, \quad \text{where } \max_{i \in \mathcal{A}} |\mathcal{L}_i| > 0
 \end{equation}
 
 Based on the confidence scores across all agents, the supervisor selects one of three delegation strategies:
@@ -320,7 +327,7 @@ API & Cloud Security & postman, k6, owasp-zap \\
 
 This specialization prevents the "monolithic failure" pattern observed in single-agent systems.
 
-\section{Safety and Human-in-the-Loop Control}
+\section{Safety and Human-in-the-Loop Control} \label{sec:safety}
 Safety governance is the primary design constraint of CMatrix, addressing the critical risk of autonomous systems executing destructive or unauthorized payloads. We formally define the safety property $\mathcal{P}_{safe}$ for a tool invocation $(t, \theta)$ as:
 \begin{equation}
 \mathcal{P}_{safe}(t, \theta) \iff \neg (\text{match}(\theta, \mathcal{P})) \wedge (\text{Risk}(t) \geq \mathcal{R}_{crit} \implies \text{Approved}(t, \theta))
@@ -328,7 +335,7 @@ Safety governance is the primary design constraint of CMatrix, addressing the cr
 where $\mathcal{P}$ is the set of auto-reject patterns and $\text{Approved}$ is the human authorization predicate. CMatrix enforces this property through a multi-layered governance framework.
 
 \subsection{Risk Classification Taxonomy}
-CMatrix utilizes a formal risk taxonomy to categorize every tool in the agent's registry. Tools are assigned a \textit{RiskLevel} based on their potential impact on the target system's availability, integrity, and confidentiality.
+CMatrix utilizes a formal four-level risk taxonomy---\textit{Low}, \textit{Medium}, \textit{High}, and \textit{Critical}---to categorize every tool in the agent's registry. Tools are assigned a \textit{RiskLevel} based on their potential impact on the target system's availability, integrity, and confidentiality.
 
 \begin{equation}
 f_{safe}(t, \theta) = 
@@ -342,7 +349,9 @@ f_{safe}(t, \theta) =
 As defined in the safety gate logic above, tool invocations classified as \textit{Medium} or \textit{Low} (e.g., semantic search, port enumeration) execute silently to maintain operational velocity. In contrast, tools classified as \textit{High} or \textit{Critical} (e.g., active exploitation, brute-force attacks) trigger an immediate graph suspension.
 
 \subsection{Automated Rejection Guardrails and Obfuscation Resilience}
-To enforce property $P1$ (Non-Destruction), CMatrix maintains a set of eight global auto-rejection patterns, $\mathcal{P}$. These patterns utilize regular expressions to intercept categorically destructive commands. While we acknowledge that static regex patterns can be bypassed via sophisticated shell obfuscation (e.g., Base64 encoding or variable expansion), our architecture treats $\mathcal{P}$ as an \textit{initial performance filter} rather than a singular defense. Any command that successfully bypasses the deterministic regex filter but is classified as \textit{High} risk is still intercepted by the semantic HITL gate (P2). In our evaluation, the combined "Regex + Semantic HITL" stack demonstrated a 100\% defense-in-depth record against both direct and obfuscated adversarial payloads.
+To enforce property $P1$ (Non-Destruction), CMatrix maintains a set of eight global auto-rejection patterns, $\mathcal{P}$. These patterns utilize regular expressions to intercept categorically destructive commands. While we acknowledge that static regex patterns can be bypassed via sophisticated shell obfuscation (e.g., Base64 encoding or variable expansion), our architecture treats $\mathcal{P}$ as an \textit{initial performance filter} rather than a singular defense. Any command that successfully bypasses the deterministic regex filter but is classified as \textit{High} risk is still intercepted by the semantic HITL gate (P2). 
+
+For example, an adversarial payload such as \texttt{echo ZWNobyAiSGVsbG8iIHwgcm0gLXJmIC8K | base64 -d | sh} (which executes \texttt{rm -rf /}) would successfully bypass a simple \texttt{rm} regex filter. However, since the command utilizes the \texttt{shell_exec} tool, it is assigned a \textit{Critical} risk level by the taxonomy, triggering an immediate suspension and human review. In our evaluation, the combined "Regex + Semantic HITL" stack demonstrated a 100\% defense-in-depth record against both direct and obfuscated adversarial payloads.
 
 \subsection{The HITL Control Graph and Checkpointing}
 To enforce property $P2$ (Mandatory Oversight), we introduce a specialized node in the LangGraph control graph: the \textit{Approval Gate} (Fig.~3). 
@@ -380,7 +389,7 @@ The current state of the assessment---including the reasoning trace, the propose
 \subsection{Asynchronous Resumption}
 Unlike synchronous multi-agent systems where human presence is required in the execution loop, CMatrix supports asynchronous resumption. A human operator reviews the pending request via the CMatrix API, providing an \texttt{approve} or \texttt{reject} signal. Upon approval, the orchestrator restores the state from the last checkpoint and continues execution exactly from the point of interruption. This mechanism ensures that long-running red teaming campaigns can proceed safely without requiring 24/7 human monitoring, while maintaining a strict "human-on-the-loop" governance model for all high-impact actions.
 
-\section{Agentic Reasoning Stack}
+\section{Agentic Reasoning Stack} \label{sec:reasoning}
 To enable sophisticated, multi-step attack chaining, CMatrix integrates a multi-layered reasoning stack that extends beyond simple reactive loops. We implement domain-specialized adaptations of advanced reasoning paradigms to optimize for the unique constraints of security assessments.
 
 \subsection{Security-Specialized Tree of Thoughts (ToT)}
@@ -421,14 +430,14 @@ The inability to maintain state across sessions is a primary limitation of exist
 \label{fig:rag}
 \end{figure}
 
-Target-specific findings, tool outputs, and reasoning traces are indexed as vectorized chunks in Qdrant using the BGE-large embedding model.
+Target-specific findings, tool outputs, and reasoning traces are indexed as vectorized chunks in Qdrant using the BGE-large embedding model. To enforce property $P4$ (Scope Integrity), every chunk is tagged with an \texttt{engagement_id} metadata attribute. During the retrieval phase, the query is strictly filtered to only return chunks matching the current session ID, preventing cross-session or cross-tenant data leakage.
 
 To ensure high retrieval precision, we implement a two-stage retrieval process (Fig.~\ref{fig:rag}). After an initial vector similarity search with 4$\times$ over-fetching, the system utilizes a cross-encoder model (\texttt{bge-reranker-large}) to calculate a precise relevance score ($S_{final}$) for each candidate chunk. To prevent "context pollution," CMatrix implements a \textit{Temporal Context Pruning} mechanism, where retrieved chunks are weighted by their recency and their association with successful tool outcomes, ensuring that failed reasoning traces from previous sessions do not bias future strategic planning.
 
 \subsection{Self-Reflection and Iterative Refinement}
 CMatrix incorporates a self-reflection node that triggers after tool execution or delegation failures. The agent analyzes the discrepancy between the expected and observed results, identifies gaps in its reasoning, and generates a refined strategy for the next iteration. This verbal reinforcement loop, inspired by Reflexion \cite{reflexion}, allows the system to autonomously correct for tool misconfigurations or unexpected target behaviors without human intervention.
 
-\section{Experimental Evaluation}
+\section{Experimental Evaluation} \label{sec:eval}
 In this section, we present a comprehensive empirical evaluation of CMatrix across five research questions ($RQ1$--$RQ5$). Our goals are to validate the framework's safety properties, its autonomous capability relative to state-of-the-art baselines, and the effectiveness of its persistent memory and reasoning optimizations.
 
 \subsection{Experimental Setup}
@@ -522,7 +531,7 @@ To illustrate the operational synergy of CMatrix's contributions, we detail a re
 
 \textbf{Phase 3: Lateral Movement}. Following successful execution, the \textit{Config Agent} analyzed the local file system and identified hardcoded credentials for an internal SQL database. Utilizing the \textit{Sequential} delegation strategy, the Supervisor passed this context to the \textit{Auth Agent}, which successfully pivoted to the internal database, demonstrating a complete kill chain from external exposure to internal data access.
 
-\section{Discussion and Limitations}
+\section{Discussion and Limitations} \label{sec:discussion}
 CMatrix demonstrates that autonomous red teaming can be both capable and production-safe. However, several limitations remain that define the scope of its current TCB.
 
 \subsection{The Capability-Safety Tradeoff}
@@ -540,7 +549,7 @@ We identify three primary directions for the evolution of CMatrix. First, the in
 \section{Ethical Considerations}
 The development of autonomous offensive AI agents necessitates rigorous ethical oversight. CMatrix is designed exclusively for use in authorized red teaming engagements where written consent has been obtained. To mitigate dual-use risks, we implement mandatory audit logging (P3) and categorical auto-rejection (P1), ensuring that the system cannot be easily repurposed for uncontrolled or destructive activities. We responsibly disclose our findings to the security community to advance the state of AI safety governance.
 
-\section{Conclusion}
+\section{Conclusion} \label{sec:conclusion}
 In this paper, we presented CMatrix, a production-safe multi-agent framework for autonomous red teaming. By introducing a hierarchical HITL safety framework, a keyword-confidence supervisor router, and a persistent agentic RAG memory pipeline, we address the critical safety, memory, and specialization gaps that have previously hindered the deployment of autonomous security agents. 
 
 Our evaluation demonstrates that CMatrix achieves an 81\% ($\pm 3.4\%$) task completion rate on the NYU CTF Bench while maintaining an absolute safety record through its checkpoint-suspended approval mechanism. This performance validates the viability of "Governance-First Autonomy," where security agents can be delegated complex, multi-stage objectives without sacrificing operational control. Future work will investigate the transition to learned routing models and the integration of explainable safety justifications to further assist human operators in complex engagement environments. CMatrix provides a foundational architecture for the safe transition toward AI-orchestrated threat simulation in enterprise environments.
