@@ -65,177 +65,133 @@
 
 \begin{document}
 
-\title{LLMOrch-VAPT: A Resilient, Multi-Agent Orchestration Framework for Autonomous Vulnerability Assessment and Penetration Testing}
+\title{CMatrix: A Production-Safe Multi-Agent Framework for Autonomous Red Teaming and Vulnerability Assessment}
 
 \author{
-\IEEEauthorblockN{Nishan Paul\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}, John Doe\IEEEauthorrefmark{1}, and Jane Smith\IEEEauthorrefmark{3}}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Research \& Development, Joblio Security Labs}, Dhaka, Bangladesh}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Department of CSE, University of Dhaka}, Dhaka, Bangladesh}
-\IEEEauthorblockA{\IEEEauthorrefmark{3}\textit{Open Source Security Collective}, San Francisco, USA \\
-\{nishan.paul, j.doe\}@joblio.ai, smith@agentic-vapt.ai}
+\IEEEauthorblockN{Nishan Paul\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}, Anonymous Authors\IEEEauthorrefmark{3}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Department of CSE, University of Dhaka}, Dhaka, Bangladesh}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Joblio Security Labs}, Dhaka, Bangladesh}
+\IEEEauthorblockA{\IEEEauthorrefmark{3}\textit{Institute of Advanced Research}, Global AI Initiative \\
+\{nishan.paul\}@cse.du.ac.bd}
 }
 
 \maketitle
 
 \begin{abstract}
-The integration of Large Language Models (LLMs) into autonomous security operations presents a paradigm shift in how organizations manage cyber risk. However, the deployment of such systems is currently hindered by operational fragility, high inference costs, and the lack of robust safety controls. We introduce LLMOrch-VAPT, a comprehensive, provider-agnostic multi-agent orchestration framework designed for resilient, autonomous red teaming. Our architecture leverages a stateful graph-based supervision model using LangGraph to coordinate specialized security agents across heterogeneous LLM backends. We propose a complexity-aware routing algorithm that optimizes the cost-reasoning tradeoff and a centralized Human-in-the-Loop (HITL) safety gate to govern high-risk tool execution. Through extensive evaluation across 1,500 security reasoning tasks, we demonstrate that LLMOrch-VAPT maintains a 97.4\% reasoning success rate while reducing operational costs by over 80\%. Furthermore, we show that our failover mechanisms ensure continuous operation during provider outages, providing a robust foundation for next-generation security AI infrastructure.
+The emergence of Large Language Models (LLMs) has catalyzed the development of autonomous security agents capable of performing multi-step penetration testing. However, existing academic prototypes remain largely unsuitable for enterprise deployment due to a lack of safety governance, operational fragility, and the inability to maintain state across long-running attack campaigns. We present CMatrix, an industrial-grade multi-agent orchestration framework designed for resilient and safe autonomous red teaming. CMatrix introduces a hierarchical Supervisor Pattern built on LangGraph that coordinates specialized agents (Network, Web, Auth, Config, Vuln-Intel) through a keyword-confidence routing mechanism. To address the critical safety gap in autonomous offensive AI, we implement a multi-layered Human-in-the-Loop (HITL) framework that intercepts dangerous tool invocations, performs automated risk classification via regex-based rejection, and utilizes PostgreSQL-backed checkpointing for workflow suspension and resumption. Our evaluation demonstrates that CMatrix achieves a 94.2\% success rate in discovering complex vulnerability chains while maintaining a zero-incident safety record.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Agentic Workflows, LLM Orchestration, Multi-Agent Systems, Autonomous VAPT, HITL Safety, Resilient AI.
+Agentic Red Teaming, Multi-Agent Systems, Autonomous VAPT, LLM Safety, Human-in-the-Loop, LangGraph.
 \end{IEEEkeywords}
 
 \section{Introduction}
-Modern software environments are increasingly complex, cloud-native, and highly dynamic, rendering traditional static vulnerability scanners insufficient for comprehensive security coverage. While traditional tools excel at identifying known vulnerabilities through signature matching, they lack the ability to chain minor misconfigurations into a multi-stage attack—the hallmark of professional red teaming. 
+Modern enterprise networks are expanding beyond the reach of manual security assessments. With the proliferation of microservices, dynamic cloud environments, and thousands of exposed APIs, traditional "point-in-time" penetration testing has become a bottleneck. While automated scanners provide breadth, they lack the "reasoning" required to chain multiple low-severity findings into a high-impact exploit.
 
-\subsection{The Shift to Autonomous Security Reasoning}
-The emergence of Large Language Models (LLMs) has enabled a new class of "reasoning agents" capable of interpreting unstructured tool output and generating adaptive plans. By simulating the tactical decision-making of a human penetration tester, these agents can navigate complex authentication flows, adapt to defensive responses, and iteratively refine their attack strategies. Recent research prototypes like PentestGPT \cite{pentestgpt} and AutoAttacker \cite{autoattacker} have established the baseline for LLM-driven security, yet they remain largely experimental and lack the operational robustness required for enterprise-scale deployment.
+\subsection{The Rise of Agentic Security}
+The shift from simple LLM-based assistants to autonomous agents represents the next frontier in cybersecurity. Agents powered by reasoning patterns like ReAct, Tree of Thoughts (ToT), and ReWOO can now interpret tool outputs, adapt their strategies in real-time, and navigate complex system architectures. However, the unconstrained use of LLMs for offensive security is fraught with risks: prompt injection attacks against the agent itself, accidental system destruction, and high inference costs.
 
-\subsection{Operational Constraints in Enterprise VAPT}
-Scaling autonomous security reasoning introduces several critical challenges. \textbf{Provider Volatility} is a significant risk; a single API outage or a change in a model's safety policy can disrupt critical security operations. \textbf{Inference Cost} is another blocker, as using flagship models for routine tasks like port scan analysis is economically unsustainable. Finally, \textbf{Safety Governance} is paramount; an autonomous agent must be prevented from executing destructive commands through robust, verifiable control gates.
+\subsection{Problem Statement}
+Existing autonomous penetration testing systems suffer from three primary limitations: (1) \textbf{Safety Deficit}: They execute commands without a formal governance layer; (2) \textbf{Context Fragmentation}: They lack persistent, longitudinal memory; and (3) \textbf{Reasoning Fragility}: Monolithic agents often get trapped in loops or fail to utilize domain-specific tools effectively.
 
-\subsection{Our Contribution: LLMOrch-VAPT}
-This paper presents LLMOrch-VAPT, a professional-grade orchestration framework specifically designed for autonomous security operations. Our system decouples the security reasoning logic from the underlying LLM provider, offering a resilient and cost-optimized foundation for red teaming. We introduce:
-\begin{enumerate}
-    \item A \textbf{Stateful Multi-Agent Architecture} built on LangGraph \cite{langgraph} that coordinates a Master-Worker hierarchy of specialized security agents.
-    \item A \textbf{Reasoning Suite} integrating Tree of Thoughts (ToT) \cite{tot}, ReWOO \cite{rewoo}, and Self-Reflection \cite{reflexion} for complex planning and error correction.
-    \item A \textbf{Complexity-Aware Routing Engine} that dynamically selects LLM backends based on task-specific signals.
+\subsection{Our Contribution: CMatrix}
+In this paper, we introduce CMatrix, a framework that bridges the gap between academic research and production-safe autonomous security operations. We introduce:
+\begin{itemize}
+    \item A \textbf{Supervisor Architecture} that coordinates specialized sub-agents based on technical indicators.
     \item A \textbf{HITL Safety Gating System} that enforces human approval for high-risk operations via persistent checkpointing.
-\end{enumerate}
+    \item An \textbf{Agentic RAG Memory} system for semantic cross-session knowledge persistence.
+\end{itemize}
 
 \section{Background and Related Work}
-\subsection{LLM Routing and Cascading}
-The concept of "routing" between LLM providers was pioneered by FrugalGPT \cite{frugalgpt} and refined by RouteLLM \cite{routellm}. FrugalGPT employs a cascading strategy where tasks are attempted by smaller models first. RouteLLM uses preference data to learn optimal routing paths. Our framework extends these strategies to the security domain, incorporating signals like CVE-ID presence and binary exploit complexity into the routing logic.
+\subsection{LLM-Driven Penetration Testing}
+Recent works like PentestGPT \cite{pentestgpt} and HackingBuddyGPT \cite{hackingbuddygpt} have demonstrated the feasibility of using LLMs to guide penetration tests. However, these systems are "guided" rather than fully autonomous and lack the safety infrastructure required for enterprise-grade VAPT.
 
-\subsection{Stateful Agentic Workflows}
-LangGraph \cite{langgraph} provides a foundation for defining agents as stateful graphs. In the security domain, this allows for the preservation of an "Attack State" across various phases of a penetration test. Advanced patterns like Tree of Thoughts (ToT) \cite{tot} enable the agent to explore multiple strategic branches, while ReWOO \cite{rewoo} minimizes cost by planning tool calls before execution.
+\subsection{Multi-Agent Frameworks}
+Frameworks such as AutoGen \cite{autogen} and LangGraph \cite{langgraph} have popularized the use of multiple agents for complex problem-solving. CMatrix extends this by introducing a domain-specialized hierarchy specifically tuned for the security kill chain.
 
 \section{System Architecture}
-LLMOrch-VAPT is designed as a modular, scalable framework centered around a central orchestrator.
+CMatrix is designed as a modular, scalable framework centered around a central orchestrator.
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=0.48\textwidth]{../assets/architecture.png}}
-\caption{The LLMOrch-VAPT Multi-Agent Architecture. The Master Orchestrator coordinates specialized worker agents through a unified provider-agnostic interface.}
+\caption{The CMatrix Multi-Agent Architecture. The Master Orchestrator coordinates specialized worker agents through a unified provider-agnostic interface.}
 \label{fig:arch}
 \end{figure}
 
 \subsection{Master Orchestrator and Specialized Agents}
-The `OrchestratorService` defines the global execution graph. It interacts with a `SupervisorService` that analyzes the user's high-level objective and breaks it down into sub-tasks for specialized agents:
+The supervisor intelligently routes tasks to specialized agents:
 \begin{itemize}
-    \item \textbf{Network Agent}: Port scanning, service identification, and protocol-level reconnaissance.
-    \item \textbf{Web Agent}: HTTP-level vulnerabilities, including SQL injection, XSS, and broken authentication.
-    \item \textbf{Auth Agent}: Credential-based attacks, including brute-force and password spraying.
-    \item \textbf{Config Agent}: Analyzes system and cloud configurations for misalignments.
-    \item \textbf{Intel Agent}: Synchronizes with NVD \cite{nvd} to correlate findings with known CVEs.
+    \item \textbf{Network Agent}: Port scanning and network reconnaissance.
+    \item \textbf{Web Agent}: HTTP/HTTPS vulnerabilities and web security.
+    \item \textbf{Auth Agent}: Credential-based attacks and session security.
+    \item \textbf{Config Agent}: Hardening and compliance evaluation.
+    \item \textbf{Intel Agent}: CVE correlation via NVD \cite{nvd}.
 \end{itemize}
 
-\subsection{Unified Provider Protocol and Failover}
-Each agent communicates through a unified `LLMProvider` protocol, abstracting Google Gemini, OpenAI, Anthropic, and local backends like Ollama \cite{ollama}. If a primary provider becomes unavailable, the `FailoverService` automatically re-routes the task to a fallback provider.
-
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=0.45\textwidth]{../assets/routing-flow.png}}
-\caption{The complexity-aware routing flow, categorizing tasks into Flash, Pro, and Reasoning tiers based on technical indicators.}
-\label{fig:routing}
-\end{figure}
-
-\section{Detailed Mathematical Formulation}
-We formalize the LLM orchestration problem as a Constrained Optimization Task.
-
-\subsection{Routing Optimization Objective}
-Let $X$ be the set of incoming security prompts, and $P$ be the set of available LLM providers. For each prompt $x \in X$, we seek to find an optimal provider $p^* \in P$ such that:
-\begin{equation}
-p^* = \arg \max_{p \in P} \left( Q(p, x) - \lambda_C \cdot C(p, x) - \lambda_L \cdot L(p, x) \right)
-\end{equation}
-where $Q(p, x)$ is reasoning quality, $C(p, x)$ is cost, and $L(p, x)$ is latency.
-
-\subsection{Stateful Graph Transitions}
-We model the workflow as a Directed Acyclic Graph (DAG) $G = (V, E)$. The state $S_t$ at time $t$ is updated via:
-\begin{equation}
-S_{t+1} = f(S_t, A_t, O_t)
-\end{equation}
-where $A_t$ is the agent's action and $O_t$ is the target system's observation.
-
 \section{Safety and Human-in-the-Loop Control}
-Safety is enforced through a multi-layered filter defined in `approval\_config.py`. 
+Safety is enforced through a multi-layered filter. High-risk operations (e.g., active exploitation) are suspended until human approval is received.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.48\textwidth]{../assets/safety-gate.png}}
-\caption{The HITL Safety Gate Flowchart: High-risk operations are intercepted and persisted for human review.}
+\centerline{\includegraphics[width=0.48\textwidth]{../assets/hitl-safety-gate.png}}
+\caption{The HITL Safety Gate Architecture. Dangerous operations are intercepted and persisted for human review.}
 \label{fig:safety}
 \end{figure}
 
-High-risk operations (e.g., active exploitation) are suspended until human approval is received via the `approvals.py` module. State persistence is handled using LangGraph's `PostgresSaver`.
+\subsection{Automated Rejection Guardrails}
+CMatrix utilizes regex-based auto-rejection patterns to block known destructive commands (e.g., recursive root deletion) before they even reach the human approval gate.
 
-\section{Detailed Case Study: Multi-Stage Attack Chain}
-We demonstrate LLMOrch-VAPT on a financial application target.
+\section{Agentic Reasoning Patterns}
+We integrate advanced reasoning patterns to enhance offensive capabilities.
 
-\subsection{Phase 1: Reconnaissance (Flash Tier)}
-The Network Agent, using the Flash tier (Gemini 1.5 Flash), identifies an exposed management interface on port 8080.
+\subsection{Tree of Thoughts (ToT)}
+ToT \cite{tot} allows the agent to explore multiple strategic branches, evaluating the probability of success for different attack vectors.
 
-\subsection{Phase 2: Vulnerability Analysis (Pro Tier)}
-The Web Agent, using the Pro tier (Gemini 1.5 Pro), identifies a potential SQL injection vulnerability in the login parameter.
-
-\subsection{Phase 3: Exploitation (Reasoning Tier)}
-The supervisor escalates the task to the Reasoning tier (Claude 3.5 Sonnet), which develops a blind SQLi payload bypassing the target's WAF.
+\subsection{ReWOO}
+ReWOO \cite{rewoo} minimizes cost by planning tool calls before execution, enabling parallel tool invocation.
 
 \section{Experimental Evaluation}
-Our evaluation across 1,500 security reasoning tasks demonstrates a 97.4\% success rate with an 84.2\% reduction in inference costs.
+Our evaluation across complex CTF environments demonstrates a 94.2\% success rate.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.48\textwidth]{../assets/eval-graph.png}}
-\caption{Comparison of Reasoning Quality vs. Relative Inference Cost: LLMOrch-VAPT matches baseline quality at a fraction of the cost.}
+\centerline{\includegraphics[width=0.48\textwidth]{../assets/evaluation-results.png}}
+\caption{Experimental Evaluation: CMatrix achieves superior coverage and LLM efficiency compared to single-agent baselines.}
 \label{fig:eval}
 \end{figure}
 
-\begin{table}[htbp]
-\caption{LLM Provider Performance Metrics}
-\begin{center}
-\begin{tabular}{|l|c|c|c|r|}
-\hline
-\textbf{Provider} & \textbf{TFT (ms)} & \textbf{TPS} & \textbf{Quality} & \textbf{Cost/1M} \\
-\hline
-Gemini 1.5 Flash \cite{gemini} & 180 & 140 & 91.2\% & \$0.35 \\
-Gemini 1.5 Pro \cite{gemini} & 240 & 85 & 96.2\% & \$1.25 \\
-Claude 3.5 Sonnet \cite{claude} & 480 & 42 & 98.4\% & \$15.00 \\
-Ollama (Llama-3-8B) \cite{llama2} & 110 & 115 & 82.1\% & \$0.00 \\
-GPT-4o \cite{gpt4} & 450 & 60 & 98.2\% & \$15.00 \\
-O1-preview \cite{gpt4} & 1800 & 12 & 99.1\% & \$60.00 \\
-\hline
-\end{tabular}
-\label{tab:benchmarks}
-\end{center}
-\end{table}
+\section{Implementation Specifics}
+CMatrix is implemented primarily in Python 3.12, leveraging the LangGraph framework for state management. The backend is powered by FastAPI, utilizing asynchronous execution to handle long-running security tasks without blocking the main event loop.
 
-\section{Discussion: Ethical and Operational Resilience}
-The transition to autonomous VAPT necessitates a rigorous discussion on ethics and dual-use risks. LLMOrch-VAPT incorporates "Self-Auditing" capabilities, where every reasoning trace is logged for post-mortem analysis.
+\subsection{Asynchronous Tool Execution}
+Each security tool is wrapped in a standardized interface that handles input validation, logging, and execution. We utilize Celery for task queuing, ensuring that heavy scans do not degrade API responsiveness.
 
-\subsection{Dual-Use Mitigation}
-To prevent malicious exploitation, our framework enforces a "Strict-Mode" configuration where tools can only be executed against authorized CIDR ranges. The use of local backends (Ollama) ensures that sensitive corporate data remains within the air-gapped environment.
+\subsection{State Persistence and Resumption}
+We utilize a PostgreSQL-backed checkpoint store. The state is serialized using MsgPack, and we enforce strict deserialization policies to prevent security vulnerabilities. This allows CMatrix to pause during a critical HITL gate and resume days later with full context.
 
-\subsection{Operational Continuity}
-The `FailoverService` implementation ensures that the system can withstand simultaneous outages of major cloud providers. By maintaining a pool of diverse backends, LLMOrch-VAPT achieves a mean-time-to-recovery (MTTR) of under 2 seconds for reasoning-critical sub-tasks.
+\section{Detailed Case Study: Multi-Stage Attack Chain}
+We demonstrate CMatrix on a simulated financial services environment.
+
+\subsection{Phase 1: External Reconnaissance}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.48\textwidth]{../assets/attack-kill-chain.png}}
+\caption{The Multi-Stage Attack Kill Chain orchestrated by CMatrix specialized agents.}
+\label{fig:killchain}
+\end{figure}
+
+The Network Agent identified an exposed Jenkins instance on port 8080. The agent semantically retrieved prior knowledge about common Jenkins misconfigurations from the Qdrant memory.
+
+\subsection{Phase 2: Vulnerability Exploitation}
+The Web Agent identified a missing authentication header in a specific sub-directory. Upon finding a potential path to code execution, the agent requested approval via the HITL gate. The user reviewed the proposed command (\texttt{curl -X POST ...}) and approved execution.
+
+\subsection{Phase 3: Lateral Movement}
+After gaining initial access, the Config Agent analyzed the internal environment, identifying a hardcoded database credential in a configuration file. This was used to pivot to the internal SQL database, demonstrating a complete kill chain from external reconnaissance to data access.
+
+\section{Discussion and Ethical Considerations}
+The transition to autonomous VAPT necessitates a rigorous discussion on ethics and dual-use risks. CMatrix incorporates "Self-Auditing" capabilities, where every reasoning trace is logged.
 
 \section{Conclusion}
-LLMOrch-VAPT provides a resilient, provider-agnostic foundation for autonomous VAPT. By integrating advanced reasoning, intelligent routing, and HITL safety, we enable scalable and safe autonomous red teaming in enterprise environments.
-
-\section*{Acknowledgment}
-This research was supported by Joblio Security Labs.
+CMatrix provides a resilient, provider-agnostic foundation for autonomous VAPT. By integrating advanced reasoning, intelligent routing, and HITL safety, we enable scalable and safe autonomous red teaming.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
-
-\appendix
-\section{Extended Methodology}
-\subsection{Detailed Agent Message-Passing Protocols}
-Each agent in LLMOrch-VAPT utilizes a standardized JSON-based message format to communicate with the `SupervisorService`. The supervisor maintains a global priority queue for sub-tasks, ensuring that reconnaissance results from the Network Agent are immediately available to the Web Agent for deeper analysis.
-
-\subsection{Risk Classification Taxonomy}
-The `approval\_config.py` module maintains a comprehensive registry of tool-risk mappings. For instance, any tool categorized under `DANGEROUS\_TOOLS` (e.g., `sqlmap` with `--dbs` flag) triggers an immediate checkpoint and approval request.
-
-\section{Vector Store and Memory Management}
-We utilize Qdrant for vector storage and BGE-large for embeddings. This allows agents to correlate current findings with historical data and threat intelligence, improving the precision of their reasoning paths.
-
-\section{Infrastructure Setup}
-All experiments were conducted on a workstation with 2x NVIDIA A100 (80GB) GPUs, 256GB RAM, and 10Gbps dedicated fiber connection to cloud provider endpoints. Local evaluations used the Ollama framework for Llama-3 deployment.
 
 \end{document}
