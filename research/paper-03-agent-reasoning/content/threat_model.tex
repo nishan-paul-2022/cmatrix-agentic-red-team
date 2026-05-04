@@ -1,0 +1,24 @@
+\section{Threat Model}
+
+In this section, we formalize the adversarial environment and trust boundaries within which CMatrix operates. Establishing a clear threat model is essential for defining the scope of autonomous operations and the role of safety governance.
+
+\subsection{Adversary Profile and Capabilities}
+We model the adversary as an AI-augmented red team or an autonomous security agent. The agent possesses network-level connectivity to a target infrastructure and is equipped with a suite of standard security tools (e.g., Nmap, Metasploit, SQLmap). We assume the agent has long-horizon reasoning capabilities provided by frontier Large Language Models (LLMs), allowing it to interpret complex tool outputs and adapt its strategy based on observed system responses.
+
+\subsection{Adversary Goals and Assumptions}
+The primary goal of the agent is the proactive identification and validation of technical vulnerabilities (e.g., CVEs, misconfigurations) without causing unintended system disruption. We assume:
+\begin{itemize}
+    \item The agent operates within a containerized "execution spine" with restricted network egress.
+    \item The agent does not possess pre-existing knowledge of the target's internal topology.
+    \item The target infrastructure may employ standard defensive measures such as IDS/IPS and Web Application Firewalls (WAF).
+\end{itemize}
+
+\subsection{Trust Boundary and Safety Governance}
+As illustrated in Fig.~\ref{fig:threat-model}, we establish a formal \textbf{Trust Boundary} between the Reasoning Suite and the Target Infrastructure. This boundary is mediated by a risk-aware Human-in-the-Loop (HITL) safety gate.
+\begin{itemize}
+    \item \textbf{Internal Zone}: Contains the Orchestrator, ToT Strategy Selector, and ReWOO Planner. Operations in this zone are purely cognitive and do not interact with the target.
+    \item \textbf{External Zone}: Contains the target network and the actual tool execution environment.
+\end{itemize}
+The safety gate enforces a risk-based policy $P$, where every proposed tool action $A$ is assigned a risk score $R_a(A)$. If $R_a(A)$ exceeds the vulnerability threshold, the orchestration is suspended, and human authorization is required before any network side-effects occur.
+
+\input{../assets/figure-01-threat-model}

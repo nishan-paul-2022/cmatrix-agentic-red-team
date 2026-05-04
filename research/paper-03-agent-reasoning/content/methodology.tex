@@ -1,26 +1,34 @@
-\section{Methodology}
+\section{System Design and Methodology}
 
-The CMatrix framework is designed to transform high-level security objectives into safe, executable, and self-correcting attack chains. This section details our formal threat model, system architecture, and the composite reasoning orchestration algorithm.
+The CMatrix framework is engineered to address the operational fragility of standard agentic loops in security contexts. Our methodology centers on the composition of three advanced reasoning patterns—ToT, ReWOO, and Reflexion—into a unified orchestration pipeline.
 
-\subsection{Threat Model and Security Boundaries}
-We define a formal threat model where the adversary is an AI-augmented red team agent tasked with vulnerability discovery. As illustrated in Fig.~\ref{fig:threat-model}, we establish a \textbf{Trust Boundary} around the Orchestrator and the HITL Safety Gate. We assume the agent has network-level access to the target infrastructure but is constrained by a risk-aware policy $P$ that intercepts any command with a disruption score above a defined threshold.
-
-\input{../assets/figure-01-threat-model}
-
-\subsection{System Architecture}
-The technical architecture of CMatrix follows a "Master-Worker" paradigm implemented using LangGraph's stateful state machine. As shown in Fig.~\ref{fig:system-architecture}, the \textbf{Orchestrator} coordinates specialized reasoning services and delegates operational tasks to a registry of worker agents via a Celery background task queue. State persistence is maintained in Redis for ephemeral reasoning traces and PostgreSQL for permanent audit logs.
+\subsection{Stateful Multi-Agent Orchestration}
+We implement the framework as a stateful directed acyclic graph (DAG) using LangGraph. The \textbf{Master Orchestrator} maintains the global state $S_t$, which includes the original objective, the current strategy, the pending blueprint, and the history of tool observations. This stateful design allows for persistent checkpointing, which is critical for handling high-latency security tasks and HITL interception events.
 
 \input{../assets/figure-02-system-architecture}
 
-\subsection{Composite Reasoning Pipeline}
-The core of our methodology is the sequential composition of three advanced reasoning patterns, as detailed in Alg.~\ref{alg:composite-reasoning}. 
+\subsection{Strategic Lookahead via Tree of Thoughts (ToT)}
+To ensure the agent selects the optimal approach for a given objective, we implement a Tree of Thoughts (ToT) search at the initiation of the attack chain. 
+\begin{itemize}
+    \item \textbf{Search Space}: The system generates $N$ candidate strategies (e.g., \texttt{Fast Recon}, \texttt{Stealthy Pivot}, \texttt{Comprehensive Audit}).
+    \item \textbf{Heuristic Evaluation}: Each strategy is evaluated against five domain-specific criteria: Speed, Thoroughness, Stealth, Resource Cost, and Probability of Success.
+    \item \textbf{Optimal Selection}: Using a weighted scoring function $V_s = \sum w_h \cdot v_h$, the orchestrator selects the strategy that best aligns with the user's risk-reward profile.
+\end{itemize}
+
+\subsection{Dependency-Aware Planning via ReWOO}
+Once a strategy is selected, the **ReWOO Planner** generates a decoupled blueprint of tool actions. Unlike standard ReAct loops that interleave planning and execution, ReWOO plans $M$ steps ahead by predicting tool dependencies using symbolic variables (e.g., \texttt{#E1} for port scan results).
+\begin{itemize}
+    \item \textbf{Efficiency}: By batching tool calls, we significantly reduce the number of redundant LLM API invocations.
+    \item \textbf{Parallelization}: Independent tool branches (e.g., scanning two different subnets) are identified and can be executed in parallel by specialized worker agents.
+\end{itemize}
+
+\subsection{Closed-Loop Executable Reflection}
+The final layer of our reasoning suite is the \textbf{Reflexion Engine}. After the execution of a blueprint, the engine performs a "Gap Analysis" by comparing the observed target responses against the initial objective.
+\begin{itemize}
+    \item \textbf{Structured Critique}: The engine identifies missed attack vectors or ambiguous tool outputs.
+    \item \textbf{Actionable Improvement}: Crucially, the engine produces structured \texttt{ImprovementAction} objects. These objects contain specific tool parameters and justifications, which are then fed back into the ReWOO planner for a corrective iteration.
+\end{itemize}
+This "Closed-Loop" design (Alg.~\ref{alg:composite-reasoning}) ensures that the agent autonomously corrects its own reasoning errors, a feature currently absent in purely linear VAPT tools.
 
 \input{../assets/algorithm-01-composite-reasoning}
-
-\begin{enumerate}
-    \item \textbf{Strategy Selection (ToT)}: The system first performs a Tree of Thoughts search to evaluate multiple attack strategies (e.g., Stealthy vs. Aggressive) against five domain-specific heuristics.
-    \item \textbf{Blueprint Planning (ReWOO)}: Based on the selected strategy, the ReWOO planner generates a dependency-aware blueprint. This reduces token overhead by batches of tool calls before execution.
-    \item \textbf{Executable Reflection}: After tool execution, the Reflexion engine performs a gap analysis on the observations. Crucially, it converts identified weaknesses into structured \texttt{ImprovementAction} objects that trigger iterative planning updates (Fig.~\ref{fig:reasoning-flow}).
-\end{enumerate}
-
 \input{../assets/figure-03-reasoning-flow}
