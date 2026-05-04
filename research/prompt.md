@@ -170,7 +170,7 @@ Maintain a running file `assets/ASSET-INDEX.md` updated after every sub-step tha
 #### SUB-STEP 1b — Paper Read
 
 **Task:**
-- Read `paper-01-red-teaming/` completely — every file, every sentence.
+- Read `paper-03-agent-reasoning/` completely — every file, every sentence.
 - Use `[STEP 1a]` artifact as context.
 
 **Output:**
@@ -187,7 +187,7 @@ Maintain a running file `assets/ASSET-INDEX.md` updated after every sub-step tha
 **Artifact:** `[STEP 1b] — Paper Read — OUTPUT ARTIFACT`
 
 **Checklist:**
-- [ ] Every file inside `paper-01-red-teaming/` has been read
+- [ ] Every file inside `paper-03-agent-reasoning/` has been read
 - [ ] Every section of the paper is summarized
 - [ ] All claims made in the paper are listed
 - [ ] All citations in the paper are listed
@@ -822,7 +822,7 @@ For each equation:
 
 **Output:**
 ```
-paper-01-red-teaming/
+paper-03-agent-reasoning/
 ├── main.tex                  ← master file
 ├── assets/
 │   ├── ASSET-INDEX.md
