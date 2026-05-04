@@ -65,7 +65,7 @@
 
 \begin{document}
 
-\title{LLMOrch-VAPT: A Resilient, Multi-Agent Orchestration Framework for Autonomous Vulnerability Assessment and Penetration Testing}
+\title{Composable Reasoning Patterns for Autonomous Red Teaming: A Multi-Agent Orchestration Framework with HITL Safety Governance}
 
 \author{
 \IEEEauthorblockN{Nishan Paul\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}, John Doe\IEEEauthorrefmark{1}, and Jane Smith\IEEEauthorrefmark{3}}
@@ -77,31 +77,13 @@
 
 \maketitle
 
-\begin{abstract}
-The integration of Large Language Models (LLMs) into autonomous security operations presents a paradigm shift in how organizations manage cyber risk. However, the deployment of such systems is currently hindered by operational fragility, high inference costs, and the lack of robust safety controls. We introduce LLMOrch-VAPT, a comprehensive, provider-agnostic multi-agent orchestration framework designed for resilient, autonomous red teaming. Our architecture leverages a stateful graph-based supervision model using LangGraph to coordinate specialized security agents across heterogeneous LLM backends. We propose a complexity-aware routing algorithm that optimizes the cost-reasoning tradeoff and a centralized Human-in-the-Loop (HITL) safety gate to govern high-risk tool execution. Through extensive evaluation across 1,500 security reasoning tasks, we demonstrate that LLMOrch-VAPT maintains a 97.4\% reasoning success rate while reducing operational costs by over 80\%. Furthermore, we show that our failover mechanisms ensure continuous operation during provider outages, providing a robust foundation for next-generation security AI infrastructure.
-\end{abstract}
+\input{abstract}
 
 \begin{IEEEkeywords}
-Agentic Workflows, LLM Orchestration, Multi-Agent Systems, Autonomous VAPT, HITL Safety, Resilient AI.
+Agentic Workflows, LLM Orchestration, Multi-Agent Systems, Autonomous VAPT, HITL Safety, Tree of Thoughts, ReWOO.
 \end{IEEEkeywords}
 
-\section{Introduction}
-Modern software environments are increasingly complex, cloud-native, and highly dynamic, rendering traditional static vulnerability scanners insufficient for comprehensive security coverage. While traditional tools excel at identifying known vulnerabilities through signature matching, they lack the ability to chain minor misconfigurations into a multi-stage attack—the hallmark of professional red teaming. 
-
-\subsection{The Shift to Autonomous Security Reasoning}
-The emergence of Large Language Models (LLMs) has enabled a new class of "reasoning agents" capable of interpreting unstructured tool output and generating adaptive plans. By simulating the tactical decision-making of a human penetration tester, these agents can navigate complex authentication flows, adapt to defensive responses, and iteratively refine their attack strategies. Recent research prototypes like PentestGPT \cite{pentestgpt} and AutoAttacker \cite{autoattacker} have established the baseline for LLM-driven security, yet they remain largely experimental and lack the operational robustness required for enterprise-scale deployment.
-
-\subsection{Operational Constraints in Enterprise VAPT}
-Scaling autonomous security reasoning introduces several critical challenges. \textbf{Provider Volatility} is a significant risk; a single API outage or a change in a model's safety policy can disrupt critical security operations. \textbf{Inference Cost} is another blocker, as using flagship models for routine tasks like port scan analysis is economically unsustainable. Finally, \textbf{Safety Governance} is paramount; an autonomous agent must be prevented from executing destructive commands through robust, verifiable control gates.
-
-\subsection{Our Contribution: LLMOrch-VAPT}
-This paper presents LLMOrch-VAPT, a professional-grade orchestration framework specifically designed for autonomous security operations. Our system decouples the security reasoning logic from the underlying LLM provider, offering a resilient and cost-optimized foundation for red teaming. We introduce:
-\begin{enumerate}
-    \item A \textbf{Stateful Multi-Agent Architecture} built on LangGraph \cite{langgraph} that coordinates a Master-Worker hierarchy of specialized security agents.
-    \item A \textbf{Reasoning Suite} integrating Tree of Thoughts (ToT) \cite{tot}, ReWOO \cite{rewoo}, and Self-Reflection \cite{reflexion} for complex planning and error correction.
-    \item A \textbf{Complexity-Aware Routing Engine} that dynamically selects LLM backends based on task-specific signals.
-    \item A \textbf{HITL Safety Gating System} that enforces human approval for high-risk operations via persistent checkpointing.
-\end{enumerate}
+\input{introduction}
 
 \section{Background and Related Work}
 \subsection{LLM Routing and Cascading}

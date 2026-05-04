@@ -1,0 +1,19 @@
+\section{Introduction}
+
+The increasing complexity of modern cloud-native infrastructures has outpaced the capabilities of traditional static vulnerability scanners. While these tools excel at identifying known software flaws through signature matching, they are fundamentally limited in their ability to simulate "hands-on-keyboard" adversaries who chain minor misconfigurations into multi-stage attack vectors. The emergence of Large Language Models (LLMs) offers a potential solution, enabling autonomous agents to interpret unstructured tool outputs and generate adaptive strategies in real-time.
+
+\subsection{The Challenge of Long-Horizon Security Reasoning}
+Despite their potential, current LLM-driven security agents—such as PentestGPT~\cite{pentestgpt} and AutoAttacker~\cite{autoattacker}—face critical operational hurdles when applied to enterprise-scale environments. First, standard interleaved reasoning patterns like ReAct suffer from \textit{reasoning drift} and high latency during long-horizon tasks, where each tool observation necessitates a full model re-invocation. Second, existing agents often lack a \textit{self-correction loop} that translates verbal reflection into actionable tool re-execution, leading to missed vulnerabilities in complex attack surfaces. Finally, the autonomous nature of these agents introduces significant \textit{operational risk}, necessitating a formal governance model that can intercept dangerous commands without disrupting the overall assessment flow.
+
+\subsection{Our Contribution: The CMatrix Framework}
+To address these challenges, we introduce \textbf{CMatrix}, a stateful, multi-agent orchestration framework designed for resilient and efficient autonomous red teaming. Our framework moves beyond simple agentic loops by implementing a \textbf{composite reasoning suite} that leverages the strengths of multiple specialized reasoning patterns. Specifically, we integrate Tree of Thoughts (ToT)~\cite{tot} for deliberate strategy selection, ReWOO~\cite{rewoo} for decoupled, dependency-aware planning, and a novel \textbf{executable reflection} engine that converts critique into structured improvement actions.
+
+The core contributions of this work are as follows:
+\begin{itemize}
+    \item \textbf{Composite Reasoning Architecture:} We present a framework that unifies ToT, ReWOO, and Reflexion into a sequential orchestration pipeline, enabling strategic lookahead and high-efficiency planning for security tasks.
+    \item \textbf{Closed-Loop Executable Reflection:} We introduce a structured self-critique mechanism that translates natural language reflections into formal tool re-execution, ensuring thorough coverage of the target attack surface.
+    \item \textbf{Risk-Aware HITL Safety Governance:} We integrate a formal risk taxonomy directly into the stateful orchestration loop, providing a verifiable trust boundary that intercepts high-risk operations for human authorization.
+    \item \textbf{Empirical Evaluation:} We provide the first systematic study of advanced reasoning pattern composition in applied cybersecurity, demonstrating a 97.4\% success rate and a 2.42$\times$ reduction in token overhead.
+\end{itemize}
+
+The remainder of this paper is organized as follows: Section II discusses related work in LLM reasoning and security. Section III details the system architecture and the formal orchestration algorithm. Section IV describes our experimental protocol and benchmarks. Section V presents our results and ablation studies, followed by a discussion in Section VI.
