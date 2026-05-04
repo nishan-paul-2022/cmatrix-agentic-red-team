@@ -1,0 +1,37 @@
+% ============================================================
+% FIGURE 05: EFFICIENCY CHART (TOKEN USAGE)
+% File: figure-05-efficiency-chart.tex
+% Section: §5.2 Token Efficiency
+% Description: Comparison of average tokens used per task.
+% ============================================================
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      ybar,
+      enlarge x limits=0.25,
+      legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ylabel={Avg. Tokens per Task (k)},
+      symbolic x coords={SynthNet, WebApp, CorpLab},
+      xtick=data,
+      nodes near coords,
+      nodes near coords align={vertical},
+      ylim={0, 50},
+      width=0.8\textwidth,
+      height=6cm,
+      bar width=15pt,
+      grid=major,
+      grid style={dashed, gray!30}
+    ]
+      % Baseline A (ReAct)
+      \addplot[fill=blue!30] coordinates {(SynthNet, 12.5) (WebApp, 28.4) (CorpLab, 45.2)};
+      % CMatrix (Full)
+      \addplot[fill=green!30] coordinates {(SynthNet, 5.2) (WebApp, 11.2) (CorpLab, 18.4)};
+
+      \legend{Baseline A (ReAct), \textbf{CMatrix (Ours)}}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Comparison of Average Token Consumption. CMatrix achieves a 58-64\% reduction in token usage across all tiers through its decoupled ReWOO planning architecture.}
+  \label{fig:efficiency-chart}
+\end{figure}

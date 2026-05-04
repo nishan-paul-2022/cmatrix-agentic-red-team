@@ -1,0 +1,41 @@
+% ============================================================
+% FIGURE 03: REASONING FLOW
+% File: figure-03-reasoning-flow.tex
+% Section: §3.3 Composite Reasoning
+% Description: Detailed flow of the Strategy -> Planning -> Execution -> Reflection loop.
+% ============================================================
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    node distance=1.8cm,
+    font=\small,
+    phase/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=blue!5, thick},
+    data/.style={ellipse, draw, fill=yellow!10, minimum width=2cm},
+    arrow/.style={->, >=stealth, thick}
+  ]
+
+    % Nodes
+    \node (obj) [data] {Objective $O$};
+    \node (tot) [phase, below of=obj] {\textbf{ToT Strategy Selection} \\ (Search \& Heuristics)};
+    \node (rewoo) [phase, below of=tot] {\textbf{ReWOO Planning} \\ (Decoupled Blueprint)};
+    \node (exec) [phase, below of=rewoo] {\textbf{Execution \& HITL} \\ (Specialized Agents)};
+    \node (refl) [phase, below of=exec] {\textbf{Reflexion Engine} \\ (Gap Analysis)};
+
+    % Flows
+    \draw [arrow] (obj) -- (tot);
+    \draw [arrow] (tot) -- node[right] {Strategy $S$} (rewoo);
+    \draw [arrow] (rewoo) -- node[right] {Blueprint $B$} (exec);
+    \draw [arrow] (exec) -- node[right] {Observations $Obs$} (refl);
+
+    % Loop back
+    \draw [arrow, red!70] (refl.west) .. controls +(-2,0) and +(-2,0) .. node[left, align=center] {Corrective \\ Actions $I$} (rewoo.west);
+
+    % Exit
+    \node (rep) [data, right of=refl, xshift=2.5cm] {Final Report $R$};
+    \draw [arrow] (refl) -- node[above] {Success} (rep);
+
+  \end{tikzpicture}
+  \caption{Composite Reasoning Flow. The process initiates with ToT strategy selection, followed by ReWOO blueprint generation. The Reflexion engine identifies gaps in observations and triggers iterative planning updates until the objective is met.}
+  \label{fig:reasoning-flow}
+\end{figure}
