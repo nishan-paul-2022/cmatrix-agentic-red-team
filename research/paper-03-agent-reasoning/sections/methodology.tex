@@ -1,34 +1,27 @@
 \section{System Design and Methodology}
 
-The CMatrix framework is engineered to address the operational fragility of standard agentic loops in security contexts. Our methodology centers on the composition of three advanced reasoning patterns—ToT, ReWOO, and Reflexion—into a unified orchestration pipeline.
+The CMatrix framework is engineered to address the operational fragility of standard agentic loops in security contexts. Our methodology centers on the property of \textbf{Governed Autonomy}, which we define as the architectural state where reasoning and planning are fully autonomous, yet all network-side effects are mediated by a verifiable security policy. We achieve this through the composition of three advanced reasoning patterns—ToT, ReWOO, and Reflexion—into a unified, stateful orchestration pipeline.
 
 \subsection{Stateful Multi-Agent Orchestration}
-We implement the framework as a stateful directed acyclic graph (DAG) using LangGraph. The \textbf{Master Orchestrator} maintains the global state $S_t$, which includes the original objective, the current strategy, the pending blueprint, and the history of tool observations. This stateful design allows for persistent checkpointing, which is critical for handling high-latency security tasks and HITL interception events.
+We implement the framework as a stateful directed acyclic graph (DAG) using LangGraph. The \textbf{Master Orchestrator} maintains the global state $S_t$, which includes the original objective, the current strategy, and the execution history. 
+To mitigate \textbf{Context Pollution} in long-horizon tasks, we implement a \textbf{Sliding Window Observation Summarizer}. When the history of observations $O$ exceeds 10,000 tokens, the orchestrator invokes a summarization service to distill the technical findings (e.g., open ports, CVE IDs) while discarding verbose tool output, thus preserving the core reasoning context for subsequent iterations.
 
 \input{assets/figure-02-system-architecture}
 
 \subsection{Strategic Lookahead via Tree of Thoughts (ToT)}
-To ensure the agent selects the optimal approach for a given objective, we implement a Tree of Thoughts (ToT) search at the initiation of the attack chain. 
-\begin{itemize}
-    \item \textbf{Search Space}: The system generates $N$ candidate strategies (e.g., \texttt{Fast Recon}, \texttt{Stealthy Pivot}, \texttt{Comprehensive Audit}).
-    \item \textbf{Heuristic Evaluation}: Each strategy is evaluated against five domain-specific criteria: Speed, Thoroughness, Stealth, Resource Cost, and Probability of Success.
-    \item \textbf{Optimal Selection}: Using a weighted scoring function $V_s = \sum w_h \cdot v_h$, the orchestrator selects the strategy that best aligns with the user's risk-reward profile.
-\end{itemize}
+To ensure the agent selects the optimal approach for a given objective, we implement a Tree of Thoughts (ToT) search with a branching factor of $N=5$. 
+The system evaluates candidate strategies against five domain-specific heuristics: Speed ($v_1$), Thoroughness ($v_2$), Stealth ($v_3$), Resource Cost ($v_4$), and Probability of Success ($v_5$). The strategy score $V_s$ is formalized as:
+\begin{equation}
+\label{eq:strategy-score}
+V_s = \sum_{i=1}^{5} w_i \cdot \bar{v}_i
+\end{equation}
+where $\bar{v}_i$ represents the \textbf{Min-Max normalized} value of the $i$-th heuristic, and $w_i$ are configurable weights (default: $w_{thorough}=0.4, w_{stealth}=0.3$). This normalization ensures that disparate metrics like latency and success probability are comparable across a unified [0, 1] range.
 
 \subsection{Dependency-Aware Planning via ReWOO}
-Once a strategy is selected, the **ReWOO Planner** generates a decoupled blueprint of tool actions. Unlike standard ReAct loops that interleave planning and execution, ReWOO plans $M$ steps ahead by predicting tool dependencies using symbolic variables (e.g., \texttt{#E1} for port scan results).
-\begin{itemize}
-    \item \textbf{Efficiency}: By batching tool calls, we significantly reduce the number of redundant LLM API invocations.
-    \item \textbf{Parallelization}: Independent tool branches (e.g., scanning two different subnets) are identified and can be executed in parallel by specialized worker agents.
-\end{itemize}
+Based on the selected strategy, the **ReWOO Planner** generates a decoupled blueprint. We formalize tool observations as symbolic variables $\mathcal{E}_i \in O_t$. For example, a network scan step might be defined as $Step_1: \texttt{nmap}(\#E_{target})$, where $\#E_{target}$ is a variable resolved from the global state. This symbolic representation allows the planner to batch $M$ tool calls ahead of execution, significantly reducing redundant LLM API invocations.
 
 \subsection{Closed-Loop Executable Reflection}
-The final layer of our reasoning suite is the \textbf{Reflexion Engine}. After the execution of a blueprint, the engine performs a "Gap Analysis" by comparing the observed target responses against the initial objective.
-\begin{itemize}
-    \item \textbf{Structured Critique}: The engine identifies missed attack vectors or ambiguous tool outputs.
-    \item \textbf{Actionable Improvement}: Crucially, the engine produces structured \texttt{ImprovementAction} objects. These objects contain specific tool parameters and justifications, which are then fed back into the ReWOO planner for a corrective iteration.
-\end{itemize}
-This "Closed-Loop" design (Alg.~\ref{alg:composite-reasoning}) ensures that the agent autonomously corrects its own reasoning errors, a feature currently absent in purely linear VAPT tools.
+The final layer is the \textbf{Reflexion Engine}. After executing a blueprint, the engine performs a "Gap Analysis" by comparing the symbolic observations $\mathcal{E}$ against the initial objective. If the success criteria are not met, the engine produces structured \texttt{ImprovementAction} objects that trigger a new corrective planning iteration. This closed-loop logic ensures that the agent autonomously corrects its own reasoning errors without human intervention unless the risk threshold is exceeded.
 
 \input{assets/algorithm-01-composite-reasoning}
 \input{assets/figure-03-reasoning-flow}

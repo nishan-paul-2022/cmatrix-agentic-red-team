@@ -1,53 +1,50 @@
 % ============================================================
 % FIGURE 02: SYSTEM ARCHITECTURE
-% File: figure-02-system-architecture.tex
-% Section: §3.2 System Architecture
-% Description: Technical architecture of the CMatrix execution spine.
+% File: assets/figure-02-system-architecture.tex
+% Section: §4 Methodology
+% Description: TikZ architecture diagram showing orchestrator, reasoning services, worker registry, and persistence layer.
 % ============================================================
 
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
     node distance=1.5cm,
-    font=\footnotesize,
-    box/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center},
-    service/.style={box, fill=blue!5},
-    storage/.style={cylinder, draw, shape border rotate=90, minimum width=1.5cm, minimum height=1.2cm, fill=yellow!5},
-    logic/.style={box, fill=orange!10, thick},
-    worker/.style={box, fill=green!5, dashed}
+    box/.style={draw, fill=blue!10, text width=2.5cm, align=center, minimum height=1cm, rounded corners},
+    worker/.style={draw, fill=green!10, text width=2cm, align=center, minimum height=0.8cm, rounded corners},
+    database/.style={draw, cylinder, cylinder uses custom fill, cylinder body fill=gray!20, cylinder end fill=gray!30, shape border rotate=90, minimum width=1.5cm, minimum height=1.5cm, aspect=0.25},
+    arrow/.style={-stealth, thick}
   ]
 
-    % Frontend/API
-    \node (api) [service] {API Layer \\ (FastAPI)};
+    % Components
+    \node (orch) [box, fill=blue!30] {\textbf{Master Orchestrator} \\ (LangGraph)};
+    \node (reasoning) [box, above=of orch] {Reasoning Suite \\ (ToT, ReWOO, Refl)};
+    \node (registry) [box, below=of orch] {Worker Agent \\ Registry};
+    
+    % Persistence (Fixed Issue 08)
+    \node (persistence) [database, right=2.5cm of orch] {State Store \\ (Redis/Pg)};
 
-    % Orchestrator
-    \node (orch) [logic, below of=api, yshift=-0.5cm] {\textbf{Orchestrator} \\ (LangGraph StateGraph)};
+    % Specialized Workers
+    \node (web) [worker, below left=1.2cm and 0.2cm of registry] {Web Agent};
+    \node (auth) [worker, below=1.2cm of registry] {Auth Agent};
+    \node (net) [worker, below right=1.2cm and 0.2cm of registry] {Network Agent};
 
-    % Reasoning Services
-    \node (tot) [service, left of=orch, xshift=-2.5cm] {ToT \\ Strategy};
-    \node (rewoo) [service, below of=tot] {ReWOO \\ Planner};
-    \node (refl) [service, below of=rewoo] {Reflexion \\ Engine};
+    % Connections
+    \draw [arrow] (orch) -- (reasoning) node[midway, right] {\small Prompt};
+    \draw [arrow] (reasoning) -- (orch) node[midway, left] {\small Blueprint};
+    \draw [arrow] (orch) -- (registry) node[midway, right] {\small Task};
+    \draw [arrow] (orch) -- (persistence) node[midway, above] {\small Checkpoint};
+    
+    \draw [arrow] (registry.south) -- (web.north);
+    \draw [arrow] (registry.south) -- (auth.north);
+    \draw [arrow] (registry.south) -- (net.north);
 
-    % State
-    \node (redis) [storage, right of=orch, xshift=2.5cm] {State Cache \\ (Redis)};
-    \node (db) [storage, below of=redis, yshift=-0.5cm] {Audit Log \\ (PostgreSQL)};
-
-    % Workers
-    \node (celery) [box, below of=orch, yshift=-1cm] {Task Queue \\ (Celery)};
-    \node (agents) [worker, below of=celery] {Specialized Agents \\ (Network, Web, API, etc.)};
-
-    % Flows
-    \draw[<->, thick] (api) -- (orch);
-    \draw[->] (orch) -- (tot);
-    \draw[->] (orch) -- (rewoo);
-    \draw[->] (orch) -- (refl);
-    \draw[<->] (orch) -- (redis);
-    \draw[->] (orch) -- (db);
-    \draw[->, thick] (orch) -- (celery);
-    \draw[->, thick] (celery) -- (agents);
-    \draw[->, dashed] (agents.east) .. controls +(2,-1) and +(2,1) .. (orch.east) node[midway, right] {Observations};
+    % Background Box for Trusted Zone
+    \begin{scope}[on background layer]
+      \node [draw, dashed, gray, fill=blue!5, fit=(orch) (reasoning) (persistence), inner sep=0.5cm] (trust) {};
+      \node [below right] at (trust.north west) {\small \textit{Trusted Reasoning Zone}};
+    \end{scope}
 
   \end{tikzpicture}
-  \caption{CMatrix System Architecture. The Orchestrator manages the state machine, delegating complex reasoning to specialized services and executing long-running security tasks via a background task queue.}
+  \caption{The CMatrix system architecture. The Master Orchestrator manages the stateful DAG, persisting checkpoints to a Redis/PostgreSQL store while delegating operational tasks to a registry of specialized worker agents.}
   \label{fig:system-architecture}
 \end{figure}
