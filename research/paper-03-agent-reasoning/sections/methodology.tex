@@ -5,7 +5,7 @@ The CMatrix framework is engineered to address the operational fragility of stan
 \subsection{Stateful Multi-Agent Orchestration}
 We implement the framework as a stateful directed acyclic graph (DAG) using LangGraph. The \textbf{Master Orchestrator} maintains the global state $S_t$, which includes the original objective, the current strategy, the pending blueprint, and the history of tool observations. This stateful design allows for persistent checkpointing, which is critical for handling high-latency security tasks and HITL interception events.
 
-\input{../assets/figure-02-system-architecture}
+\input{assets/figure-02-system-architecture}
 
 \subsection{Strategic Lookahead via Tree of Thoughts (ToT)}
 To ensure the agent selects the optimal approach for a given objective, we implement a Tree of Thoughts (ToT) search at the initiation of the attack chain. 
@@ -30,5 +30,5 @@ The final layer of our reasoning suite is the \textbf{Reflexion Engine}. After t
 \end{itemize}
 This "Closed-Loop" design (Alg.~\ref{alg:composite-reasoning}) ensures that the agent autonomously corrects its own reasoning errors, a feature currently absent in purely linear VAPT tools.
 
-\input{../assets/algorithm-01-composite-reasoning}
-\input{../assets/figure-03-reasoning-flow}
+\input{assets/algorithm-01-composite-reasoning}
+\input{assets/figure-03-reasoning-flow}

@@ -11,6 +11,13 @@
 \usepackage{array}
 \usepackage{etoolbox}
 \usepackage{url}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usetikzlibrary{shapes,arrows,positioning,fit,backgrounds,calc}
+\pgfplotsset{compat=1.17}
 
 % Final IEEE S&P Formatting Refinements
 \renewcommand{\thesection}{\Roman{section}}
@@ -27,41 +34,8 @@
 \DeclareCaptionLabelFormat{figprefix}{Fig. #2}
 \captionsetup[figure]{labelformat=figprefix, labelsep=period}
 
-% Global sequential numbering
-\newcounter{globalfig}
-\AtBeginEnvironment{figure}{\refstepcounter{globalfig}}
-\AtBeginEnvironment{lstlisting}{\refstepcounter{globalfig}}
-\renewcommand{\lstlistingname}{Fig.}
-
 % Page numbers
 \pagestyle{plain}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2,
-    frame=single,
-    rulecolor=\color{black}
-}
-\lstset{style=mystyle}
 
 \begin{document}
 
@@ -77,37 +51,24 @@
 
 \maketitle
 
-\input{abstract}
+\input{sections/abstract}
 
 \begin{IEEEkeywords}
 Agentic Workflows, LLM Orchestration, Multi-Agent Systems, Autonomous VAPT, HITL Safety, Tree of Thoughts, ReWOO.
 \end{IEEEkeywords}
 
-\input{introduction}
-
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usetikzlibrary{shapes,arrows,positioning,fit,backgrounds,calc}
-\pgfplotsset{compat=1.17}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-
-\input{related_work}
-
-\input{threat_model}
-
-\input{methodology}
-
-\input{evaluation}
-
-\input{discussion}
-
-\input{conclusion}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/threat_model}
+\input{sections/methodology}
+\input{sections/evaluation}
+\input{sections/discussion}
+\input{sections/conclusion}
 
 \section*{Acknowledgment}
 This research was supported by Joblio Security Labs.
 
 \bibliographystyle{IEEEtran}
-\bibliography{references}
+\bibliography{assets/references}
 
 \end{document}

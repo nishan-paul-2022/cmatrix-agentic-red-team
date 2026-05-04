@@ -1,0 +1,23 @@
+% ============================================================
+% EQUATIONS: CMatrix Formal Formulation
+% File: assets/equations.tex
+% Description: Key mathematical formulations for routing and state transitions.
+% ============================================================
+
+% Equation 1: Routing Optimization Objective
+\begin{equation}
+\label{eq:routing}
+p^* = \arg \max_{p \in P} \left( Q(p, x) - \lambda_C \cdot C(p, x) - \lambda_L \cdot L(p, x) \right)
+\end{equation}
+
+% Equation 2: Stateful Graph Transitions
+\begin{equation}
+\label{eq:state-transition}
+S_{t+1} = f(S_t, A_t, O_t)
+\end{equation}
+
+% Equation 3: Strategy Scoring Function
+\begin{equation}
+\label{eq:strategy-score}
+V_s = \sum_{h \in H} w_h \cdot v_h(s, o)
+\end{equation}

@@ -13,7 +13,7 @@ Our evaluation is conducted across 80 distinct security tasks categorized into t
     \item \textbf{CorpLab-10 (High)}: 10 enterprise-scale attack chains involving lateral movement across interconnected Linux and Windows machines in a Metasploitable3 environment.
 \end{itemize}
 
-\input{../assets/table-02-experimental-benchmarks}
+\input{assets/table-02-experimental-benchmarks}
 
 \subsubsection{Baselines and Metrics}
 We compare CMatrix against two standard baseline agents:
@@ -23,22 +23,22 @@ We compare CMatrix against two standard baseline agents:
 \end{itemize}
 Performance is measured using five metrics: Success Rate (SR), Token Efficiency (TE), Assessment Thoroughness (TH), Safety Violation Rate (SVR), and Planning Latency (PL). Detailed definitions are provided in Table~\ref{tab:metrics}.
 
-\input{../assets/table-03-metrics-definitions}
+\input{assets/table-03-metrics-definitions}
 
 \subsection{Quantitative Results and Ablation Study}
 Table~\ref{tab:ablation-results} presents the main results for the full CMatrix pipeline and its ablated versions.
 
-\input{../assets/table-04-planned-evaluation-results}
+\input{assets/table-04-planned-evaluation-results}
 
 \subsubsection{RQ1: Token Efficiency}
 CMatrix achieves a significant reduction in LLM API overhead through its decoupled ReWOO planning architecture. As shown in Fig.~\ref{fig:efficiency-chart}, CMatrix achieves a 2.42$\times$ token efficiency gain over the ReAct baseline. This efficiency gain is particularly pronounced in high-complexity tasks (\textit{CorpLab-AD}), where the upfront planning of ReWOO avoids the redundant state-summarization calls required by interleaved ReAct loops.
 
-\input{../assets/figure-05-efficiency-chart}
+\input{assets/figure-05-efficiency-chart}
 
 \subsubsection{RQ2: Assessment Thoroughness}
 The integration of the Reflexion engine significantly improves the completeness of security assessments. The full CMatrix pipeline achieves a 97.4\% success rate and 94.2\% thoroughness, outperforming the ablated "No-Refl" version by 12.8\% and 25.8\% respectively. Fig.~\ref{fig:performance-chart} demonstrates that while baseline agents degrade rapidly in complex environments (SR drops to 32.5\%), CMatrix maintains high reliability (SR: 88.4\%) by autonomously correcting its own planning errors.
 
-\input{../assets/figure-04-performance-chart}
+\input{assets/figure-04-performance-chart}
 
 \subsubsection{RQ3: Safety Effectiveness}
 Across all 80 evaluation tasks, the HITL Safety Gate successfully intercepted 100\% of tool calls categorized as "high-risk" (SVR: 0). Notably, the system maintained an 92\% autonomous throughput for low-risk reconnaissance tasks, proving that formal governance can be integrated without crippling the speed of autonomous operations.
@@ -49,4 +49,4 @@ To evaluate generalization, we tested the CMatrix reasoning suite across multipl
 \subsection{Qualitative Analysis: Case Study}
 Table~\ref{tab:case-study} provides a step-by-step trace of a complex attack on the \textit{CorpLab-AD} target. In this case, the initial ReWOO plan missed a secondary API endpoint (\texttt{/v2/debug}); however, the Reflexion engine identified the omission after analyzing the initial recon observations and triggered a corrective scan that ultimately led to administrative credential extraction.
 
-\input{../assets/table-05-case-study-attack-chain}
+\input{assets/table-05-case-study-attack-chain}
