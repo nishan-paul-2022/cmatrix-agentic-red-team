@@ -1,0 +1,43 @@
+\section{Experimental Evaluation}
+\label{sec:evaluation}
+
+In this section, we present a comprehensive empirical evaluation of \texttt{LLMOrch-VAPT} across the four research questions defined in Section~\ref{sec:threat}. Our evaluation focuses on demonstrating the operational resilience and cost-efficiency of the framework in large-scale autonomous security engagements.
+
+\subsection{Evaluation Setup}
+We evaluate the framework using a diverse dataset of \textbf{1,500 autonomous security reasoning tasks} synthesized from real-world VAPT scenarios. The tasks span across seven domains: Network Reconnaissance, Web Vulnerability Discovery, Authentication Bypass, Vulnerability Intelligence Synthesis, Compliance Auditing, API Security Testing, and Exploit Chain Generation. Each task is categorized by technical complexity into Flash (65\%), Pro (25\%), and Reasoning (10\%) tiers based on manual expert labeling.
+
+\subsection{RQ1: Operational Resilience (APF Performance)}
+To evaluate the resilience of the system, we simulated 100 unplanned provider outages during active multi-agent reasoning chains. As illustrated in the temporal analysis in Figure~\ref{fig:failover_timeline}, the \textbf{APF} engine detected and recovered from outages with high precision.
+
+\begin{figure}[h]
+    \centering
+    \input{assets/fig-06-failover-timeline.tex}
+    \caption{Temporal analysis of the Autonomous Provider Failover (APF) engine response during a simulated primary provider outage (RQ1).}
+    \label{fig:failover_timeline}
+\end{figure}
+
+The system achieved a Mean Time To Recovery (MTTR), as defined in Equation~\ref{eq:mttr}, of \textbf{1.82 seconds}, with 100\% state persistence. Table~\ref{tab:benchmarks} confirms that the dynamic pool maintains an average availability of 99.9\%, significantly higher than any single-provider deployment.
+
+\input{assets/assets/eq-04-mttr.tex}
+
+\subsection{RQ2: Cost-Reasoning Optimization (DCAT Performance)}
+The primary performance claim of \texttt{LLMOrch-VAPT} is its ability to match flagship model quality while maintaining Flash-tier costs. Figure~\ref{fig:eval_metrics} and Table~\ref{tab:benchmarks} compare the \textbf{DCAT} engine against monolithic deployments.
+
+\begin{figure}[t]
+    \centering
+    \input{assets/fig-05-eval-metrics.tex}
+    \caption{Comparison of Reasoning Success Rate vs. Average Cost per Task across different model deployment strategies (RQ2).}
+    \label{fig:eval_metrics}
+\end{figure}
+
+\input{assets/table-01-benchmarks.tex}
+
+Our results show that \texttt{LLMOrch-VAPT} maintains a reasoning success rate of \textbf{97.4\%}, nearly identical to the Pro-only (98.1\%) and Reasoning-only (98.4\%) baselines. However, by dynamically tiering 80\% of sub-tasks to Flash models, the framework reduces the average cost per task from \$1.20 to \textbf{\$0.19}, representing an \textbf{84.2\% reduction in operational costs}.
+
+\subsection{RQ3: Scalability and Caching (SSC Benefits)}
+We evaluate the impact of \textbf{Security-Semantic Caching (SSC)} by running redundant security scans on 50 heterogeneous target hosts with 30\% vulnerability overlap. Using the similarity threshold $\tau_{sim} = 0.95$, the system achieved a \textbf{cache hit rate of 42.6\%} on reconnaissance sub-tasks.
+
+This resulted in an additional \textbf{34.1\% reduction in total engagement latency} and a \textbf{28.5\% further cost saving} on top of the DCAT optimization. The SSC mechanism (Fig.~\ref{fig:ssc_mechanism}) effectively eliminated redundant reasoning for identical vulnerability signatures, demonstrating strong scalability for enterprise-wide assessments.
+
+\subsection{RQ4: Safety and Governance}
+Finally, we verify the safety of the autonomous engagements. Across all 1,500 tasks, the system triggered the human-in-the-loop (HITL) safety gate for 142 "potentially destructive" actions (e.g., automated exploit execution). The system demonstrated \textbf{100\% adherence to the safety constraints}, with zero unauthorized destructive actions performed. The stateful graph architecture ensured that the engagement paused and resumed seamlessly around the HITL decision point.
