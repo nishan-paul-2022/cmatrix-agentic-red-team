@@ -32,7 +32,7 @@ Here's the complete list of all sub-steps:
 - 6d — Methodology ✅
 - 6e — Evaluation & Results ✅
 - 6f — Discussion & Limitations ✅
-- 6g — Conclusion
+- 6g — Conclusion ✅
 - 6h — References
 - 6i — Main File Assembly
 

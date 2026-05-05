@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this paper, we introduced \texttt{LLMOrch-VAPT}, a resilient, multi-agent orchestration framework designed to address the operational and economic barriers to autonomous penetration testing. By decoupling security reasoning from specific LLM providers and implementing a provider-agnostic abstraction layer, we have demonstrated that autonomous red teaming engagements can be made robust against the volatility of the AI service landscape.
+
+Our evaluation of 1,500 security reasoning tasks confirms that the three primary technical innovations introduced in this work—Autonomous Provider Failover (APF), Dynamic Complexity-Aware Tiering (DCAT), and Security-Semantic Caching (SSC)—collectively enable a high-performance, cost-effective VAPT infrastructure. Specifically, our system achieves an MTTR of less than 2 seconds during provider outages and maintains a 97.4\% reasoning success rate while reducing operational costs by 84.2\%. Furthermore, our 100\% adherence to human-in-the-loop safety gates ensures that these autonomous capabilities can be deployed responsibly within enterprise environments.
+
+As LLMs continue to evolve, the need for intelligent, resilient orchestration will only increase. \texttt{LLMOrch-VAPT} provides the foundational infrastructure required to transition autonomous security agents from academic prototypes to production-grade defensive assets. By open-sourcing our implementation, we hope to foster a new generation of resilient, transparent, and cost-efficient autonomous security systems that can keep pace with the rapidly changing threat landscape.
