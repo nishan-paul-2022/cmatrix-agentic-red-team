@@ -17,7 +17,7 @@ Here's the complete list of all sub-steps:
 
 **STEP 4 — Paper Architecture**
 - 4a — Section Structure ✅
-- 4b — Figure Plan
+- 4b — Figure Plan ✅
 - 4c — Equation & Table Plan
 
 **STEP 5 — Figure, Table & Equation Generation**
