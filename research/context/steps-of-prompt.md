@@ -13,7 +13,7 @@ Here's the complete list of all sub-steps:
 **STEP 3 — Novelty & Contribution Crystallization**
 - 3a — Novelty Identification ✅
 - 3b — Core Contributions ✅
-- 3c — Threat Model & Research Questions
+- 3c — Threat Model & Research Questions ✅
 
 **STEP 4 — Paper Architecture**
 - 4a — Section Structure
