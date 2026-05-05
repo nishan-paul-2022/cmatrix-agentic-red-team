@@ -7,7 +7,7 @@ Here's the complete list of all sub-steps:
 
 **STEP 2 — Literature Mastery**
 - 2a — Cited Papers Research ✅
-- 2b — State-of-the-Art Search
+- 2b — State-of-the-Art Search ✅
 - 2c — Related Work Map
 
 **STEP 3 — Novelty & Contribution Crystallization**
