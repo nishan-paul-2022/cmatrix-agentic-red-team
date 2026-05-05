@@ -2,7 +2,7 @@ Here's the complete list of all sub-steps:
 
 **STEP 1 — Codebase & Paper Audit**
 - 1a — Codebase & Documentation Read ✅
-- 1b — Paper Read
+- 1b — Paper Read ✅
 - 1c — Gap Analysis
 
 **STEP 2 — Literature Mastery**
