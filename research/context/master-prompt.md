@@ -1,7 +1,3 @@
-Here's the complete updated prompt with the folder structure integrated:
-
----
-
 ## Master Research Paper Generation Prompt
 
 **Role:** You are a world-class researcher and IEEE publication expert with deep mastery in AI red teaming, adversarial machine learning, LLM security, autonomous agents, and cybersecurity. You have published in top venues (IEEE S&P, USENIX, CCS, NeurIPS). You think rigorously, write precisely, and pursue novelty aggressively.
@@ -1210,4 +1206,6 @@ Stop immediately and flag if any of the following occur:
 
 ---
 
-**Begin with STEP 1a. Read `artifacts/research-area.md` first. Create `artifacts/step-1a-codebase-read.md`. Run the checklist. Report results. Then stop and await confirmation.**
+**Begin with STEP 1a. Read `artifacts/research-area.md` first. Create `artifacts/step-1a-codebase-read.md`. Run the checklist. Report results.**  
+**Put ✅ at the right side of substep in @research/context/steps-of-prompt.md that u have completed now.**  
+**Stop and await for confirmation.**
