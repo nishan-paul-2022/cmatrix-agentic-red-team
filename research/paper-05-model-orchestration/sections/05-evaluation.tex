@@ -34,16 +34,16 @@ The primary performance claim of \texttt{LLMOrch-VAPT} is its ability to match f
     \label{fig:eval_metrics}
 \end{figure}
 
-\begin{table*}[!t]
+\begin{table}[!t]
     \centering
     \caption{LLM Provider Performance Benchmarks for Security Reasoning}
     \label{tab:benchmarks}
-    \resizebox{0.8\textwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/table-01-benchmarks.tex}
     }
     \vspace{1mm}
     \footnotesize{Note: Cost is calculated per 1,000 requests using a mix of 80\% Flash / 20\% Pro tasks. Success rate is measured on the 1,500 security reasoning benchmark.}
-\end{table*}
+\end{table}
 
 Our results show that \texttt{LLMOrch-VAPT} maintains a reasoning success rate of \textbf{97.4\%}, nearly identical to the Pro-only (98.1\%) and Reasoning-only (98.4\%) baselines. However, by dynamically tiering 80\% of sub-tasks to Flash models, the framework reduces the average cost per task from \$1.20 to \textbf{\$0.19}, representing an \textbf{84.2\% reduction in operational costs}.
 

@@ -6,27 +6,27 @@ The core contribution of \texttt{LLMOrch-VAPT} is its resilient, provider-agnost
 \subsection{Master-Worker Multi-Agent Architecture}
 As illustrated in Figure~\ref{fig:architecture}, \texttt{LLMOrch-VAPT} utilizes a hierarchical "Master-Worker" design. The \textbf{Master Supervisor}, implemented using LangGraph's stateful orchestration, maintains the global engagement context and manages task delegation. The \textbf{Orchestration Service} serves as the primary state machine, coordinating seven specialized \textbf{Worker Agents}.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \resizebox{0.7\textwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/fig-01-architecture.tex}
     }
     \caption{System architecture of \texttt{LLMOrch-VAPT}, showing the Master-Worker hierarchy and the provider-agnostic abstraction layer.}
     \label{fig:architecture}
-\end{figure*}
+\end{figure}
 
 Each worker agent is specialized for a specific security domain (e.g., Network, Web, Auth) and possesses a curated toolset, as summarized in Table~\ref{tab:agents}. This specialization allows the system to extract precise technical signals for each sub-task, which are critical for the complexity-aware routing described in Section~\ref{sec:dcat}.
 
-\begin{table*}[!t]
+\begin{table}[!t]
     \centering
     \caption{Specialized Worker Agent Roles and Resource Allocation}
     \label{tab:agents}
-    \resizebox{0.8\textwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/table-02-agents.tex}
     }
     \vspace{1mm}
     \footnotesize{Note: Tiers are dynamically elevated by the Supervisor if the DCAT Complexity Signal exceeds $\tau_{high} = 0.85$.}
-\end{table*}
+\end{table}
 
 \subsection{Autonomous Provider Failover (APF)}
 \label{sec:apf}
@@ -34,7 +34,7 @@ To address the "Operational Fragility" identified in Section~\ref{sec:intro}, we
 
 \begin{figure}[!t]
     \centering
-    \resizebox{0.85\columnwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/fig-03-apf-state.tex}
     }
     \caption{State machine logic of the Autonomous Provider Failover (APF) engine.}
@@ -47,14 +47,14 @@ The \texttt{LLMProvider} abstraction layer then re-instantiates the agentic chai
 \label{sec:dcat}
 The \textbf{Dynamic Complexity-Aware Tiering (DCAT)} engine optimizes the economic sustainability of the engagement. As shown in the workflow in Figure~\ref{fig:dcat_flow}, the system analyzes each task $t$ to extract technical signals.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \resizebox{0.7\textwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/fig-02-dcat-flow.tex}
     }
     \caption{Workflow of the Dynamic Complexity-Aware Tiering (DCAT) methodology.}
     \label{fig:dcat_flow}
-\end{figure*}
+\end{figure}
 
 We formalize the \textbf{Complexity Signal} $C(t)$ in Equation~\ref{eq:complexity}:
 \input{../assets/eq-01-complexity.tex}
@@ -68,14 +68,14 @@ By routing reconnaissance and routine tool-interpretation tasks to "Flash" tiers
 \label{sec:ssc}
 To improve scalability across large-scale heterogeneous networks, we implement \textbf{Security-Semantic Caching (SSC)}. Unlike generic text caches, SSC utilizes the mechanism shown in Figure~\ref{fig:ssc_mechanism} to store and retrieve the \textit{reasoning patterns} behind specific vulnerability identifications.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
     \centering
-    \resizebox{0.7\textwidth}{!}{
+    \resizebox{\columnwidth}{!}{
         \input{../assets/fig-04-ssc-mechanism.tex}
     }
     \caption{Architectural design of the Security-Semantic Caching (SSC) layer.}
     \label{fig:ssc_mechanism}
-\end{figure*}
+\end{figure}
 
 The similarity between a new security query $q_{new}$ and cached reasoning $q_{cached}$ is determined by the cosine similarity of their vector embeddings $\mathbf{e}$, as defined in Equation~\ref{eq:similarity}:
 \input{../assets/eq-03-cache-similarity.tex}
