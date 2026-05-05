@@ -26,7 +26,7 @@ Here's the complete list of all sub-steps:
 - 5c — Equation Generation ✅
 
 **STEP 6 — Full Paper Drafting**
-- 6a — Abstract + Introduction
+- 6a — Abstract + Introduction ✅
 - 6b — Background & Related Work
 - 6c — Threat Model
 - 6d — Methodology
