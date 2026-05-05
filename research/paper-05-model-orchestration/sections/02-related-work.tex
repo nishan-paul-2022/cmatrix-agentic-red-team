@@ -1,0 +1,22 @@
+\section{Background and Related Work}
+\label{sec:related}
+
+The development of \texttt{LLMOrch-VAPT} sits at the intersection of three rapidly evolving research domains: dynamic LLM routing, autonomous security agents, and stateful agentic orchestration. This section situates our work within the current academic landscape and identifies the critical operational gaps that our framework seeks to bridge.
+
+\subsection{LLM Routing and Cost Optimization}
+Optimizing the trade-off between inference cost and reasoning quality is a foundational problem in LLM systems. Early work, such as \textbf{FrugalGPT}~\cite{frugalgpt}, introduced the concept of LLM cascades, where queries are routed through a sequence of models in increasing order of cost until a quality threshold is met. Subsequent frameworks like \textbf{RouteLLM}~\cite{routellm} and \textbf{Arch-Router} have refined this using learned preference-based classifiers and human-alignment data. Most recently, \textbf{UniRoute}~\cite{uniroute} has explored routing to unobserved models using feature-vector representations.
+
+However, these routing strategies are largely domain-agnostic, relying on generic linguistic signals or human preference rankings for general-purpose chat. In contrast, \texttt{LLMOrch-VAPT} introduces a security-domain-specific routing logic (\textbf{DCAT}) that utilizes technical signals—such as CVSS scores, network topology depth, and exploit complexity—to perform more precise tiering for cybersecurity workloads.
+
+\subsection{Autonomous Security Agents and VAPT}
+The application of LLMs to cybersecurity has transitioned from simple assistants to semi-autonomous frameworks. \textbf{PentestGPT}~\cite{pentestgpt} pioneered the use of a tripartite architecture (Reasoning, Generation, Parsing) to manage long-term penetration testing context via a Task Tree. \textbf{AutoAttacker}~\cite{autoattacker} expanded this into "hands-on-keyboard" post-breach automation using a modular agent design and the MITRE ATT\&CK framework. In 2025, \textbf{PentestMCP} introduced the Model Context Protocol (MCP) to standardize tool orchestration, and \textbf{PentestAgent} achieved full-stage web testing with online search and automated debugging capabilities.
+
+While these frameworks excel at "Attack Intelligence"—the technical logic of finding and exploiting vulnerabilities—they largely ignore the \textbf{operational infrastructure} required for resilient deployments. Issues such as provider failover, heterogeneous backend pooling, and mid-workflow state recovery remain unaddressed in current security literature, a gap that our \textbf{APF} engine specifically targets.
+
+\subsection{Stateful Orchestration and Reasoning Patterns}
+Agentic reasoning frameworks have evolved from linear Chain-of-Thought (CoT) to more complex, stateful patterns. \textbf{ReWOO}~\cite{rewoo} introduced the decoupling of reasoning from observations, using a Planner-Worker-Solver pattern to reduce token consumption and improve efficiency. \textbf{Tree of Thoughts (ToT)}~\cite{tot} further generalized this by enabling BFS/DFS exploration of multiple reasoning paths, which is essential for navigating the complex decision trees encountered during network exploitation.
+
+\texttt{LLMOrch-VAPT} synthesizes these patterns into its "Master-Worker" hierarchy, utilizing ReWOO-like decoupling to maintain state across different LLM providers. By integrating \textbf{Security-Semantic Caching (SSC)}, we extend the efficiency of these reasoning patterns to redundant security tasks, a feature absent in standard orchestration frameworks like \textbf{WorkflowLLM}~\cite{workflowllm}.
+
+\subsection{The Operational Gap}
+Despite significant advances, the current state-of-the-art (SOTA) suffers from a critical lack of \textbf{Operational Resilience}. Most frameworks assume stable access to a monolithic flagship model (e.g., GPT-4o) and lack mechanisms to handle provider volatility or mid-engagement outages. \texttt{LLMOrch-VAPT} identifies and fills this void by prioritizing the system-level infrastructure that enables autonomous agents to operate reliably and cost-effectively in industrial environments.
