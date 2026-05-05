@@ -1,0 +1,27 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    font=\sffamily\small,
+    state/.style={draw, circle, fill=blue!5, minimum size=2.5cm, align=center, thick},
+    arrow/.style={-stealth, thick, bend angle=20}
+]
+
+% States
+\node[state] (exec) {S0\\Execution\\(Active Model)};
+\node[state, right=4cm of exec, fill=red!5] (error) {S1\\Error Detection\\(Timeout/Rate/5xx)};
+\node[state, below=3cm of error, fill=orange!5] (switch) {S2\\Failover Logic\\(Backend Swap)};
+\node[state, below=3cm of exec, fill=green!5] (resume) {S3\\State Resume\\(Checkpointing)};
+
+% Transitions
+\draw[arrow] (exec) -- node[above] {Exception} (error);
+\draw[arrow] (error) -- node[right] {Trigger APF} (switch);
+\draw[arrow] (switch) -- node[above] {Retrieve State} (resume);
+\draw[arrow] (resume) -- node[left] {Restart Chain} (exec);
+
+% Self-loops
+\draw[arrow, loop above] (exec) to node {Valid Response} (exec);
+
+% Labels
+\node[right=0.2cm of switch, gray, text width=3cm] {\textit{MTTR < 2.0s\\No state loss}};
+\node[left=0.2cm of resume, gray, text width=3cm] {\textit{Persistence via\\PostgreSQL/Qdrant}};
+
+\end{tikzpicture}

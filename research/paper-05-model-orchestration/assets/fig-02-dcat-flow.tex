@@ -1,0 +1,40 @@
+\begin{tikzpicture}[
+    node distance=1.2cm and 1.5cm,
+    font=\sffamily\small,
+    startstop/.style={draw, fill=red!10, rounded corners, minimum height=0.8cm, text width=2.5cm, align=center},
+    process/.style={draw, fill=blue!5, minimum height=0.8cm, text width=3cm, align=center},
+    decision/.style={draw, diamond, fill=yellow!10, aspect=2, minimum height=0.8cm, text width=2.5cm, align=center, inner sep=0pt},
+    arrow/.style={-stealth, thick}
+]
+
+% Nodes
+\node[startstop] (input) {Input Security Task\\(User/Agent)};
+\node[process, below=of input] (analysis) {Signal Extraction\\(Keywords, CVEs, Depth)};
+\node[process, below=of analysis] (scoring) {Complexity Scoring\\(Eq. \ref{eq:complexity})};
+\node[decision, below=of scoring] (complexity) {Complexity?};
+
+\node[process, below left=1.5cm and 0.5cm of complexity, fill=green!10] (flash) {Flash Tier\\(e.g., Gemini Flash)};
+\node[process, below=2cm of complexity, fill=blue!15] (pro) {Pro Tier\\(e.g., GPT-4o)};
+\node[process, below right=1.5cm and 0.5cm of complexity, fill=purple!10] (reasoning) {Reasoning Tier\\(e.g., O1-preview)};
+
+\node[process, below=4cm of complexity] (execution) {Task Execution\\(Managed Callback)};
+\node[startstop, below=of execution] (output) {Synthesized Result};
+
+% Paths
+\draw[arrow] (input) -- (analysis);
+\draw[arrow] (analysis) -- (scoring);
+\draw[arrow] (scoring) -- (complexity);
+
+\draw[arrow] (complexity) -| node[above, pos=0.5] {Low} (flash);
+\draw[arrow] (complexity) -- node[right] {Moderate} (pro);
+\draw[arrow] (complexity) -| node[above, pos=0.5] {High} (reasoning);
+
+\draw[arrow] (flash) |- (execution);
+\draw[arrow] (pro) -- (execution);
+\draw[arrow] (reasoning) |- (execution);
+\draw[arrow] (execution) -- (output);
+
+% Labels
+\node[right=0.5cm of scoring, gray, text width=3cm] {\textit{Signals: CVE-ID, Network Size, Auth Level}};
+
+\end{tikzpicture}

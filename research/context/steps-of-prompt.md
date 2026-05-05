@@ -21,7 +21,7 @@ Here's the complete list of all sub-steps:
 - 4c — Equation & Table Plan ✅
 
 **STEP 5 — Figure, Table & Equation Generation**
-- 5a — Figure Generation
+- 5a — Figure Generation ✅
 - 5b — Table Generation
 - 5c — Equation Generation
 

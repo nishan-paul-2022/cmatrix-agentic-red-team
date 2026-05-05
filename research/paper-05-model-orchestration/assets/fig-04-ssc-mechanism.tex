@@ -1,0 +1,31 @@
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    font=\sffamily\small,
+    box/.style={draw, fill=blue!5, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
+    db/.style={draw, cylinder, fill=yellow!5, shape border rotate=90, minimum width=2cm, minimum height=2.5cm, align=center},
+    arrow/.style={-stealth, thick}
+]
+
+% Nodes
+\node[box] (query) {Security Query\\(e.g., "Scan vuln X")};
+\node[box, right=of query] (embed) {Embedding Gen\\(BAAI/bge-base)};
+\node[db, right=of embed] (vector) {Vector Store\\(Qdrant)};
+\node[box, below=2cm of vector] (judge) {Similarity Judger\\($\sigma \geq \tau_{sim}$)};
+
+\node[box, left=of judge, fill=green!10] (hit) {Cache HIT\\(Return Reasoning)};
+\node[box, below=1.5cm of judge, fill=red!10] (miss) {Cache MISS\\(Route to LLM)};
+
+% Connections
+\draw[arrow] (query) -- (embed);
+\draw[arrow] (embed) -- (vector);
+\draw[arrow] (vector) -- (judge);
+\draw[arrow] (judge) -- node[above] {Yes} (hit);
+\draw[arrow] (judge) -- node[right] {No} (miss);
+
+\draw[arrow] (miss.east) .. controls +(3,0) and +(3,-2) .. (vector.south);
+\node[right=2.5cm of miss, gray] {Store New Reasoning};
+
+% Labels
+\node[above=0.2cm of vector] {\textbf{SSC Memory Layer}};
+
+\end{tikzpicture}

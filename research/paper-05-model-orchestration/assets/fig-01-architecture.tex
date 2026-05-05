@@ -1,0 +1,50 @@
+\begin{tikzpicture}[
+    node distance=1.5cm and 2.0cm,
+    font=\sffamily\small,
+    box/.style={draw, fill=blue!5, rounded corners, text width=2.5cm, align=center, minimum height=1cm, thick},
+    agent/.style={draw, fill=green!5, rounded corners, text width=2.0cm, align=center, minimum height=0.8cm},
+    provider/.style={draw, fill=orange!5, dashed, text width=1.8cm, align=center, minimum height=0.8cm},
+    arrow/.style={-stealth, thick}
+]
+
+% Nodes
+\node[box, fill=blue!15] (supervisor) {Master Supervisor\\(LangGraph)};
+\node[box, below=of supervisor] (orchestrator) {Orchestration Service\\(Stateful Flow)};
+
+\node[agent, left=of orchestrator] (network) {Network Agent};
+\node[agent, below left=1.0cm and 0.2cm of orchestrator] (web) {Web Agent};
+\node[agent, below=of orchestrator] (intel) {Vulnerability Intel};
+\node[agent, below right=1.0cm and 0.2cm of orchestrator] (auth) {Auth Agent};
+\node[agent, right=of orchestrator] (config) {Config Agent};
+
+\node[box, fill=gray!10, below=2.5cm of orchestrator, text width=6cm] (protocol) {Unified Provider Protocol\\(LLMProvider Abstraction)};
+
+\node[provider, below left=1.2cm and -0.5cm of protocol] (gemini) {Google Gemini};
+\node[provider, below=1.2cm of protocol] (openai) {OpenAI GPT-4};
+\node[provider, below right=1.2cm and -0.5cm of protocol] (local) {Local Ollama};
+
+% Connections
+\draw[arrow] (supervisor) -- (orchestrator);
+\draw[arrow] (orchestrator) -- (network);
+\draw[arrow] (orchestrator) -- (web);
+\draw[arrow] (orchestrator) -- (intel);
+\draw[arrow] (orchestrator) -- (auth);
+\draw[arrow] (orchestrator) -- (config);
+
+\draw[arrow] (network) .. controls +(0,-1) and +(-2,1) .. (protocol);
+\draw[arrow] (web) .. controls +(0,-0.5) and +(-1,0.5) .. (protocol);
+\draw[arrow] (intel) -- (protocol);
+\draw[arrow] (auth) .. controls +(0,-0.5) and +(1,0.5) .. (protocol);
+\draw[arrow] (config) .. controls +(0,-1) and +(2,1) .. (protocol);
+
+\draw[arrow] (protocol) -- (gemini);
+\draw[arrow] (protocol) -- (openai);
+\draw[arrow] (protocol) -- (local);
+
+% Background grouping
+\begin{scope}[on background layer]
+    \node[draw, gray!30, dashed, fill=gray!2, inner sep=15pt, rounded corners, fit=(network) (config)] (agent_pool) {};
+    \node[below=0.1cm of agent_pool.north, gray] {\textbf{Specialized Worker Agents}};
+\end{scope}
+
+\end{tikzpicture}
