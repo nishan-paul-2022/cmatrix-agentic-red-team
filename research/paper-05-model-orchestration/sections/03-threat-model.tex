@@ -1,0 +1,33 @@
+\section{Threat Model and Research Questions}
+\label{sec:threat}
+
+In this section, we define the formal system model, adversary capabilities, and the research questions that guide our evaluation. Unlike traditional security papers that focus on external network attackers, our threat model prioritizes the \textit{operational threats} to the autonomous system itself, specifically focusing on provider volatility and economic constraints.
+
+\subsection{System Model}
+We consider an autonomous VAPT system, \texttt{LLMOrch-VAPT}, deployed to conduct continuous security validation on a target enterprise network. The system consists of a centralized orchestrator and a suite of specialized worker agents. To perform reasoning and decision-making, the system has access to a heterogeneous pool of model providers $\mathcal{P} = \{p_1, p_2, \dots, p_n\}$, including cloud-based flagship APIs (e.g., GPT-4o, Claude 3.5), cost-efficient "Flash" models (e.g., Gemini 1.5 Flash), and locally hosted models (e.g., Llama-3 via Ollama).
+
+\subsection{Adversary Model (Operational Threats)}
+We define the "adversary" in this context as the set of environmental and operational conditions that threaten the success of the autonomous engagement. The adversary possesses the following capabilities:
+\begin{itemize}
+    \item \textbf{Provider Volatility}: The adversary can trigger transient outages, rate limits, or significant latency spikes in any subset of the model providers $\mathcal{P}_{cloud} \subset \mathcal{P}$ at any time during an active reasoning chain.
+    \item \textbf{Resource Constraints}: The adversary imposes a strict token budget $\mathcal{B}_{task}$ and a maximum latency threshold $\mathcal{L}_{max}$ per engagement, forcing the system to optimize its model selection.
+    \item \textbf{Reasoning Fragility}: The adversary can introduce hallucinations or incorrect security logic if the system selects a model tier insufficient for the technical complexity of the task.
+\end{itemize}
+
+\subsection{Security and Operational Goals}
+To mitigate these threats, \texttt{LLMOrch-VAPT} aims to achieve the following four goals:
+\begin{enumerate}
+    \item \textbf{Resilience}: Maintain 100\% operational continuity and zero state loss during unplanned provider failures.
+    \item \textbf{Efficiency}: Maximize reasoning success while minimizing total inference cost.
+    \item \textbf{Scalability}: Reduce redundant reasoning overhead across large-scale, heterogeneous target infrastructures.
+    \item \textbf{Safety}: Ensure that no destructive security actions are performed without explicit human-in-the-loop (HITL) approval.
+\end{enumerate}
+
+\subsection{Research Questions}
+Based on the threat model and goals, we formulate the following four research questions (RQs):
+\begin{itemize}
+    \item \textbf{RQ1 (Operational Resilience)}: How effectively can a provider-agnostic failover mechanism (\textbf{APF}) maintain operational continuity and state during unplanned LLM provider outages compared to monolithic, single-provider systems?
+    \item \textbf{RQ2 (Cost-Reasoning Optimization)}: To what extent can \textbf{Dynamic Complexity-Aware Tiering (DCAT)} reduce total inference costs while maintaining a reasoning success rate equivalent to a unified flagship-model deployment?
+    \item \textbf{RQ3 (Scalability and Caching)}: What is the impact of \textbf{Security-Semantic Caching (SSC)} on the performance and cost-efficiency of large-scale, redundant security assessments on heterogeneous network infrastructures?
+    \item \textbf{RQ4 (Safety \& Governance)}: Can a stateful graph-based orchestration framework with HITL gates effectively mitigate the risk of unintended destructive actions during autonomous exploitation?
+\end{itemize}

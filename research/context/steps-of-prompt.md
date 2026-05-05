@@ -28,7 +28,7 @@ Here's the complete list of all sub-steps:
 **STEP 6 — Full Paper Drafting**
 - 6a — Abstract + Introduction ✅
 - 6b — Background & Related Work ✅
-- 6c — Threat Model
+- 6c — Threat Model ✅
 - 6d — Methodology
 - 6e — Evaluation & Results
 - 6f — Discussion & Limitations
