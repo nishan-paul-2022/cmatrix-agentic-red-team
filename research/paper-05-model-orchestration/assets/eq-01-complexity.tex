@@ -1,0 +1,11 @@
+\begin{equation}
+\label{eq:complexity}
+C(t) = \frac{1}{\mathcal{K}_{max}} \left( \sum_{i \in \mathcal{K}_t} w_i \cdot \mathbb{I}(k_i \in t) \right) + \alpha \cdot \mathbb{I}(t \cap \mathcal{V}_{cve} \neq \emptyset) + \beta \cdot \mathcal{D}_{net}
+\end{equation}
+where:
+\begin{itemize}
+    \item $C(t) \in [0, 1]$ is the normalized complexity signal for task $t$.
+    \item $w_i$ is the weight of security keyword $k_i$.
+    \item $\mathbb{I}(\cdot)$ is the indicator function.
+    \item $\alpha, \beta$ are scaling factors for vulnerability presence and network depth $\mathcal{D}_{net}$.
+\end{itemize}

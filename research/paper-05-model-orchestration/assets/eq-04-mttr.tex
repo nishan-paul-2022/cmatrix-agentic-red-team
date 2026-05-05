@@ -1,0 +1,5 @@
+\begin{equation}
+\label{eq:mttr}
+T_{MTTR} = \frac{1}{N} \sum_{i=1}^N \left( \Delta t_{detect, i} + \Delta t_{checkpoint, i} + \Delta t_{switch, i} \right)
+\end{equation}
+where $N$ is the number of simulated outages, and $\Delta t_{switch}$ represents the overhead of re-instantiating the LLM client with the fallback provider's credentials while maintaining session state.

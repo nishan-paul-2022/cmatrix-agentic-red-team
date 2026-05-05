@@ -1,0 +1,12 @@
+\begin{equation}
+\label{eq:similarity}
+\sigma(\mathbf{e}_q, \mathbf{e}_{cache}) = \frac{\mathbf{e}_q \cdot \mathbf{e}_{cache}}{\|\mathbf{e}_q\| \|\mathbf{e}_{cache}\|} \geq \tau_{sim}
+\end{equation}
+where $\mathbf{e}_q$ and $\mathbf{e}_{cache}$ are vector embeddings of the current query and the cached entry, and $\tau_{sim}$ is the similarity threshold (typically 0.95 for security reasoning).
+\begin{equation}
+\text{Cache}(q) = 
+\begin{cases} 
+R_{cache} & \text{if } \sigma \geq \tau_{sim} \\
+\text{LLM}(q) & \text{otherwise}
+\end{cases}
+\end{equation}
