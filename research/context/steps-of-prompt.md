@@ -37,9 +37,9 @@ Here's the complete list of all sub-steps:
 - 6i — Main File Assembly ✅
 
 **STEP 7 — Critical Review & Final Polish**
-- 7a — Hostile Peer Review
-- 7b — Revision Pass
-- 7c — Final Verification
+- 7a — Hostile Peer Review ✅
+- 7b — Revision Pass ✅
+- 7c — Final Verification ✅
 
 ---
 

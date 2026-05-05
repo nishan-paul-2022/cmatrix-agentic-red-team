@@ -11,12 +11,12 @@ As with any autonomous exploitation framework, \texttt{LLMOrch-VAPT} possesses s
 
 To mitigate these risks, we have prioritized \textit{safety governance} as a core architectural component. Our 100\% adherence to HITL gates (Section~\ref{sec:evaluation}) demonstrates that autonomous agents can be effectively constrained. We advocate for a "Safety-First" deployment model where destructive capabilities are strictly authenticated and audited. Furthermore, by open-sourcing the platform, we aim to democratize access to high-end defensive automation, helping to balance the asymmetric advantage currently held by well-resourced adversarial groups.
 
-\subsection{Technical Limitations}
-Despite the performance gains, \texttt{LLMOrch-VAPT} is subject to several technical limitations:
+\subsection{Technical Limitations and Failure Modes}
+Despite the performance gains, \texttt{LLMOrch-VAPT} is subject to several critical technical limitations:
 \begin{itemize}
-    \item \textbf{Context Window Bottlenecks}: While the Master-Worker hierarchy reduces the context load on individual agents, extremely large-scale network recons can still exceed the context windows of smaller "Flash" models, potentially leading to reasoning loss.
-    \item \textbf{Business Logic Vulnerabilities}: Current LLM-based agents, including our specialized workers, still struggle with complex business logic vulnerabilities that require deep, domain-specific understanding of application state and user intent.
-    \item \textbf{Adversarial Defenses}: The system's reliance on technical signals for DCAT (Section~\ref{sec:dcat}) makes it potentially susceptible to "signal spoofing" by sophisticated defenders who attempt to bait the orchestrator into using more expensive (and potentially slower) reasoning tiers.
+    \item \textbf{Performance Degradation and Gray Failures}: While the APF engine excels at recovering from binary outages (e.g., HTTP 503), it is currently less sensitive to "gray failures" such as extreme latency spikes or progressive reasoning degradation (hallucinations). A critical area for future work is the integration of \textbf{In-Context Verification (ICV)} loops, where a secondary "Pro" model audits a sample of "Flash" model outputs.
+    \item \textbf{Failure Modes of the Dynamic Router}: The DCAT engine relies on technical signals to predict task complexity. In scenarios with highly obfuscated or novel exploit chains, the router may under-estimate complexity, leading to a "Flash-tier collapse" where the model fails to synthesize a valid exploit. Our current mitigation is a \textbf{Reactive Escalation} policy: if a worker agent fails to progress after three attempts, the Supervisor automatically elevates the task to the "Reasoning" tier.
+    \item \textbf{Adversarial Defenses}: The system's reliance on technical signals for DCAT makes it potentially susceptible to "signal spoofing" by sophisticated defenders who attempt to bait the orchestrator into using more expensive (and potentially slower) reasoning tiers.
 \end{itemize}
 
 \subsection{Future Work}

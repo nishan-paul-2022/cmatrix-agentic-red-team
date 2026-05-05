@@ -41,7 +41,7 @@ To address the "Operational Fragility" identified in Section~\ref{sec:intro}, we
     \label{fig:apf_state}
 \end{figure}
 
-The \texttt{LLMProvider} abstraction layer then re-instantiates the agentic chain with the next available provider in the hierarchy $\mathcal{P}$, restoring the reasoning state from the persistence layer (PostgreSQL). This mechanism ensures that the engagement resumes from the last valid reasoning step with minimal overhead, targeting a Mean Time To Recovery (MTTR) of less than 2 seconds.
+The \texttt{LLMProvider} abstraction layer then re-instantiates the agentic chain with the next available provider in the hierarchy $\mathcal{P}$. To ensure zero state loss, we utilize LangGraph's \textbf{Stateful Checkpointing} mechanism, which serializes the entire reasoning graph—including the message history, internal thought buffers, and tool outputs—into a \texttt{JSON-B} format persisted in a PostgreSQL backend. This allows the system to restore the exact "thread state" on the fallback provider. This mechanism ensures that the engagement resumes from the last valid reasoning step with minimal overhead, targeting a Mean Time To Recovery (MTTR) of less than 2 seconds.
 
 \subsection{Dynamic Complexity-Aware Tiering (DCAT)}
 \label{sec:dcat}
@@ -58,6 +58,8 @@ The \textbf{Dynamic Complexity-Aware Tiering (DCAT)} engine optimizes the econom
 
 We formalize the \textbf{Complexity Signal} $C(t)$ in Equation~\ref{eq:complexity}:
 \input{../assets/eq-01-complexity.tex}
+
+The keyword weights $w_i$ are not manually tuned; instead, they are derived from a pre-computed \textbf{Security Reasoning Ontology} that maps MITRE ATT\&CK techniques to reasoning depth requirements (e.g., $w_{exploitation} = 0.9$, $w_{recon} = 0.2$).
 
 The \textbf{Optimization Manager} then solves for the optimal model $m \in \mathcal{M}$ that maximizes reasoning quality $Q$ within the constraints of the engagement budget and latency requirements, as formalized in Equation~\ref{eq:optimization}:
 \input{../assets/eq-02-optimization.tex}
