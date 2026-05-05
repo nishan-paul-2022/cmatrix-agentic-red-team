@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Specialized Worker Agent Roles and Resource Allocation}
+\label{tab:agents}
+\begin{booktabs}{colspec={llcl}}
+\toprule
+\textbf{Agent Type} & \textbf{Primary Domain} & \textbf{Default Tier} & \textbf{Core Toolset} \\
+\midrule
+Network Agent & Port Scanning / Infra & Flash & nmap, masscan, ping \\
+Web Agent & HTTP / OWASP Top 10 & Pro & requests, curl, bs4 \\
+Intel Agent & CVE / Threat Intelligence & Flash & nvd-api, searchsploit \\
+Auth Agent & Brute-force / Sessions & Reasoning & hydra, jwt-tool \\
+Config Agent & Compliance / Hardening & Flash & checkov, lynis \\
+API Agent & REST / GraphQL Security & Pro & postman-coll, swagger \\
+Command Exec & Shell / Post-Exploit & Reasoning & terminal, metapsploit \\
+\bottomrule
+\end{booktabs}
+\vspace{1mm}
+\footnotesize{Note: Tiers are dynamically elevated by the Supervisor if the DCAT Complexity Signal exceeds $\tau_{high} = 0.85$.}
+\end{table}
