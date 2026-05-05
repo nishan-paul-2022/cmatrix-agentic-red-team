@@ -22,7 +22,7 @@ Here's the complete list of all sub-steps:
 
 **STEP 5 — Figure, Table & Equation Generation**
 - 5a — Figure Generation (Batch 1: Fig 1-3) ✅
-- 5b — Table Generation *(multiple batches of 2–3)*
+- 5b — Table Generation (Batch 1: Tab 1-3) ✅
 - 5c — Equation Generation
 
 **STEP 6 — Full Paper Drafting**
