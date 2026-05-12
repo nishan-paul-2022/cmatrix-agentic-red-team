@@ -8,25 +8,6 @@
 
 ---
 
-## 📋 TABLE OF CONTENTS
-
-| # | 📂 Section | 📝 Description | 📊 Scope |
-|---|---|---|---|
-| **1** | [**Professor Papers — Tier 1**](#section-1) | Universities Ranked #1–100 USNWR | ~65 papers |
-| **2** | [**Professor Papers — Tier 2**](#section-2) | Universities Ranked #101–300 USNWR | ~45 papers |
-| **3** | [**Professor Papers — Tier 3**](#section-3) | Emerging Research & Niche Labs | ~30 papers |
-| **4** | [**Foundational Autonomous AI Agents**](#section-4) | Core cybersecurity agent frameworks | 33 papers |
-| **5** | [**LLM Multi-Agent Orchestration**](#section-5) | Resilience and collaborative logic | 10 papers |
-| **6** | [**Cost Optimization & Routing**](#section-6) | Efficient scaling and caching | 7 papers |
-| **7** | [**AI Safety & Governance**](#section-7) | HITL, Guardrails, and Ethical VAPT | 7 papers |
-| **8** | [**RAG & Vulnerability Intel**](#section-8) | Knowledge bases for exploit generation | 6 papers |
-| **9** | [**Cybersecurity Benchmarks**](#section-9) | Evaluation and performance tracking | 9 papers |
-| **10** | [**Agent Reasoning & CoT**](#section-10) | Advanced planning and planning logic | 5 papers |
-| **11** | [**Surveys & Literature Reviews**](#section-11) | Comprehensive field overviews | 4 papers |
-| **12** | [**Living Curated Lists**](#section-12) | Active GitHub repos and datasets | 2 repos |
-
----
-
 ## 📖 HOW TO USE THIS DOCUMENT
 
 > ℹ️ **Note:** Use the **Master Paper List** below as a quick lookup. For deep analysis, navigate to specific sections via the TOC.
@@ -241,6 +222,144 @@ This table provides a comprehensive index of all **198 research papers** cited i
 | 🟠 **P2** | **194** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 |  |
 | 🟠 **P2** | **195** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 |  |
 | 🟠 **P2** | **196** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 |  |
+
+---
+
+## 📊 PROFESSOR → PAPER QUICK-REFERENCE
+
+| # | Professor | University | Section Entries |
+|---|---|---|---|
+| 1 | Nickolai Zeldovich | MIT | 1.1, 1.2, 1.3 |
+| 2 | Dawn Song | UC Berkeley | 1.4, 1.5, 1.6, 1.7 |
+| 3 | Nick Feamster | U Chicago | 1.8, 1.9 |
+| 4 | Lujo Bauer | CMU | 1.10 |
+| 5 | Vyas Sekar | CMU | 1.11 |
+| 6 | Wajih Ul Hassan | UVA | 1.12, 1.13, 1.14, 1.15 |
+| 7 | Taesoo Kim | Georgia Tech | 1.16, 1.17, 1.18 |
+| 8 | Wenke Lee | Georgia Tech | 1.19, 1.20, 1.21 |
+| 9 | Gang Wang | UIUC | 1.22, 1.23 |
+| 10 | Daniel Kang | UIUC | 1.24, 1.25, 1.26 |
+| 11 | Barton Miller | UW-Madison | 1.27, 1.28, 1.29 |
+| 12 | Dongyan Xu | Purdue | 1.30, 1.31 |
+| 13 | Xiangyu Zhang | Purdue | 1.32, 1.33 |
+| 14 | Z. Berkay Celik | Purdue | 1.34, 1.35 |
+| 15 | Yizheng Chen | UMD | 1.36, 1.37 |
+| 16 | Christopher Kruegel | UCSB | 1.38 |
+| 17 | Giovanni Vigna | UCSB | 1.39, 1.40 |
+| 18 | Wenbo Guo | UCSB | 1.41–1.44 |
+| 19 | Xinyu Xing | Northwestern | 1.45, 1.46, 1.47 |
+| 20 | Suman Jana | Columbia | 1.48, 1.49, 1.50 |
+| 21 | Yan Shoshitaishvili | ASU | 2.1, 2.2, 2.3 |
+| 22 | Tiffany Bao | ASU | 2.4, 2.5, 2.6 |
+| 23 | Adam Doupé | ASU | 2.7, 2.8, 2.9 |
+| 24 | Long Lu | Northeastern | 2.10, 2.11 |
+| 25 | Engin Kirda | Northeastern | 2.12 |
+| 26 | Peng Liu | Penn State | 2.13 |
+| 27 | Ting Wang | Penn State | 2.14 |
+| 28 | Jie Gao | Rutgers | 2.15 |
+| 29 | Zhiqiang Lin | Ohio State | 2.16, 2.17 |
+| 30 | Vitaly Shmatikov | Cornell Tech | 2.18, 2.19 |
+| 31 | Brendan Dolan-Gavitt | NYU Tandon | 2.20, 2.21, 2.22, 2.23, 2.24 |
+| 32 | Yinzhi Cao | Johns Hopkins | 2.25, 2.26 |
+| 33 | Guofei Gu | Texas A&M | 2.27, 2.28 |
+| 34 | Jedidiah Crandall | ASU | 2.29 |
+| 35 | Saumya Debray | U Arizona | 2.30 |
+| 36 | Xinming (Simon) Ou | USF | 2.31, 2.32 |
+| 37 | William Enck | NC State | 2.33 |
+| 38 | Patrick Traynor | U Florida | 2.34, 2.35 |
+| 39 | Jun Dai | WPI | 2.36, 2.37 |
+| 40 | Peng Gao | Virginia Tech | 2.38, 2.39 |
+| 41 | Wenliang (Kevin) Du | Syracuse | 3.1 |
+| 42 | Selcuk Uluagac | FIU | 3.2 |
+| 43 | Murtuza Jadliwala | UTSA | 3.3 |
+| 44 | Kevin Butler | U Florida | 3.4, 3.5 |
+| 45 | Wil Robertson | Northeastern | 3.6, 3.7 |
+| 46 | Chengyu Song | UC Riverside | 3.8 |
+| 47 | Zhiyun Qian | UC Riverside | 3.9 |
+| 48 | Gang Tan | Penn State | 3.10 |
+| 49 | Antonio Bianchi | Purdue | 3.11, 3.12, 3.13 |
+| 50 | Pubali Datta | UMass Amherst | 3.14 |
+| 51 | Gianluca Stringhini | Boston University | 3.15, 3.16 |
+| 52 | Guanhong Tao | Purdue | 3.17 |
+| 53 | Heng Yin | UC Riverside | 3.18 |
+| 54 | Michalis Polychronakis | Stony Brook | 3.19 |
+| 55 | Long Cheng | Clemson | 3.20 |
+| 56 | Sankardas Roy | BGSU | 3.21 |
+| 57 | Anoop Singhal | NIST/UMD | 3.22, 3.23 |
+| 58 | Dipankar Dasgupta | U Memphis | 3.24 |
+| 59 | Sushil Jajodia | George Mason | 3.25, 3.26 |
+| 60 | Jun Dai (also #39) | WPI | 2.36, 2.37 |
+
+---
+
+## 📅 RECOMMENDED READING ORDER (ZERO KNOWLEDGE GAPS)
+
+**Phase 1 — Core Reasoning (Week 1):** CoT (§10.3) → ReAct (§10.1) → Tree of Thoughts (§10.2) → Reflexion (§10.4) → AutoGen (§5.1)
+
+**Phase 2 — Core VAPT (Week 2):** Getting pwn'd by AI (§4.7) → PentestGPT (§4.1) → One-day CVEs (§1.24) → Teams Zero-days (§1.25) → AutoAttacker (§4.12) → SoK Pentest Agents (§4.18)
+
+**Phase 3 — Contemporary Frameworks (Week 3):** Incalmo (§1.10) → VulnBot (§4.5) → xOffense (§4.6) → D-CIPHER (§2.21) → EnIGMA (§2.20) → CRAKEN (§2.22) → PentestGPT v2 (§4.2)
+
+**Phase 4 — AIxCC + Prof Papers (Week 4):** ATLANTIS (§1.16) → SoK AIxCC (§1.17) → CVE-GENIE (§1.38) → VulnLLM-R (§1.6) → SoK Vuln Repair (§1.22) → PurpCode (§1.23) → PatchAgent (§1.45)
+
+**Phase 5 — Benchmarks (Week 5):** CyBench (§9.1) → CVE-Bench (§1.26) → CyberGym (§1.4) → BountyBench (§1.5) → AutoPenBench (§9.4) → NYU CTF Bench (§9.5)
+
+**Phase 6 — Professor Specialty Papers (Week 6):** Decompiling the Synergy (§2.1) → APT Detection (§1.12) → Tamper-Evident Logging (§1.13) → MAS Malicious Code (§2.18) → CFH Breaking (§2.19) → SAGAI Report (§1.19) → Locus Fuzzing (§1.36)
+
+**Phase 7 — Safety + RAG + Cost (Week 7):** RAG Cybersecurity (§8.1) → Memory Security (§8.2) → ShieldAgent (§7.2) → Policy-as-Prompt (§7.1) → RouteLLM (§6.1) → FrugalGPT (§6.2) → Plan Caching (§6.3)
+
+**Phase 8 — Surveys + Living Lists (Week 8):** When LLMs Meet Cybersecurity (§11.1) → Frontier AI Impact (§1.7) → Pen-Strategist Table 10 (§11.2) → LLM4Pentest repo (§12.1) — subscribe and check weekly
+
+---
+
+## 🏫 UNIVERSITY RANKING QUICK REFERENCE
+
+| Institution | Country | QS 2025 Rank | USNWR |
+|---|---|---|---|
+| MIT | USA | #1 | #1 |
+| Stanford University | USA | #5 | #3 |
+| UC Berkeley | USA | #12 | #4 |
+| Princeton University | USA | #16 | #14 |
+| Carnegie Mellon University | USA | #24 | #22 |
+| Johns Hopkins University | USA | — | #9 |
+| Columbia University | USA | — | #12 |
+| Northwestern University | USA | — | #9 |
+| Nanyang Technological University | Singapore | #26 | — |
+| University of Illinois Urbana-Champaign | USA | #82 | #35 |
+| New York University | USA | #39 | #53 |
+| Georgia Tech | USA | — | #33 |
+| University of California, Santa Barbara | USA | #65 | #65 |
+| University of Maryland | USA | — | #93 |
+| University of Virginia | USA | — | #62 |
+| Cornell University / Cornell Tech | USA | — | #17 |
+| Arizona State University | USA | — | ~#147 |
+| Texas A&M University | USA | — | ~#145 |
+| Virginia Tech | USA | — | ~#170 |
+| Penn State University | USA | — | ~#130 |
+| Politecnico di Torino | Italy | #283 | — |
+| TU Wien | Austria | #251–300 | — |
+| Wuhan University | China | #225 | — |
+| Worcester Polytechnic Institute | USA | — | ~#270 |
+| ELTE Eötvös Loránd University | Hungary | #801–1000 | — |
+
+---
+
+## 📋 TABLE OF CONTENTS
+
+| # | 📂 Section | 📝 Description | 📊 Scope |
+|---|---|---|---|
+| **1** | [**Professor Papers — Tier 1**](#section-1) | Universities Ranked #1–100 USNWR | ~65 papers |
+| **2** | [**Professor Papers — Tier 2**](#section-2) | Universities Ranked #101–300 USNWR | ~45 papers |
+| **3** | [**Professor Papers — Tier 3**](#section-3) | Emerging Research & Niche Labs | ~30 papers |
+| **4** | [**Foundational Autonomous AI Agents**](#section-4) | Core cybersecurity agent frameworks | 33 papers |
+| **5** | [**LLM Multi-Agent Orchestration**](#section-5) | Resilience and collaborative logic | 10 papers |
+| **6** | [**Cost Optimization & Routing**](#section-6) | Efficient scaling and caching | 7 papers |
+| **7** | [**AI Safety & Governance**](#section-7) | HITL, Guardrails, and Ethical VAPT | 7 papers |
+| **8** | [**RAG & Vulnerability Intel**](#section-8) | Knowledge bases for exploit generation | 6 papers |
+| **9** | [**Cybersecurity Benchmarks**](#section-9) | Evaluation and performance tracking | 9 papers |
+| **10** | [**Agent Reasoning & CoT**](#section-10) | Advanced planning and planning logic | 5 papers |
+| **11** | [**Surveys & Literature Reviews**](#section-11) | Comprehensive field overviews | 4 papers |
+| **12** | [**Living Curated Lists**](#section-12) | Active GitHub repos and datasets | 2 repos |
 
 ---
 
@@ -2033,119 +2152,3 @@ This table provides a comprehensive index of all **198 research papers** cited i
 
 ---
 
-## 📊 PROFESSOR → PAPER QUICK-REFERENCE
-
-| # | Professor | University | Section Entries |
-|---|---|---|---|
-| 1 | Nickolai Zeldovich | MIT | 1.1, 1.2, 1.3 |
-| 2 | Dawn Song | UC Berkeley | 1.4, 1.5, 1.6, 1.7 |
-| 3 | Nick Feamster | U Chicago | 1.8, 1.9 |
-| 4 | Lujo Bauer | CMU | 1.10 |
-| 5 | Vyas Sekar | CMU | 1.11 |
-| 6 | Wajih Ul Hassan | UVA | 1.12, 1.13, 1.14, 1.15 |
-| 7 | Taesoo Kim | Georgia Tech | 1.16, 1.17, 1.18 |
-| 8 | Wenke Lee | Georgia Tech | 1.19, 1.20, 1.21 |
-| 9 | Gang Wang | UIUC | 1.22, 1.23 |
-| 10 | Daniel Kang | UIUC | 1.24, 1.25, 1.26 |
-| 11 | Barton Miller | UW-Madison | 1.27, 1.28, 1.29 |
-| 12 | Dongyan Xu | Purdue | 1.30, 1.31 |
-| 13 | Xiangyu Zhang | Purdue | 1.32, 1.33 |
-| 14 | Z. Berkay Celik | Purdue | 1.34, 1.35 |
-| 15 | Yizheng Chen | UMD | 1.36, 1.37 |
-| 16 | Christopher Kruegel | UCSB | 1.38 |
-| 17 | Giovanni Vigna | UCSB | 1.39, 1.40 |
-| 18 | Wenbo Guo | UCSB | 1.41–1.44 |
-| 19 | Xinyu Xing | Northwestern | 1.45, 1.46, 1.47 |
-| 20 | Suman Jana | Columbia | 1.48, 1.49, 1.50 |
-| 21 | Yan Shoshitaishvili | ASU | 2.1, 2.2, 2.3 |
-| 22 | Tiffany Bao | ASU | 2.4, 2.5, 2.6 |
-| 23 | Adam Doupé | ASU | 2.7, 2.8, 2.9 |
-| 24 | Long Lu | Northeastern | 2.10, 2.11 |
-| 25 | Engin Kirda | Northeastern | 2.12 |
-| 26 | Peng Liu | Penn State | 2.13 |
-| 27 | Ting Wang | Penn State | 2.14 |
-| 28 | Jie Gao | Rutgers | 2.15 |
-| 29 | Zhiqiang Lin | Ohio State | 2.16, 2.17 |
-| 30 | Vitaly Shmatikov | Cornell Tech | 2.18, 2.19 |
-| 31 | Brendan Dolan-Gavitt | NYU Tandon | 2.20, 2.21, 2.22, 2.23, 2.24 |
-| 32 | Yinzhi Cao | Johns Hopkins | 2.25, 2.26 |
-| 33 | Guofei Gu | Texas A&M | 2.27, 2.28 |
-| 34 | Jedidiah Crandall | ASU | 2.29 |
-| 35 | Saumya Debray | U Arizona | 2.30 |
-| 36 | Xinming (Simon) Ou | USF | 2.31, 2.32 |
-| 37 | William Enck | NC State | 2.33 |
-| 38 | Patrick Traynor | U Florida | 2.34, 2.35 |
-| 39 | Jun Dai | WPI | 2.36, 2.37 |
-| 40 | Peng Gao | Virginia Tech | 2.38, 2.39 |
-| 41 | Wenliang (Kevin) Du | Syracuse | 3.1 |
-| 42 | Selcuk Uluagac | FIU | 3.2 |
-| 43 | Murtuza Jadliwala | UTSA | 3.3 |
-| 44 | Kevin Butler | U Florida | 3.4, 3.5 |
-| 45 | Wil Robertson | Northeastern | 3.6, 3.7 |
-| 46 | Chengyu Song | UC Riverside | 3.8 |
-| 47 | Zhiyun Qian | UC Riverside | 3.9 |
-| 48 | Gang Tan | Penn State | 3.10 |
-| 49 | Antonio Bianchi | Purdue | 3.11, 3.12, 3.13 |
-| 50 | Pubali Datta | UMass Amherst | 3.14 |
-| 51 | Gianluca Stringhini | Boston University | 3.15, 3.16 |
-| 52 | Guanhong Tao | Purdue | 3.17 |
-| 53 | Heng Yin | UC Riverside | 3.18 |
-| 54 | Michalis Polychronakis | Stony Brook | 3.19 |
-| 55 | Long Cheng | Clemson | 3.20 |
-| 56 | Sankardas Roy | BGSU | 3.21 |
-| 57 | Anoop Singhal | NIST/UMD | 3.22, 3.23 |
-| 58 | Dipankar Dasgupta | U Memphis | 3.24 |
-| 59 | Sushil Jajodia | George Mason | 3.25, 3.26 |
-| 60 | Jun Dai (also #39) | WPI | 2.36, 2.37 |
-
----
-
-## 📅 RECOMMENDED READING ORDER (ZERO KNOWLEDGE GAPS)
-
-**Phase 1 — Core Reasoning (Week 1):** CoT (§10.3) → ReAct (§10.1) → Tree of Thoughts (§10.2) → Reflexion (§10.4) → AutoGen (§5.1)
-
-**Phase 2 — Core VAPT (Week 2):** Getting pwn'd by AI (§4.7) → PentestGPT (§4.1) → One-day CVEs (§1.24) → Teams Zero-days (§1.25) → AutoAttacker (§4.12) → SoK Pentest Agents (§4.18)
-
-**Phase 3 — Contemporary Frameworks (Week 3):** Incalmo (§1.10) → VulnBot (§4.5) → xOffense (§4.6) → D-CIPHER (§2.21) → EnIGMA (§2.20) → CRAKEN (§2.22) → PentestGPT v2 (§4.2)
-
-**Phase 4 — AIxCC + Prof Papers (Week 4):** ATLANTIS (§1.16) → SoK AIxCC (§1.17) → CVE-GENIE (§1.38) → VulnLLM-R (§1.6) → SoK Vuln Repair (§1.22) → PurpCode (§1.23) → PatchAgent (§1.45)
-
-**Phase 5 — Benchmarks (Week 5):** CyBench (§9.1) → CVE-Bench (§1.26) → CyberGym (§1.4) → BountyBench (§1.5) → AutoPenBench (§9.4) → NYU CTF Bench (§9.5)
-
-**Phase 6 — Professor Specialty Papers (Week 6):** Decompiling the Synergy (§2.1) → APT Detection (§1.12) → Tamper-Evident Logging (§1.13) → MAS Malicious Code (§2.18) → CFH Breaking (§2.19) → SAGAI Report (§1.19) → Locus Fuzzing (§1.36)
-
-**Phase 7 — Safety + RAG + Cost (Week 7):** RAG Cybersecurity (§8.1) → Memory Security (§8.2) → ShieldAgent (§7.2) → Policy-as-Prompt (§7.1) → RouteLLM (§6.1) → FrugalGPT (§6.2) → Plan Caching (§6.3)
-
-**Phase 8 — Surveys + Living Lists (Week 8):** When LLMs Meet Cybersecurity (§11.1) → Frontier AI Impact (§1.7) → Pen-Strategist Table 10 (§11.2) → LLM4Pentest repo (§12.1) — subscribe and check weekly
-
----
-
-## 🏫 UNIVERSITY RANKING QUICK REFERENCE
-
-| Institution | Country | QS 2025 Rank | USNWR |
-|---|---|---|---|
-| MIT | USA | #1 | #1 |
-| Stanford University | USA | #5 | #3 |
-| UC Berkeley | USA | #12 | #4 |
-| Princeton University | USA | #16 | #14 |
-| Carnegie Mellon University | USA | #24 | #22 |
-| Johns Hopkins University | USA | — | #9 |
-| Columbia University | USA | — | #12 |
-| Northwestern University | USA | — | #9 |
-| Nanyang Technological University | Singapore | #26 | — |
-| University of Illinois Urbana-Champaign | USA | #82 | #35 |
-| New York University | USA | #39 | #53 |
-| Georgia Tech | USA | — | #33 |
-| University of California, Santa Barbara | USA | #65 | #65 |
-| University of Maryland | USA | — | #93 |
-| University of Virginia | USA | — | #62 |
-| Cornell University / Cornell Tech | USA | — | #17 |
-| Arizona State University | USA | — | ~#147 |
-| Texas A&M University | USA | — | ~#145 |
-| Virginia Tech | USA | — | ~#170 |
-| Penn State University | USA | — | ~#130 |
-| Politecnico di Torino | Italy | #283 | — |
-| TU Wien | Austria | #251–300 | — |
-| Wuhan University | China | #225 | — |
-| Worcester Polytechnic Institute | USA | — | ~#270 |
-| ELTE Eötvös Loránd University | Hungary | #801–1000 | — |
