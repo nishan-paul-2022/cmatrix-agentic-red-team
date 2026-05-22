@@ -1552,6 +1552,258 @@
 
 ---
 
+## 80. Prof. Minhaz Zibran
+**Idaho State University** | USNWR Overall: **#370**
+
+| Field | Info |
+|---|---|
+| Email | minhaz.zibran@isu.edu |
+| Website | https://www.isu.edu/cs/faculty--staff/zibran.html |
+| Lab | SECReT Lab (Software Engineering and Cybersecurity Research Team), ISU |
+| Funding | NSF; ISU COGS grants |
+
+**Speciality:** Software security, program analysis, AI/ML for vulnerability detection, security-related AI-generated code review
+
+**CMatrix alignment:** Recent research on "Security-Related AI-Generated Pull Requests" — studies how LLM-generated code introduces security vulnerabilities, the exact risk CMatrix's code analysis module flags. Program analysis and vulnerability discovery research provides foundational techniques for CMatrix's static analysis pipeline.
+
+**Student friendliness:** Active PhD advisor at ISU. SECReT Lab is a tight-knit research group. ISU is a smaller university with excellent student-faculty ratios and strong mentorship culture.
+
+---
+
+## 81. Prof. Mostafa Fouda
+**Idaho State University** | USNWR Overall: **#370**
+
+| Field | Info |
+|---|---|
+| Email | mfouda@isu.edu |
+| Website | https://www.isu.edu/cs/faculty--staff/fouda.html |
+| Lab | SECReT Lab / AI-Security Group, ISU |
+| Funding | NSF, DoD; international collaborative grants |
+
+**Speciality:** AI/ML for cybersecurity, IoT security, network intrusion detection, privacy-preserving ML, applied AI programs for industrial cybersecurity
+
+**CMatrix alignment:** Research on AI/ML-driven intrusion detection and IoT security — the defensive detection side of CMatrix's offensive IoT scanning module. Developing applied AI programs for industrial cybersecurity (2024-2025) aligns with CMatrix's OT/ICS VAPT extension plans.
+
+**Student friendliness:** Active international collaborator with strong ties to Middle East/African research communities. ISU's smaller size enables close mentoring relationships. Responsive to student outreach.
+
+---
+
+## 82. Prof. Matt Revelle
+**Montana State University** | USNWR Overall: **#345**
+
+| Field | Info |
+|---|---|
+| Email | matt.revelle@montana.edu |
+| Website | https://www.cs.montana.edu/directory/faculty/revelle.html |
+| Lab | Gianforte School of Computing Security Group, MSU |
+| Funding | DHS; NSF; Montana EPSCOR program |
+
+**Speciality:** Computer security, binary analysis, program analysis, machine learning and graph neural networks for vulnerability detection
+
+**CMatrix alignment:** Research on binary analysis and ML/GNN-based vulnerability detection — the exact static analysis layer CMatrix automates for binary targets. DHS-funded research on identifying exploitable computer code with AI directly overlaps with CMatrix's grey-box scan methodology.
+
+**Student friendliness:** Active PhD advisor at MSU's Gianforte School. Montana EPSCOR program provides funded research opportunities for graduate students. MSU is a welcoming environment for students from diverse backgrounds.
+
+---
+
+## 83. Prof. Tommy Morris
+**University of Alabama in Huntsville** | USNWR Overall: **#380**
+
+| Field | Info |
+|---|---|
+| Email | tommy.morris@uah.edu |
+| Website | https://www.uah.edu/eng/departments/ece/faculty-staff/tommy-morris |
+| Lab | Center for Cybersecurity Research and Education (CCRE), UAH (Director) |
+| Funding | NSF, DoD, DHS, NASA; CAE-CD and CAE-R dual designation |
+
+**Speciality:** ICS/SCADA security, autonomous cyber defense, AI for intrusion detection in cyber-physical systems, UAV network security
+
+**CMatrix alignment:** Directs CCRE — UAH's interdisciplinary hub for cybersecurity of autonomous systems, UAV networks, and industrial control. Research on AI-driven autonomous cyber defense for ICS/SCADA directly extends CMatrix's OT/ICS VAPT scope. NSA dual CAE designation (defense + research) signals government research pipeline.
+
+**Student friendliness:** Director of CCRE with multiple funded graduate positions. UAH is a NASA/DoD research hub — exceptional for students with interest in defense and critical infrastructure security. Strong international student community.
+
+---
+
+## 84. Prof. Qi Liao
+**Central Michigan University** | USNWR Overall: **#385**
+
+| Field | Info |
+|---|---|
+| Email | liao1q@cmich.edu |
+| Website | https://www.cmich.edu/directory/qi-liao |
+| Lab | Network Security and Game Theory Research Group, CMU CS |
+| Funding | NSF; CMU Faculty Research grants |
+
+**Speciality:** Computer security, ML for network security, visual analytics for threat detection, game theory for cyber defense
+
+**CMatrix alignment:** Game-theoretic modeling of attacker-defender interactions — provides CMatrix's strategic reasoning layer for optimal attack path selection in complex network environments. ML-based network security research generates detection-evasion insights for CMatrix's stealth scan module.
+
+**Student friendliness:** Active PhD advisor at CMU. Research group offers funded assistantships. CMU's moderate size provides strong student-faculty research relationships. Known for collaborative mentoring.
+
+---
+
+## 85. Prof. Linxi Zhang
+**Central Michigan University** | USNWR Overall: **#385**
+
+| Field | Info |
+|---|---|
+| Email | zhang1l9@cmich.edu |
+| Website | https://www.cmich.edu/directory/linxi-zhang |
+| Lab | Cybersecurity and Privacy Research Lab, CMU CS |
+| Funding | NSF; automotive industry partnerships |
+
+**Speciality:** Cybersecurity and privacy, automotive cybersecurity, AI/ML for threat detection, adversarial attacks on embedded systems
+
+**CMatrix alignment:** Research on automotive cybersecurity and AI/ML-based threat detection in embedded systems — extends CMatrix's attack surface into connected vehicle systems (CAN bus, OBD-II interfaces). Adversarial ML research on embedded targets provides key vulnerability modeling inputs.
+
+**Student friendliness:** Assistant professor actively building her research group. Automotive industry partnerships provide applied research opportunities for students. Known for mentoring undergraduate and graduate researchers into publishable work.
+
+---
+
+## 86. Prof. Ghaith Husari
+**East Tennessee State University** | USNWR Overall: **#390**
+
+| Field | Info |
+|---|---|
+| Email | husarig@etsu.edu |
+| Website | https://www.etsu.edu/cbat/computing/faculty-staff/husari.php |
+| Lab | ML and AI Security Lab, ETSU Computing |
+| Funding | NSF; ETSU Research Development Committee |
+
+**Speciality:** Machine learning for cybersecurity, AI-driven intrusion detection, data analytics for network defense, healthcare AI security
+
+**CMatrix alignment:** Research on ML-driven intrusion detection and network defense analytics — the defensive complement to CMatrix's autonomous reconnaissance. Healthcare AI security research extends CMatrix's VAPT scope into medical IoT (a high-value target sector). ETSU is NSA CAE-CD designated.
+
+**Student friendliness:** Active PhD advisor at a smaller institution — excellent student-faculty ratio. ETSU's affordable cost of living and strong mentorship culture make it attractive for international PhD students.
+
+---
+
+## 87. Prof. Abdullah Yasin Nur
+**University of New Orleans** | USNWR Overall: **#430**
+
+| Field | Info |
+|---|---|
+| Email | anur@uno.edu |
+| Website | https://www.uno.edu/directory/faculty/nur.php |
+| Lab | Network Security and AI Research Group, UNO CS |
+| Funding | NSF; UNO Cyber Center |
+
+**Speciality:** AI-driven cybersecurity, network security measurement, autonomous threat detection, network intelligence
+
+**CMatrix alignment:** Research on AI-driven cybersecurity and network measurement — the data-collection and analysis pipeline that precedes CMatrix's exploitation phase. Network intelligence work provides reconnaissance enrichment for CMatrix's multi-host scan orchestration. UNO Cyber Center integrates cybersecurity and AI research.
+
+**Student friendliness:** Active researcher at UNO. UNO has a strong social mobility mission and is welcoming of international students. Low cost of living in New Orleans combined with active research culture.
+
+---
+
+## 88. Prof. James Wagner
+**University of New Orleans** | USNWR Overall: **#430**
+
+| Field | Info |
+|---|---|
+| Email | jwagner@uno.edu |
+| Website | https://www.uno.edu/directory/faculty/wagner.php |
+| Lab | UNO Cyber Center — Cybersecurity and AI Research |
+| Funding | NSF; Louisiana Board of Regents |
+
+**Speciality:** Cybersecurity data integrity, AI-driven data exfiltration detection, network security, applied cryptography
+
+**CMatrix alignment:** Research on AI-driven detection of data tampering and exfiltration — the post-exploitation detection layer CMatrix must evade. Cyber Center research on AI + cybersecurity integration provides natural collaborative ground for CMatrix's framework validation studies.
+
+**Student friendliness:** Senior researcher at UNO Cyber Center. Collaborative cross-departmental research culture. Mentors both MS and PhD students in applied cybersecurity projects.
+
+---
+
+## 89. Prof. Xin Chen
+**University of New Mexico** | USNWR Overall: **#310**
+
+| Field | Info |
+|---|---|
+| Email | xinchen@unm.edu |
+| Website | https://www.cs.unm.edu/~xin/ |
+| Lab | Cyber-Physical Systems Security Lab, UNM CS |
+| Funding | NSF; NMAIC (New Mexico AI Consortium — Sandia, LANL, UNM) |
+
+**Speciality:** Cyber-physical system safety and security, formal verification, ML for security, network-level attack modeling
+
+**CMatrix alignment:** Research on formal safety analysis of CPS with ML components — provides rigorous mathematical modeling of attack surfaces CMatrix targets. NMAIC collaboration with Sandia and Los Alamos National Labs gives access to government-grade threat models and datasets. Formal CPS attack modeling directly supports CMatrix's ICS/SCADA extensions.
+
+**Student friendliness:** UNM is a Hispanic-Serving Institution with strong diversity in graduate students. NMAIC membership provides unique national lab collaboration opportunities. NSF-funded research provides assistantships.
+
+---
+
+## 90. Prof. Md Morshed Alam
+**Old Dominion University** | USNWR Overall: **#301**
+
+| Field | Info |
+|---|---|
+| Email | m2alam@odu.edu |
+| Website | https://www.odu.edu/directory/md-morshed-alam |
+| Lab | School of Cybersecurity — AI Security Group, ODU |
+| Funding | NSF; ODU Centennial Cluster Initiative |
+
+**Speciality:** AI security, deep reinforcement learning for cyber defense, autonomous threat response, adversarial RL in security contexts
+
+**CMatrix alignment:** Research on deep reinforcement learning for autonomous cyber defense — the direct adversarial counterpart to CMatrix's autonomous offense. DRL-based cyber defense agents must anticipate and respond to exactly the attack patterns CMatrix generates, creating a natural research collaboration opportunity for joint red-team/blue-team evaluation.
+
+**Student friendliness:** Part of ODU's fast-growing AI security cluster. Active PhD advisor. ODU's highly diverse student body (40%+ minority enrollment) is welcoming of international researchers.
+
+---
+
+## 91. Prof. Clemente Izurieta
+**Montana State University** | USNWR Overall: **#345**
+
+| Field | Info |
+|---|---|
+| Email | clemente.izurieta@montana.edu |
+| Website | https://www.cs.montana.edu/directory/faculty/izurieta.html |
+| Lab | Software Engineering and Security Lab, MSU Gianforte School |
+| Funding | NSF; DHS; Montana EPSCOR |
+
+**Speciality:** Software engineering security, fault-tolerant systems, cybersecurity education, software quality and technical debt in security-critical systems
+
+**CMatrix alignment:** Research on software fault tolerance and security in safety-critical systems — a key vulnerability class CMatrix's automation targets. Expertise in technical debt and software quality metrics provides a risk quantification framework for CMatrix's vulnerability severity scoring output.
+
+**Student friendliness:** Senior faculty and known mentor at MSU. NSF and DHS-funded research provides graduate assistantships. Montana EPSCOR program specifically supports students from underrepresented backgrounds including international students.
+
+---
+
+## 92. Prof. William Eberle
+**Tennessee Technological University** | USNWR Overall: **#358**
+
+| Field | Info |
+|---|---|
+| Email | weberle@tntech.edu |
+| Website | https://www.tntech.edu/engineering/departments/csc/faculty/eberle.php |
+| Lab | MInDS Center (Machine Intelligence and Data Science), Tennessee Tech |
+| Funding | NSF NAIRR AI Education Fellowship (2025); NSF |
+
+**Speciality:** Graph-based anomaly detection for cybersecurity, AI education, network behavior analysis, ML for threat detection
+
+**CMatrix alignment:** Graph-based anomaly detection research — builds network behavior graphs that model normal vs. attack traffic patterns, precisely the kind of network modeling CMatrix's reconnaissance phase generates. NSF NAIRR AI Education Fellow (2025) — connects to the national AI research resource infrastructure.
+
+**Student friendliness:** Co-director of MInDS Center. NSF NAIRR fellowship gives access to national AI compute resources for student research. Tennessee Tech's CEROC provides active cybersecurity competition and research community.
+
+---
+
+## 93. Prof. Supreeth Shastri
+**University of North Texas** | USNWR Overall: **#340**
+
+| Field | Info |
+|---|---|
+| Email | sshastri@unt.edu |
+| Website | https://engineering.unt.edu/cse/people/supreeth-shastri.html |
+| Lab | AI Accountability Research Lab, UNT CSE |
+| Funding | NSF; UNT Faculty Research Initiation Grant |
+
+**Speciality:** AI accountability and auditability, LLM evaluation benchmarks, responsible AI for cybersecurity, autonomous system safety
+
+**CMatrix alignment:** Research on AI accountability benchmarks for autonomous systems in cybersecurity, self-driving vehicles, and healthcare — develops the evaluation frameworks that CMatrix needs for responsible VAPT reporting and audit trails. LLM evaluation methodology directly applicable to benchmarking CMatrix's agent pipeline performance and safety.
+
+**Student friendliness:** Early-career Assistant Professor actively building his lab. UNT's NSA CAE-CD designation and diverse student population (international students ~15%) make it welcoming. Actively responds to student research inquiries.
+
+---
+
 # 📧 Cold Email Strategy
 
 **The golden rule:** Never ask for funding in a first email. Lead with intellectual alignment.
