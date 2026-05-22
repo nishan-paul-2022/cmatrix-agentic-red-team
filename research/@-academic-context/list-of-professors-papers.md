@@ -24,123 +24,123 @@
 
 This table provides a comprehensive index of all **115 professor-based research papers** cited in this document, sorted by section and priority.
 
-| Priority | # | Paper Title | Year | Venue | Professor(s) | University | USNWR Rank |
+| # | Priority | Paper Title | Year | Venue | Professor(s) | University | USNWR Rank |
 |---|---|---|---|---|---|---|---|
- | 🟠 **P2** | **1** | Modular Verification of Secure and Leakage-Free Systems (SOSP 2024) | 2024 | SOSP 2024 (CCF-A) | Nickolai Zeldovich | MIT | #1 | 
- | 🟠 **P2** | **2** | Shipwright: Proving Liveness of Distributed Systems with Byzantine Participants | 2025 | arXiv, July 2025 | Nickolai Zeldovich | MIT | #1 | 
- | 🟡 **P3** | **3** | Probability from Possibility: Probabilistic Confidentiality for Storage Systems | 2024 | IEEE CSF 2024 (CCF-B) | Nickolai Zeldovich | MIT | #1 | 
- | 🔴 **P1** | **4** | CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026) | 2026 | ICLR 2026 (CCF-A) | Dawn Song | UC Berkeley | #4 | 
- | 🔴 **P1** | **5** | BountyBench: Dollar Impact of AI Agent Attackers and Defenders (NeurIPS 2025) | 2025 | NeurIPS 2025 (CCF-A) | Dawn Song | UC Berkeley | #4 | 
- | 🔴 **P1** | **6** | VulnLLM-R: Specialized Reasoning LLM with Agent Scaffold for Vulnerability Detection | 2025 | arXiv, December 2025 | Dawn Song, Wenbo Guo | UC Berkeley | #4 | 
- | 🟠 **P2** | **7** | Frontier AI's Impact on the Cybersecurity Landscape | 2025 | arXiv, April 2025 | Dawn Song, Wenbo Guo | UC Berkeley | #4 | 
- | 🔴 **P1** | **8** | PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX 2025) | 2025 | USENIX Security 2025 | Xinyu Xing | Northwestern University | #9 | 
- | 🔴 **P1** | **9** | LLM-Fuzzer: Scaling Assessment of LLM Jailbreaks (USENIX Security 2024) | 2024 | USENIX Security 2024 | Xinyu Xing | Northwestern University | #9 | 
- | 🟠 **P2** | **10** | BandFuzz: ML-Powered Collaborative Fuzzing (co-author with Wenbo Guo — see entry 1.61) | 2025 |  | Xinyu Xing | Northwestern University | #9 | 
- | 🔴 **P1** | **11** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing (co-author with Suman Jana — see entry 1.15) | 2025 | IEEE S&P 2025 ToT | Yinzhi Cao | Johns Hopkins University | #9 | 
- | 🟠 **P2** | **12** | JavaScript Analysis: 80+ CVEs in Top-100 Websites (IEEE S&P 2025 ToT) | 2025 | IEEE S&P 2025 ToT | Yinzhi Cao | Johns Hopkins University | #9 | 
- | 🟠 **P2** | **13** | AI/ML for Network Security: Measurement and Threat Detection | 2025 | IEEE S&P / USENIX | Nick Feamster | University of Chicago | #12 | 
- | 🟡 **P3** | **14** | IoT Security: Empirical Study of Attack Surfaces in Smart Home Devices | 2025 | NOISE Lab | Nick Feamster | University of Chicago | #12 | 
- | 🟠 **P2** | **15** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | 2025 | 2025 | Suman Jana, Yinzhi Cao | Columbia University | #12 | 
- | 🟠 **P2** | **16** | SWExploit: Adversarial Issues for LLM-Based Automated Program Repair Agents | 2025 | 2025 | Suman Jana | Columbia University | #12 | 
- | 🟠 **P2** | **17** | GCGS: Black-Box Attack on LLM Code Assistants (83% Success) | 2025 | 2025 | Suman Jana | Columbia University | #12 | 
- | 🔴 **P1** | **18** | Multi-Agent Systems Execute Arbitrary Malicious Code (COLM 2025) | 2025 | COLM 2025 | Vitaly Shmatikov | Cornell Tech | #17 | 
- | 🔴 **P1** | **19** | Breaking and Fixing Defenses Against Control-Flow Hijacking in MAS (ICLR 2026) | 2026 | ICLR 2026 | Vitaly Shmatikov | Cornell Tech | #17 | 
- | 🔴 **P1** | **20** | Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks | 2025 | arXiv / Anthropic | Lujo Bauer, Vyas Sekar | CMU | #22 | 
- | 🔴 **P1** | **21** | Incalmo / MHBench: Multi-Host Attack Benchmark | 2025 | arXiv, 2025 | Lujo Bauer, Vyas Sekar | CMU | #22 | 
- | 🔴 **P1** | **22** | ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System (DEF CON 33) | 2025 | DARPA AIxCC ($4M) | Taesoo Kim | Georgia Tech | #33 | 
- | 🔴 **P1** | **23** | SoK: DARPA's AI Cyber Challenge — Architectures and Lessons Learned | 2026 | arXiv, Feb 2026 | Taesoo Kim | Georgia Tech | #33 | 
- | 🟠 **P2** | **24** | OSS-CRS: Open Locally Deployable Framework for Autonomous Vuln Discovery | 2026 | post-AIxCC 2026 | Taesoo Kim | Georgia Tech | #33 | 
- | 🔴 **P1** | **25** | Systems Security Foundations for Agentic Computing (SAGAI @ IEEE S&P 2025) | 2025 | IEEE SAGAI 2025 | Wenke Lee | Georgia Tech | #33 | 
- | 🟠 **P2** | **26** | Dynamic Information Flow Tracking for APT Detection: A Stochastic Game Approach | 2024 | IEEE TAC 2024 | Wenke Lee | Georgia Tech | #33 | 
- | 🟠 **P2** | **27** | WEBRR: Forensic Replay and Investigation of Web-Based Attacks (USENIX 2024) | 2024 | USENIX Security 2024 | Wenke Lee | Georgia Tech | #33 | 
- | 🔴 **P1** | **28** | SoK: Towards Effective Automated Vulnerability Repair (USENIX Security 2025) | 2025 | USENIX Security 2025 | Gang Wang | UIUC | #35 | 
- | 🔴 **P1** | **29** | PurpCode: Reasoning for Safer Code Generation (NeurIPS 2025 Winner) | 2025 | NeurIPS 2025 | Gang Wang | UIUC | #35 | 
- | 🔴 **P1** | **30** | LLM Agents Can Autonomously Exploit One-day Vulnerabilities | 2024 | arXiv, April 2024 | Daniel Kang | UIUC | #35 | 
- | 🔴 **P1** | **31** | Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities | 2024 | arXiv, June 2024 | Daniel Kang | UIUC | #35 | 
- | 🔴 **P1** | **32** | CVE-Bench: AI Agents Exploiting Real-World Web Vulnerabilities (ICML 2025) | 2025 | ICML 2025 Spotlight | Daniel Kang | UIUC | #35 | 
- | 🟠 **P2** | **33** | LmPa: Improving Decompilation by Synergy of LLM and Program Analysis (NDSS 2025) | 2025 | NDSS 2025 | Barton Miller / Xiangyu Zhang | University of Wisconsin–Madison | #42 | 
- | 🟠 **P2** | **34** | Benchmarking LLMs for Multi-Language Software Vulnerability Detection | 2025 | arXiv, March 2025 | Barton Miller | University of Wisconsin–Madison | #42 | 
- | 🟡 **P3** | **35** | Differential Fuzz Testing to Detect Tampering in Sensor Systems | 2024 | arXiv, April 2024 | Barton Miller | University of Wisconsin–Madison | #42 | 
- | 🟠 **P2** | **36** | NeuroScope: Reverse Engineering DNNs on Edge Devices (USENIX Security 2025) | 2025 | USENIX Security 2025 | Dongyan Xu | Purdue | #53 | 
- | 🟠 **P2** | **37** | SAIN: Improving ICS Attack Detection via State-Aware Invariants (ACM CCS 2024) | 2024 | ACM CCS 2024 | Dongyan Xu, Berkay Celik | Purdue | #53 | 
- | 🔴 **P1** | **38** | LmPa: Reducing Hallucination in Decompilation (NDSS 2025) | 2025 | NDSS 2025 | Xiangyu Zhang | Purdue | #53 | 
- | 🟠 **P2** | **39** | CodeArt: Better Code Models by Attention Regularization (ICLR 2025) | 2025 | ICLR 2025 | Xiangyu Zhang | Purdue | #53 | 
- | 🔴 **P1** | **40** | Rethinking How to Evaluate Language Model Jailbreak (AISEC 2025) | 2025 | AISEC @ CCS 2025 | Berkay Celik | Purdue | #53 | 
- | 🟠 **P2** | **41** | Automated Discovery of Semantic Attacks in Multi-Robot Navigation (USENIX 2025) | 2025 | USENIX Security 2025 | Berkay Celik | Purdue | #53 | 
- | 🔴 **P1** | **42** | EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Vulns (ICML 2025) | 2025 | ICML 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
- | 🔴 **P1** | **43** | D-CIPHER: Dynamic Collaborative Intelligent Multi-Agent System for Offensive Security | 2025 | arXiv, Feb 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
- | 🔴 **P1** | **44** | CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution | 2025 | arXiv, May 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
- | 🟠 **P2** | **45** | ELFuzz: Efficient Input Generation via LLM-Driven Synthesis (USENIX 2025) | 2025 | USENIX Security 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
- | 🟠 **P2** | **46** | ARVO (co-author with Tiffany Bao — see entry 2.14) | 2024 |  | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
- | 🔴 **P1** | **47** | LEMIX: Enabling Testing of Embedded Applications as Linux Applications (USENIX 2025) | 2025 | USENIX Security 2025 | Antonio Bianchi | Purdue University | #53 | 
- | 🟠 **P2** | **48** | Automated Discovery of Semantic Attacks in Multi-Robot Navigation Systems (USENIX 2025) | 2025 | USENIX Security 2025 | Antonio Bianchi, Berkay Celik | Purdue University | #53 | 
- | 🟠 **P2** | **49** | NeuroScope: Reverse Engineering DNNs on Edge Devices (co-author with Dongyan Xu — see 1.36) | 2025 |  | Antonio Bianchi | Purdue University | #53 | 
- | 🟠 **P2** | **50** | Backdoor Attacks in LLMs and Temporal Logic Attacks Against Autonomous RL Agents | 2025 | 2024–2025 | Guanhong Tao | Purdue University | #53 | 
- | 🔴 **P1** | **51** | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | 2025 | IEEE INFOCOM 2025 | Wajih Ul Hassan | University of Virginia | #62 | 
- | 🔴 **P1** | **52** | Rethinking Tamper-Evident Logging (ACM CCS 2025) | 2025 | ACM CCS 2025 | Wajih Ul Hassan | University of Virginia | #62 | 
- | 🟠 **P2** | **53** | HADES: Detecting Active Directory Attacks via Whole Network Provenance | 2024 | arXiv, 2024 | Wajih Ul Hassan | University of Virginia | #62 | 
- | 🟠 **P2** | **54** | Flash: Intrusion Detection via Provenance Graph Representation Learning (IEEE S&P 2024) | 2024 | IEEE S&P 2024 | Wajih Ul Hassan | University of Virginia | #62 | 
- | 🔴 **P1** | **55** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, Sept 2025 | Christopher Kruegel, Giovanni Vigna, Wenbo Guo | UC Santa Barbara | #65 | 
- | 🔴 **P1** | **56** | CVE-GENIE (co-author with Kruegel and Guo — see entry 1.55) | 2025 | ACM CCS 2025 Keynote | Giovanni Vigna | UC Santa Barbara | #65 | 
- | 🟠 **P2** | **57** | ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs | 2025 | ACM CCS 2025 Keynote | Giovanni Vigna | UC Santa Barbara | #65 | 
- | 🔴 **P1** | **58** | VulnLLM-R (co-author with Dawn Song — see entry 1.6) | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
- | 🔴 **P1** | **59** | CVE-GENIE (co-author with Kruegel and Vigna — see entry 1.55) | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
- | 🟠 **P2** | **60** | BlueCodeAgent: Blue-Team Agent Enabled by Automated Red Teaming | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
- | 🟠 **P2** | **61** | BandFuzz: ML-Powered Collaborative Fuzzing (SBFT 2024 Winner) | 2025 | arXiv, July 2025 | Xinyu Xing, Wenbo Guo | UC Santa Barbara | #65 | 
- | 🔴 **P1** | **62** | CVE-GENIE: LLM Multi-Agent Framework for CVE Reproduction (co-author with Kruegel, Vigna, Guo — see 1.55) | 2025 | 2024–2025 | Gianluca Stringhini | Boston University | #65 | 
- | 🟠 **P2** | **63** | Cybercrime Measurement and Automated Abuse Detection at Scale (NSF CAREER) | 2025 | 2024–2025 | Gianluca Stringhini | Boston University | #65 | 
- | 🔴 **P1** | **64** | Locus: Agentic Predicate Synthesis for Directed Fuzzing (ICSE 2026) | 2026 | ICSE 2026 | Yizheng Chen | University of Maryland | #93 | 
- | 🟠 **P2** | **65** | SecRepoBench: Benchmarking Code Agents for Secure Code Completion (ICSE 2026) | 2026 | LLM4Code @ ICSE 2026 | Yizheng Chen | University of Maryland | #93 | 
- | 🟠 **P2** | **66** | Network Attack Graphs and Multi-Hop Attack Path Modeling (NIST / UMD) | 2025 | 2024–2025 | Anoop Singhal, Simon Ou | University of Maryland / NIST | #93 | 
- | 🟡 **P3** | **67** | LLM Embeddings for Botnet TLS Certificate Detection (co-author with Simon Ou — see 2.42) | 2024 |  | Anoop Singhal | University of Maryland / NIST | #93 | 
- | 🟠 **P2** | **68** | AI-Driven Malware Analysis and Cyber-Physical Systems Security | 2025 | 2024–2025 | Peng Liu | Penn State | ~#130 | 
- | 🟠 **P2** | **69** | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | 2025 | 2024–2025 | Ting Wang | Penn State | ~#130 | 
- | 🟠 **P2** | **70** | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | 2025 | 2024–2025 | Gang Tan | Penn State University | ~#130 | 
- | 🟠 **P2** | **71** | SEED Labs: The World's Most Widely Deployed Cybersecurity Education Platform | 2023 | ACM CCS ToT | Kevin Du | Syracuse University | ~#133 | 
- | 🔴 **P1** | **72** | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN ToT 2025) | 2025 | DSN ToT 2025 | Guofei Gu | Texas A&M University | ~#145 | 
- | 🟠 **P2** | **73** | BotHunter: Detecting Malware Infection via IDS-Driven Dialog Correlation (ACSAC ToT 2023) | 2007 | USENIX 2007 | Guofei Gu, Wenke Lee | Texas A&M University | ~#145 | 
- | 🟠 **P2** | **74** | Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35) | 2026 | 2024–2025 | Patrick Traynor | University of Florida | ~#145 | 
- | 🟡 **P3** | **75** | Telephony Attack Surfaces: SS7, VoIP, and Wireless Protocol Vulnerabilities | 2025 | 2024–2025 | Patrick Traynor | University of Florida | ~#145 | 
- | 🟠 **P2** | **76** | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see 2.35) | 2026 | 2024–2025 | Kevin Butler | University of Florida | ~#145 | 
- | 🟡 **P3** | **77** | Hardware-Assisted Security: TEEs, Secure Enclaves, and Authentication | 2025 | 2024–2025 | Kevin Butler | University of Florida | ~#145 | 
- | 🔴 **P1** | **78** | Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) | 2026 | NDSS 2026 Distinguished | Yan Shoshitaishvili, Adam Doupé | Arizona State University | ~#147 | 
- | 🟠 **P2** | **79** | ROPbot: Reimagining Code Reuse Attack Synthesis (NDSS 2026) | 2026 | NDSS 2026 | Yan Shoshitaishvili, Adam Doupé, Tiffany Bao | Arizona State University | ~#147 | 
- | 🟠 **P2** | **80** | Open Cybersecurity Education: Five Years of pwn.college (SIGCSE 2026) | 2026 | SIGCSE 2026 Best Paper | Yan Shoshitaishvili, Adam Doupé | Arizona State University | ~#147 | 
- | 🔴 **P1** | **81** | ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software | 2024 | arXiv, Aug 2024 | Tiffany Bao, Yan Shoshitaishvili, Adam Doupé, Brendan Dolan-Gavitt | Arizona State University | ~#147 | 
- | 🟠 **P2** | **82** | ROPbot: Code Reuse Attack Synthesis (co-author with Shoshitaishvili — see entry 2.12) | 2026 | NDSS 2026 | Tiffany Bao, Adam Doupé | Arizona State University | ~#147 | 
- | 🟠 **P2** | **83** | Discovering Blind-Trust Vulnerabilities in PLC Binaries via State Machine Recovery (NDSS 2026) | 2026 | NDSS 2026 | Tiffany Bao, Adam Doupé | Arizona State University | ~#147 | 
- | 🔴 **P1** | **84** | Decompiling the Synergy (co-author with Shoshitaishvili — see entry 2.11) | 2026 | IEEE S&P 2026 | Adam Doupé, Yan Shoshitaishvili | Arizona State University | ~#147 | 
- | 🟠 **P2** | **85** | Oxidizer: Toward Concise and High-Fidelity Rust Decompilation (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | Adam Doupé, Yan Shoshitaishvili | Arizona State University | ~#147 | 
- | 🟠 **P2** | **86** | ARVO (co-author with Tiffany Bao — see entry 2.14) | 2024 |  | Adam Doupé | Arizona State University | ~#147 | 
- | 🟠 **P2** | **87** | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | 2025 | 2024–2025 | Jedidiah Crandall | Arizona State University | ~#147 | 
- | 🔴 **P1** | **88** | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | 2025 | 2024–2025 | Sushil Jajodia | George Mason University | ~#156 | 
- | 🟠 **P2** | **89** | Cyber Deception: Honeypots, Decoy Networks, and Proactive Cybersecurity | 2025 | 2024–2025 | Sushil Jajodia | George Mason University | ~#156 | 
- | 🟠 **P2** | **90** | AI Systems for Threat Recognition, Agent Communication, and Automated Response | 2025 | 2024–2025 | Jie Gao | Rutgers University | ~#160 | 
- | 🟠 **P2** | **91** | Detecting Remote Infections on Linux-Based IoT Devices (ASIACCS 2022 Best Paper) | 2022 | ASIACCS 2022 | Long Cheng, Guofei Gu | Clemson University | ~#168 | 
- | 🔴 **P1** | **92** | NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster | 2026 | NSF CAREER 2025 | Peng Gao | Virginia Tech | ~#170 | 
- | 🟠 **P2** | **93** | Provenance-Based Intrusion Detection with Agentic AI for Cybersecurity | 2025 | 2024–2025 | Peng Gao | Virginia Tech | ~#170 | 
- | 🟠 **P2** | **94** | IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | Pubali Datta, Berkay Celik | UMass Amherst | ~#170 | 
- | 🟠 **P2** | **95** | LLMs for PLC Code Security in Industrial Control Systems | 2025 | 2025 | Long Lu | Northeastern University | ~#179 | 
- | 🟠 **P2** | **96** | Optimizing Fuzzing for Vulnerability Coverage in IoT/Embedded Systems | 2025 | 2025 | Long Lu | Northeastern University | ~#179 | 
- | 🟠 **P2** | **97** | Automatic Exploit Generation and Malware Behavior Analysis | 2025 | 2024–2025 | Engin Kirda | Northeastern University | ~#179 | 
- | 🟠 **P2** | **98** | PANDA: Whole-System Dynamic Analysis Platform for Security Research | 2015 | 2015–2024 | Wil Robertson, Brendan Dolan-Gavitt | Northeastern University | ~#179 | 
- | 🟠 **P2** | **99** | LAVA: Large-Scale Automated Vulnerability Addition for Benchmarking Bug Finders | 2016 | IEEE S&P 2016 | Wil Robertson, Brendan Dolan-Gavitt | Northeastern University | ~#179 | 
- | 🟠 **P2** | **100** | ELFuzz: Efficient Input Generation via LLM-Driven Synthesis (USENIX 2025) | 2025 | USENIX Security 2025 | Zhiqiang Lin, Brendan Dolan-Gavitt | Ohio State University | ~#180 | 
- | 🟠 **P2** | **101** | AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software | 2025 | 2024–2025 | Zhiqiang Lin | Ohio State University | ~#180 | 
- | 🟠 **P2** | **102** | Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | William Enck, Patrick Traynor, Kevin Butler | North Carolina State University | ~#181 | 
- | 🟠 **P2** | **103** | Exploit Mitigation: ROP, Code Reuse Attacks, and Anti-ROP (NSF CAREER) | 2025 | 2024–2025 | Michalis Polychronakis | Stony Brook University | ~#185 | 
- | 🔴 **P1** | **104** | LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | 2026 | NDSS 2026 | Jun Dai | Worcester Polytechnic Institute | ~#270 | 
- | 🟠 **P2** | **105** | Autonomous Agent Security: Detection and Defense Against LLM Agent Attacks | 2025 | 2025 | Jun Dai | Worcester Polytechnic Institute | ~#270 | 
- | 🟠 **P2** | **106** | Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems | 2025 | 2024–2025 | Dipankar Dasgupta | University of Memphis | ~#270 | 
- | 🟠 **P2** | **107** | Automated Decompilation and Binary Code Analysis for Vulnerability Discovery | 2025 | 2024–2025 | Saumya Debray | University of Arizona | ~#284 | 
- | 🟠 **P2** | **108** | Towards AI-Driven Human-Machine Co-Teaming for Adaptive Cyber SOCs | 2025 | 2025 | Simon Ou | University of South Florida | ~#295 | 
- | 🟡 **P3** | **109** | LLM Embeddings with Similarity Search for Botnet TLS Certificate Detection (AISec 2024) | 2024 | AISec @ CCS 2024 | Simon Ou, Anoop Singhal | University of South Florida | ~#295 | 
- | 🟠 **P2** | **110** | Benchmarking Android Malware Detection with Deep Learning and LLM Embeddings | 2025 | 2025 | Sankardas Roy, Simon Ou | Bowling Green State University | ~#380 | 
- | 🟠 **P2** | **111** | Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety (NSF CAREER) | 2025 | 2024–2025 | Chengyu Song | UC Riverside | ~#405 | 
- | 🟠 **P2** | **112** | Network-Layer Attacks: Off-Path TCP, DNS Cache Poisoning, and Cellular Security | 2025 | 2024–2025 | Zhiyun Qian | UC Riverside | ~#405 | 
- | 🟠 **P2** | **113** | DECAF: Dynamic Executable Code Analysis Framework | 2024 | 2008–2024 | Heng Yin | UC Riverside | ~#405 | 
- | 🟠 **P2** | **114** | AI-Driven Attack and Defense on IoT/CPS: Smart Home and Industrial Device Security | 2025 | 2024–2025 | Selcuk Uluagac | Florida International University | ~#411 | 
- | 🟠 **P2** | **115** | LLM Package Hallucination: How LLMs Generate Insecure Code (USENIX Security 2025) | 2025 | USENIX Security 2025 | Murtuza Jadliwala | UT San Antonio | ~#411 | 
+ | **1** | 🟠 **P2** | Modular Verification of Secure and Leakage-Free Systems (SOSP 2024) | 2024 | SOSP 2024 (CCF-A) | Nickolai Zeldovich | MIT | #1 | 
+ | **2** | 🟠 **P2** | Shipwright: Proving Liveness of Distributed Systems with Byzantine Participants | 2025 | arXiv, July 2025 | Nickolai Zeldovich | MIT | #1 | 
+ | **3** | 🟡 **P3** | Probability from Possibility: Probabilistic Confidentiality for Storage Systems | 2024 | IEEE CSF 2024 (CCF-B) | Nickolai Zeldovich | MIT | #1 | 
+ | **4** | 🔴 **P1** | CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026) | 2026 | ICLR 2026 (CCF-A) | Dawn Song | UC Berkeley | #4 | 
+ | **5** | 🔴 **P1** | BountyBench: Dollar Impact of AI Agent Attackers and Defenders (NeurIPS 2025) | 2025 | NeurIPS 2025 (CCF-A) | Dawn Song | UC Berkeley | #4 | 
+ | **6** | 🔴 **P1** | VulnLLM-R: Specialized Reasoning LLM with Agent Scaffold for Vulnerability Detection | 2025 | arXiv, December 2025 | Dawn Song, Wenbo Guo | UC Berkeley | #4 | 
+ | **7** | 🟠 **P2** | Frontier AI's Impact on the Cybersecurity Landscape | 2025 | arXiv, April 2025 | Dawn Song, Wenbo Guo | UC Berkeley | #4 | 
+ | **8** | 🔴 **P1** | PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX 2025) | 2025 | USENIX Security 2025 | Xinyu Xing | Northwestern University | #9 | 
+ | **9** | 🔴 **P1** | LLM-Fuzzer: Scaling Assessment of LLM Jailbreaks (USENIX Security 2024) | 2024 | USENIX Security 2024 | Xinyu Xing | Northwestern University | #9 | 
+ | **10** | 🟠 **P2** | BandFuzz: ML-Powered Collaborative Fuzzing (co-author with Wenbo Guo — see entry 1.61) | 2025 |  | Xinyu Xing | Northwestern University | #9 | 
+ | **11** | 🔴 **P1** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing (co-author with Suman Jana — see entry 1.15) | 2025 | IEEE S&P 2025 ToT | Yinzhi Cao | Johns Hopkins University | #9 | 
+ | **12** | 🟠 **P2** | JavaScript Analysis: 80+ CVEs in Top-100 Websites (IEEE S&P 2025 ToT) | 2025 | IEEE S&P 2025 ToT | Yinzhi Cao | Johns Hopkins University | #9 | 
+ | **13** | 🟠 **P2** | AI/ML for Network Security: Measurement and Threat Detection | 2025 | IEEE S&P / USENIX | Nick Feamster | University of Chicago | #12 | 
+ | **14** | 🟡 **P3** | IoT Security: Empirical Study of Attack Surfaces in Smart Home Devices | 2025 | NOISE Lab | Nick Feamster | University of Chicago | #12 | 
+ | **15** | 🟠 **P2** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | 2025 | 2025 | Suman Jana, Yinzhi Cao | Columbia University | #12 | 
+ | **16** | 🟠 **P2** | SWExploit: Adversarial Issues for LLM-Based Automated Program Repair Agents | 2025 | 2025 | Suman Jana | Columbia University | #12 | 
+ | **17** | 🟠 **P2** | GCGS: Black-Box Attack on LLM Code Assistants (83% Success) | 2025 | 2025 | Suman Jana | Columbia University | #12 | 
+ | **18** | 🔴 **P1** | Multi-Agent Systems Execute Arbitrary Malicious Code (COLM 2025) | 2025 | COLM 2025 | Vitaly Shmatikov | Cornell Tech | #17 | 
+ | **19** | 🔴 **P1** | Breaking and Fixing Defenses Against Control-Flow Hijacking in MAS (ICLR 2026) | 2026 | ICLR 2026 | Vitaly Shmatikov | Cornell Tech | #17 | 
+ | **20** | 🔴 **P1** | Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks | 2025 | arXiv / Anthropic | Lujo Bauer, Vyas Sekar | CMU | #22 | 
+ | **21** | 🔴 **P1** | Incalmo / MHBench: Multi-Host Attack Benchmark | 2025 | arXiv, 2025 | Lujo Bauer, Vyas Sekar | CMU | #22 | 
+ | **22** | 🔴 **P1** | ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System (DEF CON 33) | 2025 | DARPA AIxCC ($4M) | Taesoo Kim | Georgia Tech | #33 | 
+ | **23** | 🔴 **P1** | SoK: DARPA's AI Cyber Challenge — Architectures and Lessons Learned | 2026 | arXiv, Feb 2026 | Taesoo Kim | Georgia Tech | #33 | 
+ | **24** | 🟠 **P2** | OSS-CRS: Open Locally Deployable Framework for Autonomous Vuln Discovery | 2026 | post-AIxCC 2026 | Taesoo Kim | Georgia Tech | #33 | 
+ | **25** | 🔴 **P1** | Systems Security Foundations for Agentic Computing (SAGAI @ IEEE S&P 2025) | 2025 | IEEE SAGAI 2025 | Wenke Lee | Georgia Tech | #33 | 
+ | **26** | 🟠 **P2** | Dynamic Information Flow Tracking for APT Detection: A Stochastic Game Approach | 2024 | IEEE TAC 2024 | Wenke Lee | Georgia Tech | #33 | 
+ | **27** | 🟠 **P2** | WEBRR: Forensic Replay and Investigation of Web-Based Attacks (USENIX 2024) | 2024 | USENIX Security 2024 | Wenke Lee | Georgia Tech | #33 | 
+ | **28** | 🔴 **P1** | SoK: Towards Effective Automated Vulnerability Repair (USENIX Security 2025) | 2025 | USENIX Security 2025 | Gang Wang | UIUC | #35 | 
+ | **29** | 🔴 **P1** | PurpCode: Reasoning for Safer Code Generation (NeurIPS 2025 Winner) | 2025 | NeurIPS 2025 | Gang Wang | UIUC | #35 | 
+ | **30** | 🔴 **P1** | LLM Agents Can Autonomously Exploit One-day Vulnerabilities | 2024 | arXiv, April 2024 | Daniel Kang | UIUC | #35 | 
+ | **31** | 🔴 **P1** | Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities | 2024 | arXiv, June 2024 | Daniel Kang | UIUC | #35 | 
+ | **32** | 🔴 **P1** | CVE-Bench: AI Agents Exploiting Real-World Web Vulnerabilities (ICML 2025) | 2025 | ICML 2025 Spotlight | Daniel Kang | UIUC | #35 | 
+ | **33** | 🟠 **P2** | LmPa: Improving Decompilation by Synergy of LLM and Program Analysis (NDSS 2025) | 2025 | NDSS 2025 | Barton Miller / Xiangyu Zhang | University of Wisconsin–Madison | #42 | 
+ | **34** | 🟠 **P2** | Benchmarking LLMs for Multi-Language Software Vulnerability Detection | 2025 | arXiv, March 2025 | Barton Miller | University of Wisconsin–Madison | #42 | 
+ | **35** | 🟡 **P3** | Differential Fuzz Testing to Detect Tampering in Sensor Systems | 2024 | arXiv, April 2024 | Barton Miller | University of Wisconsin–Madison | #42 | 
+ | **36** | 🟠 **P2** | NeuroScope: Reverse Engineering DNNs on Edge Devices (USENIX Security 2025) | 2025 | USENIX Security 2025 | Dongyan Xu | Purdue | #53 | 
+ | **37** | 🟠 **P2** | SAIN: Improving ICS Attack Detection via State-Aware Invariants (ACM CCS 2024) | 2024 | ACM CCS 2024 | Dongyan Xu, Berkay Celik | Purdue | #53 | 
+ | **38** | 🔴 **P1** | LmPa: Reducing Hallucination in Decompilation (NDSS 2025) | 2025 | NDSS 2025 | Xiangyu Zhang | Purdue | #53 | 
+ | **39** | 🟠 **P2** | CodeArt: Better Code Models by Attention Regularization (ICLR 2025) | 2025 | ICLR 2025 | Xiangyu Zhang | Purdue | #53 | 
+ | **40** | 🔴 **P1** | Rethinking How to Evaluate Language Model Jailbreak (AISEC 2025) | 2025 | AISEC @ CCS 2025 | Berkay Celik | Purdue | #53 | 
+ | **41** | 🟠 **P2** | Automated Discovery of Semantic Attacks in Multi-Robot Navigation (USENIX 2025) | 2025 | USENIX Security 2025 | Berkay Celik | Purdue | #53 | 
+ | **42** | 🔴 **P1** | EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Vulns (ICML 2025) | 2025 | ICML 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
+ | **43** | 🔴 **P1** | D-CIPHER: Dynamic Collaborative Intelligent Multi-Agent System for Offensive Security | 2025 | arXiv, Feb 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
+ | **44** | 🔴 **P1** | CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution | 2025 | arXiv, May 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
+ | **45** | 🟠 **P2** | ELFuzz: Efficient Input Generation via LLM-Driven Synthesis (USENIX 2025) | 2025 | USENIX Security 2025 | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
+ | **46** | 🟠 **P2** | ARVO (co-author with Tiffany Bao — see entry 2.14) | 2024 |  | Brendan Dolan-Gavitt | NYU Tandon | #53 | 
+ | **47** | 🔴 **P1** | LEMIX: Enabling Testing of Embedded Applications as Linux Applications (USENIX 2025) | 2025 | USENIX Security 2025 | Antonio Bianchi | Purdue University | #53 | 
+ | **48** | 🟠 **P2** | Automated Discovery of Semantic Attacks in Multi-Robot Navigation Systems (USENIX 2025) | 2025 | USENIX Security 2025 | Antonio Bianchi, Berkay Celik | Purdue University | #53 | 
+ | **49** | 🟠 **P2** | NeuroScope: Reverse Engineering DNNs on Edge Devices (co-author with Dongyan Xu — see 1.36) | 2025 |  | Antonio Bianchi | Purdue University | #53 | 
+ | **50** | 🟠 **P2** | Backdoor Attacks in LLMs and Temporal Logic Attacks Against Autonomous RL Agents | 2025 | 2024–2025 | Guanhong Tao | Purdue University | #53 | 
+ | **51** | 🔴 **P1** | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | 2025 | IEEE INFOCOM 2025 | Wajih Ul Hassan | University of Virginia | #62 | 
+ | **52** | 🔴 **P1** | Rethinking Tamper-Evident Logging (ACM CCS 2025) | 2025 | ACM CCS 2025 | Wajih Ul Hassan | University of Virginia | #62 | 
+ | **53** | 🟠 **P2** | HADES: Detecting Active Directory Attacks via Whole Network Provenance | 2024 | arXiv, 2024 | Wajih Ul Hassan | University of Virginia | #62 | 
+ | **54** | 🟠 **P2** | Flash: Intrusion Detection via Provenance Graph Representation Learning (IEEE S&P 2024) | 2024 | IEEE S&P 2024 | Wajih Ul Hassan | University of Virginia | #62 | 
+ | **55** | 🔴 **P1** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, Sept 2025 | Christopher Kruegel, Giovanni Vigna, Wenbo Guo | UC Santa Barbara | #65 | 
+ | **56** | 🔴 **P1** | CVE-GENIE (co-author with Kruegel and Guo — see entry 1.55) | 2025 | ACM CCS 2025 Keynote | Giovanni Vigna | UC Santa Barbara | #65 | 
+ | **57** | 🟠 **P2** | ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs | 2025 | ACM CCS 2025 Keynote | Giovanni Vigna | UC Santa Barbara | #65 | 
+ | **58** | 🔴 **P1** | VulnLLM-R (co-author with Dawn Song — see entry 1.6) | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
+ | **59** | 🔴 **P1** | CVE-GENIE (co-author with Kruegel and Vigna — see entry 1.55) | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
+ | **60** | 🟠 **P2** | BlueCodeAgent: Blue-Team Agent Enabled by Automated Red Teaming | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 | 
+ | **61** | 🟠 **P2** | BandFuzz: ML-Powered Collaborative Fuzzing (SBFT 2024 Winner) | 2025 | arXiv, July 2025 | Xinyu Xing, Wenbo Guo | UC Santa Barbara | #65 | 
+ | **62** | 🔴 **P1** | CVE-GENIE: LLM Multi-Agent Framework for CVE Reproduction (co-author with Kruegel, Vigna, Guo — see 1.55) | 2025 | 2024–2025 | Gianluca Stringhini | Boston University | #65 | 
+ | **63** | 🟠 **P2** | Cybercrime Measurement and Automated Abuse Detection at Scale (NSF CAREER) | 2025 | 2024–2025 | Gianluca Stringhini | Boston University | #65 | 
+ | **64** | 🔴 **P1** | Locus: Agentic Predicate Synthesis for Directed Fuzzing (ICSE 2026) | 2026 | ICSE 2026 | Yizheng Chen | University of Maryland | #93 | 
+ | **65** | 🟠 **P2** | SecRepoBench: Benchmarking Code Agents for Secure Code Completion (ICSE 2026) | 2026 | LLM4Code @ ICSE 2026 | Yizheng Chen | University of Maryland | #93 | 
+ | **66** | 🟠 **P2** | Network Attack Graphs and Multi-Hop Attack Path Modeling (NIST / UMD) | 2025 | 2024–2025 | Anoop Singhal, Simon Ou | University of Maryland / NIST | #93 | 
+ | **67** | 🟡 **P3** | LLM Embeddings for Botnet TLS Certificate Detection (co-author with Simon Ou — see 2.42) | 2024 |  | Anoop Singhal | University of Maryland / NIST | #93 | 
+ | **68** | 🟠 **P2** | AI-Driven Malware Analysis and Cyber-Physical Systems Security | 2025 | 2024–2025 | Peng Liu | Penn State | ~#130 | 
+ | **69** | 🟠 **P2** | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | 2025 | 2024–2025 | Ting Wang | Penn State | ~#130 | 
+ | **70** | 🟠 **P2** | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | 2025 | 2024–2025 | Gang Tan | Penn State University | ~#130 | 
+ | **71** | 🟠 **P2** | SEED Labs: The World's Most Widely Deployed Cybersecurity Education Platform | 2023 | ACM CCS ToT | Kevin Du | Syracuse University | ~#133 | 
+ | **72** | 🔴 **P1** | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN ToT 2025) | 2025 | DSN ToT 2025 | Guofei Gu | Texas A&M University | ~#145 | 
+ | **73** | 🟠 **P2** | BotHunter: Detecting Malware Infection via IDS-Driven Dialog Correlation (ACSAC ToT 2023) | 2007 | USENIX 2007 | Guofei Gu, Wenke Lee | Texas A&M University | ~#145 | 
+ | **74** | 🟠 **P2** | Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35) | 2026 | 2024–2025 | Patrick Traynor | University of Florida | ~#145 | 
+ | **75** | 🟡 **P3** | Telephony Attack Surfaces: SS7, VoIP, and Wireless Protocol Vulnerabilities | 2025 | 2024–2025 | Patrick Traynor | University of Florida | ~#145 | 
+ | **76** | 🟠 **P2** | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see 2.35) | 2026 | 2024–2025 | Kevin Butler | University of Florida | ~#145 | 
+ | **77** | 🟡 **P3** | Hardware-Assisted Security: TEEs, Secure Enclaves, and Authentication | 2025 | 2024–2025 | Kevin Butler | University of Florida | ~#145 | 
+ | **78** | 🔴 **P1** | Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) | 2026 | NDSS 2026 Distinguished | Yan Shoshitaishvili, Adam Doupé | Arizona State University | ~#147 | 
+ | **79** | 🟠 **P2** | ROPbot: Reimagining Code Reuse Attack Synthesis (NDSS 2026) | 2026 | NDSS 2026 | Yan Shoshitaishvili, Adam Doupé, Tiffany Bao | Arizona State University | ~#147 | 
+ | **80** | 🟠 **P2** | Open Cybersecurity Education: Five Years of pwn.college (SIGCSE 2026) | 2026 | SIGCSE 2026 Best Paper | Yan Shoshitaishvili, Adam Doupé | Arizona State University | ~#147 | 
+ | **81** | 🔴 **P1** | ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software | 2024 | arXiv, Aug 2024 | Tiffany Bao, Yan Shoshitaishvili, Adam Doupé, Brendan Dolan-Gavitt | Arizona State University | ~#147 | 
+ | **82** | 🟠 **P2** | ROPbot: Code Reuse Attack Synthesis (co-author with Shoshitaishvili — see entry 2.12) | 2026 | NDSS 2026 | Tiffany Bao, Adam Doupé | Arizona State University | ~#147 | 
+ | **83** | 🟠 **P2** | Discovering Blind-Trust Vulnerabilities in PLC Binaries via State Machine Recovery (NDSS 2026) | 2026 | NDSS 2026 | Tiffany Bao, Adam Doupé | Arizona State University | ~#147 | 
+ | **84** | 🔴 **P1** | Decompiling the Synergy (co-author with Shoshitaishvili — see entry 2.11) | 2026 | IEEE S&P 2026 | Adam Doupé, Yan Shoshitaishvili | Arizona State University | ~#147 | 
+ | **85** | 🟠 **P2** | Oxidizer: Toward Concise and High-Fidelity Rust Decompilation (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | Adam Doupé, Yan Shoshitaishvili | Arizona State University | ~#147 | 
+ | **86** | 🟠 **P2** | ARVO (co-author with Tiffany Bao — see entry 2.14) | 2024 |  | Adam Doupé | Arizona State University | ~#147 | 
+ | **87** | 🟠 **P2** | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | 2025 | 2024–2025 | Jedidiah Crandall | Arizona State University | ~#147 | 
+ | **88** | 🔴 **P1** | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | 2025 | 2024–2025 | Sushil Jajodia | George Mason University | ~#156 | 
+ | **89** | 🟠 **P2** | Cyber Deception: Honeypots, Decoy Networks, and Proactive Cybersecurity | 2025 | 2024–2025 | Sushil Jajodia | George Mason University | ~#156 | 
+ | **90** | 🟠 **P2** | AI Systems for Threat Recognition, Agent Communication, and Automated Response | 2025 | 2024–2025 | Jie Gao | Rutgers University | ~#160 | 
+ | **91** | 🟠 **P2** | Detecting Remote Infections on Linux-Based IoT Devices (ASIACCS 2022 Best Paper) | 2022 | ASIACCS 2022 | Long Cheng, Guofei Gu | Clemson University | ~#168 | 
+ | **92** | 🔴 **P1** | NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster | 2026 | NSF CAREER 2025 | Peng Gao | Virginia Tech | ~#170 | 
+ | **93** | 🟠 **P2** | Provenance-Based Intrusion Detection with Agentic AI for Cybersecurity | 2025 | 2024–2025 | Peng Gao | Virginia Tech | ~#170 | 
+ | **94** | 🟠 **P2** | IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | Pubali Datta, Berkay Celik | UMass Amherst | ~#170 | 
+ | **95** | 🟠 **P2** | LLMs for PLC Code Security in Industrial Control Systems | 2025 | 2025 | Long Lu | Northeastern University | ~#179 | 
+ | **96** | 🟠 **P2** | Optimizing Fuzzing for Vulnerability Coverage in IoT/Embedded Systems | 2025 | 2025 | Long Lu | Northeastern University | ~#179 | 
+ | **97** | 🟠 **P2** | Automatic Exploit Generation and Malware Behavior Analysis | 2025 | 2024–2025 | Engin Kirda | Northeastern University | ~#179 | 
+ | **98** | 🟠 **P2** | PANDA: Whole-System Dynamic Analysis Platform for Security Research | 2015 | 2015–2024 | Wil Robertson, Brendan Dolan-Gavitt | Northeastern University | ~#179 | 
+ | **99** | 🟠 **P2** | LAVA: Large-Scale Automated Vulnerability Addition for Benchmarking Bug Finders | 2016 | IEEE S&P 2016 | Wil Robertson, Brendan Dolan-Gavitt | Northeastern University | ~#179 | 
+ | **100** | 🟠 **P2** | ELFuzz: Efficient Input Generation via LLM-Driven Synthesis (USENIX 2025) | 2025 | USENIX Security 2025 | Zhiqiang Lin, Brendan Dolan-Gavitt | Ohio State University | ~#180 | 
+ | **101** | 🟠 **P2** | AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software | 2025 | 2024–2025 | Zhiqiang Lin | Ohio State University | ~#180 | 
+ | **102** | 🟠 **P2** | Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026) | 2026 | IEEE S&P 2026 | William Enck, Patrick Traynor, Kevin Butler | North Carolina State University | ~#181 | 
+ | **103** | 🟠 **P2** | Exploit Mitigation: ROP, Code Reuse Attacks, and Anti-ROP (NSF CAREER) | 2025 | 2024–2025 | Michalis Polychronakis | Stony Brook University | ~#185 | 
+ | **104** | 🔴 **P1** | LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | 2026 | NDSS 2026 | Jun Dai | Worcester Polytechnic Institute | ~#270 | 
+ | **105** | 🟠 **P2** | Autonomous Agent Security: Detection and Defense Against LLM Agent Attacks | 2025 | 2025 | Jun Dai | Worcester Polytechnic Institute | ~#270 | 
+ | **106** | 🟠 **P2** | Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems | 2025 | 2024–2025 | Dipankar Dasgupta | University of Memphis | ~#270 | 
+ | **107** | 🟠 **P2** | Automated Decompilation and Binary Code Analysis for Vulnerability Discovery | 2025 | 2024–2025 | Saumya Debray | University of Arizona | ~#284 | 
+ | **108** | 🟠 **P2** | Towards AI-Driven Human-Machine Co-Teaming for Adaptive Cyber SOCs | 2025 | 2025 | Simon Ou | University of South Florida | ~#295 | 
+ | **109** | 🟡 **P3** | LLM Embeddings with Similarity Search for Botnet TLS Certificate Detection (AISec 2024) | 2024 | AISec @ CCS 2024 | Simon Ou, Anoop Singhal | University of South Florida | ~#295 | 
+ | **110** | 🟠 **P2** | Benchmarking Android Malware Detection with Deep Learning and LLM Embeddings | 2025 | 2025 | Sankardas Roy, Simon Ou | Bowling Green State University | ~#380 | 
+ | **111** | 🟠 **P2** | Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety (NSF CAREER) | 2025 | 2024–2025 | Chengyu Song | UC Riverside | ~#405 | 
+ | **112** | 🟠 **P2** | Network-Layer Attacks: Off-Path TCP, DNS Cache Poisoning, and Cellular Security | 2025 | 2024–2025 | Zhiyun Qian | UC Riverside | ~#405 | 
+ | **113** | 🟠 **P2** | DECAF: Dynamic Executable Code Analysis Framework | 2024 | 2008–2024 | Heng Yin | UC Riverside | ~#405 | 
+ | **114** | 🟠 **P2** | AI-Driven Attack and Defense on IoT/CPS: Smart Home and Industrial Device Security | 2025 | 2024–2025 | Selcuk Uluagac | Florida International University | ~#411 | 
+ | **115** | 🟠 **P2** | LLM Package Hallucination: How LLMs Generate Insecure Code (USENIX Security 2025) | 2025 | USENIX Security 2025 | Murtuza Jadliwala | UT San Antonio | ~#411 | 
 
 ---
 
@@ -151,10 +151,6 @@ This table provides a comprehensive index of all **115 professor-based research 
 | **1** | [**Professor Papers — Tier 1**](#section-1) | Universities Ranked #1–100 USNWR | 67 papers |
 | **2** | [**Professor Papers — Tier 2**](#section-2) | Universities Ranked #101–300 USNWR | 42 papers |
 | **3** | [**Professor Papers — Tier 3**](#section-3) | Emerging Research & Niche Labs | 6 papers |
-
----
-
-<a name="section-1"></a>
 
 # 🔗 SECTION 1 — PROFESSOR PAPERS: TIER 1
 > 📢 **Universities Ranked #1–100 USNWR | Full Academic Metadata**
@@ -243,11 +239,6 @@ This table provides a comprehensive index of all **115 professor-based research 
 - **Institution:** Columbia University + Johns Hopkins University
 - **Venue:** **2025**
 - **Relevance:** 🎯 Path-guided iterative LLM-orchestrated testing for CLI applications — provides LLM semantic understanding of CLI options to expose deep vulnerabilities. Direct `CMatrix` fuzzing pipeline component for CLI-exposed services.
-
----
-
-
-<a name="section-2"></a>
 
 ---
 
@@ -757,11 +748,6 @@ This table provides a comprehensive index of all **115 professor-based research 
 - **Institution:** Virginia Tech
 - **Venue:** **NSF CAREER Award October 2025 ($625K) — papers at USENIX Security, USENIX ATC, ACM CCS, ICDE, ICSE**
 - **Relevance:** 🎯 NSF CAREER specifically for using LLMs to help security analysts identify and respond to threats faster — direct `CMatrix` alignment. PhD under Dawn Song at Berkeley (bridges Berkeley RDI to Virginia Tech). `CMatrix`'s autonomous threat modeling directly extends this research.
-
----
-
-
-<a name="section-3"></a>
 
 ---
 
