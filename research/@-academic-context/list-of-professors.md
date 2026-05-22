@@ -4,11 +4,12 @@
 > **CMatrix research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
 >
 > **Tier definitions (USNWR Overall Rankings):**
-> - 🔴 **Tier 1** — Universities ranked #1–100 | Professors **#1–#**
-> - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#–#**
-> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#–#**
+> - 🔴 **Tier 1** — Universities ranked #1–100 | Professors **#1–#27**
+> - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#28–#53**
+> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#54–#59**
 
 ---
+
 
 # 📊 MASTER REFERENCE TABLE — 59 Unique Professors
 
@@ -16,72 +17,68 @@
 |---|---|---|---|---|---|
 | 1 | Nickolai Zeldovich | MIT | nickolai@csail.mit.edu | #1 | 🔴 T1 |
 | 2 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
-| 3 | Nick Feamster | U Chicago | feamster@uchicago.edu | #12 | 🔴 T1 |
-| 4 | Suman Jana | Columbia | suman@cs.columbia.edu | #12 | 🔴 T1 |
-| 5 | Xinyu Xing | Northwestern | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
-| 6 | Yinzhi Cao | Johns Hopkins | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
-| 7 | Lujo Bauer | CMU | lbauer@cmu.edu | #22 | 🔴 T1 |
-| 8 | Vyas Sekar | CMU | vsekar@andrew.cmu.edu | #22 | 🔴 T1 |
-| 9 | Taesoo Kim | Georgia Tech | taesoo@gatech.edu | #33 | 🔴 T1 |
-| 10 | Wenke Lee | Georgia Tech | wenke@cc.gatech.edu | #33 | 🔴 T1 |
-| 11 | Gang Wang | UIUC | gangw@illinois.edu | #35 | 🔴 T1 |
-| 12 | Daniel Kang | UIUC | ddkang@illinois.edu | #35 | 🔴 T1 |
-| 13 | Barton Miller | UW-Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
-| 14 | Dongyan Xu | Purdue | dxu@cs.purdue.edu | #53 | 🔴 T1 |
-| 15 | Xiangyu Zhang | Purdue | xyzhang@cs.purdue.edu | #53 | 🔴 T1 |
-| 16 | Z. Berkay Celik | Purdue | celik@purdue.edu | #53 | 🔴 T1 |
-| 17 | Brendan Dolan-Gavitt | NYU Tandon | brendandg@nyu.edu | #53 | 🔴 T1 |
-| 18 | Antonio Bianchi | Purdue | antoniob@purdue.edu | #53 | 🔴 T1 |
-| 19 | Guanhong Tao | Purdue | taog@purdue.edu | #53 | 🔴 T1 |
-| 20 | Wajih Ul Hassan | U Virginia | wh5a@virginia.edu | #62 | 🔴 T1 |
-| 21 | Christopher Kruegel | UCSB | chris@cs.ucsb.edu | #65 | 🔴 T1 |
-| 22 | Giovanni Vigna | UCSB | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
-| 23 | Wenbo Guo | UCSB | henrygwb@ucsb.edu | #65 | 🔴 T1 |
-| 24 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
-| 25 | Yizheng Chen | U Maryland | yzchen@umd.edu | #93 | 🔴 T1 |
-| 26 | Vitaly Shmatikov | Cornell Tech | shmatikov@cornell.edu | #17 | 🔴 T1 |
-| 27 | Yan Shoshitaishvili | ASU | yans@asu.edu | #147 | 🟡 T2 |
-| 28 | Tiffany Bao | ASU | tbao@asu.edu | #147 | 🟡 T2 |
-| 29 | Adam Doupé | ASU | doupe@asu.edu | #147 | 🟡 T2 |
-| 30 | Jedidiah Crandall | ASU | jrcranda@asu.edu | #147 | 🟡 T2 |
-| 31 | Long Lu | Northeastern | l.lu@northeastern.edu | #179 | 🟡 T2 |
-| 32 | Engin Kirda | Northeastern | ek@ccs.neu.edu | #179 | 🟡 T2 |
-| 33 | Wil Robertson | Northeastern | wil@ccs.neu.edu | #179 | 🟡 T2 |
-| 34 | Zhiqiang Lin | Ohio State | lin.3021@osu.edu | #180 | 🟡 T2 |
-| 35 | William Enck | NC State | whenck@ncsu.edu | #181 | 🟡 T2 |
-| 36 | Michalis Polychronakis | Stony Brook | mikepo@cs.stonybrook.edu | #185 | 🟡 T2 |
-| 37 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
-| 38 | Pubali Datta | UMass Amherst | pubali@cs.umass.edu | #170 | 🟡 T2 |
-| 39 | Long Cheng | Clemson | lcheng2@clemson.edu | #168 | 🟡 T2 |
-| 40 | Sushil Jajodia | George Mason | jajodia@gmu.edu | #156 | 🟡 T2 |
-| 41 | Gang Tan | Penn State | gtan@psu.edu | #130 | 🟡 T2 |
-| 42 | Peng Liu | Penn State | pliu@ist.psu.edu | #130 | 🟡 T2 |
-| 43 | Ting Wang | Penn State | inbox@tiwang.io | #130 | 🟡 T2 |
-| 44 | Patrick Traynor | U Florida | traynor@cise.ufl.edu | #145 | 🟡 T2 |
-| 45 | Kevin Butler | U Florida | butler@cise.ufl.edu | #145 | 🟡 T2 |
-| 46 | Guofei Gu | Texas A&M | guofei@cse.tamu.edu | #145 | 🟡 T2 |
-| 47 | Jie Gao | Rutgers | jg1555@rutgers.edu | #160 | 🟡 T2 |
-| 48 | Dipankar Dasgupta | U Memphis | ddasgupta@memphis.edu | #270 | 🟡 T2 |
-| 49 | Jun Dai | WPI | jdai@wpi.edu | #270 | 🟡 T2 |
-| 50 | Saumya Debray | U Arizona | debray@cs.arizona.edu | #284 | 🟡 T2 |
-| 51 | Xinming (Simon) Ou | U South Florida | xou@usf.edu | #295 | 🟡 T2 |
-| 52 | Wenliang (Kevin) Du | Syracuse | wedu@acm.org | #133 | 🟡 T2 |
-| 53 | Selcuk Uluagac | FIU | suluagac@fiu.edu | #411 | 🟢 T3 |
-| 54 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
+| 3 | Xinyu Xing | Northwestern | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
+| 4 | Yinzhi Cao | Johns Hopkins | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
+| 5 | Nick Feamster | U Chicago | feamster@uchicago.edu | #12 | 🔴 T1 |
+| 6 | Suman Jana | Columbia | suman@cs.columbia.edu | #12 | 🔴 T1 |
+| 7 | Vitaly Shmatikov | Cornell Tech | shmatikov@cornell.edu | #17 | 🔴 T1 |
+| 8 | Lujo Bauer | CMU | lbauer@cmu.edu | #22 | 🔴 T1 |
+| 9 | Vyas Sekar | CMU | vsekar@andrew.cmu.edu | #22 | 🔴 T1 |
+| 10 | Taesoo Kim | Georgia Tech | taesoo@gatech.edu | #33 | 🔴 T1 |
+| 11 | Wenke Lee | Georgia Tech | wenke@cc.gatech.edu | #33 | 🔴 T1 |
+| 12 | Gang Wang | UIUC | gangw@illinois.edu | #35 | 🔴 T1 |
+| 13 | Daniel Kang | UIUC | ddkang@illinois.edu | #35 | 🔴 T1 |
+| 14 | Barton Miller | UW-Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
+| 15 | Dongyan Xu | Purdue | dxu@cs.purdue.edu | #53 | 🔴 T1 |
+| 16 | Xiangyu Zhang | Purdue | xyzhang@cs.purdue.edu | #53 | 🔴 T1 |
+| 17 | Z. Berkay Celik | Purdue | celik@purdue.edu | #53 | 🔴 T1 |
+| 18 | Brendan Dolan-Gavitt | NYU Tandon | brendandg@nyu.edu | #53 | 🔴 T1 |
+| 19 | Antonio Bianchi | Purdue | antoniob@purdue.edu | #53 | 🔴 T1 |
+| 20 | Guanhong Tao | Purdue | taog@purdue.edu | #53 | 🔴 T1 |
+| 21 | Wajih Ul Hassan | U Virginia | wh5a@virginia.edu | #62 | 🔴 T1 |
+| 22 | Christopher Kruegel | UCSB | chris@cs.ucsb.edu | #65 | 🔴 T1 |
+| 23 | Giovanni Vigna | UCSB | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
+| 24 | Wenbo Guo | UCSB | henrygwb@ucsb.edu | #65 | 🔴 T1 |
+| 25 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
+| 26 | Yizheng Chen | U Maryland | yzchen@umd.edu | #93 | 🔴 T1 |
+| 27 | Anoop Singhal | UMD / NIST | anoop.singhal@nist.gov | #93 | 🔴 T1 |
+| 28 | Gang Tan | Penn State | gtan@psu.edu | #130 | 🟡 T2 |
+| 29 | Peng Liu | Penn State | pliu@ist.psu.edu | #130 | 🟡 T2 |
+| 30 | Ting Wang | Penn State | inbox@tiwang.io | #130 | 🟡 T2 |
+| 31 | Wenliang (Kevin) Du | Syracuse | wedu@acm.org | #133 | 🟡 T2 |
+| 32 | Patrick Traynor | U Florida | traynor@cise.ufl.edu | #145 | 🟡 T2 |
+| 33 | Kevin Butler | U Florida | butler@cise.ufl.edu | #145 | 🟡 T2 |
+| 34 | Guofei Gu | Texas A&M | guofei@cse.tamu.edu | #145 | 🟡 T2 |
+| 35 | Yan Shoshitaishvili | ASU | yans@asu.edu | #147 | 🟡 T2 |
+| 36 | Tiffany Bao | ASU | tbao@asu.edu | #147 | 🟡 T2 |
+| 37 | Adam Doupé | ASU | doupe@asu.edu | #147 | 🟡 T2 |
+| 38 | Jedidiah Crandall | ASU | jrcranda@asu.edu | #147 | 🟡 T2 |
+| 39 | Sushil Jajodia | George Mason | jajodia@gmu.edu | #156 | 🟡 T2 |
+| 40 | Jie Gao | Rutgers | jg1555@rutgers.edu | #160 | 🟡 T2 |
+| 41 | Long Cheng | Clemson | lcheng2@clemson.edu | #168 | 🟡 T2 |
+| 42 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
+| 43 | Pubali Datta | UMass Amherst | pubali@cs.umass.edu | #170 | 🟡 T2 |
+| 44 | Long Lu | Northeastern | l.lu@northeastern.edu | #179 | 🟡 T2 |
+| 45 | Engin Kirda | Northeastern | ek@ccs.neu.edu | #179 | 🟡 T2 |
+| 46 | Wil Robertson | Northeastern | wil@ccs.neu.edu | #179 | 🟡 T2 |
+| 47 | Zhiqiang Lin | Ohio State | lin.3021@osu.edu | #180 | 🟡 T2 |
+| 48 | William Enck | NC State | whenck@ncsu.edu | #181 | 🟡 T2 |
+| 49 | Michalis Polychronakis | Stony Brook | mikepo@cs.stonybrook.edu | #185 | 🟡 T2 |
+| 50 | Dipankar Dasgupta | U Memphis | ddasgupta@memphis.edu | #270 | 🟡 T2 |
+| 51 | Jun Dai | WPI | jdai@wpi.edu | #270 | 🟡 T2 |
+| 52 | Saumya Debray | U Arizona | debray@cs.arizona.edu | #284 | 🟡 T2 |
+| 53 | Xinming (Simon) Ou | U South Florida | xou@usf.edu | #295 | 🟡 T2 |
+| 54 | Sankardas Roy | Bowling Green SU | sroy@bgsu.edu | #380 | 🟢 T3 |
 | 55 | Chengyu Song | UC Riverside | csong@cs.ucr.edu | #405 | 🟢 T3 |
 | 56 | Zhiyun Qian | UC Riverside | zhiyunq@cs.ucr.edu | #405 | 🟢 T3 |
 | 57 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
-| 58 | Sankardas Roy | Bowling Green SU | sroy@bgsu.edu | #380 | 🟢 T3 |
-| 59 | Anoop Singhal | UMD / NIST | anoop.singhal@nist.gov | #93 | 🔴 T1 *(NIST affiliate — see note)* |
-
----
-
-> **Note on #59 Anoop Singhal:** Primary affiliation is NIST (federal lab), with UMD affiliation at #93. Placed T1 by UMD rank. Treat as a special case — NIST is outside the USNWR ranking system.
+| 58 | Selcuk Uluagac | FIU | suluagac@fiu.edu | #411 | 🟢 T3 |
+| 59 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
 
 ---
 
 # 🔴 TIER 1 — Universities ranked #1–100
-*(26 professors — ranks #1 through #93)*
+*(27 professors — ranks #1 through #93)*
 
 ---
 
@@ -121,61 +118,7 @@
 
 ---
 
-## 3. Prof. Nick Feamster
-**University of Chicago** | USNWR Overall: **#12**
-
-| Field | Info |
-|---|---|
-| Email | feamster@uchicago.edu |
-| Website | https://people.cs.uchicago.edu/~feamster/ |
-| Lab | NOISE Lab (Network Operations and Internet Security) |
-| Funding | NSF, DARPA; Neubauer Professor (endowed chair) |
-
-**Speciality:** Internet security, empirical measurement, AI/ML for network security, IoT security, privacy
-
-**CMatrix alignment:** Neubauer Professor of CS. Co-Director, AI and Policy Pillar at UChicago. Data-driven tools to improve Internet security and threat detection. His internet security measurement data is natural context for CMatrix's reconnaissance phase.
-
-**Student friendliness:** World-renowned researcher with open research culture. Active recruiter of graduate students. UChicago CS has strong resources and deep funding.
-
----
-
-## 4. Prof. Suman Jana
-**Columbia University** | USNWR Overall: **#12** (tied)
-
-| Field | Info |
-|---|---|
-| Email | suman@cs.columbia.edu |
-| Website | http://www.cs.columbia.edu/~suman/ |
-| Lab | Columbia Security & Privacy Lab |
-| Funding | NSF, DARPA; multiple best paper awards (SOSP 2017, IEEE S&P 2014/2016) |
-
-**Speciality:** Automated tools for finding and fixing security vulnerabilities, ML-based security, program analysis, adversarial attacks on LLM-based coding assistants
-
-**CMatrix alignment:** Leads Spring 2026 ML Security course. Research on SWExploit (adversarial issues for LLM-based automated program repair agents). PILOT: path-guided, iterative LLM-orchestrated CLI fuzzing framework. GCGS: black-box attack on LLM code assistants (83% success on GPT-4o, Claude 3.5). Led to fixing ~250 high-impact CVEs including fixes in Mozilla Firefox, Apache Cordova, cURL, and Google's malware detection infrastructure.
-
-**Student friendliness:** Six best paper awards. Research consistently leads to real-world CVE fixes. Strong multi-institution collaboration culture.
-
----
-
-## 5. Prof. Vitaly Shmatikov
-**Cornell Tech / Cornell University** | USNWR Overall: **#17** (Cornell overall)
-
-| Field | Info |
-|---|---|
-| Email | shmatikov@cornell.edu |
-| Website | https://tech.cornell.edu/people/vitaly-shmatikov/ |
-| Lab | Cornell Tech Security & Privacy Group |
-| Funding | NSF; Caspar Bowden PET Award (×3), IEEE S&P Test-of-Time Award, CCS Test-of-Time Award (2025) |
-
-**Speciality:** Digital privacy, computer security, security and privacy of machine learning, adversarial ML, multi-agent system security
-
-**CMatrix alignment:** 2025 COLM paper: demonstrates adversarial content can hijack control in multi-agent LLM systems — causing complete security breaches including arbitrary malicious code execution. This is the most direct published attack model for CMatrix's own infrastructure security. Research on LLM router vulnerabilities, membership inference attacks, and "control-flow hijacking" in agentic systems.
-
-**Student friendliness:** Caspar Bowden PET Award three times (2008, 2014, 2018). Multiple Best Practical Paper and Best Student Paper Awards from IEEE S&P and NDSS. PhD from Stanford. Collaborative, internationally connected research group.
-
----
-
-## 6. Prof. Xinyu Xing
+## 3. Prof. Xinyu Xing
 **Northwestern University** | USNWR Overall: **#9**
 
 | Field | Info |
@@ -193,7 +136,7 @@
 
 ---
 
-## 7. Prof. Yinzhi Cao
+## 4. Prof. Yinzhi Cao
 **Johns Hopkins University** | USNWR Overall: **#9** (tied)
 
 | Field | Info |
@@ -208,6 +151,60 @@
 **CMatrix alignment:** PILOT (2025): path-guided, iterative LLM-orchestrated testing framework to fuzz CLI applications. His JavaScript analysis discovered 80+ CVEs in Top-100 websites and NPM packages. IEEE S&P 2025 Test of Time Award. Multiple Distinguished Paper Awards at IEEE S&P 2025, CCS 2023, USENIX 2022, SOSP 2017.
 
 **Student friendliness:** Technical director, JHU Information Security Institute. Active PhD advisor. DARPA Director's Fellowship 2024 (highest DARPA honor for early-career faculty).
+
+---
+
+## 5. Prof. Nick Feamster
+**University of Chicago** | USNWR Overall: **#12**
+
+| Field | Info |
+|---|---|
+| Email | feamster@uchicago.edu |
+| Website | https://people.cs.uchicago.edu/~feamster/ |
+| Lab | NOISE Lab (Network Operations and Internet Security) |
+| Funding | NSF, DARPA; Neubauer Professor (endowed chair) |
+
+**Speciality:** Internet security, empirical measurement, AI/ML for network security, IoT security, privacy
+
+**CMatrix alignment:** Neubauer Professor of CS. Co-Director, AI and Policy Pillar at UChicago. Data-driven tools to improve Internet security and threat detection. His internet security measurement data is natural context for CMatrix's reconnaissance phase.
+
+**Student friendliness:** World-renowned researcher with open research culture. Active recruiter of graduate students. UChicago CS has strong resources and deep funding.
+
+---
+
+## 6. Prof. Suman Jana
+**Columbia University** | USNWR Overall: **#12** (tied)
+
+| Field | Info |
+|---|---|
+| Email | suman@cs.columbia.edu |
+| Website | http://www.cs.columbia.edu/~suman/ |
+| Lab | Columbia Security & Privacy Lab |
+| Funding | NSF, DARPA; multiple best paper awards (SOSP 2017, IEEE S&P 2014/2016) |
+
+**Speciality:** Automated tools for finding and fixing security vulnerabilities, ML-based security, program analysis, adversarial attacks on LLM-based coding assistants
+
+**CMatrix alignment:** Leads Spring 2026 ML Security course. Research on SWExploit (adversarial issues for LLM-based automated program repair agents). PILOT: path-guided, iterative LLM-orchestrated CLI fuzzing framework. GCGS: black-box attack on LLM code assistants (83% success on GPT-4o, Claude 3.5). Led to fixing ~250 high-impact CVEs including fixes in Mozilla Firefox, Apache Cordova, cURL, and Google's malware detection infrastructure.
+
+**Student friendliness:** Six best paper awards. Research consistently leads to real-world CVE fixes. Strong multi-institution collaboration culture.
+
+---
+
+## 7. Prof. Vitaly Shmatikov
+**Cornell Tech / Cornell University** | USNWR Overall: **#17** (Cornell overall)
+
+| Field | Info |
+|---|---|
+| Email | shmatikov@cornell.edu |
+| Website | https://tech.cornell.edu/people/vitaly-shmatikov/ |
+| Lab | Cornell Tech Security & Privacy Group |
+| Funding | NSF; Caspar Bowden PET Award (×3), IEEE S&P Test-of-Time Award, CCS Test-of-Time Award (2025) |
+
+**Speciality:** Digital privacy, computer security, security and privacy of machine learning, adversarial ML, multi-agent system security
+
+**CMatrix alignment:** 2025 COLM paper: demonstrates adversarial content can hijack control in multi-agent LLM systems — causing complete security breaches including arbitrary malicious code execution. This is the most direct published attack model for CMatrix's own infrastructure security. Research on LLM router vulnerabilities, membership inference attacks, and "control-flow hijacking" in agentic systems.
+
+**Student friendliness:** Caspar Bowden PET Award three times (2008, 2014, 2018). Multiple Best Practical Paper and Best Student Paper Awards from IEEE S&P and NDSS. PhD from Stanford. Collaborative, internationally connected research group.
 
 ---
 
@@ -553,66 +550,34 @@
 
 ---
 
+## 27. Prof. Anoop Singhal
+**UMD / NIST** | UMD USNWR: **#93** *(NIST = federal lab, outside ranking)*
+
+| Field | Info |
+|---|---|
+| Email | anoop.singhal@nist.gov |
+| Website | https://www.nist.gov/people/anoop-singhal |
+| Lab | NIST Computer Security Division; affiliated with UMD |
+| Funding | NIST, NSF collaborative grants |
+
+**Speciality:** Network attack graphs, vulnerability analysis, risk assessment, security metrics, IoT honeypot ecosystems
+
+**CMatrix alignment:** Co-authored IoT honeypot ecosystem research with Xinming Ou — modeling multi-phase attacker behavior across IoT deployments. Expert on network attack graphs — a direct output format for CMatrix's multi-host VAPT results. Research on security metrics and risk quantification provides evaluation frameworks for CMatrix's impact assessment.
+
+**Student friendliness:** NIST affiliation provides unique access to government datasets and standards processes. Collaborative across academia and national labs.
+
+> ⚠️ **Placement note:** Primary affiliation is NIST (federal lab, unranked). UMD co-affiliation is #93 → T1 by university rank. Treat as a special cross-tier case.
+
+> ⚠️ **Placement note:** Primary affiliation is NIST (federal lab, unranked). UMD co-affiliation is #93 → T1 by university rank. Treat as a special cross-tier case.
+
+---
+
 # 🟡 TIER 2 — Universities ranked #101–300
 *(26 professors — ranks #130 through #295)*
 
 ---
 
-## 27. Prof. Wenliang (Kevin) Du
-**Syracuse University** | USNWR Overall: **#133**
-
-| Field | Info |
-|---|---|
-| Email | wedu@acm.org |
-| Website | https://seedsecuritylabs.org/wenliangdu/ |
-| Lab | SEED Security Lab |
-| Funding | NSF ($1.3M+ cumulative for SEED), multiple NSF grants, Test-of-Time Awards |
-
-**Speciality:** System security, software security, network security, hands-on security education (SEED Labs), container security
-
-**CMatrix alignment:** Creator of SEED Labs — used by 1,180+ institutions in 80 countries. SEED Labs directly teach the attack surface CMatrix automates: software security, network security, web security, OS security. ACM Fellow, IEEE Fellow (both 2023).
-
-**Student friendliness:** Laura J. and L. Douglas Meredith Professor of Teaching Excellence — highest teaching recognition at Syracuse. Responds warmly to international students.
-
----
-
-## 28. Prof. Peng Liu
-**Penn State University** | USNWR Overall: **#130**
-
-| Field | Info |
-|---|---|
-| Email | pliu@ist.psu.edu |
-| Website | https://sites.psu.edu/pengliu/ |
-| Lab | Cyber Security Lab, College of Information Sciences and Technology |
-| Funding | DARPA, NSF, DoD; Raymond G. Tronzo M.D. Professor of Cybersecurity (endowed) |
-
-**Speciality:** Cyber-physical systems security, AI-driven attack/defense, malware detection, intrusion prevention
-
-**CMatrix alignment:** Senior cybersecurity chair at Penn State. Penn State IST hosts national CPTC penetration testing competitions (placed 3rd globally in 2025). AI-driven malware analysis and CPS security — extending CMatrix's scope to OT/ICS.
-
-**Student friendliness:** Highly active multi-institution collaborator. Strong career placement at government agencies, national labs, and major security firms.
-
----
-
-## 29. Prof. Ting Wang
-**Penn State University** | USNWR Overall: **#130**
-
-| Field | Info |
-|---|---|
-| Email | inbox@tiwang.io |
-| Website | https://alps-lab.github.io |
-| Lab | ALPS Lab (Assured Learning & Privacy & Security) |
-| Funding | NSF CAREER Award, multiple NSF grants, industry partnerships |
-
-**Speciality:** Trustworthy AI, adversarial machine learning, LLM security, prompt injection, backdoor attacks
-
-**CMatrix alignment:** Research on adversarial attacks against LLMs, prompt injection defenses, and AI agent security. ALPS Lab works on ensuring AI systems remain secure when deployed as autonomous agents — directly relevant to CMatrix's agent orchestration trust model.
-
-**Student friendliness:** Known for active mentorship culture. ALPS Lab has multiple PhD students with strong publications. Encourages international student applications.
-
----
-
-## 30. Prof. Gang Tan
+## 28. Prof. Gang Tan
 **Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
@@ -630,21 +595,57 @@
 
 ---
 
-## 31. Prof. Guofei Gu
-**Texas A&M University** | USNWR Overall: **#145**
+## 29. Prof. Peng Liu
+**Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
 |---|---|
-| Email | guofei@cse.tamu.edu |
-| Website | https://faculty.cse.tamu.edu/guofei |
-| Lab | SUCCESS Lab |
-| Funding | NSF CAREER Award 2010, AFOSR Young Investigator Award 2013, Google Faculty Research Award, Presidential Impact Fellow |
+| Email | pliu@ist.psu.edu |
+| Website | https://sites.psu.edu/pengliu/ |
+| Lab | Cyber Security Lab, College of Information Sciences and Technology |
+| Funding | DARPA, NSF, DoD; Raymond G. Tronzo M.D. Professor of Cybersecurity (endowed) |
 
-**Speciality:** Network and systems security, malware/APT defense, AI security, SDN/NFV/5G security, Web3 security, AI agent framework vulnerabilities
+**Speciality:** Cyber-physical systems security, AI-driven attack/defense, malware detection, intrusion prevention
 
-**CMatrix alignment:** 2025 taxonomy paper on 190 advisories against OpenClaw AI agent runtime — identifying architectural vulnerabilities in AI agent frameworks (identity spoofing, policy bypass, prompt injection, supply-chain escalation). Directly applicable to CMatrix's own framework security.
+**CMatrix alignment:** Senior cybersecurity chair at Penn State. Penn State IST hosts national CPTC penetration testing competitions (placed 3rd globally in 2025). AI-driven malware analysis and CPS security — extending CMatrix's scope to OT/ICS.
 
-**Student friendliness:** IEEE Fellow, ACM Distinguished Member. DSN Test of Time Award 2025, ACSAC Test of Time Award 2023. Strong student placement record.
+**Student friendliness:** Highly active multi-institution collaborator. Strong career placement at government agencies, national labs, and major security firms.
+
+---
+
+## 30. Prof. Ting Wang
+**Penn State University** | USNWR Overall: **#130**
+
+| Field | Info |
+|---|---|
+| Email | inbox@tiwang.io |
+| Website | https://alps-lab.github.io |
+| Lab | ALPS Lab (Assured Learning & Privacy & Security) |
+| Funding | NSF CAREER Award, multiple NSF grants, industry partnerships |
+
+**Speciality:** Trustworthy AI, adversarial machine learning, LLM security, prompt injection, backdoor attacks
+
+**CMatrix alignment:** Research on adversarial attacks against LLMs, prompt injection defenses, and AI agent security. ALPS Lab works on ensuring AI systems remain secure when deployed as autonomous agents — directly relevant to CMatrix's agent orchestration trust model.
+
+**Student friendliness:** Known for active mentorship culture. ALPS Lab has multiple PhD students with strong publications. Encourages international student applications.
+
+---
+
+## 31. Prof. Wenliang (Kevin) Du
+**Syracuse University** | USNWR Overall: **#133**
+
+| Field | Info |
+|---|---|
+| Email | wedu@acm.org |
+| Website | https://seedsecuritylabs.org/wenliangdu/ |
+| Lab | SEED Security Lab |
+| Funding | NSF ($1.3M+ cumulative for SEED), multiple NSF grants, Test-of-Time Awards |
+
+**Speciality:** System security, software security, network security, hands-on security education (SEED Labs), container security
+
+**CMatrix alignment:** Creator of SEED Labs — used by 1,180+ institutions in 80 countries. SEED Labs directly teach the attack surface CMatrix automates: software security, network security, web security, OS security. ACM Fellow, IEEE Fellow (both 2023).
+
+**Student friendliness:** Laura J. and L. Douglas Meredith Professor of Teaching Excellence — highest teaching recognition at Syracuse. Responds warmly to international students.
 
 ---
 
@@ -684,7 +685,25 @@
 
 ---
 
-## 34. Prof. Yan Shoshitaishvili
+## 34. Prof. Guofei Gu
+**Texas A&M University** | USNWR Overall: **#145**
+
+| Field | Info |
+|---|---|
+| Email | guofei@cse.tamu.edu |
+| Website | https://faculty.cse.tamu.edu/guofei |
+| Lab | SUCCESS Lab |
+| Funding | NSF CAREER Award 2010, AFOSR Young Investigator Award 2013, Google Faculty Research Award, Presidential Impact Fellow |
+
+**Speciality:** Network and systems security, malware/APT defense, AI security, SDN/NFV/5G security, Web3 security, AI agent framework vulnerabilities
+
+**CMatrix alignment:** 2025 taxonomy paper on 190 advisories against OpenClaw AI agent runtime — identifying architectural vulnerabilities in AI agent frameworks (identity spoofing, policy bypass, prompt injection, supply-chain escalation). Directly applicable to CMatrix's own framework security.
+
+**Student friendliness:** IEEE Fellow, ACM Distinguished Member. DSN Test of Time Award 2025, ACSAC Test of Time Award 2023. Strong student placement record.
+
+---
+
+## 35. Prof. Yan Shoshitaishvili
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -702,7 +721,7 @@
 
 ---
 
-## 35. Prof. Tiffany Bao
+## 36. Prof. Tiffany Bao
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -720,7 +739,7 @@
 
 ---
 
-## 36. Prof. Adam Doupé
+## 37. Prof. Adam Doupé
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -738,7 +757,7 @@
 
 ---
 
-## 37. Prof. Jedidiah Crandall
+## 38. Prof. Jedidiah Crandall
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -756,79 +775,7 @@
 
 ---
 
-## 38. Prof. Long Cheng
-**Clemson University** | USNWR Overall: **#168** (Overall)
-
-| Field | Info |
-|---|---|
-| Email | lcheng2@clemson.edu |
-| Website | https://people.computing.clemson.edu/~lcheng2/ |
-| Lab | Secure and Dependable Systems (SDS) Lab |
-| Funding | NSF; NSF CAREER Award |
-
-**Speciality:** IoT/CPS security, system security, firmware analysis, network security, Linux kernel security
-
-**CMatrix alignment:** Research on automated detection of remote infection on Linux-based IoT devices — a key CMatrix target class. ASIACCS 2022 Best Paper Award (with Guofei Gu, Texas A&M) on remote IoT infection detection. Expertise in firmware analysis and Linux kernel security.
-
-**Student friendliness:** NSF CAREER Award. Active PhD advisor at Clemson. Collaborative research with Guofei Gu at TAMU. Responsive to outreach.
-
----
-
-## 39. Prof. Peng Gao
-**Virginia Tech** | USNWR Overall: **#170**
-
-| Field | Info |
-|---|---|
-| Email | penggao@vt.edu |
-| Website | https://people.cs.vt.edu/penggao/ |
-| Lab | Security Lab, Virginia Tech CS |
-| Funding | NSF CAREER Award ($625K, October 2025), Microsoft Security AI Research Award 2020, CCI Faculty Fellow |
-
-**Speciality:** Systems security, network security, agentic AI for cybersecurity, AI safety and security, provenance-based intrusion detection
-
-**CMatrix alignment:** NSF CAREER Award (Oct 2025) specifically for research on using LLMs to help security analysts identify and respond to threats faster — directly aligned with CMatrix's autonomous threat modeling. PhD from Princeton, postdoc at UC Berkeley under Dawn Song — bridges Berkeley RDI network to Virginia Tech.
-
-**Student friendliness:** CCI Faculty Fellow — active in Virginia's cybersecurity research network. Lab-page actively discusses student research opportunities.
-
----
-
-## 40. Prof. Pubali Datta
-**University of Massachusetts Amherst** | USNWR Overall: **#170** (Overall)
-
-| Field | Info |
-|---|---|
-| Email | pubali@cs.umass.edu |
-| Website | https://pubali.github.io |
-| Lab | SPADE Lab, UMass Amherst |
-| Funding | NSF; IEEE S&P 2026 accepted paper |
-
-**Speciality:** System security, provenance, IoT security, AI system security, program analysis
-
-**CMatrix alignment:** IEEE S&P 2026 paper on IoT security with Z. Berkay Celik (Purdue). Research on data provenance for intrusion detection and attack forensics. CMatrix's attack telemetry can feed directly into Datta's provenance-based detection systems.
-
-**Student friendliness:** Assistant Professor at UMass — early career, actively building research group. UMass Amherst CS has a strong interdisciplinary research culture and NSF funding pipeline.
-
----
-
-## 41. Prof. Jie Gao
-**Rutgers University** | USNWR Overall: **#160**
-
-| Field | Info |
-|---|---|
-| Email | jg1555@rutgers.edu |
-| Website | https://sites.rutgers.edu/jie-gao/ |
-| Lab | Rutgers AI & Cybersecurity Research |
-| Funding | NSF ACTION Institute (Co-PI), NSF, multiple research grants |
-
-**Speciality:** AI-powered cybersecurity, threat intelligence, agent communication, network security, distributed systems
-
-**CMatrix alignment:** Co-PI on NSF ACTION Institute alongside Vigna, Song, Bauer, Sekar, Xu, Kim — a direct gateway into the $20M ACTION research ecosystem. Research on automated AI systems that "recognize threats, communicate with agents, and develop response mechanisms."
-
-**Student friendliness:** Part of the ACTION institute which actively runs REU programs, summer research experiences, and student training.
-
----
-
-## 42. Prof. Sushil Jajodia
+## 39. Prof. Sushil Jajodia
 **George Mason University** | USNWR Overall: **#156**
 
 | Field | Info |
@@ -846,7 +793,79 @@
 
 ---
 
-## 43. Prof. Long Lu
+## 40. Prof. Jie Gao
+**Rutgers University** | USNWR Overall: **#160**
+
+| Field | Info |
+|---|---|
+| Email | jg1555@rutgers.edu |
+| Website | https://sites.rutgers.edu/jie-gao/ |
+| Lab | Rutgers AI & Cybersecurity Research |
+| Funding | NSF ACTION Institute (Co-PI), NSF, multiple research grants |
+
+**Speciality:** AI-powered cybersecurity, threat intelligence, agent communication, network security, distributed systems
+
+**CMatrix alignment:** Co-PI on NSF ACTION Institute alongside Vigna, Song, Bauer, Sekar, Xu, Kim — a direct gateway into the $20M ACTION research ecosystem. Research on automated AI systems that "recognize threats, communicate with agents, and develop response mechanisms."
+
+**Student friendliness:** Part of the ACTION institute which actively runs REU programs, summer research experiences, and student training.
+
+---
+
+## 41. Prof. Long Cheng
+**Clemson University** | USNWR Overall: **#168** (Overall)
+
+| Field | Info |
+|---|---|
+| Email | lcheng2@clemson.edu |
+| Website | https://people.computing.clemson.edu/~lcheng2/ |
+| Lab | Secure and Dependable Systems (SDS) Lab |
+| Funding | NSF; NSF CAREER Award |
+
+**Speciality:** IoT/CPS security, system security, firmware analysis, network security, Linux kernel security
+
+**CMatrix alignment:** Research on automated detection of remote infection on Linux-based IoT devices — a key CMatrix target class. ASIACCS 2022 Best Paper Award (with Guofei Gu, Texas A&M) on remote IoT infection detection. Expertise in firmware analysis and Linux kernel security.
+
+**Student friendliness:** NSF CAREER Award. Active PhD advisor at Clemson. Collaborative research with Guofei Gu at TAMU. Responsive to outreach.
+
+---
+
+## 42. Prof. Peng Gao
+**Virginia Tech** | USNWR Overall: **#170**
+
+| Field | Info |
+|---|---|
+| Email | penggao@vt.edu |
+| Website | https://people.cs.vt.edu/penggao/ |
+| Lab | Security Lab, Virginia Tech CS |
+| Funding | NSF CAREER Award ($625K, October 2025), Microsoft Security AI Research Award 2020, CCI Faculty Fellow |
+
+**Speciality:** Systems security, network security, agentic AI for cybersecurity, AI safety and security, provenance-based intrusion detection
+
+**CMatrix alignment:** NSF CAREER Award (Oct 2025) specifically for research on using LLMs to help security analysts identify and respond to threats faster — directly aligned with CMatrix's autonomous threat modeling. PhD from Princeton, postdoc at UC Berkeley under Dawn Song — bridges Berkeley RDI network to Virginia Tech.
+
+**Student friendliness:** CCI Faculty Fellow — active in Virginia's cybersecurity research network. Lab-page actively discusses student research opportunities.
+
+---
+
+## 43. Prof. Pubali Datta
+**University of Massachusetts Amherst** | USNWR Overall: **#170** (Overall)
+
+| Field | Info |
+|---|---|
+| Email | pubali@cs.umass.edu |
+| Website | https://pubali.github.io |
+| Lab | SPADE Lab, UMass Amherst |
+| Funding | NSF; IEEE S&P 2026 accepted paper |
+
+**Speciality:** System security, provenance, IoT security, AI system security, program analysis
+
+**CMatrix alignment:** IEEE S&P 2026 paper on IoT security with Z. Berkay Celik (Purdue). Research on data provenance for intrusion detection and attack forensics. CMatrix's attack telemetry can feed directly into Datta's provenance-based detection systems.
+
+**Student friendliness:** Assistant Professor at UMass — early career, actively building research group. UMass Amherst CS has a strong interdisciplinary research culture and NSF funding pipeline.
+
+---
+
+## 44. Prof. Long Lu
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -864,7 +883,7 @@
 
 ---
 
-## 44. Prof. Engin Kirda
+## 45. Prof. Engin Kirda
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -882,7 +901,7 @@
 
 ---
 
-## 45. Prof. Wil Robertson
+## 46. Prof. Wil Robertson
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -900,7 +919,7 @@
 
 ---
 
-## 46. Prof. Zhiqiang Lin
+## 47. Prof. Zhiqiang Lin
 **Ohio State University** | USNWR Overall: **#180**
 
 | Field | Info |
@@ -918,7 +937,7 @@
 
 ---
 
-## 47. Prof. William Enck
+## 48. Prof. William Enck
 **North Carolina State University** | USNWR Overall: **#181**
 
 | Field | Info |
@@ -936,7 +955,7 @@
 
 ---
 
-## 48. Prof. Michalis Polychronakis
+## 49. Prof. Michalis Polychronakis
 **Stony Brook University** | USNWR Overall: **#185**
 
 | Field | Info |
@@ -951,24 +970,6 @@
 **CMatrix alignment:** Expert on exploit techniques — Return-Oriented Programming, code reuse attacks, and automated exploit mitigation. This is the technical underbelly of what CMatrix automates in its exploit chain module. Strong publication record at CCS, USENIX Security, NDSS, IEEE S&P.
 
 **Student friendliness:** NSF CAREER Award. Active PhD advisor at Stony Brook CS. Strong collaborative network with NYU, Columbia, and European research groups.
-
----
-
-## 49. Prof. Jun Dai
-**Worcester Polytechnic Institute** | USNWR Overall: **#270**
-
-| Field | Info |
-|---|---|
-| Email | jdai@wpi.edu |
-| Website | https://users.wpi.edu/~jdai/ |
-| Lab | CS Department, WPI |
-| Funding | NSF (NCTC project), ACM CCS 2026 Artifact Evaluation Co-Chair |
-
-**Speciality:** LLM security, autonomous agent security, advanced attack detection, vulnerability analysis, secure coding, cybersecurity education
-
-**CMatrix alignment:** Research directly on LLM security and autonomous agent security — an exact match for CMatrix's architecture. NDSS 2026: LLM membership inference attack (MIA) work and model extraction attack. Studying how adversaries can steal and manipulate LLM-based agents — the adversarial twin of CMatrix's approach.
-
-**Student friendliness:** Explicitly looking for "self-motivated students at all levels (undergraduates, master, and PhD)." Earned PhD under Peng Liu at Penn State. ACM CCS 2026 Artifact Evaluation Co-Chair. Very approachable and responsive to student inquiries.
 
 ---
 
@@ -990,7 +991,25 @@
 
 ---
 
-## 51. Prof. Saumya Debray
+## 51. Prof. Jun Dai
+**Worcester Polytechnic Institute** | USNWR Overall: **#270**
+
+| Field | Info |
+|---|---|
+| Email | jdai@wpi.edu |
+| Website | https://users.wpi.edu/~jdai/ |
+| Lab | CS Department, WPI |
+| Funding | NSF (NCTC project), ACM CCS 2026 Artifact Evaluation Co-Chair |
+
+**Speciality:** LLM security, autonomous agent security, advanced attack detection, vulnerability analysis, secure coding, cybersecurity education
+
+**CMatrix alignment:** Research directly on LLM security and autonomous agent security — an exact match for CMatrix's architecture. NDSS 2026: LLM membership inference attack (MIA) work and model extraction attack. Studying how adversaries can steal and manipulate LLM-based agents — the adversarial twin of CMatrix's approach.
+
+**Student friendliness:** Explicitly looking for "self-motivated students at all levels (undergraduates, master, and PhD)." Earned PhD under Peng Liu at Penn State. ACM CCS 2026 Artifact Evaluation Co-Chair. Very approachable and responsive to student inquiries.
+
+---
+
+## 52. Prof. Saumya Debray
 **University of Arizona** | USNWR Overall: **#284**
 
 | Field | Info |
@@ -1008,7 +1027,7 @@
 
 ---
 
-## 52. Prof. Xinming (Simon) Ou
+## 53. Prof. Xinming (Simon) Ou
 **University of South Florida** | USNWR Overall: **#295**
 
 | Field | Info |
@@ -1027,17 +1046,13 @@
 ---
 
 # 🟢 TIER 3 — Universities ranked #301–500
-*(7 professors — ranks #380 through #411)*
+*(6 professors — ranks #380 through #411)*
 
-> ⚠️ **T3 is currently underpopulated (7/20).** After removing the duplicate and correcting misplacements, only 7 professors genuinely fall in the #301–500 range. 13 new T3 professors need to be sourced.
-
----
-
-## 53. Prof. Wenliang (Kevin) Du *(see T2 — Syracuse #133 — moved up)*
+> ⚠️ **T3 is currently underpopulated (6/20).** After removing the duplicate and correcting misplacements, only 6 professors genuinely fall in the #301–500 range. 14 new T3 professors need to be sourced.
 
 ---
 
-## 53. Prof. Sankardas Roy
+## 54. Prof. Sankardas Roy
 **Bowling Green State University** | USNWR Overall: **#380**
 
 | Field | Info |
@@ -1055,43 +1070,7 @@
 
 ---
 
-## 54. Prof. Selcuk Uluagac
-**Florida International University** | USNWR Overall: **#411**
-
-| Field | Info |
-|---|---|
-| Email | suluagac@fiu.edu |
-| Website | https://users.cs.fiu.edu/~uluagac/ |
-| Lab | Cyber-Physical Systems Security Lab (CSL) |
-| Funding | NSF, DoD, DARPA, DHS; multiple active grants totaling $10M+ |
-
-**Speciality:** IoT/CPS security, network security, wireless security, AI-driven attack/defense, smart device security
-
-**CMatrix alignment:** Expert on AI-driven attacks and defenses on IoT/CPS systems — OT/ICS extension of CMatrix's VAPT scope. NSF-funded research on automated detection of security weaknesses in smart home and industrial devices.
-
-**Student friendliness:** Director of the CSL lab. Very active in NSF REU programs. Encourages undergraduate and international research collaboration.
-
----
-
-## 55. Prof. Murtuza Jadliwala
-**University of Texas at San Antonio** | USNWR Overall: **#411**
-
-| Field | Info |
-|---|---|
-| Email | murtuza.jadliwala@utsa.edu |
-| Website | https://sites.google.com/site/murtuza.jadliwala |
-| Lab | SPriTELab (Security, Privacy, Trust, and Ethics in Computing) |
-| Funding | NSF, multiple federal grants |
-
-**Speciality:** LLM security vulnerabilities, AI-generated insecure code, privacy/trust in AI systems, mobile security
-
-**CMatrix alignment:** USENIX Security 2025 paper on how LLMs frequently generate insecure code (package hallucination attacks). Research on detecting and mitigating LLM-generated security vulnerabilities is directly relevant to CMatrix's post-exploit analysis phase.
-
-**Student friendliness:** Director of SPriTELab. UTSA is a Hispanic-Serving Institution — particularly welcoming of international students.
-
----
-
-## 56. Prof. Chengyu Song
+## 55. Prof. Chengyu Song
 **UC Riverside** | USNWR Overall: **#405**
 
 | Field | Info |
@@ -1109,7 +1088,7 @@
 
 ---
 
-## 57. Prof. Zhiyun Qian
+## 56. Prof. Zhiyun Qian
 **UC Riverside** | USNWR Overall: **#405**
 
 | Field | Info |
@@ -1127,7 +1106,7 @@
 
 ---
 
-## 58. Prof. Heng Yin
+## 57. Prof. Heng Yin
 **UC Riverside** | USNWR Overall: **#405**
 
 | Field | Info |
@@ -1145,23 +1124,39 @@
 
 ---
 
-## 59. Prof. Anoop Singhal
-**UMD / NIST** | UMD USNWR: **#93** *(NIST = federal lab, outside ranking)*
+## 58. Prof. Selcuk Uluagac
+**Florida International University** | USNWR Overall: **#411**
 
 | Field | Info |
 |---|---|
-| Email | anoop.singhal@nist.gov |
-| Website | https://www.nist.gov/people/anoop-singhal |
-| Lab | NIST Computer Security Division; affiliated with UMD |
-| Funding | NIST, NSF collaborative grants |
+| Email | suluagac@fiu.edu |
+| Website | https://users.cs.fiu.edu/~uluagac/ |
+| Lab | Cyber-Physical Systems Security Lab (CSL) |
+| Funding | NSF, DoD, DARPA, DHS; multiple active grants totaling $10M+ |
 
-**Speciality:** Network attack graphs, vulnerability analysis, risk assessment, security metrics, IoT honeypot ecosystems
+**Speciality:** IoT/CPS security, network security, wireless security, AI-driven attack/defense, smart device security
 
-**CMatrix alignment:** Co-authored IoT honeypot ecosystem research with Xinming Ou — modeling multi-phase attacker behavior across IoT deployments. Expert on network attack graphs — a direct output format for CMatrix's multi-host VAPT results. Research on security metrics and risk quantification provides evaluation frameworks for CMatrix's impact assessment.
+**CMatrix alignment:** Expert on AI-driven attacks and defenses on IoT/CPS systems — OT/ICS extension of CMatrix's VAPT scope. NSF-funded research on automated detection of security weaknesses in smart home and industrial devices.
 
-**Student friendliness:** NIST affiliation provides unique access to government datasets and standards processes. Collaborative across academia and national labs.
+**Student friendliness:** Director of the CSL lab. Very active in NSF REU programs. Encourages undergraduate and international research collaboration.
 
-> ⚠️ **Placement note:** Primary affiliation is NIST (federal lab, unranked). UMD co-affiliation is #93 → T1 by university rank. Treat as a special cross-tier case.
+---
+
+## 59. Prof. Murtuza Jadliwala
+**University of Texas at San Antonio** | USNWR Overall: **#411**
+
+| Field | Info |
+|---|---|
+| Email | murtuza.jadliwala@utsa.edu |
+| Website | https://sites.google.com/site/murtuza.jadliwala |
+| Lab | SPriTELab (Security, Privacy, Trust, and Ethics in Computing) |
+| Funding | NSF, multiple federal grants |
+
+**Speciality:** LLM security vulnerabilities, AI-generated insecure code, privacy/trust in AI systems, mobile security
+
+**CMatrix alignment:** USENIX Security 2025 paper on how LLMs frequently generate insecure code (package hallucination attacks). Research on detecting and mitigating LLM-generated security vulnerabilities is directly relevant to CMatrix's post-exploit analysis phase.
+
+**Student friendliness:** Director of SPriTELab. UTSA is a Hispanic-Serving Institution — particularly welcoming of international students.
 
 ---
 
