@@ -595,7 +595,21 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #28 — Peng Liu · Penn State · USNWR ~#130
+## 👤 Prof. #31 — Aziz Mohaisen · University of Central Florida · USNWR #121
+> ℹ️ **Academic Profile:**
+> - **Lab:** SEAL (Security and Analytics Lab), UCF CS
+> - **Contact:** david.mohaisen@ucf.edu | [Website](https://www.cs.ucf.edu/~mohaisen/)
+
+### 2.0a `[🔴 P1 | 2025]` LLM-Driven Vulnerability Analysis and Automated Code Repair
+- **Paper:** [Leveraging LLMs for Automated Vulnerability Analysis and Repair: Accuracy, Scalability, and Evasion](https://www.cs.ucf.edu/~mohaisen/)
+- **Authors:** **Aziz Mohaisen** et al. (UCF SEAL Lab)
+- **Institution:** University of Central Florida
+- **Venue:** **2024–2025 (NSF/DoD funded, IEEE S&P / CCS)**
+- **Relevance:** 🎯 SEAL Lab research on leveraging LLMs for automated vulnerability analysis and repair — the exact offensive-to-defensive loop `CMatrix` executes. Adversarial ML research on evasion techniques directly informs `CMatrix`'s stealth scan module design. UCF is NSA CAE-R designated.
+
+---
+
+## 👤 Prof. #33 — Peng Liu · Penn State · USNWR ~#130
 > ℹ️ **Academic Profile:**
 > - **Lab:** Cyber Security Lab, Penn State IST
 > - **Contact:** pliu@ist.psu.edu | [Website](https://sites.psu.edu/pengliu/)
@@ -609,7 +623,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #29 — Ting Wang · Penn State · USNWR ~#130
+## 👤 Prof. #34 — Ting Wang · Penn State · USNWR ~#130
 > ℹ️ **Academic Profile:**
 > - **Lab:** ALPS Lab
 > - **Contact:** inbox@tiwang.io | [Website](https://alps-lab.github.io)
@@ -623,7 +637,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #30 — Gang Tan · Penn State University · USNWR ~#130
+## 👤 Prof. #32 — Gang Tan · Penn State University · USNWR ~#130
 > ℹ️ **Academic Profile:**
 > - **Lab:** Security and Programming Languages Research Group
 > - **Contact:** gtan@psu.edu | [Website](https://www.cse.psu.edu/~gxt29/)
@@ -637,7 +651,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #31 — Wenliang · Syracuse University · USNWR ~#133
+## 👤 Prof. #35 — Wenliang (Kevin) Du · Syracuse University · USNWR ~#133
 > ℹ️ **Academic Profile:**
 > - **Lab:** SEED Security Lab
 > - **Contact:** wedu@acm.org | [Website](https://seedsecuritylabs.org/wenliangdu/)
@@ -646,12 +660,26 @@ This table provides a comprehensive index of all **102 unique professor-based re
 - **Paper:** [SEED Labs: A Problem-Solving Based Learning Environment for Security Education](https://seedsecuritylabs.org)
 - **Authors:** **Wenliang (Kevin) Du** (Syracuse University)
 - **Institution:** Syracuse University
-- **Venue:** ****ACM CCS Education Track + SIGCSE (Test-of-Time Award) — used by 1,180+ institutions in 80 countries****
-- **Relevance:** 🎯 Creator of SEED Labs — the most widely deployed cybersecurity education platform globally. SEED Labs teach exactly the attack surfaces `CMatrix` automates. `CMatrix` can use SEED Lab VMs as standardized evaluation environments.
+- **Venue:** **ACM CCS Education Track + SIGCSE (Test-of-Time Award) — used by 1,180+ institutions in 80 countries**
+- **Relevance:** 🎯 Creator of SEED Labs — the most widely deployed cybersecurity education platform globally. SEED Labs directly teach the attack surfaces `CMatrix` automates (software, network, web, OS security). `CMatrix` can use SEED Lab VMs as standardized evaluation environments.
 
 ---
 
-## 👤 Prof. #32 — Guofei Gu · Texas A&M University · USNWR ~#145
+## 👤 Prof. #36 — Rakesh Bobba · Oregon State University · USNWR ~#144
+> ℹ️ **Academic Profile:**
+> - **Lab:** ORTSOC (Oregon Research and Teaching Security Operations Center), OSU EECS
+> - **Contact:** rakesh.bobba@oregonstate.edu | [Website](https://eecs.oregonstate.edu/people/bobba-rakesh)
+
+### 2.1a `[🟠 P2 | 2025]` CPS and Critical Infrastructure Security: Real-Time Attack Detection in Industrial Control Systems
+- **Paper:** [Cyber-Physical System Security: Real-Time Attack Detection and Response in Critical Infrastructure](https://eecs.oregonstate.edu/people/bobba-rakesh)
+- **Authors:** **Rakesh Bobba** et al. (Oregon State ORTSOC + PNNL)
+- **Institution:** Oregon State University
+- **Venue:** **2024–2025 (NSF/DHS/DoE funded, publications at CCS, USENIX Security)**
+- **Relevance:** Co-developed ORTSOC — a live SOC used for real threat response and research training, the operational deployment environment `CMatrix` targets. CPS/ICS security expertise extends `CMatrix`'s OT VAPT scope. PNNL collaboration provides government-grade critical infrastructure threat models.
+
+---
+
+## 👤 Prof. #39 — Guofei Gu · Texas A&M University · USNWR ~#145
 > ℹ️ **Academic Profile:**
 > - **Lab:** SUCCESS Lab
 > - **Contact:** guofei@cse.tamu.edu | [Website](https://faculty.cse.tamu.edu/guofei)
@@ -665,7 +693,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #33 — Patrick Traynor · University of Florida · USNWR ~#145
+## 👤 Prof. #37 — Patrick Traynor · University of Florida · USNWR ~#145
 > ℹ️ **Academic Profile:**
 > - **Lab:** FICS Research
 > - **Contact:** traynor@cise.ufl.edu | [Website](https://www.cise.ufl.edu/~traynor/)
@@ -679,7 +707,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #34 — Kevin Butler · University of Florida · USNWR ~#145
+## 👤 Prof. #38 — Kevin Butler · University of Florida · USNWR ~#145
 > ℹ️ **Academic Profile:**
 > - **Lab:** FICS Research
 > - **Contact:** butler@cise.ufl.edu | [Website](https://www.cise.ufl.edu/~butler/)
@@ -693,7 +721,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #35 — Yan Shoshitaishvili · Arizona State University · USNWR ~#147
+## 👤 Prof. #40 — Yan Shoshitaishvili · Arizona State University · USNWR ~#147
 > ℹ️ **Academic Profile:**
 > - **Lab:** SEFCOM Lab (co-director)
 > - **Contact:** yans@asu.edu | [Website](https://yancomm.net)
@@ -707,7 +735,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #36 — Tiffany Bao · Arizona State University · USNWR ~#147
+## 👤 Prof. #41 — Tiffany Bao · Arizona State University · USNWR ~#147
 > ℹ️ **Academic Profile:**
 > - **Lab:** SEFCOM Lab (co-director)
 > - **Contact:** tbao@asu.edu | [Website](https://www.tiffanybao.com)
@@ -721,14 +749,21 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #37 — Adam Doupé · Arizona State University · USNWR ~#147
+## 👤 Prof. #42 — Adam Doupé · Arizona State University · USNWR ~#147
 > ℹ️ **Academic Profile:**
 > - **Lab:** SEFCOM Lab (co-director)
 > - **Contact:** doupe@asu.edu | [Website](https://adamdoupe.com)
 
+### 2.6b `[🔴 P1 | 2026]` Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award
+- **Paper:** [Decompiling the Synergy: An Empirical Study of Human-LLM Teaming in Software Reverse Engineering](https://www.ndss-symposium.org/ndss-paper/decompiling-the-synergy-an-empirical-study-of-human-llm-teaming-in-software-reverse-engineering/)
+- **Authors:** Zion Leonahenahe Basque, Samuele Doria, **Adam Doupé**, **Yan Shoshitaishvili** (ASU), Ruoyu Wang (ASU) et al.
+- **Institution:** Arizona State University
+- **Venue:** **NDSS 2026 (CCF-A) — Distinguished Paper Award**
+- **Relevance:** 🎯 LLM assistance demonstrably narrows the expertise gap in software reverse engineering — directly informs `CMatrix`'s HITL module. Doupé is a co-director of ASU SEFCOM and DARPA AIxCC finalist.
+
 ---
 
-## 👤 Prof. #38 — Jedidiah Crandall · Arizona State University · USNWR ~#147
+## 👤 Prof. #43 — Jedidiah Crandall · Arizona State University · USNWR ~#147
 > ℹ️ **Academic Profile:**
 > - **Lab:** Breakout Research Group, ASU
 > - **Contact:** jrcranda@asu.edu | [Website](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/)
@@ -742,7 +777,21 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #39 — Sushil Jajodia · George Mason University · USNWR ~#156
+## 👤 Prof. #44 — Saptarshi Debroy · CUNY Hunter College · USNWR ~#155
+> ℹ️ **Academic Profile:**
+> - **Lab:** Distributed and Autonomous Systems Security Lab, CUNY
+> - **Contact:** sdebroy@hunter.cuny.edu | [Website](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy)
+
+### 2.7a `[🟠 P2 | 2025]` Moving Target Defense for Cloud-Hosted Autonomous AI Systems
+- **Paper:** [Moving Target Defense for Cloud-Deployed Autonomous AI Security Agents: Adaptive Workload Orchestration](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy)
+- **Authors:** **Saptarshi Debroy** et al. (CUNY Distributed and Autonomous Systems Security Lab)
+- **Institution:** CUNY Hunter College
+- **Venue:** **2024–2025 (NSF funded)**
+- **Relevance:** Research on MTD for cloud-hosted autonomous AI systems — exactly the defensive adaptation `CMatrix`'s agents must overcome when operating against cloud-deployed targets. Work on AI-driven task offloading in distributed environments maps to `CMatrix`'s multi-agent workload orchestration model.
+
+---
+
+## 👤 Prof. #45 — Sushil Jajodia · George Mason University · USNWR ~#156
 > ℹ️ **Academic Profile:**
 > - **Lab:** Center for Secure Information Systems (CSIS) — 120+ PhD graduates, 700+ publications
 > - **Contact:** jajodia@gmu.edu | [Website](https://cs.gmu.edu/~jajodia/)
@@ -756,7 +805,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #40 — Jie Gao · Rutgers University · USNWR ~#160
+## 👤 Prof. #46 — Jie Gao · Rutgers University · USNWR ~#160
 > ℹ️ **Academic Profile:**
 > - **Lab:** Rutgers AI & Cybersecurity Research
 > - **Contact:** jg1555@rutgers.edu | [Website](https://sites.rutgers.edu/jie-gao/)
@@ -770,7 +819,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #41 — Long Cheng · Clemson University · USNWR ~#168
+## 👤 Prof. #47 — Long Cheng · Clemson University · USNWR ~#168
 > ℹ️ **Academic Profile:**
 > - **Lab:** Secure and Dependable Systems (SDS) Lab
 > - **Contact:** lcheng2@clemson.edu | [Website](https://people.computing.clemson.edu/~lcheng2/)
@@ -784,7 +833,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #42 — Peng Gao · Virginia Tech · USNWR ~#170
+## 👤 Prof. #48 — Peng Gao · Virginia Tech · USNWR ~#170
 > ℹ️ **Academic Profile:**
 > - **Lab:** Security Lab, Virginia Tech CS
 > - **Contact:** penggao@vt.edu | [Website](https://people.cs.vt.edu/penggao/)
@@ -798,7 +847,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #43 — Pubali Datta · UMass Amherst · USNWR ~#170
+## 👤 Prof. #49 — Pubali Datta · UMass Amherst · USNWR ~#170
 > ℹ️ **Academic Profile:**
 > - **Lab:** SPADE Lab, UMass Amherst
 > - **Contact:** pubali@cs.umass.edu | [Website](https://pubali.github.io)
@@ -812,7 +861,21 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #44 — Long Lu · Northeastern University · USNWR ~#179
+## 👤 Prof. #50 — Anupam Joshi · UMBC · USNWR ~#172
+> ℹ️ **Academic Profile:**
+> - **Lab:** eBiquity Research Group, UMBC CS/EE
+> - **Contact:** joshi@umbc.edu | [Website](https://anupam.umbc.edu)
+
+### 2.12a `[🔴 P1 | 2025]` Knowledge Graphs + LLMs for Automated Cybersecurity Threat Intelligence
+- **Paper:** [Knowledge Graph-Driven LLM Pipelines for Automated Threat Intelligence and Security Log Analysis](https://anupam.umbc.edu)
+- **Authors:** **Anupam Joshi** et al. (UMBC eBiquity Research Group)
+- **Institution:** University of Maryland, Baltimore County
+- **Venue:** **2024–2025 (NSF/DARPA/DoD/NSA funded, IEEE S&P, CCS)**
+- **Relevance:** 🎯 eBiquity Lab research on knowledge graphs + LLMs for automated cybersecurity threat intelligence — exactly the semantic enrichment layer that `CMatrix`'s reconnaissance agent outputs need. Research on using NLP/LLMs to parse unstructured security logs and OSINT into structured threat knowledge graphs directly enables `CMatrix`'s contextual attack chain reasoning.
+
+---
+
+## 👤 Prof. #51 — Long Lu · Northeastern University · USNWR ~#179
 > ℹ️ **Academic Profile:**
 > - **Lab:** RiS3 Lab
 > - **Contact:** l.lu@northeastern.edu | [Website](https://www.longlu.org)
@@ -826,7 +889,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #45 — Engin Kirda · Northeastern University · USNWR ~#179
+## 👤 Prof. #52 — Engin Kirda · Northeastern University · USNWR ~#179
 > ℹ️ **Academic Profile:**
 > - **Lab:** Secure Systems Lab (co-director)
 > - **Contact:** ek@ccs.neu.edu | [Website](https://www.ccs.neu.edu/home/ek/)
@@ -840,7 +903,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #46 — Wil Robertson · Northeastern University · USNWR ~#179
+## 👤 Prof. #53 — Wil Robertson · Northeastern University · USNWR ~#179
 > ℹ️ **Academic Profile:**
 > - **Lab:** Secure Systems Lab (SSL)
 > - **Contact:** wil@ccs.neu.edu | [Website](https://www.ccs.neu.edu/home/wil/)
@@ -854,14 +917,21 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #47 — Zhiqiang Lin · Ohio State University · USNWR ~#180
+## 👤 Prof. #54 — Zhiqiang Lin · Ohio State University · USNWR ~#180
 > ℹ️ **Academic Profile:**
-> - **Lab:** SSSL Lab
+> - **Lab:** SSSL Lab (System Security and Software Lab)
 > - **Contact:** lin.3021@osu.edu | [Website](https://zhiqiang.org)
+
+### 2.15a `[🟠 P2 | 2025]` AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software
+- **Paper:** [AI-Assisted Automated Bug Finding in Kernel, Firmware, and Binary Software](https://zhiqiang.org)
+- **Authors:** **Zhiqiang Lin** et al. (Ohio State SSSL Lab)
+- **Institution:** Ohio State University
+- **Venue:** **2024–2025 (NSF/DARPA/DoD funded, USENIX Security, CCS, NDSS)**
+- **Relevance:** Expert in automated binary analysis and AI-assisted bug finding in kernels and firmware — core capabilities `CMatrix` leverages in its grey-box binary scan pipeline. Distinguished Professor of Engineering at OSU; collaborated with Dongyan Xu (Purdue) and Barton Miller (Wisconsin).
 
 ---
 
-## 👤 Prof. #48 — William Enck · North Carolina State University · USNWR ~#181
+## 👤 Prof. #55 — William Enck · North Carolina State University · USNWR ~#181
 > ℹ️ **Academic Profile:**
 > - **Lab:** SySeS Lab
 > - **Contact:** whenck@ncsu.edu | [Website](https://enck.org)
@@ -875,7 +945,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #49 — Michalis Polychronakis · Stony Brook University · USNWR ~#185
+## 👤 Prof. #56 — Michalis Polychronakis · Stony Brook University · USNWR ~#185
 > ℹ️ **Academic Profile:**
 > - **Lab:** Systems Security Lab, Stony Brook
 > - **Contact:** mikepo@cs.stonybrook.edu | [Website](https://www3.cs.stonybrook.edu/~mikepo/)
@@ -889,7 +959,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #50 — Jun Dai · Worcester Polytechnic Institute · USNWR ~#270
+## 👤 Prof. #58 — Jun Dai · Worcester Polytechnic Institute · USNWR ~#270
 > ℹ️ **Academic Profile:**
 > - **Lab:** CS Department, WPI
 > - **Contact:** jdai@wpi.edu | [Website](https://users.wpi.edu/~jdai/)
@@ -903,7 +973,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #51 — Dipankar Dasgupta · University of Memphis · USNWR ~#270
+## 👤 Prof. #57 — Dipankar Dasgupta · University of Memphis · USNWR ~#270
 > ℹ️ **Academic Profile:**
 > - **Lab:** Intelligent Security Systems (ISS) Lab
 > - **Contact:** ddasgupta@memphis.edu | [Website](https://www.memphis.edu/cs/people/faculty_pages/dasgupta.php)
@@ -917,11 +987,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #52 — Jun Dai (also listed as Prof. #50)
-*See Section 2 entries 2.38 and 2.25 for all papers — Prof. Jun Dai at WPI appears twice in the professor list. All papers are fully documented in Section 2.*
-
----
-## 👤 Prof. #53 — Saumya Debray · University of Arizona · USNWR ~#284
+## 👤 Prof. #59 — Saumya Debray · University of Arizona · USNWR ~#284
 > ℹ️ **Academic Profile:**
 > - **Lab:** Systems Security Research Group
 > - **Contact:** debray@cs.arizona.edu | [Website](https://cs.arizona.edu/person/saumya-debray)
@@ -935,7 +1001,7 @@ This table provides a comprehensive index of all **102 unique professor-based re
 
 ---
 
-## 👤 Prof. #54 — Xinming · University of South Florida · USNWR ~#295
+## 👤 Prof. #60 — Xinming (Simon) Ou · University of South Florida · USNWR ~#295
 > ℹ️ **Academic Profile:**
 > - **Lab:** Bellini College, USF
 > - **Contact:** xou@usf.edu | [Website](https://www.usf.edu/ai-cybersecurity-computing/people/faculty/ou-simon.aspx)
