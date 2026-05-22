@@ -1,18 +1,6 @@
-# 📚 Foundational & Thematic Research Paper Reference
-## 🤖 LLM-Orchestrated Multi-Agent VAPT
+# 📚 Foundational & Thematic Research Paper Reference (LLM-Orch VAPT)
 
-> 📢 **`CMatrix` Research | Updated: May 12, 2026 | Version 4.1**
-> This document serves as the high-fidelity "Source of Truth" for briefing `CMatrix` AI agents. It covers foundational multi-agent frameworks, cost optimization, safety guardrails, and benchmarks in autonomous offensive security.
-
-> 💡 **Tip:** Reading all papers in this reference provides end-to-end knowledge of the landscape. Zero knowledge gaps from foundations through SOTA 2026.
-
----
-
-## 📖 HOW TO USE THIS DOCUMENT
-
-> ℹ️ **Note:** Use the **Master Paper List** below as a quick lookup. For deep analysis, navigate to specific sections via the TOC.
-
-**Priority Scale:**
+## 📌 Priority Scale
 - 🔴 **P1 — Critical** · Foundational or directly cited in `CMatrix` (Must-read first).
 - 🟠 **P2 — High** · Core contemporary works, key techniques, and strong benchmarks.
 - 🟡 **P3 — Important** · Solid supporting context and emerging methods.
@@ -22,91 +10,83 @@
 
 ## 📊 MASTER PAPER LIST
 
-This table provides a comprehensive index of all **83 foundational and thematic research papers** cited in this document, sorted by section and priority.
+This table provides a comprehensive index of all **73 foundational and thematic research papers** cited in this document, sorted by section and priority.
 
 | Priority | # | Paper Title | Year | Venue | Professor(s) |
 |---|---|---|---|---|---|
 | 🔴 **P1** | **116** | PentestGPT: The Benchmark Foundation | 2024 | USENIX Security 2024 | Gelei Deng, Yi Liu, Peng Liu |
 | 🔴 **P1** | **117** | PentestGPT v2: Evidence-Guided Attack Tree Search | 2026 | arXiv, Feb 2026 | NTU Team |
-| 🔴 **P1** | **118** | Incalmo / On the Feasibility of LLMs for Multi-Host Network Attacks | 2025 | arXiv, 2025 | Brian Singer, Lujo Bauer, Vyas Sekar |
-| 🔴 **P1** | **119** | AutoPentester: End-to-End Automation | 2025 | arXiv, Oct 2025 | Anonymous |
-| 🔴 **P1** | **120** | VulnBot: Multi-Agent Collaborative Pentesting | 2025 | arXiv, Jan 2025 | KHenry |
-| 🔴 **P1** | **121** | xOffense: Domain-Adapted Multi-Agent Framework | 2025 | arXiv, Sept 2025 | Quyen Nguyen Huu |
-| 🟠 **P2** | **122** | CurriculumPT: Progressive Skill Acquisition | 2025 | Applied Sciences 2025 |  |
-| 🟠 **P2** | **123** | PentestMCP: MCP-Based Tool Orchestration | 2025 | arXiv, Oct 2025 | Zachary Ezetta |
-| 🟠 **P2** | **124** | Pen-Strategist: Fine-Tuned Reasoning for Pentesting | 2026 | arXiv, May 2026 |  |
-| 🔴 **P1** | **125** | Getting Pwn'd by AI: LLM Penetration Testing (Foundational) | 2023 | FSE/ESEC 2023 | Andreas Happe, Jürgen Cito |
-| 🟠 **P2** | **126** | Can LLMs Hack Enterprise Networks? (Active Directory) | 2025 | ACM TOSEM 2025 | Andreas Happe, Jürgen Cito |
-| 🔴 **P1** | **127** | LLM Agents Can Autonomously Exploit One-day Vulnerabilities | 2024 | arXiv, April 2024 | Daniel Kang |
-| 🔴 **P1** | **128** | Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities | 2024 | arXiv, June 2024 | Daniel Kang |
-| 🟠 **P2** | **129** | RedTeamLLM: Agentic Framework for Offensive Security | 2025 | arXiv, Dec 2025 |  |
-| 🟠 **P2** | **130** | CAI: Open, Bug Bounty-Ready Cybersecurity AI | 2025 | arXiv, April 2025 | Alias Robotics |
-| 🟡 **P3** | **131** | ARACNE: Autonomous Shell Pentesting Agent | 2025 | arXiv, Feb 2025 |  |
-| 🟡 **P3** | **132** | RapidPen: IP-to-Shell Automation | 2025 | arXiv, Feb 2025 |  |
-| 🟠 **P2** | **133** | AutoAttacker: LLM-Guided Cyber Attacks | 2024 | arXiv, March 2024 | Jiacen Xu, Jack Stokes |
-| 🟠 **P2** | **134** | Pentest-R1: Reinforcement Learning for Pentesting Reasoning | 2025 | arXiv, Aug 2025 | KHenry |
-| 🟠 **P2** | **135** | HackWorld: Computer-Use Agents on Web Vulnerabilities (ICLR) | 2026 | ICLR 2026 |  |
-| 🟠 **P2** | **136** | EnIGMA: Interactive Tools for Security Vulnerabilities (ICML 2025) | 2025 | ICML 2025 | Brendan Dolan-Gavitt |
-| 🟠 **P2** | **137** | D-CIPHER: Multi-Agent System for Offensive Security | 2025 | arXiv, Feb 2025 | Brendan Dolan-Gavitt |
-| 🟠 **P2** | **138** | CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution | 2025 | arXiv, May 2025 | Brendan Dolan-Gavitt |
-| 🟠 **P2** | **139** | SoK: Comparison of Autonomous Penetration Testing Agents | 2025 | ARES 2024 |  |
-| 🟠 **P2** | **140** | HackSynth: LLM Agent + Evaluation Framework | 2024 | arXiv, Dec 2024 |  |
-| 🟠 **P2** | **141** | PentestAgent: Incorporating LLM Agents (AsiaCCS 2025) | 2025 | AsiaCCS 2025 |  |
-| 🟡 **P3** | **142** | PENTEST-AI: MITRE ATT&CK Multi-Agent Framework | 2025 | IEEE CSR 2024 |  |
-| 🟡 **P3** | **143** | RefPentester: Self-Reflective Pentesting Framework | 2025 | arXiv, May 2025 |  |
-| 🟡 **P3** | **144** | Multi-Agent Penetration Testing AI for the Web | 2025 | arXiv, Aug 2025 |  |
-| 🟡 **P3** | **145** | AutoPT: End-to-End Web Penetration Testing | 2025 | arXiv, Nov 2024 |  |
-| 🟡 **P3** | **146** | Automated Penetration Testing with LLM Agents and Planning | 2026 | arXiv, Dec 2025 |  |
-| 🟡 **P3** | **147** | LLMs as Hackers: Privilege Escalation Attacks | 2026 | Empir Soft Eng 2026 |  |
-| 🟡 **P3** | **148** | PTFusion: LLM-driven Knowledge Fusion for Web Pentesting | 2026 | Info Fusion 2026 |  |
-| 🔴 **P1** | **149** | AutoGen: Next-Gen LLM Multi-Agent Conversations | 2024 | arXiv, Aug 2023 | Chi Wang (MSFT) |
-| 🔴 **P1** | **150** | MetaGPT: Meta Programming for Multi-Agent Frameworks (ICLR 2024) | 2024 | ICLR 2024 | Sirui Hong |
-| 🔴 **P1** | **151** | A Survey of Agentic AI and Cybersecurity | 2026 | arXiv, Jan 2026 |  |
-| 🟠 **P2** | **152** | Difficulty-Aware Agentic Orchestration (WWW 2026) | 2026 | WWW 2026 |  |
-| 🟠 **P2** | **153** | WorkflowLLM: Enhancing Workflow Orchestration | 2024 | arXiv, Nov 2024 |  |
-| 🟠 **P2** | **154** | A Survey on LLM-Based Multi-Agent Systems: Workflow, Infrastructure | 2024 | Vicinagearth 2024 |  |
-| 🟡 **P3** | **155** | A Trace-Based Assurance Framework for Agentic AI Orchestration | 2026 | arXiv, March 2026 |  |
-| 🟡 **P3** | **156** | Engineering LLM Powered Multi-Agent Framework for CloudOps (CAIN 2025) | 2025 | CAIN 2025 |  |
-| 🟡 **P3** | **157** | From LLM Reasoning to Autonomous AI Agents: Comprehensive Review | 2025 | arXiv, April 2025 |  |
-| 🟡 **P3** | **158** | A Declarative Language for Building LLM-Powered Agent Workflows | 2025 | arXiv, Nov 2025 | Ivan Daunis |
-| 🔴 **P1** | **159** | RouteLLM: Learning to Route LLMs with Preference Data (ICLR 2025) | 2025 | ICLR 2025 | Ion Stoica |
-| 🔴 **P1** | **160** | FrugalGPT: Reducing LLM Cost with Cascade Approach | 2023 | arXiv, May 2023 | Matei Zaharia, James Zou |
-| 🔴 **P1** | **161** | Cost-Efficient Serving of LLM Agents via Test-Time Plan Caching | 2025 | arXiv, June 2025 |  |
-| 🟠 **P2** | **162** | Minions: Cost-Efficient Collaboration between On-Device and Cloud LLMs | 2025 | arXiv, Feb 2025 |  |
-| 🟠 **P2** | **163** | RouterBench: A Benchmark for Multi-LLM Routing (ICML 2024) | 2024 | ICML 2024 Workshop |  |
-| 🟠 **P2** | **164** | On Optimal Caching and Model Multiplexing for Large Model Inference | 2023 | arXiv (Foundational) |  |
-| 🟡 **P3** | **165** | Robust Batch-Level Query Routing for LLMs | 2026 | arXiv, March 2026 |  |
-| 🔴 **P1** | **166** | Policy-as-Prompt: AI Governance Rules as Guardrails | 2025 | arXiv, Nov 2025 |  |
-| 🔴 **P1** | **167** | ShieldAgent: Verifiable Safety Policy Reasoning | 2025 | arXiv, March 2025 |  |
-| 🟠 **P2** | **168** | Toward Safe and Responsible AI Agents (Three-Pillar Model) | 2026 | arXiv, Jan 2026 |  |
-| 🟠 **P2** | **169** | AGrail: Lifelong Agent Guardrail | 2025 | arXiv, Feb 2025 |  |
-| 🟠 **P2** | **170** | AgentDoG: Diagnostic Guardrail Framework | 2026 | arXiv, Jan 2026 |  |
-| 🟡 **P3** | **171** | TrustAgent: Agent Constitution for Safety | 2024 | arXiv, Feb 2024 |  |
-| 🟡 **P3** | **172** | R-Judge: Benchmarking Safety Risk Awareness in LLM Agents | 2024 | arXiv, Jan 2024 |  |
-| 🔴 **P1** | **173** | RAG for Cybersecurity: Hybrid Retrieval for LLMs | 2025 | arXiv, Oct 2025 |  |
-| 🔴 **P1** | **174** | Survey on the Security of Long-Term Memory in LLM Agents | 2026 | arXiv, April 2026 | Zehao Lin |
-| 🟠 **P2** | **175** | Towards Secure RAG: Comprehensive Review of Threats, Defenses | 2026 | arXiv, March 2026 |  |
-| 🟠 **P2** | **176** | Securing RAG: Taxonomy of Attacks, Defenses | 2026 | arXiv, April 2026 |  |
-| 🟠 **P2** | **177** | Memory for Autonomous LLM Agents: Mechanisms & Evaluation | 2026 | arXiv, March 2026 |  |
-| 🟠 **P2** | **178** | Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025) | 2025 | ECAI 2025 | Deshraj Yadav |
-| 🔴 **P1** | **179** | CyBench: Evaluating Cybersecurity Capabilities (ICLR 2025) | 2025 | ICLR 2025 | Andy Zhang, Dan Boneh |
-| 🔴 **P1** | **180** | CyberGym (ICLR 2026) | 2025 | ICLR 2026 | Dawn Song |
-| 🔴 **P1** | **181** | CVE-Bench: AI Agents Exploiting Real-World Web Vulns (ICML 2025) | 2025 | ICML 2025 | Daniel Kang |
-| 🔴 **P1** | **182** | AutoPenBench: Benchmarking Generative Agents for Pentesting | 2024 | arXiv, Oct 2024 | Marco Mellia |
-| 🔴 **P1** | **183** | NYU CTF Bench (NeurIPS 2024) | 2024 | NeurIPS 2024 | Brendan Dolan-Gavitt |
-| 🟠 **P2** | **184** | An Empirical Evaluation of LLMs for Offensive Security Challenges | 2024 | NeurIPS 2024 |  |
-| 🟠 **P2** | **185** | CAIBench: Cybersecurity AI Meta-Benchmark | 2025 | arXiv, Oct 2025 |  |
-| 🟠 **P2** | **186** | Measuring and Augmenting LLMs for CTF (ACM CCS 2025) | 2025 | ACM CCS 2025 |  |
-| 🟡 **P3** | **187** | PentestEval: Stage-Level Benchmarking of LLM-Based Pentesting | 2026 | arXiv, Dec 2025 |  |
-| 🔴 **P1** | **188** | ReAct: Synergizing Reasoning and Acting in LLMs (ICLR 2023) | 2023 | ICLR 2023 | Shunyu Yao |
-| 🔴 **P1** | **189** | Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023) | 2023 | NeurIPS 2023 | Shunyu Yao |
-| 🔴 **P1** | **190** | Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022) | 2022 | NeurIPS 2022 | Jason Wei |
-| 🔴 **P1** | **191** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn |
-| 🟡 **P3** | **192** | A Unified Modeling Framework for Automated Penetration Testing | 2025 | Computers & Security |  |
-| 🔴 **P1** | **193** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang |
-| 🟠 **P2** | **194** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 |  |
-| 🟠 **P2** | **195** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 |  |
-| 🟠 **P2** | **196** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 |  |
+| 🔴 **P1** | **118** | AutoPentester: End-to-End Automation | 2025 | arXiv, Oct 2025 | Anonymous |
+| 🔴 **P1** | **119** | VulnBot: Multi-Agent Collaborative Pentesting | 2025 | arXiv, Jan 2025 | KHenry |
+| 🔴 **P1** | **120** | xOffense: Domain-Adapted Multi-Agent Framework | 2025 | arXiv, Sept 2025 | Quyen Nguyen Huu |
+| 🟠 **P2** | **121** | CurriculumPT: Progressive Skill Acquisition | 2025 | Applied Sciences 2025 |
+| 🟠 **P2** | **122** | PentestMCP: MCP-Based Tool Orchestration | 2025 | arXiv, Oct 2025 | Zachary Ezetta |
+| 🟠 **P2** | **123** | Pen-Strategist: Fine-Tuned Reasoning for Pentesting | 2026 | arXiv, May 2026 |
+| 🔴 **P1** | **124** | Getting Pwn'd by AI: LLM Penetration Testing (Foundational) | 2023 | FSE/ESEC 2023 | Andreas Happe, Jürgen Cito |
+| 🟠 **P2** | **125** | Can LLMs Hack Enterprise Networks? (Active Directory) | 2025 | ACM TOSEM 2025 | Andreas Happe, Jürgen Cito |
+| 🟠 **P2** | **126** | RedTeamLLM: Agentic Framework for Offensive Security | 2025 | arXiv, Dec 2025 |
+| 🟠 **P2** | **127** | CAI: Open, Bug Bounty-Ready Cybersecurity AI | 2025 | arXiv, April 2025 | Alias Robotics |
+| 🟡 **P3** | **128** | ARACNE: Autonomous Shell Pentesting Agent | 2025 | arXiv, Feb 2025 |
+| 🟡 **P3** | **129** | RapidPen: IP-to-Shell Automation | 2025 | arXiv, Feb 2025 |
+| 🟠 **P2** | **130** | AutoAttacker: LLM-Guided Cyber Attacks | 2024 | arXiv, March 2024 | Jiacen Xu, Jack Stokes |
+| 🟠 **P2** | **131** | Pentest-R1: Reinforcement Learning for Pentesting Reasoning | 2025 | arXiv, Aug 2025 | KHenry |
+| 🟠 **P2** | **132** | HackWorld: Computer-Use Agents on Web Vulnerabilities (ICLR) | 2026 | ICLR 2026 |
+| 🟠 **P2** | **133** | SoK: Comparison of Autonomous Penetration Testing Agents | 2025 | ARES 2024 |
+| 🟠 **P2** | **134** | HackSynth: LLM Agent + Evaluation Framework | 2024 | arXiv, Dec 2024 |
+| 🟠 **P2** | **135** | PentestAgent: Incorporating LLM Agents (AsiaCCS 2025) | 2025 | AsiaCCS 2025 |
+| 🟡 **P3** | **136** | PENTEST-AI: MITRE ATT&CK Multi-Agent Framework | 2025 | IEEE CSR 2024 |
+| 🟡 **P3** | **137** | RefPentester: Self-Reflective Pentesting Framework | 2025 | arXiv, May 2025 |
+| 🟡 **P3** | **138** | Multi-Agent Penetration Testing AI for the Web | 2025 | arXiv, Aug 2025 |
+| 🟡 **P3** | **139** | AutoPT: End-to-End Web Penetration Testing | 2025 | arXiv, Nov 2024 |
+| 🟡 **P3** | **140** | Automated Penetration Testing with LLM Agents and Planning | 2026 | arXiv, Dec 2025 |
+| 🟡 **P3** | **141** | LLMs as Hackers: Privilege Escalation Attacks | 2026 | Empir Soft Eng 2026 |
+| 🟡 **P3** | **142** | PTFusion: LLM-driven Knowledge Fusion for Web Pentesting | 2026 | Info Fusion 2026 |
+| 🔴 **P1** | **143** | AutoGen: Next-Gen LLM Multi-Agent Conversations | 2024 | arXiv, Aug 2023 | Chi Wang (MSFT) |
+| 🔴 **P1** | **144** | MetaGPT: Meta Programming for Multi-Agent Frameworks (ICLR 2024) | 2024 | ICLR 2024 | Sirui Hong |
+| 🔴 **P1** | **145** | A Survey of Agentic AI and Cybersecurity | 2026 | arXiv, Jan 2026 |
+| 🟠 **P2** | **146** | Difficulty-Aware Agentic Orchestration (WWW 2026) | 2026 | WWW 2026 |
+| 🟠 **P2** | **147** | WorkflowLLM: Enhancing Workflow Orchestration | 2024 | arXiv, Nov 2024 |
+| 🟠 **P2** | **148** | A Survey on LLM-Based Multi-Agent Systems: Workflow, Infrastructure | 2024 | Vicinagearth 2024 |
+| 🟡 **P3** | **149** | A Trace-Based Assurance Framework for Agentic AI Orchestration | 2026 | arXiv, March 2026 |
+| 🟡 **P3** | **150** | Engineering LLM Powered Multi-Agent Framework for CloudOps (CAIN 2025) | 2025 | CAIN 2025 |
+| 🟡 **P3** | **151** | From LLM Reasoning to Autonomous AI Agents: Comprehensive Review | 2025 | arXiv, April 2025 |
+| 🟡 **P3** | **152** | A Declarative Language for Building LLM-Powered Agent Workflows | 2025 | arXiv, Nov 2025 | Ivan Daunis |
+| 🔴 **P1** | **153** | RouteLLM: Learning to Route LLMs with Preference Data (ICLR 2025) | 2025 | ICLR 2025 | Ion Stoica |
+| 🔴 **P1** | **154** | FrugalGPT: Reducing LLM Cost with Cascade Approach | 2023 | arXiv, May 2023 | Matei Zaharia, James Zou |
+| 🔴 **P1** | **155** | Cost-Efficient Serving of LLM Agents via Test-Time Plan Caching | 2025 | arXiv, June 2025 |
+| 🟠 **P2** | **156** | Minions: Cost-Efficient Collaboration between On-Device and Cloud LLMs | 2025 | arXiv, Feb 2025 |
+| 🟠 **P2** | **157** | RouterBench: A Benchmark for Multi-LLM Routing (ICML 2024) | 2024 | ICML 2024 Workshop |
+| 🟠 **P2** | **158** | On Optimal Caching and Model Multiplexing for Large Model Inference | 2023 | arXiv (Foundational) |
+| 🟡 **P3** | **159** | Robust Batch-Level Query Routing for LLMs | 2026 | arXiv, March 2026 |
+| 🔴 **P1** | **160** | Policy-as-Prompt: AI Governance Rules as Guardrails | 2025 | arXiv, Nov 2025 |
+| 🔴 **P1** | **161** | ShieldAgent: Verifiable Safety Policy Reasoning | 2025 | arXiv, March 2025 |
+| 🟠 **P2** | **162** | Toward Safe and Responsible AI Agents (Three-Pillar Model) | 2026 | arXiv, Jan 2026 |
+| 🟠 **P2** | **163** | AGrail: Lifelong Agent Guardrail | 2025 | arXiv, Feb 2025 |
+| 🟠 **P2** | **164** | AgentDoG: Diagnostic Guardrail Framework | 2026 | arXiv, Jan 2026 |
+| 🟡 **P3** | **165** | TrustAgent: Agent Constitution for Safety | 2024 | arXiv, Feb 2024 |
+| 🟡 **P3** | **166** | R-Judge: Benchmarking Safety Risk Awareness in LLM Agents | 2024 | arXiv, Jan 2024 |
+| 🔴 **P1** | **167** | RAG for Cybersecurity: Hybrid Retrieval for LLMs | 2025 | arXiv, Oct 2025 |
+| 🔴 **P1** | **168** | Survey on the Security of Long-Term Memory in LLM Agents | 2026 | arXiv, April 2026 | Zehao Lin |
+| 🟠 **P2** | **169** | Towards Secure RAG: Comprehensive Review of Threats, Defenses | 2026 | arXiv, March 2026 |
+| 🟠 **P2** | **170** | Securing RAG: Taxonomy of Attacks, Defenses | 2026 | arXiv, April 2026 |
+| 🟠 **P2** | **171** | Memory for Autonomous LLM Agents: Mechanisms & Evaluation | 2026 | arXiv, March 2026 |
+| 🟠 **P2** | **172** | Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025) | 2025 | ECAI 2025 | Deshraj Yadav |
+| 🔴 **P1** | **173** | CyBench: Evaluating Cybersecurity Capabilities (ICLR 2025) | 2025 | ICLR 2025 | Andy Zhang, Dan Boneh |
+| 🔴 **P1** | **174** | AutoPenBench: Benchmarking Generative Agents for Pentesting | 2024 | arXiv, Oct 2024 | Marco Mellia |
+| 🔴 **P1** | **175** | NYU CTF Bench (NeurIPS 2024) | 2024 | NeurIPS 2024 | Brendan Dolan-Gavitt |
+| 🟠 **P2** | **176** | An Empirical Evaluation of LLMs for Offensive Security Challenges | 2024 | NeurIPS 2024 |
+| 🟠 **P2** | **177** | CAIBench: Cybersecurity AI Meta-Benchmark | 2025 | arXiv, Oct 2025 |
+| 🟠 **P2** | **178** | Measuring and Augmenting LLMs for CTF (ACM CCS 2025) | 2025 | ACM CCS 2025 |
+| 🟡 **P3** | **179** | PentestEval: Stage-Level Benchmarking of LLM-Based Pentesting | 2026 | arXiv, Dec 2025 |
+| 🔴 **P1** | **180** | ReAct: Synergizing Reasoning and Acting in LLMs (ICLR 2023) | 2023 | ICLR 2023 | Shunyu Yao |
+| 🔴 **P1** | **181** | Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023) | 2023 | NeurIPS 2023 | Shunyu Yao |
+| 🔴 **P1** | **182** | Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022) | 2022 | NeurIPS 2022 | Jason Wei |
+| 🔴 **P1** | **183** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn |
+| 🟡 **P3** | **184** | A Unified Modeling Framework for Automated Penetration Testing | 2025 | Computers & Security |
+| 🔴 **P1** | **185** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang |
+| 🟠 **P2** | **186** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 |
+| 🟠 **P2** | **187** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 |
+| 🟠 **P2** | **188** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 |
 
 ---
 
@@ -114,13 +94,13 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 
 **Phase 1 — Core Reasoning (Week 1):** CoT (§10.3) → ReAct (§10.1) → Tree of Thoughts (§10.2) → Reflexion (§10.4) → AutoGen (§5.1)
 
-**Phase 2 — Core VAPT (Week 2):** Getting pwn'd by AI (§4.7) → PentestGPT (§4.1) → One-day CVEs (§1.24) → Teams Zero-days (§1.25) → AutoAttacker (§4.12) → SoK Pentest Agents (§4.18)
+**Phase 2 — Core VAPT (Week 2):** Getting pwn'd by AI (§4.7) → PentestGPT (§4.1) → One-day CVEs (§1.24) → Teams Zero-days (§1.25) → AutoAttacker (§1.12) → SoK Pentest Agents (§1.12)
 
-**Phase 3 — Contemporary Frameworks (Week 3):** Incalmo (§1.10) → VulnBot (§4.5) → xOffense (§4.6) → D-CIPHER (§2.21) → EnIGMA (§2.20) → CRAKEN (§2.22) → PentestGPT v2 (§4.2)
+**Phase 3 — Contemporary Frameworks (Week 3):** Incalmo (§1.10) → VulnBot (§1.7) → xOffense (§1.7) → D-CIPHER (§1.17) → EnIGMA (§1.17) → CRAKEN (§1.17) → PentestGPT v2 (§4.2)
 
 **Phase 4 — AIxCC + Prof Papers (Week 4):** ATLANTIS (§1.16) → SoK AIxCC (§1.17) → CVE-GENIE (§1.38) → VulnLLM-R (§1.6) → SoK Vuln Repair (§1.22) → PurpCode (§1.23) → PatchAgent (§1.45)
 
-**Phase 5 — Benchmarks (Week 5):** CyBench (§9.1) → CVE-Bench (§1.26) → CyberGym (§1.4) → BountyBench (§1.5) → AutoPenBench (§9.4) → NYU CTF Bench (§9.5)
+**Phase 5 — Benchmarks (Week 5):** CyBench (§9.1) → CVE-Bench (§1.26) → CyberGym (§1.4) → BountyBench (§1.5) → AutoPenBench (§1.2) → NYU CTF Bench (§1.12)
 
 **Phase 6 — Professor Specialty Papers (Week 6):** Decompiling the Synergy (§2.1) → APT Detection (§1.12) → Tamper-Evident Logging (§1.13) → MAS Malicious Code (§2.18) → CFH Breaking (§2.19) → SAGAI Report (§1.19) → Locus Fuzzing (§1.36)
 
@@ -134,12 +114,12 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 
 | # | 📂 Section | 📝 Description | 📊 Scope |
 |---|---|---|---|
-| **4** | [**Foundational Autonomous AI Agents**](#section-4) | Core cybersecurity agent frameworks | 33 papers |
+| **4** | [**Foundational Autonomous AI Agents**](#section-4) | Core cybersecurity agent frameworks | 27 papers |
 | **5** | [**LLM Multi-Agent Orchestration**](#section-5) | Resilience and collaborative logic | 10 papers |
 | **6** | [**Cost Optimization & Routing**](#section-6) | Efficient scaling and caching | 7 papers |
 | **7** | [**AI Safety & Governance**](#section-7) | HITL, Guardrails, and Ethical VAPT | 7 papers |
 | **8** | [**RAG & Vulnerability Intel**](#section-8) | Knowledge bases for exploit generation | 6 papers |
-| **9** | [**Cybersecurity Benchmarks**](#section-9) | Evaluation and performance tracking | 9 papers |
+| **9** | [**Cybersecurity Benchmarks**](#section-9) | Evaluation and performance tracking | 7 papers |
 | **10** | [**Agent Reasoning & CoT**](#section-10) | Advanced planning and planning logic | 5 papers |
 | **11** | [**Surveys & Literature Reviews**](#section-11) | Comprehensive field overviews | 4 papers |
 | **12** | [**Living Curated Lists**](#section-12) | Active GitHub repos and datasets | 2 repos |
@@ -173,17 +153,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.3 `[P1 | 2025]` Incalmo / On the Feasibility of LLMs for Multi-Host Network Attacks
-- **Paper:** [Incalmo: An Autonomous LLM-assisted System for Red Teaming Multi-Host Networks](https://arxiv.org/abs/2501.16466) | **Code:** [Link]([github.com/bsinger98/Incalmo](https://github.com/bsinger98/Incalmo))
-- **Authors:** Brian Singer, Keane Lucas, Lakshmi Adiga, Meghna Jain, **Lujo Bauer**, **Vyas Sekar** (CMU CyLab)
-- **Institution:** Carnegie Mellon University
-- **Venue:** **arXiv, January 2025 (v4: November 2025) — cited in CMU/Anthropic joint press release July 2025**
-- **Relevance:** 🎯 The closest published academic peer to `CMatrix` — LLMs autonomously executing enterprise multi-host attacks. Co-authored by the two professors `CMatrix` should most urgently contact.
-
----
-
-
-### 4.4 `[P1 | 2025]` AutoPentester: End-to-End Automation
+### 4.3 `[P1 | 2025]` AutoPentester: End-to-End Automation
 - **Paper:** [AutoPentester: An LLM Agent-based Framework for Automated Pentesting](https://arxiv.org/abs/2510.05605)
 - **Authors:** Anonymous (under review)
 - **Institution:** N/A
@@ -193,7 +163,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.5 `[P1 | 2025]` VulnBot: Multi-Agent Collaborative Pentesting
+### 4.4 `[P1 | 2025]` VulnBot: Multi-Agent Collaborative Pentesting
 - **Paper:** [VulnBot: Autonomous Penetration Testing for a Multi-Agent Collaborative Framework](https://arxiv.org/abs/2501.13411) | **Code:** [Link]([github.com/KHenryAegis/VulnBot](https://github.com/KHenryAegis/VulnBot))
 - **Authors:** KHenry et al.
 - **Institution:** N/A
@@ -203,7 +173,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.6 `[P1 | 2025]` xOffense: Domain-Adapted Multi-Agent Framework
+### 4.5 `[P1 | 2025]` xOffense: Domain-Adapted Multi-Agent Framework
 - **Paper:** [xOffense: An Autonomous Multi-Agent Framework for Penetration Testing](https://arxiv.org/abs/2509.13021)
 - **Authors:** Quyen Nguyen Huu et al.
 - **Institution:** N/A
@@ -213,7 +183,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.7 `[P2 | 2025]` CurriculumPT: Progressive Skill Acquisition
+### 4.6 `[P2 | 2025]` CurriculumPT: Progressive Skill Acquisition
 - **Paper:** [CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling](https://www.mdpi.com/2076-3417/15/16/9096)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -223,7 +193,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.8 `[P2 | 2025]` PentestMCP: MCP-Based Tool Orchestration
+### 4.7 `[P2 | 2025]` PentestMCP: MCP-Based Tool Orchestration
 - **Paper:** [PentestMCP: A Toolkit for Agentic Penetration Testing](https://arxiv.org/abs/2510.03610)
 - **Authors:** Zachary Ezetta, Wu-Chang Feng (Portland State University)
 - **Institution:** N/A
@@ -233,7 +203,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.9 `[P2 | 2026]` Pen-Strategist: Fine-Tuned Reasoning for Pentesting
+### 4.8 `[P2 | 2026]` Pen-Strategist: Fine-Tuned Reasoning for Pentesting
 - **Paper:** [Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation](https://arxiv.org/abs/2605.04499)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -243,7 +213,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.10 `[P1 | 2023]` Getting Pwn'd by AI: LLM Penetration Testing (Foundational)
+### 4.9 `[P1 | 2023]` Getting Pwn'd by AI: LLM Penetration Testing (Foundational)
 - **Paper:** [Getting pwn'd by AI: Penetration Testing with Large Language Models](https://dl.acm.org/doi/abs/10.1145/3611643.3613083) | **Code:** [Link]([github.com/ipa-lab/hackingBuddyGPT](https://github.com/ipa-lab/hackingBuddyGPT))
 - **Authors:** Andreas Happe, Jürgen Cito (TU Wien / University of Zurich)
 - **Institution:** TU Wien, Austria
@@ -253,7 +223,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.11 `[P2 | 2025]` Can LLMs Hack Enterprise Networks? (Active Directory)
+### 4.10 `[P2 | 2025]` Can LLMs Hack Enterprise Networks? (Active Directory)
 - **Paper:** [Can LLMs Hack Enterprise Networks? Autonomous Assumed Breach Penetration-Testing Active Directory Networks](https://dl.acm.org/doi/abs/10.1145/3766895) | **Code:** [Link]([github.com/andreashappe/cochise](https://github.com/andreashappe/cochise))
 - **Authors:** Andreas Happe, Aaron Kaplan, Jürgen Cito (TU Wien)
 - **Institution:** TU Wien, Austria
@@ -263,27 +233,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.12 `[P1 | 2024]` LLM Agents Can Autonomously Exploit One-day Vulnerabilities
-- **Paper:** [LLM Agents can Autonomously Exploit One-day Vulnerabilities](https://arxiv.org/abs/2404.08144)
-- **Authors:** Richard Fang, Rohan Bindu, Akul Gupta, **Daniel Kang** (UIUC)
-- **Institution:** University of Illinois Urbana-Champaign
-- **Venue:** **arXiv, April 2024**
-- **Relevance:** 🎯 Landmark — GPT-4 exploits 87% of one-day CVEs. Core `CMatrix` vulnerability intel pillar.
-
----
-
-
-### 4.13 `[P1 | 2024]` Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
-- **Paper:** [Teams of LLM Agents can Exploit Zero-Day Vulnerabilities](https://arxiv.org/abs/2406.01637)
-- **Authors:** Yuxuan Zhu, Antony Kellermann, Akul Gupta, Philip Li, Richard Fang, Rohan Bindu, **Daniel Kang** (UIUC)
-- **Institution:** University of Illinois Urbana-Champaign
-- **Venue:** **arXiv, June 2024 (updated March 2025)**
-- **Relevance:** 🎯 HPTSA multi-agent team improves over prior work by 4.3×. Direct `CMatrix` architecture inspiration for sub-agent hierarchies.
-
----
-
-
-### 4.14 `[P2 | 2025]` RedTeamLLM: Agentic Framework for Offensive Security
+### 4.11 `[P2 | 2025]` RedTeamLLM: Agentic Framework for Offensive Security
 - **Paper:** [RedTeamLLM: an Agentic AI Framework for Offensive Security](https://arxiv.org/abs/2512.14233) | **Code:** [Link]([github.com/lre-security-systems-team/redteamllm](https://github.com/lre-security-systems-team/redteamllm))
 - **Authors:** N/A
 - **Institution:** N/A
@@ -293,7 +243,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.15 `[P2 | 2025]` CAI: Open, Bug Bounty-Ready Cybersecurity AI
+### 4.12 `[P2 | 2025]` CAI: Open, Bug Bounty-Ready Cybersecurity AI
 - **Paper:** [CAI: An Open, Bug Bounty-Ready Cybersecurity AI](https://arxiv.org/abs/2504.06017) | **Code:** [Link]([github.com/aliasrobotics/CAI](https://github.com/aliasrobotics/CAI))
 - **Authors:** Alias Robotics team
 - **Institution:** N/A
@@ -303,7 +253,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.16 `[P3 | 2025]` ARACNE: Autonomous Shell Pentesting Agent
+### 4.13 `[P3 | 2025]` ARACNE: Autonomous Shell Pentesting Agent
 - **Paper:** [ARACNE: An LLM-Based Autonomous Shell Pentesting Agent](https://arxiv.org/abs/2502.18528)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -313,7 +263,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.17 `[P3 | 2025]` RapidPen: IP-to-Shell Automation
+### 4.14 `[P3 | 2025]` RapidPen: IP-to-Shell Automation
 - **Paper:** [RapidPen: Fully Automated IP-to-Shell Penetration Testing with LLM-based Agents](https://arxiv.org/abs/2502.16730)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -323,7 +273,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.18 `[P2 | 2024]` AutoAttacker: LLM-Guided Cyber Attacks
+### 4.15 `[P2 | 2024]` AutoAttacker: LLM-Guided Cyber Attacks
 - **Paper:** [AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks](https://arxiv.org/abs/2403.01038)
 - **Authors:** Jiacen Xu, Jack W. Stokes, Geoff McDonald, et al. (Microsoft Research + UC Irvine)
 - **Institution:** Microsoft Research + UCI
@@ -333,7 +283,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.19 `[P2 | 2025]` Pentest-R1: Reinforcement Learning for Pentesting Reasoning
+### 4.16 `[P2 | 2025]` Pentest-R1: Reinforcement Learning for Pentesting Reasoning
 - **Paper:** [Pentest-R1: Towards Autonomous Penetration Testing Reasoning Optimized via Two-Stage RL](https://arxiv.org/abs/2508.07382) | **Code:** [Link]([github.com/KHenryAegis/Pentest-R1](https://github.com/KHenryAegis/Pentest-R1))
 - **Authors:** KHenry et al.
 - **Institution:** N/A
@@ -343,7 +293,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.20 `[P2 | 2026]` HackWorld: Computer-Use Agents on Web Vulnerabilities (ICLR)
+### 4.17 `[P2 | 2026]` HackWorld: Computer-Use Agents on Web Vulnerabilities (ICLR)
 - **Paper:** [HackWorld: Evaluating Computer-Use Agents on Exploiting Web Application Vulnerabilities](https://arxiv.org/abs/2510.12200) | **Code:** [Link]([github.com/GUI-Agent/HackWorld](https://github.com/GUI-Agent/HackWorld))
 - **Authors:** N/A
 - **Institution:** N/A
@@ -353,37 +303,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.21 `[P2 | 2025]` EnIGMA: Interactive Tools for Security Vulnerabilities (ICML 2025)
-- **Paper:** [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](https://arxiv.org/abs/2409.16165)
-- **Authors:** Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, **Brendan Dolan-Gavitt** (NYU), et al.
-- **Institution:** NYU Tandon + Princeton
-- **Venue:** **ICLR 2025 (CCF-A)**
-- **Relevance:** 🎯 Interactive tooling for vulnerability finding — ICML 2025. Directly relevant to `CMatrix`'s HITL module. Professor Dolan-Gavitt is a priority contact.
-
----
-
-
-### 4.22 `[P2 | 2025]` D-CIPHER: Multi-Agent System for Offensive Security
-- **Paper:** [D-CIPHER: Dynamic Collaborative Intelligent Multi-Agent System for Offensive Security](https://arxiv.org/abs/2502.10931)
-- **Authors:** Meet Udeshi, Minghao Shao, Haoran Xi, **Brendan Dolan-Gavitt** (NYU), et al.
-- **Institution:** NYU Tandon
-- **Venue:** **arXiv, February 2025**
-- **Relevance:** 🎯 Planner-Executor multi-agent architecture; SOTA on NYU CTF Bench (22%), Cybench (22.5%), HackTheBox (44%). Direct `CMatrix` architecture parallel.
-
----
-
-
-### 4.23 `[P2 | 2025]` CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution
-- **Paper:** [CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution](https://arxiv.org/abs/2505.17107) | **Code:** [Link]([github.com/NYU-LLM-CTF/nyuctf_agents_craken](https://github.com/NYU-LLM-CTF/nyuctf_agents_craken))
-- **Authors:** Minghao Shao, Haoran Xi, Nanda Rani, Meet Udeshi, **Brendan Dolan-Gavitt** (NYU), et al.
-- **Institution:** NYU Tandon
-- **Venue:** **arXiv, May 2025**
-- **Relevance:** Knowledge-database-augmented CTF agent — solves 25–30% more ATT&CK techniques than prior work. Direct `CMatrix` knowledge-base architecture parallel.
-
----
-
-
-### 4.24 `[P2 | 2025]` SoK: Comparison of Autonomous Penetration Testing Agents
+### 4.18 `[P2 | 2025]` SoK: Comparison of Autonomous Penetration Testing Agents
 - **Paper:** [SoK: A Comparison of Autonomous Penetration Testing Agents](https://dl.acm.org/doi/10.1145/3664476.3664484)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -393,7 +313,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.25 `[P2 | 2024]` HackSynth: LLM Agent + Evaluation Framework
+### 4.19 `[P2 | 2024]` HackSynth: LLM Agent + Evaluation Framework
 - **Paper:** [HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing](https://arxiv.org/abs/2412.01778) | **Code:** [Link]([github.com/aielte-research/HackSynth](https://github.com/aielte-research/HackSynth))
 - **Authors:** N/A
 - **Institution:** ELTE Eötvös Loránd University, Hungary
@@ -403,7 +323,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.26 `[P2 | 2025]` PentestAgent: Incorporating LLM Agents (AsiaCCS 2025)
+### 4.20 `[P2 | 2025]` PentestAgent: Incorporating LLM Agents (AsiaCCS 2025)
 - **Paper:** [PentestAgent: Incorporating LLM Agents to Automated Penetration Testing](https://dl.acm.org/doi/full/10.1145/3708821.3733882) | **Code:** [Link]([github.com/GH05TCREW/PentestAgent](https://github.com/GH05TCREW/PentestAgent))
 - **Authors:** N/A
 - **Institution:** N/A
@@ -413,7 +333,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.27 `[P3 | 2025]` PENTEST-AI: MITRE ATT&CK Multi-Agent Framework
+### 4.21 `[P3 | 2025]` PENTEST-AI: MITRE ATT&CK Multi-Agent Framework
 - **Paper:** [PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Leveraging MITRE ATT&CK](https://ieeexplore.ieee.org/abstract/document/10679480)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -423,7 +343,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.28 `[P3 | 2025]` RefPentester: Self-Reflective Pentesting Framework
+### 4.22 `[P3 | 2025]` RefPentester: Self-Reflective Pentesting Framework
 - **Paper:** [RefPentester: A Knowledge-Informed Self-Reflective Penetration Testing Framework](https://arxiv.org/abs/2505.07089)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -433,7 +353,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.29 `[P3 | 2025]` Multi-Agent Penetration Testing AI for the Web
+### 4.23 `[P3 | 2025]` Multi-Agent Penetration Testing AI for the Web
 - **Paper:** [Multi-Agent Penetration Testing AI for the Web](https://arxiv.org/abs/2508.20816)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -443,7 +363,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.30 `[P3 | 2025]` AutoPT: End-to-End Web Penetration Testing
+### 4.24 `[P3 | 2025]` AutoPT: End-to-End Web Penetration Testing
 - **Paper:** [AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?](https://arxiv.org/abs/2411.01236)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -453,7 +373,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.31 `[P3 | 2026]` Automated Penetration Testing with LLM Agents and Classical Planning
+### 4.25 `[P3 | 2026]` Automated Penetration Testing with LLM Agents and Classical Planning
 - **Paper:** [Automated Penetration Testing with LLM Agents and Classical Planning](https://arxiv.org/abs/2512.11143)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -463,7 +383,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.32 `[P3 | 2026]` LLMs as Hackers: Privilege Escalation Attacks
+### 4.26 `[P3 | 2026]` LLMs as Hackers: Privilege Escalation Attacks
 - **Paper:** [LLMs as Hackers: Autonomous Linux Privilege Escalation Attacks](https://link.springer.com/article/10.1007/s10664-025-10758-3)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -473,7 +393,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 4.33 `[P3 | 2026]` PTFusion: LLM-driven Knowledge Fusion for Web Pentesting
+### 4.27 `[P3 | 2026]` PTFusion: LLM-driven Knowledge Fusion for Web Pentesting
 - **Paper:** [PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing](https://www.sciencedirect.com/science/article/pii/S1566253525007936)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -822,27 +742,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.2 `[P1 | 2025]` CyberGym (ICLR 2026)
-- **Paper:** N/A
-- **Authors:** N/A
-- **Institution:** N/A
-- **Venue:** **N/A**
-- **Relevance:** N/A
-
----
-
-
-### 9.3 `[P1 | 2025]` CVE-Bench: AI Agents Exploiting Real-World Web Vulnerabilities (ICML 2025)
-- **Paper:** N/A
-- **Authors:** N/A
-- **Institution:** N/A
-- **Venue:** **N/A**
-- **Relevance:** N/A
-
----
-
-
-### 9.4 `[P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
+### 9.2 `[P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
 - **Paper:** [AutoPenBench: Benchmarking Generative Agents for Penetration Testing](https://arxiv.org/abs/2410.03225)
 - **Authors:** Luca Gioacchini, Marco Mellia et al. (Politecnico di Torino)
 - **Institution:** Politecnico di Torino, Italy
@@ -852,7 +752,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.5 `[P1 | 2024]` NYU CTF Bench (NeurIPS 2024)
+### 9.3 `[P1 | 2024]` NYU CTF Bench (NeurIPS 2024)
 - **Paper:** [NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html) | **Code:** [Link]([github.com/NYU-LLM-CTF/NYUCTFBench](https://github.com/NYU-LLM-CTF/NYUCTFBench))
 - **Authors:** NYU Tandon team (Brendan Dolan-Gavitt et al.)
 - **Institution:** New York University
@@ -862,7 +762,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.6 `[P2 | 2024]` An Empirical Evaluation of LLMs for Offensive Security Challenges (NeurIPS 2024)
+### 9.4 `[P2 | 2024]` An Empirical Evaluation of LLMs for Offensive Security Challenges (NeurIPS 2024)
 - **Paper:** [An Empirical Evaluation of LLMs for Solving Offensive Security Challenges](https://arxiv.org/abs/2402.11814) | **Code:** [Link]([github.com/NickNameInvalid/LLM_CTF](https://github.com/NickNameInvalid/LLM_CTF))
 - **Authors:** N/A
 - **Institution:** N/A
@@ -872,7 +772,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.7 `[P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
+### 9.5 `[P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
 - **Paper:** [Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents](https://arxiv.org/abs/2510.24317)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -882,7 +782,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.8 `[P2 | 2025]` Measuring and Augmenting LLMs for CTF (ACM CCS 2025)
+### 9.6 `[P2 | 2025]` Measuring and Augmenting LLMs for CTF (ACM CCS 2025)
 - **Paper:** [Measuring and Augmenting Large Language Models for Solving Capture-the-Flag Challenges](https://dl.acm.org/doi/abs/10.1145/3719027.3744855)
 - **Authors:** N/A
 - **Institution:** N/A
@@ -892,7 +792,7 @@ This table provides a comprehensive index of all **83 foundational and thematic 
 ---
 
 
-### 9.9 `[P3 | 2026]` PentestEval: Stage-Level Benchmarking of LLM-Based Penetration Testing
+### 9.7 `[P3 | 2026]` PentestEval: Stage-Level Benchmarking of LLM-Based Penetration Testing
 - **Paper:** [PentestEval: Benchmarking LLM-based Penetration Testing with Modular and Stage-Level Design](https://arxiv.org/abs/2512.14233)
 - **Authors:** N/A
 - **Institution:** N/A

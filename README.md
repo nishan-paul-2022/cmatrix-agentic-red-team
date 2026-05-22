@@ -178,42 +178,31 @@ make paper
 ---
 
 
-## 🌐 Contemporary Works & Inspiration
+## 🌐 Contemporary Works
 
-A curated list of state-of-the-art autonomous AI security agents and frameworks that share a similar vision of agentic red teaming and automated VAPT.
+A curated list of state-of-the-art AI agents that share a similar vision of agentic red teaming.
 
-### 🛡️ Autonomous Penetration Testing
+### 🛡️ Penetration Testing
 
 - **PentAGI**
+    > *A self-hosted, multi-agent AI system designed for autonomous end-to-end penetration testing using sandboxed tools.*
     - 🌐 **Website**: [pentagi.com](https://pentagi.com/)
     - 📂 **GitHub**: [vxcontrol/pentagi](https://github.com/vxcontrol/pentagi)
     - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=R70x5Ddzs1o)
-    > *A self-hosted, multi-agent AI system designed for autonomous end-to-end penetration testing using sandboxed tools.*
 
 - **Shannon**
+    > *An AI-powered "proof-by-exploitation" security agent that validates vulnerabilities through real-world attack simulations.*
     - 🌐 **Website**: [keygraph.io](https://keygraph.io/)
     - 📂 **GitHub**: [KeygraphHQ/shannon](https://github.com/KeygraphHQ/shannon)
     - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=H7Xh-x_TVdQ)
-    > *An AI-powered "proof-by-exploitation" security agent that validates vulnerabilities through real-world attack simulations.*
 
-### ⚔️ Frameworks & MCP Servers
+### ⚔️ MCP Server
 
 - **HexStrike AI**
+    > *A Model Context Protocol (MCP) server that empowers LLMs with 150+ professional security tools for autonomous offensive workflows.*
     - 🌐 **Website**: [hexstrike.com](https://www.hexstrike.com/)
     - 📂 **GitHub**: [0x4m4/hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)
     - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=PQOwpjZXzMo)
-    > *A Model Context Protocol (MCP) server that empowers LLMs with 150+ professional security tools for autonomous offensive workflows.*
-
-### 💻 General Agentic CLI & Tooling
-
-- **Claude Code**
-    - 🌐 **Website**: [claude.ai/code](https://claude.com/product/claude-code)
-    > *Anthropic's official agentic CLI for terminal-based coding, shell execution, and autonomous repository management.*
-
-- **OpenClaw**
-    - 🌐 **Website**: [openclaw.ai](https://openclaw.ai/)
-    - 📂 **GitHub**: [openclaw/openclaw](https://github.com/openclaw/openclaw)
-    > *A viral, open-source autonomous AI assistant designed to run locally with direct OS and tool access.*
 
 ---
 
