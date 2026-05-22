@@ -1,18 +1,7 @@
-# 🎓 Professor-Based Research Paper Reference
-## 🤖 LLM-Orchestrated Multi-Agent VAPT
+# 🎓 Professor-Based Research Paper Reference (LLM-Orch VAPT)
 
-> 📢 **`CMatrix` Research | Updated: May 12, 2026 | Version 4.1**
-> This document serves as the high-fidelity "Source of Truth" for briefing `CMatrix` AI agents. It covers 60+ Tier-1/2/3 professors and their foundational publications.
+## 📌 Priority Scale
 
-> 💡 **Tip:** Reading all papers in this reference provides end-to-end knowledge of the landscape. Zero knowledge gaps from foundations through SOTA 2026.
-
----
-
-## 📖 HOW TO USE THIS DOCUMENT
-
-> ℹ️ **Note:** Use the **Professor Paper List** below as a quick lookup. For deep analysis, navigate to specific sections via the TOC.
-
-**Priority Scale:**
 - 🔴 **P1 — Critical** · Foundational or directly cited in `CMatrix` (Must-read first).
 - 🟠 **P2 — High** · Core contemporary works, key techniques, and strong benchmarks.
 - 🟡 **P3 — Important** · Solid supporting context and emerging methods.
