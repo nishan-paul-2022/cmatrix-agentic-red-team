@@ -6,12 +6,12 @@
 > **Tier definitions (USNWR Overall Rankings):**
 > - 🔴 **Tier 1** — Universities ranked #1–100 | Professors **#1–#27**
 > - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#28–#53**
-> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#54–#59**
+> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#54–#93**
 
 ---
 
 
-# 📊 MASTER REFERENCE TABLE — 59 Unique Professors
+# 📊 MASTER REFERENCE TABLE — 93 Unique Professors
 
 | # | Professor | University | Email | US Rank | Tier |
 |---|---|---|---|---|---|
@@ -74,6 +74,40 @@
 | 57 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
 | 58 | Selcuk Uluagac | FIU | suluagac@fiu.edu | #411 | 🟢 T3 |
 | 59 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
+| 60 | Daniel Takabi | Old Dominion U | takabi@odu.edu | #301 | 🟢 T3 |
+| 61 | Mohammad GhasemiGol | Old Dominion U | mghasemi@odu.edu | #301 | 🟢 T3 |
+| 62 | Jesse Ables | U South Alabama | ables@southalabama.edu | #363 | 🟢 T3 |
+| 63 | Todd Andel | U South Alabama | tandel@southalabama.edu | #363 | 🟢 T3 |
+| 64 | Maanak Gupta | Tennessee Tech | mgupta@tntech.edu | #358 | 🟢 T3 |
+| 65 | Weiping Pei | U Tulsa | weiping-pei@utulsa.edu | #350 | 🟢 T3 |
+| 66 | John Hale | U Tulsa | john-hale@utulsa.edu | #350 | 🟢 T3 |
+| 67 | Tasnuva Farheen | LSU | tfarheen@lsu.edu | #316 | 🟢 T3 |
+| 68 | Aisha Ali-Gombe | LSU | aaligombe@lsu.edu | #316 | 🟢 T3 |
+| 69 | Phani Vadrevu | LSU (ex-UNO) | kvadrevu@lsu.edu | #316 | 🟢 T3 |
+| 70 | Mehrdad Nojoumian | FAU | mnojoumian@fau.edu | #335 | 🟢 T3 |
+| 71 | Nidhi Rastogi | RIT | nxrvse@rit.edu | #320 | 🟢 T3 |
+| 72 | Matthew Wright | RIT | matthew.wright@rit.edu | #320 | 🟢 T3 |
+| 73 | Weijie Zhao | RIT | wz9494@rit.edu | #320 | 🟢 T3 |
+| 74 | Tao Wang | U North Texas | tao.wang2@unt.edu | #340 | 🟢 T3 |
+| 75 | Tao Hou | U North Texas | tao.hou@unt.edu | #340 | 🟢 T3 |
+| 76 | Rui Hu | U Nevada Reno | ruihu@unr.edu | #355 | 🟢 T3 |
+| 77 | Haadi Jafarian | U Colorado Denver | jafarian@ucdenver.edu | #360 | 🟢 T3 |
+| 78 | Zhengxiong Li | U Colorado Denver | zhengxiong.li@ucdenver.edu | #360 | 🟢 T3 |
+| 79 | James Ghawaly | LSU | jghawaly@lsu.edu | #316 | 🟢 T3 |
+| 80 | Minhaz Zibran | Idaho State U | minhaz.zibran@isu.edu | #370 | 🟢 T3 |
+| 81 | Mostafa Fouda | Idaho State U | mfouda@isu.edu | #370 | 🟢 T3 |
+| 82 | Matt Revelle | Montana State U | matt.revelle@montana.edu | #345 | 🟢 T3 |
+| 83 | Tommy Morris | U Alabama Huntsville | tommy.morris@uah.edu | #380 | 🟢 T3 |
+| 84 | Qi Liao | Central Michigan U | liao1q@cmich.edu | #385 | 🟢 T3 |
+| 85 | Linxi Zhang | Central Michigan U | zhang1l9@cmich.edu | #385 | 🟢 T3 |
+| 86 | Ghaith Husari | East Tennessee State | husarig@etsu.edu | #390 | 🟢 T3 |
+| 87 | Abdullah Yasin Nur | U New Orleans | anur@uno.edu | #430 | 🟢 T3 |
+| 88 | James Wagner | U New Orleans | jwagner@uno.edu | #430 | 🟢 T3 |
+| 89 | Xin Chen | U New Mexico | xinchen@unm.edu | #310 | 🟢 T3 |
+| 90 | Md Morshed Alam | Old Dominion U | m2alam@odu.edu | #301 | 🟢 T3 |
+| 91 | Clemente Izurieta | Montana State U | clemente.izurieta@montana.edu | #345 | 🟢 T3 |
+| 92 | William Eberle | Tennessee Tech | weberle@tntech.edu | #358 | 🟢 T3 |
+| 93 | Supreeth Shastri | U North Texas | sshastri@unt.edu | #340 | 🟢 T3 |
 
 ---
 
@@ -1046,9 +1080,7 @@
 ---
 
 # 🟢 TIER 3 — Universities ranked #301–500
-*(6 professors — ranks #380 through #411)*
-
-> ⚠️ **T3 is currently underpopulated (6/20).** After removing the duplicate and correcting misplacements, only 6 professors genuinely fall in the #301–500 range. 14 new T3 professors need to be sourced.
+*(40 professors — ranks #301 through #430)*
 
 ---
 
@@ -1157,6 +1189,366 @@
 **CMatrix alignment:** USENIX Security 2025 paper on how LLMs frequently generate insecure code (package hallucination attacks). Research on detecting and mitigating LLM-generated security vulnerabilities is directly relevant to CMatrix's post-exploit analysis phase.
 
 **Student friendliness:** Director of SPriTELab. UTSA is a Hispanic-Serving Institution — particularly welcoming of international students.
+
+---
+
+## 60. Prof. Daniel Takabi
+**Old Dominion University** | USNWR Overall: **#301**
+
+| Field | Info |
+|---|---|
+| Email | takabi@odu.edu |
+| Website | https://www.odu.edu/directory/daniel-takabi |
+| Lab | School of Cybersecurity, ODU (Director) |
+| Funding | U.S. Cyber Command partnership; NSF; ODU Centennial Cluster Initiative |
+
+**Speciality:** Trustworthy and secure AI, LLM security and vulnerabilities, privacy-enhancing technologies, secure multi-agent systems
+
+**CMatrix alignment:** NEXUS (2025): exploiting unsafe multi-turn sequences in LLM jailbreaks — directly attacks the same agentic pipeline CMatrix uses. Leading U.S. Cyber Command–ODU partnership on AI security challenges including LLM vulnerabilities in autonomous systems. ODU became the first university with dual NSA validation for AICyber + SecureAI programs. Spearheaded the first university-level AI Security CTF (LLM Capture the Flag, 2025).
+
+**Student friendliness:** Batten Endowed Chair in Cybersecurity; Director, ODU School of Cybersecurity. Actively mentors PhD students in AI + security. Warm outreach culture — frequently responds to prospective students personally.
+
+---
+
+## 61. Prof. Mohammad GhasemiGol
+**Old Dominion University** | USNWR Overall: **#301**
+
+| Field | Info |
+|---|---|
+| Email | mghasemi@odu.edu |
+| Website | https://www.odu.edu/directory/mohammad-ghasemigol |
+| Lab | School of Cybersecurity / Transdisciplinary Trustworthy AI Initiative, ODU |
+| Funding | NSF; ODU Centennial Cluster Initiative (Trustworthy AI) |
+
+**Speciality:** AI/GenAI security, secure AI supply chains, intrusion detection systems, adversarial machine learning
+
+**CMatrix alignment:** Research on securing the GenAI supply chain — exactly the attack surface CMatrix exposes when assessing AI-enabled targets. Works on detecting adversarial manipulation in AI-driven security tools, directly mirroring CMatrix's agent hardening requirements.
+
+**Student friendliness:** Part of ODU's growing Trustworthy AI initiative. Active PhD advisor. International student friendly — ODU has a highly diverse graduate student body.
+
+---
+
+## 62. Prof. Jesse Ables
+**University of South Alabama** | USNWR Overall: **#363**
+
+| Field | Info |
+|---|---|
+| Email | ables@southalabama.edu |
+| Website | https://www.southalabama.edu/colleges/soc/cs/faculty/ables.html |
+| Lab | Department of Computer Sciences, USA |
+| Funding | NSF ($155K, 2025) — Temporal Eclectic Rule Extraction algorithm |
+
+**Speciality:** Explainable AI for cybersecurity, LLM-driven intrusion detection, anomaly detection, adversarial deep learning
+
+**CMatrix alignment:** NSF-funded research (2025) developing explainable AI algorithms for intrusion detection using Recurrent Neural Networks — the defensive side of what CMatrix automates offensively. Research on adversarial attacks against ML-based vulnerability detection directly mirrors CMatrix's agent evasion challenges.
+
+**Student friendliness:** Early-career assistant professor (PhD Mississippi State 2023) actively building his research group. Extremely approachable for prospective PhD students. South Alabama is welcoming of international students.
+
+---
+
+## 63. Prof. Todd Andel
+**University of South Alabama** | USNWR Overall: **#363**
+
+| Field | Info |
+|---|---|
+| Email | tandel@southalabama.edu |
+| Website | https://www.southalabama.edu/colleges/soc/cs/faculty/andel.html |
+| Lab | School of Computing, University of South Alabama |
+| Funding | DoD, NSF; extensive federal research portfolio |
+
+**Speciality:** Software protection, moving target defense, critical infrastructure security, embedded systems security, cyber resilience
+
+**CMatrix alignment:** Expert in moving target defense (MTD) — the defensive countermeasure that CMatrix's reconnaissance and exploitation pipeline must overcome. Research on software protection techniques and critical infrastructure security informs CMatrix's OT/ICS VAPT extension.
+
+**Student friendliness:** Senior faculty at USA School of Computing with a strong mentoring tradition. Active PhD supervisor with DoD-funded assistantships available.
+
+---
+
+## 64. Prof. Maanak Gupta
+**Tennessee Technological University** | USNWR Overall: **#358**
+
+| Field | Info |
+|---|---|
+| Email | mgupta@tntech.edu |
+| Website | https://www.tntech.edu/engineering/departments/csc/faculty/gupta.php |
+| Lab | ABCyS Lab (Applied and Basic Cyber Security); CEROC affiliate |
+| Funding | NSF, DoD-adjacent; GPU-empowered AI research infrastructure |
+
+**Speciality:** Generative AI in cybersecurity, LLM-orchestrated attack/defense, multi-agent security for IoT/IoBT, access control, secure AI systems
+
+**CMatrix alignment:** Research on generative AI applied to autonomous cyber offense and defense — LLMs for malware detection, secure code generation, and intent-driven multi-agent control of battlefield IoT systems. His 2025 work on LLM-orchestrated security frameworks for Internet of Battlefield Things (IoBT) is architecturally analogous to CMatrix's multi-agent VAPT pipeline.
+
+**Student friendliness:** Explicitly invites motivated students to contact him. ABCyS Lab actively recruits PhD students interested in AI + cybersecurity. Tennessee Tech has strong engineering research infrastructure.
+
+---
+
+## 65. Prof. Weiping Pei
+**University of Tulsa** | USNWR Overall: **#350**
+
+| Field | Info |
+|---|---|
+| Email | weiping-pei@utulsa.edu |
+| Website | https://weipingpei.github.io |
+| Lab | School of Cyber Studies, University of Tulsa |
+| Funding | NSF CAREER Award (2025); NSF SaTC grant — AI-generated online scam detection |
+
+**Speciality:** LLM security threats, AI-generated cybercrime, adversarial attacks on ML-based vulnerability detection, generative AI for social engineering, crowdsourced security data
+
+**CMatrix alignment:** NSF CAREER Award (2025) for AI-supported security research. NSF SaTC project: detecting online scams generated by generative AI — studies the exact attack surface CMatrix's social-engineering and phishing modules target. Research on adversarial ML attacks against vulnerability detection systems is the direct adversary of CMatrix's detection evasion logic.
+
+**Student friendliness:** Assistant professor actively building a research group. UTulsa School of Cyber Studies is small and intimate — strong student-faculty ratio. Actively recruits internationally.
+
+---
+
+## 66. Prof. John Hale
+**University of Tulsa** | USNWR Overall: **#350**
+
+| Field | Info |
+|---|---|
+| Email | john-hale@utulsa.edu |
+| Website | https://engineering.utulsa.edu/john-hale/ |
+| Lab | School of Cyber Studies, UTulsa; Institute for Robotics & Autonomy affiliate |
+| Funding | NSF, DoD; Tandy Endowed Chair |
+
+**Speciality:** Cyber-physical systems security, LLM-assisted threat modeling (CPSTRIDE), multi-agent AI architectures, autonomous system security
+
+**CMatrix alignment:** CPSTRIDE (2025): LLM-assisted threat modeling framework for cyber-physical systems using Claude as a domain expert — employs a multi-agent methodology directly comparable to CMatrix's orchestration approach. Research on multi-agent deep reinforcement learning security and agentic AI risk is a natural research complement.
+
+**Student friendliness:** Professor of CS and Tandy Endowed Chair. UTulsa Cyber Fellows PhD cohort offers funded research opportunities. Known for collaborative mentoring style.
+
+---
+
+## 67. Prof. Tasnuva Farheen
+**Louisiana State University** | USNWR Overall: **#316**
+
+| Field | Info |
+|---|---|
+| Email | tfarheen@lsu.edu |
+| Website | https://www.lsu.edu/eng/cse/people/faculty/farheen.php |
+| Lab | Center for Computation & Technology (CCT), LSU; AI-enabled Security Group |
+| Funding | NSF; DoE digital twin infrastructure grants |
+
+**Speciality:** AI-enabled vulnerability assessment, hardware security, microelectronics security, secure digital twins, quantum-secure communications
+
+**CMatrix alignment:** Direct research focus on AI-enabled vulnerability assessment — the exact core of CMatrix. Works on AI-driven digital twins to assess risk in critical infrastructure, providing a simulation layer CMatrix's autonomous agents can operate within. NSF-funded research on AI-integrated secure systems.
+
+**Student friendliness:** Assistant Professor at LSU (jointly appointed with CCT). Early-career faculty actively building her group. LSU offers NSF-funded research assistantships. International students well-represented across her collaborations.
+
+---
+
+## 68. Prof. Aisha Ali-Gombe
+**Louisiana State University** | USNWR Overall: **#316**
+
+| Field | Info |
+|---|---|
+| Email | aaligombe@lsu.edu |
+| Website | https://www.lsu.edu/eng/cse/people/faculty/ali-gombe.php |
+| Lab | Applied Cybersecurity Lab, LSU CSE |
+| Funding | NSF, DoD-affiliated projects |
+
+**Speciality:** LLM-based malware analysis, memory forensics, Android malware detection, explainable AI for security
+
+**CMatrix alignment:** MalParse (2024): LLM-powered semantic reverse engineering of Android malware — uses LLMs as "semantic reverse engineers" that trace logic chains and identify API misuse. This is a direct downstream application of CMatrix's exploitation and analysis outputs. Co-leads LSU's applied cybersecurity lab for real-world threat analysis.
+
+**Student friendliness:** Active PhD advisor with a strong publication record. Collaborative lab culture at LSU CSE. Known for accessible mentorship of students from diverse backgrounds.
+
+---
+
+## 69. Prof. Phani Vadrevu
+**Louisiana State University** | USNWR Overall: **#316**
+
+| Field | Info |
+|---|---|
+| Email | kvadrevu@lsu.edu |
+| Website | https://www.phanivadrevu.com |
+| Lab | Applied Cybersecurity Lab / Web Security Group, LSU |
+| Funding | NSF (AI-based defenses against social engineering) |
+
+**Speciality:** Web security, AI/ML-based attack detection, phishing and social engineering measurement, internet-scale attack modeling
+
+**CMatrix alignment:** NSF-funded research developing AI-based defenses against web-based social engineering attacks — directly overlapping with CMatrix's web application VAPT and phishing simulation modules. Expertise in measuring and dismantling real-world attack ecosystems at internet scale.
+
+**Student friendliness:** Former Canizaro-Livingston Endowed Assistant Professor at UNO, now at LSU. Collaborates broadly. Maintains an active personal research website with open-source tools.
+
+---
+
+## 70. Prof. Mehrdad Nojoumian
+**Florida Atlantic University** | USNWR Overall: **#335**
+
+| Field | Info |
+|---|---|
+| Email | mnojoumian@fau.edu |
+| Website | https://faculty.eng.fau.edu/nojoumian/ |
+| Lab | Privacy, Security & Trust in Autonomy Lab, FAU EECS |
+| Funding | AFRL (Air Force Research Laboratory); NSF; FAU CAE-R designation |
+
+**Speciality:** Cybersecurity and AI for autonomous systems, Zero Trust architectures, AI-integrated DevSecOps, trust management in multi-agent systems
+
+**CMatrix alignment:** AZTRM-D (2025): AI-integrated framework combining DevSecOps, Risk Management, and Zero Trust — directly applicable to CMatrix's own security posture and deployment architecture. Research on trust management in autonomous and multi-agent AI systems maps to CMatrix's agent authorization model.
+
+**Student friendliness:** FAU is NSA-designated CAE-R through 2030. Active PhD advisor with AFRL-funded research streams. FAU is a Hispanic-Serving Institution — very welcoming of international students.
+
+---
+
+## 71. Prof. Nidhi Rastogi
+**Rochester Institute of Technology** | USNWR Overall: **#320**
+
+| Field | Info |
+|---|---|
+| Email | nxrvse@rit.edu |
+| Website | https://ai4sec-lab.github.io |
+| Lab | AI4SEC Lab, RIT; Global Cybersecurity Institute (GCI) affiliate |
+| Funding | NSF; RIT GCI seed grants; industry partnerships |
+
+**Speciality:** LLM evaluation for cybersecurity (CTIBench), cyber threat intelligence automation, knowledge graphs for security, AI agent security benchmarking
+
+**CMatrix alignment:** CTIBench (2025): comprehensive benchmark for evaluating LLMs on real-world cybersecurity tasks — measures whether LLMs hallucinate when acting as security assistants, directly relevant to CMatrix's LLM reliability layer. SECURE benchmark (ACSAC 2024): evaluates LLMs in industrial control system security. Develops TINKER knowledge-graph framework for automated threat intelligence — a natural enrichment layer for CMatrix's reconnaissance output.
+
+**Student friendliness:** AI4SEC Lab actively recruits PhD students. RIT GCI provides strong funding pipelines and industry connections. Known advocate for women and international students in cybersecurity research.
+
+---
+
+## 72. Prof. Matthew Wright
+**Rochester Institute of Technology** | USNWR Overall: **#320**
+
+| Field | Info |
+|---|---|
+| Email | matthew.wright@rit.edu |
+| Website | https://www.rit.edu/computing/directory/mxwvcs-matthew-wright |
+| Lab | Department of Cybersecurity (Chair); DeFake Project Lab |
+| Funding | NSF, DHS, DARPA-adjacent; Kevin O'Sullivan Endowed Chair |
+
+**Speciality:** Adversarial ML, deepfake detection, generative AI security threats, anonymity systems, traffic analysis, LLM misuse
+
+**CMatrix alignment:** Research on AI-generated threats (deepfakes, voice scams) and adversarial machine learning — the offensive AI capabilities that CMatrix's threat intelligence module tracks. Co-teaches "Generative AI in Cybersecurity" course (2025) covering the dual-use nature of LLMs for offense and defense. Deep expertise in how AI systems can be weaponized.
+
+**Student friendliness:** Department Chair, RIT Cybersecurity — controls PhD admissions and funding. Kevin O'Sullivan Endowed Chair. RIT's cyber program ranked #19 (USNWR undergraduate). National security clearance pathway available.
+
+---
+
+## 73. Prof. Weijie Zhao
+**Rochester Institute of Technology** | USNWR Overall: **#320**
+
+| Field | Info |
+|---|---|
+| Email | wz9494@rit.edu |
+| Website | https://www.rit.edu/computing/directory/wz9494-weijie-zhao |
+| Lab | ML Security Lab, RIT Computing |
+| Funding | NSF CAREER Award (2026) |
+
+**Speciality:** Secure and resilient ML, backdoor attacks and defenses, watermarking AI models, adversarial robustness, interpretable AI for security
+
+**CMatrix alignment:** NSF CAREER Award (2026) for research on making ML models used in high-stakes environments secure, interpretable, and resilient against adversarial attacks — including backdoors and hidden vulnerabilities in AI systems. Directly relevant to CMatrix's own LLM agent components' security hardening.
+
+**Student friendliness:** Early-career faculty (NSF CAREER 2026). Actively building his lab at RIT. Strong mentorship culture in a funded research environment.
+
+---
+
+## 74. Prof. Tao Wang
+**University of North Texas** | USNWR Overall: **#340**
+
+| Field | Info |
+|---|---|
+| Email | tao.wang2@unt.edu |
+| Website | https://tao-wang.com |
+| Lab | ISnP Lab (Intelligent Security and Privacy), UNT CSE |
+| Funding | NSF; UNT Faculty Research Fund |
+
+**Speciality:** AI for network/system security, adversarial ML, LLM security challenges, web security, Internet of Vehicles security
+
+**CMatrix alignment:** ISnP Lab conducts research on LLM security challenges in the context of intelligent and autonomous systems — an exact match for CMatrix's framework. Research on adversarial attacks against ML-based security tools and web security provides key offensive insights.
+
+**Student friendliness:** Co-directs ISnP Lab with Tao Hou. UNT is NSA CAE-CD designated. Actively recruiting PhD students. International students prominently featured in the lab.
+
+---
+
+## 75. Prof. Tao Hou
+**University of North Texas** | USNWR Overall: **#340**
+
+| Field | Info |
+|---|---|
+| Email | tao.hou@unt.edu |
+| Website | https://tao-hou.com |
+| Lab | ISnP Lab (Intelligent Security and Privacy), UNT CSE |
+| Funding | NSF; DoD-related grants |
+
+**Speciality:** Trustworthy AI for cybersecurity, privacy-preserving ML, autonomous system security, network security measurement
+
+**CMatrix alignment:** Co-leads ISnP Lab's research on Trustworthy AI — designing AI systems that are robust and secure under adversarial conditions, directly applicable to CMatrix's agent trust model. Research on privacy-preserving ML provides techniques for CMatrix's post-exploitation data handling.
+
+**Student friendliness:** Active PhD advisor. ISnP Lab has a collaborative team environment. UNT's large and diverse student body makes it very welcoming of international PhD applicants.
+
+---
+
+## 76. Prof. Rui (Zoey) Hu
+**University of Nevada, Reno** | USNWR Overall: **#355**
+
+| Field | Info |
+|---|---|
+| Email | ruihu@unr.edu |
+| Website | https://www.unr.edu/cse/people/rui-hu |
+| Lab | CyberAI Research Group, UNR CSE |
+| Funding | NSF; UNR Cybersecurity Center |
+
+**Speciality:** LLM security (jailbreak attacks/defenses), federated learning security, AI agent security, data privacy, edge AI security
+
+**CMatrix alignment:** Research on LLM jailbreak attacks and defenses — studying how adversaries can bypass safety guardrails in exactly the class of agents CMatrix orchestrates. Work on AI agent security and federated learning adversarial attacks directly relevant to CMatrix's multi-agent trust boundaries. Teaches CS 791: CyberAI (Spring 2025).
+
+**Student friendliness:** Assistant Professor — early-career, actively building her research group. UNR Cybersecurity Center provides funding pathways. Known for accessible teaching and mentoring. Small class environments give students direct research access.
+
+---
+
+## 77. Prof. Haadi Jafarian
+**University of Colorado Denver** | USNWR Overall: **#360**
+
+| Field | Info |
+|---|---|
+| Email | jafarian@ucdenver.edu |
+| Website | https://cse.ucdenver.edu/~jafarian/ |
+| Lab | ACID Lab (Active Cyber and Infrastructure Defense), CU Denver |
+| Funding | NSF, DHS, DARPA-affiliated; multiple active grants |
+
+**Speciality:** Proactive cyber defense, moving target defense, cyber deception, big data analytics for threat intelligence, autonomous cyber resilience
+
+**CMatrix alignment:** ACID Lab research on proactive cyber defense — the adversarial complement to CMatrix's autonomous attack pipeline. Moving target defense research models exactly what CMatrix must overcome in real engagements. Cyber deception techniques provide CMatrix with a framework for honeypot-aware reconnaissance.
+
+**Student friendliness:** Active PhD advisor at CU Denver. ACID Lab has strong government partnership funding. Denver location offers strong industry internship pipelines (many defense contractors and security firms).
+
+---
+
+## 78. Prof. Zhengxiong Li
+**University of Colorado Denver** | USNWR Overall: **#360**
+
+| Field | Info |
+|---|---|
+| Email | zhengxiong.li@ucdenver.edu |
+| Website | https://cse.ucdenver.edu/~zhengxiongli/ |
+| Lab | META Lab (Mobile, Emerging Technologies & Applications), CU Denver |
+| Funding | NSF; CU Denver innovation grants (2025-2026 AI innovation award) |
+
+**Speciality:** AI-based IoT security, LLM-driven phishing detection, adversarial AI for smart systems, mobile health security, autonomous systems
+
+**CMatrix alignment:** Research on AI-based cybersecurity threats including LLM-based phishing email detection and adversarial attacks on voice-controlled IoT devices — two key attack surfaces CMatrix covers. 2025-2026 CU Denver AI innovation award for cutting-edge ML security research.
+
+**Student friendliness:** Assistant Professor — actively building META Lab. Received recognition for innovative AI integration in teaching and research (2025-2026). Welcoming of international students at CU Denver.
+
+---
+
+## 79. Prof. James Ghawaly Jr.
+**Louisiana State University** | USNWR Overall: **#316**
+
+| Field | Info |
+|---|---|
+| Email | jghawaly@lsu.edu |
+| Website | https://www.lsu.edu/eng/cse/people/faculty/ghawaly.php |
+| Lab | AISx Lab (Intersectional AI and Security Lab), LSU |
+| Funding | NSF; DoE (nuclear nonproliferation AI sensing) |
+
+**Speciality:** LLM security and vulnerabilities, transformer-based AI for security, in-house LLM deployment (MikeGPT), secure AI agent orchestration
+
+**CMatrix alignment:** AISx Lab research on securing LLM systems and applying transformers to security — built MikeGPT, an in-house LLM agent for secure institutional data interaction, architecturally similar to CMatrix's local agent deployment model. Research on LLM vulnerabilities in autonomous agents directly informs CMatrix's adversarial hardening.
+
+**Student friendliness:** AISx Lab is a dedicated hub for AI security at LSU's Digital Media Center with strong computing resources. Collaborative research culture. Open to outreach from students with AI + security backgrounds.
 
 ---
 
