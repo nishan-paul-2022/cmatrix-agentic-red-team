@@ -20,9 +20,7 @@
 
 ---
 
-## 2026 Papers
-
----
+## `2026 Papers`
 
 ### 1. HackWorld: Evaluating Computer-Use Agents on Exploiting Web Application Vulnerabilities
 - **Venue:** 🔴 ICLR 2026
@@ -118,9 +116,7 @@
 
 ---
 
-## 2025 Papers
-
----
+## `2025 Papers`
 
 ### 14. EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities
 - **Venue:** 🔴 ICLR 2025
@@ -368,9 +364,7 @@
 
 ---
 
-## 2024 Papers
-
----
+## `2024 Papers`
 
 ### 47. PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing
 - **Venue:** 🔴 USENIX Security 2024 (Distinguished Artifact Award)
@@ -454,9 +448,7 @@
 
 ---
 
-## 2023 Papers
-
----
+## `2023 Papers`
 
 ### 58. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
 - **Venue:** 🔴 ACM CCS 2023 (Workshop on Autonomous Cybersecurity)
@@ -486,6 +478,14 @@
 - **URL:** [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303)
 - **Why it matters for CMatrix:** Comprehensive survey of CTF infrastructure and environments — foundational reference for designing CMatrix's lab evaluation environment (lab.kaiofficial.xyz) and understanding the benchmark landscape.
 
+
 ---
 
-*Last updated: May 23, 2026. All papers verified against arXiv, ACM DL, USENIX, IEEE Xplore, and NeurIPS proceedings.*
+# 🔗 LLM4Pentest: The Single Most Comprehensive Curated List
+> 📢 **Active community repositories and curated datasets for continuous monitoring.**
+
+---
+
+**Repository:** [github.com/simon-p-j-r/LLM4Pentest](https://github.com/simon-p-j-r/LLM4Pentest)  
+**Maintainer:** DAS Lab (Cheng Huang's Lab)   
+**Relevance:** 🎯 Papers, blogs, MCP tools, benchmarks, datasets
