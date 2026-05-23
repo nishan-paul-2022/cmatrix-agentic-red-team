@@ -1957,3 +1957,5 @@
 - Then DARPA AIxCC participants (Kim, Xing, Bao, Shoshitaishvili, Doupé, Zhang, Bianchi)
 - Then researchers with direct paper overlap in 2025-2026 (Kang-CVEBench, Dolan-Gavitt-EnIGMA, Shmatikov-multiagent, Guo-VulnLLM-R, Jajodia-MTD)
 - Then educators with large student communities (Du, Shoshitaishvili via pwn.college, Jajodia via CSIS)
+
+---

@@ -489,3 +489,5 @@
 **Repository:** [github.com/simon-p-j-r/LLM4Pentest](https://github.com/simon-p-j-r/LLM4Pentest)  
 **Maintainer:** DAS Lab (Cheng Huang's Lab)   
 **Relevance:** 🎯 Papers, blogs, MCP tools, benchmarks, datasets
+
+---
