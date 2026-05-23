@@ -1,5 +1,5 @@
-# 🎓 CMatrix Research Collaboration — USA Professor Directory
-## Reorganized by University Ranking Tier | Updated May 2026
+# 🎓 Research Collaboration With USA Professor
+## Reorganized by University Ranking Tier
 
 > **CMatrix research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
 >
@@ -12,7 +12,7 @@
 
 # 📊 MASTER REFERENCE TABLE — 100 Unique Professors
 
-| # | Professor | University | Email | US Rank | Tier |
+| # | Professor | University | Email | USNWR Rank | Tier |
 |---|---|---|---|---|---|
 | 1 | Nickolai Zeldovich | MIT | nickolai@csail.mit.edu | #1 | 🔴 T1 |
 | 2 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
@@ -114,6 +114,76 @@
 | 98 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
 | 99 | Abdullah Yasin Nur | U New Orleans | anur@uno.edu | #430 | 🟢 T3 |
 | 100 | James Wagner | U New Orleans | jwagner@uno.edu | #430 | 🟢 T3 |
+
+---
+
+# 🏢 MASTER UNIVERSITY REFERENCE TABLE
+
+| # | University | USNWR Rank | Tier | Prof Count | Associated Professor(s) |
+|---|---|---|---|---|---|
+| 1 | MIT | #1 | 🔴 T1 | **1** | Nickolai Zeldovich |
+| 2 | UC Berkeley | #4 | 🔴 T1 | **1** | Dawn Song |
+| 3 | Northwestern | #9 | 🔴 T1 | **1** | Xinyu Xing |
+| 4 | Johns Hopkins | #9 | 🔴 T1 | **1** | Yinzhi Cao |
+| 5 | U Chicago | #12 | 🔴 T1 | **1** | Nick Feamster |
+| 6 | Columbia | #12 | 🔴 T1 | **1** | Suman Jana |
+| 7 | Cornell Tech | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
+| 8 | CMU | #22 | 🔴 T1 | **4** | Lujo Bauer, Vyas Sekar, David Brumley, Matthew Fredrikson |
+| 9 | Georgia Tech | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
+| 10 | UIUC | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
+| 11 | UW-Madison | #42 | 🔴 T1 | **1** | Barton Miller |
+| 12 | Purdue | #53 | 🔴 T1 | **5** | Dongyan Xu, Xiangyu Zhang, Z. Berkay Celik, Antonio Bianchi, Guanhong Tao |
+| 13 | NYU Tandon | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
+| 14 | U Virginia | #62 | 🔴 T1 | **1** | Wajih Ul Hassan |
+| 15 | UCSB | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
+| 16 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
+| 17 | Stevens Inst. Tech. | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
+| 18 | U Maryland | #93 | 🔴 T1 | **1** | Yizheng Chen |
+| 19 | UMD / NIST | #93 | 🔴 T1 | **1** | Anoop Singhal |
+| 20 | U Central Florida | #121 | 🟡 T2 | **1** | Aziz Mohaisen |
+| 21 | Penn State | #130 | 🟡 T2 | **3** | Gang Tan, Peng Liu, Ting Wang |
+| 22 | Syracuse | #133 | 🟡 T2 | **1** | Wenliang (Kevin) Du |
+| 23 | Oregon State U | #144 | 🟡 T2 | **1** | Rakesh Bobba |
+| 24 | U Florida | #145 | 🟡 T2 | **2** | Patrick Traynor, Kevin Butler |
+| 25 | Texas A&M | #145 | 🟡 T2 | **1** | Guofei Gu |
+| 26 | ASU | #147 | 🟡 T2 | **4** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé, Jedidiah Crandall |
+| 27 | CUNY Hunter College | #155 | 🟡 T2 | **1** | Saptarshi Debroy |
+| 28 | George Mason | #156 | 🟡 T2 | **1** | Sushil Jajodia |
+| 29 | Rutgers | #160 | 🟡 T2 | **1** | Jie Gao |
+| 30 | Clemson | #168 | 🟡 T2 | **1** | Long Cheng |
+| 31 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
+| 32 | UMass Amherst | #170 | 🟡 T2 | **1** | Pubali Datta |
+| 33 | UMBC | #172 | 🟡 T2 | **1** | Anupam Joshi |
+| 34 | Northeastern | #179 | 🟡 T2 | **3** | Long Lu, Engin Kirda, Wil Robertson |
+| 35 | Ohio State | #180 | 🟡 T2 | **1** | Zhiqiang Lin |
+| 36 | NC State | #181 | 🟡 T2 | **1** | William Enck |
+| 37 | Stony Brook | #185 | 🟡 T2 | **1** | Michalis Polychronakis |
+| 38 | U Memphis | #270 | 🟡 T2 | **1** | Dipankar Dasgupta |
+| 39 | WPI | #270 | 🟡 T2 | **1** | Jun Dai |
+| 40 | U Arizona | #284 | 🟡 T2 | **1** | Saumya Debray |
+| 41 | U South Florida | #295 | 🟡 T2 | **1** | Xinming (Simon) Ou |
+| 42 | Old Dominion U | #301 | 🟢 T3 | **3** | Daniel Takabi, Mohammad GhasemiGol, Md Morshed Alam |
+| 43 | U New Mexico | #310 | 🟢 T3 | **1** | Xin Chen |
+| 44 | LSU | #316 | 🟢 T3 | **3** | Tasnuva Farheen, Aisha Ali-Gombe, James Ghawaly |
+| 45 | LSU (ex-UNO) | #316 | 🟢 T3 | **1** | Phani Vadrevu |
+| 46 | RIT | #320 | 🟢 T3 | **3** | Nidhi Rastogi, Matthew Wright, Weijie Zhao |
+| 47 | FAU | #335 | 🟢 T3 | **1** | Mehrdad Nojoumian |
+| 48 | U North Texas | #340 | 🟢 T3 | **3** | Tao Wang, Tao Hou, Supreeth Shastri |
+| 49 | Montana State U | #345 | 🟢 T3 | **2** | Matt Revelle, Clemente Izurieta |
+| 50 | U Tulsa | #350 | 🟢 T3 | **2** | Weiping Pei, John Hale |
+| 51 | U Nevada Reno | #355 | 🟢 T3 | **1** | Rui Hu |
+| 52 | Tennessee Tech | #358 | 🟢 T3 | **2** | Maanak Gupta, William Eberle |
+| 53 | U Colorado Denver | #360 | 🟢 T3 | **2** | Haadi Jafarian, Zhengxiong Li |
+| 54 | U South Alabama | #363 | 🟢 T3 | **2** | Jesse Ables, Todd Andel |
+| 55 | Idaho State U | #370 | 🟢 T3 | **2** | Minhaz Zibran, Mostafa Fouda |
+| 56 | Bowling Green SU | #380 | 🟢 T3 | **1** | Sankardas Roy |
+| 57 | U Alabama Huntsville | #380 | 🟢 T3 | **1** | Tommy Morris |
+| 58 | Central Michigan U | #385 | 🟢 T3 | **2** | Qi Liao, Linxi Zhang |
+| 59 | East Tennessee State | #390 | 🟢 T3 | **1** | Ghaith Husari |
+| 60 | UC Riverside | #405 | 🟢 T3 | **3** | Chengyu Song, Zhiyun Qian, Heng Yin |
+| 61 | FIU | #411 | 🟢 T3 | **1** | Selcuk Uluagac |
+| 62 | UT San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
+| 63 | U New Orleans | #430 | 🟢 T3 | **2** | Abdullah Yasin Nur, James Wagner |
 
 ---
 

@@ -1,5 +1,4 @@
-# Curated Research Papers
-## LLM-Orchestrated Multi-Agent Framework Autonomous Vulnerability Assessment & Penetration Testing
+# Curated Research Papers (LLM-Orch VAPT)
 
 > **Scope:** Papers directly relevant to CMatrix's core pillars — LLM-based agentic pentesting,
 > multi-agent red-team orchestration, autonomous vulnerability exploitation, offensive security

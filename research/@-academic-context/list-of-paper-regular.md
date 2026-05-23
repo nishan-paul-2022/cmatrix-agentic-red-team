@@ -1,4 +1,4 @@
-# 📚 Foundational & Thematic Research Paper Reference (LLM-Orch VAPT)
+# 📚 Foundational & Thematic Research Papers on LLM-Orch VAPT
 
 ## 📌 Priority Scale
 - 🔴 **P1 — Critical** · Foundational or directly cited in `CMatrix` (Must-read first).
@@ -14,13 +14,13 @@ This table provides a comprehensive index of foundational and thematic research 
 
 | # | Priority | Paper Title | Year | Venue | First Author | University | USNWR Rank |
 |---|---|---|---|---|---|---|---|
-| **1** | 🔴 **P1** | AutoGen: Next-Gen LLM Multi-Agent Conversations | 2024 | arXiv, Aug 2023 | Qingyun Wu | Penn State University | ~#130 |
+| **1** | 🔴 **P1** | AutoGen: Next-Gen LLM Multi-Agent Conversations | 2024 | arXiv, Aug 2023 | Qingyun Wu | Penn State University | #130 |
 | **2** | 🔴 **P1** | MetaGPT: Meta Programming for Multi-Agent Frameworks (ICLR 2024) | 2024 | ICLR 2024 | Sirui Hong | DeepWisdom | N/A (Industry) |
 | **3** | 🟠 **P2** | Difficulty-Aware Agentic Orchestration (WWW 2026) | 2026 | WWW 2026 | Jinwei Su | McGill University | #56 |
 | **4** | 🟠 **P2** | WorkflowLLM: Enhancing Workflow Orchestration | 2024 | arXiv, Nov 2024 | Shengda Fan | Renmin University of China | #394 |
 | **5** | 🟠 **P2** | A Survey on LLM-Based Multi-Agent Systems: Workflow, Infrastructure | 2024 | Vicinagearth 2024 | Xinyi Li | Wuhan University | #90 |
 | **6** | 🟡 **P3** | A Trace-Based Assurance Framework for Agentic AI Orchestration | 2026 | arXiv, March 2026 | Ciprian Paduraru | University of Bucharest | #930 |
-| **7** | 🟡 **P3** | Engineering LLM Powered Multi-Agent Framework for CloudOps (CAIN 2025) | 2025 | CAIN 2025 | Kannan Parthasarathy | IIIT Hyderabad | ~#1000 |
+| **7** | 🟡 **P3** | Engineering LLM Powered Multi-Agent Framework for CloudOps (CAIN 2025) | 2025 | CAIN 2025 | Kannan Parthasarathy | IIIT Hyderabad | #1000 |
 | **8** | 🟡 **P3** | From LLM Reasoning to Autonomous AI Agents: Comprehensive Review | 2025 | arXiv, April 2025 | Mohamed Amine Ferrag | Khalifa University | #531 |
 | **9** | 🟡 **P3** | A Declarative Language for Building LLM-Powered Agent Workflows | 2025 | arXiv, Nov 2025 | Ivan Daunis | PayPal | N/A (Industry) |
 | **10** | 🔴 **P1** | RouteLLM: Learning to Route LLMs with Preference Data (ICLR 2025) | 2025 | ICLR 2025 | Isaac Ong | UC Berkeley | #4 |
@@ -33,13 +33,13 @@ This table provides a comprehensive index of foundational and thematic research 
 | **17** | 🔴 **P1** | Policy-as-Prompt: AI Governance Rules as Guardrails | 2025 | arXiv, Nov 2025 | Gauri Kholkar | Pure Storage | N/A (Industry) |
 | **18** | 🔴 **P1** | ShieldAgent: Verifiable Safety Policy Reasoning | 2025 | arXiv, March 2025 | Zhaorun Chen | University of Chicago | #12 |
 | **19** | 🟠 **P2** | Toward Safe and Responsible AI Agents (Three-Pillar Model) | 2026 | arXiv, Jan 2026 | Edward C. Cheng | Stanford University | #3 |
-| **20** | 🟠 **P2** | AGrail: Lifelong Agent Guardrail | 2025 | arXiv, Feb 2025 | Weidi Luo | Ohio State University | ~#180 |
+| **20** | 🟠 **P2** | AGrail: Lifelong Agent Guardrail | 2025 | arXiv, Feb 2025 | Weidi Luo | Ohio State University | #180 |
 | **21** | 🟠 **P2** | AgentDoG: Diagnostic Guardrail Framework | 2026 | arXiv, Jan 2026 | Dongrui Liu | Shanghai Jiao Tong University | #46 |
-| **22** | 🟡 **P3** | TrustAgent: Agent Constitution for Safety | 2024 | arXiv, Feb 2024 | Wenyue Hua | Rutgers University | ~#160 |
+| **22** | 🟡 **P3** | TrustAgent: Agent Constitution for Safety | 2024 | arXiv, Feb 2024 | Wenyue Hua | Rutgers University | #160 |
 | **23** | 🟡 **P3** | R-Judge: Benchmarking Safety Risk Awareness in LLM Agents | 2024 | arXiv, Jan 2024 | Tongxin Yuan | Shanghai Jiao Tong University | #46 |
 | **24** | 🔴 **P1** | RAG for Cybersecurity: Hybrid Retrieval for LLMs | 2025 | arXiv, Oct 2025 | Arnabh Borah | Georgia Institute of Technology | #33 |
 | **25** | 🔴 **P1** | Survey on the Security of Long-Term Memory in LLM Agents | 2026 | arXiv, April 2026 | Zehao Lin | MemTensor | N/A (Industry) |
-| **26** | 🟠 **P2** | Towards Secure RAG: Comprehensive Review of Threats, Defenses | 2026 | arXiv, March 2026 | Yanming Mu | Chinese Academy of Sciences | ~#100 |
+| **26** | 🟠 **P2** | Towards Secure RAG: Comprehensive Review of Threats, Defenses | 2026 | arXiv, March 2026 | Yanming Mu | Chinese Academy of Sciences | #100 |
 | **27** | 🟠 **P2** | Securing RAG: Taxonomy of Attacks, Defenses | 2026 | arXiv, April 2026 | Yuming Xu | Hong Kong University of Science and Technology | #101 |
 | **28** | 🟠 **P2** | Memory for Autonomous LLM Agents: Mechanisms & Evaluation | 2026 | arXiv, March 2026 | Pengfei Du | Cornell University | #17 |
 | **29** | 🟠 **P2** | Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025) | 2025 | ECAI 2025 | Prateek Chhikara | Mem0 | N/A (Industry) |
@@ -48,10 +48,10 @@ This table provides a comprehensive index of foundational and thematic research 
 | **32** | 🔴 **P1** | ReAct: Synergizing Reasoning and Acting in LLMs (ICLR 2023) | 2023 | ICLR 2023 | Shunyu Yao | Princeton University | #16 |
 | **33** | 🔴 **P1** | Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023) | 2023 | NeurIPS 2023 | Shunyu Yao | Princeton University | #16 |
 | **34** | 🔴 **P1** | Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022) | 2022 | NeurIPS 2022 | Jason Wei | Google Brain | N/A (Industry) |
-| **35** | 🔴 **P1** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn | Northeastern University | ~#179 |
-| **36** | 🔴 **P1** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang | Chinese Academy of Sciences | ~#100 |
+| **35** | 🔴 **P1** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn | Northeastern University | #179 |
+| **36** | 🔴 **P1** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang | Chinese Academy of Sciences | #100 |
 | **37** | 🟠 **P2** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 | Yasod Ginige | University of Sydney | #29 |
-| **38** | 🟠 **P2** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 | Valentina Casola | University of Naples Federico II | ~#187 |
+| **38** | 🟠 **P2** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 | Valentina Casola | University of Naples Federico II | #187 |
 | **39** | 🟠 **P2** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 | Hanxiang Xu | Huazhong University of Science and Technology | #91 |
 
 ---
@@ -70,12 +70,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-1"></a>
 ## 🗂️ SECTION 1 — LLM MULTI-AGENT ORCHESTRATION & RESILIENCE
+> 📢 ****
 
 ---
 
-### 1 `[P1 | 2024]` AutoGen: Next-Gen LLM Multi-Agent Conversations
+### 1 `[🔴 P1 | 2024]` AutoGen: Next-Gen LLM Multi-Agent Conversations
 - **Paper:** [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation Framework](https://arxiv.org/abs/2308.08155)
 - **Authors:** Qingyun Wu, Gagan Bansal, et al., Chi Wang (Microsoft Research)
 - **Institution:** Penn State University + Microsoft Research
@@ -84,7 +84,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 2 `[P1 | 2024]` MetaGPT: Meta Programming for Multi-Agent Frameworks (ICLR 2024)
+### 2 `[🔴 P1 | 2024]` MetaGPT: Meta Programming for Multi-Agent Frameworks (ICLR 2024)
 - **Paper:** [MetaGPT: Meta Programming for a Multi-Agent Collaborative Framework](https://arxiv.org/abs/2308.00352)
 - **Authors:** Sirui Hong, Mingchen Zhuge, et al. (DeepWisdom)
 - **Institution:** DeepWisdom / Multiple universities
@@ -93,7 +93,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 3 `[P2 | 2026]` Difficulty-Aware Agentic Orchestration (WWW 2026)
+### 3 `[🟠 P2 | 2026]` Difficulty-Aware Agentic Orchestration (WWW 2026)
 - **Paper:** [Difficulty-Aware Agentic Orchestration for Query-Specific Multi-Agent Workflows](https://arxiv.org/abs/2509.11079)
 - **Authors:** Jinwei Su, Qizhen Lan, Yinghui Xia, Lifan Sun, Weiyou Tian, Tianyu Shi, Xinyuan Song, Lewei He
 - **Institution:** McGill University
@@ -102,7 +102,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 4 `[P2 | 2024]` WorkflowLLM: Enhancing Workflow Orchestration
+### 4 `[🟠 P2 | 2024]` WorkflowLLM: Enhancing Workflow Orchestration
 - **Paper:** [WorkflowLLM: Enhancing Workflow Orchestration Capability of Large Language Models](https://arxiv.org/abs/2411.05451)
 - **Authors:** Shengda Fan, Xin Cong, Yuepeng Fu, Zhong Zhang, Shuyan Zhang, Yuanwei Liu, Yesai Wu, Yankai Lin, Zhiyuan Liu, Maosong Sun
 - **Institution:** Renmin University of China + Wuhan University + Tsinghua University
@@ -111,7 +111,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 5 `[P2 | 2024]` A Survey on LLM-Based Multi-Agent Systems: Workflow, Infrastructure, and Challenges
+### 5 `[🟠 P2 | 2024]` A Survey on LLM-Based Multi-Agent Systems: Workflow, Infrastructure, and Challenges
 - **Paper:** [A Survey on LLM-Based Multi-Agent Systems](https://doi.org/10.1007/s44336-024-00009-2)
 - **Authors:** Xinyi Li, Sai Wang, Siqi Zeng, Yu Wu, Yi Yang
 - **Institution:** Wuhan University + Zhejiang University
@@ -120,7 +120,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 6 `[P3 | 2026]` A Trace-Based Assurance Framework for Agentic AI Orchestration
+### 6 `[🟡 P3 | 2026]` A Trace-Based Assurance Framework for Agentic AI Orchestration
 - **Paper:** [A Trace-Based Assurance Framework for Agentic AI Orchestration: Contracts, Testing, and Governance](https://arxiv.org/abs/2603.18096)
 - **Authors:** Ciprian Paduraru, Petru-Liviu Bouruc, Alin Stefanescu
 - **Institution:** University of Bucharest
@@ -129,7 +129,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 7 `[P3 | 2025]` Engineering LLM Powered Multi-Agent Framework for Autonomous CloudOps (CAIN 2025)
+### 7 `[🟡 P3 | 2025]` Engineering LLM Powered Multi-Agent Framework for Autonomous CloudOps (CAIN 2025)
 - **Paper:** [Engineering LLM Powered Multi-agent Framework for Autonomous CloudOps](https://arxiv.org/abs/2501.08243)
 - **Authors:** Kannan Parthasarathy, Karthik Vaidhyanathan, Rudra Dhar, Venkat Krishnamachari, et al.
 - **Institution:** IIIT Hyderabad + MontyCloud Inc.
@@ -138,7 +138,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 8 `[P3 | 2025]` From LLM Reasoning to Autonomous AI Agents: Comprehensive Review
+### 8 `[🟡 P3 | 2025]` From LLM Reasoning to Autonomous AI Agents: Comprehensive Review
 - **Paper:** [From LLM Reasoning to Autonomous AI Agents: A Comprehensive Review](https://arxiv.org/abs/2504.19678)
 - **Authors:** Mohamed Amine Ferrag, Norbert Tihanyi, Merouane Debbah
 - **Institution:** Khalifa University + Guelma University + Technology Innovation Institute
@@ -147,7 +147,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 9 `[P3 | 2025]` A Declarative Language for Building LLM-Powered Agent Workflows
+### 9 `[🟡 P3 | 2025]` A Declarative Language for Building LLM-Powered Agent Workflows
 - **Paper:** [A Declarative Language for Building And Orchestrating LLM-Powered Agent Workflows](https://arxiv.org/abs/2512.19769)
 - **Authors:** Ivan Daunis
 - **Institution:** PayPal
@@ -156,13 +156,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-2"></a>
 ## 💰 SECTION 2 — COST OPTIMIZATION: ROUTING, TIERING & CACHING
 > 📢 **Efficient scaling, model routing, and semantic caching strategies.**
 
 ---
 
-### 10 `[P1 | 2025]` RouteLLM: Learning to Route LLMs with Preference Data (ICLR 2025)
+### 10 `[🔴 P1 | 2025]` RouteLLM: Learning to Route LLMs with Preference Data (ICLR 2025)
 - **Paper:** [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665)
 - **Authors:** Isaac Ong, Amjad Almahairi, Vincent Wu, Wei-Lin Chiang, Ion Stoica et al.
 - **Institution:** UC Berkeley + Anyscale
@@ -171,7 +170,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 11 `[P1 | 2023]` FrugalGPT: Reducing LLM Cost with Cascade Approach
+### 11 `[🔴 P1 | 2023]` FrugalGPT: Reducing LLM Cost with Cascade Approach
 - **Paper:** [FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance](https://arxiv.org/abs/2305.05176)
 - **Authors:** Lingjiao Chen, Matei Zaharia, James Zou
 - **Institution:** Stanford University
@@ -180,7 +179,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 12 `[P1 | 2025]` Cost-Efficient Serving of LLM Agents via Test-Time Plan Caching
+### 12 `[🔴 P1 | 2025]` Cost-Efficient Serving of LLM Agents via Test-Time Plan Caching
 - **Paper:** [Cost-Efficient Serving of LLM Agents via Test-Time Plan Caching](https://arxiv.org/abs/2506.14852)
 - **Authors:** Qizheng Zhang, Michael Wornow, Kunle Olukotun
 - **Institution:** Stanford University
@@ -189,7 +188,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 13 `[P2 | 2025]` Minions: Cost-Efficient Collaboration between On-Device and Cloud LLMs
+### 13 `[🟠 P2 | 2025]` Minions: Cost-Efficient Collaboration between On-Device and Cloud LLMs
 - **Paper:** [Minions: Cost-efficient Collaboration between On-device and Cloud Language Models](https://arxiv.org/abs/2502.15964)
 - **Authors:** Avanika Narayan, Dan Biderman, Sabri Eyuboglu, Avner May, Scott Linderman, James Zou, Christopher Ré
 - **Institution:** Stanford University + Together AI
@@ -198,7 +197,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 14 `[P2 | 2024]` RouterBench: A Benchmark for Multi-LLM Routing (ICML 2024 Workshop)
+### 14 `[🟠 P2 | 2024]` RouterBench: A Benchmark for Multi-LLM Routing (ICML 2024 Workshop)
 - **Paper:** [RouterBench: A Benchmark for Multi-LLM Routing System](https://arxiv.org/abs/2403.12031)
 - **Authors:** Qitian Jason Hu, Jacob Bieker, Xiuyu Li, Nan Jiang, Benjamin Keigwin, Gaurav Ranganath, Kurt Keutzer, Shriyash Kaustubh Upadhyay
 - **Institution:** UC Berkeley
@@ -207,7 +206,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 15 `[P2 | 2023]` On Optimal Caching and Model Multiplexing for Large Model Inference
+### 15 `[🟠 P2 | 2023]` On Optimal Caching and Model Multiplexing for Large Model Inference
 - **Paper:** [On Optimal Caching and Model Multiplexing for Large Model Inference](https://arxiv.org/abs/2306.02003)
 - **Authors:** Banghua Zhu, Ying Sheng, Lianmin Zheng, Clark Barrett, Michael I. Jordan, Jiantao Jiao
 - **Institution:** UC Berkeley + Stanford University
@@ -216,7 +215,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 16 `[P3 | 2026]` Robust Batch-Level Query Routing for LLMs
+### 16 `[🟡 P3 | 2026]` Robust Batch-Level Query Routing for LLMs
 - **Paper:** [Robust Batch-Level Query Routing for Large Language Models under Cost and Capacity Constraints](https://arxiv.org/abs/2603.26796)
 - **Authors:** Jelena Markovic-Voronov, Kayhan Behdin, Yuanda Xu, Zhengze Zhou, Zhipeng Wang, Rahul Mazumder
 - **Institution:** MIT + LinkedIn
@@ -225,13 +224,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-3"></a>
 ## 🛡️ SECTION 3 — AI SAFETY, HUMAN-IN-THE-LOOP & GOVERNANCE
 > 📢 **Safety guardrails, HITL gates, and ethical VAPT framework research.**
 
 ---
 
-### 17 `[P1 | 2025]` Policy-as-Prompt: AI Governance Rules as Guardrails
+### 17 `[🔴 P1 | 2025]` Policy-as-Prompt: AI Governance Rules as Guardrails
 - **Paper:** [Policy-as-Prompt: Turning AI Governance Rules into Guardrails for AI Agents](https://arxiv.org/abs/2509.23994)
 - **Authors:** Gauri Kholkar, Ratinder Paul Singh Ahuja
 - **Institution:** Pure Storage
@@ -240,7 +238,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 18 `[P1 | 2025]` ShieldAgent: Verifiable Safety Policy Reasoning
+### 18 `[🔴 P1 | 2025]` ShieldAgent: Verifiable Safety Policy Reasoning
 - **Paper:** [ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning](https://arxiv.org/abs/2503.22738)
 - **Authors:** Zhaorun Chen, Mintong Kang, Bo Li
 - **Institution:** University of Chicago + University of Illinois Urbana-Champaign
@@ -249,7 +247,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 19 `[P2 | 2026]` Toward Safe and Responsible AI Agents (Three-Pillar Model)
+### 19 `[🟠 P2 | 2026]` Toward Safe and Responsible AI Agents (Three-Pillar Model)
 - **Paper:** [Toward Safe and Responsible AI Agents: A Three-Pillar Model](https://arxiv.org/abs/2601.06223)
 - **Authors:** Edward C. Cheng, Jeshua Cheng, Alice Siu
 - **Institution:** Stanford University + InquiryOn
@@ -258,7 +256,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 20 `[P2 | 2025]` AGrail: Lifelong Agent Guardrail
+### 20 `[🟠 P2 | 2025]` AGrail: Lifelong Agent Guardrail
 - **Paper:** [AGrail: A Lifelong Agent Guardrail with Effective and Adaptive Safety Detection](https://arxiv.org/abs/2502.11448)
 - **Authors:** Weidi Luo, Shenghong Dai, Xiaogeng Liu, Suman Banerjee, Huan Sun, Muhao Chen, Chaowei Xiao
 - **Institution:** The Ohio State University + University of Wisconsin-Madison + UC Davis
@@ -267,7 +265,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 21 `[P2 | 2026]` AgentDoG: Diagnostic Guardrail Framework
+### 21 `[🟠 P2 | 2026]` AgentDoG: Diagnostic Guardrail Framework
 - **Paper:** [AgentDoG: A Diagnostic Guardrail Framework for AI Agent Safety and Security](https://arxiv.org/abs/2601.18491)
 - **Authors:** Dongrui Liu, Qihan Ren, Xia Hu, et al.
 - **Institution:** Shanghai Jiao Tong University + Shanghai AI Laboratory
@@ -276,7 +274,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 22 `[P3 | 2024]` TrustAgent: Agent Constitution for Safety
+### 22 `[🟡 P3 | 2024]` TrustAgent: Agent Constitution for Safety
 - **Paper:** [TrustAgent: Towards Safe and Trustworthy LLM-based Agents through Agent Constitution](https://arxiv.org/abs/2402.01586)
 - **Authors:** Wenyue Hua, Xianjun Yang, Mingyu Jin, Wei Cheng, Ruixiang Tang, Yongfeng Zhang
 - **Institution:** Rutgers University + UC Santa Barbara + NEC Laboratories America
@@ -285,7 +283,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 23 `[P3 | 2024]` R-Judge: Benchmarking Safety Risk Awareness in LLM Agents
+### 23 `[🟡 P3 | 2024]` R-Judge: Benchmarking Safety Risk Awareness in LLM Agents
 - **Paper:** [R-Judge: Benchmarking Safety Risk Awareness for LLM Agents](https://arxiv.org/abs/2401.10019)
 - **Authors:** Tongxin Yuan, Zhiwei He, Lingzhong Dong, Yiming Wang, Ruijie Zhao, Tian Xia, Lizhen Xu, Binglin Zhou, Fangqi Li, Zhuosheng Zhang, Rui Wang, Gongshen Liu
 - **Institution:** Shanghai Jiao Tong University
@@ -294,13 +292,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-4"></a>
 ## 📚 SECTION 4 — RAG, VULNERABILITY INTELLIGENCE & KNOWLEDGE BASES
 > 📢 **Knowledge-enhanced agents and memory security in RAG architectures.**
 
 ---
 
-### 24 `[P1 | 2025]` RAG for Cybersecurity: Hybrid Retrieval for LLMs
+### 24 `[🔴 P1 | 2025]` RAG for Cybersecurity: Hybrid Retrieval for LLMs
 - **Paper:** [Adapting LLMs to Emerging Cybersecurity using Retrieval Augmented Generation](https://arxiv.org/abs/2510.27080)
 - **Authors:** Arnabh Borah, Md Tanvirul Alam, Nidhi Rastogi
 - **Institution:** Georgia Institute of Technology + Rochester Institute of Technology
@@ -309,7 +306,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 25 `[P1 | 2026]` Survey on the Security of Long-Term Memory in LLM Agents
+### 25 `[🔴 P1 | 2026]` Survey on the Security of Long-Term Memory in LLM Agents
 - **Paper:** [A Survey on the Security of Long-Term Memory in LLM Agents: Toward Mnemonic Sovereignty](https://arxiv.org/abs/2604.16548)
 - **Authors:** Zehao Lin, Chunyu Li, Kai Chen
 - **Institution:** MemTensor
@@ -318,7 +315,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 26 `[P2 | 2026]` Towards Secure RAG: Comprehensive Review of Threats, Defenses, Benchmarks
+### 26 `[🟠 P2 | 2026]` Towards Secure RAG: Comprehensive Review of Threats, Defenses, Benchmarks
 - **Paper:** [Towards Secure Retrieval-Augmented Generation: A Comprehensive Review](https://arxiv.org/abs/2603.21654)
 - **Authors:** Yanming Mu, Hao Hu, Feiyang Li, Qiao Yuan, Jiang Wu, Zichuan Liu, Pengcheng Liu, Mei Wang, Hongwei Zhou, Yuling Liu
 - **Institution:** Institute of Information Engineering, Chinese Academy of Sciences
@@ -327,7 +324,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 27 `[P2 | 2026]` Securing RAG: Taxonomy of Attacks, Defenses, and Future Directions
+### 27 `[🟠 P2 | 2026]` Securing RAG: Taxonomy of Attacks, Defenses, and Future Directions
 - **Paper:** [Securing RAG: A Taxonomy of Attacks, Defenses, and Future Directions](https://arxiv.org/abs/2604.08304)
 - **Authors:** Yuming Xu, Mingtao Zhang, Zhuohan Ge, Haoyang Li, Nicole Hu, Jason Chen Zhang, Qing Li, Lei Chen
 - **Institution:** Hong Kong University of Science and Technology
@@ -336,7 +333,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 28 `[P2 | 2026]` Memory for Autonomous LLM Agents: Mechanisms & Evaluation
+### 28 `[🟠 P2 | 2026]` Memory for Autonomous LLM Agents: Mechanisms & Evaluation
 - **Paper:** [Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers](https://arxiv.org/abs/2603.07670)
 - **Authors:** Pengfei Du
 - **Institution:** Cornell University
@@ -345,7 +342,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 29 `[P2 | 2025]` Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025)
+### 29 `[🟠 P2 | 2025]` Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025)
 - **Paper:** [Mem0: Intelligent Memory Layer for Personalized AI](https://arxiv.org/abs/2504.19413)
 - **Authors:** Prateek Chhikara, Dev Khant, Saket Aryan, Taranjeet Singh, Deshraj Yadav
 - **Institution:** Mem0
@@ -354,13 +351,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-5"></a>
 ## 📊 SECTION 5 — CYBERSECURITY BENCHMARKS & EVALUATION
 > 📢 **Gold-standard benchmarks for evaluating AI agent offensive capabilities.**
 
 ---
 
-### 30 `[P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
+### 30 `[🔴 P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
 - **Paper:** [AutoPenBench: Benchmarking Generative Agents for Penetration Testing](https://arxiv.org/abs/2410.03225)
 - **Authors:** Luca Gioacchini, Marco Mellia et al.
 - **Institution:** Politecnico di Torino
@@ -369,7 +365,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 31 `[P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
+### 31 `[🟠 P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
 - **Paper:** [Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents](https://arxiv.org/abs/2510.24317)
 - **Authors:** María Sanz-Gómez, Víctor Mayoral-Vilches, Francesco Balassone, Luis Javier Navarrete-Lozano, et al.
 - **Institution:** Alias Robotics
@@ -378,13 +374,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-6"></a>
 ## 🧠 SECTION 6 — AGENT REASONING, PLANNING & CHAIN-OF-THOUGHT
 > 📢 **Foundational reasoning patterns (CoT, ReAct, ToT) for agentic logic.**
 
 ---
 
-### 32 `[P1 | 2023]` ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)
+### 32 `[🔴 P1 | 2023]` ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)
 - **Paper:** [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - **Authors:** Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao
 - **Institution:** Princeton University + Google Brain
@@ -393,7 +388,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 33 `[P1 | 2023]` Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023)
+### 33 `[🔴 P1 | 2023]` Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023)
 - **Paper:** [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
 - **Authors:** Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan
 - **Institution:** Princeton University + Google DeepMind
@@ -402,7 +397,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 34 `[P1 | 2022]` Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022)
+### 34 `[🔴 P1 | 2022]` Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022)
 - **Paper:** [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
 - **Authors:** Jason Wei, Xuezhi Wang, Dale Schuurmans, et al.
 - **Institution:** Google Brain / Google Research
@@ -411,7 +406,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 35 `[P1 | 2023]` Reflexion: Language Agents with Verbal RL (NeurIPS 2023)
+### 35 `[🔴 P1 | 2023]` Reflexion: Language Agents with Verbal RL (NeurIPS 2023)
 - **Paper:** [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)
 - **Authors:** Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
 - **Institution:** Northeastern University + Princeton University
@@ -420,13 +415,12 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-<a id="section-7"></a>
 ## 🔍 SECTION 7 — SURVEYS & LITERATURE REVIEWS
 > 📢 **Systematic reviews and comprehensive field overviews (2024–2026).**
 
 ---
 
-### 36 `[P1 | 2025]` When LLMs Meet Cybersecurity: A Systematic Literature Review
+### 36 `[🔴 P1 | 2025]` When LLMs Meet Cybersecurity: A Systematic Literature Review
 - **Paper:** [When LLMs Meet Cybersecurity: A Systematic Literature Review](https://doi.org/10.1186/s42400-025-00361-w)
 - **Authors:** Jie Zhang, Haoyu Bu, Hui Wen, Yongji Liu, et al.
 - **Institution:** Institute of Information Engineering, Chinese Academy of Sciences
@@ -435,7 +429,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 37 `[P2 | 2026]` Pen-Strategist Survey Table (28 LLM-based PT Systems — Most Comprehensive as of May 2026)
+### 37 `[🟠 P2 | 2026]` Pen-Strategist Survey Table (28 LLM-based PT Systems — Most Comprehensive as of May 2026)
 - **Paper:** [Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation](https://arxiv.org/abs/2605.04499)
 - **Authors:** Yasod Ginige, Pasindu Marasinghe, Sajal Jain, Suranga Seneviratne
 - **Institution:** The University of Sydney + University of Colombo
@@ -444,7 +438,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 38 `[P2 | 2024]` Towards Automated Penetration Testing: A Survey
+### 38 `[🟠 P2 | 2024]` Towards Automated Penetration Testing: A Survey
 - **Paper:** [Towards Automated Penetration Testing: A Survey](https://arxiv.org/abs/2303.01323)
 - **Authors:** Valentina Casola, Alessandra De Benedictis, Massimiliano Rak, Umberto Villano
 - **Institution:** University of Naples Federico II
@@ -453,7 +447,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 39 `[P2 | 2024]` A Survey on Large Language Models for Cybersecurity
+### 39 `[🟠 P2 | 2024]` A Survey on Large Language Models for Cybersecurity
 - **Paper:** [A Survey on Large Language Models for Cybersecurity](https://arxiv.org/abs/2405.04828)
 - **Authors:** Hanxiang Xu, Shenao Wang, Ningke Li, Kailong Wang, Yanjie Zhao, Kai Chen, Ting Yu, Yang Liu, Haoyu Wang
 - **Institution:** Huazhong University of Science and Technology + Hamad Bin Khalifa University + Nanyang Technological University
