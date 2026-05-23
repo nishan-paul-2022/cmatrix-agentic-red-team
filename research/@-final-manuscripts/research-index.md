@@ -13,7 +13,7 @@
 | [`02-hitl-safety.md`](./paper-02-hitl-safety/02-hitl-safety.md) | HITL Safety for Security Agents | SOUPS 2026 | 3–4 months |
 | [`03-agent-reasoning.md`](./paper-03-agent-reasoning/03-agent-reasoning.md) | ToT + ReWOO + Self-Reflection in Security | ACM CCS 2026 | 4–5 months |
 | [`04-vulnerability-intelligence.md`](./paper-04-vulnerability-intelligence/04-vulnerability-intelligence.md) | Agentic RAG for CVE Intelligence | ACM SIGIR 2026 | 4–5 months |
-| [`05-model-orchestration.md`](./paper-05-model-orchestration/05-model-orchestration.md) | LLM-Agnostic Multi-Provider Orchestration | MLSys 2026 | 3–4 months |
+| [`05-model-orchestration.md`](./paper-01-llm-orch-vapt/05-model-orchestration.md) | LLM Orchestrated Multi-Agent Framework for Autonomous VAPT | MLSys 2026 | 3–4 months |
 
 ---
 
@@ -73,7 +73,7 @@ The RAG module (CVE vector store + cross-encoder reranking + graph traversal + s
 
 ### Rank #5 — LLM-Agnostic Multi-Provider Orchestration for Security AI
 
-**File**: [`05-model-orchestration.md`](./paper-05-model-orchestration/05-model-orchestration.md)
+**File**: [`05-model-orchestration.md`](./paper-01-llm-orch-vapt/05-model-orchestration.md)
 
 The 6-provider LLM abstraction layer with the `LangChainAdapter` pattern is a well-engineered systems contribution. However, as a standalone paper it's less novel (LiteLLM and similar tools exist), and the security-specific angle needs to be more pronounced. Best as a supporting section in the main paper or a short MLSys paper focused on the empirical benchmark.
 

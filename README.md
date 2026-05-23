@@ -163,7 +163,7 @@ CMatrix includes a professional, independent LaTeX build system for documenting 
 | 02 | **HITL Safety** | `make paper-02` | `research/paper-02-hitl-safety/paper.pdf` |
 | 03 | **Agent Reasoning** | `make paper-03` | `research/paper-03-agent-reasoning/paper.pdf` |
 | 04 | **Vulnerability Intelligence** | `make paper-04` | `research/paper-04-vulnerability-intelligence/paper.pdf` |
-| 05 | **Model Orchestration** | `make paper-05` | `research/paper-05-model-orchestration/paper.pdf` |
+| 05 | **LLM Orchestrated Multi-Agent Framework for Autonomous VAPT** | `make paper-05` | `research/paper-01-llm-orch-vapt/paper.pdf` |
 
 ### 🏗️ Building the Papers
 

@@ -4,14 +4,14 @@
 
 ---
 
-**Mission:** Transform the placeholder research in `paper-05-model-orchestration/` into a full-length, IEEE S&P-standard research paper (12–16 pages) that is publication-ready and world-class in quality.
+**Mission:** Transform the placeholder research in `paper-01-llm-orch-vapt/` into a full-length, IEEE S&P-standard research paper (12–16 pages) that is publication-ready and world-class in quality.
 
 ---
 
 ## PROJECT FOLDER STRUCTURE
 
 ```
-paper-05-model-orchestration/
+paper-01-llm-orch-vapt/
 ├── artifacts/
 │   ├── research-area.md          ← READ THIS FIRST before every sub-step
 │   ├── step-1a-codebase-read.md
@@ -283,7 +283,7 @@ Every paper section must be saved as a **separate `.tex` file** in `sections/` i
 **First action:** Read `artifacts/research-area.md` and `artifacts/step-1a-codebase-read.md`
 
 **Task:**
-- Read `paper-05-model-orchestration/` completely — every file, every sentence.
+- Read `paper-01-llm-orch-vapt/` completely — every file, every sentence.
 
 **Output:**
 - Current paper structure (all sections present)
@@ -301,7 +301,7 @@ Every paper section must be saved as a **separate `.tex` file** in `sections/` i
 **Checklist:**
 - [ ] `artifacts/research-area.md` read before starting
 - [ ] `artifacts/step-1a-codebase-read.md` read as input
-- [ ] Every file inside `paper-05-model-orchestration/` has been read
+- [ ] Every file inside `paper-01-llm-orch-vapt/` has been read
 - [ ] Every section of the paper is summarized
 - [ ] All claims made in the paper are listed
 - [ ] All citations in the paper are listed
@@ -1005,7 +1005,7 @@ For each equation:
 - Confirmed complete folder structure:
 
 ```
-paper-05-model-orchestration/
+paper-01-llm-orch-vapt/
 ├── artifacts/
 │   ├── research-area.md
 │   ├── step-1a-codebase-read.md

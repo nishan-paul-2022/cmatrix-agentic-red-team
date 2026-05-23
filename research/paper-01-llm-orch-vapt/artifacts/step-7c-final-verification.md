@@ -7,7 +7,7 @@
 ## 1. Build Pipeline Validation
 *   **Command**: `make paper-05`
 *   **Result**: Success (Exit code 0)
-*   **Output File**: `research/paper-05-model-orchestration/paper.pdf`
+*   **Output File**: `research/paper-01-llm-orch-vapt/paper.pdf`
 *   **File Size**: ~310 KB
 *   **PDF Version**: 1.5+ (High-resolution Type 1 fonts verified)
 

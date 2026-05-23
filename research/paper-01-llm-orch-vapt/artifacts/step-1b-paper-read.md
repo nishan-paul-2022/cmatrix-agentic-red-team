@@ -69,7 +69,7 @@ The paper is currently a single monolithic `main.tex` file with the following se
 ## Checklist Results
 - [PASS] `artifacts/research-area.md` read before starting
 - [PASS] `artifacts/step-1a-codebase-read.md` read as input
-- [PASS] Every file inside `paper-05-model-orchestration/` has been read
+- [PASS] Every file inside `paper-01-llm-orch-vapt/` has been read
 - [PASS] Every section of the paper is summarized
 - [PASS] All claims made in the paper are listed
 - [PASS] All citations in the paper are listed
