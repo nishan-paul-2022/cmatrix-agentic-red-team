@@ -159,11 +159,11 @@ CMatrix includes a professional, independent LaTeX build system for documenting 
 
 | Index | Paper Topic | Build Command | Output Path |
 | :--- | :--- | :--- | :--- |
-| 01 | **Red Teaming** | `make paper-01` | `research/paper-02-red-teaming/paper.pdf` |
-| 02 | **HITL Safety** | `make paper-02` | `research/paper-03-hitl-safety/paper.pdf` |
-| 03 | **Agent Reasoning** | `make paper-03` | `research/paper-04-agent-reasoning/paper.pdf` |
-| 04 | **Vulnerability Intelligence** | `make paper-04` | `research/paper-05-vulnerability-intelligence/paper.pdf` |
-| 05 | **LLM Orchestrated Multi-Agent Framework for Autonomous VAPT** | `make paper-05` | `research/paper-01-llm-orch-vapt/paper.pdf` |
+| 01 | **LLM Orchestrated Multi-Agent Framework for Autonomous VAPT** | `make paper-01` | `research/paper-01-llm-orch-vapt/paper.pdf` |
+| 02 | **Red Teaming** | `make paper-02` | `research/paper-02-red-teaming/paper.pdf` |
+| 03 | **HITL Safety** | `make paper-03` | `research/paper-03-hitl-safety/paper.pdf` |
+| 04 | **Agent Reasoning** | `make paper-04` | `research/paper-04-agent-reasoning/paper.pdf` |
+| 05 | **Vulnerability Intelligence** | `make paper-05` | `research/paper-05-vulnerability-intelligence/paper.pdf` |
 
 ### 🏗️ Building the Papers
 

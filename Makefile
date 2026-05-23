@@ -110,41 +110,41 @@ build-app-backend:
 	@echo "🏗️  Backend doesn't require build step"
 
 # Paper Build Directories
-PAPER_DIR_01 := research/paper-02-red-teaming
-PAPER_DIR_02 := research/paper-03-hitl-safety
-PAPER_DIR_03 := research/paper-04-agent-reasoning
-PAPER_DIR_04 := research/paper-05-vulnerability-intelligence
-PAPER_DIR_05 := research/paper-01-llm-orch-vapt
+PAPER_DIR_01 := research/paper-01-llm-orch-vapt
+PAPER_DIR_02 := research/paper-02-red-teaming
+PAPER_DIR_03 := research/paper-03-hitl-safety
+PAPER_DIR_04 := research/paper-04-agent-reasoning
+PAPER_DIR_05 := research/paper-05-vulnerability-intelligence
 
 paper: paper-01 paper-02 paper-03 paper-04 paper-05
 	@echo "✅ All papers built successfully!"
 
 paper-01:
-	@echo "🏗️  Building Research Paper: 01-red-teaming..."
+	@echo "🏗️  Building Research Paper: 01-model-orchestration..."
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_01)/main/main.tex
 	mv $(PAPER_DIR_01)/main/main.pdf $(PAPER_DIR_01)/paper.pdf
 	rm -rf $(PAPER_DIR_01)/main/build
 
 paper-02:
-	@echo "🏗️  Building Research Paper: 02-hitl-safety..."
+	@echo "🏗️  Building Research Paper: 02-red-teaming..."
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_02)/main/main.tex
 	mv $(PAPER_DIR_02)/main/main.pdf $(PAPER_DIR_02)/paper.pdf
 	rm -rf $(PAPER_DIR_02)/main/build
 
 paper-03:
-	@echo "🏗️  Building Research Paper: 03-agent-reasoning..."
+	@echo "🏗️  Building Research Paper: 03-hitl-safety..."
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_03)/main/main.tex
 	mv $(PAPER_DIR_03)/main/main.pdf $(PAPER_DIR_03)/paper.pdf
 	rm -rf $(PAPER_DIR_03)/main/build
 
 paper-04:
-	@echo "🏗️  Building Research Paper: 04-vulnerability-intelligence..."
+	@echo "🏗️  Building Research Paper: 04-agent-reasoning..."
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_04)/main/main.tex
 	mv $(PAPER_DIR_04)/main/main.pdf $(PAPER_DIR_04)/paper.pdf
 	rm -rf $(PAPER_DIR_04)/main/build
 
 paper-05:
-	@echo "🏗️  Building Research Paper: 05-model-orchestration..."
+	@echo "🏗️  Building Research Paper: 05-vulnerability-intelligence..."
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_05)/main/main.tex
 	mv $(PAPER_DIR_05)/main/main.pdf $(PAPER_DIR_05)/paper.pdf
 	rm -rf $(PAPER_DIR_05)/main/build
