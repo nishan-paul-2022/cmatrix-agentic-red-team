@@ -48,7 +48,7 @@ CMatrix is an advanced, AI-powered security orchestration platform utilizing a m
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Installation
 
 CMatrix supports both local development workflows and a fully containerized Docker approach. 
 
@@ -139,19 +139,7 @@ npm run dev
 
 ---
 
-## 🔄 Development & CI/CD Workflow
-
-CMatrix architecture treats AI agents as modular functions. Adding new tools involves drafting robust agent tools under `app-backend/app/tools` and plugging them directly into the ReAct LangGraph logic. 
-
-**Testing**: 
-- Backend: Run `pytest` inside the `app-backend` application scope.
-- Frontend: Use standard `npm test` scripts within `app-frontend`.
-
-*Code merges trigger Github Actions ensuring full functional and integration tests across container images.*
-
----
-
-## 📜 Research & Documentation
+## 📜 Research Works
 
 CMatrix includes a professional, independent LaTeX build system for documenting research findings. We have five specialized research papers (formatted for **IEEE S&P**) covering different aspects of agentic security.
 
