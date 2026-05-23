@@ -58,6 +58,6 @@ To measure the impact of each reasoning component, we compare the **Full Pipelin
 - **Chart Design**: Design the `pgfplots` charts based on the SR and TE metrics.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/table-02-experimental-benchmarks.tex`: Dataset table.
-- `research/paper-03-agent-reasoning/assets/table-03-metrics-definitions.tex`: Metrics table.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/table-02-experimental-benchmarks.tex`: Dataset table.
+- `research/paper-04-agent-reasoning/assets/table-03-metrics-definitions.tex`: Metrics table.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

@@ -46,5 +46,5 @@ This sub-step finalized the Evaluation and Results sections (§5) of the manuscr
 - **Future Work**: The 88.4% SR limit in high-complexity tasks will form the basis for the "Limitations" discussion.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/evaluation.tex`: Expanded results source.
-- `research/paper-03-agent-reasoning/content/main.tex`: Updated wrapper.
+- `research/paper-04-agent-reasoning/content/evaluation.tex`: Expanded results source.
+- `research/paper-04-agent-reasoning/content/main.tex`: Updated wrapper.

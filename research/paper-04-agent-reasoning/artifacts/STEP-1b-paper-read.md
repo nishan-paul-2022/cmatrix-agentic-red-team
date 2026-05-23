@@ -1,16 +1,16 @@
 # [STEP 1b] — Paper Read — OUTPUT ARTIFACT
 
 ## 1) Summary
-This sub-step read the complete current draft at `research/paper-03-agent-reasoning/content/main.tex` (plus `discussion.md` and `content/references.bib`) and extracted the paper’s structure, claims, stated methodology, reported results/metrics, and citations. It also inventoried all figures/tables and assessed writing/LaTeX quality, including verifying whether referenced asset files exist.
+This sub-step read the complete current draft at `research/paper-04-agent-reasoning/content/main.tex` (plus `discussion.md` and `content/references.bib`) and extracted the paper’s structure, claims, stated methodology, reported results/metrics, and citations. It also inventoried all figures/tables and assessed writing/LaTeX quality, including verifying whether referenced asset files exist.
 
 ## 2) Full Output
 
 ### 2.1 Files read (complete list for this step)
-- Paper draft: `research/paper-03-agent-reasoning/content/main.tex`
-- Bibliography: `research/paper-03-agent-reasoning/content/references.bib`
-- Notes/discussion: `research/paper-03-agent-reasoning/discussion.md`
-- Template files present (not content-bearing): `research/paper-03-agent-reasoning/content/IEEEtran.cls`, `research/paper-03-agent-reasoning/content/IEEEtran.bst`
-- Asset index checked: `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`
+- Paper draft: `research/paper-04-agent-reasoning/content/main.tex`
+- Bibliography: `research/paper-04-agent-reasoning/content/references.bib`
+- Notes/discussion: `research/paper-04-agent-reasoning/discussion.md`
+- Template files present (not content-bearing): `research/paper-04-agent-reasoning/content/IEEEtran.cls`, `research/paper-04-agent-reasoning/content/IEEEtran.bst`
+- Asset index checked: `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`
 
 ### 2.2 Current paper structure (sections present)
 - **Title/Authors**
@@ -147,7 +147,7 @@ The paper cites the following BibTeX keys:
 
 #### Figures (all are currently **raster \includegraphics**, and all referenced files are missing)
 - **Fig. \ref{fig:arch}**: `\includegraphics{../assets/architecture.png}`
-  - **Status**: **BROKEN** (file does not exist in `research/paper-03-agent-reasoning/assets/`)
+  - **Status**: **BROKEN** (file does not exist in `research/paper-04-agent-reasoning/assets/`)
   - **Quality**: **Unknown** (cannot evaluate)
   - **Type**: raster include (not TikZ)
 - **Fig. \ref{fig:routing}**: `\includegraphics{../assets/routing-flow.png}`
@@ -189,8 +189,8 @@ These are not “validated mismatches” yet, but high-probability gaps to test 
 - Paper’s figures are currently non-existent assets; also the draft uses raster includes rather than TikZ assets.
 
 ## 3) Key Decisions Made
-- **Scope correction**: Treated STEP 1b as “read Paper 03” (i.e., `research/paper-03-agent-reasoning/`) because that is the user’s requested track, even though a generic step template elsewhere mentioned `paper-01-red-teaming/`.
-- **Evidence-first asset audit**: Verified existence of files under `research/paper-03-agent-reasoning/assets/` and marked figure references as **BROKEN** if missing, rather than assuming they exist.
+- **Scope correction**: Treated STEP 1b as “read Paper 03” (i.e., `research/paper-04-agent-reasoning/`) because that is the user’s requested track, even though a generic step template elsewhere mentioned `paper-02-red-teaming/`.
+- **Evidence-first asset audit**: Verified existence of files under `research/paper-04-agent-reasoning/assets/` and marked figure references as **BROKEN** if missing, rather than assuming they exist.
 - **Citation discipline**: Listed “citations currently used” strictly from `main.tex` `\cite{...}` occurrences, not from `references.bib` superset.
 
 ## 4) Open Questions (to resolve in Step 1c)
@@ -204,7 +204,7 @@ These are not “validated mismatches” yet, but high-probability gaps to test 
   - Per-task scoring rubric, inter-rater reliability (if human-judged), or automated judge description.
 
 ## 5) Checklist Results (PASS/FAIL)
-- [PASS] Every file inside `research/paper-03-agent-reasoning/` has been read
+- [PASS] Every file inside `research/paper-04-agent-reasoning/` has been read
 - [PASS] Every section of the paper is summarized
 - [PASS] All claims made in the paper are listed
 - [PASS] All citations in the paper are listed
@@ -216,7 +216,7 @@ These are not “validated mismatches” yet, but high-probability gaps to test 
 - [PASS] Output is structured enough to serve as input for Step 1c
 
 ## 6) Input for Next Step (Step 1c)
-- Cross-check `research/paper-03-agent-reasoning/content/main.tex` claims against Step 1a’s code-truth:
+- Cross-check `research/paper-04-agent-reasoning/content/main.tex` claims against Step 1a’s code-truth:
   - Locate and verify any routing/failover modules and APIs claimed (e.g., `FailoverService`, tier routing logic, `approvals.py`).
   - Validate whether the reported quantitative results have any corresponding evaluation harness, datasets, logs, or scripts in the repository.
   - Identify and list every paper asset that must be created/replaced (at minimum: 4 missing figures + table format rewrite).

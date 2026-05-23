@@ -64,6 +64,6 @@ This sequence transforms a single, fallible LLM call into a robust, self-correct
 - **Ablation Setup**: Define the "disabled" states for the reasoning suite to measure the impact of each component.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/figure-02-system-architecture.tex`: Tech architecture.
-- `research/paper-03-agent-reasoning/assets/algorithm-01-composite-reasoning.tex`: Orchestration algorithm.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/figure-02-system-architecture.tex`: Tech architecture.
+- `research/paper-04-agent-reasoning/assets/algorithm-01-composite-reasoning.tex`: Orchestration algorithm.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

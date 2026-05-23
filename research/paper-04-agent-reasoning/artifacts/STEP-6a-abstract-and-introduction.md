@@ -43,6 +43,6 @@ The title was updated to: **"Composable Reasoning Patterns for Autonomous Red Te
 - **Algorithm Integration**: Step 6b will integrate Algorithm 01 (Orchestration).
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/abstract.tex`: Abstract source.
-- `research/paper-03-agent-reasoning/content/introduction.tex`: Introduction source.
-- `research/paper-03-agent-reasoning/content/main.tex`: Updated wrapper.
+- `research/paper-04-agent-reasoning/content/abstract.tex`: Abstract source.
+- `research/paper-04-agent-reasoning/content/introduction.tex`: Introduction source.
+- `research/paper-04-agent-reasoning/content/main.tex`: Updated wrapper.

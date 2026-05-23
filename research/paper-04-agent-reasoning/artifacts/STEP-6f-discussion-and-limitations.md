@@ -36,5 +36,5 @@ This sub-step finalized the Discussion and Limitations sections (§6) of the man
 - **Broader Impact**: Frame the final impact around the "Trustworthy and Scalable Autonomous Security" vision.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/discussion.tex`: Finalized discussion source.
-- `research/paper-03-agent-reasoning/content/main.tex`: (Already updated).
+- `research/paper-04-agent-reasoning/content/discussion.tex`: Finalized discussion source.
+- `research/paper-04-agent-reasoning/content/main.tex`: (Already updated).

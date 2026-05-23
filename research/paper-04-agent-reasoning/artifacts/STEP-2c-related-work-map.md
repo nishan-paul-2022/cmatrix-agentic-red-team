@@ -64,5 +64,5 @@ The comparison table compares CMatrix against 5 top competitors across 6 dimensi
 - **Threat Model Context**: Use Category 4 (Defensive Frameworks) to define the adversarial assumptions for the threat model in 3c.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/table-01-related-work-comparison.tex`: Comparison table.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/table-01-related-work-comparison.tex`: Comparison table.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

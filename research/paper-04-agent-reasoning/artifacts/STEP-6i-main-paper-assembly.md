@@ -17,7 +17,7 @@ This sub-step performed the final structural assembly of the research manuscript
 
 ## 3) Key Decisions Made
 - **Centralized Assets**: Moved `references.bib` and `equations.tex` into the `assets/` directory to keep the project root clean and follow the strict asset protocol.
-- **Root Main**: Positioned `main.tex` in the root of `paper-03-agent-reasoning/` to simplify the build pipeline and align with the `Makefile` targets.
+- **Root Main**: Positioned `main.tex` in the root of `paper-04-agent-reasoning/` to simplify the build pipeline and align with the `Makefile` targets.
 - **Path Rewriting**: Used `sed` to programmatically update asset paths across all 8 section files, ensuring zero broken references.
 
 ## 4) Open Questions
@@ -39,6 +39,6 @@ This sub-step performed the final structural assembly of the research manuscript
 - **Rigorous Stress-Testing**: Evaluate the transitions between sections and the internal consistency of the technical claims.
 
 ## 7) Asset Files Created/Moved
-- `research/paper-03-agent-reasoning/main.tex`: Master file.
-- `research/paper-03-agent-reasoning/assets/equations.tex`: Consolidated equations.
-- `research/paper-03-agent-reasoning/assets/references.bib`: BibTeX source.
+- `research/paper-04-agent-reasoning/main.tex`: Master file.
+- `research/paper-04-agent-reasoning/assets/equations.tex`: Consolidated equations.
+- `research/paper-04-agent-reasoning/assets/references.bib`: BibTeX source.

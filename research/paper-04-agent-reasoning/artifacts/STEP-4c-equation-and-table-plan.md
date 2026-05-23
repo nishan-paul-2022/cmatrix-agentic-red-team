@@ -62,5 +62,5 @@ $$TH = \frac{|V_{\text{discovered}} \cap V_{gt}|}{|V_{gt}|}$$
 - **Equation Verification**: Ensure the synthesized data for TE ($\eta$) actually reflects the mathematical definition.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/table-04-planned-evaluation-results.tex`: Results placeholder.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/table-04-planned-evaluation-results.tex`: Results placeholder.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

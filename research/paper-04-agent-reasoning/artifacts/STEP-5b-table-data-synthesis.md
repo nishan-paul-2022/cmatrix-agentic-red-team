@@ -37,6 +37,6 @@ This sub-step finalized all quantitative and qualitative data tables for the pap
 - **Limitations**: Identify why the SR is not 100% (e.g., LLM hallucinations in extremely deep chains) for the "Future Work" section.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/table-04-planned-evaluation-results.tex`: Final results.
-- `research/paper-03-agent-reasoning/assets/table-05-case-study-attack-chain.tex`: Case study.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/table-04-planned-evaluation-results.tex`: Final results.
+- `research/paper-04-agent-reasoning/assets/table-05-case-study-attack-chain.tex`: Case study.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

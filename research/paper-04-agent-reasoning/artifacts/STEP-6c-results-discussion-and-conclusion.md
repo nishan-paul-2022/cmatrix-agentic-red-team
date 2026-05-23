@@ -44,7 +44,7 @@ This sub-step finalized the empirical and narrative sections of the research man
 - **Final Polish**: Check for consistent terminology throughout the modular sections.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/evaluation.tex`: Results source.
-- `research/paper-03-agent-reasoning/content/discussion.tex`: Discussion source.
-- `research/paper-03-agent-reasoning/content/conclusion.tex`: Conclusion source.
-- `research/paper-03-agent-reasoning/content/main.tex`: Updated wrapper.
+- `research/paper-04-agent-reasoning/content/evaluation.tex`: Results source.
+- `research/paper-04-agent-reasoning/content/discussion.tex`: Discussion source.
+- `research/paper-04-agent-reasoning/content/conclusion.tex`: Conclusion source.
+- `research/paper-04-agent-reasoning/content/main.tex`: Updated wrapper.

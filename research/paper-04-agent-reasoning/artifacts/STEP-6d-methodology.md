@@ -43,6 +43,6 @@ This sub-step finalized the technical core of the manuscript by expanding the Me
 - **Metric Verification**: Use the SR and TE data to prove the effectiveness of the architecture described in 6d.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/threat_model.tex`: Formal threat model.
-- `research/paper-03-agent-reasoning/content/methodology.tex`: Expanded methodology.
-- `research/paper-03-agent-reasoning/content/main.tex`: Updated wrapper.
+- `research/paper-04-agent-reasoning/content/threat_model.tex`: Formal threat model.
+- `research/paper-04-agent-reasoning/content/methodology.tex`: Expanded methodology.
+- `research/paper-04-agent-reasoning/content/main.tex`: Updated wrapper.

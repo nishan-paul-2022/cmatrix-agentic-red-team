@@ -47,6 +47,6 @@ This final sub-step performed a comprehensive quality and consistency audit of t
 **Ready**
 
 ## 7) Asset Files Finalized
-- `research/paper-03-agent-reasoning/main.tex`: Master file.
-- `research/paper-03-agent-reasoning/sections/`: 8 section files.
-- `research/paper-03-agent-reasoning/assets/`: 12 asset files + index.
+- `research/paper-04-agent-reasoning/main.tex`: Master file.
+- `research/paper-04-agent-reasoning/sections/`: 8 section files.
+- `research/paper-04-agent-reasoning/assets/`: 12 asset files + index.

@@ -40,7 +40,7 @@ This sub-step involved the generation of three high-quality LaTeX assets (Figure
 - **Ablation Visualization**: Consider if a Radar Chart is needed in 5b to visualize the ablation study tradeoffs.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/figure-03-reasoning-flow.tex`: Reasoning loop.
-- `research/paper-03-agent-reasoning/assets/figure-04-performance-chart.tex`: Success rate chart.
-- `research/paper-03-agent-reasoning/assets/figure-05-efficiency-chart.tex`: Token efficiency chart.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/figure-03-reasoning-flow.tex`: Reasoning loop.
+- `research/paper-04-agent-reasoning/assets/figure-04-performance-chart.tex`: Success rate chart.
+- `research/paper-04-agent-reasoning/assets/figure-05-efficiency-chart.tex`: Token efficiency chart.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

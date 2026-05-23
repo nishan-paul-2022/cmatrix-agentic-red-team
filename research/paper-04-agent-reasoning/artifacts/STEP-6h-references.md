@@ -37,5 +37,5 @@ The following keys are actively referenced in the manuscript:
 - **PDF Compilation**: The next logical step is to run `make paper-03` to verify that all cross-references, figures, and citations render perfectly.
 
 ## 7) Asset Files Updated
-- `research/paper-03-agent-reasoning/content/references.bib`: Finalized BibTeX source.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated.
+- `research/paper-04-agent-reasoning/content/references.bib`: Finalized BibTeX source.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated.

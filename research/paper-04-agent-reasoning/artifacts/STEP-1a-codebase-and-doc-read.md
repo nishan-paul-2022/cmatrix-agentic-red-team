@@ -5,10 +5,10 @@ This sub-step audited the CMatrix repository’s implementation and documentatio
 
 ## 2) Full Output
 
-### 2.1 Repository scope + where “paper-03-agent-reasoning/” actually is
+### 2.1 Repository scope + where “paper-04-agent-reasoning/” actually is
 - **Repo root contains**: `app-backend/`, `app-frontend/`, `docs/`, `research/`, `assets/`, `docker-compose*.yml`, `docker.sh`, `install.sh`, `Makefile`, `package.json`, `llm-config-template.json`, plus dotfolders (`.github/`, `.husky/`, `.vscode/`, `.git/`) and `node_modules/`.
-- **Discrepancy flagged**: the user prompt references `paper-03-agent-reasoning/` at repo root; in this repository it is located at `research/paper-03-agent-reasoning/`.
-- **LaTeX build system**: root `Makefile` builds papers via `make paper-03`, using `research/paper-03-agent-reasoning/content/main.tex` and emitting `research/paper-03-agent-reasoning/paper.pdf`.
+- **Discrepancy flagged**: the user prompt references `paper-04-agent-reasoning/` at repo root; in this repository it is located at `research/paper-04-agent-reasoning/`.
+- **LaTeX build system**: root `Makefile` builds papers via `make paper-03`, using `research/paper-04-agent-reasoning/content/main.tex` and emitting `research/paper-04-agent-reasoning/paper.pdf`.
 
 ### 2.2 System architecture overview (implementation-grounded)
 **CMatrix is a full-stack system** composed of:
@@ -110,9 +110,9 @@ There is also a streaming endpoint used by an Edge route:
 - `app-backend/app/api/v1/endpoints/jobs.py`: create/poll/cancel background jobs; adds robustness for corrupted Celery result payloads.
 
 #### 2.5.6 Research paper directories
-- `research/paper-03-agent-reasoning/content/main.tex`: current LaTeX draft (note: content is presently framed around “LLMOrch-VAPT” and uses raster `architecture.png`, `routing-flow.png`, `safety-gate.png`, `eval-graph.png`).
-- `research/paper-03-agent-reasoning/assets/`: contains raster figures referenced by `content/main.tex`.
-- `research/paper-01-red-teaming/`, `research/paper-02-hitl-safety/`, etc.: other paper tracks referenced by the root README and build system.
+- `research/paper-04-agent-reasoning/content/main.tex`: current LaTeX draft (note: content is presently framed around “LLMOrch-VAPT” and uses raster `architecture.png`, `routing-flow.png`, `safety-gate.png`, `eval-graph.png`).
+- `research/paper-04-agent-reasoning/assets/`: contains raster figures referenced by `content/main.tex`.
+- `research/paper-02-red-teaming/`, `research/paper-03-hitl-safety/`, etc.: other paper tracks referenced by the root README and build system.
 
 ### 2.6 Notable implementation details relevant to later research claims
 - **HITL enforcement is code-real** (not just prose):
@@ -128,9 +128,9 @@ There is also a streaming endpoint used by an Edge route:
   - Container runtime choices (`privileged`, host PID/network, host filesystem mount) create a strong “agent can affect host” capability; this will matter for any threat model and for what the HITL gates are expected to prevent.
 
 ### 2.7 Discrepancies / unusual choices (flagged)
-- **Path mismatch**: prompt references `paper-03-agent-reasoning/` at root; repository uses `research/paper-03-agent-reasoning/`.
-- **Paper-03 draft mismatch with topic**: `research/paper-03-agent-reasoning/content/main.tex` is currently titled around **“LLMOrch-VAPT”** and includes content (e.g., “97.4% success rate across 1,500 tasks”, references to specific provider tiers and GPU setup) that is not yet validated here in Step 1a; this is a risk for later steps (Step 1b/1c).
-- **Research asset format mismatch with required rules**: current paper assets are raster `.png` files in `research/paper-03-agent-reasoning/assets/`, while the target process requires **TikZ/pgfplots** assets as separate `.tex` files. (This is not fixed in Step 1a; only flagged.)
+- **Path mismatch**: prompt references `paper-04-agent-reasoning/` at root; repository uses `research/paper-04-agent-reasoning/`.
+- **Paper-03 draft mismatch with topic**: `research/paper-04-agent-reasoning/content/main.tex` is currently titled around **“LLMOrch-VAPT”** and includes content (e.g., “97.4% success rate across 1,500 tasks”, references to specific provider tiers and GPU setup) that is not yet validated here in Step 1a; this is a risk for later steps (Step 1b/1c).
+- **Research asset format mismatch with required rules**: current paper assets are raster `.png` files in `research/paper-04-agent-reasoning/assets/`, while the target process requires **TikZ/pgfplots** assets as separate `.tex` files. (This is not fixed in Step 1a; only flagged.)
 
 ### 2.8 Files/directories read in this sub-step (evidence list)
 
@@ -165,8 +165,8 @@ There is also a streaming endpoint used by an Edge route:
 #### 2.8.3 `research/` (read; paper-relevant)
 - `research/index.md`
 - `research/prompt.md`
-- `research/paper-03-agent-reasoning/content/main.tex`
-- `research/paper-03-agent-reasoning/discussion.md`
+- `research/paper-04-agent-reasoning/content/main.tex`
+- `research/paper-04-agent-reasoning/discussion.md`
 
 #### 2.8.4 Backend and frontend “spine” files (read; system-critical)
 - Backend:
@@ -196,12 +196,12 @@ There is also a streaming endpoint used by an Edge route:
 > Note: a full module-by-module inventory of every source file is large; this artifact captures the complete **execution spine** plus all **research-relevant modules** and configuration necessary to map the system end-to-end for Step 1b/1c.
 
 ## 3) Key Decisions Made
-- **Paper directory resolution**: treated `research/paper-03-agent-reasoning/` as the target paper workspace since repo root does not contain `paper-03-agent-reasoning/`.
+- **Paper directory resolution**: treated `research/paper-04-agent-reasoning/` as the target paper workspace since repo root does not contain `paper-04-agent-reasoning/`.
 - **Secret handling**: avoided using `.env` contents as an input source for the artifact (only `.env.example`), to prevent accidental disclosure of secrets while still documenting the config surface.
 - **Architecture emphasis**: prioritized reading and documenting the *real execution spine* (orchestrator + supervisor + approval + checkpoint + Celery jobs + UI hook) because those modules are the grounding for research claims about “agent reasoning patterns” and safety controls.
 
 ## 4) Open Questions (blockers / uncertainties for next steps)
-- **Paper/implementation alignment**: `research/paper-03-agent-reasoning/content/main.tex` currently includes strong quantitative claims (e.g., “1,500 tasks”, “97.4% success”, “80% cost reduction”) and multiple raster figures; Step 1b/1c must verify which are supported by code, logs, or datasets in this repo.
+- **Paper/implementation alignment**: `research/paper-04-agent-reasoning/content/main.tex` currently includes strong quantitative claims (e.g., “1,500 tasks”, “97.4% success”, “80% cost reduction”) and multiple raster figures; Step 1b/1c must verify which are supported by code, logs, or datasets in this repo.
 - **Which interaction mode is canonical**: the frontend contains both an SSE proxy route (`app/api/chat/route.ts`) and a job/poll-based UI hook (`use-chat-stream.ts`). Step 1b should decide which path the paper describes and evaluate consistency.
 - **Where evaluation data lives**: Step 1a did not locate a clearly defined evaluation dataset or experiment harness corresponding to the paper-03 quantitative claims; Step 1b/1c should treat this as a critical verification item.
 
@@ -217,12 +217,12 @@ There is also a streaming endpoint used by an Edge route:
 - [PASS] Asset index file `assets/ASSET-INDEX.md` created (even if empty at this stage)
 
 ## 6) Input for Next Step (Step 1b)
-- **Target paper to read**: `research/paper-01-red-teaming/` (per the process) and its contents, using this Step 1a artifact as the system ground truth.
+- **Target paper to read**: `research/paper-02-red-teaming/` (per the process) and its contents, using this Step 1a artifact as the system ground truth.
 - **Cross-check focus**:
   - Identify every claim in the paper and map it to concrete implementation components (or flag as unsupported).
   - Inventory figures/tables and mark raster/placeholder/needs-replacement.
   - Extract methodology as stated and compare to the actual orchestrator + supervisor + HITL + checkpointing + memory pipeline described here.
 
 ## 7) Asset Files Created (this sub-step)
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Initialized asset index (empty tables; no figures/tables created in Step 1a by design).
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Initialized asset index (empty tables; no figures/tables created in Step 1a by design).
 

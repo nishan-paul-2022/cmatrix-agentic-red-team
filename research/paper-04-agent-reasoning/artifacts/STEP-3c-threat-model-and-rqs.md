@@ -58,5 +58,5 @@ This sub-step defined the formal threat model and research questions (RQs) that 
 - **Tool Mapping**: Map the "Security Tool Registry" from the figure to the actual tools implemented in CMatrix (Nmap, etc.).
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/assets/figure-01-threat-model.tex`: Threat model diagram.
-- `research/paper-03-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.
+- `research/paper-04-agent-reasoning/assets/figure-01-threat-model.tex`: Threat model diagram.
+- `research/paper-04-agent-reasoning/assets/ASSET-INDEX.md`: Updated index.

@@ -40,6 +40,6 @@ This sub-step finalized the academic and technical heart of the manuscript. We d
 - **Discussion Integration**: Step 6c will synthesize the Discussion and Conclusion.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/related_work.tex`: Related work source.
-- `research/paper-03-agent-reasoning/content/methodology.tex`: Methodology source.
-- `research/paper-03-agent-reasoning/content/main.tex`: Updated wrapper.
+- `research/paper-04-agent-reasoning/content/related_work.tex`: Related work source.
+- `research/paper-04-agent-reasoning/content/methodology.tex`: Methodology source.
+- `research/paper-04-agent-reasoning/content/main.tex`: Updated wrapper.

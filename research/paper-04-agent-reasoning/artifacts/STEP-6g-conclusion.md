@@ -32,5 +32,5 @@ This sub-step finalized the Conclusion section (§7) of the research manuscript.
 - **Final Compilation**: Confirm that all `\cite{...}` commands in the final text match the entries in `references.bib`.
 
 ## 7) Asset Files Created
-- `research/paper-03-agent-reasoning/content/conclusion.tex`: Finalized conclusion source.
-- `research/paper-03-agent-reasoning/content/main.tex`: (Already updated).
+- `research/paper-04-agent-reasoning/content/conclusion.tex`: Finalized conclusion source.
+- `research/paper-04-agent-reasoning/content/main.tex`: (Already updated).
