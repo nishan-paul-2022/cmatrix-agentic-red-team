@@ -6,10 +6,10 @@ This document serves as the high-fidelity **Acquisition and Recovery backlog** f
 
 | Backlog Category | Count | Primary Action | Target Location |
 |---|---|---|---|
-| **❌ Wrong Downloads (Mismatches)** | **57** | Target re-download with verified clean titles | `research/downloaded-paper/` |
+| **❌ Wrong Downloads (Mismatches)** | **52** | Target re-download with verified clean titles | `research/downloaded-paper/` |
 | **📇 Paywalled Reference Cards** | **7** | Institutional/manual access required | `research/downloaded-paper/` |
-| **⚠️ Completely Missing Papers** | **6** | Initial automated/manual fetch | `research/downloaded-paper/` |
-| **✨ Total Backlog Items** | **70** | **Full Library Alignment** | |
+| **⚠️ Completely Missing Papers** | **1** | Initial automated/manual fetch | `research/downloaded-paper/` |
+| **✨ Total Backlog Items** | **60** | **Full Library Alignment** | |
 
 ---
 
@@ -18,12 +18,9 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 
 | Expected Title | Author(s) / Research Lab | Original Filename | Action / Link |
 |---|---|---|---|
-| PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | Yinzhi Cao (JHU), Suman Jana (Columbia) et al. | `004-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf` | [Link](https://yinzhicao.org) |
 | AI/ML for Network Security: Measurement and Threat Detection | Nick Feamster et al. (University of Chicago NOISE Lab) | `005-aiml-for-network-security-measurement-and-threat-detection.pdf` | [Link](https://people.cs.uchicago.edu/~feamster/) |
 | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | David Brumley (CMU / ForAllSecure) | `011-forallsecuremayhem-autonomous-vapt-in-federal-production.pdf` | [Link](https://forallsecure.com/mayhem) |
-| NeuroScope: Reverse Engineering DNNs on Edge Devices (USENIX Security 2025) | Ruoyu Wu, Muqi Zou, Arslan Khan, Taegyu Kim, Dongyan Xu, Dave (Jing) Tian, Antonio Bianchi (Purdue PurSec) | `019-neuroscope-reverse-engineering-dnns-on-edge-devices.pdf` | [Link](https://www.usenix.org/conference/usenixsecurity25) |
 | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | Jiaping Gui, Mingjie Nie, Jinyao Guo, Futai Zou, Mati Ur Rehman, Wajih Ul Hassan (UVA) | `026-apt-detection-in-massive-networks-via-multi-stage-causal.pdf` | [Link](https://dartlab.org/publications/) |
-| F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code | Georgios Portokalidis et al. (Stevens Institute + IMDEA Software) | `033-f-blocker-disabling-vulnerability-triggering-functionality.pdf` | [Link](https://www.portokalidis.net) |
 | AI-Driven Malware Analysis and Cyber-Physical Systems Security | Peng Liu et al. (Penn State Cyber Security Lab) | `037-ai-driven-malware-analysis-and-cyber-physical-systems.pdf` | [Link](https://sites.psu.edu/pengliu/) |
 | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | Ting Wang et al. (Penn State ALPS Lab) | `038-adversarial-attacks-against-llm-agents-prompt-injection-and.pdf` | [Link](https://alps-lab.github.io) |
 | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | Gang Tan et al. (Penn State Security and PL Group) | `039-webassembly-security-vulnerability-analysis-and-software.pdf` | [Link](https://www.cse.psu.edu/~gxt29/) |
@@ -38,7 +35,6 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster ($625K, Oct 2025) | Peng Gao (Virginia Tech) | `053-nsf-career-using-llms-to-help-security-analysts-identify.pdf` | [Link](https://people.cs.vt.edu/penggao/) |
 | IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026) | Pubali Datta (UMass), Z. Berkay Celik (Purdue) et al. | `054-iot-security-and-provenance-based-attack-forensics.pdf` | [Link](https://pubali.github.io) |
 | LLMs for PLC Code Security in Industrial Control Systems | Long Lu et al. (Northeastern RiS3 Lab) | `056-llms-for-plc-code-security-in-industrial-control-systems.pdf` | [Link](https://www.longlu.org) |
-| PANDA: Whole-System Dynamic Analysis Platform for Security Research (ongoing updates through 2024) | Brendan Dolan-Gavitt (NYU), Josh Hodosh, Wil Robertson (Northeastern), Tim Leek, Ryan Whelan | `058-panda-whole-system-dynamic-analysis-platform-for-security.pdf` | [Link](https://github.com/panda-re/panda) |
 | AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software | Zhiqiang Lin et al. (Ohio State SSSL Lab) | `059-ai-assisted-bug-finding-in-kernel-firmware-and-binary.pdf` | [Link](https://zhiqiang.org) |
 | Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `060-fizzle-a-framework-for-deterministic-and-reproducible.pdf` | [Link](https://enck.org) |
 | Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems | Dipankar Dasgupta et al. (University of Memphis ISS Lab) | `063-autonomous-security-agents-and-moving-target-defense.pdf` | [Link](https://www.memphis.edu/cs/people/faculty_pages/dasgupta.php) |
@@ -69,7 +65,6 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | Game-Theoretic Modeling of Attacker-Defender Interactions in Network Security | Qi Liao et al. (Central Michigan University) | `096-game-theoretic-modeling-of-attacker-defender-interactions.pdf` | [Link](https://www.cmich.edu/directory/qi-liao) |
 | Automotive Cybersecurity and Adversarial Attacks on Embedded Systems | Linxi Zhang et al. (Central Michigan University) | `097-automotive-cybersecurity-and-adversarial-attacks-on.pdf` | [Link](https://www.cmich.edu/directory/linxi-zhang) |
 | Systematic Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety Bugs | Chengyu Song et al. (UC Riverside) | `099-systematic-kernel-fuzzing-and-os-vulnerability-discovery.pdf` | [Link](https://www.cs.ucr.edu/~csong/) |
-| DECAF: Dynamic Executable Code Analysis Framework — Whole-System Dynamic Malware Analysis and Taint Analysis | Heng Yin et al. (UC Riverside) | `101-decaf-dynamic-executable-code-analysis-framework-whole.pdf` | [Link](https://www.cs.ucr.edu/~heng/) |
 | AI-Driven Security Analysis of Smart Home and Industrial IoT/CPS Devices: Attack Detection and Defense | Selcuk Uluagac et al. (Florida International University) | `102-ai-driven-security-analysis-of-smart-home-and-industrial.pdf` | [Link](https://users.cs.fiu.edu/~uluagac/) |
 | LLM Package Hallucination Attacks: How LLMs Frequently Generate Code with Non-Existent and Insecure Packages | Murtuza Jadliwala et al. (University of Texas at San Antonio) | `103-llm-package-hallucination-attacks-how-llms-frequently.pdf` | [Link](https://sites.google.com/site/murtuza.jadliwala) |
 | AI-Driven Network Measurement and Autonomous Threat Detection | Abdullah Yasin Nur et al. (University of New Orleans) | `104-ai-driven-network-measurement-and-autonomous-threat.pdf` | [Link](https://www.uno.edu/directory/faculty/nur.php) |
@@ -82,8 +77,8 @@ These papers are behind professional academic publishers (IEEE, Elsevier, Wiley)
 | Paper Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
 | PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing | Wenhao Wang, Hao Gu, Zhixuan Wu et al. (NJUPT) | `08-ptfusion-llm-driven-context-aware-knowledge-fusion-for-web.pdf` | [Link](https://www.sciencedirect.com/science/article/pii/S1566253525007936) |
-| A Survey on the Unique Security of Autonomous and Collaborative LLM Agents | Collaborative Community Consensus Report | `10-a-survey-on-the-unique-security-of-autonomous-and.pdf` | [Link](https://www.preprints.org/manuscript/202602.1655) |
-| CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling | Department of Computer Science & Engineering research team | `34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf` | [Link](https://www.mdpi.com/2076-3417/15/16/9096) |
+| A Survey on the Unique Security of Autonomous and Collaborative LLM Agents | Collaborative Community Consensus Report | `10-a-survey-on-the-unique-security-of-autonomous-and.pdf` | [Download PDF](https://www.preprints.org/manuscript/202602.1655/v2/download) |
+| CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling | Department of Computer Science & Engineering research team | `34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf` | [Download PDF](https://www.mdpi.com/2076-3417/15/16/9096/pdf) |
 | PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK | Attack-Scaffolding research group | `57-pentest-ai-an-llm-powered-multi-agents-framework-for.pdf` | [Link](https://ieeexplore.ieee.org/abstract/document/10679480) |
 | An Empirical Survey of CTF Environments | Cybersecurity Training and Education Consortium | `61-an-empirical-survey-of-ctf-environments.pdf` | [Link](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303) |
 | LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | Jun Dai et al. (WPI) | `062-llm-membership-inference-and-model-extraction-against-llm.pdf` | [Link](https://users.wpi.edu/~jdai/) |
@@ -94,9 +89,4 @@ These papers were not found in the original local filesystem and require initial
 
 | Paper Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
-| PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | Yinzhi Cao (JHU), Suman Jana (Columbia) et al. | `N/A` | [Link](http://www.cs.columbia.edu/~suman/) |
-| CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
-| CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
-| CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
 | Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `N/A` | [Link](https://www.cise.ufl.edu/~traynor/) |
-| Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | Yan Shoshitaishvili, Adam Doupé (Arizona State University) | `N/A` | [Link](https://www.ndss-symposium.org/ndss-paper/decompiling-the-synergy-an-empirical-study-of-human-llm-teaming-in-software-reverse-engineering/) |
