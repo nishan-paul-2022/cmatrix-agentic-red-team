@@ -80,10 +80,10 @@
 
 ---
 
-### 9. Towards Automated Penetration Testing: A Survey
-- **Venue:** 🟠 arXiv (2023 / 2024)
-- **arXiv:** [2303.01323](https://arxiv.org/abs/2303.01323)
-- **Why it matters for CMatrix:** Side-by-side comparison of autonomous pentesting agents, mapping traditional automated VAPT systems to modern generative models.
+### 9. Towards Automated Penetration Testing: Introducing LLM Benchmark, Analysis, and Improvements
+- **Venue:** 🟠 arXiv (Oct 2024)
+- **arXiv:** [2410.17141](https://arxiv.org/abs/2410.17141)
+- **Why it matters for CMatrix:** Introduces an open benchmark for evaluating LLM agents on end-to-end penetration testing. Helpful reference for our evaluation setup.
 
 ---
 

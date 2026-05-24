@@ -211,10 +211,10 @@
 ---
 
 ### 26. RedTeamLLM: an Agentic AI Framework for Offensive Security
-- **Venue:** 🟠 arXiv (Dec 2025)
-- **arXiv:** [2512.14233](https://arxiv.org/abs/2512.14233)
+- **Venue:** 🟠 arXiv (May 2025)
+- **arXiv:** [2505.06913](https://arxiv.org/abs/2505.06913)
 - **Code:** [GitHub](https://github.com/lre-security-systems-team/redteamllm)
-- **Why it matters for CMatrix:** Explicit offensive security agentic framework — reconnaissance, exploitation, reporting phases. Direct architectural comparison.
+- **Why it matters for CMatrix:** Direct autonomous agentic VAPT framework designed to solve open challenges in planning, memory, and tool integration. Useful architectural reference.
 
 ---
 
