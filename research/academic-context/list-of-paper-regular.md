@@ -31,19 +31,16 @@ This table provides a comprehensive index of foundational and thematic research 
 | **15** | 🔴 **P1** | RAG for Cybersecurity: Hybrid Retrieval for LLMs | 2025 | arXiv, Oct 2025 | Arnabh Borah | Georgia Institute of Technology | #33 |
 | **16** | 🔴 **P1** | Survey on the Security of Long-Term Memory in LLM Agents | 2026 | arXiv, April 2026 | Zehao Lin | MemTensor | N/A (Industry) |
 | **17** | 🟠 **P2** | Towards Secure RAG: Comprehensive Review of Threats, Defenses | 2026 | arXiv, March 2026 | Yanming Mu | Chinese Academy of Sciences | #100 |
-| **18** | 🟠 **P2** | Securing RAG: Taxonomy of Attacks, Defenses | 2026 | arXiv, April 2026 | Yuming Xu | Hong Kong University of Science and Technology | #101 |
-| **19** | 🟠 **P2** | Memory for Autonomous LLM Agents: Mechanisms & Evaluation | 2026 | arXiv, March 2026 | Pengfei Du | Cornell University | #17 |
-| **20** | 🟠 **P2** | Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025) | 2025 | ECAI 2025 | Prateek Chhikara | Mem0 | N/A (Industry) |
-| **21** | 🔴 **P1** | AutoPenBench: Benchmarking Generative Agents for Pentesting | 2024 | arXiv, Oct 2024 | Luca Gioacchini | Politecnico di Torino | #527 |
-| **22** | 🟠 **P2** | CAIBench: Cybersecurity AI Meta-Benchmark | 2025 | arXiv, Oct 2025 | María Sanz-Gómez | Alias Robotics | N/A (Industry) |
-| **23** | 🔴 **P1** | ReAct: Synergizing Reasoning and Acting in LLMs (ICLR 2023) | 2023 | ICLR 2023 | Shunyu Yao | Princeton University | #16 |
-| **24** | 🔴 **P1** | Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023) | 2023 | NeurIPS 2023 | Shunyu Yao | Princeton University | #16 |
-| **25** | 🔴 **P1** | Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022) | 2022 | NeurIPS 2022 | Jason Wei | Google Brain | N/A (Industry) |
-| **26** | 🔴 **P1** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn | Northeastern University | #179 |
-| **27** | 🔴 **P1** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang | Chinese Academy of Sciences | #100 |
-| **28** | 🟠 **P2** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 | Yasod Ginige | University of Sydney | #29 |
-| **29** | 🟠 **P2** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 | Valentina Casola | University of Naples Federico II | #187 |
-| **30** | 🟠 **P2** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 | Hanxiang Xu | Huazhong University of Science and Technology | #91 |
+| **18** | 🔴 **P1** | AutoPenBench: Benchmarking Generative Agents for Pentesting | 2024 | arXiv, Oct 2024 | Luca Gioacchini | Politecnico di Torino | #527 |
+| **19** | 🟠 **P2** | CAIBench: Cybersecurity AI Meta-Benchmark | 2025 | arXiv, Oct 2025 | María Sanz-Gómez | Alias Robotics | N/A (Industry) |
+| **20** | 🔴 **P1** | ReAct: Synergizing Reasoning and Acting in LLMs (ICLR 2023) | 2023 | ICLR 2023 | Shunyu Yao | Princeton University | #16 |
+| **21** | 🔴 **P1** | Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023) | 2023 | NeurIPS 2023 | Shunyu Yao | Princeton University | #16 |
+| **22** | 🔴 **P1** | Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022) | 2022 | NeurIPS 2022 | Jason Wei | Google Brain | N/A (Industry) |
+| **23** | 🔴 **P1** | Reflexion: Language Agents with Verbal RL (NeurIPS 2023) | 2023 | NeurIPS 2023 | Noah Shinn | Northeastern University | #179 |
+| **24** | 🔴 **P1** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang | Chinese Academy of Sciences | #100 |
+| **25** | 🟠 **P2** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 | Yasod Ginige | University of Sydney | #29 |
+| **26** | 🟠 **P2** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 | Valentina Casola | University of Naples Federico II | #187 |
+| **27** | 🟠 **P2** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 | Hanxiang Xu | Huazhong University of Science and Technology | #91 |
 
 ---
 
@@ -224,39 +221,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 18 `[🟠 P2 | 2026]` Securing RAG: Taxonomy of Attacks, Defenses, and Future Directions
-- **Paper:** [Securing RAG: A Taxonomy of Attacks, Defenses, and Future Directions](https://arxiv.org/abs/2604.08304)
-- **Authors:** Yuming Xu, Mingtao Zhang, Zhuohan Ge, Haoyang Li, Nicole Hu, Jason Chen Zhang, Qing Li, Lei Chen
-- **Institution:** Hong Kong University of Science and Technology
-- **Venue:** **arXiv, April 2026**
-- **Relevance:** Comprehensive RAG attack/defense taxonomy — security analysis for `CMatrix`'s SSC + Qdrant memory.
-
----
-
-### 19 `[🟠 P2 | 2026]` Memory for Autonomous LLM Agents: Mechanisms & Evaluation
-- **Paper:** [Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers](https://arxiv.org/abs/2603.07670)
-- **Authors:** Pengfei Du
-- **Institution:** Cornell University
-- **Venue:** **arXiv, March 2026**
-- **Relevance:** Comprehensive survey of agent memory systems — background for `CMatrix`'s vector memory design.
-
----
-
-### 20 `[🟠 P2 | 2025]` Mem0: Intelligent Memory Layer for AI Applications (ECAI 2025)
-- **Paper:** [Mem0: Intelligent Memory Layer for Personalized AI](https://arxiv.org/abs/2504.19413)
-- **Authors:** Prateek Chhikara, Dev Khant, Saket Aryan, Taranjeet Singh, Deshraj Yadav
-- **Institution:** Mem0
-- **Venue:** **ECAI 2025**
-- **Relevance:** Production memory system — benchmark for `CMatrix`'s Qdrant-based memory architecture.
-
----
-
-## 📊 SECTION 5 — CYBERSECURITY BENCHMARKS & EVALUATION
-> 📢 **Gold-standard benchmarks for evaluating AI agent offensive capabilities.**
-
----
-
-### 21 `[🔴 P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
+### 18 `[🔴 P1 | 2024]` AutoPenBench: Benchmarking Generative Agents for Penetration Testing
 - **Paper:** [AutoPenBench: Benchmarking Generative Agents for Penetration Testing](https://arxiv.org/abs/2410.03225)
 - **Authors:** Luca Gioacchini, Marco Mellia et al.
 - **Institution:** Politecnico di Torino
@@ -265,7 +230,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 22 `[🟠 P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
+### 19 `[🟠 P2 | 2025]` CAIBench: Cybersecurity AI Meta-Benchmark
 - **Paper:** [Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents](https://arxiv.org/abs/2510.24317)
 - **Authors:** María Sanz-Gómez, Víctor Mayoral-Vilches, Francesco Balassone, Luis Javier Navarrete-Lozano, et al.
 - **Institution:** Alias Robotics
@@ -279,7 +244,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 23 `[🔴 P1 | 2023]` ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)
+### 20 `[🔴 P1 | 2023]` ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)
 - **Paper:** [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 - **Authors:** Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao
 - **Institution:** Princeton University + Google Brain
@@ -288,7 +253,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 24 `[🔴 P1 | 2023]` Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023)
+### 21 `[🔴 P1 | 2023]` Tree of Thoughts: Deliberate Problem Solving with LLMs (NeurIPS 2023)
 - **Paper:** [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
 - **Authors:** Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan
 - **Institution:** Princeton University + Google DeepMind
@@ -297,7 +262,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 25 `[🔴 P1 | 2022]` Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022)
+### 22 `[🔴 P1 | 2022]` Chain-of-Thought Prompting Elicits Reasoning in LLMs (NeurIPS 2022)
 - **Paper:** [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
 - **Authors:** Jason Wei, Xuezhi Wang, Dale Schuurmans, et al.
 - **Institution:** Google Brain / Google Research
@@ -306,7 +271,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 26 `[🔴 P1 | 2023]` Reflexion: Language Agents with Verbal RL (NeurIPS 2023)
+### 23 `[🔴 P1 | 2023]` Reflexion: Language Agents with Verbal RL (NeurIPS 2023)
 - **Paper:** [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366)
 - **Authors:** Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
 - **Institution:** Northeastern University + Princeton University
@@ -320,7 +285,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 27 `[🔴 P1 | 2025]` When LLMs Meet Cybersecurity: A Systematic Literature Review
+### 24 `[🔴 P1 | 2025]` When LLMs Meet Cybersecurity: A Systematic Literature Review
 - **Paper:** [When LLMs Meet Cybersecurity: A Systematic Literature Review](https://doi.org/10.1186/s42400-025-00361-w)
 - **Authors:** Jie Zhang, Haoyu Bu, Hui Wen, Yongji Liu, et al.
 - **Institution:** Institute of Information Engineering, Chinese Academy of Sciences
@@ -329,7 +294,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 28 `[🟠 P2 | 2026]` Pen-Strategist Survey Table (28 LLM-based PT Systems — Most Comprehensive as of May 2026)
+### 25 `[🟠 P2 | 2026]` Pen-Strategist Survey Table (28 LLM-based PT Systems — Most Comprehensive as of May 2026)
 - **Paper:** [Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation](https://arxiv.org/abs/2605.04499)
 - **Authors:** Yasod Ginige, Pasindu Marasinghe, Sajal Jain, Suranga Seneviratne
 - **Institution:** The University of Sydney + University of Colombo
@@ -338,7 +303,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 29 `[🟠 P2 | 2024]` Towards Automated Penetration Testing: A Survey
+### 26 `[🟠 P2 | 2024]` Towards Automated Penetration Testing: A Survey
 - **Paper:** [Towards Automated Penetration Testing: A Survey](https://arxiv.org/abs/2303.01323)
 - **Authors:** Valentina Casola, Alessandra De Benedictis, Massimiliano Rak, Umberto Villano
 - **Institution:** University of Naples Federico II
@@ -347,7 +312,7 @@ This table provides a comprehensive index of foundational and thematic research 
 
 ---
 
-### 30 `[🟠 P2 | 2024]` A Survey on Large Language Models for Cybersecurity
+### 27 `[🟠 P2 | 2024]` A Survey on Large Language Models for Cybersecurity
 - **Paper:** [A Survey on Large Language Models for Cybersecurity](https://arxiv.org/abs/2405.04828)
 - **Authors:** Hanxiang Xu, Shenao Wang, Ningke Li, Kailong Wang, Yanjie Zhao, Kai Chen, Ting Yu, Yang Liu, Haoyu Wang
 - **Institution:** Huazhong University of Science and Technology + Hamad Bin Khalifa University + Nanyang Technological University
