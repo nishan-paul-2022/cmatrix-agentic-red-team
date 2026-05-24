@@ -503,5 +503,3 @@
 5. **UC Berkeley, CMU, MIT, Stanford** all look at top-4 security (S&P, CCS, USENIX, NDSS) and top AI (NeurIPS, ICML, ICLR) publications most heavily
 
 ---
-
-*Generated: May 2026 | Based on confirmed 2026–2027 CFPs from sec-deadlines.github.io and official conference sites*
