@@ -136,10 +136,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #1 — Nickolai Zeldovich · MIT · USNWR #1
-> ℹ️ **Academic Profile:**
-> - **Lab:** PDOS + CSS, MIT CSAIL
-> - **Focus:** End-to-end formal verification and modular security.
-> - **Contact:** nickolai@csail.mit.edu | [Website](https://people.csail.mit.edu/nickolai)
 
 ### 1 `[🟠 P2 | 2024]` Modular Verification of Secure and Leakage-Free Systems (SOSP 2024)
 - **Paper:** [Modular Verification...](https://people.csail.mit.edu/nickolai/)
@@ -151,9 +147,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #2 — Dawn Song · UC Berkeley · USNWR #4
-> ℹ️ **Academic Profile:**
-> - **Lab:** Berkeley RDI + BAIR Lab
-> - **Contact:** dawnsong@cs.berkeley.edu | [Website](https://dawnsong.io)
 
 ### 2 `[🔴 P1 | 2026]` CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026)
 - **Paper:** [CyberGym: Evaluating AI Agents' Real-World Cybersecurity Capabilities at Scale](https://arxiv.org/abs/2506.02548) | **PDF:** [Link](https://arxiv.org/pdf/2506.02548)
@@ -165,9 +158,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #3 — Xinyu Xing · Northwestern University · USNWR #9
-> ℹ️ **Academic Profile:**
-> - **Lab:** Security Research Group, Northwestern CS
-> - **Contact:** xingxinyu@northwestern.edu | [Website](https://www.mccormick.northwestern.edu/research-faculty/directory/profiles/xing-xinyu.html)
 
 ### 3 `[🔴 P1 | 2025]` PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX Security 2025)
 - **Paper:** [PATCHAGENT: A Practical Program Repair Agent Mimicking Human Expertise](https://www.usenix.org/conference/usenixsecurity25/presentation/yu-zheng)
@@ -179,9 +169,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #4 — Yinzhi Cao · Johns Hopkins University · USNWR #9
-> ℹ️ **Academic Profile:**
-> - **Lab:** JHU Information Security Institute (Technical Director)
-> - **Contact:** yinzhi.cao@jhu.edu | [Website](https://yinzhicao.org)
 
 ### 4 `[🟠 P2 | 2025]` PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing
 - **Paper:** [PILOT: Path-Guided, Iterative LLM-Orchestrated Testing for Fuzzing CLI Applications](https://yinzhicao.org)
@@ -193,9 +180,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #5 — Nick Feamster · University of Chicago · USNWR #12
-> ℹ️ **Academic Profile:**
-> - **Lab:** NOISE Lab
-> - **Contact:** feamster@uchicago.edu | [Website](https://people.cs.uchicago.edu/~feamster/)
 
 ### 5 `[🟠 P2 | 2025]` AI/ML for Network Security: Measurement and Threat Detection
 - **Paper:** [Data-Driven Network Security: Empirical Measurement and AI-Based Threat Detection](https://people.cs.uchicago.edu/~feamster/)
@@ -207,9 +191,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #6 — Suman Jana · Columbia University · USNWR #12
-> ℹ️ **Academic Profile:**
-> - **Lab:** Columbia Security & Privacy Lab
-> - **Contact:** suman@cs.columbia.edu | [Website](http://www.cs.columbia.edu/~suman/)
 
 ### 6 `[🔴 P1 | 2025]` Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection
 - **Paper:** [Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection](https://arxiv.org/abs/2501.05432)
@@ -221,9 +202,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #7 — Vitaly Shmatikov · Cornell Tech · USNWR #17 (Cornell)
-> ℹ️ **Academic Profile:**
-> - **Lab:** Cornell Tech Security & Privacy Group
-> - **Contact:** shmatikov@cornell.edu | [Website](https://tech.cornell.edu/people/vitaly-shmatikov/)
 
 ### 7 `[🔴 P1 | 2025]` Multi-Agent Systems Execute Arbitrary Malicious Code (COLM 2025)
 - **Paper:** [Multi-Agent Systems Execute Arbitrary Malicious Code](https://arxiv.org/abs/2503.12188)
@@ -235,9 +213,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #8 — Lujo Bauer · CMU · USNWR #22
-> ℹ️ **Academic Profile:**
-> - **Lab:** CyLab Cyber Autonomy Research Center (Director)
-> - **Contact:** lbauer@cmu.edu | [Website](https://www.ece.cmu.edu/directory/bios/bauer-lujo.html)
 
 ### 8 `[🔴 P1 | 2025]` Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks
 - **Paper:** [Incalmo: An Autonomous LLM-assisted System for Red Teaming Multi-Host Networks](https://arxiv.org/abs/2501.16466) | **PDF:** [Link](https://arxiv.org/pdf/2501.16466) | **Code:** [Link](https://github.com/bsinger98/Incalmo)
@@ -249,9 +224,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #9 — Vyas Sekar · CMU · USNWR #22
-> ℹ️ **Academic Profile:**
-> - **Lab:** CyLab Security & Privacy Institute
-> - **Contact:** vsekar@andrew.cmu.edu | [Website](https://ece.cmu.edu/directory/bios/sekar-vyas.html)
 
 ### 9 `[🔴 P1 | 2025]` Incalmo / MHBench: Multi-Host Attack Benchmark
 - **Paper:** [Incalmo + MHBench: Autonomous LLM Red Teaming of Multi-Host Networks](https://arxiv.org/abs/2501.16466) | **PDF:** [Link](https://arxiv.org/pdf/2501.16466) | **Code:** [Link](https://github.com/bsinger98/Incalmo)
@@ -263,9 +235,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #10 — David Brumley · CMU · USNWR #22
-> ℹ️ **Academic Profile:**
-> - **Lab:** CyLab Security & Privacy Institute
-> - **Contact:** dbrumley@cmu.edu | [Website](https://www.cs.cmu.edu/~dbrumley/)
 
 ### 10 `[🔴 P1 | 2012/2016]` Unleashing Mayhem on Binary Code: Autonomous Cyber Reasoning System (IEEE S&P 2012 / DARPA CGC Winner)
 - **Paper:** [Unleashing Mayhem on Binary Code](https://ieeexplore.ieee.org/document/7546500)
@@ -286,9 +255,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #11 — Matthew Fredrikson · CMU · USNWR #22
-> ℹ️ **Academic Profile:**
-> - **Lab:** CyLab, CMU CS & S3D; CATCH MURI group
-> - **Contact:** mfredrik@cmu.edu | [Website](https://mattfredrikson.com)
 
 ### 12 `[🔴 P1 | 2023]` Universal and Transferable Adversarial Attacks on Aligned Language Models (GCG Attack)
 - **Paper:** [Universal and Transferable Adversarial Attacks on Aligned Language Models](https://arxiv.org/abs/2307.15043) | **PDF:** [Link](https://arxiv.org/pdf/2307.15043)
@@ -309,9 +275,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #12 — Taesoo Kim · Georgia Tech · USNWR #33
-> ℹ️ **Academic Profile:**
-> - **Lab:** GTS3 — https://gts3.org
-> - **Contact:** taesoo@gatech.edu | [Website](https://taesoo.kim)
 
 ### 14 `[🔴 P1 | 2025]` ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System (DEF CON 33, 1st Place, $4M)
 - **Paper:** [ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System](https://team-atlanta.github.io/)
@@ -323,9 +286,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #13 — Wenke Lee · Georgia Tech · USNWR #33
-> ℹ️ **Academic Profile:**
-> - **Lab:** GTISC
-> - **Contact:** wenke@cc.gatech.edu | [Website](https://wenke.gtisc.gatech.edu)
 
 ### 15 `[🔴 P1 | 2025]` Systems Security Foundations for Agentic Computing (SAGAI @ IEEE S&P 2025)
 - **Paper:** [Systems Security Foundations for Agentic Computing](https://arxiv.org/abs/2512.01295)
@@ -337,9 +297,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #14 — Gang Wang · UIUC · USNWR #35
-> ℹ️ **Academic Profile:**
-> - **Lab:** STS Lab
-> - **Contact:** gangw@illinois.edu | [Website](https://gangw.cs.illinois.edu)
 
 ### 16 `[🔴 P1 | 2025]` SoK: Towards Effective Automated Vulnerability Repair (USENIX Security 2025)
 - **Paper:** [SoK: Towards Effective Automated Vulnerability Repair](https://arxiv.org/abs/2501.18820)
@@ -351,9 +308,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #15 — Daniel Kang · UIUC · USNWR #35
-> ℹ️ **Academic Profile:**
-> - **Lab:** UIUC CS + ECE
-> - **Contact:** ddkang@illinois.edu | [Website](https://ddkang.github.io)
 
 ### 17 `[🔴 P1 | 2024]` LLM Agents Can Autonomously Exploit One-day Vulnerabilities
 - **Paper:** [LLM Agents can Autonomously Exploit One-day Vulnerabilities](https://arxiv.org/abs/2404.08144) | **PDF:** [Link](https://arxiv.org/pdf/2503.17332) | **Code:** [Link](https://github.com/uiuc-kang-lab/cve-bench)
@@ -365,9 +319,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #16 — Barton Miller · University of Wisconsin–Madison · USNWR #42
-> ℹ️ **Academic Profile:**
-> - **Lab:** Paradyn/Dyninst Lab
-> - **Contact:** bart@cs.wisc.edu | [Website](https://pages.cs.wisc.edu/~bart/)
 
 ### 18 `[🟠 P2 | 2025]` LmPa: Improving Decompilation by Synergy of LLM and Program Analysis (NDSS 2025)
 - **Paper:** [LmPa: Improving Decompilation by Synergy of Large Language Model and Program Analysis](https://arxiv.org/abs/2301.07378)
@@ -379,9 +330,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #17 — Dongyan Xu · Purdue · USNWR #53
-> ℹ️ **Academic Profile:**
-> - **Lab:** PurSec Lab, CERIAS Director
-> - **Contact:** dxu@cs.purdue.edu | [Website](https://www.cs.purdue.edu/people/faculty/dxu.html)
 
 ### 19 `[🟠 P2 | 2025]` NeuroScope: Reverse Engineering DNNs on Edge Devices (USENIX Security 2025)
 - **Paper:** [NeuroScope: Reverse Engineering Deep Neural Network on Edge Devices using Dynamic Analysis](https://www.usenix.org/conference/usenixsecurity25)
@@ -393,9 +341,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #18 — Xiangyu Zhang · Purdue · USNWR #53
-> ℹ️ **Academic Profile:**
-> - **Lab:** Program Analysis & Security Lab, PurSec
-> - **Contact:** xyzhang@cs.purdue.edu | [Website](https://www.cs.purdue.edu/homes/xyzhang/)
 
 ### 20 `[🔴 P1 | 2025]` LmPa: Reducing LLM Hallucination in Decompilation via Program Analysis Synergy (NDSS 2025)
 - **Paper:** [LmPa: Improving Decompilation by Synergy of Large Language Model and Program Analysis](https://arxiv.org/abs/2301.07378)
@@ -407,9 +352,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #19 — Z. Berkay Celik · Purdue · USNWR #53
-> ℹ️ **Academic Profile:**
-> - **Lab:** PurSec Lab
-> - **Contact:** celik@purdue.edu | [Website](https://beerkay.github.io)
 
 ### 21 `[🔴 P1 | 2025]` Rethinking How to Evaluate Language Model Jailbreak (AISEC @ ACM CCS 2025)
 - **Paper:** [Rethinking How to Evaluate Language Model Jailbreak](https://beerkay.github.io)
@@ -421,9 +363,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #20 — Brendan Dolan-Gavitt · NYU Tandon · USNWR #53 (NYU)
-> ℹ️ **Academic Profile:**
-> - **Lab:** MESS Lab
-> - **Contact:** brendandg@nyu.edu | [Website](https://moyix.net)
 
 ### 22 `[🔴 P1 | 2025]` EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities (ICML 2025)
 - **Paper:** [EnIGMA: Enhanced Interactive Generative Model Agent for CTF Challenges](https://arxiv.org/abs/2409.16165) | **PDF:** [Link](https://arxiv.org/pdf/2409.16165) | **Code:** [Link](https://github.com/SWE-agent/SWE-agent)
@@ -444,9 +383,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #21 — Antonio Bianchi · Purdue University · USNWR #53
-> ℹ️ **Academic Profile:**
-> - **Lab:** PurSec Lab (UCSB PhD → Purdue faculty)
-> - **Contact:** antoniob@purdue.edu | [Website](https://antoniobianchi.me)
 
 ### 24 `[🔴 P1 | 2025]` LEMIX: Enabling Testing of Embedded Applications as Linux Applications (USENIX Security 2025)
 - **Paper:** [LEMIX: Enabling Testing of Embedded Applications as Linux Applications](https://www.usenix.org/conference/usenixsecurity25)
@@ -458,9 +394,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #22 — Guanhong Tao · Purdue University · USNWR #53
-> ℹ️ **Academic Profile:**
-> - **Lab:** PurSec Lab (affiliated)
-> - **Contact:** taog@purdue.edu | [Website](https://guanhuangao.github.io)
 
 ### 25 `[🟠 P2 | 2025]` Backdoor Attacks in LLMs and Temporal Logic Attacks Against Autonomous RL Agents
 - **Paper:** [Temporal Logic Backdoor Attacks Against Autonomous Driving RL Agents and LLM Security](https://guanhuangao.github.io)
@@ -472,9 +405,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #23 — Wajih Ul Hassan · University of Virginia · USNWR #62
-> ℹ️ **Academic Profile:**
-> - **Lab:** DART Lab
-> - **Contact:** wh5a@virginia.edu | [Website](https://engineering.virginia.edu/faculty/wajih-ul-hassan)
 
 ### 26 `[🔴 P1 | 2025]` APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025)
 - **Paper:** [A Principled Approach for Detecting APTs in Massive Networks via Multi-Stage Causal Analytics](https://dartlab.org/publications/)
@@ -486,9 +416,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #24 — Christopher Kruegel · UC Santa Barbara · USNWR #65
-> ℹ️ **Academic Profile:**
-> - **Lab:** SecLab UCSB (iSSL)
-> - **Contact:** chris@cs.ucsb.edu | [Website](https://sites.cs.ucsb.edu/~chris/)
 
 ### 27 `[🔴 P1 | 2025]` CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction
 - **Paper:** [From CVE Entries to Verifiable Exploits](https://arxiv.org/abs/2509.01835)
@@ -500,9 +427,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #25 — Giovanni Vigna · UC Santa Barbara · USNWR #65
-> ℹ️ **Academic Profile:**
-> - **Lab:** SecLab UCSB, NSF ACTION Director
-> - **Contact:** vigna@cs.ucsb.edu | [Website](https://sites.cs.ucsb.edu/~vigna/)
 
 ### 28 `[🔴 P1 | 2026]` OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security
 - **Paper:** [OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security](https://arxiv.org/abs/2603.08566)
@@ -521,9 +445,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #26 — Wenbo Guo · UC Santa Barbara · USNWR #65
-> ℹ️ **Academic Profile:**
-> - **Lab:** UCSB ML Security Lab
-> - **Contact:** henrygwb@ucsb.edu | [Website](https://henrygwb.github.io)
 
 ### 30 `[🔴 P1 | 2025]` LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage
 - **Paper:** [LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage](https://openreview.net/forum?id=uNqU3P543d)
@@ -544,9 +465,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #27 — Gianluca Stringhini · Boston University · USNWR #65
-> ℹ️ **Academic Profile:**
-> - **Lab:** BU SecLab
-> - **Contact:** gian@bu.edu | [Website](https://seclab.bu.edu)
 
 ### 32 `[🔴 P1 | 2024]` LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation
 - **Paper:** [LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation](https://ieeexplore.ieee.org/document/10543210)
@@ -558,9 +476,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #28 — Georgios Portokalidis · Stevens Institute of Technology · USNWR #76
-> ℹ️ **Academic Profile:**
-> - **Lab:** IMDEA Software Institute (joint); Stevens CS
-> - **Contact:** porto@stevens.edu | [Website](https://www.portokalidis.net)
 
 ### 33 `[🔴 P1 | 2024]` F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code
 - **Paper:** [F-detector / F-blocker: Automated Vulnerability Mitigation in Binary-Only Software](https://www.portokalidis.net)
@@ -572,9 +487,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #29 — Yizheng Chen · University of Maryland · USNWR #93
-> ℹ️ **Academic Profile:**
-> - **Lab:** Maryland Cybersecurity Center (MC2)
-> - **Contact:** yzchen@umd.edu | [Website](https://surrealyz.github.io)
 
 ### 34 `[🔴 P1 | 2026]` Locus: Agentic Predicate Synthesis for Directed Fuzzing (ICSE 2026)
 - **Paper:** [Locus: Agentic Predicate Synthesis for Directed Fuzzing](https://arxiv.org/abs/2508.21302)
@@ -586,9 +498,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #30 — Anoop Singhal · University of Maryland / NIST · USNWR #93 (UMD)
-> ℹ️ **Academic Profile:**
-> - **Lab:** NIST Computer Security Division
-> - **Contact:** anoop.singhal@nist.gov | [Website](https://www.nist.gov/people/anoop-singhal)
 
 ### 35 `[🟠 P2 | 2025]` Network Attack Graphs and Multi-Hop Attack Path Modeling (NIST / UMD)
 - **Paper:** [Network Attack Graphs: Multi-Hop Attack Path Modeling and Risk Quantification for Enterprise Security](https://www.nist.gov/people/anoop-singhal)
@@ -605,9 +514,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #31 — Aziz Mohaisen · University of Central Florida · USNWR #121
-> ℹ️ **Academic Profile:**
-> - **Lab:** SEAL (Security and Analytics Lab), UCF CS
-> - **Contact:** david.mohaisen@ucf.edu | [Website](https://www.cs.ucf.edu/~mohaisen/)
 
 ### 36 `[🔴 P1 | 2025]` LLM-Driven Vulnerability Analysis and Automated Code Repair
 - **Paper:** [Leveraging LLMs for Automated Vulnerability Analysis and Repair: Accuracy, Scalability, and Evasion](https://www.cs.ucf.edu/~mohaisen/)
@@ -619,9 +525,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #33 — Peng Liu · Penn State · USNWR #130
-> ℹ️ **Academic Profile:**
-> - **Lab:** Cyber Security Lab, Penn State IST
-> - **Contact:** pliu@ist.psu.edu | [Website](https://sites.psu.edu/pengliu/)
 
 ### 37 `[🟠 P2 | 2025]` AI-Driven Malware Analysis and Cyber-Physical Systems Security
 - **Paper:** [AI-Driven Automated Malware Analysis and Defense for Cyber-Physical Systems](https://sites.psu.edu/pengliu/)
@@ -633,9 +536,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #34 — Ting Wang · Penn State · USNWR #130
-> ℹ️ **Academic Profile:**
-> - **Lab:** ALPS Lab
-> - **Contact:** inbox@tiwang.io | [Website](https://alps-lab.github.io)
 
 ### 38 `[🟠 P2 | 2025]` Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses
 - **Paper:** [Adversarial Robustness of LLM-Based Autonomous Agents: Prompt Injection, Backdoor Defenses, Agent Trust](https://alps-lab.github.io)
@@ -647,9 +547,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #32 — Gang Tan · Penn State University · USNWR #130
-> ℹ️ **Academic Profile:**
-> - **Lab:** Security and Programming Languages Research Group
-> - **Contact:** gtan@psu.edu | [Website](https://www.cse.psu.edu/~gxt29/)
 
 ### 39 `[🟠 P2 | 2025]` WebAssembly Security: Vulnerability Analysis and Software Fault Isolation
 - **Paper:** [WebAssembly Security Analysis: Vulnerability Discovery, SFI Enforcement, and Binary Analysis](https://www.cse.psu.edu/~gxt29/)
@@ -661,9 +558,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #35 — Wenliang (Kevin) Du · Syracuse University · USNWR #133
-> ℹ️ **Academic Profile:**
-> - **Lab:** SEED Security Lab
-> - **Contact:** wedu@acm.org | [Website](https://seedsecuritylabs.org/wenliangdu/)
 
 ### 40 `[🟠 P2 | 2023]` SEED Labs: The World's Most Widely Deployed Cybersecurity Education Platform
 - **Paper:** [SEED Labs: A Problem-Solving Based Learning Environment for Security Education](https://seedsecuritylabs.org)
@@ -675,9 +569,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #36 — Rakesh Bobba · Oregon State University · USNWR #144
-> ℹ️ **Academic Profile:**
-> - **Lab:** ORTSOC (Oregon Research and Teaching Security Operations Center), OSU EECS
-> - **Contact:** rakesh.bobba@oregonstate.edu | [Website](https://eecs.oregonstate.edu/people/bobba-rakesh)
 
 ### 41 `[🟠 P2 | 2025]` CPS and Critical Infrastructure Security: Real-Time Attack Detection in Industrial Control Systems
 - **Paper:** [Cyber-Physical System Security: Real-Time Attack Detection and Response in Critical Infrastructure](https://eecs.oregonstate.edu/people/bobba-rakesh)
@@ -689,9 +580,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #39 — Guofei Gu · Texas A&M University · USNWR #145
-> ℹ️ **Academic Profile:**
-> - **Lab:** SUCCESS Lab
-> - **Contact:** guofei@cse.tamu.edu | [Website](https://faculty.cse.tamu.edu/guofei)
 
 ### 42 `[🔴 P1 | 2025]` Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN Test of Time Award 2025)
 - **Paper:** [Security Analysis of AI Agent Frameworks: Taxonomy of Vulnerabilities in OpenClaw and Agentic Runtime Systems](https://faculty.cse.tamu.edu/guofei)
@@ -703,9 +591,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #37 — Patrick Traynor · University of Florida · USNWR #145
-> ℹ️ **Academic Profile:**
-> - **Lab:** FICS Research
-> - **Contact:** traynor@cise.ufl.edu | [Website](https://www.cise.ufl.edu/~traynor/)
 
 ### 43 `[🟠 P2 | 2026]` Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details)
 - **Paper:** [Automated Discovery and Exploitation of Telephony Attack Surfaces: SS7, VoIP, and Wireless Protocols](https://www.cise.ufl.edu/~traynor/)
@@ -717,9 +602,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #38 — Kevin Butler · University of Florida · USNWR #145
-> ℹ️ **Academic Profile:**
-> - **Lab:** FICS Research
-> - **Contact:** butler@cise.ufl.edu | [Website](https://www.cise.ufl.edu/~butler/)
 
 ### 44 `[🟠 P2 | 2026]` Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see entry 2.35 above for full details)
 - **Paper:** [Hardware-Assisted Security Mechanisms: TEEs, Secure Enclaves, and Authentication in FICS Research](https://www.cise.ufl.edu/~butler/)
@@ -731,9 +613,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #40 — Yan Shoshitaishvili · Arizona State University · USNWR #147
-> ℹ️ **Academic Profile:**
-> - **Lab:** SEFCOM Lab (co-director)
-> - **Contact:** yans@asu.edu | [Website](https://yancomm.net)
 
 ### 45 `[🔴 P1 | 2026]` Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award
 - **Paper:** [Decompiling the Synergy: An Empirical Study of Human-LLM Teaming in Software Reverse Engineering](https://www.ndss-symposium.org/ndss-paper/decompiling-the-synergy-an-empirical-study-of-human-llm-teaming-in-software-reverse-engineering/)
@@ -745,9 +624,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #41 — Tiffany Bao · Arizona State University · USNWR #147
-> ℹ️ **Academic Profile:**
-> - **Lab:** SEFCOM Lab (co-director)
-> - **Contact:** tbao@asu.edu | [Website](https://www.tiffanybao.com)
 
 ### 46 `[🔴 P1 | 2024]` ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software
 - **Paper:** [ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software](https://arxiv.org/abs/2408.02153)
@@ -759,9 +635,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #42 — Adam Doupé · Arizona State University · USNWR #147
-> ℹ️ **Academic Profile:**
-> - **Lab:** SEFCOM Lab (co-director)
-> - **Contact:** doupe@asu.edu | [Website](https://adamdoupe.com)
 
 ### 47 `[🔴 P1 | 2025]` AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing
 - **Paper:** [AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing](https://arxiv.org/abs/2501.05431)
@@ -773,9 +646,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #43 — Jedidiah Crandall · Arizona State University · USNWR #147
-> ℹ️ **Academic Profile:**
-> - **Lab:** Breakout Research Group, ASU
-> - **Contact:** jrcranda@asu.edu | [Website](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/)
 
 ### 48 `[🟠 P2 | 2025]` Adversarial Network Behavior and Evasion Techniques in Internet Censorship
 - **Paper:** [Measuring and Evading Internet Censorship: Adversarial Network Behavior Across Political Boundaries](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/)
@@ -787,9 +657,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #44 — Saptarshi Debroy · CUNY Hunter College · USNWR #155
-> ℹ️ **Academic Profile:**
-> - **Lab:** Distributed and Autonomous Systems Security Lab, CUNY
-> - **Contact:** sdebroy@hunter.cuny.edu | [Website](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy)
 
 ### 49 `[🟠 P2 | 2025]` Moving Target Defense for Cloud-Hosted Autonomous AI Systems
 - **Paper:** [Moving Target Defense for Cloud-Deployed Autonomous AI Security Agents: Adaptive Workload Orchestration](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy)
@@ -801,9 +668,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #45 — Sushil Jajodia · George Mason University · USNWR #156
-> ℹ️ **Academic Profile:**
-> - **Lab:** Center for Secure Information Systems (CSIS) — 120+ PhD graduates, 700+ publications
-> - **Contact:** jajodia@gmu.edu | [Website](https://cs.gmu.edu/~jajodia/)
 
 ### 50 `[🔴 P1 | 2025]` Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization
 - **Paper:** [Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization and Cyber Deception](https://cs.gmu.edu/~jajodia/)
@@ -815,9 +679,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #46 — Jie Gao · Rutgers University · USNWR #160
-> ℹ️ **Academic Profile:**
-> - **Lab:** Rutgers AI & Cybersecurity Research
-> - **Contact:** jg1555@rutgers.edu | [Website](https://sites.rutgers.edu/jie-gao/)
 
 ### 51 `[🟠 P2 | 2025]` AI Systems for Threat Recognition, Agent Communication, and Automated Response (NSF ACTION Co-PI)
 - **Paper:** [AI Systems for Threat Recognition, Agent Communication, and Automated Response in Cybersecurity](https://sites.rutgers.edu/jie-gao/)
@@ -829,9 +690,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #47 — Long Cheng · Clemson University · USNWR #168
-> ℹ️ **Academic Profile:**
-> - **Lab:** Secure and Dependable Systems (SDS) Lab
-> - **Contact:** lcheng2@clemson.edu | [Website](https://people.computing.clemson.edu/~lcheng2/)
 
 ### 52 `[🟠 P2 | 2022]` Detecting Remote Infections on Linux-Based IoT Devices (ASIACCS 2022 Best Paper)
 - **Paper:** [Detecting Remote Infections on Linux-Based IoT Devices via Network Traffic Analysis](https://dl.acm.org/doi/10.1145/3488932.3497759)
@@ -843,9 +701,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #48 — Peng Gao · Virginia Tech · USNWR #170
-> ℹ️ **Academic Profile:**
-> - **Lab:** Security Lab, Virginia Tech CS
-> - **Contact:** penggao@vt.edu | [Website](https://people.cs.vt.edu/penggao/)
 
 ### 53 `[🔴 P1 | 2026]` NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster ($625K, Oct 2025)
 - **Paper:** [NSF CAREER: LLM-Based Autonomous Threat Identification and Response for Security Analysts](https://people.cs.vt.edu/penggao/)
@@ -857,9 +712,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #49 — Pubali Datta · UMass Amherst · USNWR #170
-> ℹ️ **Academic Profile:**
-> - **Lab:** SPADE Lab, UMass Amherst
-> - **Contact:** pubali@cs.umass.edu | [Website](https://pubali.github.io)
 
 ### 54 `[🟠 P2 | 2026]` IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026)
 - **Paper:** [IoT Security: Vulnerability Analysis in Smart Home Ecosystems and Provenance-Based Attack Forensics](https://pubali.github.io)
@@ -871,9 +723,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #50 — Anupam Joshi · UMBC · USNWR #172
-> ℹ️ **Academic Profile:**
-> - **Lab:** eBiquity Research Group, UMBC CS/EE
-> - **Contact:** joshi@umbc.edu | [Website](https://anupam.umbc.edu)
 
 ### 55 `[🔴 P1 | 2025]` Knowledge Graphs + LLMs for Automated Cybersecurity Threat Intelligence
 - **Paper:** [Knowledge Graph-Driven LLM Pipelines for Automated Threat Intelligence and Security Log Analysis](https://anupam.umbc.edu)
@@ -885,9 +734,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #51 — Long Lu · Northeastern University · USNWR #179
-> ℹ️ **Academic Profile:**
-> - **Lab:** RiS3 Lab
-> - **Contact:** l.lu@northeastern.edu | [Website](https://www.longlu.org)
 
 ### 56 `[🟠 P2 | 2025]` LLMs for PLC Code Security in Industrial Control Systems
 - **Paper:** [LLM-Based Security Analysis for PLC Code and Industrial Control Systems](https://www.longlu.org)
@@ -899,9 +745,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #52 — Engin Kirda · Northeastern University · USNWR #179
-> ℹ️ **Academic Profile:**
-> - **Lab:** Secure Systems Lab (co-director)
-> - **Contact:** ek@ccs.neu.edu | [Website](https://www.ccs.neu.edu/home/ek/)
 
 ### 57 `[🟠 P2 | 2025]` Automatic Exploit Generation and Malware Behavior Analysis
 - **Paper:** [Automated Malware Behavior Analysis and Exploit Generation for Modern Vulnerabilities](https://www.ccs.neu.edu/home/ek/)
@@ -913,9 +756,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #53 — Wil Robertson · Northeastern University · USNWR #179
-> ℹ️ **Academic Profile:**
-> - **Lab:** Secure Systems Lab (SSL)
-> - **Contact:** wil@ccs.neu.edu | [Website](https://www.ccs.neu.edu/home/wil/)
 
 ### 58 `[🟠 P2 | 2015]` PANDA: Whole-System Dynamic Analysis Platform for Security Research (ongoing updates through 2024)
 - **Paper:** [PANDA: Platform for Architecture-Neutral Dynamic Analysis](https://github.com/panda-re/panda)
@@ -927,9 +767,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #54 — Zhiqiang Lin · Ohio State University · USNWR #180
-> ℹ️ **Academic Profile:**
-> - **Lab:** SSSL Lab (System Security and Software Lab)
-> - **Contact:** lin.3021@osu.edu | [Website](https://zhiqiang.org)
 
 ### 59 `[🟠 P2 | 2025]` AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software
 - **Paper:** [AI-Assisted Automated Bug Finding in Kernel, Firmware, and Binary Software](https://zhiqiang.org)
@@ -941,9 +778,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #55 — William Enck · North Carolina State University · USNWR #181
-> ℹ️ **Academic Profile:**
-> - **Lab:** SySeS Lab
-> - **Contact:** whenck@ncsu.edu | [Website](https://enck.org)
 
 ### 60 `[🟠 P2 | 2026]` Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026)
 - **Paper:** [Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing](https://enck.org)
@@ -955,9 +789,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #56 — Michalis Polychronakis · Stony Brook University · USNWR #185
-> ℹ️ **Academic Profile:**
-> - **Lab:** Systems Security Lab, Stony Brook
-> - **Contact:** mikepo@cs.stonybrook.edu | [Website](https://www3.cs.stonybrook.edu/~mikepo/)
 
 ### 61 `[🟠 P2 | 2025]` Exploit Mitigation: ROP, Code Reuse Attacks, and Anti-ROP (NSF CAREER)
 - **Paper:** [Exploit Mitigation Beyond NX: Return-Oriented Programming Defense and Code-Reuse Attack Detection](https://www3.cs.stonybrook.edu/~mikepo/)
@@ -969,9 +800,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #58 — Jun Dai · Worcester Polytechnic Institute · USNWR #270
-> ℹ️ **Academic Profile:**
-> - **Lab:** CS Department, WPI
-> - **Contact:** jdai@wpi.edu | [Website](https://users.wpi.edu/~jdai/)
 
 ### 62 `[🔴 P1 | 2026]` LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026)
 - **Paper:** [LLM Security: Membership Inference and Model Extraction Attacks Against LLM-Based Autonomous Agents](https://users.wpi.edu/~jdai/)
@@ -983,9 +811,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #57 — Dipankar Dasgupta · University of Memphis · USNWR #270
-> ℹ️ **Academic Profile:**
-> - **Lab:** Intelligent Security Systems (ISS) Lab
-> - **Contact:** ddasgupta@memphis.edu | [Website](https://www.memphis.edu/cs/people/faculty_pages/dasgupta.php)
 
 ### 63 `[🟠 P2 | 2025]` Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems
 - **Paper:** [Autonomous Security Agents and Moving Target Defense: Biologically-Inspired Adaptive Cybersecurity](https://www.memphis.edu/cs/people/faculty_pages/dasgupta.php)
@@ -997,9 +822,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #59 — Saumya Debray · University of Arizona · USNWR #284
-> ℹ️ **Academic Profile:**
-> - **Lab:** Systems Security Research Group
-> - **Contact:** debray@cs.arizona.edu | [Website](https://cs.arizona.edu/person/saumya-debray)
 
 ### 64 `[🟠 P2 | 2025]` Automated Decompilation and Binary Code Analysis for Vulnerability Discovery
 - **Paper:** [Automated Decompilation, Binary Analysis, and Malware Analysis Using Program Analysis Techniques](https://cs.arizona.edu/person/saumya-debray)
@@ -1011,9 +833,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #60 — Xinming (Simon) Ou · University of South Florida · USNWR #295
-> ℹ️ **Academic Profile:**
-> - **Lab:** Bellini College, USF
-> - **Contact:** xou@usf.edu | [Website](https://www.usf.edu/ai-cybersecurity-computing/people/faculty/ou-simon.aspx)
 
 ### 65 `[🟠 P2 | 2025]` Towards AI-Driven Human-Machine Co-Teaming for Adaptive Cyber Security Operation Centers
 - **Paper:** [Towards AI-Driven Human-Machine Co-Teaming for Adaptive and Agile Cyber Security Operation Centers](https://www.usf.edu/ai-cybersecurity-computing/people/faculty/ou-simon.aspx)
@@ -1031,9 +850,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #61 — Daniel Takabi · Old Dominion University · USNWR #301
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Cybersecurity, ODU (Director)
-> - **Contact:** takabi@odu.edu | [Website](https://www.odu.edu/directory/daniel-takabi)
 
 ### 66 `[🔴 P1 | 2025]` NEXUS: Exploiting Unsafe Multi-Turn Sequences in LLM Jailbreaks
 - **Paper:** [NEXUS: Exploiting Unsafe Multi-Turn Sequences in LLM Jailbreaks](https://www.odu.edu/directory/daniel-takabi)
@@ -1045,9 +861,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #62 — Mohammad GhasemiGol · Old Dominion University · USNWR #301
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Cybersecurity / Transdisciplinary Trustworthy AI Initiative, ODU
-> - **Contact:** mghasemi@odu.edu | [Website](https://www.odu.edu/directory/mohammad-ghasemigol)
 
 ### 67 `[🟠 P2 | 2025]` Securing the GenAI Supply Chain: Threat Modeling and Adversarial Robustness
 - **Paper:** [Securing the GenAI Supply Chain: Threat Modeling and Adversarial Robustness](https://www.odu.edu/directory/mohammad-ghasemigol)
@@ -1059,9 +872,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #63 — Md Morshed Alam · Old Dominion University · USNWR #301
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Cybersecurity — AI Security Group, ODU
-> - **Contact:** m2alam@odu.edu | [Website](https://www.odu.edu/directory/md-morshed-alam)
 
 ### 68 `[🟠 P2 | 2025]` Deep Reinforcement Learning for Autonomous Cyber Defense Agents
 - **Paper:** [Deep Reinforcement Learning for Autonomous Cyber Defense Agents](https://www.odu.edu/directory/md-morshed-alam)
@@ -1073,9 +883,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #64 — Xin Chen · University of New Mexico · USNWR #310
-> ℹ️ **Academic Profile:**
-> - **Lab:** Cyber-Physical Systems Security Lab, UNM CS
-> - **Contact:** xinchen@unm.edu | [Website](https://www.cs.unm.edu/~xin/)
 
 ### 69 `[🟠 P2 | 2025]` Formal Safety and Security Verification of Cyber-Physical Systems with ML Components
 - **Paper:** [Formal Safety and Security Verification of Cyber-Physical Systems with ML Components](https://www.cs.unm.edu/~xin/)
@@ -1087,9 +894,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #65 — Tasnuva Farheen · Louisiana State University · USNWR #316
-> ℹ️ **Academic Profile:**
-> - **Lab:** Center for Computation & Technology (CCT), LSU; AI-enabled Security Group
-> - **Contact:** tfarheen@lsu.edu | [Website](https://www.lsu.edu/eng/cse/people/faculty/farheen.php)
 
 ### 70 `[🟠 P2 | 2025]` AI-Enabled Vulnerability Assessment and Digital Twins for Critical Infrastructure
 - **Paper:** [AI-Enabled Vulnerability Assessment and Digital Twins for Critical Infrastructure](https://www.lsu.edu/eng/cse/people/faculty/farheen.php)
@@ -1101,9 +905,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #66 — Aisha Ali-Gombe · Louisiana State University · USNWR #316
-> ℹ️ **Academic Profile:**
-> - **Lab:** Applied Cybersecurity Lab, LSU CSE
-> - **Contact:** aaligombe@lsu.edu | [Website](https://www.lsu.edu/eng/cse/people/faculty/ali-gombe.php)
 
 ### 71 `[🔴 P1 | 2024]` MalParse: LLM-Powered Semantic Reverse Engineering of Android Malware
 - **Paper:** [MalParse: LLM-Powered Semantic Reverse Engineering of Android Malware](https://www.lsu.edu/eng/cse/people/faculty/ali-gombe.php)
@@ -1115,9 +916,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #67 — Phani Vadrevu · Louisiana State University · USNWR #316
-> ℹ️ **Academic Profile:**
-> - **Lab:** Applied Cybersecurity Lab / Web Security Group, LSU
-> - **Contact:** kvadrevu@lsu.edu | [Website](https://www.phanivadrevu.com)
 
 ### 72 `[🟠 P2 | 2025]` AI/ML-Based Defenses Against Web-Based Social Engineering and Phishing at Scale
 - **Paper:** [AI/ML-Based Defenses Against Web-Based Social Engineering and Phishing at Scale](https://www.phanivadrevu.com)
@@ -1129,9 +927,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #68 — James Ghawaly · Louisiana State University · USNWR #316
-> ℹ️ **Academic Profile:**
-> - **Lab:** AISx Lab (Intersectional AI and Security Lab), LSU
-> - **Contact:** jghawaly@lsu.edu | [Website](https://www.lsu.edu/eng/cse/people/faculty/ghawaly.php)
 
 ### 73 `[🟠 P2 | 2025]` MikeGPT: Secure Institutional Data Interaction and LLM Agent Orchestration
 - **Paper:** [MikeGPT: Secure Institutional Data Interaction and LLM Agent Orchestration](https://www.lsu.edu/eng/cse/people/faculty/ghawaly.php)
@@ -1143,9 +938,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #69 — Nidhi Rastogi · Rochester Institute of Technology · USNWR #320
-> ℹ️ **Academic Profile:**
-> - **Lab:** AI4SEC Lab, RIT; Global Cybersecurity Institute (GCI) affiliate
-> - **Contact:** nxrvse@rit.edu | [Website](https://ai4sec-lab.github.io)
 
 ### 74 `[🔴 P1 | 2025]` CTIBench: Evaluating LLMs on Real-World Cyber Threat Intelligence Tasks
 - **Paper:** [CTIBench: Evaluating LLMs on Real-World Cyber Threat Intelligence Tasks](https://ai4sec-lab.github.io)
@@ -1157,9 +949,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #70 — Matthew Wright · Rochester Institute of Technology · USNWR #320
-> ℹ️ **Academic Profile:**
-> - **Lab:** Department of Cybersecurity (Chair); DeFake Project Lab
-> - **Contact:** matthew.wright@rit.edu | [Website](https://www.rit.edu/computing/directory/mxwvcs-matthew-wright)
 
 ### 75 `[🟠 P2 | 2025]` Adversarial Machine Learning and Generative AI Threat Detection
 - **Paper:** [Adversarial Machine Learning and Generative AI Threat Detection](https://www.rit.edu/computing/directory/mxwvcs-matthew-wright)
@@ -1171,9 +960,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #71 — Weijie Zhao · Rochester Institute of Technology · USNWR #320
-> ℹ️ **Academic Profile:**
-> - **Lab:** ML Security Lab, RIT Computing
-> - **Contact:** wz9494@rit.edu | [Website](https://www.rit.edu/computing/directory/wz9494-weijie-zhao)
 
 ### 76 `[🟠 P2 | 2026]` Resilient and Secure Machine Learning Under Adversarial Backdoors
 - **Paper:** [Resilient and Secure Machine Learning Under Adversarial Backdoors](https://www.rit.edu/computing/directory/wz9494-weijie-zhao)
@@ -1185,9 +971,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #72 — Mehrdad Nojoumian · Florida Atlantic University · USNWR #335
-> ℹ️ **Academic Profile:**
-> - **Lab:** Privacy, Security & Trust in Autonomy Lab, FAU EECS
-> - **Contact:** mnojoumian@fau.edu | [Website](https://faculty.eng.fau.edu/nojoumian/)
 
 ### 77 `[🟠 P2 | 2025]` AZTRM-D: AI-Integrated Framework for Zero Trust Risk Management and DevSecOps
 - **Paper:** [AZTRM-D: AI-Integrated Framework for Zero Trust Risk Management and DevSecOps](https://faculty.eng.fau.edu/nojoumian/)
@@ -1199,9 +982,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #73 — Tao Wang · University of North Texas · USNWR #340
-> ℹ️ **Academic Profile:**
-> - **Lab:** ISnP Lab (Intelligent Security and Privacy), UNT CSE
-> - **Contact:** tao.wang2@unt.edu | [Website](https://tao-wang.com)
 
 ### 78 `[🟠 P2 | 2025]` Intelligent Security and Privacy Challenges in LLM-Based Autonomous Systems
 - **Paper:** [Intelligent Security and Privacy Challenges in LLM-Based Autonomous Systems](https://tao-wang.com)
@@ -1213,9 +993,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #74 — Tao Hou · University of North Texas · USNWR #340
-> ℹ️ **Academic Profile:**
-> - **Lab:** ISnP Lab (Intelligent Security and Privacy), UNT CSE
-> - **Contact:** tao.hou@unt.edu | [Website](https://tao-hou.com)
 
 ### 79 `[🟠 P2 | 2025]` Trustworthy AI for Cybersecurity: Privacy-Preserving Machine Learning
 - **Paper:** [Trustworthy AI for Cybersecurity: Privacy-Preserving Machine Learning](https://tao-hou.com)
@@ -1227,9 +1004,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #75 — Supreeth Shastri · University of North Texas · USNWR #340
-> ℹ️ **Academic Profile:**
-> - **Lab:** AI Accountability Research Lab, UNT CSE
-> - **Contact:** sshastri@unt.edu | [Website](https://engineering.unt.edu/cse/people/supreeth-shastri.html)
 
 ### 80 `[🟠 P2 | 2025]` AI Accountability and Auditability Benchmarks for Autonomous Cyber Systems
 - **Paper:** [AI Accountability and Auditability Benchmarks for Autonomous Cyber Systems](https://engineering.unt.edu/cse/people/supreeth-shastri.html)
@@ -1241,9 +1015,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #76 — Matt Revelle · Montana State University · USNWR #345
-> ℹ️ **Academic Profile:**
-> - **Lab:** Gianforte School of Computing Security Group, MSU
-> - **Contact:** matt.revelle@montana.edu | [Website](https://www.cs.montana.edu/directory/faculty/revelle.html)
 
 ### 81 `[🟠 P2 | 2025]` GNN-Based Binary Analysis for Automated Vulnerability Detection
 - **Paper:** [GNN-Based Binary Analysis for Automated Vulnerability Detection](https://www.cs.montana.edu/directory/faculty/revelle.html)
@@ -1255,9 +1026,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #77 — Clemente Izurieta · Montana State University · USNWR #345
-> ℹ️ **Academic Profile:**
-> - **Lab:** Software Engineering and Security Lab, MSU Gianforte School
-> - **Contact:** clemente.izurieta@montana.edu | [Website](https://www.cs.montana.edu/directory/faculty/izurieta.html)
 
 ### 82 `[🟠 P2 | 2025]` Technical Debt and Security Risk Quantification in Software Engineering
 - **Paper:** [Technical Debt and Security Risk Quantification in Software Engineering](https://www.cs.montana.edu/directory/faculty/izurieta.html)
@@ -1269,9 +1037,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #78 — Weiping Pei · University of Tulsa · USNWR #350
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Cyber Studies, University of Tulsa
-> - **Contact:** weiping-pei@utulsa.edu | [Website](https://weipingpei.github.io)
 
 ### 83 `[🔴 P1 | 2025]` Generative AI Online Scam Detection and Adversarial ML Attacks on Vulnerability Discovery
 - **Paper:** [Generative AI Online Scam Detection and Adversarial ML Attacks on Vulnerability Discovery](https://weipingpei.github.io)
@@ -1283,9 +1048,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #79 — John Hale · University of Tulsa · USNWR #350
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Cyber Studies, UTulsa; Institute for Robotics & Autonomy affiliate
-> - **Contact:** john-hale@utulsa.edu | [Website](https://engineering.utulsa.edu/john-hale/)
 
 ### 84 `[🔴 P1 | 2025]` CPSTRIDE: LLM-Assisted Threat Modeling for Cyber-Physical Systems
 - **Paper:** [CPSTRIDE: LLM-Assisted Threat Modeling for Cyber-Physical Systems](https://engineering.utulsa.edu/john-hale/)
@@ -1297,9 +1059,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #80 — Rui Hu · University of Nevada, Reno · USNWR #355
-> ℹ️ **Academic Profile:**
-> - **Lab:** CyberAI Research Group, UNR CSE
-> - **Contact:** ruihu@unr.edu | [Website](https://www.unr.edu/cse/people/rui-hu)
 
 ### 85 `[🟠 P2 | 2025]` LLM Jailbreak Attacks and Defenses in Multi-Agent AI Environments
 - **Paper:** [LLM Jailbreak Attacks and Defenses in Multi-Agent AI Environments](https://www.unr.edu/cse/people/rui-hu)
@@ -1311,9 +1070,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #81 — Maanak Gupta · Tennessee Technological University · USNWR #358
-> ℹ️ **Academic Profile:**
-> - **Lab:** ABCyS Lab (Applied and Basic Cyber Security); CEROC affiliate
-> - **Contact:** mgupta@tntech.edu | [Website](https://www.tntech.edu/engineering/departments/csc/faculty/gupta.php)
 
 ### 86 `[🔴 P1 | 2025]` LLM-Orchestrated Security Frameworks for the Internet of Battlefield Things (IoBT)
 - **Paper:** [LLM-Orchestrated Security Frameworks for the Internet of Battlefield Things (IoBT)](https://www.tntech.edu/engineering/departments/csc/faculty/gupta.php)
@@ -1325,9 +1081,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #82 — William Eberle · Tennessee Technological University · USNWR #358
-> ℹ️ **Academic Profile:**
-> - **Lab:** MInDS Center (Machine Intelligence and Data Science), Tennessee Tech
-> - **Contact:** weberle@tntech.edu | [Website](https://www.tntech.edu/engineering/departments/csc/faculty/eberle.php)
 
 ### 87 `[🟠 P2 | 2025]` Graph-Based Anomaly Detection and Network Behavior Analysis for Threat Detection
 - **Paper:** [Graph-Based Anomaly Detection and Network Behavior Analysis for Threat Detection](https://www.tntech.edu/engineering/departments/csc/faculty/eberle.php)
@@ -1339,9 +1092,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #83 — Haadi Jafarian · University of Colorado Denver · USNWR #360
-> ℹ️ **Academic Profile:**
-> - **Lab:** ACID Lab (Active Cyber and Infrastructure Defense), CU Denver
-> - **Contact:** jafarian@ucdenver.edu | [Website](https://cse.ucdenver.edu/~jafarian/)
 
 ### 88 `[🟠 P2 | 2025]` Proactive Cyber Defense and Moving Target Defense for Autonomous Cyber Resilience
 - **Paper:** [Proactive Cyber Defense and Moving Target Defense for Autonomous Cyber Resilience](https://cse.ucdenver.edu/~jafarian/)
@@ -1353,9 +1103,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #84 — Zhengxiong Li · University of Colorado Denver · USNWR #360
-> ℹ️ **Academic Profile:**
-> - **Lab:** META Lab (Mobile, Emerging Technologies & Applications), CU Denver
-> - **Contact:** zhengxiong.li@ucdenver.edu | [Website](https://cse.ucdenver.edu/~zhengxiongli/)
 
 ### 89 `[🔴 P1 | 2025]` LLM-Driven Phishing Detection and Adversarial AI for IoT Smart Systems
 - **Paper:** [LLM-Driven Phishing Detection and Adversarial AI for IoT Smart Systems](https://cse.ucdenver.edu/~zhengxiongli/)
@@ -1367,9 +1114,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #85 — Jesse Ables · University of South Alabama · USNWR #363
-> ℹ️ **Academic Profile:**
-> - **Lab:** Department of Computer Sciences, USA
-> - **Contact:** ables@southalabama.edu | [Website](https://www.southalabama.edu/colleges/soc/cs/faculty/ables.html)
 
 ### 90 `[🔴 P1 | 2025]` Explainable AI and Recurrent Neural Networks for Intrusion Detection
 - **Paper:** [Explainable AI and Recurrent Neural Networks for Intrusion Detection](https://www.southalabama.edu/colleges/soc/cs/faculty/ables.html)
@@ -1381,9 +1125,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #86 — Todd Andel · University of South Alabama · USNWR #363
-> ℹ️ **Academic Profile:**
-> - **Lab:** School of Computing, University of South Alabama
-> - **Contact:** tandel@southalabama.edu | [Website](https://www.southalabama.edu/colleges/soc/cs/faculty/andel.html)
 
 ### 91 `[🟠 P2 | 2025]` Moving Target Defense and Software Protection in Critical Infrastructure Security
 - **Paper:** [Moving Target Defense and Software Protection in Critical Infrastructure Security](https://www.southalabama.edu/colleges/soc/cs/faculty/andel.html)
@@ -1395,9 +1136,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #87 — Minhaz Zibran · Idaho State University · USNWR #370
-> ℹ️ **Academic Profile:**
-> - **Lab:** SECReT Lab (Software Engineering and Cybersecurity Research Team), ISU
-> - **Contact:** minhaz.zibran@isu.edu | [Website](https://www.isu.edu/cs/faculty--staff/zibran.html)
 
 ### 92 `[🟠 P2 | 2025]` Security-Related AI-Generated Pull Requests: Vulnerabilities in LLM Code
 - **Paper:** [Security-Related AI-Generated Pull Requests: Vulnerabilities in LLM Code](https://www.isu.edu/cs/faculty--staff/zibran.html)
@@ -1409,9 +1147,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #88 — Mostafa Fouda · Idaho State University · USNWR #370
-> ℹ️ **Academic Profile:**
-> - **Lab:** SECReT Lab / AI-Security Group, ISU
-> - **Contact:** mfouda@isu.edu | [Website](https://www.isu.edu/cs/faculty--staff/fouda.html)
 
 ### 93 `[🟠 P2 | 2025]` AI/ML-Driven Intrusion Detection and Applied AI for Industrial Cybersecurity
 - **Paper:** [AI/ML-Driven Intrusion Detection and Applied AI for Industrial Cybersecurity](https://www.isu.edu/cs/faculty--staff/fouda.html)
@@ -1423,9 +1158,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #89 — Sankardas Roy · Bowling Green State University · USNWR #380
-> ℹ️ **Academic Profile:**
-> - **Lab:** Mobile and Software Security Research Group
-> - **Contact:** sroy@bgsu.edu | [Website](https://people.bgsu.edu/sroy)
 
 ### 94 `[🟠 P2 | 2025]` Benchmarking Android Malware Detection with Deep Learning and LLM Embeddings
 - **Paper:** [Benchmarking Android Malware Detection with Deep Learning and LLM Embeddings](https://people.bgsu.edu/sroy)
@@ -1437,9 +1169,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #90 — Tommy Morris · University of Alabama in Huntsville · USNWR #380
-> ℹ️ **Academic Profile:**
-> - **Lab:** Center for Cybersecurity Research and Education (CCRE), UAH (Director)
-> - **Contact:** tommy.morris@uah.edu | [Website](https://www.uah.edu/eng/departments/ece/faculty-staff/tommy-morris)
 
 ### 95 `[🔴 P1 | 2025]` Autonomous Cyber Defense and AI-Driven Intrusion Detection in ICS/SCADA Systems
 - **Paper:** [Autonomous Cyber Defense and AI-Driven Intrusion Detection in ICS/SCADA Systems](https://www.uah.edu/eng/departments/ece/faculty-staff/tommy-morris)
@@ -1451,9 +1180,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #91 — Qi Liao · Central Michigan University · USNWR #385
-> ℹ️ **Academic Profile:**
-> - **Lab:** Network Security and Game Theory Research Group, CMU CS
-> - **Contact:** liao1q@cmich.edu | [Website](https://www.cmich.edu/directory/qi-liao)
 
 ### 96 `[🟠 P2 | 2025]` Game-Theoretic Modeling of Attacker-Defender Interactions in Network Security
 - **Paper:** [Game-Theoretic Modeling of Attacker-Defender Interactions in Network Security](https://www.cmich.edu/directory/qi-liao)
@@ -1465,9 +1191,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #92 — Linxi Zhang · Central Michigan University · USNWR #385
-> ℹ️ **Academic Profile:**
-> - **Lab:** Cybersecurity and Privacy Research Lab, CMU CS
-> - **Contact:** zhang1l9@cmich.edu | [Website](https://www.cmich.edu/directory/linxi-zhang)
 
 ### 97 `[🟠 P2 | 2025]` Automotive Cybersecurity and Adversarial Attacks on Embedded Systems
 - **Paper:** [Automotive Cybersecurity and Adversarial Attacks on Embedded Systems](https://www.cmich.edu/directory/linxi-zhang)
@@ -1479,9 +1202,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #93 — Ghaith Husari · East Tennessee State University · USNWR #390
-> ℹ️ **Academic Profile:**
-> - **Lab:** ML and AI Security Lab, ETSU Computing
-> - **Contact:** husarig@etsu.edu | [Website](https://www.etsu.edu/cbat/computing/faculty-staff/husari.php)
 
 ### 98 `[🟠 P2 | 2025]` ML-Driven Intrusion Detection and Healthcare AI Security
 - **Paper:** [ML-Driven Intrusion Detection and Healthcare AI Security](https://www.etsu.edu/cbat/computing/faculty-staff/husari.php)
@@ -1493,9 +1213,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #94 — Chengyu Song · UC Riverside · USNWR #405
-> ℹ️ **Academic Profile:**
-> - **Lab:** System Security Lab, UCR
-> - **Contact:** csong@cs.ucr.edu | [Website](https://www.cs.ucr.edu/~csong/)
 
 ### 99 `[🟠 P2 | 2025]` Systematic Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety Bugs
 - **Paper:** [Systematic Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety Bugs](https://www.cs.ucr.edu/~csong/)
@@ -1507,9 +1224,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #95 — Zhiyun Qian · UC Riverside · USNWR #405
-> ℹ️ **Academic Profile:**
-> - **Lab:** Systems and Networking Security Lab, UCR
-> - **Contact:** zhiyunq@cs.ucr.edu | [Website](https://www.cs.ucr.edu/~zhiyunq/)
 
 ### 100 `[🟠 P2 | 2025]` Systematic Discovery of Network-Layer Attack Surfaces: Off-Path TCP Injection, DNS Cache Poisoning, Cellular Security
 - **Paper:** [Systematic Discovery of Network-Layer Attack Surfaces: Off-Path TCP Injection, DNS Cache Poisoning, Cellular Security](https://www.cs.ucr.edu/~zhiyunq/)
@@ -1521,9 +1235,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #96 — Heng Yin · UC Riverside · USNWR #405
-> ℹ️ **Academic Profile:**
-> - **Lab:** Secure Systems and Intelligent Software Lab
-> - **Contact:** heng.yin@ucr.edu | [Website](https://www.cs.ucr.edu/~heng/)
 
 ### 101 `[🟠 P2 | 2024]` DECAF: Dynamic Executable Code Analysis Framework — Whole-System Dynamic Malware Analysis and Taint Analysis
 - **Paper:** [DECAF: Dynamic Executable Code Analysis Framework — Whole-System Dynamic Malware Analysis and Taint Analysis](https://www.cs.ucr.edu/~heng/)
@@ -1535,9 +1246,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #97 — Selcuk Uluagac · Florida International University · USNWR #411
-> ℹ️ **Academic Profile:**
-> - **Lab:** Cyber-Physical Systems Security Lab (CSL)
-> - **Contact:** suluagac@fiu.edu | [Website](https://users.cs.fiu.edu/~uluagac/)
 
 ### 102 `[🟠 P2 | 2025]` AI-Driven Security Analysis of Smart Home and Industrial IoT/CPS Devices: Attack Detection and Defense
 - **Paper:** [AI-Driven Security Analysis of Smart Home and Industrial IoT/CPS Devices: Attack Detection and Defense](https://users.cs.fiu.edu/~uluagac/)
@@ -1549,9 +1257,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #98 — Murtuza Jadliwala · University of Texas at San Antonio · USNWR #411
-> ℹ️ **Academic Profile:**
-> - **Lab:** SPriTELab (Security, Privacy, Trust, and Ethics in Computing)
-> - **Contact:** murtuza.jadliwala@utsa.edu | [Website](https://sites.google.com/site/murtuza.jadliwala)
 
 ### 103 `[🟠 P2 | 2025]` LLM Package Hallucination Attacks: How LLMs Frequently Generate Code with Non-Existent and Insecure Packages
 - **Paper:** [LLM Package Hallucination Attacks: How LLMs Frequently Generate Code with Non-Existent and Insecure Packages](https://sites.google.com/site/murtuza.jadliwala)
@@ -1563,9 +1268,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #99 — Abdullah Yasin Nur · University of New Orleans · USNWR #430
-> ℹ️ **Academic Profile:**
-> - **Lab:** Network Security and AI Research Group, UNO CS
-> - **Contact:** anur@uno.edu | [Website](https://www.uno.edu/directory/faculty/nur.php)
 
 ### 104 `[🟠 P2 | 2025]` AI-Driven Network Measurement and Autonomous Threat Detection
 - **Paper:** [AI-Driven Network Measurement and Autonomous Threat Detection](https://www.uno.edu/directory/faculty/nur.php)
@@ -1577,9 +1279,6 @@ This table provides a comprehensive index of all **105 unique professor-based re
 ---
 
 ## 👤 Prof. #100 — James Wagner · University of New Orleans · USNWR #430
-> ℹ️ **Academic Profile:**
-> - **Lab:** UNO Cyber Center — Cybersecurity and AI Research
-> - **Contact:** jwagner@uno.edu | [Website](https://www.uno.edu/directory/faculty/wagner.php)
 
 ### 105 `[🟠 P2 | 2025]` AI-Driven Data Exfiltration Detection and Cybersecurity Data Integrity
 - **Paper:** [AI-Driven Data Exfiltration Detection and Cybersecurity Data Integrity](https://www.uno.edu/directory/faculty/wagner.php)
