@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="app-frontend/public/icon.svg" alt="CMatrix Logo" width="120" height="120" />
+  <img src="docs/assets/logo-brand.svg" alt="CMatrix Logo" width="120" height="120" />
   <h1>CMatrix</h1>
   <p>AI-Powered Multi-Agent Security Orchestration & VAPT Platform</p>
 
@@ -195,6 +195,6 @@ A curated list of state-of-the-art AI agents that share a similar vision of agen
 ---
 
 <div align="center">
-  <img src="assets/company-logo.svg" alt="Author Logo" width="80" height="80" />
+  <img src="docs/assets/logo-company.svg" alt="Author Logo" width="80" height="80" />
   <p>Built with ❤️ by <b><a href="https://kaiofficial.xyz/">KAI</a></b></p>
 </div>
