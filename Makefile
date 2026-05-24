@@ -110,11 +110,11 @@ build-app-backend:
 	@echo "🏗️  Backend doesn't require build step"
 
 # Paper Build Directories
-PAPER_DIR_01 := research/paper-01-llm-orch-vapt
-PAPER_DIR_02 := research/paper-02-red-teaming
-PAPER_DIR_03 := research/paper-03-hitl-safety
-PAPER_DIR_04 := research/paper-04-agent-reasoning
-PAPER_DIR_05 := research/paper-05-vulnerability-intelligence
+PAPER_DIR_01 := paper-research/paper-01-llm-orch-vapt
+PAPER_DIR_02 := paper-research/paper-02-red-teaming
+PAPER_DIR_03 := paper-research/paper-03-hitl-safety
+PAPER_DIR_04 := paper-research/paper-04-agent-reasoning
+PAPER_DIR_05 := paper-research/paper-05-vulnerability-intelligence
 
 paper: paper-01 paper-02 paper-03 paper-04 paper-05
 	@echo "✅ All papers built successfully!"
@@ -163,7 +163,7 @@ clean-app-backend:
 
 clean-paper:
 	@echo "🧹 Cleaning Research Paper artifacts..."
-	rm -rf research/paper-*/*.pdf research/paper-*/content/build research/paper-*/contents/build research/paper-*/main/build
+	rm -rf paper-research/paper-*/*.pdf paper-research/paper-*/content/build paper-research/paper-*/contents/build paper-research/paper-*/main/build
 
 # Testing
 test:
