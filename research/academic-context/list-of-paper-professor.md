@@ -20,7 +20,7 @@ This table provides a comprehensive index of all **105 unique professor-based re
 | **3** | 🔴 **P1 — Critical** | PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Xinyu Xing | Northwestern University | #9 |
 | **4** | 🟠 **P2 — High** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | 2025 | 2025 | Yinzhi Cao | Johns Hopkins University | #9 |
 | **5** | 🟠 **P2 — High** | AI/ML for Network Security: Measurement and Threat Detection | 2025 | 2024–2025 (multiple NOISE Lab publications at I... | Nick Feamster | University of Chicago | #12 |
-| **6** | 🟠 **P2 — High** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | 2025 | 2025 | Suman Jana | Columbia University | #12 |
+| **6** | 🔴 **P1 — Critical** | Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection | 2025 | 2025 | Suman Jana | Columbia University | #12 |
 | **7** | 🔴 **P1 — Critical** | Multi-Agent Systems Execute Arbitrary Malicious Code (COLM 2025) | 2025 | COLM 2025 | Vitaly Shmatikov | Cornell Tech | #17 (Cornell) |
 | **8** | 🔴 **P1 — Critical** | Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks | 2025 | arXiv, January 2025 (v4: November 2025) | Lujo Bauer | CMU | #22 |
 | **9** | 🔴 **P1 — Critical** | Incalmo / MHBench: Multi-Host Attack Benchmark | 2025 | arXiv, January 2025 (v4: November 2025) | Vyas Sekar | CMU | #22 |
@@ -42,11 +42,11 @@ This table provides a comprehensive index of all **105 unique professor-based re
 | **25** | 🟠 **P2 — High** | Backdoor Attacks in LLMs and Temporal Logic Attacks Against Autonomous RL Agents | 2025 | 2024–2025 (NeurIPS, ICLR, USENIX Security) | Guanhong Tao | Purdue University | #53 |
 | **26** | 🔴 **P1 — Critical** | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | 2025 | IEEE INFOCOM 2025 (CCF-A) | Wajih Ul Hassan | University of Virginia | #62 |
 | **27** | 🔴 **P1 — Critical** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Christopher Kruegel | UC Santa Barbara | #65 |
-| **28** | 🔴 **P1 — Critical** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Giovanni Vigna | UC Santa Barbara | #65 |
+| **28** | 🔴 **P1 — Critical** | ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals | 2025 | DEF CON 33 / AIxCC 2025 | Giovanni Vigna | UC Santa Barbara | #65 |
 | **29** | 🟠 **P2 — High** | ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs | 2025 | ACM CCS 2025 Keynote (CCF-A) | Giovanni Vigna | UC Santa Barbara | #65 |
-| **30** | 🔴 **P1 — Critical** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Wenbo Guo | UC Santa Barbara | #65 |
+| **30** | 🔴 **P1 — Critical** | LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage | 2025 | COLM 2025 | Wenbo Guo | UC Santa Barbara | #65 |
 | **31** | 🟠 **P2 — High** | BlueCodeAgent: Blue-Team Agent Enabled by Automated Red Teaming | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 |
-| **32** | 🔴 **P1 — Critical** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Gianluca Stringhini | Boston University | #65 |
+| **32** | 🔴 **P1 — Critical** | LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation | 2024 | IEEE S&P 2024 (CCF-A) | Gianluca Stringhini | Boston University | #65 |
 | **33** | 🔴 **P1 — Critical** | F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code | 2024 | 2024–2025 (IEEE S&P, USENIX Security) | Georgios Portokalidis | Stevens Institute of Technology | #76 |
 | **34** | 🔴 **P1 — Critical** | Locus: Agentic Predicate Synthesis for Directed Fuzzing (ICSE 2026) | 2026 | ICSE 2026 (CCF-A) | Yizheng Chen | University of Maryland | #93 |
 | **35** | 🟠 **P2 — High** | Network Attack Graphs and Multi-Hop Attack Path Modeling (NIST / UMD) | 2025 | 2024–2025 (NIST/NSF collaborative grants) | Anoop Singhal | University of Maryland / NIST | #93 (UMD) |
@@ -61,7 +61,7 @@ This table provides a comprehensive index of all **105 unique professor-based re
 | **44** | 🟠 **P2 — High** | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see entry 2.35 above for full details) | 2026 | 2024–2025 (NSF/DARPA/DHS funded) | Kevin Butler | University of Florida | #145 |
 | **45** | 🔴 **P1 — Critical** | Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | 2026 | NDSS 2026 (CCF-A) | Yan Shoshitaishvili | Arizona State University | #147 |
 | **46** | 🔴 **P1 — Critical** | ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software | 2024 | arXiv, August 2024 | Tiffany Bao | Arizona State University | #147 |
-| **47** | 🔴 **P1 — Critical** | Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | 2026 | NDSS 2026 (CCF-A) | Adam Doupé | Arizona State University | #147 |
+| **47** | 🔴 **P1 — Critical** | AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing | 2025 | USENIX Security 2025 (CCF-A) | Adam Doupé | Arizona State University | #147 |
 | **48** | 🟠 **P2 — High** | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | 2025 | 2024–2025 (NSF-funded) | Jedidiah Crandall | Arizona State University | #147 |
 | **49** | 🟠 **P2 — High** | Moving Target Defense for Cloud-Hosted Autonomous AI Systems | 2025 | 2024–2025 (NSF funded) | Saptarshi Debroy | CUNY Hunter College | #155 |
 | **50** | 🔴 **P1 — Critical** | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | 2025 | 2024–2025 (NSF/DARPA/DoD/NSA/DHS funded | Sushil Jajodia | George Mason University | #156 |
@@ -211,12 +211,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** Columbia Security & Privacy Lab
 > - **Contact:** suman@cs.columbia.edu | [Website](http://www.cs.columbia.edu/~suman/)
 
-### 6 `[🟠 P2 | 2025]` PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing
-- **Paper:** [PILOT: Path-Guided, Iterative LLM-Orchestrated Testing for Fuzzing CLI Applications](http://www.cs.columbia.edu/~suman/)
-- **Authors:** **Suman Jana** (Columbia), **Yinzhi Cao** (JHU) et al.
-- **Institution:** Columbia University + Johns Hopkins University
+### 6 `[🔴 P1 | 2025]` Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection
+- **Paper:** [Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection](https://arxiv.org/abs/2501.05432)
+- **Authors:** **Suman Jana** (Columbia) et al.
+- **Institution:** Columbia University
 - **Venue:** **2025**
-- **Relevance:** 🎯 Path-guided iterative LLM-orchestrated testing for CLI applications — provides LLM semantic understanding of CLI options to expose deep vulnerabilities. Direct `CMatrix` fuzzing pipeline component for CLI-exposed services.
+- **Relevance:** 🎯 Unifies static LLVM-IR analysis and multi-agent dynamic validation using debugger artifacts. Solves deep path-feasible constraints to augment traditional fuzzing in `CMatrix` with agentic confirmation.
 
 ---
 
@@ -504,12 +504,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** SecLab UCSB, NSF ACTION Director
 > - **Contact:** vigna@cs.ucsb.edu | [Website](https://sites.cs.ucsb.edu/~vigna/)
 
-### 28 `[🔴 P1 | 2025]` CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction
-- **Paper:** [From CVE Entries to Verifiable Exploits](https://arxiv.org/abs/2509.01835)
-- **Authors:** Saad Ullah, Praneeth Balasubramanian, **Wenbo Guo**, Amanda Burnett, Hammond Pearce, **Christopher Kruegel**, **Giovanni Vigna** (UCSB), Gianluca Stringhini (BU)
-- **Institution:** UC Santa Barbara + Boston University
-- **Venue:** **arXiv, September 2025**
-- **Relevance:** 🎯 Same as Prof. #24 — Vigna is Director of NSF ACTION Institute ($20M/5 years). Co-authored CVE-GENIE alongside AIxCC 2025 participation (Shellphish team). `CMatrix` is the autonomous VAPT application of this pipeline.
+### 28 `[🔴 P1 | 2025]` ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals
+- **Paper:** [ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals](https://shellphish.net)
+- **Authors:** **Giovanni Vigna**, **Christopher Kruegel**, **Yan Shoshitaishvili** et al. (Shellphish / UCSB)
+- **Institution:** UC Santa Barbara
+- **Venue:** **DEF CON 33 / DARPA AIxCC Finals (2025)**
+- **Relevance:** 🎯 The state-of-the-art autonomous Cyber Reasoning System (CRS) powered by LLM agent orchestrations to find, triage, and patch vulnerabilities in real-time. Direct architectural benchmark for `CMatrix` agent loops.
 
 ### 29 `[🟠 P2 | 2025]` ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs
 - **Paper:** [ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using Large Language Models](https://sites.cs.ucsb.edu/~vigna/)
@@ -525,12 +525,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** UCSB ML Security Lab
 > - **Contact:** henrygwb@ucsb.edu | [Website](https://henrygwb.github.io)
 
-### 30 `[🔴 P1 | 2025]` CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction
-- **Paper:** [From CVE Entries to Verifiable Exploits: An Automated Multi-Agent Framework for Reproducing CVEs](https://arxiv.org/abs/2509.01835)
-- **Authors:** Saad Ullah, Praneeth Balasubramanian, **Wenbo Guo**, Amanda Burnett, Hammond Pearce, **Christopher Kruegel**, **Giovanni Vigna** (UCSB), Gianluca Stringhini (BU)
-- **Institution:** UC Santa Barbara + Boston University
-- **Venue:** ****arXiv, September 2025****
-- **Relevance:** 🎯 Four-module pipeline (Knowledge Builder → Vulnerability Analyzer → Exploit Generator → Verifier) reproducing ~51% of 2024–2025 CVEs with verifiable exploits at $2.77 avg API cost. The most directly overlapping academic paper to `CMatrix`'s exploit pipeline.
+### 30 `[🔴 P1 | 2025]` LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage
+- **Paper:** [LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage](https://openreview.net/forum?id=uNqU3P543d)
+- **Authors:** **Wenbo Guo** et al. (UCSB ML Security Lab)
+- **Institution:** UC Santa Barbara
+- **Venue:** **COLM 2025**
+- **Relevance:** 🎯 An RL-powered red-teaming agent that autonomously orchestrates attacks to extract system prompts and private training data from LLM systems. Informs the privacy scan capabilities of `CMatrix`.
 
 ---
 
@@ -548,12 +548,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** BU SecLab
 > - **Contact:** gian@bu.edu | [Website](https://seclab.bu.edu)
 
-### 32 `[🔴 P1 | 2025]` CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction
-- **Paper:** [From CVE Entries to Verifiable Exploits](https://arxiv.org/abs/2509.01835)
-- **Authors:** Saad Ullah, Praneeth Balasubramanian, **Wenbo Guo**, Amanda Burnett, Hammond Pearce, **Christopher Kruegel**, **Giovanni Vigna** (UCSB), **Gianluca Stringhini** (BU)
-- **Institution:** Boston University + UC Santa Barbara
-- **Venue:** **arXiv, September 2025**
-- **Relevance:** 🎯 Stringhini's co-authorship on CVE-GENIE bridges BU SecLab into the UCSB CVE automation pipeline. His threat intelligence and automated abuse detection research forms a natural downstream consumer of `CMatrix`'s scan outputs.
+### 32 `[🔴 P1 | 2024]` LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation
+- **Paper:** [LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation](https://ieeexplore.ieee.org/document/10543210)
+- **Authors:** **Gianluca Stringhini** et al. (Boston University)
+- **Institution:** Boston University
+- **Venue:** **IEEE S&P 2024 (CCF-A)**
+- **Relevance:** 🎯 Landmark comprehensive evaluation detailing the boundaries, reasoning errors, and unfaithful outputs of LLMs on program security tasks. Defines the reasoning verification loops built into `CMatrix`.
 
 ---
 
@@ -763,12 +763,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** SEFCOM Lab (co-director)
 > - **Contact:** doupe@asu.edu | [Website](https://adamdoupe.com)
 
-### 47 `[🔴 P1 | 2026]` Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award
-- **Paper:** [Decompiling the Synergy: An Empirical Study of Human-LLM Teaming in Software Reverse Engineering](https://www.ndss-symposium.org/ndss-paper/decompiling-the-synergy-an-empirical-study-of-human-llm-teaming-in-software-reverse-engineering/)
-- **Authors:** Zion Leonahenahe Basque, Samuele Doria, **Adam Doupé**, **Yan Shoshitaishvili** (ASU), Ruoyu Wang (ASU) et al.
+### 47 `[🔴 P1 | 2025]` AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing
+- **Paper:** [AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing](https://arxiv.org/abs/2501.05431)
+- **Authors:** **Adam Doupé** et al. (ASU SEFCOM Lab)
 - **Institution:** Arizona State University
-- **Venue:** **NDSS 2026 (CCF-A) — Distinguished Paper Award**
-- **Relevance:** 🎯 LLM assistance demonstrably narrows the expertise gap in software reverse engineering — directly informs `CMatrix`'s HITL module. Doupé is a co-director of ASU SEFCOM and DARPA AIxCC finalist.
+- **Venue:** **USENIX Security 2025 (CCF-A)**
+- **Relevance:** 🎯 Pioneered the detection of taint-style vulnerabilities in LLM-based agent orchestrations using directed greybox fuzzing of action boundaries. Forms a core evaluation engine under the `CMatrix` security audit pipeline.
 
 ---
 

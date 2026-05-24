@@ -1,33 +1,57 @@
 # 🛡️ CMatrix Academic Research Library: Recovery & Acquisition Backlog
 
-This document serves as the high-fidelity **Acquisition and Recovery backlog** for the CMatrix Agentic VAPT framework. It catalogs all papers that were either mismatched (wrong content downloaded), paywalled (reference cards), or entirely missing, providing a single consolidated roadmap to achieve 100% library integrity.
+This document serves as the high-fidelity **Acquisition and Recovery backlog** for the CMatrix Agentic VAPT framework. It catalogs all papers that are currently **not downloaded yet** in the repository, grouped by their target physical library directories for seamless restoration.
 
-## 📊 Backlog Summary
+## 📊 Backlog Summary (Grouped by Target Directory)
 
-| Backlog Category | Count | Primary Action | Target Location |
+| Target Directory Section | Count Remaining | Primary Restoration Action | Target Workspace Path |
 |---|---|---|---|
-| **❌ Wrong Downloads (Mismatches)** | **52** | Target re-download with verified clean titles | `research/downloaded-paper/` |
-| **📇 Paywalled Reference Cards** | **7** | Institutional/manual access required | `research/downloaded-paper/` |
-| **⚠️ Completely Missing Papers** | **1** | Initial automated/manual fetch | `research/downloaded-paper/` |
-| **✨ Total Backlog Items** | **60** | **Full Library Alignment** | |
+| **📂 Section 1: Curated Research** | **5** | Target re-download with verified clean titles | `research/downloaded-paper/curated-research/` |
+| **📂 Section 2: Foundational & Thematic** | **1** | Ingest foundational literature | `research/downloaded-paper/foundational-thematic-research/` |
+| **📂 Section 3: Professor-Based Research** | **59** | Restore professor databases (Tiers 1, 2, 3) | `research/downloaded-paper/professor-research/` |
+| **✨ Total Backlog Items** | **65** | **100% Repository Completeness** | |
 
 ---
 
-## ❌ Section 1: Wrong Downloads / Mismatches
-The physical PDFs for these papers contained unrelated preprints due to legacy index shifts. These files have been deleted and need a targeted clean re-fetch.
+## 📂 Section 1: Curated Research Remaining Backlog
+These papers belong to the **Curated Research Library** and need to be downloaded and placed in the `curated-research/` directory.
 
-| Expected Title | Author(s) / Research Lab | Original Filename | Action / Link |
+| Expected Title | Author(s) / Research Lab | Expected Filename | Action / Link |
+|---|---|---|---|
+| PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing | Wenhao Wang, Hao Gu, Zhixuan Wu et al. (NJUPT) | `08-ptfusion-llm-driven-context-aware-knowledge-fusion-for-web.pdf` | [Link](https://www.sciencedirect.com/science/article/pii/S1566253525007936) |
+| A Survey on the Unique Security of Autonomous and Collaborative LLM Agents | Collaborative Community Consensus Report | `10-a-survey-on-the-unique-security-of-autonomous-and.pdf` | [Download PDF](https://www.preprints.org/manuscript/202602.1655/v2/download) |
+| CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling | Department of Computer Science & Engineering research team | `34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf` | [Download PDF](https://www.mdpi.com/2076-3417/15/16/9096/pdf) |
+| PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK | Attack-Scaffolding research group | `57-pentest-ai-an-llm-powered-multi-agents-framework-for.pdf` | [Link](https://ieeexplore.ieee.org/abstract/document/10679480) |
+| An Empirical Survey of CTF Environments | Cybersecurity Training and Education Consortium | `61-an-empirical-survey-of-ctf-environments.pdf` | [Link](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303) |
+
+## 📂 Section 2: Foundational & Thematic Research Remaining Backlog
+These papers belong to the **Foundational & Thematic Research Library** and need to be downloaded and placed in the `foundational-thematic-research/` directory.
+
+| Expected Title | Author(s) / Research Lab | Expected Filename | Action / Link |
+|---|---|---|---|
+| Towards Automated Penetration Testing: A Survey | Offensive Security Research Group | `38-towards-automated-penetration-testing-a-survey.pdf` | [Link](https://arxiv.org/abs/2303.01323) |
+
+## 📂 Section 3: Professor-Based Research Remaining Backlog
+These papers belong to the **Professor-Based Research Library** and need to be downloaded and placed in the `professor-research/` directory.
+
+| Expected Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
 | AI/ML for Network Security: Measurement and Threat Detection | Nick Feamster et al. (University of Chicago NOISE Lab) | `005-aiml-for-network-security-measurement-and-threat-detection.pdf` | [Link](https://people.cs.uchicago.edu/~feamster/) |
+| Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection | Suman Jana (Columbia) et al. | `006-veritas-semantically-grounded-agentic-framework-for.pdf` | [Link](https://arxiv.org/abs/2501.05432) |
 | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | David Brumley (CMU / ForAllSecure) | `011-forallsecuremayhem-autonomous-vapt-in-federal-production.pdf` | [Link](https://forallsecure.com/mayhem) |
 | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | Jiaping Gui, Mingjie Nie, Jinyao Guo, Futai Zou, Mati Ur Rehman, Wajih Ul Hassan (UVA) | `026-apt-detection-in-massive-networks-via-multi-stage-causal.pdf` | [Link](https://dartlab.org/publications/) |
+| ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals | Giovanni Vigna, Christopher Kruegel, Yan Shoshitaishvili et al. (Shellphish / UCSB) | `028-artiphishell-llm-agentic-cyber-reasoning-system-for.pdf` | [Link](https://shellphish.net) |
+| LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage | Wenbo Guo et al. (UCSB ML Security Lab) | `030-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf` | [Link](https://openreview.net/forum?id=uNqU3P543d) |
+| LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation | Gianluca Stringhini et al. (Boston University) | `032-llms-cannot-reliably-identify-and-reason-about-security.pdf` | [Link](https://ieeexplore.ieee.org/document/10543210) |
 | AI-Driven Malware Analysis and Cyber-Physical Systems Security | Peng Liu et al. (Penn State Cyber Security Lab) | `037-ai-driven-malware-analysis-and-cyber-physical-systems.pdf` | [Link](https://sites.psu.edu/pengliu/) |
 | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | Ting Wang et al. (Penn State ALPS Lab) | `038-adversarial-attacks-against-llm-agents-prompt-injection-and.pdf` | [Link](https://alps-lab.github.io) |
 | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | Gang Tan et al. (Penn State Security and PL Group) | `039-webassembly-security-vulnerability-analysis-and-software.pdf` | [Link](https://www.cse.psu.edu/~gxt29/) |
 | SEED Labs: The World's Most Widely Deployed Cybersecurity Education Platform | Wenliang Du (Syracuse University) | `040-seed-labs-the-worlds-most-widely-deployed-cybersecurity.pdf` | [Link](https://seedsecuritylabs.org) |
 | CPS and Critical Infrastructure Security: Real-Time Attack Detection in Industrial Control Systems | Rakesh Bobba et al. (Oregon State ORTSOC + PNNL) | `041-cps-and-critical-infrastructure-security-real-time-attack.pdf` | [Link](https://eecs.oregonstate.edu/people/bobba-rakesh) |
 | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN Test of Time Award 2025) | Guofei Gu et al. (Texas A&M SUCCESS Lab) | `042-taxonomy-of-190-advisories-against-ai-agent-frameworks.pdf` | [Link](https://faculty.cse.tamu.edu/guofei) |
+| Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `N/A` | [Link](https://www.cise.ufl.edu/~traynor/) |
 | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see entry 2.35 above for full details) | Kevin Butler et al. (FICS Research, University of Florida) | `044-fizzle-deterministic-and-reproducible-network-fuzzing.pdf` | [Link](https://www.cise.ufl.edu/~butler/) |
+| AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing | Adam Doupé et al. (ASU SEFCOM Lab) | `047-agentfuzz-detecting-taint-style-vulnerabilities-in-llm-based.pdf` | [Link](https://arxiv.org/abs/2501.05431) |
 | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | Jedidiah Crandall et al. (ASU Breakout Research Group) | `048-adversarial-network-behavior-and-evasion-techniques-in.pdf` | [Link](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/) |
 | Moving Target Defense for Cloud-Hosted Autonomous AI Systems | Saptarshi Debroy et al. (CUNY Distributed and Autonomous Systems Security Lab) | `049-moving-target-defense-for-cloud-hosted-autonomous-ai-systems.pdf` | [Link](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy) |
 | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | Sushil Jajodia et al. (George Mason CSIS) | `050-moving-target-defense-proactive-cyber-defense-via-attack.pdf` | [Link](https://cs.gmu.edu/~jajodia/) |
@@ -37,6 +61,7 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | LLMs for PLC Code Security in Industrial Control Systems | Long Lu et al. (Northeastern RiS3 Lab) | `056-llms-for-plc-code-security-in-industrial-control-systems.pdf` | [Link](https://www.longlu.org) |
 | AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software | Zhiqiang Lin et al. (Ohio State SSSL Lab) | `059-ai-assisted-bug-finding-in-kernel-firmware-and-binary.pdf` | [Link](https://zhiqiang.org) |
 | Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `060-fizzle-a-framework-for-deterministic-and-reproducible.pdf` | [Link](https://enck.org) |
+| LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | Jun Dai et al. (WPI) | `062-llm-membership-inference-and-model-extraction-against-llm.pdf` | [Link](https://users.wpi.edu/~jdai/) |
 | Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems | Dipankar Dasgupta et al. (University of Memphis ISS Lab) | `063-autonomous-security-agents-and-moving-target-defense.pdf` | [Link](https://www.memphis.edu/cs/people/faculty_pages/dasgupta.php) |
 | Towards AI-Driven Human-Machine Co-Teaming for Adaptive Cyber Security Operation Centers | Xinming (Simon) Ou et al. (USF Bellini College) | `065-towards-ai-driven-human-machine-co-teaming-for-adaptive.pdf` | [Link](https://www.usf.edu/ai-cybersecurity-computing/people/faculty/ou-simon.aspx) |
 | NEXUS: Exploiting Unsafe Multi-Turn Sequences in LLM Jailbreaks | Daniel Takabi et al. (Old Dominion University) | `066-nexus-exploiting-unsafe-multi-turn-sequences-in-llm.pdf` | [Link](https://www.odu.edu/directory/daniel-takabi) |
@@ -65,28 +90,8 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | Game-Theoretic Modeling of Attacker-Defender Interactions in Network Security | Qi Liao et al. (Central Michigan University) | `096-game-theoretic-modeling-of-attacker-defender-interactions.pdf` | [Link](https://www.cmich.edu/directory/qi-liao) |
 | Automotive Cybersecurity and Adversarial Attacks on Embedded Systems | Linxi Zhang et al. (Central Michigan University) | `097-automotive-cybersecurity-and-adversarial-attacks-on.pdf` | [Link](https://www.cmich.edu/directory/linxi-zhang) |
 | Systematic Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety Bugs | Chengyu Song et al. (UC Riverside) | `099-systematic-kernel-fuzzing-and-os-vulnerability-discovery.pdf` | [Link](https://www.cs.ucr.edu/~csong/) |
+| Systematic Discovery of Network-Layer Attack Surfaces: Off-Path TCP Injection, DNS Cache Poisoning, Cellular Security | Zhiyun Qian et al. (UC Riverside) | `100-systematic-discovery-of-network-layer-attack-surfaces-off.pdf` | [Link](https://www.cs.ucr.edu/~zhiyunq/) |
 | AI-Driven Security Analysis of Smart Home and Industrial IoT/CPS Devices: Attack Detection and Defense | Selcuk Uluagac et al. (Florida International University) | `102-ai-driven-security-analysis-of-smart-home-and-industrial.pdf` | [Link](https://users.cs.fiu.edu/~uluagac/) |
 | LLM Package Hallucination Attacks: How LLMs Frequently Generate Code with Non-Existent and Insecure Packages | Murtuza Jadliwala et al. (University of Texas at San Antonio) | `103-llm-package-hallucination-attacks-how-llms-frequently.pdf` | [Link](https://sites.google.com/site/murtuza.jadliwala) |
 | AI-Driven Network Measurement and Autonomous Threat Detection | Abdullah Yasin Nur et al. (University of New Orleans) | `104-ai-driven-network-measurement-and-autonomous-threat.pdf` | [Link](https://www.uno.edu/directory/faculty/nur.php) |
 | AI-Driven Data Exfiltration Detection and Cybersecurity Data Integrity | James Wagner et al. (University of New Orleans) | `105-ai-driven-data-exfiltration-detection-and-cybersecurity.pdf` | [Link](https://www.uno.edu/directory/faculty/wagner.php) |
-| Towards Automated Penetration Testing: A Survey | Offensive Security Research Group | `38-towards-automated-penetration-testing-a-survey.pdf` | [Link](https://arxiv.org/abs/2303.01323) |
-
-## 📇 Section 2: Paywalled Reference Cards
-These papers are behind professional academic publishers (IEEE, Elsevier, Wiley) and require institutional logins or manual subscription access to obtain the full text.
-
-| Paper Title | Author(s) / Research Lab | Expected Filename | Action / Link |
-|---|---|---|---|
-| PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing | Wenhao Wang, Hao Gu, Zhixuan Wu et al. (NJUPT) | `08-ptfusion-llm-driven-context-aware-knowledge-fusion-for-web.pdf` | [Link](https://www.sciencedirect.com/science/article/pii/S1566253525007936) |
-| A Survey on the Unique Security of Autonomous and Collaborative LLM Agents | Collaborative Community Consensus Report | `10-a-survey-on-the-unique-security-of-autonomous-and.pdf` | [Download PDF](https://www.preprints.org/manuscript/202602.1655/v2/download) |
-| CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling | Department of Computer Science & Engineering research team | `34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf` | [Download PDF](https://www.mdpi.com/2076-3417/15/16/9096/pdf) |
-| PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK | Attack-Scaffolding research group | `57-pentest-ai-an-llm-powered-multi-agents-framework-for.pdf` | [Link](https://ieeexplore.ieee.org/abstract/document/10679480) |
-| An Empirical Survey of CTF Environments | Cybersecurity Training and Education Consortium | `61-an-empirical-survey-of-ctf-environments.pdf` | [Link](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303) |
-| LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | Jun Dai et al. (WPI) | `062-llm-membership-inference-and-model-extraction-against-llm.pdf` | [Link](https://users.wpi.edu/~jdai/) |
-| Systematic Discovery of Network-Layer Attack Surfaces: Off-Path TCP Injection, DNS Cache Poisoning, Cellular Security | Zhiyun Qian et al. (UC Riverside) | `100-systematic-discovery-of-network-layer-attack-surfaces-off.pdf` | [Link](https://www.cs.ucr.edu/~zhiyunq/) |
-
-## ⚠️ Section 3: Completely Missing Papers
-These papers were not found in the original local filesystem and require initial ingestion.
-
-| Paper Title | Author(s) / Research Lab | Expected Filename | Action / Link |
-|---|---|---|---|
-| Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `N/A` | [Link](https://www.cise.ufl.edu/~traynor/) |
