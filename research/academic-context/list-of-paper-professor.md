@@ -124,15 +124,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #2 — Xinyu Xing · Northwestern · USNWR #9
 
 ### 2 `[🔴 P1 | 2025]` PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX Security 2025)
@@ -141,15 +132,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Northwestern University
 - **Venue:** **USENIX Security 2025 (CCF-A)**
 - **Relevance:** 🎯 End-to-end LLM agent integrating fault localization, patch generation, and validation — fixes bugs without breaking existing tests. `CMatrix`'s post-exploit remediation module follows this design.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -164,15 +146,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #4 — Suman Jana · Columbia · USNWR #12
 
 ### 4 `[🔴 P1 | 2025]` Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection
@@ -181,15 +154,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Columbia University
 - **Venue:** **2025**
 - **Relevance:** 🎯 Unifies static LLVM-IR analysis and multi-agent dynamic validation using debugger artifacts. Solves deep path-feasible constraints to augment traditional fuzzing in `CMatrix` with agentic confirmation.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -204,15 +168,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #6 — Lujo Bauer · CMU · USNWR #22
 
 ### 6 `[🔴 P1 | 2025]` Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks
@@ -221,16 +176,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Carnegie Mellon University
 - **Venue:** **arXiv, January 2025 (v4: November 2025) — co-published with Anthropic**
 - **Relevance:** 🎯 The closest published academic work to `CMatrix`. LLMs autonomously plan and execute real-world multi-host enterprise attacks via MHBench (10 realistic emulated networks, 25–50 hosts). State-of-the-art LLMs alone CANNOT execute multi-host attacks — Incalmo's abstraction layer makes even small LLMs succeed. `CMatrix` must replicate and exceed these results.
-
----
-
-
----
-
-
-
----
-
 
 ---
 
@@ -245,15 +190,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #8 — Matthew Fredrikson · CMU · USNWR #22
 
 ### 8 `[🔴 P1 | 2023]` Universal and Transferable Adversarial Attacks on Aligned Language Models (GCG Attack)
@@ -262,12 +198,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Carnegie Mellon University
 - **Venue:** **arXiv 2023 (4,000+ citations; presented at NeurIPS, ICLR workshops)**
 - **Relevance:** 🎯 The foundational GCG attack — demonstrates that LLMs like GPT-4 can be made to ignore safety guardrails via adversarial suffix injection. Directly relevant to `CMatrix`'s agent jailbreak surface: `CMatrix`'s orchestrator must be hardened against GCG-class prompt injection attacks targeting its worker agents.
-
----
-
-
----
-
 
 ---
 
@@ -282,15 +212,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #10 — Wenke Lee · Georgia Tech · USNWR #33
 
 ### 10 `[🔴 P1 | 2025]` Systems Security Foundations for Agentic Computing (SAGAI @ IEEE S&P 2025)
@@ -299,15 +220,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Georgia Institute of Technology
 - **Venue:** ****IEEE SAGAI Workshop @ IEEE S&P 2025 (report published December 2025)****
 - **Relevance:** 🎯 Defines the "systems security approach to AI agents" — how decades of security research (access control, sandboxing, privilege separation, audit logging) applies to LLM agents. The theoretical context for `CMatrix`'s security model.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -322,15 +234,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #12 — Daniel Kang · UIUC · USNWR #35
 
 ### 12 `[🔴 P1 | 2024]` LLM Agents Can Autonomously Exploit One-day Vulnerabilities
@@ -339,15 +242,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** University of Illinois Urbana-Champaign
 - **Venue:** ****arXiv, April 2024****
 - **Relevance:** 🎯 Landmark — GPT-4 exploits 87% of one-day CVEs autonomously. Established LLMs can do real exploitation work.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -362,17 +256,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
-
-
----
-
 ## 👤 Prof. #14 — Z. Berkay Celik · Purdue · USNWR #53
 
 ### 14 `[🔴 P1 | 2025]` Rethinking How to Evaluate Language Model Jailbreak (AISEC @ ACM CCS 2025)
@@ -381,15 +264,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Purdue University
 - **Venue:** **AISEC @ ACM CCS 2025**
 - **Relevance:** 🎯 Rigorous evaluation framework for LLM jailbreak resistance from an adversary perspective. Directly aligned with `CMatrix`'s offensive agent evaluation methodology.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -413,15 +287,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #16 — Antonio Bianchi · Purdue · USNWR #53
 
 ### 17 `[🔴 P1 | 2025]` LEMIX: Enabling Testing of Embedded Applications as Linux Applications (USENIX Security 2025)
@@ -433,16 +298,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
-
----
-
 ## 👤 Prof. #17 — Christopher Kruegel · UCSB · USNWR #65
 
 ### 18 `[🔴 P1 | 2025]` CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction
@@ -451,15 +306,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** UC Santa Barbara + Boston University
 - **Venue:** **arXiv, September 2025**
 - **Relevance:** 🎯 Four-module pipeline (Knowledge Builder → Vulnerability Analyzer → Exploit Generator → Verifier) reproducing ~51% of 2024–2025 CVEs at $2.77 avg API cost. The most directly overlapping academic paper to `CMatrix`'s exploit pipeline. Kruegel is a co-PI on NSF ACTION Institute ($20M).
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -483,15 +329,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #19 — Wenbo Guo · UCSB · USNWR #65
 
 ### 21 `[🔴 P1 | 2025]` LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage
@@ -512,15 +349,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #20 — Gianluca Stringhini · Boston University · USNWR #65
 
 ### 23 `[🔴 P1 | 2024]` LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation
@@ -532,15 +360,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #21 — Georgios Portokalidis · Stevens Inst. Tech. · USNWR #76
 
 ### 24 `[🔴 P1 | 2024]` F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code
@@ -549,15 +368,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Stevens Institute of Technology
 - **Venue:** **2024–2025 (IEEE S&P, USENIX Security)**
 - **Relevance:** 🎯 Automatically identifies and surgically disables vulnerability-triggering functionality in binaries without source code — the exact capability `CMatrix`'s binary analysis agent targets when assessing patch-resistant systems. Taint analysis and shadow execution provide `CMatrix`'s information-flow tracking layer for post-exploitation attribution.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -573,16 +383,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 ---
 
 
----
-
-
----
-
-
-
----
-
-
 ## 👤 Prof. #23 — Peng Liu · Penn State · USNWR #130
 
 ### 26 `[🔴 P1 | 2024]` PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing (USENIX Security 2024)
@@ -591,15 +391,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Penn State
 - **Venue:** **USENIX Security 2024 (CCF-A)**
 - **Relevance:** 🎯 Directly builds an LLM-based pentest agent; multi-stage recon -> exploitation pipeline mirrors your architecture.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -614,15 +405,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #25 — Guofei Gu · Texas A&M · USNWR #145
 
 ### 28 `[🔴 P1 | 2025]` LLMs in Software Security: A Survey of Vulnerability Detection Techniques and Insights (ACM Computing Surveys 2025)
@@ -631,15 +413,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Texas A&M
 - **Venue:** **ACM Computing Surveys 2025**
 - **Relevance:** 🎯 Comprehensive LLM-for-vulnerability-detection survey; shares the same automation goal as LLMOrch-VAPT.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -654,15 +427,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #27 — Tiffany Bao · ASU · USNWR #147
 
 ### 30 `[🔴 P1 | 2024]` ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software
@@ -671,15 +435,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Arizona State University + NYU Tandon
 - **Venue:** ****arXiv, August 2024****
 - **Relevance:** 🎯 5,000+ memory vulnerabilities with triggering inputs and verified patches — the largest open-source vulnerability dataset with reproducible exploits. Natural evaluation corpus for `CMatrix`'s memory vulnerability scan modes.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -695,15 +450,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 ---
 
 
----
-
-
----
-
-
----
-
-
 ## 👤 Prof. #29 — Peng Gao · Virginia Tech · USNWR #170
 
 ### 32 `[🔴 P1 | 2025]` CTINexus: Automatic Cyber Threat Intelligence Knowledge Graph Construction Using LLMs (EuroS&P 2025)
@@ -712,15 +458,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Virginia Tech
 - **Venue:** **EuroS&P 2025**
 - **Relevance:** 🎯 LLM-driven CTI pipeline with structured knowledge extraction; directly feeds a VAPT intelligence layer.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -738,15 +475,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 ---
 
 
----
-
-
----
-
-
----
-
-
 
 
 ## 👤 Prof. #31 — Nidhi Rastogi · RIT · USNWR #320
@@ -757,15 +485,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** Rochester Institute of Technology
 - **Venue:** **ACSAC 2024 / arXiv 2025**
 - **Relevance:** 🎯 CTIBench benchmark for evaluating LLMs on cybersecurity tasks — measures LLM hallucinations, relevant to CMatrix's reliability layer.
-
----
-
-
----
-
-
----
-
 
 ---
 
@@ -786,15 +505,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 
 ---
 
-
----
-
-
----
-
-
----
-
 ## 👤 Prof. #33 — Murtuza Jadliwala · UT San Antonio · USNWR #411
 
 ### 36 `[🔴 P1 | 2025]` We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs (USENIX Security 2025)
@@ -803,18 +513,6 @@ This table provides a comprehensive index of all **36 unique professor-based res
 - **Institution:** UT San Antonio
 - **Venue:** **USENIX Security 2025 (CCF-A)**
 - **Relevance:** 🎯 LLM package hallucination attacks; directly relevant to CMatrix's post-exploit analysis phase when analyzing LLM-generated payloads.
-
----
-
-
-
----
-
-
-
----
-
-
 
 ---
 

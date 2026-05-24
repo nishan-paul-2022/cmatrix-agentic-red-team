@@ -320,10 +320,6 @@
 
 ---
 
----
-
----
-
 ## 14. Prof. Z. Berkay Celik
 **Purdue University** | USNWR Overall: **#53** (tied)
 
@@ -375,8 +371,6 @@
 **CMatrix alignment:** DARPA AIxCC finalist on Shellphish team — directly built and tested AI-enabled Cyber Reasoning Systems. UCSB PhD (co-advised by Vigna and Kruegel) and Purdue faculty — bridges UCSB SecLab → Purdue PurSec pipeline. Works on automatic discovery of vulnerabilities in binary-only software.
 
 **Student friendliness:** Former UCSB student who joined as faculty — deeply understands the student perspective. Collaborative mentoring style within PurSec Lab.
-
----
 
 ---
 
@@ -488,12 +482,8 @@
 
 ---
 
----
-
 # 🟡 TIER 2 — Universities ranked #101–300
 *(8 professors — ranks #130 through #179)*
-
----
 
 ---
 
@@ -605,8 +595,6 @@
 
 ---
 
----
-
 ## 29. Prof. Peng Gao
 **Virginia Tech** | USNWR Overall: **#170**
 
@@ -622,10 +610,6 @@
 **CMatrix alignment:** NSF CAREER Award (Oct 2025) specifically for research on using LLMs to help security analysts identify and respond to threats faster — directly aligned with CMatrix's autonomous threat modeling. PhD from Princeton, postdoc at UC Berkeley under Dawn Song — bridges Berkeley RDI network to Virginia Tech.
 
 **Student friendliness:** CCI Faculty Fellow — active in Virginia's cybersecurity research network. Lab-page actively discusses student research opportunities.
-
----
-
----
 
 ---
 
@@ -647,14 +631,8 @@
 
 ---
 
----
-
----
-
 # 🟢 TIER 3 — Universities ranked #301–500
 *(3 professors — ranks #320 through #411)*
-
----
 
 ---
 
@@ -673,18 +651,6 @@
 **CMatrix alignment:** CTIBench (2025): comprehensive benchmark for evaluating LLMs on real-world cybersecurity tasks — measures whether LLMs hallucinate when acting as security assistants, directly relevant to CMatrix's LLM reliability layer. SECURE benchmark (ACSAC 2024): evaluates LLMs in industrial control system security. Develops TINKER knowledge-graph framework for automated threat intelligence — a natural enrichment layer for CMatrix's reconnaissance output.
 
 **Student friendliness:** AI4SEC Lab actively recruits PhD students. RIT GCI provides strong funding pipelines and industry connections. Known advocate for women and international students in cybersecurity research.
-
----
-
----
-
----
-
----
-
----
-
----
 
 ---
 
