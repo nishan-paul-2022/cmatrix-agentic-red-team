@@ -1,88 +1,6 @@
-# 🎓 Research Collaboration With USA Professor
-## Reorganized by University Ranking Tier
+# 🎓 Research Collaboration With USA Professors
 
 > **CMatrix research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
->
-> **Tier definitions (USNWR Overall Rankings):**
-> - 🔴 **Tier 1** — Universities ranked #1–100 | Professors **#1–#22**
-> - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#23–#30**
-> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#31–#33**
-
----
-
-# 📊 MASTER REFERENCE TABLE — 33 Unique Professors
-
-| # | Professor | University | Email | USNWR Rank | Tier |
-|---|---|---|---|---|---|
-| 1 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
-| 2 | Xinyu Xing | Northwestern University | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
-| 3 | Yinzhi Cao | Johns Hopkins University | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
-| 4 | Suman Jana | Columbia University | suman@cs.columbia.edu | #12 | 🔴 T1 |
-| 5 | Vitaly Shmatikov | Cornell Tech / Cornell University | shmatikov@cornell.edu | #17 | 🔴 T1 |
-| 6 | Lujo Bauer | Carnegie Mellon University | lbauer@cmu.edu | #22 | 🔴 T1 |
-| 7 | David Brumley | Carnegie Mellon University | dbrumley@cmu.edu | #22 | 🔴 T1 |
-| 8 | Matthew Fredrikson | Carnegie Mellon University | mfredrik@cmu.edu | #22 | 🔴 T1 |
-| 9 | Taesoo Kim | Georgia Institute of Technology | taesoo@gatech.edu | #33 | 🔴 T1 |
-| 10 | Wenke Lee | Georgia Institute of Technology | wenke@cc.gatech.edu | #33 | 🔴 T1 |
-| 11 | Gang Wang | University of Illinois Urbana-Champaign | gangw@illinois.edu | #35 | 🔴 T1 |
-| 12 | Daniel Kang | University of Illinois Urbana-Champaign | ddkang@illinois.edu | #35 | 🔴 T1 |
-| 13 | Barton Miller | University of Wisconsin–Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
-| 14 | Z. Berkay Celik | Purdue University | celik@purdue.edu | #53 | 🔴 T1 |
-| 15 | Brendan Dolan-Gavitt | New York University (Tandon) | brendandg@nyu.edu | #53 | 🔴 T1 |
-| 16 | Antonio Bianchi | Purdue University | antoniob@purdue.edu | #53 | 🔴 T1 |
-| 17 | Christopher Kruegel | UC Santa Barbara | chris@cs.ucsb.edu | #65 | 🔴 T1 |
-| 18 | Giovanni Vigna | UC Santa Barbara | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
-| 19 | Wenbo Guo | UC Santa Barbara | henrygwb@ucsb.edu | #65 | 🔴 T1 |
-| 20 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
-| 21 | Georgios Portokalidis | Stevens Institute of Technology | porto@stevens.edu | #76 | 🔴 T1 |
-| 22 | Yizheng Chen | University of Maryland, College Park | yzchen@umd.edu | #93 | 🔴 T1 |
-| 23 | Peng Liu | Penn State University | pliu@ist.psu.edu | #130 | 🟡 T2 |
-| 24 | Ting Wang | Penn State University | inbox@tiwang.io | #130 | 🟡 T2 |
-| 25 | Guofei Gu | Texas A&M University | guofei@cse.tamu.edu | #145 | 🟡 T2 |
-| 26 | Yan Shoshitaishvili | Arizona State University | yans@asu.edu | #147 | 🟡 T2 |
-| 27 | Tiffany Bao | Arizona State University | tbao@asu.edu | #147 | 🟡 T2 |
-| 28 | Adam Doupé | Arizona State University | doupe@asu.edu | #147 | 🟡 T2 |
-| 29 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
-| 30 | Wil Robertson | Northeastern University | wil@ccs.neu.edu | #179 | 🟡 T2 |
-| 31 | Nidhi Rastogi | Rochester Institute of Technology | nxrvse@rit.edu | #320 | 🟢 T3 |
-| 32 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
-| 33 | Murtuza Jadliwala | University of Texas at San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
-
-
----
-
-# 🏢 MASTER UNIVERSITY REFERENCE TABLE
-
-| # | University | USNWR Rank | Prof Count | Associated Professor(s) | Tier |
-|---|---|---|---|---|---|
-| 1 | UC Berkeley | #4 | **1** | Dawn Song | 🔴 T1 |
-| 2 | Northwestern University | #9 | **1** | Xinyu Xing | 🔴 T1 |
-| 3 | Johns Hopkins University | #9 | **1** | Yinzhi Cao | 🔴 T1 |
-| 4 | Columbia University | #12 | **1** | Suman Jana | 🔴 T1 |
-| 5 | Cornell Tech / Cornell University | #17 | **1** | Vitaly Shmatikov | 🔴 T1 |
-| 6 | Carnegie Mellon University | #22 | **3** | Lujo Bauer, David Brumley, Matthew Fredrikson | 🔴 T1 |
-| 7 | Georgia Institute of Technology | #33 | **2** | Taesoo Kim, Wenke Lee | 🔴 T1 |
-| 8 | University of Illinois Urbana-Champaign | #35 | **2** | Gang Wang, Daniel Kang | 🔴 T1 |
-| 9 | University of Wisconsin–Madison | #42 | **1** | Barton Miller | 🔴 T1 |
-| 10 | Purdue University | #53 | **2** | Z. Berkay Celik, Antonio Bianchi | 🔴 T1 |
-| 11 | New York University (Tandon) | #53 | **1** | Brendan Dolan-Gavitt | 🔴 T1 |
-| 12 | UC Santa Barbara | #65 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo | 🔴 T1 |
-| 13 | Boston University | #65 | **1** | Gianluca Stringhini | 🔴 T1 |
-| 14 | Stevens Institute of Technology | #76 | **1** | Georgios Portokalidis | 🔴 T1 |
-| 15 | University of Maryland, College Park | #93 | **1** | Yizheng Chen | 🔴 T1 |
-| 16 | Penn State University | #130 | **2** | Peng Liu, Ting Wang | 🟡 T2 |
-| 17 | Texas A&M University | #145 | **1** | Guofei Gu | 🟡 T2 |
-| 18 | Arizona State University | #147 | **3** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé | 🟡 T2 |
-| 19 | Virginia Tech | #170 | **1** | Peng Gao | 🟡 T2 |
-| 20 | Northeastern University | #179 | **1** | Wil Robertson | 🟡 T2 |
-| 21 | Rochester Institute of Technology | #320 | **1** | Nidhi Rastogi | 🟢 T3 |
-| 22 | UC Riverside | #405 | **1** | Heng Yin | 🟢 T3 |
-| 23 | University of Texas at San Antonio | #411 | **1** | Murtuza Jadliwala | 🟢 T3 |
-
----
-
-# 🔴 TIER 1 — Universities ranked #1–100
-*(22 professors — ranks #4 through #93)*
 
 ---
 
@@ -482,11 +400,6 @@
 
 ---
 
-# 🟡 TIER 2 — Universities ranked #101–300
-*(8 professors — ranks #130 through #179)*
-
----
-
 ## 23. Prof. Peng Liu
 **Penn State University** | USNWR Overall: **#130**
 
@@ -628,11 +541,6 @@
 **CMatrix alignment:** Co-director of Northeastern SecLab. Works on automated vulnerability research and binary exploitation — exact alignment with CMatrix's exploit chain automation. Co-authored PANDA (whole-system dynamic analysis platform) with Brendan Dolan-Gavitt. Works extensively on LAVA (Large-scale Automated Vulnerability Addition) for benchmarking bug finders.
 
 **Student friendliness:** Known for hands-on, collaborative lab culture within the SSL ecosystem. Active international collaborator through the ISSL network.
-
----
-
-# 🟢 TIER 3 — Universities ranked #301–500
-*(3 professors — ranks #320 through #411)*
 
 ---
 

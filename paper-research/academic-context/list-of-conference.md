@@ -51,18 +51,18 @@
 
 ---
 
-### 3. ACM CCS 2026 *(deadlines passed — target 2027)*
+### 3. ACM CCS 2027
 **Full name:** ACM Conference on Computer and Communications Security  
 **Focus:** Security  
 **CORE Rank:** A* (Top-4)
 
 | Field | Details |
 |---|---|
-| Submission deadline | Cycle 1: Jan 14, 2026 ❌ / Cycle 2: Apr 29, 2026 ❌ |
-| Conference date | Nov 15–19, 2026, The Hague, Netherlands |
+| Submission deadline | Cycle 1: **Jan 14, 2027** / Cycle 2: **Apr 29, 2027** |
+| Conference date | ~Nov 2027 (venue TBA) |
 | Online option | ✅ Hybrid likely |
-| Cost | ~$150 virtual |
-| Notes | Both 2026 deadlines passed. Watch for ACM CCS 2027 CFP (expected Jan + May 2027). |
+| Cost | ~$250–$350 APC (Open Access model from 2026 onward) |
+| Notes | ACM CCS 2027 CFP not yet released. Based on the 2026 pattern: Cycle 1 abstract ~Jan 7, full paper ~Jan 14; Cycle 2 abstract ~Apr 22, full paper ~Apr 29. Monitor sigsac.org/ccs for the official CFP. Note: ACM fully transitioned to Open Access in 2026 — APCs now apply (~$250 for ACM members, ~$350 for non-members), though authors from ACM Open institutions are exempt. |
 
 ---
 
