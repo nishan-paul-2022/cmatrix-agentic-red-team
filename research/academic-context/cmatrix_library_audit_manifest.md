@@ -7,7 +7,7 @@ To guarantee the highest data integrity for the downstream RAG vector pipeline, 
 ---
 
 ## 📈 Audit Summary Statistics
-- **Total Publications:** 205 (Curated=61, Professor=105, Foundational=39)
+- **Total Publications:** 214 (Curated=70, Professor=105, Foundational=39)
 - **✅ Success (Full PDF):** 124
 - **📇 Reference Cards (Premium Gated/Paywalled):** 7
 - **❌ Wrong Download (Mismatch):** 67
@@ -19,7 +19,7 @@ To guarantee the highest data integrity for the downstream RAG vector pipeline, 
 
 ---
 
-## 📂 Category: Curated (61 entries)
+## 📂 Category: Curated (70 entries)
 
 | # | Expected Paper Title | Local Filename | Status | Exact Download Link |
 |---|---|---|---|---|
@@ -84,6 +84,15 @@ To guarantee the highest data integrity for the downstream RAG vector pipeline, 
 | **59** | Getting pwn'd by AI: Penetration Testing with Large Language Models | `59-getting-pwnd-by-ai-penetration-testing-with-large-language.pdf` | ✅ Success (Full PDF) | [Link](https://dl.acm.org/doi/abs/10.1145/3611643.3613083) |
 | **60** | Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag | `60-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2308.10443) |
 | **61** | An Empirical Survey of CTF Environments | `61-an-empirical-survey-of-ctf-environments.pdf` | 📇 Reference Card | [Link](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303) |
+| **62** | ExploitGym: Can AI Agents Turn Security Vulnerabilities into Real Attacks? | `62-exploitgym-can-ai-agents-turn-security-vulnerabilities.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2605.11086) |
+| **63** | RedTeamCUA: Realistic Adversarial Testing of Computer-Use Agents in Hybrid Web-OS Environments | `63-redteamcua-realistic-adversarial-testing-of-computer-use.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2505.21936) |
+| **64** | AWE: Adaptive Agents for Dynamic Web Penetration Testing | `64-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2603.00960) |
+| **65** | PACEbench: A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities | `65-pacebench-a-framework-for-evaluating-practical-ai.pdf` | ✅ Success (Full PDF) | [Link](https://openreview.net/forum?id=kGEuZXaXU6) |
+| **66** | Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing | `66-shell-or-nothing-real-world-benchmarks-and-memory.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2509.09207) |
+| **67** | Perry: A High-level Framework for Accelerating Cyber Deception Experimentation | `67-perry-a-high-level-framework-for-accelerating-cyber.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2506.20770) |
+| **68** | PentestEval: Benchmarking LLM-based Penetration Testing with Modular and Stage-Level Design | `68-pentesteval-benchmarking-llm-based-penetration-testing.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2512.14233) |
+| **69** | NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security | `69-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf` | ✅ Success (Full PDF) | [Link](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html) |
+| **70** | Using Large Language Models for Cybersecurity Capture-The-Flag Challenges and Certification Questions | `70-using-large-language-models-for-cybersecurity-capture.pdf` | ✅ Success (Full PDF) | [Link](https://arxiv.org/abs/2308.10443) |
 
 ## 📂 Category: Professor (105 entries)
 
