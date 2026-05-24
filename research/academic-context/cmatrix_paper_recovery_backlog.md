@@ -6,9 +6,9 @@ This document serves as the high-fidelity **Acquisition and Recovery backlog** f
 
 | Target Directory Section | Count Remaining | Primary Restoration Action | Target Workspace Path |
 |---|---|---|---|
-| **📂 Section 1: Curated Research** | **5** | Target re-download with verified clean titles | `research/downloaded-paper/curated-research/` |
+| **📂 Section 1: Curated Research** | **4** | Target re-download with verified clean titles | `research/downloaded-paper/curated-research/` |
 | **📂 Section 2: Foundational & Thematic** | **1** | Ingest foundational literature | `research/downloaded-paper/foundational-thematic-research/` |
-| **📂 Section 3: Professor-Based Research** | **54** | Restore professor databases (Tiers 1, 2, 3) | `research/downloaded-paper/professor-research/` |
+| **📂 Section 3: Professor-Based Research** | **55** | Restore professor databases (Tiers 1, 2, 3) | `research/downloaded-paper/professor-research/` |
 | **✨ Total Backlog Items** | **60** | **100% Repository Completeness** | |
 
 ---
@@ -21,7 +21,6 @@ These papers belong to the **Curated Research Library** and need to be downloade
 | PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing | Wenhao Wang, Hao Gu, Zhixuan Wu et al. (NJUPT) | `08-ptfusion-llm-driven-context-aware-knowledge-fusion-for-web.pdf` | [Link](https://www.sciencedirect.com/science/article/pii/S1566253525007936) |
 | A Survey on the Unique Security of Autonomous and Collaborative LLM Agents | Collaborative Community Consensus Report | `10-a-survey-on-the-unique-security-of-autonomous-and.pdf` | [Download PDF](https://www.preprints.org/manuscript/202602.1655/v2/download) |
 | CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling | Department of Computer Science & Engineering research team | `34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf` | [Download PDF](https://www.mdpi.com/2076-3417/15/16/9096/pdf) |
-| PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK | Attack-Scaffolding research group | `57-pentest-ai-an-llm-powered-multi-agents-framework-for.pdf` | [Link](https://ieeexplore.ieee.org/abstract/document/10679480) |
 | An Empirical Survey of CTF Environments | Cybersecurity Training and Education Consortium | `61-an-empirical-survey-of-ctf-environments.pdf` | [Link](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303) |
 
 ## 📂 Section 2: Foundational & Thematic Research Remaining Backlog
@@ -36,6 +35,7 @@ These papers belong to the **Professor-Based Research Library** and need to be d
 
 | Expected Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
+| CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026) | Zhun Wang, Tianneng Shi, Jingxuan He, Matthew Cai, Jialin Zhang, Dawn Song (UC Berkeley) | `002-cybergym-ai-agents-real-world-cybersecurity-capabilities-at.pdf` | [Link](https://arxiv.org/abs/2506.02548) |
 | AI/ML for Network Security: Measurement and Threat Detection | Nick Feamster et al. (University of Chicago NOISE Lab) | `005-aiml-for-network-security-measurement-and-threat-detection.pdf` | [Link](https://people.cs.uchicago.edu/~feamster/) |
 | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | David Brumley (CMU / ForAllSecure) | `011-forallsecuremayhem-autonomous-vapt-in-federal-production.pdf` | [Link](https://forallsecure.com/mayhem) |
 | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | Jiaping Gui, Mingjie Nie, Jinyao Guo, Futai Zou, Mati Ur Rehman, Wajih Ul Hassan (UVA) | `026-apt-detection-in-massive-networks-via-multi-stage-causal.pdf` | [Link](https://dartlab.org/publications/) |
