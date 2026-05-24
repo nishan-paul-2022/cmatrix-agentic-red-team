@@ -42,7 +42,7 @@ This table provides a comprehensive index of all **105 unique professor-based re
 | **25** | 🟠 **P2 — High** | Backdoor Attacks in LLMs and Temporal Logic Attacks Against Autonomous RL Agents | 2025 | 2024–2025 (NeurIPS, ICLR, USENIX Security) | Guanhong Tao | Purdue University | #53 |
 | **26** | 🔴 **P1 — Critical** | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | 2025 | IEEE INFOCOM 2025 (CCF-A) | Wajih Ul Hassan | University of Virginia | #62 |
 | **27** | 🔴 **P1 — Critical** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Christopher Kruegel | UC Santa Barbara | #65 |
-| **28** | 🔴 **P1 — Critical** | ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals | 2025 | DEF CON 33 / AIxCC 2025 | Giovanni Vigna | UC Santa Barbara | #65 |
+| **28** | 🔴 **P1 — Critical** | OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security | 2026 | USENIX Security 2026 | Giovanni Vigna | UC Santa Barbara | #65 |
 | **29** | 🟠 **P2 — High** | ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs | 2025 | ACM CCS 2025 Keynote (CCF-A) | Giovanni Vigna | UC Santa Barbara | #65 |
 | **30** | 🔴 **P1 — Critical** | LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage | 2025 | COLM 2025 | Wenbo Guo | UC Santa Barbara | #65 |
 | **31** | 🟠 **P2 — High** | BlueCodeAgent: Blue-Team Agent Enabled by Automated Red Teaming | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 |
@@ -504,12 +504,12 @@ This table provides a comprehensive index of all **105 unique professor-based re
 > - **Lab:** SecLab UCSB, NSF ACTION Director
 > - **Contact:** vigna@cs.ucsb.edu | [Website](https://sites.cs.ucsb.edu/~vigna/)
 
-### 28 `[🔴 P1 | 2025]` ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals
-- **Paper:** [ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals](https://shellphish.net)
-- **Authors:** **Giovanni Vigna**, **Christopher Kruegel**, **Yan Shoshitaishvili** et al. (Shellphish / UCSB)
-- **Institution:** UC Santa Barbara
-- **Venue:** **DEF CON 33 / DARPA AIxCC Finals (2025)**
-- **Relevance:** 🎯 The state-of-the-art autonomous Cyber Reasoning System (CRS) powered by LLM agent orchestrations to find, triage, and patch vulnerabilities in real-time. Direct architectural benchmark for `CMatrix` agent loops.
+### 28 `[🔴 P1 | 2026]` OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security
+- **Paper:** [OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security](https://arxiv.org/abs/2603.08566)
+- **Authors:** **Giovanni Vigna**, **Christopher Kruegel**, **Yan Shoshitaishvili** et al. (Georgia Tech SSLab / UCSB / Shellphish)
+- **Institution:** UC Santa Barbara + Georgia Tech
+- **Venue:** **USENIX Security 2026**
+- **Relevance:** 🎯 An open-source, platform-agnostic Cyber Reasoning System (CRS) orchestration framework that runs and manages LLM-based autonomous bug-finding and patching agents. Serves as the core architectural pipeline and local deployment harness for `CMatrix` campaigns.
 
 ### 29 `[🟠 P2 | 2025]` ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using LLMs
 - **Paper:** [ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis Using Large Language Models](https://sites.cs.ucsb.edu/~vigna/)

@@ -8,8 +8,8 @@ This document serves as the high-fidelity **Acquisition and Recovery backlog** f
 |---|---|---|---|
 | **📂 Section 1: Curated Research** | **5** | Target re-download with verified clean titles | `research/downloaded-paper/curated-research/` |
 | **📂 Section 2: Foundational & Thematic** | **1** | Ingest foundational literature | `research/downloaded-paper/foundational-thematic-research/` |
-| **📂 Section 3: Professor-Based Research** | **59** | Restore professor databases (Tiers 1, 2, 3) | `research/downloaded-paper/professor-research/` |
-| **✨ Total Backlog Items** | **65** | **100% Repository Completeness** | |
+| **📂 Section 3: Professor-Based Research** | **54** | Restore professor databases (Tiers 1, 2, 3) | `research/downloaded-paper/professor-research/` |
+| **✨ Total Backlog Items** | **60** | **100% Repository Completeness** | |
 
 ---
 
@@ -37,12 +37,8 @@ These papers belong to the **Professor-Based Research Library** and need to be d
 | Expected Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
 | AI/ML for Network Security: Measurement and Threat Detection | Nick Feamster et al. (University of Chicago NOISE Lab) | `005-aiml-for-network-security-measurement-and-threat-detection.pdf` | [Link](https://people.cs.uchicago.edu/~feamster/) |
-| Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection | Suman Jana (Columbia) et al. | `006-veritas-semantically-grounded-agentic-framework-for.pdf` | [Link](https://arxiv.org/abs/2501.05432) |
 | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | David Brumley (CMU / ForAllSecure) | `011-forallsecuremayhem-autonomous-vapt-in-federal-production.pdf` | [Link](https://forallsecure.com/mayhem) |
 | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | Jiaping Gui, Mingjie Nie, Jinyao Guo, Futai Zou, Mati Ur Rehman, Wajih Ul Hassan (UVA) | `026-apt-detection-in-massive-networks-via-multi-stage-causal.pdf` | [Link](https://dartlab.org/publications/) |
-| ARTIPHISHELL: LLM-Agentic Cyber Reasoning System for DEF CON AIxCC Finals | Giovanni Vigna, Christopher Kruegel, Yan Shoshitaishvili et al. (Shellphish / UCSB) | `028-artiphishell-llm-agentic-cyber-reasoning-system-for.pdf` | [Link](https://shellphish.net) |
-| LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage | Wenbo Guo et al. (UCSB ML Security Lab) | `030-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf` | [Link](https://openreview.net/forum?id=uNqU3P543d) |
-| LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation | Gianluca Stringhini et al. (Boston University) | `032-llms-cannot-reliably-identify-and-reason-about-security.pdf` | [Link](https://ieeexplore.ieee.org/document/10543210) |
 | AI-Driven Malware Analysis and Cyber-Physical Systems Security | Peng Liu et al. (Penn State Cyber Security Lab) | `037-ai-driven-malware-analysis-and-cyber-physical-systems.pdf` | [Link](https://sites.psu.edu/pengliu/) |
 | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | Ting Wang et al. (Penn State ALPS Lab) | `038-adversarial-attacks-against-llm-agents-prompt-injection-and.pdf` | [Link](https://alps-lab.github.io) |
 | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | Gang Tan et al. (Penn State Security and PL Group) | `039-webassembly-security-vulnerability-analysis-and-software.pdf` | [Link](https://www.cse.psu.edu/~gxt29/) |
@@ -51,7 +47,6 @@ These papers belong to the **Professor-Based Research Library** and need to be d
 | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN Test of Time Award 2025) | Guofei Gu et al. (Texas A&M SUCCESS Lab) | `042-taxonomy-of-190-advisories-against-ai-agent-frameworks.pdf` | [Link](https://faculty.cse.tamu.edu/guofei) |
 | Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `N/A` | [Link](https://www.cise.ufl.edu/~traynor/) |
 | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see entry 2.35 above for full details) | Kevin Butler et al. (FICS Research, University of Florida) | `044-fizzle-deterministic-and-reproducible-network-fuzzing.pdf` | [Link](https://www.cise.ufl.edu/~butler/) |
-| AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing | Adam Doupé et al. (ASU SEFCOM Lab) | `047-agentfuzz-detecting-taint-style-vulnerabilities-in-llm-based.pdf` | [Link](https://arxiv.org/abs/2501.05431) |
 | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | Jedidiah Crandall et al. (ASU Breakout Research Group) | `048-adversarial-network-behavior-and-evasion-techniques-in.pdf` | [Link](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/) |
 | Moving Target Defense for Cloud-Hosted Autonomous AI Systems | Saptarshi Debroy et al. (CUNY Distributed and Autonomous Systems Security Lab) | `049-moving-target-defense-for-cloud-hosted-autonomous-ai-systems.pdf` | [Link](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy) |
 | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | Sushil Jajodia et al. (George Mason CSIS) | `050-moving-target-defense-proactive-cyber-defense-via-attack.pdf` | [Link](https://cs.gmu.edu/~jajodia/) |
