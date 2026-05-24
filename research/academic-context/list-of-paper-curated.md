@@ -73,13 +73,6 @@
 
 ---
 
-### 8. PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing
-- **Venue:** 🟠 Information Fusion 2026 (Elsevier)
-- **URL:** [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S1566253525007936)
-- **Why it matters for CMatrix:** Context-aware knowledge fusion — directly maps to CMatrix's Qdrant vector memory + NVD/CVE knowledge integration strategy. Published in a journal CMatrix is targeting.
-
----
-
 ### 9. LLMs as Hackers: Autonomous Linux Privilege Escalation Attacks
 - **Venue:** 🟡 Empirical Software Engineering 2026 (Springer)
 - **URL:** [Springer](https://link.springer.com/article/10.1007/s10664-025-10758-3)
@@ -112,6 +105,37 @@
 - **Venue:** 🟠 arXiv (May 2026)
 - **arXiv:** [2605.17075](https://arxiv.org/abs/2605.17075)
 - **Why it matters for CMatrix:** Hybrid LLM-RL red teaming against enterprise SOAR systems — multi-stage attack campaigns, shows standalone LLM agents failing, justifying CMatrix's multi-agent design.
+
+---
+
+### 61. ExploitGym: Can AI Agents Turn Security Vulnerabilities into Real Attacks?
+- **Venue:** 🟠 arXiv (May 2026)
+- **arXiv:** [2605.11086](https://arxiv.org/abs/2605.11086)
+- **Why it matters for CMatrix:** Evaluates defensive security agents using automated exploits and reinforcement learning to turn vulnerabilities into verified attacks.
+
+---
+
+### 62. RedTeamCUA: Realistic Adversarial Testing of Computer-Use Agents in Hybrid Web-OS Environments
+- **Venue:** 🔴 ICLR 2026
+- **arXiv:** [2505.21936](https://arxiv.org/abs/2505.21936)
+- **Code:** [GitHub](https://github.com/OSU-NLP-Group/RedTeamCUA)
+- **Why it matters for CMatrix:** Adversarial testing framework for computer-use agents in hybrid web-OS environments — directly related to CMatrix's multi-agent runtime.
+
+---
+
+### 63. AWE: Adaptive Agents for Dynamic Web Penetration Testing
+- **Venue:** 🔴 NDSS 2026
+- **URL:** [NDSS](https://www.ndss-symposium.org/ndss-paper/auto-draft-680/)
+- **Code:** [GitHub](https://github.com/stuxlabs/AWE)
+- **Why it matters for CMatrix:** Adaptive agents designed specifically for dynamic web penetration testing — highly relevant to CMatrix's web agent architecture.
+
+---
+
+### 64. PACEbench: A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities
+- **Venue:** 🔴 ICLR 2026
+- **URL:** [OpenReview](https://openreview.net/pdf?id=kGEuZXaXU6)
+- **Code:** [GitHub](https://github.com/RyuKosei/PACEbench)
+- **Why it matters for CMatrix:** Evaluates practical AI cyber-exploitation capabilities on diverse benchmarks — validates offensive agent evaluation standards.
 
 ---
 
@@ -363,6 +387,28 @@
 
 ---
 
+### 65. Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing
+- **Venue:** 🟠 arXiv (2025)
+- **URL:** [BRACU](https://dspace.bracu.ac.bd/xmlui/handle/10361/27423)
+- **Why it matters for CMatrix:** Introduces memory-activated agents for automated penetration testing and real-world system benchmarks.
+
+---
+
+### 66. Perry: A High-level Framework for Accelerating Cyber Deception Experimentation
+- **Venue:** 🟠 arXiv (Jun 2025)
+- **arXiv:** [2506.20770](https://arxiv.org/abs/2506.20770)
+- **Code:** [GitHub](https://github.com/bsinger98/Perry)
+- **Why it matters for CMatrix:** High-level framework that accelerates cyber deception experimentation — crucial for simulating adversarial defenses against red-team agents.
+
+---
+
+### 67. PentestEval: Benchmarking LLM-based Penetration Testing with Modular and Stage-Level Design
+- **Venue:** 🟠 arXiv (Dec 2025)
+- **arXiv:** [2512.14233](https://arxiv.org/abs/2512.14233)
+- **Why it matters for CMatrix:** Benchmarking platform designed to evaluate stage-level and modular penetration testing behaviors in LLM agents.
+
+---
+
 ## `2024 Papers`
 
 ### 47. PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing
@@ -447,6 +493,14 @@
 
 ---
 
+### 68. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
+- **Venue:** 🔴 NeurIPS 2024
+- **URL:** [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
+- **Code:** [GitHub](https://github.com/NYU-LLM-CTF/NYUCTFBench)
+- **Why it matters for CMatrix:** Standard dataset and runner evaluating offensive security CTF solving capabilities.
+
+---
+
 ## `2023 Papers`
 
 ### 58. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
@@ -472,11 +526,10 @@
 
 ---
 
-### 61. An Empirical Survey of CTF Environments
-- **Venue:** 🟡 JNCA 2023 (Journal of Network and Computer Applications — Elsevier)
-- **URL:** [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303)
-- **Why it matters for CMatrix:** Comprehensive survey of CTF infrastructure and environments — foundational reference for designing CMatrix's lab evaluation environment (lab.kaiofficial.xyz) and understanding the benchmark landscape.
-
+### 69. Using Large Language Models for Cybersecurity Capture-The-Flag Challenges and Certification Questions
+- **Venue:** 🟠 arXiv (Aug 2023)
+- **arXiv:** [2308.10443](https://arxiv.org/abs/2308.10443)
+- **Why it matters for CMatrix:** Explores the early baseline performance of LLMs on cybersecurity capture-the-flag challenges.
 
 ---
 

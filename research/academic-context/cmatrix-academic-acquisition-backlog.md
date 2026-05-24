@@ -1,5 +1,5 @@
 # CMatrix Academic Backlog — Direct Download Links
-> Generated: May 2026 | 60 papers across 3 sections
+> Generated: May 2026 | 54 papers across 1 section
 
 **Link categories used:**
 - ✅ **DIRECT PDF** — clicks straight to a `.pdf` file
@@ -9,51 +9,7 @@
 
 ---
 
-## 📂 Section 1: Curated Research (4 papers)
-Target dir: `/research/downloaded-paper/curated-research/`
-
----
-
-### 08 · PTFusion: LLM-driven Context-aware Knowledge Fusion for Web Penetration Testing
-**Authors:** Wenhao Wang, Hao Gu, Zhixuan Wu et al. (NJUPT) | **Journal:** Information Fusion (Elsevier), 2025
-
-| Status | ⚠️ MANUAL — Paywalled on ScienceDirect |
-|---|---|
-| Abstract page | https://www.sciencedirect.com/science/article/pii/S1566253525007936 |
-| Free PDF | ❌ No arXiv preprint found |
-
-**Manual steps:**
-1. Go to the ScienceDirect abstract page above.
-2. If your institution has Elsevier access, click **Download PDF**.
-3. Without institutional access: try **Unpaywall** browser extension — it auto-finds legal free versions.
-4. Search Google Scholar: `PTFusion LLM penetration testing Wenhao Wang` → look for a green PDF button.
-5. Last resort: email `wenhao.wang@njupt.edu.cn` requesting a preprint copy.
-
----
-
-### 61 · An Empirical Survey of CTF Environments
-**Full title:** An Empirical Survey of Functions and Configurations of Open-Source Capture the Flag (CTF) Environments  
-**Authors:** Stela Kucek, Maria Leitner | **Journal:** Journal of Network and Computer Applications (JNCA), Elsevier, 2019
-
-| Status | ⚠️ MANUAL — Paywalled on ScienceDirect |
-|---|---|
-| Abstract page | https://www.sciencedirect.com/science/article/abs/pii/S1084804519303303 |
-| Free PDF | ❌ No arXiv preprint found |
-
-**Manual steps:**
-1. Try the Unpaywall extension on the ScienceDirect page.
-2. Search ResearchGate: https://www.researchgate.net — paper is listed there; click **Request full-text** or check if PDF is attached.
-3. Search on Semantic Scholar: https://www.semanticscholar.org/paper/fed6575c7f687532e72147cace097df6627f7860 — sometimes hosts PDFs.
-4. Email authors at COMET K1 Austria for a copy.
-
----
-
-## 📂 Section 2: Foundational & Thematic Research (1 paper)
-Target dir: `/research/downloaded-paper/foundational-thematic-research/`
-
----
-
-## 📂 Section 3: Professor-Based Research (55 papers)
+## 📂 Section 3: Professor-Based Research (54 papers)
 Target dir: `/research/downloaded-paper/professor-research/`
 
 > **Pattern note for ArXiv papers:** All `https://arxiv.org/abs/XXXXXX` links are abstract pages. The direct PDF is always `https://arxiv.org/pdf/XXXXXX`. Entries below list the PDF URL directly.
@@ -770,44 +726,61 @@ See entry **044** above for download instructions.
 
 ---
 
-## 🛠️ Bulk Download Script (for the 4 confirmed direct PDFs)
+## 📋 Summary Table of Outstanding Acquisition Targets
 
-```bash
-#!/bin/bash
-# CMatrix — confirmed direct PDF downloads
-# Run from /research/downloaded-paper/
+| # | Section | Research / Target Subject | Status | Action Required |
+|---|---------|---------------------------|--------|-----------------|
+| 005 | Professor | AI/ML for Network Security: Measurement and Threat Detection | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 011 | Professor | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 026 | Professor | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 037 | Professor | AI-Driven Malware Analysis and Cyber-Physical Systems Security | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 038 | Professor | Adversarial Attacks Against LLM Agents: Prompt Injection and Backdoor Defenses | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 039 | Professor | WebAssembly Security: Vulnerability Analysis and Software Fault Isolation | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 040 | Professor | SEED Labs: The World's Most Widely Deployed Cybersecurity Education Platform | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 041 | Professor | CPS and Critical Infrastructure Security: Real-Time Attack Detection in Industrial Control Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 042 | Professor | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN Test of Time Award 2025) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 048 | Professor | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 049 | Professor | Moving Target Defense for Cloud-Hosted Autonomous AI Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 050 | Professor | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 051 | Professor | AI Systems for Threat Recognition, Agent Communication, and Automated Response (NSF ACTION Co-PI) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 053 | Professor | NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster ($625K, Oct 2025) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 054 | Professor | IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 056 | Professor | LLMs for PLC Code Security in Industrial Control Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 059 | Professor | AI-Assisted Bug Finding in Kernel, Firmware, and Binary Software | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 060 | Professor | Fizzle: A Framework for Deterministic and Reproducible Network Fuzzing (IEEE S&P 2026) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 062 | Professor | LLM Membership Inference and Model Extraction Against LLM-Based Agents (NDSS 2026) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 063 | Professor | Autonomous Security Agents and Moving Target Defense: Adaptive Cybersecurity Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 065 | Professor | Towards AI-Driven Human-Machine Co-Teaming for Adaptive Cyber Security Operation Centers | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 066 | Professor | NEXUS: Exploiting Unsafe Multi-Turn Sequences in LLM Jailbreaks | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 067 | Professor | Securing the GenAI Supply Chain: Threat Modeling and Adversarial Robustness | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 068 | Professor | Deep Reinforcement Learning for Autonomous Cyber Defense Agents | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 069 | Professor | Formal Safety and Security Verification of Cyber-Physical Systems with ML Components | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 070 | Professor | AI-Enabled Vulnerability Assessment and Digital Twins for Critical Infrastructure | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 071 | Professor | MalParse: LLM-Powered Semantic Reverse Engineering of Android Malware | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 073 | Professor | MikeGPT: Secure Institutional Data Interaction and LLM Agent Orchestration | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 076 | Professor | Resilient and Secure Machine Learning Under Adversarial Backdoors | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 077 | Professor | AZTRM-D: AI-Integrated Framework for Zero Trust Risk Management and DevSecOps | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 080 | Professor | AI Accountability and Auditability Benchmarks for Autonomous Cyber Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 082 | Professor | Technical Debt and Security Risk Quantification in Software Engineering | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 083 | Professor | Generative AI Online Scam Detection and Adversarial ML Attacks on Vulnerability Discovery | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 084 | Professor | CPSTRIDE: LLM-Assisted Threat Modeling for Cyber-Physical Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 085 | Professor | LLM Jailbreak Attacks and Defenses in Multi-Agent AI Environments | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 086 | Professor | LLM-Orchestrated Security Frameworks for the Internet of Battlefield Things (IoBT) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 087 | Professor | Graph-Based Anomaly Detection and Network Behavior Analysis for Threat Detection | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 088 | Professor | Proactive Cyber Defense and Moving Target Defense for Autonomous Cyber Resilience | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 090 | Professor | Explainable AI and Recurrent Neural Networks for Intrusion Detection | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 091 | Professor | Moving Target Defense and Software Protection in Critical Infrastructure Security | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 092 | Professor | Security-Related AI-Generated Pull Requests: Vulnerabilities in LLM Code | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 093 | Professor | AI/ML-Driven Intrusion Detection and Applied AI for Industrial Cybersecurity | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 094 | Professor | Benchmarking Android Malware Detection with Deep Learning and LLM Embeddings | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 095 | Professor | Autonomous Cyber Defense and AI-Driven Intrusion Detection in ICS/SCADA Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 096 | Professor | Game-Theoretic Modeling of Attacker-Defender Interactions in Network Security | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 097 | Professor | Automotive Cybersecurity and Adversarial Attacks on Embedded Systems | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 099 | Professor | Systematic Kernel Fuzzing and OS Vulnerability Discovery for Memory Safety Bugs | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 100 | Professor | Systematic Discovery of Network-Layer Attack Surfaces (Off-Path TCP, DNS Cache Poisoning, Cellular Security) | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 102 | Professor | AI-Driven Security Analysis of Smart Home and Industrial IoT/CPS Devices | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 103 | Professor | LLM Package Hallucination Attacks | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 104 | Professor | AI-Driven Network Measurement and Autonomous Threat Detection | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
+| 105 | Professor | AI-Driven Data Exfiltration Detection and Cybersecurity Data Integrity | ⚠️ MANUAL | Retrieve via Faculty Page/Scholar |
 
-# Section 1: curated-research/
-cd curated-research/
-wget -O "10-a-survey-on-the-unique-security-of-autonomous-and.pdf" \
-  "https://www.preprints.org/manuscript/202602.1655/v2/download"
-
-wget -O "34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf" \
-  "https://www.mdpi.com/2076-3417/15/16/9096/pdf"
-
-cd ../foundational-thematic-research/
-wget -O "38-towards-automated-penetration-testing-a-survey.pdf" \
-  "https://arxiv.org/pdf/2410.17141"
-
-cd ../professor-research/
-wget -O "002-cybergym-ai-agents-real-world-cybersecurity-capabilities-at.pdf" \
-  "https://arxiv.org/pdf/2506.02548"
-
-echo "Done — 4 direct PDFs downloaded."
-```
-
----
-
-## 📋 Summary Table
-
-| # | File | Status | Direct Download URL |
-|---|------|--------|---------------------|
-| 08 | PTFusion | ⚠️ MANUAL | Paywalled — see steps |
-| 10 | LLM Agent Security Survey | ✅ DIRECT | https://www.preprints.org/manuscript/202602.1655/v2/download |
-| 34 | CurriculumPT | ✅ DIRECT | https://www.mdpi.com/2076-3417/15/16/9096/pdf |
-| 38 | Towards Automated Pentest | ✅ DIRECT (⚠️ ID corrected → 2410.17141) | https://arxiv.org/pdf/2410.17141 |
-| 61 | CTF Environments Survey | ⚠️ MANUAL | Paywalled — see steps |
-| 002 | CyberGym (ICLR 2026) | ✅ DIRECT | https://arxiv.org/pdf/2506.02548 |
-| 005–105 (all others) | 54 papers | ⚠️ MANUAL | Faculty/lab pages — see per-entry steps |
-
-**Critical note:** 50 of the 55 professor-research entries point to lab/faculty homepages, not specific papers. These require manual lookup on each professor's publications page. The most reliable strategy is: (1) visit the faculty page, (2) search arXiv with author + keywords, (3) Google Scholar as fallback.
+**Critical Note:** All 56 remaining target entries are non-trivial to fetch and require manual lookups from faculty publication pages, arXiv searches, or institutional libraries. The bulk of automated direct-downloadable files have already been successfully acquired and stored locally.
