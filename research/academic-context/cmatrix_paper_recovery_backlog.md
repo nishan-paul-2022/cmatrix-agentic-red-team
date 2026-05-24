@@ -6,10 +6,10 @@ This document serves as the high-fidelity **Acquisition and Recovery backlog** f
 
 | Backlog Category | Count | Primary Action | Target Location |
 |---|---|---|---|
-| **❌ Wrong Downloads (Mismatches)** | **67** | Target re-download with verified clean titles | `research/downloaded-paper/` |
+| **❌ Wrong Downloads (Mismatches)** | **57** | Target re-download with verified clean titles | `research/downloaded-paper/` |
 | **📇 Paywalled Reference Cards** | **7** | Institutional/manual access required | `research/downloaded-paper/` |
-| **⚠️ Completely Missing Papers** | **7** | Initial automated/manual fetch | `research/downloaded-paper/` |
-| **✨ Total Backlog Items** | **81** | **Full Library Alignment** | |
+| **⚠️ Completely Missing Papers** | **6** | Initial automated/manual fetch | `research/downloaded-paper/` |
+| **✨ Total Backlog Items** | **70** | **Full Library Alignment** | |
 
 ---
 
@@ -18,17 +18,10 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 
 | Expected Title | Author(s) / Research Lab | Original Filename | Action / Link |
 |---|---|---|---|
-| Cloak, Honey, Trap: Proactive Defenses Against LLM Agents | Daniel Ayzenshteyn, Roy Weiss, Yisroel Mirsky (Ben-Gurion University) | `19-cloak-honey-trap-proactive-defenses-against-llm-agents.pdf` | [Download PDF](https://www.usenix.org/system/files/usenixsecurity25-ayzenshteyn.pdf) |
-| AI-Augmented SOC: A Survey of LLMs and Agents for Security Automation | Siddhant Srinivas, Brandon Kirk, Julissa Zendejas et al. | `40-ai-augmented-soc-a-survey-of-llms-and-agents-for-security.pdf` | [Download PDF](https://www.mdpi.com/2624-800X/5/4/95/pdf) |
-| SoK: A Comparison of Autonomous Penetration Testing Agents | Raphaël Simon, Wim Mees (Royal Military Academy, Belgium) | `55-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf` | [Download PDF](https://cylab.be/publications/69/download/2024-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf) |
 | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | Yinzhi Cao (JHU), Suman Jana (Columbia) et al. | `004-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf` | [Link](https://yinzhicao.org) |
 | AI/ML for Network Security: Measurement and Threat Detection | Nick Feamster et al. (University of Chicago NOISE Lab) | `005-aiml-for-network-security-measurement-and-threat-detection.pdf` | [Link](https://people.cs.uchicago.edu/~feamster/) |
-| Unleashing Mayhem on Binary Code: Autonomous Cyber Reasoning System (IEEE S&P 2012 / DARPA CGC Winner) | Sang Kil Cha, Thanassis Avgerinos, Alexandre Rebert, David Brumley (CMU) | `010-unleashing-mayhem-on-binary-code-autonomous-crs.pdf` | [Download PDF](https://users.ece.cmu.edu/~dbrumley/pdf/Cha%20et%20al._2012_Unleashing%20Mayhem%20on%20Binary%20Code.pdf) |
 | ForAllSecure/Mayhem: Autonomous VAPT in Federal Production Systems | David Brumley (CMU / ForAllSecure) | `011-forallsecuremayhem-autonomous-vapt-in-federal-production.pdf` | [Link](https://forallsecure.com/mayhem) |
-| ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System (DEF CON 33, 1st Place, $4M) | Team Atlanta — Taesoo Kim et al. (Georgia Tech, Samsung Research, KAIST, POSTECH) | `014-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf` | [Download PDF](https://arxiv.org/pdf/2509.14589) |
-| LmPa: Improving Decompilation by Synergy of LLM and Program Analysis (NDSS 2025) | Xiangzhe Xu, Zhuo Zhang, Zian Su, Ziyang Huang, et al., Xiangyu Zhang (Purdue) [Barton Miller ecosystem — methodology adopted in Wisconsin 2025 LLM vulnerability work] | `018-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf` | [Download PDF](https://arxiv.org/pdf/2306.02546) |
 | NeuroScope: Reverse Engineering DNNs on Edge Devices (USENIX Security 2025) | Ruoyu Wu, Muqi Zou, Arslan Khan, Taegyu Kim, Dongyan Xu, Dave (Jing) Tian, Antonio Bianchi (Purdue PurSec) | `019-neuroscope-reverse-engineering-dnns-on-edge-devices.pdf` | [Link](https://www.usenix.org/conference/usenixsecurity25) |
-| LmPa: Reducing LLM Hallucination in Decompilation via Program Analysis Synergy (NDSS 2025) | Xiangzhe Xu, Zhuo Zhang, Zian Su, Ziyang Huang, Yapeng Ye, Jianjun Huang, et al., Xiangyu Zhang (Purdue) | `020-lmpa-reducing-llm-hallucination-in-decompilation-via.pdf` | [Download PDF](https://arxiv.org/pdf/2306.02546) |
 | APT Detection in Massive Networks via Multi-Stage Causal Analytics (INFOCOM 2025) | Jiaping Gui, Mingjie Nie, Jinyao Guo, Futai Zou, Mati Ur Rehman, Wajih Ul Hassan (UVA) | `026-apt-detection-in-massive-networks-via-multi-stage-causal.pdf` | [Link](https://dartlab.org/publications/) |
 | F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code | Georgios Portokalidis et al. (Stevens Institute + IMDEA Software) | `033-f-blocker-disabling-vulnerability-triggering-functionality.pdf` | [Link](https://www.portokalidis.net) |
 | AI-Driven Malware Analysis and Cyber-Physical Systems Security | Peng Liu et al. (Penn State Cyber Security Lab) | `037-ai-driven-malware-analysis-and-cyber-physical-systems.pdf` | [Link](https://sites.psu.edu/pengliu/) |
@@ -38,12 +31,10 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | CPS and Critical Infrastructure Security: Real-Time Attack Detection in Industrial Control Systems | Rakesh Bobba et al. (Oregon State ORTSOC + PNNL) | `041-cps-and-critical-infrastructure-security-real-time-attack.pdf` | [Link](https://eecs.oregonstate.edu/people/bobba-rakesh) |
 | Taxonomy of 190 Advisories Against AI Agent Frameworks (DSN Test of Time Award 2025) | Guofei Gu et al. (Texas A&M SUCCESS Lab) | `042-taxonomy-of-190-advisories-against-ai-agent-frameworks.pdf` | [Link](https://faculty.cse.tamu.edu/guofei) |
 | Fizzle: Deterministic and Reproducible Network Fuzzing (co-author with Enck and Traynor — see entry 2.35 above for full details) | Kevin Butler et al. (FICS Research, University of Florida) | `044-fizzle-deterministic-and-reproducible-network-fuzzing.pdf` | [Link](https://www.cise.ufl.edu/~butler/) |
-| Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | Yan Shoshitaishvili, Adam Doupé (Arizona State University) | `045-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf` | [Download PDF](https://www.zionbasque.com/files/papers/dec-synergy-study.pdf) |
 | Adversarial Network Behavior and Evasion Techniques in Internet Censorship | Jedidiah Crandall et al. (ASU Breakout Research Group) | `048-adversarial-network-behavior-and-evasion-techniques-in.pdf` | [Link](https://scai.engineering.asu.edu/faculty/computer-science-and-engineering/jedidiah-crandall/) |
 | Moving Target Defense for Cloud-Hosted Autonomous AI Systems | Saptarshi Debroy et al. (CUNY Distributed and Autonomous Systems Security Lab) | `049-moving-target-defense-for-cloud-hosted-autonomous-ai-systems.pdf` | [Link](https://www.hunter.cuny.edu/csci/faculty/saptarshi-debroy) |
 | Moving Target Defense: Proactive Cyber Defense via Attack Surface Randomization | Sushil Jajodia et al. (George Mason CSIS) | `050-moving-target-defense-proactive-cyber-defense-via-attack.pdf` | [Link](https://cs.gmu.edu/~jajodia/) |
 | AI Systems for Threat Recognition, Agent Communication, and Automated Response (NSF ACTION Co-PI) | Jie Gao et al. (Rutgers — NSF ACTION Institute Co-PI) | `051-ai-systems-for-threat-recognition-agent-communication-and.pdf` | [Link](https://sites.rutgers.edu/jie-gao/) |
-| Detecting Remote Infections on Linux-Based IoT Devices (ASIACCS 2022 Best Paper) | Long Cheng (Clemson), Guofei Gu (Texas A&M) et al. | `052-detecting-remote-infections-on-linux-based-iot-devices.pdf` | [Download PDF](https://cse.buffalo.edu/~hongxinh/papers/AsiaCCS2022.pdf) |
 | NSF CAREER: Using LLMs to Help Security Analysts Identify and Respond to Threats Faster ($625K, Oct 2025) | Peng Gao (Virginia Tech) | `053-nsf-career-using-llms-to-help-security-analysts-identify.pdf` | [Link](https://people.cs.vt.edu/penggao/) |
 | IoT Security and Provenance-Based Attack Forensics (IEEE S&P 2026) | Pubali Datta (UMass), Z. Berkay Celik (Purdue) et al. | `054-iot-security-and-provenance-based-attack-forensics.pdf` | [Link](https://pubali.github.io) |
 | LLMs for PLC Code Security in Industrial Control Systems | Long Lu et al. (Northeastern RiS3 Lab) | `056-llms-for-plc-code-security-in-industrial-control-systems.pdf` | [Link](https://www.longlu.org) |
@@ -59,7 +50,6 @@ The physical PDFs for these papers contained unrelated preprints due to legacy i
 | AI-Enabled Vulnerability Assessment and Digital Twins for Critical Infrastructure | Tasnuva Farheen et al. (Louisiana State University) | `070-ai-enabled-vulnerability-assessment-and-digital-twins-for.pdf` | [Link](https://www.lsu.edu/eng/cse/people/faculty/farheen.php) |
 | MalParse: LLM-Powered Semantic Reverse Engineering of Android Malware | Aisha Ali-Gombe et al. (Louisiana State University) | `071-malparse-llm-powered-semantic-reverse-engineering-of.pdf` | [Link](https://www.lsu.edu/eng/cse/people/faculty/ali-gombe.php) |
 | MikeGPT: Secure Institutional Data Interaction and LLM Agent Orchestration | James Ghawaly et al. (Louisiana State University) | `073-mikegpt-secure-institutional-data-interaction-and-llm-agent.pdf` | [Link](https://www.lsu.edu/eng/cse/people/faculty/ghawaly.php) |
-| CTIBench: Evaluating LLMs on Real-World Cyber Threat Intelligence Tasks | Nidhi Rastogi et al. (Rochester Institute of Technology) | `074-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf` | [Download PDF](https://arxiv.org/pdf/2406.07599) |
 | Resilient and Secure Machine Learning Under Adversarial Backdoors | Weijie Zhao et al. (Rochester Institute of Technology) | `076-resilient-and-secure-machine-learning-under-adversarial.pdf` | [Link](https://www.rit.edu/computing/directory/wz9494-weijie-zhao) |
 | AZTRM-D: AI-Integrated Framework for Zero Trust Risk Management and DevSecOps | Mehrdad Nojoumian et al. (Florida Atlantic University) | `077-aztrm-d-ai-integrated-framework-for-zero-trust-risk.pdf` | [Link](https://faculty.eng.fau.edu/nojoumian/) |
 | AI Accountability and Auditability Benchmarks for Autonomous Cyber Systems | Supreeth Shastri et al. (University of North Texas) | `080-ai-accountability-and-auditability-benchmarks-for.pdf` | [Link](https://engineering.unt.edu/cse/people/supreeth-shastri.html) |
@@ -104,10 +94,9 @@ These papers were not found in the original local filesystem and require initial
 
 | Paper Title | Author(s) / Research Lab | Expected Filename | Action / Link |
 |---|---|---|---|
-| HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing | Lajos Muzsai, David Imolai, András Lukács (ELTE) | `N/A` | [Download PDF](https://arxiv.org/pdf/2412.01778) |
 | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | Yinzhi Cao (JHU), Suman Jana (Columbia) et al. | `N/A` | [Link](http://www.cs.columbia.edu/~suman/) |
 | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
 | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
 | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | Christopher Kruegel, Giovanni Vigna, Wenbo Guo et al. (UCSB) | `N/A` | [Link](https://arxiv.org/abs/2509.01835) |
 | Fizzle: Deterministic Network Fuzzing (co-author with Enck — see entry 2.35 above for full details) | William Enck, Patrick Traynor, Kevin Butler (NC State / UF) | `N/A` | [Link](https://www.cise.ufl.edu/~traynor/) |
-| Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | Yan Shoshitaishvili, Adam Doupé (Arizona State University) | `N/A` | [Download PDF](https://www.zionbasque.com/files/papers/dec-synergy-study.pdf) |
+| Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | Yan Shoshitaishvili, Adam Doupé (Arizona State University) | `N/A` | [Link](https://www.ndss-symposium.org/ndss-paper/decompiling-the-synergy-an-empirical-study-of-human-llm-teaming-in-software-reverse-engineering/) |
