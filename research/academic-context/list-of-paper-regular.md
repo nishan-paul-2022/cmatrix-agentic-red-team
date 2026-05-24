@@ -40,7 +40,6 @@ This table provides a comprehensive index of foundational and thematic research 
 | **24** | 🔴 **P1** | When LLMs Meet Cybersecurity: A Systematic Literature Review | 2025 | Cybersecurity (Springer) | Jie Zhang | Chinese Academy of Sciences | #100 |
 | **25** | 🟠 **P2** | Pen-Strategist Survey Table (28 LLM-based PT Systems) | 2026 | arXiv, May 2026 | Yasod Ginige | University of Sydney | #29 |
 | **26** | 🟠 **P2** | Towards Automated Penetration Testing: A Survey | 2024 | arXiv, 2023 | Valentina Casola | University of Naples Federico II | #187 |
-| **27** | 🟠 **P2** | A Survey on Large Language Models for Cybersecurity | 2024 | arXiv, May 2024 | Hanxiang Xu | Huazhong University of Science and Technology | #91 |
 
 ---
 
@@ -53,8 +52,8 @@ This table provides a comprehensive index of foundational and thematic research 
 | **3** | [**AI Safety & Governance**](#section-3) | HITL, Guardrails, and Ethical VAPT | 1 paper |
 | **4** | [**RAG & Vulnerability Intel**](#section-4) | Knowledge bases for exploit generation | 1 paper |
 | **5** | [**Cybersecurity Benchmarks**](#section-5) | Evaluation and performance tracking | 2 papers |
-| **6** | [**Agent Reasoning & CoT**](#section-6) | Advanced planning and planning logic | 4 papers |
-| **7** | [**Surveys & Literature Reviews**](#section-7) | Comprehensive field overviews | 4 papers |
+| **6** | [**Agent Reasoning & CoT**](#section-6) | Advanced planning and planning logic | 3 papers |
+| **7** | [**Surveys & Literature Reviews**](#section-7) | Comprehensive field overviews | 3 papers |
 
 ---
 
@@ -309,14 +308,5 @@ This table provides a comprehensive index of foundational and thematic research 
 - **Institution:** University of Naples Federico II
 - **Venue:** **arXiv / Journal 2023**
 - **Relevance:** Historical baseline survey for the field.
-
----
-
-### 27 `[🟠 P2 | 2024]` A Survey on Large Language Models for Cybersecurity
-- **Paper:** [A Survey on Large Language Models for Cybersecurity](https://arxiv.org/abs/2405.04828)
-- **Authors:** Hanxiang Xu, Shenao Wang, Ningke Li, Kailong Wang, Yanjie Zhao, Kai Chen, Ting Yu, Yang Liu, Haoyu Wang
-- **Institution:** Huazhong University of Science and Technology + Hamad Bin Khalifa University + Nanyang Technological University
-- **Venue:** **arXiv, May 2024**
-- **Relevance:** Complete survey of LLMs in cybersecurity — essential background for all `CMatrix` papers.
 
 ---
