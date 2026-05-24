@@ -447,7 +447,7 @@
 ---
 
 ## 21. Prof. Georgios Portokalidis
-**Stevens Institute of Technology** | USNWR Overall: **#76–80**
+**Stevens Institute of Technology** | USNWR Overall: **#76**
 
 | Field | Info |
 |---|---|
@@ -700,12 +700,5 @@
 3. **Alignment** — Explain exactly how your work extends or complements theirs
 4. **Your background** — "I'm an MSc student in cybersecurity at University of Dhaka (CUET → DU PMICS), with a background in..."
 5. **Small ask** — "Would it be possible to evaluate CMatrix against your [benchmark/dataset]?" or "Would you consider a co-authored survey covering this space?"
-
-**Priority order for maximum funding probability:**
-- Start with ACTION Institute members (Vigna, Song, Bauer, Sekar, Gao, Xu, Kim) — they share a $20M pool
-- Then NSF CAREER Award holders actively recruiting (Chen, Hassan, Celik, Wang, Gao-VT, Butler, Enck, Dai)
-- Then DARPA AIxCC participants (Kim, Xing, Bao, Shoshitaishvili, Doupé, Zhang, Bianchi)
-- Then researchers with direct paper overlap in 2025-2026 (Kang-CVEBench, Dolan-Gavitt-EnIGMA, Shmatikov-multiagent, Guo-VulnLLM-R, Jajodia-MTD)
-- Then educators with large student communities (Du, Shoshitaishvili via pwn.college, Jajodia via CSIS)
 
 ---
