@@ -411,16 +411,7 @@
 
 ## `2024 Papers`
 
-### 53. PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing
-- **Venue:** 🔴 USENIX Security 2024 (Distinguished Artifact Award)
-- **URL:** [USENIX](https://www.usenix.org/conference/usenixsecurity24/presentation/deng)
-- **arXiv:** [2308.06782](https://arxiv.org/abs/2308.06782)
-- **Code:** [GitHub](https://github.com/GreyDGL/PentestGPT)
-- **Why it matters for CMatrix:** **The foundational paper for this entire field.** Three-module LLM pentest system (reasoning, generation, parsing), 228.6% task-completion increase over baseline. Every paper in this list either builds on or competes with PentestGPT. Mandatory reading.
-
----
-
-### 54. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
+### 53. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
 - **Venue:** 🔴 NeurIPS 2024
 - **URL:** [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Code:** [GitHub](https://github.com/NYU-LLM-CTF/NYUCTFBench)
@@ -428,35 +419,35 @@
 
 ---
 
-### 55. Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
+### 54. Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
 - **Venue:** 🟠 arXiv (Jun 2024) — University of Illinois
 - **arXiv:** [2406.01637](https://arxiv.org/abs/2406.01637)
 - **Why it matters for CMatrix:** **Critical paper** — first proof that multi-agent LLM teams can exploit zero-day vulnerabilities with no prior knowledge. Hierarchical Planning and Task-Specific Agents (HPTSA) architecture is a direct ancestor of CMatrix's multi-agent design.
 
 ---
 
-### 56. LLM Agents Can Autonomously Exploit One-Day Vulnerabilities
+### 55. LLM Agents Can Autonomously Exploit One-Day Vulnerabilities
 - **Venue:** 🟠 arXiv (Apr 2024) — University of Illinois
 - **arXiv:** [2404.08144](https://arxiv.org/abs/2404.08144)
 - **Why it matters for CMatrix:** The landmark paper proving GPT-4 agents can exploit 87% of real CVEs. Zero-shot capability on real-world vulnerabilities. CMatrix's core use case validated here first.
 
 ---
 
-### 57. AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks
+### 56. AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks
 - **Venue:** 🟠 arXiv (Mar 2024)
 - **arXiv:** [2403.01038](https://arxiv.org/abs/2403.01038)
 - **Why it matters for CMatrix:** Post-exploitation automation (keyboard-operated attacks) — the execution phase CMatrix's exploitation agent handles. AutoAttacker is an early direct ancestor.
 
 ---
 
-### 58. BreachSeek: A Multi-Agent Automated Penetration Tester
+### 57. BreachSeek: A Multi-Agent Automated Penetration Tester
 - **Venue:** 🟠 arXiv (Sep 2024)
 - **arXiv:** [2409.03789](https://arxiv.org/abs/2409.03789)
 - **Why it matters for CMatrix:** Multi-agent pentest system, one of the first to use specialized agents for each phase — directly comparable architecture to CMatrix.
 
 ---
 
-### 59. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models
+### 58. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models
 - **Venue:** 🟠 arXiv (Aug 2024)
 - **arXiv:** [2408.08926](https://arxiv.org/abs/2408.08926)
 - **Code:** [cybench.github.io](https://cybench.github.io/)
@@ -464,7 +455,7 @@
 
 ---
 
-### 60. HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing
+### 59. HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing
 - **Venue:** 🟠 arXiv (Dec 2024)
 - **arXiv:** [2412.01778](https://arxiv.org/abs/2412.01778)
 - **Code:** [GitHub](https://github.com/aielte-research/HackSynth)
@@ -472,28 +463,28 @@
 
 ---
 
-### 61. SoK: A Comparison of Autonomous Penetration Testing Agents
+### 60. SoK: A Comparison of Autonomous Penetration Testing Agents
 - **Venue:** 🟡 ARES 2024
 - **DOI:** [10.1145/3664476.3664484](https://dl.acm.org/doi/10.1145/3664476.3664484)
 - **Why it matters for CMatrix:** Systematization of knowledge paper — side-by-side comparison of all major autonomous pentest agents as of 2024. Essential for CMatrix's related work section.
 
 ---
 
-### 62. AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?
+### 61. AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?
 - **Venue:** 🟠 arXiv (Nov 2024)
 - **arXiv:** [2411.01236](https://arxiv.org/abs/2411.01236)
 - **Why it matters for CMatrix:** Defines the gap between current LLM-based approaches and true end-to-end web pentest automation. Direct roadmap for what CMatrix aims to close.
 
 ---
 
-### 63. PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK
+### 62. PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK
 - **Venue:** 🟡 IEEE CSR 2024
 - **DOI:** [10.1109/CSR.2024.10679480](https://ieeexplore.ieee.org/abstract/document/10679480)
 - **Why it matters for CMatrix:** MITRE ATT&CK-aligned multi-agent pentest system — directly validates CMatrix's planned ATT&CK integration for structured attack path planning.
 
 ---
 
-### 64. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
+### 63. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
 - **Venue:** 🔴 NeurIPS 2024
 - **URL:** [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Code:** [GitHub](https://github.com/NYU-LLM-CTF/NYUCTFBench)
@@ -503,7 +494,7 @@
 
 ## `2023 Papers`
 
-### 65. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
+### 64. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
 - **Venue:** 🔴 ACM CCS 2023 (Workshop on Autonomous Cybersecurity)
 - **arXiv:** [2407.17788](https://arxiv.org/abs/2407.17788)
 - **DOI:** [10.1145/3689933.3690831](https://dl.acm.org/doi/abs/10.1145/3689933.3690831)
@@ -511,7 +502,7 @@
 
 ---
 
-### 66. Getting pwn'd by AI: Penetration Testing with Large Language Models
+### 65. Getting pwn'd by AI: Penetration Testing with Large Language Models
 - **Venue:** 🔴 ESEC/FSE 2023
 - **DOI:** [10.1145/3611643.3613083](https://dl.acm.org/doi/abs/10.1145/3611643.3613083)
 - **Code:** [GitHub](https://github.com/ipa-lab/hackingBuddyGPT)
@@ -519,14 +510,14 @@
 
 ---
 
-### 67. Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag
+### 66. Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag
 - **Venue:** 🔴 MASEC Workshop @ NeurIPS 2023
 - **arXiv:** [2308.10443](https://arxiv.org/abs/2308.10443)
 - **Why it matters for CMatrix:** First serious CTF evaluation of LLM agents as offensive security actors — the origin paper for the CTF-as-benchmark paradigm that CMatrix's evaluation will use.
 
 ---
 
-### 68. Using Large Language Models for Cybersecurity Capture-The-Flag Challenges and Certification Questions
+### 67. Using Large Language Models for Cybersecurity Capture-The-Flag Challenges and Certification Questions
 - **Venue:** 🟠 arXiv (Aug 2023)
 - **arXiv:** [2308.10443](https://arxiv.org/abs/2308.10443)
 - **Why it matters for CMatrix:** Explores the early baseline performance of LLMs on cybersecurity capture-the-flag challenges.
