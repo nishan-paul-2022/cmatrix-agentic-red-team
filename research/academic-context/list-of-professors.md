@@ -4,77 +4,49 @@
 > **CMatrix research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
 >
 > **Tier definitions (USNWR Overall Rankings):**
-> - 🔴 **Tier 1** — Universities ranked #1–100 | (0 professors)
-> - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#31–#60**
-> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#61–#100**
+> - 🔴 **Tier 1** — Universities ranked #1–100 | Professors **#1–#22**
+> - 🟡 **Tier 2** — Universities ranked #101–300 | Professors **#23–#30**
+> - 🟢 **Tier 3** — Universities ranked #301–500 | Professors **#31–#33**
 
 ---
 
-# 📊 MASTER REFERENCE TABLE — 46 Unique Professors
+# 📊 MASTER REFERENCE TABLE — 33 Unique Professors
 
 | # | Professor | University | Email | USNWR Rank | Tier |
 |---|---|---|---|---|---|
-| 1 | UC Berkeley | #4 | 🔴 T1 | **1** | Dawn Song |
-| 2 | Northwestern | #9 | 🔴 T1 | **1** | Xinyu Xing |
-| 3 | Johns Hopkins | #9 | 🔴 T1 | **1** | Yinzhi Cao |
-| 4 | U Chicago | #12 | 🔴 T1 | **1** | Nick Feamster |
-| 5 | Columbia | #12 | 🔴 T1 | **1** | Suman Jana |
-| 6 | Cornell Tech | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
-| 7 | CMU | #22 | 🔴 T1 | **3** | Lujo Bauer, David Brumley, Matthew Fredrikson |
-| 8 | Georgia Tech | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
-| 9 | UIUC | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
-| 10 | UW-Madison | #42 | 🔴 T1 | **1** | Barton Miller |
-| 11 | Purdue | #53 | 🔴 T1 | **5** | Z. Berkay Celik, Antonio Bianchi |
-| 12 | NYU Tandon | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
-| 13 | U Virginia | #62 | 🔴 T1 | **1** | Wajih Ul Hassan |
-| 14 | UCSB | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
-| 15 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
-| 16 | Stevens Inst. Tech. | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
-| 17 | U Maryland | #93 | 🔴 T1 | **1** | Yizheng Chen |
-| 18 | U Central Florida | #121 | 🟡 T2 | **1** | Aziz Mohaisen |
-| 19 | Penn State | #130 | 🟡 T2 | **3** | Gang Tan, Peng Liu, Ting Wang |
-| 20 | Syracuse | #133 | 🟡 T2 | **1** | Wenliang (Kevin) Du |
-| 21 | Oregon State U | #144 | 🟡 T2 | **1** | Rakesh Bobba |
-| 22 | U Florida | #145 | 🟡 T2 | **2** | Patrick Traynor, Kevin Butler |
-| 23 | Texas A&M | #145 | 🟡 T2 | **1** | Guofei Gu |
-| 24 | ASU | #147 | 🟡 T2 | **4** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé, Jedidiah Crandall |
-| 25 | CUNY Hunter College | #155 | 🟡 T2 | **1** | Saptarshi Debroy |
-| 26 | George Mason | #156 | 🟡 T2 | **1** | Sushil Jajodia |
-| 27 | Rutgers | #160 | 🟡 T2 | **1** | Jie Gao |
-| 28 | Clemson | #168 | 🟡 T2 | **1** | Long Cheng |
-| 29 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
-| 30 | UMass Amherst | #170 | 🟡 T2 | **1** | Pubali Datta |
-| 31 | UMBC | #172 | 🟡 T2 | **1** | Anupam Joshi |
-| 32 | Northeastern | #179 | 🟡 T2 | **3** | Long Lu, Engin Kirda, Wil Robertson |
-| 33 | Ohio State | #180 | 🟡 T2 | **1** | Zhiqiang Lin |
-| 34 | NC State | #181 | 🟡 T2 | **1** | William Enck |
-| 35 | Stony Brook | #185 | 🟡 T2 | **1** | Michalis Polychronakis |
-| 36 | U Memphis | #270 | 🟡 T2 | **1** | Dipankar Dasgupta |
-| 37 | WPI | #270 | 🟡 T2 | **1** | Jun Dai |
-| 38 | U Arizona | #284 | 🟡 T2 | **1** | Saumya Debray |
-| 39 | U South Florida | #295 | 🟡 T2 | **1** | Xinming (Simon) Ou |
-| 40 | Old Dominion U | #301 | 🟢 T3 | **3** | Daniel Takabi, Mohammad GhasemiGol, Md Morshed Alam |
-| 41 | U New Mexico | #310 | 🟢 T3 | **1** | Xin Chen |
-| 42 | LSU | #316 | 🟢 T3 | **3** | Tasnuva Farheen, Aisha Ali-Gombe, James Ghawaly |
-| 43 | LSU (ex-UNO) | #316 | 🟢 T3 | **1** | Phani Vadrevu |
-| 44 | RIT | #320 | 🟢 T3 | **3** | Nidhi Rastogi, Matthew Wright, Weijie Zhao |
-| 45 | FAU | #335 | 🟢 T3 | **1** | Mehrdad Nojoumian |
-| 46 | U North Texas | #340 | 🟢 T3 | **3** | Tao Wang, Tao Hou, Supreeth Shastri |
-| 47 | Montana State U | #345 | 🟢 T3 | **2** | Matt Revelle, Clemente Izurieta |
-| 48 | U Tulsa | #350 | 🟢 T3 | **2** | Weiping Pei, John Hale |
-| 49 | U Nevada Reno | #355 | 🟢 T3 | **1** | Rui Hu |
-| 50 | Tennessee Tech | #358 | 🟢 T3 | **2** | Maanak Gupta, William Eberle |
-| 51 | U Colorado Denver | #360 | 🟢 T3 | **2** | Haadi Jafarian, Zhengxiong Li |
-| 52 | U South Alabama | #363 | 🟢 T3 | **2** | Jesse Ables, Todd Andel |
-| 53 | Idaho State U | #370 | 🟢 T3 | **2** | Minhaz Zibran, Mostafa Fouda |
-| 54 | Bowling Green SU | #380 | 🟢 T3 | **1** | Sankardas Roy |
-| 55 | U Alabama Huntsville | #380 | 🟢 T3 | **1** | Tommy Morris |
-| 56 | Central Michigan U | #385 | 🟢 T3 | **2** | Qi Liao, Linxi Zhang |
-| 57 | East Tennessee State | #390 | 🟢 T3 | **1** | Ghaith Husari |
-| 58 | UC Riverside | #405 | 🟢 T3 | **3** | Chengyu Song, Zhiyun Qian, Heng Yin |
-| 59 | FIU | #411 | 🟢 T3 | **1** | Selcuk Uluagac |
-| 60 | UT San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
-| 61 | U New Orleans | #430 | 🟢 T3 | **2** | Abdullah Yasin Nur, James Wagner |
+| 1 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
+| 2 | Xinyu Xing | Northwestern University | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
+| 3 | Yinzhi Cao | Johns Hopkins University | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
+| 4 | Suman Jana | Columbia University | suman@cs.columbia.edu | #12 | 🔴 T1 |
+| 5 | Vitaly Shmatikov | Cornell Tech / Cornell University | shmatikov@cornell.edu | #17 | 🔴 T1 |
+| 6 | Lujo Bauer | Carnegie Mellon University | lbauer@cmu.edu | #22 | 🔴 T1 |
+| 7 | David Brumley | Carnegie Mellon University | dbrumley@cmu.edu | #22 | 🔴 T1 |
+| 8 | Matthew Fredrikson | Carnegie Mellon University | mfredrik@cmu.edu | #22 | 🔴 T1 |
+| 9 | Taesoo Kim | Georgia Institute of Technology | taesoo@gatech.edu | #33 | 🔴 T1 |
+| 10 | Wenke Lee | Georgia Institute of Technology | wenke@cc.gatech.edu | #33 | 🔴 T1 |
+| 11 | Gang Wang | University of Illinois Urbana-Champaign | gangw@illinois.edu | #35 | 🔴 T1 |
+| 12 | Daniel Kang | University of Illinois Urbana-Champaign | ddkang@illinois.edu | #35 | 🔴 T1 |
+| 13 | Barton Miller | University of Wisconsin–Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
+| 14 | Z. Berkay Celik | Purdue University | celik@purdue.edu | #53 | 🔴 T1 |
+| 15 | Brendan Dolan-Gavitt | New York University (Tandon) | brendandg@nyu.edu | #53 | 🔴 T1 |
+| 16 | Antonio Bianchi | Purdue University | antoniob@purdue.edu | #53 | 🔴 T1 |
+| 17 | Christopher Kruegel | UC Santa Barbara | chris@cs.ucsb.edu | #65 | 🔴 T1 |
+| 18 | Giovanni Vigna | UC Santa Barbara | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
+| 19 | Wenbo Guo | UC Santa Barbara | henrygwb@ucsb.edu | #65 | 🔴 T1 |
+| 20 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
+| 21 | Georgios Portokalidis | Stevens Institute of Technology | porto@stevens.edu | #76 | 🔴 T1 |
+| 22 | Yizheng Chen | University of Maryland, College Park | yzchen@umd.edu | #93 | 🔴 T1 |
+| 23 | Peng Liu | Penn State University | pliu@ist.psu.edu | #130 | 🟡 T2 |
+| 24 | Ting Wang | Penn State University | inbox@tiwang.io | #130 | 🟡 T2 |
+| 25 | Guofei Gu | Texas A&M University | guofei@cse.tamu.edu | #145 | 🟡 T2 |
+| 26 | Yan Shoshitaishvili | Arizona State University | yans@asu.edu | #147 | 🟡 T2 |
+| 27 | Tiffany Bao | Arizona State University | tbao@asu.edu | #147 | 🟡 T2 |
+| 28 | Adam Doupé | Arizona State University | doupe@asu.edu | #147 | 🟡 T2 |
+| 29 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
+| 30 | Wil Robertson | Northeastern University | wil@ccs.neu.edu | #179 | 🟡 T2 |
+| 31 | Nidhi Rastogi | Rochester Institute of Technology | nxrvse@rit.edu | #320 | 🟢 T3 |
+| 32 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
+| 33 | Murtuza Jadliwala | University of Texas at San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
 
 
 ---
@@ -83,73 +55,34 @@
 
 | # | University | USNWR Rank | Tier | Prof Count | Associated Professor(s) |
 |---|---|---|---|---|---|
-
 | 1 | UC Berkeley | #4 | 🔴 T1 | **1** | Dawn Song |
-| 2 | Northwestern | #9 | 🔴 T1 | **1** | Xinyu Xing |
-| 3 | Johns Hopkins | #9 | 🔴 T1 | **1** | Yinzhi Cao |
-| 4 | U Chicago | #12 | 🔴 T1 | **1** | Nick Feamster |
-| 5 | Columbia | #12 | 🔴 T1 | **1** | Suman Jana |
-| 6 | Cornell Tech | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
-| 7 | CMU | #22 | 🔴 T1 | **3** | Lujo Bauer, David Brumley, Matthew Fredrikson |
-| 8 | Georgia Tech | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
-| 9 | UIUC | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
-| 10 | UW-Madison | #42 | 🔴 T1 | **1** | Barton Miller |
-| 11 | Purdue | #53 | 🔴 T1 | **5** | Z. Berkay Celik, Antonio Bianchi |
-| 12 | NYU Tandon | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
-| 13 | U Virginia | #62 | 🔴 T1 | **1** | Wajih Ul Hassan |
-| 14 | UCSB | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
-| 15 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
-| 16 | Stevens Inst. Tech. | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
-| 17 | U Maryland | #93 | 🔴 T1 | **1** | Yizheng Chen |
-| 19 | U Central Florida | #121 | 🟡 T2 | **1** | Aziz Mohaisen |
-| 20 | Penn State | #130 | 🟡 T2 | **3** | Gang Tan, Peng Liu, Ting Wang |
-| 21 | Syracuse | #133 | 🟡 T2 | **1** | Wenliang (Kevin) Du |
-| 22 | Oregon State U | #144 | 🟡 T2 | **1** | Rakesh Bobba |
-| 23 | U Florida | #145 | 🟡 T2 | **2** | Patrick Traynor, Kevin Butler |
-| 24 | Texas A&M | #145 | 🟡 T2 | **1** | Guofei Gu |
-| 25 | ASU | #147 | 🟡 T2 | **4** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé, Jedidiah Crandall |
-| 26 | CUNY Hunter College | #155 | 🟡 T2 | **1** | Saptarshi Debroy |
-| 27 | George Mason | #156 | 🟡 T2 | **1** | Sushil Jajodia |
-| 28 | Rutgers | #160 | 🟡 T2 | **1** | Jie Gao |
-| 29 | Clemson | #168 | 🟡 T2 | **1** | Long Cheng |
-| 30 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
-| 31 | UMass Amherst | #170 | 🟡 T2 | **1** | Pubali Datta |
-| 32 | UMBC | #172 | 🟡 T2 | **1** | Anupam Joshi |
-| 33 | Northeastern | #179 | 🟡 T2 | **3** | Long Lu, Engin Kirda, Wil Robertson |
-| 34 | Ohio State | #180 | 🟡 T2 | **1** | Zhiqiang Lin |
-| 35 | NC State | #181 | 🟡 T2 | **1** | William Enck |
-| 36 | Stony Brook | #185 | 🟡 T2 | **1** | Michalis Polychronakis |
-| 37 | U Memphis | #270 | 🟡 T2 | **1** | Dipankar Dasgupta |
-| 38 | WPI | #270 | 🟡 T2 | **1** | Jun Dai |
-| 39 | U Arizona | #284 | 🟡 T2 | **1** | Saumya Debray |
-| 40 | U South Florida | #295 | 🟡 T2 | **1** | Xinming (Simon) Ou |
-| 41 | Old Dominion U | #301 | 🟢 T3 | **3** | Daniel Takabi, Mohammad GhasemiGol, Md Morshed Alam |
-| 42 | U New Mexico | #310 | 🟢 T3 | **1** | Xin Chen |
-| 43 | LSU | #316 | 🟢 T3 | **3** | Tasnuva Farheen, Aisha Ali-Gombe, James Ghawaly |
-| 44 | LSU (ex-UNO) | #316 | 🟢 T3 | **1** | Phani Vadrevu |
-| 45 | RIT | #320 | 🟢 T3 | **3** | Nidhi Rastogi, Matthew Wright, Weijie Zhao |
-| 46 | FAU | #335 | 🟢 T3 | **1** | Mehrdad Nojoumian |
-| 47 | U North Texas | #340 | 🟢 T3 | **3** | Tao Wang, Tao Hou, Supreeth Shastri |
-| 48 | Montana State U | #345 | 🟢 T3 | **2** | Matt Revelle, Clemente Izurieta |
-| 49 | U Tulsa | #350 | 🟢 T3 | **2** | Weiping Pei, John Hale |
-| 50 | U Nevada Reno | #355 | 🟢 T3 | **1** | Rui Hu |
-| 51 | Tennessee Tech | #358 | 🟢 T3 | **2** | Maanak Gupta, William Eberle |
-| 52 | U Colorado Denver | #360 | 🟢 T3 | **2** | Haadi Jafarian, Zhengxiong Li |
-| 53 | U South Alabama | #363 | 🟢 T3 | **2** | Jesse Ables, Todd Andel |
-| 54 | Idaho State U | #370 | 🟢 T3 | **2** | Minhaz Zibran, Mostafa Fouda |
-| 55 | Bowling Green SU | #380 | 🟢 T3 | **1** | Sankardas Roy |
-| 56 | U Alabama Huntsville | #380 | 🟢 T3 | **1** | Tommy Morris |
-| 57 | Central Michigan U | #385 | 🟢 T3 | **2** | Qi Liao, Linxi Zhang |
-| 58 | East Tennessee State | #390 | 🟢 T3 | **1** | Ghaith Husari |
-| 59 | UC Riverside | #405 | 🟢 T3 | **3** | Chengyu Song, Zhiyun Qian, Heng Yin |
-| 60 | FIU | #411 | 🟢 T3 | **1** | Selcuk Uluagac |
-| 61 | UT San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
-| 62 | U New Orleans | #430 | 🟢 T3 | **2** | Abdullah Yasin Nur, James Wagner |
+| 2 | Northwestern University | #9 | 🔴 T1 | **1** | Xinyu Xing |
+| 3 | Johns Hopkins University | #9 | 🔴 T1 | **1** | Yinzhi Cao |
+| 4 | Columbia University | #12 | 🔴 T1 | **1** | Suman Jana |
+| 5 | Cornell Tech / Cornell University | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
+| 6 | Carnegie Mellon University | #22 | 🔴 T1 | **3** | Lujo Bauer, David Brumley, Matthew Fredrikson |
+| 7 | Georgia Institute of Technology | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
+| 8 | University of Illinois Urbana-Champaign | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
+| 9 | University of Wisconsin–Madison | #42 | 🔴 T1 | **1** | Barton Miller |
+| 10 | Purdue University | #53 | 🔴 T1 | **2** | Z. Berkay Celik, Antonio Bianchi |
+| 11 | New York University (Tandon) | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
+| 12 | UC Santa Barbara | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
+| 13 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
+| 14 | Stevens Institute of Technology | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
+| 15 | University of Maryland, College Park | #93 | 🔴 T1 | **1** | Yizheng Chen |
+| 16 | Penn State University | #130 | 🟡 T2 | **2** | Peng Liu, Ting Wang |
+| 17 | Texas A&M University | #145 | 🟡 T2 | **1** | Guofei Gu |
+| 18 | Arizona State University | #147 | 🟡 T2 | **3** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé |
+| 19 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
+| 20 | Northeastern University | #179 | 🟡 T2 | **1** | Wil Robertson |
+| 21 | Rochester Institute of Technology | #320 | 🟢 T3 | **1** | Nidhi Rastogi |
+| 22 | UC Riverside | #405 | 🟢 T3 | **1** | Heng Yin |
+| 23 | University of Texas at San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
 
 ---
 
 # 🔴 TIER 1 — Universities ranked #1–100
-*(28 professors — ranks #1 through #93)*
+*(22 professors — ranks #4 through #93)*
 
 ---
 
@@ -558,29 +491,13 @@
 ---
 
 # 🟡 TIER 2 — Universities ranked #101–300
-*(14 professors — ranks #121 through #284)*
+*(8 professors — ranks #130 through #179)*
 
 ---
 
-## 23. Prof. Aziz Mohaisen
-**University of Central Florida** | USNWR Overall: **#121**
-
-| Field | Info |
-|---|---|
-| Email | david.mohaisen@ucf.edu |
-| Website | https://www.cs.ucf.edu/~mohaisen/ |
-| Lab | SEAL (Security and Analytics Lab), UCF CS |
-| Funding | NSF; DARPA-adjacent; DoD; industry partnerships |
-
-**Speciality:** LLM-driven vulnerability analysis and automated code repair, malware analysis, network security measurement, blockchain security, adversarial ML, trusted computing
-
-**CMatrix alignment:** SEAL Lab research on leveraging LLMs for automated vulnerability analysis and repair — the exact offensive-to-defensive loop CMatrix executes. Research on malware analysis and network security measurement at internet scale provides threat intelligence enrichment for CMatrix's reconnaissance output. Adversarial ML research on evasion techniques directly informs CMatrix's stealth scan module design.
-
-**Student friendliness:** Full Professor directing an active lab. UCF is an NSA CAE-R (Cyber Research) designated institution. UCF's large and diverse student body (#1 most innovative public university) is welcoming of international PhD applicants. SEAL Lab has a strong publication pipeline and industry connections.
-
 ---
 
-## 24. Prof. Peng Liu
+## 23. Prof. Peng Liu
 **Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
@@ -598,7 +515,7 @@
 
 ---
 
-## 25. Prof. Ting Wang
+## 24. Prof. Ting Wang
 **Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
@@ -616,7 +533,7 @@
 
 ---
 
-## 26. Prof. Guofei Gu
+## 25. Prof. Guofei Gu
 **Texas A&M University** | USNWR Overall: **#145**
 
 | Field | Info |
@@ -634,7 +551,7 @@
 
 ---
 
-## 27. Prof. Yan Shoshitaishvili
+## 26. Prof. Yan Shoshitaishvili
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -652,7 +569,7 @@
 
 ---
 
-## 28. Prof. Tiffany Bao
+## 27. Prof. Tiffany Bao
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -670,7 +587,7 @@
 
 ---
 
-## 29. Prof. Adam Doupé
+## 28. Prof. Adam Doupé
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -688,25 +605,9 @@
 
 ---
 
-## 30. Prof. Long Cheng
-**Clemson University** | USNWR Overall: **#168** (Overall)
-
-| Field | Info |
-|---|---|
-| Email | lcheng2@clemson.edu |
-| Website | https://people.computing.clemson.edu/~lcheng2/ |
-| Lab | Secure and Dependable Systems (SDS) Lab |
-| Funding | NSF; NSF CAREER Award |
-
-**Speciality:** IoT/CPS security, system security, firmware analysis, network security, Linux kernel security
-
-**CMatrix alignment:** Research on automated detection of remote infection on Linux-based IoT devices — a key CMatrix target class. ASIACCS 2022 Best Paper Award (with Guofei Gu, Texas A&M) on remote IoT infection detection. Expertise in firmware analysis and Linux kernel security.
-
-**Student friendliness:** NSF CAREER Award. Active PhD advisor at Clemson. Collaborative research with Guofei Gu at TAMU. Responsive to outreach.
-
 ---
 
-## 31. Prof. Peng Gao
+## 29. Prof. Peng Gao
 **Virginia Tech** | USNWR Overall: **#170**
 
 | Field | Info |
@@ -724,43 +625,11 @@
 
 ---
 
-## 32. Prof. Anupam Joshi
-**University of Maryland, Baltimore County (UMBC)** | USNWR Overall: **#172**
-
-| Field | Info |
-|---|---|
-| Email | joshi@umbc.edu |
-| Website | https://anupam.umbc.edu |
-| Lab | eBiquity Research Group, UMBC CS/EE |
-| Funding | NSF; DARPA; DoD; NSA (CAE-R through 2030) |
-
-**Speciality:** Knowledge graphs for cybersecurity and threat intelligence, NLP/LLM for security log analysis, AI-driven intrusion detection, semantic web for machine-readable security data
-
-**CMatrix alignment:** eBiquity Lab research on **knowledge graphs + LLMs for automated cybersecurity threat intelligence** — exactly the semantic enrichment layer that CMatrix's reconnaissance agent outputs need. Research on using NLP and LLMs to parse unstructured security logs and OSINT into structured threat knowledge graphs directly enables CMatrix's contextual attack chain reasoning. NSA CAE-R designation (through 2030) and DARPA funding signal government-grade research rigor.
-
-**Student friendliness:** Board of Governors Endowed Professor — senior faculty with strong influence on PhD admissions and funding. UMBC is one of the most research-active HBCUs in the US. NSF and DoD funding provides multiple funded PhD positions. Very accessible to international students — UMBC has a highly diverse graduate community.
+---
 
 ---
 
-## 33. Prof. Engin Kirda
-**Northeastern University** | USNWR Overall: **#179**
-
-| Field | Info |
-|---|---|
-| Email | ek@ccs.neu.edu |
-| Website | https://www.ccs.neu.edu/home/ek/ |
-| Lab | Secure Systems Lab (co-director with Long Lu) |
-| Funding | NSF, DARPA, ONR; International Secure Systems Lab network |
-
-**Speciality:** Malware analysis, web security, software vulnerabilities, automatic exploit generation
-
-**CMatrix alignment:** Co-PI on NSF/DARPA-funded vulnerability research. Work on automatic exploit generation and malware behavior analysis maps directly to CMatrix's exploit chain automation.
-
-**Student friendliness:** Co-founder of International Secure Systems Lab. Network faculty at Sabanci University in Turkey. Open to international researchers.
-
----
-
-## 34. Prof. Wil Robertson
+## 30. Prof. Wil Robertson
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -778,66 +647,18 @@
 
 ---
 
-## 35. Prof. Michalis Polychronakis
-**Stony Brook University** | USNWR Overall: **#185**
-
-| Field | Info |
-|---|---|
-| Email | mikepo@cs.stonybrook.edu |
-| Website | https://www3.cs.stonybrook.edu/~mikepo/ |
-| Lab | Systems Security Lab, Stony Brook |
-| Funding | NSF, DARPA, ONR; NSF CAREER Award |
-
-**Speciality:** Binary analysis, malware analysis, exploit mitigation, code reuse attacks (ROP/JOP), network security
-
-**CMatrix alignment:** Expert on exploit techniques — Return-Oriented Programming, code reuse attacks, and automated exploit mitigation. This is the technical underbelly of what CMatrix automates in its exploit chain module. Strong publication record at CCS, USENIX Security, NDSS, IEEE S&P.
-
-**Student friendliness:** NSF CAREER Award. Active PhD advisor at Stony Brook CS. Strong collaborative network with NYU, Columbia, and European research groups.
-
 ---
-
-## 36. Prof. Saumya Debray
-**University of Arizona** | USNWR Overall: **#284**
-
-| Field | Info |
-|---|---|
-| Email | debray@cs.arizona.edu |
-| Website | https://cs.arizona.edu/person/saumya-debray |
-| Lab | Systems Security Research Group |
-| Funding | NSF, DARPA-funded collaborative projects |
-
-**Speciality:** Binary code analysis, decompilation, malware analysis, program analysis, reverse engineering
-
-**CMatrix alignment:** Expert in automated decompilation and program analysis — foundational to any intelligent vulnerability scanner. NSF-funded binary analysis research is a natural technical building block for what CMatrix automates at a higher level.
-
-**Student friendliness:** Known for patient, thorough mentoring style. University of Arizona's cybersecurity program is CAE-designated. Accessible via email for research discussions.
 
 ---
 
 # 🟢 TIER 3 — Universities ranked #301–500
-*(10 professors — ranks #316 through #411)*
+*(3 professors — ranks #320 through #411)*
 
 ---
 
-## 37. Prof. Phani Vadrevu
-**Louisiana State University** | USNWR Overall: **#316**
-
-| Field | Info |
-|---|---|
-| Email | kvadrevu@lsu.edu |
-| Website | https://www.phanivadrevu.com |
-| Lab | Applied Cybersecurity Lab / Web Security Group, LSU |
-| Funding | NSF (AI-based defenses against social engineering) |
-
-**Speciality:** Web security, AI/ML-based attack detection, phishing and social engineering measurement, internet-scale attack modeling
-
-**CMatrix alignment:** NSF-funded research developing AI-based defenses against web-based social engineering attacks — directly overlapping with CMatrix's web application VAPT and phishing simulation modules. Expertise in measuring and dismantling real-world attack ecosystems at internet scale.
-
-**Student friendliness:** Former Canizaro-Livingston Endowed Assistant Professor at UNO, now at LSU. Collaborates broadly. Maintains an active personal research website with open-source tools.
-
 ---
 
-## 38. Prof. Nidhi Rastogi
+## 31. Prof. Nidhi Rastogi
 **Rochester Institute of Technology** | USNWR Overall: **#320**
 
 | Field | Info |
@@ -855,115 +676,19 @@
 
 ---
 
-## 39. Prof. Matthew Wright
-**Rochester Institute of Technology** | USNWR Overall: **#320**
-
-| Field | Info |
-|---|---|
-| Email | matthew.wright@rit.edu |
-| Website | https://www.rit.edu/computing/directory/mxwvcs-matthew-wright |
-| Lab | Department of Cybersecurity (Chair); DeFake Project Lab |
-| Funding | NSF, DHS, DARPA-adjacent; Kevin O'Sullivan Endowed Chair |
-
-**Speciality:** Adversarial ML, deepfake detection, generative AI security threats, anonymity systems, traffic analysis, LLM misuse
-
-**CMatrix alignment:** Research on AI-generated threats (deepfakes, voice scams) and adversarial machine learning — the offensive AI capabilities that CMatrix's threat intelligence module tracks. Co-teaches "Generative AI in Cybersecurity" course (2025) covering the dual-use nature of LLMs for offense and defense. Deep expertise in how AI systems can be weaponized.
-
-**Student friendliness:** Department Chair, RIT Cybersecurity — controls PhD admissions and funding. Kevin O'Sullivan Endowed Chair. RIT's cyber program ranked #19 (USNWR undergraduate). National security clearance pathway available.
+---
 
 ---
 
-## 40. Prof. Tao Wang
-**University of North Texas** | USNWR Overall: **#340**
-
-| Field | Info |
-|---|---|
-| Email | tao.wang2@unt.edu |
-| Website | https://tao-wang.com |
-| Lab | ISnP Lab (Intelligent Security and Privacy), UNT CSE |
-| Funding | NSF; UNT Faculty Research Fund |
-
-**Speciality:** AI for network/system security, adversarial ML, LLM security challenges, web security, Internet of Vehicles security
-
-**CMatrix alignment:** ISnP Lab conducts research on LLM security challenges in the context of intelligent and autonomous systems — an exact match for CMatrix's framework. Research on adversarial attacks against ML-based security tools and web security provides key offensive insights.
-
-**Student friendliness:** Co-directs ISnP Lab with Tao Hou. UNT is NSA CAE-CD designated. Actively recruiting PhD students. International students prominently featured in the lab.
+---
 
 ---
 
-## 41. Prof. Tao Hou
-**University of North Texas** | USNWR Overall: **#340**
-
-| Field | Info |
-|---|---|
-| Email | tao.hou@unt.edu |
-| Website | https://tao-hou.com |
-| Lab | ISnP Lab (Intelligent Security and Privacy), UNT CSE |
-| Funding | NSF; DoD-related grants |
-
-**Speciality:** Trustworthy AI for cybersecurity, privacy-preserving ML, autonomous system security, network security measurement
-
-**CMatrix alignment:** Co-leads ISnP Lab's research on Trustworthy AI — designing AI systems that are robust and secure under adversarial conditions, directly applicable to CMatrix's agent trust model. Research on privacy-preserving ML provides techniques for CMatrix's post-exploitation data handling.
-
-**Student friendliness:** Active PhD advisor. ISnP Lab has a collaborative team environment. UNT's large and diverse student body makes it very welcoming of international PhD applicants.
+---
 
 ---
 
-## 42. Prof. Matt Revelle
-**Montana State University** | USNWR Overall: **#345**
-
-| Field | Info |
-|---|---|
-| Email | matt.revelle@montana.edu |
-| Website | https://www.cs.montana.edu/directory/faculty/revelle.html |
-| Lab | Gianforte School of Computing Security Group, MSU |
-| Funding | DHS; NSF; Montana EPSCOR program |
-
-**Speciality:** Computer security, binary analysis, program analysis, machine learning and graph neural networks for vulnerability detection
-
-**CMatrix alignment:** Research on binary analysis and ML/GNN-based vulnerability detection — the exact static analysis layer CMatrix automates for binary targets. DHS-funded research on identifying exploitable computer code with AI directly overlaps with CMatrix's grey-box scan methodology.
-
-**Student friendliness:** Active PhD advisor at MSU's Gianforte School. Montana EPSCOR program provides funded research opportunities for graduate students. MSU is a welcoming environment for students from diverse backgrounds.
-
----
-
-## 43. Prof. Zhengxiong Li
-**University of Colorado Denver** | USNWR Overall: **#360**
-
-| Field | Info |
-|---|---|
-| Email | zhengxiong.li@ucdenver.edu |
-| Website | https://cse.ucdenver.edu/~zhengxiongli/ |
-| Lab | META Lab (Mobile, Emerging Technologies & Applications), CU Denver |
-| Funding | NSF; CU Denver innovation grants (2025-2026 AI innovation award) |
-
-**Speciality:** AI-based IoT security, LLM-driven phishing detection, adversarial AI for smart systems, mobile health security, autonomous systems
-
-**CMatrix alignment:** Research on AI-based cybersecurity threats including LLM-based phishing email detection and adversarial attacks on voice-controlled IoT devices — two key attack surfaces CMatrix covers. 2025-2026 CU Denver AI innovation award for cutting-edge ML security research.
-
-**Student friendliness:** Assistant Professor — actively building META Lab. Received recognition for innovative AI integration in teaching and research (2025-2026). Welcoming of international students at CU Denver.
-
----
-
-## 44. Prof. Ghaith Husari
-**East Tennessee State University** | USNWR Overall: **#390**
-
-| Field | Info |
-|---|---|
-| Email | husarig@etsu.edu |
-| Website | https://www.etsu.edu/cbat/computing/faculty-staff/husari.php |
-| Lab | ML and AI Security Lab, ETSU Computing |
-| Funding | NSF; ETSU Research Development Committee |
-
-**Speciality:** Machine learning for cybersecurity, AI-driven intrusion detection, data analytics for network defense, healthcare AI security
-
-**CMatrix alignment:** Research on ML-driven intrusion detection and network defense analytics — the defensive complement to CMatrix's autonomous reconnaissance. Healthcare AI security research extends CMatrix's VAPT scope into medical IoT (a high-value target sector). ETSU is NSA CAE-CD designated.
-
-**Student friendliness:** Active PhD advisor at a smaller institution — excellent student-faculty ratio. ETSU's affordable cost of living and strong mentorship culture make it attractive for international PhD students.
-
----
-
-## 45. Prof. Heng Yin
+## 32. Prof. Heng Yin
 **UC Riverside** | USNWR Overall: **#405**
 
 | Field | Info |
@@ -981,7 +706,7 @@
 
 ---
 
-## 46. Prof. Murtuza Jadliwala
+## 33. Prof. Murtuza Jadliwala
 **University of Texas at San Antonio** | USNWR Overall: **#411**
 
 | Field | Info |
