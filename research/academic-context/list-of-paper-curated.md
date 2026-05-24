@@ -362,9 +362,37 @@
 
 ---
 
+### 48. AGrail: Lifelong Agent Guardrail with Effective and Adaptive Safety Detection
+- **Venue:** arXiv (Feb 2025)
+- **arXiv:** [2502.11448](https://arxiv.org/abs/2502.11448)
+- **Why it matters for CMatrix:** Adaptive safety detection and lifelong command execution guardrails (e.g., intercepting malicious CLI commands). Relevant to CMatrix's execution sandbox and tool safety logic.
+
+---
+
+### 49. RAG for Cybersecurity: Hybrid Retrieval for LLMs
+- **Venue:** arXiv (Oct 2025)
+- **arXiv:** [2510.27080](https://arxiv.org/abs/2510.27080)
+- **Why it matters for CMatrix:** Adapting LLMs to emerging cybersecurity using retrieval augmented generation. Directly relevant to CMatrix's Vuln-Intel agent architecture for CVE and threat intelligence lookup.
+
+---
+
+### 50. CAIBench: Cybersecurity AI Meta-Benchmark
+- **Venue:** arXiv (Oct 2025)
+- **arXiv:** [2510.24317](https://arxiv.org/abs/2510.24317)
+- **Why it matters for CMatrix:** Evaluates agent capabilities by meta-benchmarking across Cybench, SecEval, and AutoPenBench, establishing a robust framework for comparing CMatrix's overall capabilities.
+
+---
+
+### 51. When LLMs Meet Cybersecurity: A Systematic Literature Review
+- **Venue:** Cybersecurity Journal (Springer) 2025
+- **DOI:** [10.1186/s42400-025-00361-w](https://doi.org/10.1186/s42400-025-00361-w)
+- **Why it matters for CMatrix:** Must-read systematic review of the entire LLM + cybersecurity intersection, providing technical taxonomy for offensive and defensive agent behaviors.
+
+---
+
 ## `2024 Papers`
 
-### 48. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
+### 52. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
 - **Venue:** NeurIPS 2024
 - **URL:** [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Code:** [GitHub](https://github.com/NYU-LLM-CTF/NYUCTFBench)
@@ -372,35 +400,35 @@
 
 ---
 
-### 49. Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
+### 53. Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
 - **Venue:** arXiv (Jun 2024) — University of Illinois
 - **arXiv:** [2406.01637](https://arxiv.org/abs/2406.01637)
 - **Why it matters for CMatrix:** **Critical paper** — first proof that multi-agent LLM teams can exploit zero-day vulnerabilities with no prior knowledge. Hierarchical Planning and Task-Specific Agents (HPTSA) architecture is a direct ancestor of CMatrix's multi-agent design.
 
 ---
 
-### 50. LLM Agents Can Autonomously Exploit One-Day Vulnerabilities
+### 54. LLM Agents Can Autonomously Exploit One-Day Vulnerabilities
 - **Venue:** arXiv (Apr 2024) — University of Illinois
 - **arXiv:** [2404.08144](https://arxiv.org/abs/2404.08144)
 - **Why it matters for CMatrix:** The landmark paper proving GPT-4 agents can exploit 87% of real CVEs. Zero-shot capability on real-world vulnerabilities. CMatrix's core use case validated here first.
 
 ---
 
-### 51. AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks
+### 55. AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks
 - **Venue:** arXiv (Mar 2024)
 - **arXiv:** [2403.01038](https://arxiv.org/abs/2403.01038)
 - **Why it matters for CMatrix:** Post-exploitation automation (keyboard-operated attacks) — the execution phase CMatrix's exploitation agent handles. AutoAttacker is an early direct ancestor.
 
 ---
 
-### 52. BreachSeek: A Multi-Agent Automated Penetration Tester
+### 56. BreachSeek: A Multi-Agent Automated Penetration Tester
 - **Venue:** arXiv (Sep 2024)
 - **arXiv:** [2409.03789](https://arxiv.org/abs/2409.03789)
 - **Why it matters for CMatrix:** Multi-agent pentest system, one of the first to use specialized agents for each phase — directly comparable architecture to CMatrix.
 
 ---
 
-### 53. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models
+### 57. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models
 - **Venue:** arXiv (Aug 2024)
 - **arXiv:** [2408.08926](https://arxiv.org/abs/2408.08926)
 - **Code:** [cybench.github.io](https://cybench.github.io/)
@@ -408,7 +436,7 @@
 
 ---
 
-### 54. HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing
+### 58. HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing
 - **Venue:** arXiv (Dec 2024)
 - **arXiv:** [2412.01778](https://arxiv.org/abs/2412.01778)
 - **Code:** [GitHub](https://github.com/aielte-research/HackSynth)
@@ -416,28 +444,28 @@
 
 ---
 
-### 55. SoK: A Comparison of Autonomous Penetration Testing Agents
+### 59. SoK: A Comparison of Autonomous Penetration Testing Agents
 - **Venue:** ARES 2024
 - **DOI:** [10.1145/3664476.3664484](https://dl.acm.org/doi/10.1145/3664476.3664484)
 - **Why it matters for CMatrix:** Systematization of knowledge paper — side-by-side comparison of all major autonomous pentest agents as of 2024. Essential for CMatrix's related work section.
 
 ---
 
-### 56. AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?
+### 60. AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?
 - **Venue:** arXiv (Nov 2024)
 - **arXiv:** [2411.01236](https://arxiv.org/abs/2411.01236)
 - **Why it matters for CMatrix:** Defines the gap between current LLM-based approaches and true end-to-end web pentest automation. Direct roadmap for what CMatrix aims to close.
 
 ---
 
-### 57. PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK
+### 61. PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK
 - **Venue:** IEEE CSR 2024
 - **DOI:** [10.1109/CSR.2024.10679480](https://ieeexplore.ieee.org/abstract/document/10679480)
 - **Why it matters for CMatrix:** MITRE ATT&CK-aligned multi-agent pentest system — directly validates CMatrix's planned ATT&CK integration for structured attack path planning.
 
 ---
 
-### 58. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
+### 62. NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security
 - **Venue:** NeurIPS 2024
 - **URL:** [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Code:** [GitHub](https://github.com/NYU-LLM-CTF/NYUCTFBench)
@@ -445,9 +473,30 @@
 
 ---
 
+### 63. AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation
+- **Venue:** arXiv (Aug 2023 / 2024)
+- **arXiv:** [2308.08155](https://arxiv.org/abs/2308.08155)
+- **Why it matters for CMatrix:** Foundational multi-agent conversation framework. CMatrix's Master-Worker hierarchy is directly inspired by AutoGen agent orchestration and cooperation patterns.
+
+---
+
+### 64. MetaGPT: Meta Programming for Multi-Agent Frameworks
+- **Venue:** ICLR 2024
+- **arXiv:** [2308.00352](https://arxiv.org/abs/2308.00352)
+- **Why it matters for CMatrix:** Role-playing multi-agent architecture. Establishes SOPs for agent collaborations, which maps directly to specialized VAPT agent roles (Recon, Scan, Exploit) in CMatrix.
+
+---
+
+### 65. AutoPenBench: Benchmarking Generative Agents for Penetration Testing
+- **Venue:** arXiv (Oct 2024)
+- **arXiv:** [2410.03225](https://arxiv.org/abs/2410.03225)
+- **Why it matters for CMatrix:** Standard evaluation benchmark utilizing 33 vulnerable Docker containers. Used to measure and optimize CMatrix's execution-layer exploit success rate.
+
+---
+
 ## `2023 Papers`
 
-### 59. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
+### 66. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation
 - **Venue:** ACM CCS 2023 (Workshop on Autonomous Cybersecurity)
 - **arXiv:** [2407.17788](https://arxiv.org/abs/2407.17788)
 - **DOI:** [10.1145/3689933.3690831](https://dl.acm.org/doi/abs/10.1145/3689933.3690831)
@@ -455,7 +504,7 @@
 
 ---
 
-### 60. Getting pwn'd by AI: Penetration Testing with Large Language Models
+### 67. Getting pwn'd by AI: Penetration Testing with Large Language Models
 - **Venue:** ESEC/FSE 2023
 - **DOI:** [10.1145/3611643.3613083](https://dl.acm.org/doi/abs/10.1145/3611643.3613083)
 - **Code:** [GitHub](https://github.com/ipa-lab/hackingBuddyGPT)
@@ -463,9 +512,39 @@
 
 ---
 
-### 61. Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag
+### 68. Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag
 - **Venue:** MASEC Workshop @ NeurIPS 2023
 - **arXiv:** [2308.10443](https://arxiv.org/abs/2308.10443)
 - **Why it matters for CMatrix:** First serious CTF evaluation of LLM agents as offensive security actors — the origin paper for the CTF-as-benchmark paradigm that CMatrix's evaluation will use.
+
+---
+
+### 69. ReAct: Synergizing Reasoning and Acting in LLMs
+- **Venue:** ICLR 2023
+- **arXiv:** [2210.03629](https://arxiv.org/abs/2210.03629)
+- **Why it matters for CMatrix:** The standard action-reasoning loop. Informs CMatrix's core terminal and execution agents on command generation and response evaluation.
+
+---
+
+### 70. Tree of Thoughts: Deliberate Problem Solving with LLMs
+- **Venue:** NeurIPS 2023
+- **arXiv:** [2305.10601](https://arxiv.org/abs/2305.10601)
+- **Why it matters for CMatrix:** Advanced tree search and backtracking over planning nodes. Highly relevant for multi-step penetration testing campaign planning and vulnerability exploration.
+
+---
+
+### 71. Reflexion: Language Agents with Verbal RL
+- **Venue:** NeurIPS 2023
+- **arXiv:** [2303.11366](https://arxiv.org/abs/2303.11366)
+- **Why it matters for CMatrix:** Self-reflection loops allowing agents to evaluate exploit execution failures and iteratively refine payloads.
+
+---
+
+## `2022 Papers`
+
+### 72. Chain-of-Thought Prompting Elicits Reasoning in LLMs
+- **Venue:** NeurIPS 2022
+- **arXiv:** [2201.11903](https://arxiv.org/abs/2201.11903)
+- **Why it matters for CMatrix:** Elicits complex reasoning by generating intermediate steps. Essential base planning logic for all CMatrix agents.
 
 ---
