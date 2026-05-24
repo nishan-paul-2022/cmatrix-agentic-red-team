@@ -6,51 +6,6 @@
 
 ---
 
-## 📊 MASTER PAPER LIST
-
-This table provides a comprehensive index of all **36 unique professor-based research papers** cited in this document, sorted by section and priority.
-
-| # | Research Paper Title | Year | Publication Venue | Primary Professor | University | USNWR Rank |
-|---|---|---|---|---|---|---|
-| **1** | CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026) | 2026 | ICLR 2026 (CCF-A) | Dawn Song | UC Berkeley | #4 |
-| **2** | PatchAgent: Practical Program Repair Agent Mimicking Human Expertise (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Xinyu Xing | Northwestern University | #9 |
-| **3** | PILOT: Path-Guided Iterative LLM-Orchestrated CLI Fuzzing | 2025 | 2025 | Yinzhi Cao | Johns Hopkins University | #9 |
-| **4** | Veritas: Semantically-Grounded Agentic Framework for Binary Vulnerability Detection | 2025 | 2025 | Suman Jana | Columbia University | #12 |
-| **5** | Multi-Agent Systems Execute Arbitrary Malicious Code (COLM 2025) | 2025 | COLM 2025 | Vitaly Shmatikov | Cornell Tech | #17 |
-| **6** | Incalmo: Autonomous LLM-Assisted System for Red Teaming Multi-Host Networks | 2025 | arXiv, January 2025 (v4: November 2025) | Lujo Bauer | CMU | #22 |
-| **7** | Unleashing Mayhem on Binary Code: Autonomous Cyber Reasoning System (IEEE S&P 2012 / DARPA CGC Winner) | 2012/2016 | IEEE S&P 2012 (CCF-A); DARPA Cyber Grand Challe... | David Brumley | CMU | #22 |
-| **8** | Universal and Transferable Adversarial Attacks on Aligned Language Models (GCG Attack) | 2023 | arXiv 2023 (4,000+ citations; presented at Neur... | Matthew Fredrikson | CMU | #22 |
-| **9** | ATLANTIS: The DARPA AIxCC Winning Cyber Reasoning System (DEF CON 33, 1st Place, $4M) | 2025 | DARPA AIxCC Final Competition, DEF CON 33, Augu... | Taesoo Kim | Georgia Tech | #33 |
-| **10** | Systems Security Foundations for Agentic Computing (SAGAI @ IEEE S&P 2025) | 2025 | IEEE SAGAI Workshop @ IEEE S&P 2025 (report pub... | Wenke Lee | Georgia Tech | #33 |
-| **11** | SoK: Towards Effective Automated Vulnerability Repair (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Gang Wang | UIUC | #35 |
-| **12** | LLM Agents Can Autonomously Exploit One-day Vulnerabilities | 2024 | arXiv, April 2024 | Daniel Kang | UIUC | #35 |
-| **13** | LmPa: Improving Decompilation by Synergy of LLM and Program Analysis (NDSS 2025) | 2025 | NDSS 2025 (CCF-A) | Barton Miller | University of Wisconsin–Madison | #42 |
-| **14** | Rethinking How to Evaluate Language Model Jailbreak (AISEC @ ACM CCS 2025) | 2025 | AISEC @ ACM CCS 2025 | Z. Berkay Celik | Purdue | #53 |
-| **15** | EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities (ICML 2025) | 2025 | ICML 2025 (CCF-A) | Brendan Dolan-Gavitt | NYU Tandon | #53 |
-| **16** | ELFuzz: Efficient Input Generation via LLM-Driven Synthesis (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Brendan Dolan-Gavitt | NYU Tandon | #53 |
-| **17** | LEMIX: Enabling Testing of Embedded Applications as Linux Applications (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Antonio Bianchi | Purdue University | #53 |
-| **18** | CVE-GENIE: LLM Multi-Agent Framework for Automated CVE Reproduction | 2025 | arXiv, September 2025 | Christopher Kruegel | UC Santa Barbara | #65 |
-| **19** | OSS-CRS: Liberating AIxCC Cyber Reasoning Systems for Real-World Open-Source Security | 2026 | USENIX Security 2026 | Giovanni Vigna | UC Santa Barbara | #65 |
-| **20** | ACM CCS 2025 Keynote: Autonomous Vulnerability Analysis, Triaging, and Repair: A Historical Perspective | 2025 | ACM CCS 2025 Keynote (CCF-A) | Giovanni Vigna | UC Santa Barbara | #65 |
-| **21** | LeakAgent: An RL-Based Red-Teaming Framework for LLM Privacy Leakage | 2025 | COLM 2025 | Wenbo Guo | UC Santa Barbara | #65 |
-| **22** | BlueCodeAgent: Blue-Team Agent Enabled by Automated Red Teaming | 2025 | 2025 | Wenbo Guo | UC Santa Barbara | #65 |
-| **23** | LLMs Cannot Reliably Identify and Reason About Security Vulnerabilities (Yet?): A Comprehensive Evaluation | 2024 | IEEE S&P 2024 (CCF-A) | Gianluca Stringhini | Boston University | #65 |
-| **24** | F-blocker: Disabling Vulnerability-Triggering Functionality in Binaries Without Source Code | 2024 | 2024–2025 (IEEE S&P, USENIX Security) | Georgios Portokalidis | Stevens Institute of Technology | #76 |
-| **25** | Locus: Agentic Predicate Synthesis for Directed Fuzzing (ICSE 2026) | 2026 | ICSE 2026 (CCF-A) | Yizheng Chen | University of Maryland | #93 |
-| **26** | PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing (USENIX Security 2024) | 2024 | USENIX Security 2024 (CCF-A) | Peng Liu | Penn State | #130 |
-| **27** | Your Agent Can Defend Itself against Backdoor Attacks — ReAgent: LLM agent security defense framework | 2025 | arXiv 2025 | Ting Wang | Penn State | #130 |
-| **28** | LLMs in Software Security: A Survey of Vulnerability Detection Techniques and Insights (ACM Computing Surveys 2025) | 2025 | ACM Computing Surveys 2025 | Guofei Gu | Texas A&M University | #145 |
-| **29** | Decompiling the Synergy: Human-LLM Teaming in Reverse Engineering (NDSS 2026) 🏆 Distinguished Paper Award | 2026 | NDSS 2026 (CCF-A) | Yan Shoshitaishvili | Arizona State University | #147 |
-| **30** | ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software | 2024 | arXiv, August 2024 | Tiffany Bao | Arizona State University | #147 |
-| **31** | AgentFuzz: Detecting Taint-Style Vulnerabilities in LLM-Based Agents via Directed Greybox Fuzzing | 2025 | USENIX Security 2025 (CCF-A) | Adam Doupé | Arizona State University | #147 |
-| **32** | CTINexus: Automatic Cyber Threat Intelligence Knowledge Graph Construction Using LLMs (EuroS&P 2025) | 2025 | EuroS&P 2025 | Peng Gao | Virginia Tech | #170 |
-| **33** | PANDA: Whole-System Dynamic Analysis Platform for Security Research (ongoing updates through 2024) | 2015 | ACM Workshop on Program Protection and Reverse ... | Wil Robertson | Northeastern University | #179 |
-| **34** | CTIBench: Evaluating LLMs on Real-World Cyber Threat Intelligence Tasks | 2025 | ACSAC 2024 / arXiv 2025 | Nidhi Rastogi | Rochester Institute of Technology | #320 |
-| **35** | DECAF: Dynamic Executable Code Analysis Framework — Whole-System Dynamic Malware Analysis and Taint Analysis | 2024 | Foundational platform 2008–2024; multiple USENI... | Heng Yin | UC Riverside | #405 |
-| **36** | We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs (USENIX Security 2025) | 2025 | USENIX Security 2025 (CCF-A) | Murtuza Jadliwala | University of Texas at San Antonio | #411 |
-
----
-
 ## 👤 Prof. #1 — Dawn Song · UC Berkeley · USNWR #4
 
 ### 1. CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale (ICLR 2026)

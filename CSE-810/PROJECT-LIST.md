@@ -72,3 +72,39 @@
 | 17 | H-42, H-44 | `Sandbox-Driven Malware Detection Using Machine Learning` |
 | 18 | H-23, H-53 | `Localized Threat Intelligence Collection Using Honeypot` |
 | 19 | H-17, H-11 | `MobInspect: A Portable Offline Mobile-Based APK Analysis Application` |
+
+---
+
+## 🎓 5th Batch
+
+| Group | Reg No. | Student Name | Project Title | Proposed Supervisor Name | Proposed Co-Supervisor Name | Contact Number |
+|-------|---------|--------------|---------------|--------------------------|------------------------------|----------------|
+| 1 | H-28 | Md. Abdullah Bin Salaam | An Inteoperability Framework for Integrating Agentic AI with Legacy SOC Infrastructure for Enterprise Security Operations Using MCP-Based Middleware | | | 01712264694 |
+| 1 | H-54 | Ovishek Pal | An Inteoperability Framework for Integrating Agentic AI with Legacy SOC Infrastructure for Enterprise Security Operations Using MCP-Based Middleware | Prof. Dr. Mamun-or Rashid | | 01623396536 |
+| 2 | H-53 | Khandaker Wasim Reza Tonmoy | A Risk Based Adaptive Security Framework for Customer Protection and Fraud Prevention in Mobile Financial Services. | Md. Samiul Islam | Mr. Abu Ahmed Ferdaus | 01911367815 |
+| 2 | H-47 | Md. Al-Amin Sarker | A Risk Based Adaptive Security Framework for Customer Protection and Fraud Prevention in Mobile Financial Services. | | | 01781448029 |
+| 3 | H-55 | Nishan Paul | An Autonomous Multi-Agent ReD Team for Intelligence Vulnerability Assessment using Agentic RAG and Human-in-the Loop Safety Conrols | | | 0184308377 |
+| 3 | H-49 | Md. Rakibur Rahman | An Autonomous Multi-Agent ReD Team for Intelligence Vulnerability Assessment using Agentic RAG and Human-in-the Loop Safety Conrols | Dr. Md. Abdur Razzaque | | 01730317736 |
+| 4 | H-29 | S. M. Razoan | A Cogentive Ai-Driven Autonomous Bug Bounty Framework for Intelligent Web Application Threat Discoveryand Exploitation Analysis | Mohammad Shahadat Hossain | Prof. Dr. Md. Rezaul karim | 01743069757 |
+| 5 | H-30 | Zahin Azmaeen | Intelligent Malware Detection and Classification: Intregrating the Power of AI and Adversarial Analysis | Md. Faisal Hossain (Not Signed) | | 01851470469 |
+| 5 | H-57 | Sanjana Tabassum | Intelligent Malware Detection and Classification: Intregrating the Power of AI and Adversarial Analysis | | Dr. Md. Abdur Razzaque | 01754379713 |
+| 6 | H-42 | Md Ashiqur Rahman | Design and Implimentation of a web Based Attack surface Management Platform for orgranizational Cybersecurity | Prof. Dr. Saifuddin Md. Tareeq | | 01567825213 |
+| 6 | H-44 | Jishan Firdows Navil | Design and Implimentation of a web Based Attack surface Management Platform for orgranizational Cybersecurity | | | 01791493736 |
+| 7 | H-45 | Mohammad Rafiqul islam | AI-Based Intrusion Detection System for Industrial Control Systems | | | 01709651694 |
+| 7 | H-32 | Jahid Hasan Sajeeb | AI-Based Intrusion Detection System for Industrial Control Systems | Dr. Md. Abdur Razzaque | | 01873223322 |
+| 8 | H-58 | Esha Nurani | AI/ML based network anomaly detection | Md. Faisal Hossain | Dr. Md. Abdur Razzaque | 01704743192 |
+| 8 | H-27 | Nur-e Alam Khan | AI/ML based network anomaly detection | | | 01786740999 |
+| 9 | H-34 | Md. Ranik Miah | Hybrid AI- based intrution Detection System for Enterprise Networks | Dr. Mosaddek Hossain Kamal | | 01720265379 |
+| 9 | H-46 | Md. Hossain Sarwar | Hybrid AI- based intrution Detection System for Enterprise Networks | | | 01575073755 |
+| 10 | H-62 | Fouzia Faria Tura | APT28 activities using Open-Source SIEM solution in an Enterprise Network based on Mitre ATT&CK Framework | Mohammad Shahadat Hossain | Prof. Dr. Md. Rezaul karim | 01314998317 |
+| 11 | H-33 | Md. Tahsin Islam Molla | Behavioral Anomaly Detection in User Authentication Systems for Identifying Unauthorized Access using Machine leaning Models | Md. Bahauddin Palash (Not Signed) | Prof. Dr. Mamun-or Rashid | 01799149464 |
+| 11 | H-59 | Mst. Sumaiya Shorab | Behavioral Anomaly Detection in User Authentication Systems for Identifying Unauthorized Access using Machine leaning Models | | | 01612579159 |
+| 12 | H-60 | Saima Akter Ritu | Explainable Early Classification of Encrypted Network Traffic Using Machine Learning. | Md. Bahauddin Palash | Prof. Dr. Mamun-or Rashid | 01303446807 |
+| 12 | H- 63 | Sanjana Islam | Explainable Early Classification of Encrypted Network Traffic Using Machine Learning. | | | 01717136959 |
+| 12 | H-43 | Tarek Mohammad Chowdhury | Explainable Early Classification of Encrypted Network Traffic Using Machine Learning. | | | 0191131970 |
+| 13 | H-48 | Md Munzurul Karim | Zero-Trust API Security | Dr. Sarkar Tanveer Ahmed Rumee | | 01761483306 |
+| 13 | H-31 | Abu Talha Md Umar Faruque | Zero-Trust API Security | | | 01300919730 |
+| 14 | H-38 | Mir Musfiq Ahmed | Cyber Policy and Compliance Management SaaS for Government Institutions | Dr. Md. Rezaul Karim | | 01756979634 |
+| 14 | H-51 | Iqbal Shahriar Emon | Cyber Policy and Compliance Management SaaS for Government Institutions | | | 01711163485 |
+| 15 | H-52 | Md Abul Kalam | Adaptive AI-Driven Cyber Defense Framework for Real-time Attack Detection and Automated Response Using Transformer-Based Models | Dr. Ahmedul Kabir | | 01771408299 |
+| 15 | H-35 | Emam Hasan | Adaptive AI-Driven Cyber Defense Framework for Real-time Attack Detection and Automated Response Using Transformer-Based Models | | | |
