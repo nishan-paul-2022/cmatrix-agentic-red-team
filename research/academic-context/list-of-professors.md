@@ -10,62 +10,62 @@
 
 ---
 
-# 📊 MASTER REFERENCE TABLE — 52 Unique Professors
+# 📊 MASTER REFERENCE TABLE — 113 Unique Professors
 
 | # | Professor | University | Email | USNWR Rank | Tier |
 |---|---|---|---|---|---|
-| 1 | Nickolai Zeldovich | MIT | nickolai@csail.mit.edu | #1 | 🔴 T1 |
-| 2 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
-| 3 | Xinyu Xing | Northwestern | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
-| 4 | Yinzhi Cao | Johns Hopkins | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
-| 5 | Suman Jana | Columbia | suman@cs.columbia.edu | #12 | 🔴 T1 |
-| 6 | Vitaly Shmatikov | Cornell Tech | shmatikov@cornell.edu | #17 | 🔴 T1 |
-| 7 | Lujo Bauer | CMU | lbauer@cmu.edu | #22 | 🔴 T1 |
-| 8 | Vyas Sekar | CMU | vsekar@andrew.cmu.edu | #22 | 🔴 T1 |
-| 9 | David Brumley | CMU | dbrumley@cmu.edu | #22 | 🔴 T1 |
-| 10 | Matthew Fredrikson | CMU | mfredrik@cmu.edu | #22 | 🔴 T1 |
-| 11 | Taesoo Kim | Georgia Tech | taesoo@gatech.edu | #33 | 🔴 T1 |
-| 12 | Wenke Lee | Georgia Tech | wenke@cc.gatech.edu | #33 | 🔴 T1 |
-| 13 | Gang Wang | UIUC | gangw@illinois.edu | #35 | 🔴 T1 |
-| 14 | Daniel Kang | UIUC | ddkang@illinois.edu | #35 | 🔴 T1 |
-| 15 | Barton Miller | UW-Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
-| 16 | Dongyan Xu | Purdue | dxu@cs.purdue.edu | #53 | 🔴 T1 |
-| 17 | Xiangyu Zhang | Purdue | xyzhang@cs.purdue.edu | #53 | 🔴 T1 |
-| 18 | Z. Berkay Celik | Purdue | celik@purdue.edu | #53 | 🔴 T1 |
-| 19 | Brendan Dolan-Gavitt | NYU Tandon | brendandg@nyu.edu | #53 | 🔴 T1 |
-| 20 | Antonio Bianchi | Purdue | antoniob@purdue.edu | #53 | 🔴 T1 |
-| 21 | Guanhong Tao | Purdue | taog@purdue.edu | #53 | 🔴 T1 |
-| 22 | Christopher Kruegel | UCSB | chris@cs.ucsb.edu | #65 | 🔴 T1 |
-| 23 | Giovanni Vigna | UCSB | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
-| 24 | Wenbo Guo | UCSB | henrygwb@ucsb.edu | #65 | 🔴 T1 |
-| 25 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
-| 26 | Georgios Portokalidis | Stevens Inst. Tech. | porto@stevens.edu | #76 | 🔴 T1 |
-| 27 | Yizheng Chen | U Maryland | yzchen@umd.edu | #93 | 🔴 T1 |
-| 28 | Anoop Singhal | UMD / NIST | anoop.singhal@nist.gov | #93 | 🔴 T1 |
-| 29 | Aziz Mohaisen | U Central Florida | david.mohaisen@ucf.edu | #121 | 🟡 T2 |
-| 30 | Peng Liu | Penn State | pliu@ist.psu.edu | #130 | 🟡 T2 |
-| 31 | Ting Wang | Penn State | inbox@tiwang.io | #130 | 🟡 T2 |
-| 32 | Guofei Gu | Texas A&M | guofei@cse.tamu.edu | #145 | 🟡 T2 |
-| 33 | Yan Shoshitaishvili | ASU | yans@asu.edu | #147 | 🟡 T2 |
-| 34 | Tiffany Bao | ASU | tbao@asu.edu | #147 | 🟡 T2 |
-| 35 | Adam Doupé | ASU | doupe@asu.edu | #147 | 🟡 T2 |
-| 36 | Long Cheng | Clemson | lcheng2@clemson.edu | #168 | 🟡 T2 |
-| 37 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
-| 38 | Anupam Joshi | UMBC | joshi@umbc.edu | #172 | 🟡 T2 |
-| 39 | Engin Kirda | Northeastern | ek@ccs.neu.edu | #179 | 🟡 T2 |
-| 40 | Wil Robertson | Northeastern | wil@ccs.neu.edu | #179 | 🟡 T2 |
-| 41 | Michalis Polychronakis | Stony Brook | mikepo@cs.stonybrook.edu | #185 | 🟡 T2 |
-| 42 | Saumya Debray | U Arizona | debray@cs.arizona.edu | #284 | 🟡 T2 |
-| 43 | Phani Vadrevu | LSU (ex-UNO) | kvadrevu@lsu.edu | #316 | 🟢 T3 |
-| 44 | Nidhi Rastogi | RIT | nxrvse@rit.edu | #320 | 🟢 T3 |
-| 45 | Matthew Wright | RIT | matthew.wright@rit.edu | #320 | 🟢 T3 |
-| 46 | Tao Wang | U North Texas | tao.wang2@unt.edu | #340 | 🟢 T3 |
-| 47 | Tao Hou | U North Texas | tao.hou@unt.edu | #340 | 🟢 T3 |
-| 48 | Matt Revelle | Montana State U | matt.revelle@montana.edu | #345 | 🟢 T3 |
-| 49 | Zhengxiong Li | U Colorado Denver | zhengxiong.li@ucdenver.edu | #360 | 🟢 T3 |
-| 50 | Ghaith Husari | East Tennessee State | husarig@etsu.edu | #390 | 🟢 T3 |
-| 51 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
-| 52 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
+| # | Professor | University | Email | USNWR Rank | Tier |
+|---|---|---|---|---|---|
+| 1 | Dawn Song | UC Berkeley | dawnsong@cs.berkeley.edu | #4 | 🔴 T1 |
+| 2 | Xinyu Xing | Northwestern | xingxinyu@northwestern.edu | #9 | 🔴 T1 |
+| 3 | Yinzhi Cao | Johns Hopkins | yinzhi.cao@jhu.edu | #9 | 🔴 T1 |
+| 4 | Suman Jana | Columbia | suman@cs.columbia.edu | #12 | 🔴 T1 |
+| 5 | Vitaly Shmatikov | Cornell Tech | shmatikov@cornell.edu | #17 | 🔴 T1 |
+| 6 | Lujo Bauer | CMU | lbauer@cmu.edu | #22 | 🔴 T1 |
+| 7 | David Brumley | CMU | dbrumley@cmu.edu | #22 | 🔴 T1 |
+| 8 | Matthew Fredrikson | CMU | mfredrik@cmu.edu | #22 | 🔴 T1 |
+| 9 | Taesoo Kim | Georgia Tech | taesoo@gatech.edu | #33 | 🔴 T1 |
+| 10 | Wenke Lee | Georgia Tech | wenke@cc.gatech.edu | #33 | 🔴 T1 |
+| 11 | Gang Wang | UIUC | gangw@illinois.edu | #35 | 🔴 T1 |
+| 12 | Daniel Kang | UIUC | ddkang@illinois.edu | #35 | 🔴 T1 |
+| 13 | Barton Miller | UW-Madison | bart@cs.wisc.edu | #42 | 🔴 T1 |
+| 14 | Dongyan Xu | Purdue | dxu@cs.purdue.edu | #53 | 🔴 T1 |
+| 15 | Xiangyu Zhang | Purdue | xyzhang@cs.purdue.edu | #53 | 🔴 T1 |
+| 16 | Z. Berkay Celik | Purdue | celik@purdue.edu | #53 | 🔴 T1 |
+| 17 | Brendan Dolan-Gavitt | NYU Tandon | brendandg@nyu.edu | #53 | 🔴 T1 |
+| 18 | Antonio Bianchi | Purdue | antoniob@purdue.edu | #53 | 🔴 T1 |
+| 19 | Guanhong Tao | Purdue | taog@purdue.edu | #53 | 🔴 T1 |
+| 20 | Christopher Kruegel | UCSB | chris@cs.ucsb.edu | #65 | 🔴 T1 |
+| 21 | Giovanni Vigna | UCSB | vigna@cs.ucsb.edu | #65 | 🔴 T1 |
+| 22 | Wenbo Guo | UCSB | henrygwb@ucsb.edu | #65 | 🔴 T1 |
+| 23 | Gianluca Stringhini | Boston University | gian@bu.edu | #65 | 🔴 T1 |
+| 24 | Georgios Portokalidis | Stevens Inst. Tech. | porto@stevens.edu | #76 | 🔴 T1 |
+| 25 | Yizheng Chen | U Maryland | yzchen@umd.edu | #93 | 🔴 T1 |
+| 26 | Anoop Singhal | UMD / NIST | anoop.singhal@nist.gov | #93 | 🔴 T1 |
+| 27 | Aziz Mohaisen | U Central Florida | david.mohaisen@ucf.edu | #121 | 🟡 T2 |
+| 28 | Peng Liu | Penn State | pliu@ist.psu.edu | #130 | 🟡 T2 |
+| 29 | Ting Wang | Penn State | inbox@tiwang.io | #130 | 🟡 T2 |
+| 30 | Guofei Gu | Texas A&M | guofei@cse.tamu.edu | #145 | 🟡 T2 |
+| 31 | Yan Shoshitaishvili | ASU | yans@asu.edu | #147 | 🟡 T2 |
+| 32 | Tiffany Bao | ASU | tbao@asu.edu | #147 | 🟡 T2 |
+| 33 | Adam Doupé | ASU | doupe@asu.edu | #147 | 🟡 T2 |
+| 34 | Long Cheng | Clemson | lcheng2@clemson.edu | #168 | 🟡 T2 |
+| 35 | Peng Gao | Virginia Tech | penggao@vt.edu | #170 | 🟡 T2 |
+| 36 | Anupam Joshi | UMBC | joshi@umbc.edu | #172 | 🟡 T2 |
+| 37 | Engin Kirda | Northeastern | ek@ccs.neu.edu | #179 | 🟡 T2 |
+| 38 | Wil Robertson | Northeastern | wil@ccs.neu.edu | #179 | 🟡 T2 |
+| 39 | Michalis Polychronakis | Stony Brook | mikepo@cs.stonybrook.edu | #185 | 🟡 T2 |
+| 40 | Saumya Debray | U Arizona | debray@cs.arizona.edu | #284 | 🟡 T2 |
+| 41 | Phani Vadrevu | LSU (ex-UNO) | kvadrevu@lsu.edu | #316 | 🟢 T3 |
+| 42 | Nidhi Rastogi | RIT | nxrvse@rit.edu | #320 | 🟢 T3 |
+| 43 | Matthew Wright | RIT | matthew.wright@rit.edu | #320 | 🟢 T3 |
+| 44 | Tao Wang | U North Texas | tao.wang2@unt.edu | #340 | 🟢 T3 |
+| 45 | Tao Hou | U North Texas | tao.hou@unt.edu | #340 | 🟢 T3 |
+| 46 | Matt Revelle | Montana State U | matt.revelle@montana.edu | #345 | 🟢 T3 |
+| 47 | Zhengxiong Li | U Colorado Denver | zhengxiong.li@ucdenver.edu | #360 | 🟢 T3 |
+| 48 | Ghaith Husari | East Tennessee State | husarig@etsu.edu | #390 | 🟢 T3 |
+| 49 | Heng Yin | UC Riverside | heng.yin@ucr.edu | #405 | 🟢 T3 |
+| 50 | Murtuza Jadliwala | UT San Antonio | murtuza.jadliwala@utsa.edu | #411 | 🟢 T3 |
 
 ---
 
@@ -73,69 +73,69 @@
 
 | # | University | USNWR Rank | Tier | Prof Count | Associated Professor(s) |
 |---|---|---|---|---|---|
-| 1 | MIT | #1 | 🔴 T1 | **1** | Nickolai Zeldovich |
-| 2 | UC Berkeley | #4 | 🔴 T1 | **1** | Dawn Song |
-| 3 | Northwestern | #9 | 🔴 T1 | **1** | Xinyu Xing |
-| 4 | Johns Hopkins | #9 | 🔴 T1 | **1** | Yinzhi Cao |
-| 5 | U Chicago | #12 | 🔴 T1 | **1** | Nick Feamster |
-| 6 | Columbia | #12 | 🔴 T1 | **1** | Suman Jana |
-| 7 | Cornell Tech | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
-| 8 | CMU | #22 | 🔴 T1 | **4** | Lujo Bauer, Vyas Sekar, David Brumley, Matthew Fredrikson |
-| 9 | Georgia Tech | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
-| 10 | UIUC | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
-| 11 | UW-Madison | #42 | 🔴 T1 | **1** | Barton Miller |
-| 12 | Purdue | #53 | 🔴 T1 | **5** | Dongyan Xu, Xiangyu Zhang, Z. Berkay Celik, Antonio Bianchi, Guanhong Tao |
-| 13 | NYU Tandon | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
-| 14 | U Virginia | #62 | 🔴 T1 | **1** | Wajih Ul Hassan |
-| 15 | UCSB | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
-| 16 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
-| 17 | Stevens Inst. Tech. | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
-| 18 | U Maryland | #93 | 🔴 T1 | **1** | Yizheng Chen |
-| 19 | UMD / NIST | #93 | 🔴 T1 | **1** | Anoop Singhal |
-| 20 | U Central Florida | #121 | 🟡 T2 | **1** | Aziz Mohaisen |
-| 21 | Penn State | #130 | 🟡 T2 | **3** | Gang Tan, Peng Liu, Ting Wang |
-| 22 | Syracuse | #133 | 🟡 T2 | **1** | Wenliang (Kevin) Du |
-| 23 | Oregon State U | #144 | 🟡 T2 | **1** | Rakesh Bobba |
-| 24 | U Florida | #145 | 🟡 T2 | **2** | Patrick Traynor, Kevin Butler |
-| 25 | Texas A&M | #145 | 🟡 T2 | **1** | Guofei Gu |
-| 26 | ASU | #147 | 🟡 T2 | **4** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé, Jedidiah Crandall |
-| 27 | CUNY Hunter College | #155 | 🟡 T2 | **1** | Saptarshi Debroy |
-| 28 | George Mason | #156 | 🟡 T2 | **1** | Sushil Jajodia |
-| 29 | Rutgers | #160 | 🟡 T2 | **1** | Jie Gao |
-| 30 | Clemson | #168 | 🟡 T2 | **1** | Long Cheng |
-| 31 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
-| 32 | UMass Amherst | #170 | 🟡 T2 | **1** | Pubali Datta |
-| 33 | UMBC | #172 | 🟡 T2 | **1** | Anupam Joshi |
-| 34 | Northeastern | #179 | 🟡 T2 | **3** | Long Lu, Engin Kirda, Wil Robertson |
-| 35 | Ohio State | #180 | 🟡 T2 | **1** | Zhiqiang Lin |
-| 36 | NC State | #181 | 🟡 T2 | **1** | William Enck |
-| 37 | Stony Brook | #185 | 🟡 T2 | **1** | Michalis Polychronakis |
-| 38 | U Memphis | #270 | 🟡 T2 | **1** | Dipankar Dasgupta |
-| 39 | WPI | #270 | 🟡 T2 | **1** | Jun Dai |
-| 40 | U Arizona | #284 | 🟡 T2 | **1** | Saumya Debray |
-| 41 | U South Florida | #295 | 🟡 T2 | **1** | Xinming (Simon) Ou |
-| 42 | Old Dominion U | #301 | 🟢 T3 | **3** | Daniel Takabi, Mohammad GhasemiGol, Md Morshed Alam |
-| 43 | U New Mexico | #310 | 🟢 T3 | **1** | Xin Chen |
-| 44 | LSU | #316 | 🟢 T3 | **3** | Tasnuva Farheen, Aisha Ali-Gombe, James Ghawaly |
-| 45 | LSU (ex-UNO) | #316 | 🟢 T3 | **1** | Phani Vadrevu |
-| 46 | RIT | #320 | 🟢 T3 | **3** | Nidhi Rastogi, Matthew Wright, Weijie Zhao |
-| 47 | FAU | #335 | 🟢 T3 | **1** | Mehrdad Nojoumian |
-| 48 | U North Texas | #340 | 🟢 T3 | **3** | Tao Wang, Tao Hou, Supreeth Shastri |
-| 49 | Montana State U | #345 | 🟢 T3 | **2** | Matt Revelle, Clemente Izurieta |
-| 50 | U Tulsa | #350 | 🟢 T3 | **2** | Weiping Pei, John Hale |
-| 51 | U Nevada Reno | #355 | 🟢 T3 | **1** | Rui Hu |
-| 52 | Tennessee Tech | #358 | 🟢 T3 | **2** | Maanak Gupta, William Eberle |
-| 53 | U Colorado Denver | #360 | 🟢 T3 | **2** | Haadi Jafarian, Zhengxiong Li |
-| 54 | U South Alabama | #363 | 🟢 T3 | **2** | Jesse Ables, Todd Andel |
-| 55 | Idaho State U | #370 | 🟢 T3 | **2** | Minhaz Zibran, Mostafa Fouda |
-| 56 | Bowling Green SU | #380 | 🟢 T3 | **1** | Sankardas Roy |
-| 57 | U Alabama Huntsville | #380 | 🟢 T3 | **1** | Tommy Morris |
-| 58 | Central Michigan U | #385 | 🟢 T3 | **2** | Qi Liao, Linxi Zhang |
-| 59 | East Tennessee State | #390 | 🟢 T3 | **1** | Ghaith Husari |
-| 60 | UC Riverside | #405 | 🟢 T3 | **3** | Chengyu Song, Zhiyun Qian, Heng Yin |
-| 61 | FIU | #411 | 🟢 T3 | **1** | Selcuk Uluagac |
-| 62 | UT San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
-| 63 | U New Orleans | #430 | 🟢 T3 | **2** | Abdullah Yasin Nur, James Wagner |
+
+| 1 | UC Berkeley | #4 | 🔴 T1 | **1** | Dawn Song |
+| 2 | Northwestern | #9 | 🔴 T1 | **1** | Xinyu Xing |
+| 3 | Johns Hopkins | #9 | 🔴 T1 | **1** | Yinzhi Cao |
+| 4 | U Chicago | #12 | 🔴 T1 | **1** | Nick Feamster |
+| 5 | Columbia | #12 | 🔴 T1 | **1** | Suman Jana |
+| 6 | Cornell Tech | #17 | 🔴 T1 | **1** | Vitaly Shmatikov |
+| 7 | CMU | #22 | 🔴 T1 | **3** | Lujo Bauer, David Brumley, Matthew Fredrikson |
+| 8 | Georgia Tech | #33 | 🔴 T1 | **2** | Taesoo Kim, Wenke Lee |
+| 9 | UIUC | #35 | 🔴 T1 | **2** | Gang Wang, Daniel Kang |
+| 10 | UW-Madison | #42 | 🔴 T1 | **1** | Barton Miller |
+| 11 | Purdue | #53 | 🔴 T1 | **5** | Dongyan Xu, Xiangyu Zhang, Z. Berkay Celik, Antonio Bianchi, Guanhong Tao |
+| 12 | NYU Tandon | #53 | 🔴 T1 | **1** | Brendan Dolan-Gavitt |
+| 13 | U Virginia | #62 | 🔴 T1 | **1** | Wajih Ul Hassan |
+| 14 | UCSB | #65 | 🔴 T1 | **3** | Christopher Kruegel, Giovanni Vigna, Wenbo Guo |
+| 15 | Boston University | #65 | 🔴 T1 | **1** | Gianluca Stringhini |
+| 16 | Stevens Inst. Tech. | #76 | 🔴 T1 | **1** | Georgios Portokalidis |
+| 17 | U Maryland | #93 | 🔴 T1 | **1** | Yizheng Chen |
+| 18 | UMD / NIST | #93 | 🔴 T1 | **1** | Anoop Singhal |
+| 19 | U Central Florida | #121 | 🟡 T2 | **1** | Aziz Mohaisen |
+| 20 | Penn State | #130 | 🟡 T2 | **3** | Gang Tan, Peng Liu, Ting Wang |
+| 21 | Syracuse | #133 | 🟡 T2 | **1** | Wenliang (Kevin) Du |
+| 22 | Oregon State U | #144 | 🟡 T2 | **1** | Rakesh Bobba |
+| 23 | U Florida | #145 | 🟡 T2 | **2** | Patrick Traynor, Kevin Butler |
+| 24 | Texas A&M | #145 | 🟡 T2 | **1** | Guofei Gu |
+| 25 | ASU | #147 | 🟡 T2 | **4** | Yan Shoshitaishvili, Tiffany Bao, Adam Doupé, Jedidiah Crandall |
+| 26 | CUNY Hunter College | #155 | 🟡 T2 | **1** | Saptarshi Debroy |
+| 27 | George Mason | #156 | 🟡 T2 | **1** | Sushil Jajodia |
+| 28 | Rutgers | #160 | 🟡 T2 | **1** | Jie Gao |
+| 29 | Clemson | #168 | 🟡 T2 | **1** | Long Cheng |
+| 30 | Virginia Tech | #170 | 🟡 T2 | **1** | Peng Gao |
+| 31 | UMass Amherst | #170 | 🟡 T2 | **1** | Pubali Datta |
+| 32 | UMBC | #172 | 🟡 T2 | **1** | Anupam Joshi |
+| 33 | Northeastern | #179 | 🟡 T2 | **3** | Long Lu, Engin Kirda, Wil Robertson |
+| 34 | Ohio State | #180 | 🟡 T2 | **1** | Zhiqiang Lin |
+| 35 | NC State | #181 | 🟡 T2 | **1** | William Enck |
+| 36 | Stony Brook | #185 | 🟡 T2 | **1** | Michalis Polychronakis |
+| 37 | U Memphis | #270 | 🟡 T2 | **1** | Dipankar Dasgupta |
+| 38 | WPI | #270 | 🟡 T2 | **1** | Jun Dai |
+| 39 | U Arizona | #284 | 🟡 T2 | **1** | Saumya Debray |
+| 40 | U South Florida | #295 | 🟡 T2 | **1** | Xinming (Simon) Ou |
+| 41 | Old Dominion U | #301 | 🟢 T3 | **3** | Daniel Takabi, Mohammad GhasemiGol, Md Morshed Alam |
+| 42 | U New Mexico | #310 | 🟢 T3 | **1** | Xin Chen |
+| 43 | LSU | #316 | 🟢 T3 | **3** | Tasnuva Farheen, Aisha Ali-Gombe, James Ghawaly |
+| 44 | LSU (ex-UNO) | #316 | 🟢 T3 | **1** | Phani Vadrevu |
+| 45 | RIT | #320 | 🟢 T3 | **3** | Nidhi Rastogi, Matthew Wright, Weijie Zhao |
+| 46 | FAU | #335 | 🟢 T3 | **1** | Mehrdad Nojoumian |
+| 47 | U North Texas | #340 | 🟢 T3 | **3** | Tao Wang, Tao Hou, Supreeth Shastri |
+| 48 | Montana State U | #345 | 🟢 T3 | **2** | Matt Revelle, Clemente Izurieta |
+| 49 | U Tulsa | #350 | 🟢 T3 | **2** | Weiping Pei, John Hale |
+| 50 | U Nevada Reno | #355 | 🟢 T3 | **1** | Rui Hu |
+| 51 | Tennessee Tech | #358 | 🟢 T3 | **2** | Maanak Gupta, William Eberle |
+| 52 | U Colorado Denver | #360 | 🟢 T3 | **2** | Haadi Jafarian, Zhengxiong Li |
+| 53 | U South Alabama | #363 | 🟢 T3 | **2** | Jesse Ables, Todd Andel |
+| 54 | Idaho State U | #370 | 🟢 T3 | **2** | Minhaz Zibran, Mostafa Fouda |
+| 55 | Bowling Green SU | #380 | 🟢 T3 | **1** | Sankardas Roy |
+| 56 | U Alabama Huntsville | #380 | 🟢 T3 | **1** | Tommy Morris |
+| 57 | Central Michigan U | #385 | 🟢 T3 | **2** | Qi Liao, Linxi Zhang |
+| 58 | East Tennessee State | #390 | 🟢 T3 | **1** | Ghaith Husari |
+| 59 | UC Riverside | #405 | 🟢 T3 | **3** | Chengyu Song, Zhiyun Qian, Heng Yin |
+| 60 | FIU | #411 | 🟢 T3 | **1** | Selcuk Uluagac |
+| 61 | UT San Antonio | #411 | 🟢 T3 | **1** | Murtuza Jadliwala |
+| 62 | U New Orleans | #430 | 🟢 T3 | **2** | Abdullah Yasin Nur, James Wagner |
 
 ---
 
@@ -144,25 +144,7 @@
 
 ---
 
-## 1. Prof. Nickolai Zeldovich
-**MIT** | USNWR Overall: **#1**
-
-| Field | Info |
-|---|---|
-| Email | nickolai@csail.mit.edu |
-| Website | https://people.csail.mit.edu/nickolai |
-| Lab | PDOS + CSS, MIT CSAIL |
-| Funding | NSF CAREER, Sloan Fellowship, multiple DARPA/ONR grants |
-
-**Speciality:** Practical secure systems, OS security, software security analysis tools, formal verification, cryptographic systems
-
-**CMatrix alignment:** His STACK tool and formal system verification underpin the security analysis layer CMatrix automates. Works on building provably secure systems — perfect academic anchor for CMatrix's trustworthy autonomous VAPT argument.
-
-**Student friendliness:** Named 2026 MacVicar Faculty Fellow — MIT's highest teaching recognition. Students describe him as infusing "learning with joy" and empowering students to "find solutions themselves."
-
----
-
-## 2. Prof. Dawn Song
+## 1. Prof. Dawn Song
 **UC Berkeley** | USNWR Overall: **#4** (#1 Public)
 
 | Field | Info |
@@ -180,7 +162,7 @@
 
 ---
 
-## 3. Prof. Xinyu Xing
+## 2. Prof. Xinyu Xing
 **Northwestern University** | USNWR Overall: **#9**
 
 | Field | Info |
@@ -198,7 +180,7 @@
 
 ---
 
-## 4. Prof. Yinzhi Cao
+## 3. Prof. Yinzhi Cao
 **Johns Hopkins University** | USNWR Overall: **#9** (tied)
 
 | Field | Info |
@@ -216,7 +198,7 @@
 
 ---
 
-## 5. Prof. Suman Jana
+## 4. Prof. Suman Jana
 **Columbia University** | USNWR Overall: **#12** (tied)
 
 | Field | Info |
@@ -234,7 +216,7 @@
 
 ---
 
-## 6. Prof. Vitaly Shmatikov
+## 5. Prof. Vitaly Shmatikov
 **Cornell Tech / Cornell University** | USNWR Overall: **#17** (Cornell overall)
 
 | Field | Info |
@@ -252,7 +234,7 @@
 
 ---
 
-## 7. Prof. Lujo Bauer
+## 6. Prof. Lujo Bauer
 **Carnegie Mellon University** | USNWR Overall: **#22**
 
 | Field | Info |
@@ -270,25 +252,7 @@
 
 ---
 
-## 8. Prof. Vyas Sekar
-**Carnegie Mellon University** | USNWR Overall: **#22**
-
-| Field | Info |
-|---|---|
-| Email | vsekar@andrew.cmu.edu |
-| Website | https://ece.cmu.edu/directory/bios/sekar-vyas.html |
-| Lab | CyLab Security & Privacy Institute |
-| Funding | NSF CAREER, NSA Science of Security Prize, CSAW Applied Security Research Prize, Intel Outstanding Researcher Award |
-
-**Speciality:** Network security, AI-driven autonomous cyberattack systems, intrusion detection, adversarial ML
-
-**CMatrix alignment:** Led the July 2025 study demonstrating LLMs autonomously plan and execute real-world enterprise network attacks — the closest published academic work to CMatrix's core functionality.
-
-**Student friendliness:** Tan Family Professor in ECE. Warm, collaborative style. Works closely with students inside CyLab's well-funded ecosystem.
-
----
-
-## 9. Prof. David Brumley
+## 7. Prof. David Brumley
 **Carnegie Mellon University** | USNWR Overall: **#22**
 
 | Field | Info |
@@ -306,7 +270,7 @@
 
 ---
 
-## 10. Prof. Matthew Fredrikson
+## 8. Prof. Matthew Fredrikson
 **Carnegie Mellon University** | USNWR Overall: **#22**
 
 | Field | Info |
@@ -324,7 +288,7 @@
 
 ---
 
-## 11. Prof. Taesoo Kim
+## 9. Prof. Taesoo Kim
 **Georgia Institute of Technology** | USNWR Overall: **#33** | #2 Cybersecurity
 
 | Field | Info |
@@ -342,7 +306,7 @@
 
 ---
 
-## 12. Prof. Wenke Lee
+## 10. Prof. Wenke Lee
 **Georgia Institute of Technology** | USNWR Overall: **#33** | #2 Cybersecurity
 
 | Field | Info |
@@ -360,7 +324,7 @@
 
 ---
 
-## 13. Prof. Gang Wang
+## 11. Prof. Gang Wang
 **University of Illinois Urbana-Champaign** | USNWR Overall: **#35** (tied)
 
 | Field | Info |
@@ -378,7 +342,7 @@
 
 ---
 
-## 14. Prof. Daniel Kang
+## 12. Prof. Daniel Kang
 **University of Illinois Urbana-Champaign** | USNWR Overall: **#35** (tied)
 
 | Field | Info |
@@ -396,7 +360,7 @@
 
 ---
 
-## 15. Prof. Barton Miller
+## 13. Prof. Barton Miller
 **University of Wisconsin–Madison** | USNWR Overall: **#42**
 
 | Field | Info |
@@ -414,7 +378,7 @@
 
 ---
 
-## 16. Prof. Dongyan Xu
+## 14. Prof. Dongyan Xu
 **Purdue University** | USNWR Overall: **#53** (tied)
 
 | Field | Info |
@@ -432,7 +396,7 @@
 
 ---
 
-## 17. Prof. Xiangyu Zhang
+## 15. Prof. Xiangyu Zhang
 **Purdue University** | USNWR Overall: **#53** (tied)
 
 | Field | Info |
@@ -450,7 +414,7 @@
 
 ---
 
-## 18. Prof. Z. Berkay Celik
+## 16. Prof. Z. Berkay Celik
 **Purdue University** | USNWR Overall: **#53** (tied)
 
 | Field | Info |
@@ -468,7 +432,7 @@
 
 ---
 
-## 19. Prof. Brendan Dolan-Gavitt
+## 17. Prof. Brendan Dolan-Gavitt
 **New York University (Tandon)** | USNWR Overall: **#53** (NYU overall)
 
 | Field | Info |
@@ -486,7 +450,7 @@
 
 ---
 
-## 20. Prof. Antonio Bianchi
+## 18. Prof. Antonio Bianchi
 **Purdue University** | USNWR Overall: **#53** (tied)
 
 | Field | Info |
@@ -504,7 +468,7 @@
 
 ---
 
-## 21. Prof. Guanhong Tao
+## 19. Prof. Guanhong Tao
 **Purdue University** | USNWR Overall: **#53** (tied)
 
 | Field | Info |
@@ -522,7 +486,7 @@
 
 ---
 
-## 22. Prof. Christopher Kruegel
+## 20. Prof. Christopher Kruegel
 **UC Santa Barbara** | USNWR Overall: **#65**
 
 | Field | Info |
@@ -540,7 +504,7 @@
 
 ---
 
-## 23. Prof. Giovanni Vigna
+## 21. Prof. Giovanni Vigna
 **UC Santa Barbara** | USNWR Overall: **#65**
 
 | Field | Info |
@@ -558,7 +522,7 @@
 
 ---
 
-## 24. Prof. Wenbo Guo
+## 22. Prof. Wenbo Guo
 **UC Santa Barbara** | USNWR Overall: **#65**
 
 | Field | Info |
@@ -576,7 +540,7 @@
 
 ---
 
-## 25. Prof. Gianluca Stringhini
+## 23. Prof. Gianluca Stringhini
 **Boston University** | USNWR Overall: **#65** (Overall)
 
 | Field | Info |
@@ -594,7 +558,7 @@
 
 ---
 
-## 26. Prof. Georgios Portokalidis
+## 24. Prof. Georgios Portokalidis
 **Stevens Institute of Technology** | USNWR Overall: **#76–80**
 
 | Field | Info |
@@ -612,7 +576,7 @@
 
 ---
 
-## 27. Prof. Yizheng Chen
+## 25. Prof. Yizheng Chen
 **University of Maryland, College Park** | USNWR Overall: **#93** (Overall)
 
 | Field | Info |
@@ -630,7 +594,7 @@
 
 ---
 
-## 28. Prof. Anoop Singhal
+## 26. Prof. Anoop Singhal
 **UMD / NIST** | UMD USNWR: **#93** *(NIST = federal lab, outside ranking)*
 
 | Field | Info |
@@ -661,7 +625,7 @@
 
 ---
 
-## 29. Prof. Aziz Mohaisen
+## 27. Prof. Aziz Mohaisen
 **University of Central Florida** | USNWR Overall: **#121**
 
 | Field | Info |
@@ -679,7 +643,7 @@
 
 ---
 
-## 30. Prof. Peng Liu
+## 28. Prof. Peng Liu
 **Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
@@ -697,7 +661,7 @@
 
 ---
 
-## 31. Prof. Ting Wang
+## 29. Prof. Ting Wang
 **Penn State University** | USNWR Overall: **#130**
 
 | Field | Info |
@@ -715,7 +679,7 @@
 
 ---
 
-## 32. Prof. Guofei Gu
+## 30. Prof. Guofei Gu
 **Texas A&M University** | USNWR Overall: **#145**
 
 | Field | Info |
@@ -733,7 +697,7 @@
 
 ---
 
-## 33. Prof. Yan Shoshitaishvili
+## 31. Prof. Yan Shoshitaishvili
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -751,7 +715,7 @@
 
 ---
 
-## 34. Prof. Tiffany Bao
+## 32. Prof. Tiffany Bao
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -769,7 +733,7 @@
 
 ---
 
-## 35. Prof. Adam Doupé
+## 33. Prof. Adam Doupé
 **Arizona State University** | USNWR Overall: **#147**
 
 | Field | Info |
@@ -787,7 +751,7 @@
 
 ---
 
-## 36. Prof. Long Cheng
+## 34. Prof. Long Cheng
 **Clemson University** | USNWR Overall: **#168** (Overall)
 
 | Field | Info |
@@ -805,7 +769,7 @@
 
 ---
 
-## 37. Prof. Peng Gao
+## 35. Prof. Peng Gao
 **Virginia Tech** | USNWR Overall: **#170**
 
 | Field | Info |
@@ -823,7 +787,7 @@
 
 ---
 
-## 38. Prof. Anupam Joshi
+## 36. Prof. Anupam Joshi
 **University of Maryland, Baltimore County (UMBC)** | USNWR Overall: **#172**
 
 | Field | Info |
@@ -841,7 +805,7 @@
 
 ---
 
-## 39. Prof. Engin Kirda
+## 37. Prof. Engin Kirda
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -859,7 +823,7 @@
 
 ---
 
-## 40. Prof. Wil Robertson
+## 38. Prof. Wil Robertson
 **Northeastern University** | USNWR Overall: **#179**
 
 | Field | Info |
@@ -877,7 +841,7 @@
 
 ---
 
-## 41. Prof. Michalis Polychronakis
+## 39. Prof. Michalis Polychronakis
 **Stony Brook University** | USNWR Overall: **#185**
 
 | Field | Info |
@@ -895,7 +859,7 @@
 
 ---
 
-## 42. Prof. Saumya Debray
+## 40. Prof. Saumya Debray
 **University of Arizona** | USNWR Overall: **#284**
 
 | Field | Info |
@@ -918,7 +882,7 @@
 
 ---
 
-## 43. Prof. Phani Vadrevu
+## 41. Prof. Phani Vadrevu
 **Louisiana State University** | USNWR Overall: **#316**
 
 | Field | Info |
@@ -936,7 +900,7 @@
 
 ---
 
-## 44. Prof. Nidhi Rastogi
+## 42. Prof. Nidhi Rastogi
 **Rochester Institute of Technology** | USNWR Overall: **#320**
 
 | Field | Info |
@@ -954,7 +918,7 @@
 
 ---
 
-## 45. Prof. Matthew Wright
+## 43. Prof. Matthew Wright
 **Rochester Institute of Technology** | USNWR Overall: **#320**
 
 | Field | Info |
@@ -972,7 +936,7 @@
 
 ---
 
-## 46. Prof. Tao Wang
+## 44. Prof. Tao Wang
 **University of North Texas** | USNWR Overall: **#340**
 
 | Field | Info |
@@ -990,7 +954,7 @@
 
 ---
 
-## 47. Prof. Tao Hou
+## 45. Prof. Tao Hou
 **University of North Texas** | USNWR Overall: **#340**
 
 | Field | Info |
@@ -1008,7 +972,7 @@
 
 ---
 
-## 48. Prof. Matt Revelle
+## 46. Prof. Matt Revelle
 **Montana State University** | USNWR Overall: **#345**
 
 | Field | Info |
@@ -1026,7 +990,7 @@
 
 ---
 
-## 49. Prof. Zhengxiong Li
+## 47. Prof. Zhengxiong Li
 **University of Colorado Denver** | USNWR Overall: **#360**
 
 | Field | Info |
@@ -1044,7 +1008,7 @@
 
 ---
 
-## 50. Prof. Ghaith Husari
+## 48. Prof. Ghaith Husari
 **East Tennessee State University** | USNWR Overall: **#390**
 
 | Field | Info |
@@ -1062,7 +1026,7 @@
 
 ---
 
-## 51. Prof. Heng Yin
+## 49. Prof. Heng Yin
 **UC Riverside** | USNWR Overall: **#405**
 
 | Field | Info |
@@ -1080,7 +1044,7 @@
 
 ---
 
-## 52. Prof. Murtuza Jadliwala
+## 50. Prof. Murtuza Jadliwala
 **University of Texas at San Antonio** | USNWR Overall: **#411**
 
 | Field | Info |
