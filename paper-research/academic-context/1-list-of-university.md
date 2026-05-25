@@ -1,4 +1,4 @@
-# 🏢 Master University Reference Table
+# 🏢 Master University Reference Table — 23 Universities
 
 | # | University | USNWR Rank | Prof Count | Associated Professor(s) | Tier |
 |---|---|---|---|---|---|

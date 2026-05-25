@@ -1,4 +1,4 @@
-# 📊 Master Professor Reference Table — 33 Unique Professors
+# 📊 Master Professor Reference Table — 33 Professors
 
 | # | Professor | University | Email | USNWR Rank | Tier |
 |---|---|---|---|---|---|

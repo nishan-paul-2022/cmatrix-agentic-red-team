@@ -1,5 +1,5 @@
 # AI + Cybersecurity Conference List
-### PhD Admission Strategy — Research Complete Sep 2026 · Apps Start Nov 2027
+> PhD Admission Strategy — Research Complete Sep 2026 · Apps Start Nov 2027
 
 ---
 
@@ -10,7 +10,7 @@
 | Research complete | Sep 2026 |
 | Earliest submission | Sep 2026 |
 | PhD applications start | Nov 2027 |
-| Hard rule | Paper must be published OR accepted by Oct 2027 |
+| Hard rule | Paper must be published OR accepted by Nov 2027 |
 | Budget | ≤ $200 USD |
 | Attendance | Virtual |
 

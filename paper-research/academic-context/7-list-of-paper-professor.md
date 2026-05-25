@@ -1,5 +1,5 @@
 # 🎓 USA Professor Academic Research Papers
-> **Research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
+> **Scope:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
 ---
 ## 👤 Prof. #1 — Dawn Song
 ### 1. [CyberGym: AI Agents' Real-World Cybersecurity Capabilities at Scale](https://arxiv.org/abs/2506.02548)
