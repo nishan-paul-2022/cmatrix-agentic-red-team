@@ -1,10 +1,10 @@
-# Curated Research Papers (LLM-Orch VAPT)
+# Curated Research Papers
 
-> **Scope:** Papers directly relevant to CMatrix's core pillars — LLM-based agentic pentesting,
+> **Scope:** Papers directly relevant to our work — LLM-based agentic pentesting,
 > multi-agent red-team orchestration, autonomous vulnerability exploitation, offensive security
 > benchmarks, and agentic cybersecurity systems. Ordered from **most recent → oldest**.
 > Quality filter: CCF-A/B venues, major arXiv preprints with 50+ citations, or direct architectural
-> equivalents. No fluff, no tangential references.
+> equivalents.
 
 ---
 
