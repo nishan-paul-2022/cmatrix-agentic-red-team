@@ -111,3 +111,5 @@
 | **107** | [P-34](7-list-of-paper-professor.md#34-ctibench-evaluating-llms-on-real-world-cyber-threat-intelligence-tasks) | 🎓 Professor | CTIBench: Evaluating LLMs on Real-World Cyber Threat Intelligence Tasks | 2024 | ACSAC 2024 / arXiv 2024 | Nidhi Rastogi | RIT |
 | **108** | [P-35](7-list-of-paper-professor.md#35-decaf-a-platform-neutral-whole-system-dynamic-binary-analysis-platform) | 🎓 Professor | DECAF: A Platform-Neutral Whole-System Dynamic Binary Analysis Platform | 2017 | IEEE Transactions on Software Engineering 2017 | Heng Yin | UC Riverside |
 | **109** | [P-36](7-list-of-paper-professor.md#36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms) | 🎓 Professor | We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs | 2025 | USENIX Security 2025 (CCF-A) | Murtuza Jadliwala | UT San Antonio |
+
+---

@@ -507,3 +507,5 @@
 | Conference date | Dec 2027 |
 | Indexing | NeurIPS proceedings |
 | Cost | $150 student virtual |
+
+---

@@ -25,3 +25,5 @@
 | 21 | Rochester Institute of Technology | #320 | **1** | Nidhi Rastogi | 🟢 T3 |
 | 22 | UC Riverside | #405 | **1** | Heng Yin | 🟢 T3 |
 | 23 | University of Texas at San Antonio | #411 | **1** | Murtuza Jadliwala | 🟢 T3 |
+
+---
