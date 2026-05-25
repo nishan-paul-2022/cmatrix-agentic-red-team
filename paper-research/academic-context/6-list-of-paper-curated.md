@@ -439,9 +439,18 @@
 
 ---
 
+### 52. [PentestMCP: A Toolkit for Agentic Penetration Testing](https://arxiv.org/abs/2510.03610)
+- **Authors:** **Zachary Ezetta**, Wu-chang Feng
+- **Institution:** Portland State University (USNWR #259)
+- **Venue:** **arXiv (Oct 2025)**
+- **Code:** [GitHub](https://github.com/Craftzman7/pentest-mcp)
+- **Relevance:** A library of Model Context Protocol (MCP) server implementations supporting network scanning, resource enumeration, vulnerability scanning, and Metasploit integration. Serves as a reference for CMatrix's tool-calling integration layer.
+
+---
+
 ## `2024 Papers`
 
-### 52. [NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
+### 53. [NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Authors:** **Minghao Shao**, Sofija Jancheska, Meet Udeshi, Brendan Dolan-Gavitt, Haoran Xi, Kimberly Milner, Boyuan Chen, Max Yin, Siddharth Garg, Prashanth Krishnamurthy, Farshad Khorrami, Ramesh Karri, Muhammad Shafique
 - **Institution:** New York University (USNWR #53)
 - **Venue:** **NeurIPS 2024**
@@ -450,7 +459,7 @@
 
 ---
 
-### 53. [Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities](https://arxiv.org/abs/2406.01637)
+### 54. [Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities](https://arxiv.org/abs/2406.01637)
 - **Authors:** **Yuxuan Zhu**, Antony Kellermann, Akul Gupta, Philip Li, Richard Fang, Rohan Bindu, Daniel Kang
 - **Institution:** University of Illinois Urbana-Champaign (USNWR #35)
 - **Venue:** **arXiv (Jun 2024) — University of Illinois**
@@ -458,7 +467,7 @@
 
 ---
 
-### 54. [LLM Agents Can Autonomously Exploit One-Day Vulnerabilities](https://arxiv.org/abs/2404.08144)
+### 55. [LLM Agents Can Autonomously Exploit One-Day Vulnerabilities](https://arxiv.org/abs/2404.08144)
 - **Authors:** **Richard Fang**, Rohan Bindu, Akul Gupta, Daniel Kang
 - **Institution:** University of Illinois Urbana-Champaign (USNWR #35)
 - **Venue:** **arXiv (Apr 2024) — University of Illinois**
@@ -466,7 +475,7 @@
 
 ---
 
-### 55. [AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks](https://arxiv.org/abs/2403.01038)
+### 56. [AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks](https://arxiv.org/abs/2403.01038)
 - **Authors:** **Jiacen Xu**, Jack W. Stokes, Geoff McDonald, Xuesong Bai, David Marshall, Siyue Wang, Adith Swaminathan, Zhou Li
 - **Institution:** University of California, Irvine (USNWR #32)
 - **Venue:** **arXiv (Mar 2024)**
@@ -474,7 +483,7 @@
 
 ---
 
-### 56. [BreachSeek: A Multi-Agent Automated Penetration Tester](https://arxiv.org/abs/2409.03789)
+### 57. [BreachSeek: A Multi-Agent Automated Penetration Tester](https://arxiv.org/abs/2409.03789)
 - **Authors:** **Ibrahim AlShehri**, Adnan AlShehri, Abdulrahman AlMalki, Majed Bamardouf, Alaqsa Akbar
 - **Institution:** King Fahd University of Petroleum and Minerals (USNWR #314)
 - **Venue:** **arXiv (Sep 2024)**
@@ -482,7 +491,7 @@
 
 ---
 
-### 57. [Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models](https://arxiv.org/abs/2408.08926)
+### 58. [Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models](https://arxiv.org/abs/2408.08926)
 - **Authors:** **Andy K. Zhang**, Neil Perry, Riya Dulepet, Joey Ji, Celeste Menders, Justin W. Lin, Eliot Jones, Gashon Hussein, Samantha Liu, Donovan Jasper, Pura Peetathawatchai, Ari Glenn, Vikram Sivashankar, Daniel Zamoshchin, Leo Glikbarg, Derek Askaryar, Mike Yang, Teddy Zhang, Rishi Alluri, Nathan Tran, Rinnara Sangpisit, Polycarpos Yiorkadjis, Kenny Osele, Gautham Raghupathi, Dan Boneh, Daniel E. Ho, Percy Liang
 - **Institution:** Stanford University (USNWR #3)
 - **Venue:** **arXiv (Aug 2024)**
@@ -491,7 +500,7 @@
 
 ---
 
-### 58. [HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing](https://arxiv.org/abs/2412.01778)
+### 59. [HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing](https://arxiv.org/abs/2412.01778)
 - **Authors:** **Lajos Muzsai**, David Imolai, András Lukács
 - **Institution:** Eötvös Loránd University (USNWR #485)
 - **Venue:** **arXiv (Dec 2024)**
@@ -500,7 +509,7 @@
 
 ---
 
-### 59. [SoK: A Comparison of Autonomous Penetration Testing Agents](https://dl.acm.org/doi/10.1145/3664476.3664484)
+### 60. [SoK: A Comparison of Autonomous Penetration Testing Agents](https://dl.acm.org/doi/10.1145/3664476.3664484)
 - **Authors:** **Raphael Simon**, Wim Mees
 - **Institution:** Royal Military Academy, Brussels
 - **Venue:** **ARES 2024**
@@ -508,7 +517,7 @@
 
 ---
 
-### 60. [AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?](https://arxiv.org/abs/2411.01236)
+### 61. [AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?](https://arxiv.org/abs/2411.01236)
 - **Authors:** **Benlong Wu**, Guoqiang Chen, Kejiang Chen, Xiuwei Shang, Jiapeng Han, Yanru He, Weiming Zhang, Nenghai Yu
 - **Institution:** University of Science and Technology of China (USNWR #71)
 - **Venue:** **arXiv (Nov 2024)**
@@ -516,7 +525,7 @@
 
 ---
 
-### 61. [PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK](https://ieeexplore.ieee.org/abstract/document/10679480)
+### 62. [PENTEST-AI: An LLM-Powered Multi-Agents Framework for Penetration Testing Automation Leveraging MITRE ATT&CK](https://ieeexplore.ieee.org/abstract/document/10679480)
 - **Authors:** **Stanislas G. Bianou**, Rodrigue G. Batogna
 - **Institution:** Independent Researcher
 - **Venue:** **IEEE CSR 2024**
@@ -524,7 +533,7 @@
 
 ---
 
-### 62. [NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
+### 63. [NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security](https://proceedings.neurips.cc/paper_files/paper/2024/hash/69d97a6493fbf016fff0a751f253ad18-Abstract-Datasets_and_Benchmarks_Track.html)
 - **Authors:** **Minghao Shao**, Sofija Jancheska, Meet Udeshi, Brendan Dolan-Gavitt, Haoran Xi, Kimberly Milner, Boyuan Chen, Max Yin, Siddharth Garg, Prashanth Krishnamurthy, Farshad Khorrami, Ramesh Karri, Muhammad Shafique
 - **Institution:** New York University (USNWR #53)
 - **Venue:** **NeurIPS 2024**
@@ -533,7 +542,7 @@
 
 ---
 
-### 63. [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155)
+### 64. [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155)
 - **Authors:** **Qingyun Wu**, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, Ahmed Awadallah, Ryen W. White, Doug Burger, Chi Wang
 - **Institution:** Penn State University (USNWR #130)
 - **Venue:** **arXiv (Aug 2023 / 2024)**
@@ -541,7 +550,7 @@
 
 ---
 
-### 64. [MetaGPT: Meta Programming for Multi-Agent Frameworks](https://arxiv.org/abs/2308.00352)
+### 65. [MetaGPT: Meta Programming for Multi-Agent Frameworks](https://arxiv.org/abs/2308.00352)
 - **Authors:** **Sirui Hong**, Mingchen Zhuge, Jiaqi Chen, Xiawu Zheng, Yuheng Cheng, Ceyao Zhang, Jinlin Wang, Zili Wang, Steven Ka Shing Yau, Zijuan Lin, Liyang Zhou, Chenyu Ran, Lingfeng Xiao, Chenglin Wu, Jürgen Schmidhuber
 - **Institution:** DeepWisdom
 - **Venue:** **ICLR 2024**
@@ -549,7 +558,7 @@
 
 ---
 
-### 65. [AutoPenBench: Benchmarking Generative Agents for Penetration Testing](https://arxiv.org/abs/2410.03225)
+### 66. [AutoPenBench: Benchmarking Generative Agents for Penetration Testing](https://arxiv.org/abs/2410.03225)
 - **Authors:** **Luca Gioacchini**, Marco Mellia, Idilio Drago, Alexander Delsanto, Giuseppe Siracusano, Roberto Bifulco
 - **Institution:** Politecnico di Torino (USNWR #527)
 - **Venue:** **arXiv (Oct 2024)**
@@ -559,7 +568,7 @@
 
 ## `2023 Papers`
 
-### 66. [PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation](https://arxiv.org/abs/2407.17788)
+### 67. [PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation](https://arxiv.org/abs/2407.17788)
 - **Authors:** **Junjie Huang**, Quanyan Zhu
 - **Institution:** New York University Shanghai (USNWR #53)
 - **Venue:** **ACM CCS 2023 (Workshop on Autonomous Cybersecurity)**
@@ -567,7 +576,7 @@
 
 ---
 
-### 67. [Getting pwn'd by AI: Penetration Testing with Large Language Models](https://dl.acm.org/doi/abs/10.1145/3611643.3613083)
+### 68. [Getting pwn'd by AI: Penetration Testing with Large Language Models](https://dl.acm.org/doi/abs/10.1145/3611643.3613083)
 - **Authors:** **Andreas Happe**, Jürgen Cito
 - **Institution:** TU Wien (USNWR #334)
 - **Venue:** **ESEC/FSE 2023**
@@ -576,7 +585,7 @@
 
 ---
 
-### 68. [Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag](https://arxiv.org/abs/2308.10443)
+### 69. [Language Agents as Hackers: Evaluating Cybersecurity Skills with Capture the Flag](https://arxiv.org/abs/2308.10443)
 - **Authors:** **Wesley Tann**, Yuancheng Liu, Jun Heng Sim, Choon Meng Seah, Ee-Chien Chang
 - **Institution:** National University of Singapore (USNWR #22)
 - **Venue:** **MASEC Workshop @ NeurIPS 2023**
@@ -584,7 +593,7 @@
 
 ---
 
-### 69. [ReAct: Synergizing Reasoning and Acting in LLMs](https://arxiv.org/abs/2210.03629)
+### 70. [ReAct: Synergizing Reasoning and Acting in LLMs](https://arxiv.org/abs/2210.03629)
 - **Authors:** **Shunyu Yao**, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao
 - **Institution:** Princeton University (USNWR #1)
 - **Venue:** **ICLR 2023**
@@ -592,7 +601,7 @@
 
 ---
 
-### 70. [Tree of Thoughts: Deliberate Problem Solving with LLMs](https://arxiv.org/abs/2305.10601)
+### 71. [Tree of Thoughts: Deliberate Problem Solving with LLMs](https://arxiv.org/abs/2305.10601)
 - **Authors:** **Shunyu Yao**, Dian Yu, Thomas L. Griffiths, Jeffrey Zhao, Yuan Cao, Izhak Shafran, Karthik Narasimhan
 - **Institution:** Princeton University (USNWR #1)
 - **Venue:** **NeurIPS 2023**
@@ -600,7 +609,7 @@
 
 ---
 
-### 71. [Reflexion: Language Agents with Verbal RL](https://arxiv.org/abs/2303.11366)
+### 72. [Reflexion: Language Agents with Verbal RL](https://arxiv.org/abs/2303.11366)
 - **Authors:** **Noah Shinn**, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
 - **Institution:** Northeastern University (USNWR #179)
 - **Venue:** **NeurIPS 2023**
@@ -610,7 +619,7 @@
 
 ## `2022 Papers`
 
-### 72. [Chain-of-Thought Prompting Elicits Reasoning in LLMs](https://arxiv.org/abs/2201.11903)
+### 73. [Chain-of-Thought Prompting Elicits Reasoning in LLMs](https://arxiv.org/abs/2201.11903)
 - **Authors:** **Jason Wei**, Brian Ichter, Xuezhi Wang, Fei Xia, Dale Schuurmans, Ed H. Chi, Quoc V. Le, Maarten Bosma, Denny Zhou
 - **Institution:** Google Research
 - **Venue:** **NeurIPS 2022**
