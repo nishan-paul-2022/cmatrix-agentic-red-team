@@ -18,8 +18,6 @@
 
 ## Conferences — Sorted by Submission Deadline
 
----
-
 ### 1. NDSS 2027 — Cycle 2
 **Full name:** Network and Distributed System Security Symposium
 **CORE Rank:** A* (Top-4) &nbsp;|&nbsp; 🇰🇷 South Korea

@@ -161,8 +161,6 @@ To build a specific paper, use its corresponding command listed above. To build 
 make paper
 ```
 
-> **Note:** This requires `latexmk` and a standard LaTeX distribution (like TeX Live) installed on your system.
-
 ---
 
 
@@ -191,6 +189,20 @@ A curated list of state-of-the-art AI agents that share a similar vision of agen
     - 🌐 **Website**: [hexstrike.com](https://www.hexstrike.com/)
     - 📂 **GitHub**: [0x4m4/hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)
     - 🎥 **Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=PQOwpjZXzMo)
+
+---
+
+## 📖 Relevant Resources
+
+### 📄 Key Academic Papers
+- [Incalmo: Autonomous LLM-assisted System for Red Teaming](paper-research/downloaded-paper-professor/06-incalmo-autonomous-llm-assisted-system-for-red-teaming.pdf)
+- [PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing](paper-research/downloaded-paper-professor/26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing.pdf)
+- [Veritas: A Semantically Grounded Agentic Framework for Memory Corruption Vulnerability Detection in Binaries](paper-research/downloaded-paper-professor/04-veritas-semantically-grounded-agentic-framework-for.pdf)
+- [CVE-Genie: LLM Multi-Agent Framework for Automated CVE Reproducing](paper-research/downloaded-paper-professor/18-cve-genie-llm-multi-agent-framework-for-automated-cve.pdf)
+
+### 🔗 External Resources
+- [LLM4Pentest Framework](https://github.com/simon-p-j-r/LLM4Pentest) - Reference for blog and paper on LLMOrch-VAPT.
+- [Security Conference Deadlines](https://sec-deadlines.github.io/) - For tracking upcoming conference deadlines.
 
 ---
 
