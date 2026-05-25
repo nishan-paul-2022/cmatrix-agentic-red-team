@@ -1,4 +1,4 @@
-# Research Area 3: Advanced Reasoning Patterns in Security Agents (ToT + ReWOO + Self-Reflection)
+# Research Area: Composable Reasoning Patterns for Autonomous Red Teaming: A Multi-Agent Orchestration Framework with HITL Safety Governance
 
 ## [A] Research Area Overview
 

@@ -1,4 +1,4 @@
-# Research Area 2: Human-in-the-Loop (HITL) Safety for Autonomous AI Security Agents
+# Research Area: CMatrix - Governance-First Autonomy for Scalable Red Teaming via Asynchronous Checkpoint Resumption
 
 ## [A] Research Area Overview
 

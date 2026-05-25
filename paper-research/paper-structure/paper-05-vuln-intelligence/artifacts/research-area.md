@@ -1,4 +1,4 @@
-# Research Area 4: Agentic RAG for Vulnerability Intelligence (CVE Graph Traversal + Semantic Reranking)
+# Research Area: VulnRAG - Agentic Retrieval-Augmented Generation for Vulnerability Intelligence
 
 ## [A] Research Area Overview
 

@@ -1,4 +1,4 @@
-# Research Area 5: LLM-Agnostic Multi-Provider Orchestration for Security AI Systems
+# Research Area: LLM Orchestrated Multi-Agent Framework for Autonomous VAPT
 
 ## [A] Research Area Overview
 

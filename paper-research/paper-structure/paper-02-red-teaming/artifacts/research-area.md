@@ -1,4 +1,4 @@
-# Research Area 1: AI-Driven Agentic Red Teaming & Autonomous Penetration Testing
+# Research Area: CMatrix - A Production-Safe Multi-Agent Framework for Autonomous Red Teaming and Vulnerability Assessment
 
 ## [A] Research Area Overview
 
