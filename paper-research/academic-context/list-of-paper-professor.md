@@ -1,8 +1,6 @@
 # 🎓 USA Professor Academic Research Papers
-## Master Repository sorted by University Ranking Tier
 
 > **CMatrix research alignment:** LLM-orchestrated multi-agent VAPT · autonomous penetration testing · agentic cybersecurity · AI-driven vulnerability assessment · offensive security automation · red team orchestration
-
 
 ---
 
@@ -13,7 +11,7 @@
 - **Authors:** Zhun Wang, Tianneng Shi, Jingxuan He, Matthew Cai, Jialin Zhang, **Dawn Song** (UC Berkeley)
 - **Institution:** UC Berkeley
 - **Venue:** **ICLR 2026 (CCF-A) · openreview: 2YvbLQEdYt**
-- **Relevance:** 🎯 1,507 task instances across 188 real OSS projects — 7.5× larger than any prior cybersecurity benchmark. GPT-5 discovered 22 confirmed zero-days autonomously. The gold-standard evaluation benchmark for `CMatrix`. Prof. Song is the single highest-priority contact.
+- **Relevance:** 1,507 task instances across 188 real OSS projects — 7.5× larger than any prior cybersecurity benchmark. GPT-5 discovered 22 confirmed zero-days autonomously. The gold-standard evaluation benchmark for `CMatrix`. Prof. Song is the single highest-priority contact.
 
 ---
 
@@ -24,7 +22,7 @@
 - **Authors:** Zheng Yu, Ziyi Guo, Yuhang Wu, Jiahao Yu, Meng Xu, Dongliang Mu, Yan Chen, **Xinyu Xing** (Northwestern)
 - **Institution:** Northwestern University
 - **Venue:** **USENIX Security 2025 (CCF-A)**
-- **Relevance:** 🎯 End-to-end LLM agent integrating fault localization, patch generation, and validation — fixes bugs without breaking existing tests. CMatrix post-exploit remediation module follows this design.
+- **Relevance:** End-to-end LLM agent integrating fault localization, patch generation, and validation — fixes bugs without breaking existing tests. CMatrix post-exploit remediation module follows this design.
 
 ---
 
@@ -35,7 +33,7 @@
 - **Authors:** **Yinzhi Cao** (JHU), **Suman Jana** (Columbia) et al.
 - **Institution:** Johns Hopkins University + Columbia University
 - **Venue:** **2025**
-- **Relevance:** 🎯 Path-guided iterative LLM-orchestrated testing for CLI applications — LLM semantic understanding of CLI options to expose deep vulnerabilities. Direct `CMatrix` fuzzing pipeline component. *(Shared paper with Prof. Jana.)*
+- **Relevance:** Path-guided iterative LLM-orchestrated testing for CLI applications — LLM semantic understanding of CLI options to expose deep vulnerabilities. Direct `CMatrix` fuzzing pipeline component. *(Shared paper with Prof. Jana.)*
 
 ---
 
@@ -46,7 +44,7 @@
 - **Authors:** **Suman Jana** (Columbia) et al.
 - **Institution:** Columbia University
 - **Venue:** **2025**
-- **Relevance:** 🎯 Unifies static LLVM-IR analysis and multi-agent dynamic validation using debugger artifacts. Solves deep path-feasible constraints to augment traditional fuzzing in `CMatrix` with agentic confirmation.
+- **Relevance:** Unifies static LLVM-IR analysis and multi-agent dynamic validation using debugger artifacts. Solves deep path-feasible constraints to augment traditional fuzzing in `CMatrix` with agentic confirmation.
 
 ---
 
@@ -57,7 +55,7 @@
 - **Authors:** Harold Triedman, Rishi Jha, **Vitaly Shmatikov** (Cornell Tech)
 - **Institution:** Cornell University
 - **Venue:** ****COLM 2025****
-- **Relevance:** 🎯 Demonstrates adversarial content (a single malicious webpage, image, or audio) can hijack multi-agent LLM systems — executing arbitrary code and exfiltrating data. The most direct attack model for CMatrix own infrastructure security. `CMatrix` must be hardened against MAS hijacking.
+- **Relevance:** Demonstrates adversarial content (a single malicious webpage, image, or audio) can hijack multi-agent LLM systems — executing arbitrary code and exfiltrating data. The most direct attack model for CMatrix own infrastructure security. `CMatrix` must be hardened against MAS hijacking.
 
 ---
 
@@ -68,7 +66,7 @@
 - **Authors:** Brian Singer, Keane Lucas, Lakshmi Adiga, Meghna Jain, **Lujo Bauer**, **Vyas Sekar** (CMU CyLab + Anthropic)
 - **Institution:** Carnegie Mellon University
 - **Venue:** **arXiv, January 2025 (v4: November 2025) — co-published with Anthropic**
-- **Relevance:** 🎯 The closest published academic work to `CMatrix`. LLMs autonomously plan and execute real-world multi-host enterprise attacks via MHBench (10 realistic emulated networks, 25–50 hosts). State-of-the-art LLMs alone CANNOT execute multi-host attacks — Incalmo's abstraction layer makes even small LLMs succeed. `CMatrix` must replicate and exceed these results.
+- **Relevance:** The closest published academic work to `CMatrix`. LLMs autonomously plan and execute real-world multi-host enterprise attacks via MHBench (10 realistic emulated networks, 25–50 hosts). State-of-the-art LLMs alone CANNOT execute multi-host attacks — Incalmo's abstraction layer makes even small LLMs succeed. `CMatrix` must replicate and exceed these results.
 
 ---
 
@@ -79,7 +77,7 @@
 - **Authors:** Sang Kil Cha, Thanassis Avgerinos, Alexandre Rebert, **David Brumley** (CMU)
 - **Institution:** Carnegie Mellon University
 - **Venue:** **IEEE S&P 2012 (CCF-A); DARPA Cyber Grand Challenge Grand Prize Winner 2016 ($2M)**
-- **Relevance:** 🎯 Mayhem performs the exact `CMatrix` loop: discover vulnerability → generate exploit → verify → patch, fully automated without source code. The direct predecessor of DARPA AIxCC and the canonical academic ancestor of autonomous VAPT. `CMatrix` is the LLM-era evolution of Mayhem — this paper must be cited.
+- **Relevance:** Mayhem performs the exact `CMatrix` loop: discover vulnerability → generate exploit → verify → patch, fully automated without source code. The direct predecessor of DARPA AIxCC and the canonical academic ancestor of autonomous VAPT. `CMatrix` is the LLM-era evolution of Mayhem — this paper must be cited.
 
 ---
 
@@ -90,7 +88,7 @@
 - **Authors:** Andy Zou, Zifan Wang, J. Zico Kolter, **Matthew Fredrikson** (CMU)
 - **Institution:** Carnegie Mellon University
 - **Venue:** **arXiv 2023 (4,000+ citations; presented at NeurIPS, ICLR workshops)**
-- **Relevance:** 🎯 The foundational GCG attack — demonstrates that LLMs like GPT-4 can be made to ignore safety guardrails via adversarial suffix injection. Directly relevant to CMatrix agent jailbreak surface: CMatrix orchestrator must be hardened against GCG-class prompt injection attacks targeting its worker agents.
+- **Relevance:** The foundational GCG attack — demonstrates that LLMs like GPT-4 can be made to ignore safety guardrails via adversarial suffix injection. Directly relevant to CMatrix agent jailbreak surface: CMatrix orchestrator must be hardened against GCG-class prompt injection attacks targeting its worker agents.
 
 ---
 
@@ -101,7 +99,7 @@
 - **Authors:** Team Atlanta — **Taesoo Kim** et al. (Georgia Tech, Samsung Research, KAIST, POSTECH)
 - **Institution:** Georgia Institute of Technology
 - **Venue:** ****DARPA AIxCC Final Competition, DEF CON 33, August 2025 — **1st place, $4M prize******
-- **Relevance:** 🎯 The winning autonomous CRS combining LLMs + symbolic execution + directed fuzzing + static analysis. Discovered the most zero-days of any AIxCC finalist. Atlantis-Multilang: 69.2% of all POV submissions in finals. `CMatrix` should position itself as the penetration testing operational evolution of ATLANTIS.
+- **Relevance:** The winning autonomous CRS combining LLMs + symbolic execution + directed fuzzing + static analysis. Discovered the most zero-days of any AIxCC finalist. Atlantis-Multilang: 69.2% of all POV submissions in finals. `CMatrix` should position itself as the penetration testing operational evolution of ATLANTIS.
 
 ---
 
@@ -112,7 +110,7 @@
 - **Authors:** Mihai Christodorescu, Earlence Fernandes, Ashish Hooda, Somesh Jha, Johann Rehberger, Khawaja Shams — **Wenke Lee** (co-organizer + expanded SoK version)
 - **Institution:** Georgia Institute of Technology
 - **Venue:** ****IEEE SAGAI Workshop @ IEEE S&P 2025 (report published December 2025)****
-- **Relevance:** 🎯 Defines the "systems security approach to AI agents" — how decades of security research (access control, sandboxing, privilege separation, audit logging) applies to LLM agents. The theoretical context for CMatrix security model.
+- **Relevance:** Defines the "systems security approach to AI agents" — how decades of security research (access control, sandboxing, privilege separation, audit logging) applies to LLM agents. The theoretical context for CMatrix security model.
 
 ---
 
@@ -123,7 +121,7 @@
 - **Authors:** Ying Li, Faysal Hossain Shezan, Bomin Wei, **Gang Wang** (UIUC), Yuan Tian
 - **Institution:** University of Illinois Urbana-Champaign
 - **Venue:** ****USENIX Security 2025 (CCF-A)****
-- **Relevance:** 🎯 Comprehensive SoK on automated vulnerability repair — taxonomy, tools, benchmarks, limitations. Essential for designing CMatrix remediation module (CyberMend).
+- **Relevance:** Comprehensive SoK on automated vulnerability repair — taxonomy, tools, benchmarks, limitations. Essential for designing CMatrix remediation module (CyberMend).
 
 ---
 
@@ -134,7 +132,7 @@
 - **Authors:** Richard Fang, Rohan Bindu, Akul Gupta, **Daniel Kang** (UIUC)
 - **Institution:** University of Illinois Urbana-Champaign
 - **Venue:** ****arXiv, April 2024****
-- **Relevance:** 🎯 Landmark — GPT-4 exploits 87% of one-day CVEs autonomously. Established LLMs can do real exploitation work.
+- **Relevance:** Landmark — GPT-4 exploits 87% of one-day CVEs autonomously. Established LLMs can do real exploitation work.
 
 ---
 
@@ -156,7 +154,7 @@
 - **Authors:** **Z. Berkay Celik** et al. (Purdue PurSec)
 - **Institution:** Purdue University
 - **Venue:** **AISEC @ ACM CCS 2025**
-- **Relevance:** 🎯 Rigorous evaluation framework for LLM jailbreak resistance from an adversary perspective. Directly aligned with CMatrix offensive agent evaluation methodology.
+- **Relevance:** Rigorous evaluation framework for LLM jailbreak resistance from an adversary perspective. Directly aligned with CMatrix offensive agent evaluation methodology.
 
 ---
 
@@ -167,7 +165,7 @@
 - **Authors:** Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E. Jimenez, Farshad Khorrami, Prashanth Krishnamurthy, **Brendan Dolan-Gavitt** (NYU), Muhammad Shafique, Karthik Narasimhan, Ramesh Karri, Ofir Press
 - **Institution:** NYU Tandon
 - **Venue:** **ICML 2025 (CCF-A) — Vancouver, July 2025**
-- **Relevance:** 🎯 Interactive tools (shells, file viewers, hex viewers) substantially improve LLM agent performance on CTF security challenges — SOTA on CyBench (13.5%). Directly relevant to CMatrix HITL module and interactive tool integration strategy.
+- **Relevance:** Interactive tools (shells, file viewers, hex viewers) substantially improve LLM agent performance on CTF security challenges — SOTA on CyBench (13.5%). Directly relevant to CMatrix HITL module and interactive tool integration strategy.
 
 ---
 
@@ -187,7 +185,7 @@
 - **Authors:** Sai Ritvik Tanksalkar, Siddharth Muralee, Srihari Danduri, Paschal Amusuo, **Antonio Bianchi** (Purdue), James C. Davis, Aravind Kumar Machiry
 - **Institution:** Purdue University
 - **Venue:** **USENIX Security 2025 (CCF-A)**
-- **Relevance:** 🎯 LEMIX enables testing embedded firmware as native Linux applications — dramatically simplifies CMatrix IoT/embedded VAPT by enabling standard Linux fuzzing and analysis tools on embedded targets.
+- **Relevance:** LEMIX enables testing embedded firmware as native Linux applications — dramatically simplifies CMatrix IoT/embedded VAPT by enabling standard Linux fuzzing and analysis tools on embedded targets.
 
 ---
 
@@ -198,7 +196,7 @@
 - **Authors:** Saad Ullah, Praneeth Balasubramanian, **Wenbo Guo**, Amanda Burnett, Hammond Pearce, **Christopher Kruegel**, **Giovanni Vigna** (UCSB), Gianluca Stringhini (BU)
 - **Institution:** UC Santa Barbara + Boston University
 - **Venue:** **arXiv, September 2025**
-- **Relevance:** 🎯 Four-module pipeline (Knowledge Builder → Vulnerability Analyzer → Exploit Generator → Verifier) reproducing ~51% of 2024–2025 CVEs at $2.77 avg API cost. The most directly overlapping academic paper to CMatrix exploit pipeline. Kruegel is a co-PI on NSF ACTION Institute ($20M).
+- **Relevance:** Four-module pipeline (Knowledge Builder → Vulnerability Analyzer → Exploit Generator → Verifier) reproducing ~51% of 2024–2025 CVEs at $2.77 avg API cost. The most directly overlapping academic paper to CMatrix exploit pipeline. Kruegel is a co-PI on NSF ACTION Institute ($20M).
 
 ---
 
@@ -209,7 +207,7 @@
 - **Authors:** **Giovanni Vigna**, **Christopher Kruegel**, **Yan Shoshitaishvili** et al. (Georgia Tech SSLab / UCSB / Shellphish)
 - **Institution:** UC Santa Barbara + Georgia Tech
 - **Venue:** **USENIX Security 2026**
-- **Relevance:** 🎯 An open-source, platform-agnostic Cyber Reasoning System (CRS) orchestration framework that runs and manages LLM-based autonomous bug-finding and patching agents. Serves as the core architectural pipeline and local deployment harness for `CMatrix` campaigns.
+- **Relevance:** An open-source, platform-agnostic Cyber Reasoning System (CRS) orchestration framework that runs and manages LLM-based autonomous bug-finding and patching agents. Serves as the core architectural pipeline and local deployment harness for `CMatrix` campaigns.
 
 ---
 
@@ -218,7 +216,7 @@
 - **Authors:** **Giovanni Vigna** (UCSB)
 - **Institution:** UC Santa Barbara
 - **Venue:** **ACM CCS 2025 Keynote (CCF-A)**
-- **Relevance:** 🎯 Vigna's keynote surveying the state of autonomous vulnerability analysis with LLMs — the single highest-profile talk framing the exact research space `CMatrix` operates in.
+- **Relevance:** Vigna's keynote surveying the state of autonomous vulnerability analysis with LLMs — the single highest-profile talk framing the exact research space `CMatrix` operates in.
 
 ---
 
@@ -229,7 +227,7 @@
 - **Authors:** **Wenbo Guo** et al. (UCSB ML Security Lab)
 - **Institution:** UC Santa Barbara
 - **Venue:** **COLM 2025**
-- **Relevance:** 🎯 An RL-powered red-teaming agent that autonomously orchestrates attacks to extract system prompts and private training data from LLM systems. Informs the privacy scan capabilities of `CMatrix`.
+- **Relevance:** An RL-powered red-teaming agent that autonomously orchestrates attacks to extract system prompts and private training data from LLM systems. Informs the privacy scan capabilities of `CMatrix`.
 
 ---
 
@@ -238,7 +236,7 @@
 - **Authors:** **Wenbo Guo** et al. (UCSB ML Security Lab)
 - **Institution:** UC Santa Barbara
 - **Venue:** **2025**
-- **Relevance:** 🎯 Blue-team agent powered by automated red-team testing — CMatrix offensive scan outputs directly enable this defensive feedback loop. Bridges `CMatrix` (red) → BlueCodeAgent (blue) in one automated cycle.
+- **Relevance:** Blue-team agent powered by automated red-team testing — CMatrix offensive scan outputs directly enable this defensive feedback loop. Bridges `CMatrix` (red) → BlueCodeAgent (blue) in one automated cycle.
 
 ---
 
@@ -249,7 +247,7 @@
 - **Authors:** **Gianluca Stringhini** et al. (Boston University)
 - **Institution:** Boston University
 - **Venue:** **IEEE S&P 2024 (CCF-A)**
-- **Relevance:** 🎯 Landmark comprehensive evaluation detailing the boundaries, reasoning errors, and unfaithful outputs of LLMs on program security tasks. Defines the reasoning verification loops built into `CMatrix`.
+- **Relevance:** Landmark comprehensive evaluation detailing the boundaries, reasoning errors, and unfaithful outputs of LLMs on program security tasks. Defines the reasoning verification loops built into `CMatrix`.
 
 ---
 
@@ -260,7 +258,7 @@
 - **Authors:** **Georgios Portokalidis** et al. (Stevens Institute + IMDEA Software)
 - **Institution:** Stevens Institute of Technology
 - **Venue:** **2024–2025 (IEEE S&P, USENIX Security)**
-- **Relevance:** 🎯 Automatically identifies and surgically disables vulnerability-triggering functionality in binaries without source code — the exact capability CMatrix binary analysis agent targets when assessing patch-resistant systems. Taint analysis and shadow execution provide CMatrix information-flow tracking layer for post-exploitation attribution.
+- **Relevance:** Automatically identifies and surgically disables vulnerability-triggering functionality in binaries without source code — the exact capability CMatrix binary analysis agent targets when assessing patch-resistant systems. Taint analysis and shadow execution provide CMatrix information-flow tracking layer for post-exploitation attribution.
 
 ---
 
@@ -271,7 +269,7 @@
 - **Authors:** Jie Zhu, Chihao Shen, Ziyang Li, Jiahao Yu, **Yizheng Chen** (UMD), Kexin Pei (UChicago)
 - **Institution:** University of Maryland, College Park
 - **Venue:** ****ICSE 2026 (CCF-A) — Rio de Janeiro, April 2026****
-- **Relevance:** 🎯 LLM agent synthesizes predicates to guide directed fuzzers toward deep target states — dramatically reduces time-to-exploit. CMatrix fuzzing pipeline should integrate Locus.
+- **Relevance:** LLM agent synthesizes predicates to guide directed fuzzers toward deep target states — dramatically reduces time-to-exploit. CMatrix fuzzing pipeline should integrate Locus.
 
 ---
 
@@ -283,7 +281,7 @@
 - **Authors:** Gelei Deng, Yi Liu, Mayank Varia, **Peng Liu** et al.
 - **Institution:** Penn State
 - **Venue:** **USENIX Security 2024 (CCF-A)**
-- **Relevance:** 🎯 Directly builds an LLM-based pentest agent; multi-stage recon -> exploitation pipeline mirrors your architecture.
+- **Relevance:** Directly builds an LLM-based pentest agent; multi-stage recon -> exploitation pipeline mirrors your architecture.
 
 ---
 
@@ -294,7 +292,7 @@
 - **Authors:** **Ting Wang** et al.
 - **Institution:** Penn State
 - **Venue:** **arXiv 2025**
-- **Relevance:** 🎯 Security of LLM-based agents; relevant to adversarial robustness of your orchestration layer.
+- **Relevance:** Security of LLM-based agents; relevant to adversarial robustness of your orchestration layer.
 
 ---
 
@@ -305,7 +303,7 @@
 - **Authors:** **Guofei Gu** et al.
 - **Institution:** Texas A&M
 - **Venue:** **ACM Computing Surveys 2025**
-- **Relevance:** 🎯 Comprehensive LLM-for-vulnerability-detection survey; shares the same automation goal as LLMOrch-VAPT.
+- **Relevance:** Comprehensive LLM-for-vulnerability-detection survey; shares the same automation goal as LLMOrch-VAPT.
 
 ---
 
@@ -316,7 +314,7 @@
 - **Authors:** Zion Leonahenahe Basque, Samuele Doria, Ananta Soneji, Wil Gibbs, **Adam Doupé**, **Yan Shoshitaishvili** (ASU), Eleonora Losiouk (U Padua), Ruoyu Wang (ASU), Simone Aonzo (EURECOM)
 - **Institution:** Arizona State University + University of Padua + EURECOM
 - **Venue:** **NDSS 2026 (CCF-A) — **Distinguished Paper Award** · Surveyed 153 practitioners**
-- **Relevance:** 🎯 First systematic study of LLM+human collaboration during software reverse engineering — LLM assistance demonstrably narrows the expertise gap. Directly informs CMatrix HITL module design and democratization argument.
+- **Relevance:** First systematic study of LLM+human collaboration during software reverse engineering — LLM assistance demonstrably narrows the expertise gap. Directly informs CMatrix HITL module design and democratization argument.
 
 ---
 
@@ -327,7 +325,7 @@
 - **Authors:** Xiang Mei, Pulkit Singh Singaria, Jordi Del Castillo, Haoran Xi, Abdelouahab Benchikh, **Tiffany Bao**, Ruoyu Wang, **Yan Shoshitaishvili**, **Adam Doupé** (ASU), Hammond Pearce, **Brendan Dolan-Gavitt** (NYU)
 - **Institution:** Arizona State University + NYU Tandon
 - **Venue:** ****arXiv, August 2024****
-- **Relevance:** 🎯 5,000+ memory vulnerabilities with triggering inputs and verified patches — the largest open-source vulnerability dataset with reproducible exploits. Natural evaluation corpus for CMatrix memory vulnerability scan modes.
+- **Relevance:** 5,000+ memory vulnerabilities with triggering inputs and verified patches — the largest open-source vulnerability dataset with reproducible exploits. Natural evaluation corpus for CMatrix memory vulnerability scan modes.
 
 ---
 
@@ -338,7 +336,7 @@
 - **Authors:** **Adam Doupé** et al. (ASU SEFCOM Lab)
 - **Institution:** Arizona State University
 - **Venue:** **USENIX Security 2025 (CCF-A)**
-- **Relevance:** 🎯 Pioneered the detection of taint-style vulnerabilities in LLM-based agent orchestrations using directed greybox fuzzing of action boundaries. Forms a core evaluation engine under the `CMatrix` security audit pipeline.
+- **Relevance:** Pioneered the detection of taint-style vulnerabilities in LLM-based agent orchestrations using directed greybox fuzzing of action boundaries. Forms a core evaluation engine under the `CMatrix` security audit pipeline.
 
 ---
 
@@ -350,7 +348,7 @@
 - **Authors:** **Peng Gao** et al.
 - **Institution:** Virginia Tech
 - **Venue:** **EuroS&P 2025**
-- **Relevance:** 🎯 LLM-driven CTI pipeline with structured knowledge extraction; directly feeds a VAPT intelligence layer.
+- **Relevance:** LLM-driven CTI pipeline with structured knowledge extraction; directly feeds a VAPT intelligence layer.
 
 ---
 
@@ -377,7 +375,7 @@
 - **Authors:** **Nidhi Rastogi** et al. (Rochester Institute of Technology)
 - **Institution:** Rochester Institute of Technology
 - **Venue:** **ACSAC 2024 / arXiv 2025**
-- **Relevance:** 🎯 CTIBench benchmark for evaluating LLMs on cybersecurity tasks — measures LLM hallucinations, relevant to CMatrix's reliability layer.
+- **Relevance:** CTIBench benchmark for evaluating LLMs on cybersecurity tasks — measures LLM hallucinations, relevant to CMatrix's reliability layer.
 
 ---
 
@@ -405,7 +403,7 @@
 - **Authors:** **Murtuza Jadliwala** et al.
 - **Institution:** UT San Antonio
 - **Venue:** **USENIX Security 2025 (CCF-A)**
-- **Relevance:** 🎯 LLM package hallucination attacks; directly relevant to CMatrix's post-exploit analysis phase when analyzing LLM-generated payloads.
+- **Relevance:** LLM package hallucination attacks; directly relevant to CMatrix's post-exploit analysis phase when analyzing LLM-generated payloads.
 
 ---
 
