@@ -9,6 +9,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#1-prof-dawn-song) |
 | Email | dawnsong@cs.berkeley.edu |
 | Website | https://dawnsong.io |
 | Lab | Berkeley RDI + BAIR Lab |
@@ -27,6 +28,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#2-prof-xinyu-xing) |
 | Email | xingxinyu@northwestern.edu |
 | Website | https://www.mccormick.northwestern.edu/research-faculty/directory/profiles/xing-xinyu.html |
 | Lab | Security Research Group, Northwestern CS |
@@ -45,6 +47,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#3-prof-yinzhi-cao) |
 | Email | yinzhi.cao@jhu.edu |
 | Website | https://yinzhicao.org |
 | Lab | JHU Information Security Institute (Technical Director) |
@@ -63,6 +66,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#4-prof-suman-jana) |
 | Email | suman@cs.columbia.edu |
 | Website | http://www.cs.columbia.edu/~suman/ |
 | Lab | Columbia Security & Privacy Lab |
@@ -81,6 +85,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#5-prof-vitaly-shmatikov) |
 | Email | shmatikov@cornell.edu |
 | Website | https://tech.cornell.edu/people/vitaly-shmatikov/ |
 | Lab | Cornell Tech Security & Privacy Group |
@@ -99,6 +104,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#6-prof-lujo-bauer) |
 | Email | lbauer@cmu.edu |
 | Website | https://www.ece.cmu.edu/directory/bios/bauer-lujo.html |
 | Lab | CyLab — Cyber Autonomy Research Center (Director) |
@@ -117,6 +123,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#7-prof-david-brumley) |
 | Email | dbrumley@cmu.edu |
 | Website | https://www.cs.cmu.edu/~dbrumley/ |
 | Lab | CyLab Security & Privacy Institute, CMU ECE/CS |
@@ -135,6 +142,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#8-prof-matthew-fredrikson) |
 | Email | mfredrik@cmu.edu |
 | Website | https://mattfredrikson.com |
 | Lab | CyLab, CMU CS & S3D; CATCH MURI group |
@@ -153,6 +161,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#9-prof-taesoo-kim) |
 | Email | taesoo@gatech.edu |
 | Website | https://taesoo.kim |
 | Lab | Systems Software & Security Lab (GTS3) — https://gts3.org |
@@ -171,6 +180,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#10-prof-wenke-lee) |
 | Email | wenke@cc.gatech.edu |
 | Website | https://wenke.gtisc.gatech.edu |
 | Lab | Georgia Tech Information Security Center (GTISC) |
@@ -189,6 +199,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#11-prof-gang-wang) |
 | Email | gangw@illinois.edu |
 | Website | https://gangw.cs.illinois.edu |
 | Lab | Secure & Transparent Systems (STS) Lab |
@@ -207,6 +218,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#12-prof-daniel-kang) |
 | Email | ddkang@illinois.edu |
 | Website | https://ddkang.github.io |
 | Lab | CS Department + ECE (by courtesy), UIUC |
@@ -225,6 +237,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#13-prof-barton-miller) |
 | Email | bart@cs.wisc.edu |
 | Website | https://pages.cs.wisc.edu/~bart/ |
 | Lab | Paradyn/Dyninst Lab |
@@ -243,6 +256,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#14-prof-z-berkay-celik) |
 | Email | celik@purdue.edu |
 | Website | https://beerkay.github.io |
 | Lab | PurSec Lab (co-member) |
@@ -261,6 +275,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#15-prof-brendan-dolan-gavitt) |
 | Email | brendandg@nyu.edu |
 | Website | https://moyix.net |
 | Lab | MESS Lab (Machine Learning, Embedded, and Software/Systems Security) |
@@ -279,6 +294,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#16-prof-antonio-bianchi) |
 | Email | antoniob@purdue.edu |
 | Website | https://antoniobianchi.me |
 | Lab | PurSec Lab |
@@ -297,6 +313,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#17-prof-christopher-kruegel) |
 | Email | chris@cs.ucsb.edu |
 | Website | https://sites.cs.ucsb.edu/~chris/ |
 | Lab | SecLab UCSB (International Secure Systems Lab) |
@@ -315,6 +332,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#18-prof-giovanni-vigna) |
 | Email | vigna@cs.ucsb.edu |
 | Website | https://sites.cs.ucsb.edu/~vigna/ |
 | Lab | SecLab UCSB — Director, NSF ACTION Institute |
@@ -333,6 +351,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#19-prof-wenbo-guo) |
 | Email | henrygwb@ucsb.edu |
 | Website | https://henrygwb.github.io |
 | Lab | UCSB ML Security Lab |
@@ -351,6 +370,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#20-prof-gianluca-stringhini) |
 | Email | gian@bu.edu |
 | Website | https://seclab.bu.edu |
 | Lab | BU SecLab |
@@ -369,6 +389,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#21-prof-georgios-portokalidis) |
 | Email | porto@stevens.edu |
 | Website | https://www.portokalidis.net |
 | Lab | IMDEA Software Institute (joint); Stevens CS |
@@ -387,6 +408,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#22-prof-yizheng-chen) |
 | Email | yzchen@umd.edu |
 | Website | https://surrealyz.github.io |
 | Lab | Maryland Cybersecurity Center (MC2) |
@@ -405,6 +427,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#23-prof-peng-liu) |
 | Email | pliu@ist.psu.edu |
 | Website | https://sites.psu.edu/pengliu/ |
 | Lab | Cyber Security Lab, College of Information Sciences and Technology |
@@ -423,6 +446,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#24-prof-ting-wang) |
 | Email | inbox@tiwang.io |
 | Website | https://alps-lab.github.io |
 | Lab | ALPS Lab (Assured Learning & Privacy & Security) |
@@ -441,6 +465,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#25-prof-guofei-gu) |
 | Email | guofei@cse.tamu.edu |
 | Website | https://faculty.cse.tamu.edu/guofei |
 | Lab | SUCCESS Lab |
@@ -459,6 +484,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#26-prof-yan-shoshitaishvili) |
 | Email | yans@asu.edu |
 | Website | https://yancomm.net |
 | Lab | SEFCOM Lab (co-director) |
@@ -477,6 +503,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#27-prof-tiffany-bao) |
 | Email | tbao@asu.edu |
 | Website | https://www.tiffanybao.com |
 | Lab | SEFCOM Lab (co-director) |
@@ -495,6 +522,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#28-prof-adam-doup) |
 | Email | doupe@asu.edu |
 | Website | https://adamdoupe.com |
 | Lab | SEFCOM Lab (co-director) |
@@ -513,6 +541,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#29-prof-peng-gao) |
 | Email | penggao@vt.edu |
 | Website | https://people.cs.vt.edu/penggao/ |
 | Lab | Security Lab, Virginia Tech CS |
@@ -531,6 +560,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#30-prof-wil-robertson) |
 | Email | wil@ccs.neu.edu |
 | Website | https://www.ccs.neu.edu/home/wil/ |
 | Lab | Secure Systems Lab (SSL), Northeastern |
@@ -549,6 +579,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#31-prof-nidhi-rastogi) |
 | Email | nxrvse@rit.edu |
 | Website | https://ai4sec-lab.github.io |
 | Lab | AI4SEC Lab, RIT; Global Cybersecurity Institute (GCI) affiliate |
@@ -567,6 +598,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#32-prof-heng-yin) |
 | Email | heng.yin@ucr.edu |
 | Website | https://www.cs.ucr.edu/~heng/ |
 | Lab | Secure Systems and Intelligent Software Lab |
@@ -585,6 +617,7 @@
 
 | Field | Info |
 |---|---|
+| Publications | [📚 View Papers](7-list-of-paper-professor.md#33-prof-murtuza-jadliwala) |
 | Email | murtuza.jadliwala@utsa.edu |
 | Website | https://sites.google.com/site/murtuza.jadliwala |
 | Lab | SPriTELab (Security, Privacy, Trust, and Ethics in Computing) |
