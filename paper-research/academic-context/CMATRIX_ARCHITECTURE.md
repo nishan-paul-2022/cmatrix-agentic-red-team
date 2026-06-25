@@ -326,7 +326,16 @@ No raw web content ever enters the LLM context — only the structured intellige
 
 Does not discover vulnerabilities — it proves them. Receives a specific APG AttackChain from the Commander and executes controlled exploitation to validate each ChainStep in sequence.
 
-Confirmed ChainSteps advance to `VALIDATED`. Failed attempts mark the ChainStep as `RULED_OUT` and the Commander re-prioritizes. All exploitation evidence is written to the ASG as Evidence nodes and linked to the corresponding APG ChainStep via `supported_by` edges.
+Confirmed ChainSteps advance to `VALIDATED`. Failed attempts do not immediately mark the ChainStep as `RULED_OUT`. Instead, the Validation Agent enters a **structured self-debugging loop**:
+
+1. **Diagnose** — analyze why the attempt failed: wrong parameter, authentication required, version mismatch, payload encoding issue, tool flag error.
+2. **Contextualize** — query the ASG for additional node attributes that may resolve the diagnosis (e.g., retrieve service version from the ASG Service node, check if an auth credential was captured in a prior Evidence node).
+3. **Adapt** — modify the tool invocation based on diagnosis and additional context; retry with the corrected approach.
+4. **Cap** — after a configurable maximum retry count (default: 3 attempts), the ChainStep is marked `RULED_OUT` and the failure reason is written to the ASG as a structured annotation on the Vulnerability node.
+
+This bounded retry loop prevents premature chain abandonment due to transient tool errors or parameter misconfiguration, while the cap prevents infinite loops. The Commander re-prioritizes when any ChainStep reaches `RULED_OUT`.
+
+All exploitation evidence is written to the ASG as Evidence nodes and linked to the corresponding APG ChainStep via `supported_by` edges.
 
 ---
 
@@ -353,6 +362,31 @@ Reads the complete ASG and APG and generates a structured penetration test repor
 
 ---
 
+### Cross-Mission Experience Store
+
+*A persistent, cross-session knowledge base of validated exploitation outcomes.*
+
+The ASG and APG are per-mission structures — they are initialized fresh for each engagement and discarded when the mission terminates. All within-mission discoveries are preserved by design. But no cross-mission intelligence carries forward.
+
+The Cross-Mission Experience Store is a persistent RAG-backed knowledge base that survives across missions. At mission close, the Report Agent writes a structured summary of all validated APG AttackChains into the store — including the target technology stack, the exploitation technique that succeeded at each ChainStep, tool parameters that worked, and the final chain outcome.
+
+**At mission start**, the Commander queries the store with the initial ASG seed (root domain, known technology signals) and retrieves relevant prior exploitation records. These are injected into the Commander's reasoning context as **candidate chain hypotheses** — pre-validated patterns from analogous past engagements. The Commander evaluates them against the current ASG before seeding APG AttackChains, allowing the system to front-load high-probability chains rather than starting from zero.
+
+**Store entry schema:**
+- Target technology fingerprint (CMS, framework, version, service)
+- Vulnerability class and CVE
+- Successful tool invocation and parameters
+- ChainStep sequence that achieved validation
+- Mission outcome summary
+
+**Retrieval trigger:** Commander queries the store immediately after the Recon Agent writes its first batch of Technology nodes to the ASG — before the Analysis Agent begins enumeration.
+
+**Write trigger:** Report Agent writes a store entry for every chain with terminal status `VALIDATED` at mission close.
+
+> The Cross-Mission Experience Store gives CMatrix adaptive intelligence: the system learns from every completed engagement and applies that learning to accelerate attack chain hypothesis generation in future missions.
+
+---
+
 ## 7. Context-Isolated Agent Spawning
 
 Specialized agents are not persistent processes sharing a context window. Each agent is spawned fresh with a precisely scoped context:
@@ -369,6 +403,22 @@ When the agent completes its task, it returns only **structured output** — new
 2. Parallel agents cannot contaminate each other's reasoning
 3. A rejected High-risk tool call never appears in the Commander's context, preventing the refusal from biasing future planning
 
+### Vulnerability-Class Knowledge Injection
+
+In addition to the ASG/APG slice and tool set, specialist agents receive **curated offline knowledge documents** relevant to their assigned vulnerability class. These are injected into the agent's context at spawn time and are separate from live Research Agent intelligence.
+
+| Agent | Knowledge Documents Injected |
+|-------|------------------------------|
+| Analysis Agent (web targets) | OWASP Testing Guide checklist per applicable OWASP category; common web misconfig patterns |
+| Validation Agent (SQLi chains) | SQL injection technique taxonomy; SQLMap flag reference; blind/time-based detection patterns |
+| Validation Agent (XSS chains) | XSS payload patterns; CSP bypass techniques; DOM vs reflected vs stored distinction |
+| Validation Agent (exploit chains) | Metasploit module selection heuristics; payload/encoder selection guide |
+| Analysis Agent (API targets) | REST API attack surface checklist; IDOR patterns; parameter pollution techniques |
+
+These documents are **static, curated, and version-controlled** — they encode expert practitioner knowledge that would otherwise be implicit in the LLM's pre-training. They survive context compaction (re-injected at spawn, not accumulated in history) and require no internet access.
+
+> This is distinct from the Research Agent's live intelligence function. Research Agent retrieves real-time CVE data for specific discovered versions. Knowledge injection provides evergreen offensive technique reasoning that does not depend on external network access.
+
 ---
 
 ## 8. Tool Adapter Layer and Risk Gate
@@ -384,14 +434,40 @@ Every tool call is classified with a risk tier before execution:
 | Risk Tier | Handling |
 |-----------|---------|
 | Low — passive discovery | Execute immediately |
-| Medium — active enumeration | Execute after scope check |
+| Medium — active enumeration | LLM Permission Classifier evaluation → execute or escalate |
 | High — destructive or irreversible operations | Route to Commander mailbox for explicit approval |
 
-When a High-risk call is dispatched, the agent deposits an **approval request** into the Commander's mailbox containing the tool, parameters, target ASG node, and rationale. The Commander evaluates and either approves, rejects, or modifies the call.
+**Low-tier calls** execute immediately after a lightweight scope check — target is in declared scope, tool is authorized for this agent.
 
-**Critical safety property: no irreversible offensive operation executes without Commander-level scope validation.**
+**High-tier calls** route to the Commander's mailbox: the agent deposits an approval request containing the tool, parameters, target ASG node, and rationale. The Commander evaluates and either approves, rejects, or modifies the call. For fully autonomous missions, the Commander approves based on protocol rules. For supervised missions, a human operator can be inserted at the mailbox — enabling human-in-the-loop without any change to agent logic.
 
-For fully autonomous missions, the Commander approves based on protocol rules. For supervised missions, a human operator can be inserted at the mailbox — enabling human-in-the-loop without any change to agent logic.
+**Medium-tier calls** use an **LLM Permission Classifier** — a fast, scoped secondary LLM call that evaluates the proposed tool invocation against three axes before deciding to execute or escalate to the Commander:
+1. **Scope alignment** — does the target ASG node fall within the declared assessment scope?
+2. **Chain intent** — is this call consistent with the current APG AttackChain being pursued?
+3. **Parameter safety** — do the tool parameters exhibit any patterns inconsistent with the active assessment mode (e.g., aggressive timing on a grey-box recon that was not authorized)?
+
+The classifier uses a constrained system prompt with a fast-filter pass followed by brief chain-of-thought reasoning. Its output is a binary: `EXECUTE` or `ESCALATE`. If `ESCALATE`, the call routes to the Commander mailbox as if it were High-risk. This approach catches adversarial prompt injection in tool parameters and scope drift in enumeration calls — failure modes that static tier rules cannot detect.
+
+**Critical safety property: no irreversible offensive operation executes without Commander-level scope validation. No Medium-tier call executes without LLM classifier approval.**
+
+### Agent Lifecycle Hook System
+
+CMatrix exposes a formal set of lifecycle hooks — named execution points in the agent loop where external observers and the operator can intercept, observe, or augment behavior without modifying agent logic.
+
+**Hook events:**
+
+| Hook | Fires when | Operator use |
+|------|-----------|-------------|
+| `PreToolUse` | Before any tool call enters the Risk Gate | Inject additional scope checks; block specific tool+target combinations |
+| `PostToolUse` | After tool output is written to ASG | Log raw tool outputs; trigger external alerting on specific findings |
+| `PreAgentSpawn` | Before Commander spawns a specialist agent | Override agent context; inject additional ASG slice attributes |
+| `PostAgentReturn` | After specialist agent returns its ASG delta | Validate returned nodes; reject malformed graph writes |
+| `PreAPGUpdate` | Before Commander writes a new AttackChain to APG | External approval gate for autonomous chain creation |
+| `PostMissionTerminate` | When dual-graph termination condition is met | Trigger report delivery; write to Cross-Mission Experience Store |
+
+Hooks are registered as named handlers in the operator configuration. They receive a structured event payload and return an action directive: `CONTINUE`, `BLOCK`, or `MODIFY(payload)`. Hook execution is synchronous within the agent loop — a `BLOCK` directive stops the triggering action cleanly; a `MODIFY` directive replaces the payload before the action proceeds.
+
+> The hook system gives operators observability and intervention capability at every significant decision boundary without requiring any change to agent or Commander logic. It is the architectural mechanism by which CMatrix can be integrated into enterprise security operations pipelines, CI/CD security gates, or external audit systems.
 
 ---
 
@@ -471,12 +547,33 @@ VAPT sessions are long-running. Raw tool outputs are voluminous. Without active 
 CMatrix uses a three-layer compaction system grounded in the key architectural insight: **the ASG is a lossless persistent store of all discoveries. Conversation history is expendable. The ASG is not.**
 
 - **Layer 1 — MicroCompact:** Raw tool output is parsed at the Tool Adapter boundary. Structured findings go to the ASG. Only a compact summary enters the agent's working context. Runs on every tool call.
-- **Layer 2 — AutoCompact:** When conversation history reaches 60% of the context window, older turns are summarized by an auxiliary LLM. The primary model continues without interruption.
+- **Layer 2 — AutoCompact:** When conversation history reaches 60% of the context window, older turns are summarized by the Auxiliary LLM. The primary model continues without interruption.
 - **Layer 3 — FullCompact:** At 85% context, the entire conversation history is replaced. The agent's context is reconstructed from the current ASG snapshot, current APG priority chains, and the last N tool results. Nothing else is needed.
 
 **Because the dual graph persists all discoveries and all attack reasoning, FullCompact loses no intelligence — only the conversational scaffolding that produced it.**
 
 No general-purpose agent can claim this property. CMatrix can compress conversation history to near-zero without losing any findings or attack chain state, because everything lives in the graph — not the context window.
+
+### Auxiliary LLM
+
+Compaction and normalization tasks are not reasoning tasks — they require accuracy and faithfulness, not strategic judgment. Running them through the primary Commander model wastes both tokens and context budget.
+
+CMatrix uses a dedicated **Auxiliary LLM** — a lightweight, cost-efficient secondary model — for all non-reasoning side tasks:
+
+| Task | Primary Model | Auxiliary LLM |
+|------|--------------|---------------|
+| AutoCompact conversation summarization | — | ✓ |
+| MicroCompact tool output condensation | — | ✓ |
+| Research Agent output normalization to ASG schema | — | ✓ |
+| LLM Permission Classifier (Medium-tier tool calls) | — | ✓ |
+| APG chain scoring and prioritization | ✓ | — |
+| Attack chain hypothesis generation | ✓ | — |
+| Agent spawning decisions | ✓ | — |
+| Mission termination evaluation | ✓ | — |
+
+The Auxiliary LLM runs in parallel with the primary model where possible and never touches the Commander's context window. Its outputs are structured artifacts — summaries, normalized records, binary classifier decisions — that are consumed by the primary model's context or written directly to the ASG.
+
+> This separation keeps the Commander's context focused entirely on strategic reasoning. Compaction, normalization, and safety classification are offloaded to a cheaper, faster model — reducing cost, reducing latency, and preserving primary context budget for the decisions that require it.
 
 ---
 
@@ -633,31 +730,116 @@ flowchart LR
 | **C14** | **Dual-graph termination semantics** — mission completion defined by both ASG exhaustion and APG resolution, providing a formally grounded termination condition |
 | **C15** | **Cycle Guard and Reflector for autonomous failure recovery** — loop detection forces re-planning on agent fixation; Reflector provides corrective guidance on repeated tool call failures, enabling uninterrupted long-running sessions |
 | **C16** | **Live vulnerability intelligence grounding via scoped Research Agent** — real-time CVE enrichment, PoC availability assessment, and exploit feasibility research from authoritative sources during active VAPT; intelligence written to ASG as structured node attributes, closing the stale-knowledge gap inherent to offline-only systems |
+| **C17** | **Cross-Mission Experience Store** — a persistent RAG-backed knowledge base of validated exploitation outcomes accumulated across missions; Commander queries it at mission start to seed APG chains from prior validated patterns on analogous target stacks, enabling adaptive intelligence that improves with each completed engagement |
+| **C18** | **Vulnerability-class knowledge injection at agent spawn time** — curated offline expert documents (SQLi techniques, XSS payload patterns, OWASP checklists, Metasploit selection guides) injected into specialist agents alongside their ASG/APG slice; provides evergreen offensive reasoning independent of live internet access, complementing the Research Agent's real-time CVE function |
+| **C19** | **Validation Agent self-debugging loop** — on ChainStep exploitation failure, the Validation Agent diagnoses the failure cause, retrieves additional ASG context, adapts the exploit approach, and retries up to a configurable cap before marking the ChainStep `RULED_OUT`; prevents premature chain abandonment from transient tool errors or parameter misconfiguration |
+| **C20** | **LLM-evaluated Permission Classifier for the Tool Risk Gate** — a fast secondary LLM call evaluates Medium-tier tool calls against scope alignment, current APG chain intent, and parameter safety before execution; detects adversarial prompt injection in tool parameters and scope drift that static tier rules cannot catch |
+| **C21** | **Agent Lifecycle Hook System** — formal PreToolUse / PostToolUse / PreAgentSpawn / PostAgentReturn / PreAPGUpdate / PostMissionTerminate hooks that allow operators to observe and intervene at every significant decision boundary without modifying agent logic; enables integration into enterprise security operations pipelines and audit systems |
+| **C22** | **Auxiliary LLM for non-reasoning side tasks** — a dedicated lightweight secondary model handles AutoCompact, MicroCompact, Research Agent output normalization, and Permission Classifier evaluation; keeps the Commander's primary context budget reserved for strategic reasoning while reducing cost and latency on deterministic side tasks |
 
 ---
 
-## 15. Differentiation from Related Work
+## 15. Related Work — Incorporated Concepts
 
-| System | What it does | What CMatrix adds |
-|--------|-------------|-------------------|
-| [**PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing**](7-list-of-paper-professor.md#26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing) (USENIX '24) | LLM guidance with human-in-the-loop | Fully autonomous; no human required during execution |
-| [**AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks**](6-list-of-paper-curated.md#56-autoattacker-a-large-language-model-guided-system-to-implement-automatic-cyber-attacks) (arXiv '24) | LLM-guided post-breach automation | Full VAPT pipeline from recon to reporting |
-| [**Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities**](6-list-of-paper-curated.md#54-teams-of-llm-agents-can-exploit-zero-day-vulnerabilities) (arXiv '24) | Multi-agent web exploitation | Network + Web + API scope; ASG world model |
-| [**PentestAgent: Incorporating LLM Agents to Automated Penetration Testing**](6-list-of-paper-curated.md#18-pentestagent-incorporating-llm-agents-to-automated-penetration-testing) (AsiaCCS '25) | Multi-agent with RAG and shared memory | ASG replaces flat memory; structured attack path generation |
-| [**VulnBot: Autonomous Penetration Testing for a Multi-Agent Collaborative Framework**](6-list-of-paper-curated.md#21-vulnbot-autonomous-penetration-testing-for-a-multi-agent-collaborative-framework) (arXiv '25) | Penetration Task Graph for task planning | ASG models the target environment, not just task dependencies |
-| **PentAGI** (GitHub, production) | General-purpose autonomous agent framework with pentest prompts and 20+ tools in Kali container | Purpose-built VAPT with typed ASG world model, attack path generation, black/grey-box routing, evidence linked to ASG nodes, Tool Risk Gate for offensive operation safety — not a generic framework retargeted at security |
+> 📚 **Purpose of this section.** CMatrix's design was developed with reference to five academic papers and three open-source systems from the autonomous offensive-security space. What follows is a **reference map** — for each source, the specific mechanism studied, and exactly where the resulting idea lives inside CMatrix's architecture. This is documentation of provenance, not a comparison.
 
-> **The gap CMatrix fills:**
->
-> No published system uses a dual-graph world model — a continuously evolving Attack Surface Graph paired with an Attack Path Graph — as the shared foundation driving all agent decisions across a unified Network + Web + API pipeline with explicit attack chain generation, risk scoring, and lifecycle-tracked validation. No published VAPT system incorporates a dedicated Research Agent for live vulnerability intelligence grounding, enabling real-time CVE enrichment and PoC discovery during active assessment.
+### 🗺️ Quick Reference
 
-**CMatrix vs PentAGI — specific distinctions:**
+| # | Source | Type | Concept Studied | Lives In CMatrix |
+|---|--------|------|------------------|-------------------|
+| 1 | PentestGPT | 📄 Paper | Parsing Module — raw tool output normalized before reasoning | `§8` Tool Adapter Layer |
+| 2 | AutoAttacker | 📄 Paper | Experience Manager — reusable attack-subtask memory | `C17` Cross-Mission Experience Store |
+| 3 | Teams of LLM Agents *(HPTSA)* | 📄 Paper | Task-specific document injection at agent spawn time | `C18` Vulnerability-Class Knowledge Injection |
+| 4 | PentestAgent | 📄 Paper | Execution-agent debug loop on exploit failure | `C19` Validation Agent Self-Debugging Loop |
+| 5 | VulnBot | 📄 Paper | Summarizer module — structured-only inter-agent handoff | `C8` Context-Isolated Agent Spawning |
+| 6 | PentAGI | 💻 Repo | Adviser / Reflector — pattern-detection on repeated tool calls | `C15` Cycle Guard and Reflector |
+| 7 | Claude Code | 💻 Repo | `yoloClassifier.ts` two-stage gate · 27-event hook system | `C20` Permission Classifier · `C21` Lifecycle Hooks |
+| 8 | Hermes Agent | 💻 Repo | `auxiliary_client.py` — secondary model for side tasks | `C22` Auxiliary LLM |
 
-PentAGI is a capable production system but is architecturally a generic agent framework. Its agents reason from flat task history and vector memory. It has no model of the target environment — only a model of its own past actions.
+> *`C#` references the Research Contribution numbered in* `§14`. *`§#` references an architecture section above.*
 
-CMatrix maintains two complementary models: the ASG knows what the target *is*; the APG knows what *can be done to it*. No other published VAPT system separates these concerns into distinct structures.
+---
 
-- PentAGI has no black-box / grey-box assessment mode concept. CMatrix routes agent behavior based on declared assessment mode.
-- PentAGI stores evidence as flat artifacts. CMatrix links evidence to APG ChainStep nodes, making every validated chain directly traceable to its proof.
-- PentAGI generates no explicit attack paths. CMatrix generates, scores, prioritizes, and tracks the full validation lifecycle of APG AttackChains.
-- PentAGI terminates when the task queue is empty. CMatrix terminates when the ASG has no unexplored nodes AND all APG chains are in a terminal state — a formally grounded dual termination condition.
+### 📄 Academic Papers
+
+#### 1️⃣ PentestGPT
+*Evaluating and Harnessing Large Language Models for Automated Penetration Testing* — **USENIX Security '24**
+[↗ reference entry](7-list-of-paper-professor.md#26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing)
+
+PentestGPT splits its pipeline into three modules, each emulating a role on a human pentest team: a **Reasoning Module** that maintains a *Pentesting Task Tree*, a **Generation Module** that expands sub-tasks into concrete commands, and a **Parsing Module** whose sole job is to condense raw tool output *before* it re-enters the reasoning context — keeping noisy terminal output from polluting the LLM's strategic memory.
+
+> ✅ **Incorporated** — the same instinct, *parse before you reason*, underlies CMatrix's **Tool Adapter Layer** (`§8`). Every tool's raw output is normalized into structured findings at the adapter boundary; nothing unparsed ever reaches an agent's context or the ASG. CMatrix generalizes the pattern one step further: instead of feeding a parsed summary back into a single reasoning module, the parsed result is written as **permanent graph state** (`MicroCompact`, `§12` Layer 1) — so the normalization survives long after the conversation that produced it is gone.
+
+---
+
+#### 2️⃣ AutoAttacker
+*A Large Language Model Guided System to Implement Automatic Cyber-attacks* — **arXiv '24** (Xu et al.)
+[↗ reference entry](6-list-of-paper-curated.md#56-autoattacker-a-large-language-model-guided-system-to-implement-automatic-cyber-attacks)
+
+AutoAttacker automates the post-breach phase of an attack with a modular planner / summarizer / code-generator design, paired with an **experience manager** that stores executed attack subtasks so they can be retrieved and reused when constructing later, more complex attack chains.
+
+> ✅ **Incorporated** — `C17` **Cross-Mission Experience Store**. CMatrix's persistent, RAG-backed knowledge base of validated exploitation outcomes generalizes AutoAttacker's experience-reuse mechanism from *within one mission* to *across every mission ever run*. The Commander queries it at mission start to seed candidate AttackChains from prior validated patterns on analogous target stacks.
+
+---
+
+#### 3️⃣ Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
+**arXiv '24** (Zhu et al.) — introduces **HPTSA**, a hierarchical planner that delegates to task-specific sub-agents
+[↗ reference entry](6-list-of-paper-curated.md#54-teams-of-llm-agents-can-exploit-zero-day-vulnerabilities)
+
+HPTSA's central finding: injecting task-specific documentation directly into a sub-agent's context — rather than relying on the LLM's pre-trained knowledge alone — measurably improves zero-day exploitation performance, by up to **2.1×** over undocumented agents.
+
+> ✅ **Incorporated** — `C18` **Vulnerability-Class Knowledge Injection**. CMatrix injects curated offline expert documents (SQLi technique taxonomies, XSS payload patterns, OWASP checklists, Metasploit module-selection guides) into specialist agents at spawn time, matched to the vulnerability class they're assigned — the same task-specific document injection pattern HPTSA demonstrated.
+
+---
+
+#### 4️⃣ PentestAgent
+*Incorporating LLM Agents to Automated Penetration Testing* — **AsiaCCS '25** (Shen et al.)
+[↗ reference entry](6-list-of-paper-curated.md#18-pentestagent-incorporating-llm-agents-to-automated-penetration-testing)
+
+PentestAgent pairs a planning agent with RAG-backed shared memory and an execution agent that, on a failed exploit attempt, automatically diagnoses the failure cause and corrects its approach before abandoning the attack path.
+
+> ✅ **Incorporated** — `C19` **Validation Agent Self-Debugging Loop**. CMatrix's Validation Agent follows the same *diagnose → contextualize → adapt → retry* sequence on a failed ChainStep — analyze the failure cause, pull additional ASG context, adapt the exploit, retry up to a configurable cap — before marking the step `RULED_OUT`.
+
+---
+
+#### 5️⃣ VulnBot
+*Autonomous Penetration Testing for a Multi-Agent Collaborative Framework* — **arXiv '25** (Kong et al.)
+[↗ reference entry](6-list-of-paper-curated.md#21-vulnbot-autonomous-penetration-testing-for-a-multi-agent-collaborative-framework)
+
+VulnBot's five-module design — Planner, Memory Retriever, Generator, Executor, **Summarizer** — uses the Summarizer specifically as an inter-agent communication conduit: it condenses each phase's outcome before passing it to the next role, preventing raw execution history from leaking between agents.
+
+> ✅ **Incorporated** — the same discipline, *agents hand off structured summaries, never raw history*, shapes `C8` **Context-Isolated Agent Spawning**. Every CMatrix specialist agent returns only a structured ASG/APG delta to the Commander; its raw working context is discarded on completion, so no agent's verbose execution trace ever contaminates another agent's reasoning.
+
+---
+
+### 💻 Open-Source Repositories
+
+#### 6️⃣ PentAGI
+`vxcontrol/pentagi` — production multi-agent pentesting platform
+🔗 [github.com/vxcontrol/pentagi](https://github.com/vxcontrol/pentagi)
+
+PentAGI ships an **Adviser** agent that is automatically invoked when execution-pattern monitoring detects trouble — identical tool calls repeated past a configurable threshold, or total tool-call count approaching a limit — alongside a **Reflector** that nudges a stuck agent toward a clean completion rather than letting it run to a hard cutoff.
+
+> ✅ **Incorporated** — `C15` **Cycle Guard and Reflector**. CMatrix detects agent fixation the same way: repeated identical or unproductive actions force re-planning, and the Reflector provides corrective guidance after repeated tool-call failures rather than letting a stuck agent burn its entire phase budget before the Commander intervenes.
+
+---
+
+#### 7️⃣ Claude Code
+Anthropic-pattern agentic coding tool — `yasasbanukaofficial/claude-code`
+🔗 [github.com/yasasbanukaofficial/claude-code](https://github.com/yasasbanukaofficial/claude-code/tree/main)
+
+Claude Code gates tool execution through `yoloClassifier.ts` — a two-stage *fast-filter → chain-of-thought* classifier that auto-approves low-stakes calls and escalates the rest — and exposes a **27-event hook architecture** giving operators named interception points throughout the agent loop.
+
+> ✅ **Incorporated** — two distinct concepts:
+> - `C20` **LLM-Evaluated Permission Classifier** — CMatrix's Medium-tier Tool Risk Gate decision uses the same fast-filter-plus-brief-CoT two-stage pattern, evaluating scope alignment, chain intent, and parameter safety before returning `EXECUTE` or `ESCALATE`.
+> - `C21` **Agent Lifecycle Hook System** — CMatrix's six named hooks (`PreToolUse` · `PostToolUse` · `PreAgentSpawn` · `PostAgentReturn` · `PreAPGUpdate` · `PostMissionTerminate`) follow the same named-interception-point philosophy, scaled to CMatrix's dual-graph decision boundaries.
+
+---
+
+#### 8️⃣ Hermes Agent
+`nousresearch/hermes-agent` — general-purpose AI assistant
+🔗 [github.com/nousresearch/hermes-agent](https://github.com/nousresearch/hermes-agent)
+
+Hermes Agent's `auxiliary_client.py` routes vision processing, compression, and summarization to a separate, cheaper model — keeping the primary model's context budget reserved for tasks that genuinely require its reasoning capacity.
+
+> ✅ **Incorporated** — `C22` **Auxiliary LLM for Non-Reasoning Side Tasks**. CMatrix offloads AutoCompact, MicroCompact, Research Agent output normalization, and Permission Classifier evaluation to a dedicated lightweight secondary model, following the same primary/auxiliary split.
