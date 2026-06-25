@@ -62,6 +62,7 @@ User's Machine
 - Technology Fingerprinting
 - Resource and API Enumeration
 - Vulnerability Discovery
+- **Live Vulnerability Intelligence Research** — real-time CVE lookup, PoC discovery, and exploit feasibility research via scoped web browsing
 - Vulnerability Validation
 - Exploitation
 - Attack Path Validation
@@ -111,7 +112,7 @@ User's Machine
 │   ┌──────────────────────▼───────────────────────────────┐   │
 │   │     🤖 Specialized Agents  [Phase Budget · ASG Slice]│   │
 │   │     Recon · Analysis · Validation · Evidence         │   │
-│   │     Report     returns structured ASG/APG output ▲   │   │
+│   │     Research · Report  returns structured ASG/APG ▲  │   │
 │   └──────────────────────┬───────────────────────────────┘   │
 │                          │ calls (risk-gated)                │
 │   ┌──────────────────────▼──────────────────────────────┐    │
@@ -345,7 +346,33 @@ Takes screenshots of exposed admin panels, application pages, and API responses.
 
 ---
 
-### 📝 Report Agent
+### 🔍 Research Agent
+
+*Responsible for live vulnerability intelligence gathering during active VAPT.*
+
+When the Commander or Analysis Agent encounters an unknown CVE, an unrecognized technology version, or a vulnerability with no available Nuclei template or Metasploit module, it spawns the Research Agent to resolve the intelligence gap. The Research Agent performs scoped, purposeful web browsing — not open-ended search — targeting authoritative sources only.
+
+**🌐 Authorized sources:**
+- **NVD API** (`services.nvd.nist.gov`) — CVE technical details, CVSS scores, affected version ranges
+- **Exploit-DB** (`exploit-db.com`) — public PoC availability and exploit type classification
+- **GitHub** (`github.com`) — PoC repositories, security advisories, vendor patches
+- **Vendor security advisories** — specific URLs passed by the Commander from ASG Technology node data
+
+The Research Agent does **not** browse freely. Each invocation receives a scoped research task from the Commander: a specific CVE ID, a technology + version string, or a named weakness. It returns a structured intelligence record that is written to the ASG as an enriched Vulnerability node attribute — not as raw web content.
+
+**📦 Output written to ASG:**
+- CVE severity and CVSS vector
+- Exploitability assessment (PoC exists / no public PoC / active exploitation in the wild)
+- Relevant Metasploit module name if one exists
+- Recommended validation approach
+
+**⏳ Phase Budget:** 10 iterations per invocation. Research tasks are narrow and time-bounded. If a CVE cannot be resolved within budget, the agent returns a `RESEARCH_INCOMPLETE` flag and the Commander proceeds with available local intelligence.
+
+**🧰 Tools:** HTTP client (NVD API, GitHub API) · Headless browser (Exploit-DB, vendor advisories)
+
+> 🔒 **Scope constraint:** The Research Agent is the only agent authorized to make outbound network requests to external URLs. All other agents operate exclusively on the local target environment and local tool outputs. This boundary is enforced at the Tool Adapter Layer.
+
+---
 
 *Responsible for producing the final deliverable.*
 
@@ -494,6 +521,18 @@ A separate lightweight LLM client handles side tasks that do not require primary
 
 The Auxiliary LLM Client uses a smaller, cheaper model than the primary reasoning model. This preserves primary model context window capacity for agent planning and decision-making. The primary model handles all agent reasoning; the Auxiliary handles all synthesis, compression, and reporting workloads.
 
+### 🌐 Web Intelligence Client
+
+A scoped HTTP and headless browser client used exclusively by the Research Agent. It is not a general-purpose browsing capability — it is a structured intelligence retrieval component with a fixed allowlist of authorized domains.
+
+**Authorized domains (allowlisted at the network layer):**
+- `services.nvd.nist.gov` — NVD REST API for CVE data
+- `exploit-db.com` — public exploit and PoC index
+- `api.github.com` — GitHub API for security advisories and PoC repositories
+- Vendor advisory domains added dynamically from ASG Technology node metadata
+
+All outbound requests are logged to PostgreSQL with the requesting agent context, queried target, and response summary. No raw web content ever enters the LLM conversation history — only the structured intelligence record extracted from the response. This keeps the Research Agent's output consistent with the same MicroCompact principle applied to tool outputs: structured findings only, never raw content.
+
 ---
 
 ## 🖥️ 9. Frontend
@@ -590,6 +629,7 @@ CMatrix treats exploitation as a **reasoning activity**, not a shell-collection 
 | **C14** | **Context-isolated agent spawning** — each specialized agent receives only a scoped ASG/APG slice and restricted tool set at spawn time; returns only structured graph output to the Commander, eliminating cross-agent context contamination |
 | **C15** | **Methodology-as-configuration via VAPT Protocol Prompt** — Commander planning policy encoded as a versioned natural language document, enabling different assessment methodologies (OWASP, PTES, custom) to be benchmarked as independent research variables without code changes |
 | **C16** | **Dual-graph termination semantics** — mission completion is defined by both ASG exhaustion (no unexplored nodes) and APG resolution (all chains in terminal state), providing a formally grounded termination condition that neither pure task-queue nor pure graph-traversal systems can express |
+| **C17** | **Live vulnerability intelligence grounding via scoped Research Agent** — a dedicated agent performs real-time CVE enrichment, PoC availability assessment, and exploit feasibility research from allowlisted authoritative sources (NVD, Exploit-DB, GitHub) during active VAPT; intelligence is written to the ASG as structured node attributes, not raw web content, maintaining graph consistency while closing the stale-knowledge gap inherent to offline-only systems |
 
 ---
 
@@ -606,7 +646,7 @@ CMatrix treats exploitation as a **reasoning activity**, not a shell-collection 
 
 > 🌉 **The gap CMatrix fills:**
 > 
-> No published system uses a dual-graph world model — a continuously evolving Attack Surface Graph (discovered reality) paired with an Attack Path Graph (inferred opportunity) — as the shared foundation driving all agent decisions across a unified Network + Web + API assessment pipeline with explicit attack chain generation, risk scoring, and lifecycle-tracked validation.
+> No published system uses a dual-graph world model — a continuously evolving Attack Surface Graph (discovered reality) paired with an Attack Path Graph (inferred opportunity) — as the shared foundation driving all agent decisions across a unified Network + Web + API assessment pipeline with explicit attack chain generation, risk scoring, and lifecycle-tracked validation. Additionally, no published VAPT system incorporates a dedicated Research Agent for live vulnerability intelligence grounding, enabling real-time CVE enrichment and PoC discovery from authoritative sources during active assessment — closing the stale-knowledge gap that all offline-only systems share.
 
 **🥊 CMatrix vs PentAGI — specific technical distinctions:**
 
