@@ -1,5 +1,5 @@
 # CMatrix Architecture
-## Attack-Surface-Graph-Guided LLM-Orchestrated Multi-Agent Framework for Autonomous VAPT
+## Dual-Graph-Guided LLM-Orchestrated Multi-Agent Framework for Autonomous VAPT
 
 ---
 
@@ -7,7 +7,9 @@
 
 CMatrix is a web-based autonomous Vulnerability Assessment and Penetration Testing (VAPT) platform.
 
-It combines a continuously evolving Attack Surface Graph (ASG), specialized AI agents, an LLM orchestration layer, and industry-standard offensive security tools to perform end-to-end penetration testing without human intervention.
+It combines two continuously evolving graph structures — the **Attack Surface Graph (ASG)** and the **Attack Path Graph (APG)** — with specialized AI agents, an LLM orchestration layer, and industry-standard offensive security tools to perform end-to-end penetration testing without human intervention.
+
+The ASG models discovered reality: what the target is. The APG models inferred opportunity: what can be done to it. Together they form the dual-graph world model that drives all agent decisions.
 
 The goal is not to automate tools.
 The goal is to automate the reasoning process of a professional penetration tester.
@@ -92,16 +94,23 @@ User's Machine
 │                  LangGraph Orchestrator                     │
 │         State Machine · Conditional Routing · Planning      │
 │                                                             │
-│   ┌─────────────────────────────────────────────────────┐   │
+│   ┌──────────────────────────────┐  ┌────────────────────┐  │
+│   │  Attack Surface Graph (ASG)  │  │ Attack Path Graph  │  │
+│   │  Discovered Reality          │  │ (APG)              │  │
+│   │  Hosts·Ports·Services        │  │ Inferred Chains    │  │
+│   │  Endpoints·Vulns·Evidence    │  │ Risk Scores        │  │
+│   └──────────────┬───────────────┘  │ Validation Status  │  │
+│                  │ feeds            └────────┬───────────┘  │
+│   ┌──────────────▼──────────────────────────▼───────────┐   │
 │   │       Commander Agent                               │   │
 │   │  [Tiered Prompt · VAPT Protocol · Phase Budget]     │   │
-│   │  [Tool Risk Gate Mailbox · ASG reads/writes]        │   │
+│   │  [Tool Risk Gate Mailbox · reads ASG · writes APG]  │   │
 │   └──────────────────────┬──────────────────────────────┘   │
 │                          │ spawns (context-isolated)         │
 │   ┌──────────────────────▼──────────────────────────────┐   │
 │   │     Specialized Agents  [Phase Budget · ASG Slice]  │   │
 │   │     Recon · Analysis · Validation · Evidence        │   │
-│   │     Report          returns structured ASG output ▲ │   │
+│   │     Report     returns structured ASG/APG output ▲  │   │
 │   └──────────────────────┬──────────────────────────────┘   │
 │                          │ calls (risk-gated)                │
 │   ┌──────────────────────▼──────────────────────────────┐   │
@@ -120,13 +129,26 @@ User's Machine
 
 ---
 
-## 5. The Attack Surface Graph (ASG)
+## 5. The Dual-Graph World Model
 
-The ASG is the central intelligence layer of CMatrix.
+CMatrix maintains two complementary graph structures as its shared world model. They are kept strictly separate by design — each answers a different question.
 
-It is a continuously evolving knowledge graph that represents the complete discovered state of the target environment. Every tool execution updates it. Every agent decision reads from it. It is the single shared truth about the target at any point in time.
+```
+ASG  →  What does the target look like?   (discovered reality)
+APG  →  What can be done to it?           (inferred opportunity)
+```
 
-It is not a task list. It is not a log. It is a living model of the target.
+Agents write to the ASG as they discover facts. The Commander reads the ASG and derives the APG as it reasons about attack strategy. The APG feeds back into the Commander's planning, driving prioritization, validation sequencing, and termination decisions.
+
+---
+
+### 5a. Attack Surface Graph (ASG)
+
+The ASG is the discovered-reality layer of CMatrix.
+
+It is a continuously evolving knowledge graph that represents the complete discovered state of the target environment. Every tool execution updates it. It is the single shared truth about what the target is at any point in time.
+
+It is not a task list. It is not a log. It is a living structural model of the target.
 
 **Node types:**
 
@@ -141,7 +163,6 @@ It is not a task list. It is not a log. It is a living model of the target.
 | Parameter | Request parameter, header, or input field |
 | Vulnerability | CVE, misconfiguration, or weakness |
 | Evidence | Screenshot, response capture, artifact |
-| Attack Path | Validated chain from entry to impact |
 
 **Edge types:**
 
@@ -155,8 +176,54 @@ It is not a task list. It is not a log. It is a living model of the target.
 | has_parameter | Endpoint has Parameter |
 | affected_by | Host or Endpoint affected by Vulnerability |
 | validated_by | Vulnerability validated by Evidence |
-| leads_to | Vulnerability or Endpoint leads to next node in Attack Path |
-| confirmed_by | Attack Path confirmed by exploitation Evidence |
+
+---
+
+### 5b. Attack Path Graph (APG)
+
+The APG is the inferred-opportunity layer of CMatrix.
+
+While the ASG records what was discovered, the APG records what can be done with those discoveries. It is populated by the Commander Agent through reasoning over ASG state, and updated continuously as new vulnerabilities are discovered, validated, or ruled out.
+
+The APG is not derived automatically from the ASG. It requires active reasoning: which vulnerabilities chain together, which entry points lead to which impacts, which paths are worth pursuing given current evidence. This reasoning is the Commander's primary intellectual task.
+
+**Node types:**
+
+| Node | Represents |
+|------|-----------|
+| AttackChain | An ordered sequence of exploitation steps from entry to impact |
+| ChainStep | A single step in an attack chain — a specific action on a specific ASG node |
+| Impact | The business or technical consequence at the end of a chain |
+
+**Edge types:**
+
+| Edge | Meaning |
+|------|---------|
+| starts_at | AttackChain begins at an ASG Vulnerability or Endpoint node |
+| next_step | ChainStep leads to the next ChainStep in the chain |
+| achieves | Final ChainStep achieves an Impact |
+| supported_by | ChainStep is supported by an ASG Evidence node |
+
+**APG node attributes:**
+
+Each AttackChain carries:
+- `risk_score` — composite score derived from CVSS severity, exploitability, and impact classification
+- `validation_status` — one of `HYPOTHESIZED`, `PARTIALLY_VALIDATED`, `VALIDATED`, `RULED_OUT`
+- `priority` — Commander-assigned pursuit priority based on risk score and current mission phase
+
+**How the APG is populated:**
+
+1. When the Analysis Agent writes a new Vulnerability node to the ASG, the Commander evaluates whether it extends any existing AttackChain or seeds a new one.
+2. When the Validation Agent confirms a vulnerability, the relevant ChainStep's validation_status advances to `VALIDATED` and the chain's risk_score is updated.
+3. When a validation attempt fails, the ChainStep is marked `RULED_OUT` and the Commander re-prioritizes remaining chains.
+4. When an entire AttackChain reaches `VALIDATED` status from entry to impact, it is linked to its Evidence nodes and flagged for the Report Agent.
+
+**The separation principle:**
+
+The ASG never contains hypotheses. It contains only confirmed discovered facts.
+The APG never contains raw scan data. It contains only inferred attack reasoning.
+
+This separation is what makes the dual-graph architecture stronger than a single unified graph: agents that write to the ASG (Recon, Analysis, Evidence) never need to reason about attack chains. The Commander that writes to the APG never needs to run tools. Each layer is authoritative for exactly one type of knowledge.
 
 ---
 
@@ -171,11 +238,12 @@ Reads the current state of the ASG and decides what happens next. Decomposes the
 The Commander never runs tools directly. It reasons, plans, and delegates.
 
 **Key decisions the Commander makes:**
-- Which attack surface areas are unexplored?
-- Which vulnerability has the highest exploitation priority?
+- Which ASG nodes are unexplored and what should be explored next?
+- Which Vulnerability nodes in the ASG seed new APG AttackChains?
+- Which APG AttackChain has the highest risk score and should be validated first?
 - Which agent should act next?
-- Has an attack path been fully validated?
-- Is the mission complete?
+- Has an AttackChain been fully validated end-to-end?
+- Is the mission complete — no unexplored ASG nodes and all high-priority APG chains resolved?
 - Should a High-risk tool call be approved, rejected, or modified?
 
 ### Context-Isolated Agent Spawning
@@ -184,6 +252,7 @@ Specialized agents in CMatrix are not persistent processes sharing a common cont
 
 At spawn time, the Commander constructs the agent's initial context containing exactly:
 - The **ASG slice** relevant to the current task — not the full graph. A Recon Agent working on a single subdomain receives only the Domain and Host nodes for that subdomain, not the full ASG.
+- The **APG slice** relevant to the current task, if applicable — a Validation Agent receives the specific AttackChain it is being asked to validate, not the full APG.
 - The **restricted tool set** the agent is authorized to call for this task — not the full tool catalog.
 - The **task specification** derived from the Commander's current plan.
 - The agent's **Phase Budget** for this invocation.
@@ -202,7 +271,7 @@ The Commander Agent assembles its system prompt in three stable tiers to minimiz
 | Tier | Contents | Change Frequency |
 |------|----------|-----------------|
 | Stable | Mission parameters, agent identity, tool catalog, assessment mode, VAPT Protocol Prompt | Never changes mid-session |
-| Context | Current ASG summary — updated when major new nodes are added | Changes at phase boundaries |
+| Context | Current ASG summary + top-priority APG chains — updated at phase boundaries | Changes at phase boundaries |
 | Volatile | Current task, immediate tool result, timestamp | Changes every turn |
 
 The stable tier is eligible for Anthropic prompt caching — it is sent once and cached. Only the volatile tier burns fresh tokens on each turn. As VAPT sessions grow to hundreds of nodes and tool outputs, this architecture prevents the system prompt from inflating context costs linearly with session length.
@@ -255,13 +324,13 @@ All findings are written to the ASG as Technology, Endpoint, Parameter, and Vuln
 
 ### Validation Agent
 
-Responsible for confirming that discovered vulnerabilities are real and exploitable.
+Responsible for confirming that discovered vulnerabilities are real and exploitable, and for advancing APG AttackChain validation status.
 
-Does not discover vulnerabilities — it proves them. Selects the appropriate validation technique based on vulnerability type. Executes controlled exploitation to confirm impact. Validates the complete attack path from entry point to demonstrated impact.
+Does not discover vulnerabilities — it proves them. Receives a specific APG AttackChain from the Commander and executes controlled exploitation to validate each ChainStep in sequence. Confirms impact and traces the complete attack path from entry point to demonstrated impact.
 
-All confirmed findings are written to the ASG as validated Vulnerability nodes and Attack Path edges.
+Confirmed ChainSteps are written back to the APG with `validation_status: VALIDATED`. Failed attempts update the relevant ChainStep to `RULED_OUT` and the Commander re-prioritizes. All exploitation evidence is written to the ASG as Evidence nodes and linked to the corresponding APG ChainStep via `supported_by` edges.
 
-**Phase Budget:** 40 iterations. On exhaustion, the Validation Agent writes confirmed findings so far, flags unvalidated vulnerabilities as `PENDING_VALIDATION`, and returns control to the Commander.
+**Phase Budget:** 40 iterations. On exhaustion, the Validation Agent writes confirmed ChainSteps so far, flags remaining steps as `PENDING_VALIDATION`, and returns control to the Commander.
 
 **Tools:** SQLMap · Metasploit
 
@@ -281,14 +350,14 @@ Takes screenshots of exposed admin panels, application pages, and API responses.
 
 Responsible for producing the final deliverable.
 
-Reads the complete ASG and generates a structured penetration test report. Does not run tools. Does not make security decisions. It translates the ASG into human-readable output.
+Reads the complete ASG and APG and generates a structured penetration test report. Does not run tools. Does not make security decisions. It translates the dual-graph world model into human-readable output.
 
 **Report contains:**
-- Executive Summary — business impact in plain language
-- Technical Findings — all vulnerabilities with severity ratings
+- Executive Summary — business impact in plain language, derived from APG Impact nodes
+- Technical Findings — all vulnerabilities with severity ratings, sourced from ASG Vulnerability nodes
 - Attack Surface Map — complete discovered environment from ASG
-- Validated Attack Paths — step-by-step chains with evidence
-- Remediation Guidance — prioritized fix recommendations
+- Validated Attack Chains — step-by-step chains from APG with Evidence nodes linked at each step
+- Remediation Guidance — prioritized fix recommendations ordered by APG risk scores
 
 ---
 
@@ -384,9 +453,9 @@ When the agent's conversation history reaches 60% of the primary model's context
 
 **Layer 3 — FullCompact (triggered at 85% context)**
 
-When conversation history reaches 85% of the context window, FullCompact triggers. The entire conversation history is compressed. The agent's working context is reconstructed from: the current ASG snapshot (freshly rendered), the current VAPT Protocol state, and the last N tool results. Nothing else is needed — all findings are in the ASG. History beyond the last N turns is archived to PostgreSQL and dropped from the active context.
+When conversation history reaches 85% of the context window, FullCompact triggers. The entire conversation history is compressed. The agent's working context is reconstructed from: the current ASG snapshot (freshly rendered), the current APG priority chains, the current VAPT Protocol state, and the last N tool results. Nothing else is needed — all findings are in the ASG and all attack reasoning is in the APG. History beyond the last N turns is archived to PostgreSQL and dropped from the active context.
 
-Because the ASG is a lossless persistent store of all discoveries, FullCompact loses no intelligence — only the conversational scaffolding that produced those discoveries. This is the property that no general-purpose agent can claim: **CMatrix can compress conversation history to near-zero without losing any findings, because findings live in the graph, not the context window.**
+Because the dual graph is a lossless persistent store of all discoveries and all attack reasoning, FullCompact loses no intelligence — only the conversational scaffolding that produced those discoveries. This is the property that no general-purpose agent can claim: **CMatrix can compress conversation history to near-zero without losing any findings or attack chain state, because everything lives in the graph, not the context window.**
 
 
 ### Cycle Guard
@@ -436,7 +505,8 @@ Browser-based interface accessible at `localhost:3000`.
 - Start, pause, and stop missions
 
 **Live Dashboard**
-- Real-time ASG visualization as an interactive graph
+- Real-time ASG visualization as an interactive graph — structural view of the target environment
+- Real-time APG visualization — active AttackChains with validation status and risk scores
 - Agent activity feed — what each agent is doing right now
 - Tool execution log — live terminal output from running tools
 - Finding stream — vulnerabilities and nodes as they are discovered
@@ -451,21 +521,24 @@ Browser-based interface accessible at `localhost:3000`.
 CMatrix operates on a continuous Observe–Reason–Plan–Execute loop driven by the Commander Agent.
 
 ```
-Observe       → Read current ASG state (scoped slice per task)
-Reason        → Identify gaps, unexplored nodes, unvalidated findings
-Plan          → Decompose next objective into agent tasks (per VAPT Protocol Prompt)
-Spawn         → Spawn context-isolated agent with scoped ASG slice + restricted toolset
-Gate          → Route High-risk tool calls through Tool Risk Gate mailbox
-Execute       → Run approved tool via adapter (MicroCompact raw output → ASG)
-Update ASG    → Agent writes structured output (nodes + edges) to ASG
-Return        → Agent returns structured ASG delta to Commander; working context discarded
-Re-Plan       → Commander re-reads ASG, decides next action
-Compact       → AutoCompact at 60% context; FullCompact at 85% context
+Observe ASG    → Read current ASG state (scoped slice per task)
+Observe APG    → Read current AttackChain priorities and validation status
+Reason         → Identify ASG gaps + derive / update APG chains from new Vulnerability nodes
+Plan           → Decompose next objective (per VAPT Protocol Prompt):
+                   explore ASG gaps  OR  validate highest-priority APG chain
+Spawn          → Spawn context-isolated agent with scoped ASG + APG slice + restricted toolset
+Gate           → Route High-risk tool calls through Tool Risk Gate mailbox
+Execute        → Run approved tool via adapter (MicroCompact raw output → ASG)
+Update ASG     → Agent writes discovered nodes and edges to ASG
+Update APG     → Commander derives new chains or advances chain validation status
+Return         → Agent returns structured ASG/APG delta; working context discarded
+Re-Plan        → Commander re-reads dual graph, decides next action
+Compact        → AutoCompact at 60% context; FullCompact at 85% context
 ```
 
 The cycle terminates when:
-- No unexplored attack surface remains in the ASG
-- All high-priority attack paths have been validated or ruled out
+- No unexplored nodes remain in the ASG
+- All APG AttackChains are in a terminal state (`VALIDATED` or `RULED_OUT`)
 - User-defined constraints (time limit, scope boundary) are reached
 
 ---
@@ -474,28 +547,27 @@ The cycle terminates when:
 
 CMatrix treats exploitation as a reasoning activity, not a shell-collection exercise.
 
-**Success is defined as validated attack paths, not obtained shells.**
+**Success is defined as validated APG AttackChains with evidence, not obtained shells.**
 
 A penetration test is considered complete when:
 - The attack surface is fully mapped in the ASG
-- Vulnerabilities are discovered and classified
-- Vulnerabilities are validated through controlled exploitation
-- Attack paths are traced end-to-end and confirmed
-- Evidence is collected and linked to findings
-- A professional report is generated
+- Vulnerabilities are discovered, classified, and seeded into APG AttackChains
+- APG AttackChains are prioritized by risk score and pursued in order
+- Each ChainStep is validated through controlled exploitation
+- Complete chains from entry to impact are confirmed with linked Evidence
+- A professional report is generated from the dual-graph state
 
 A shell alone does not constitute success.
-A validated, evidenced, documented attack path does.
+A validated, evidenced, documented AttackChain does.
 
-**Exploitation levels:**
+**APG Chain validation levels:**
 
-| Level | Activity |
-|-------|---------|
-| 0 | Discovery — vulnerability identified |
-| 1 | Validation — vulnerability confirmed as real |
-| 2 | Impact Demonstration — business impact established |
-| 3 | Exploitation — controlled access obtained |
-| 4 | Attack Path Validation — full chain traced and documented |
+| Status | Meaning |
+|--------|---------|
+| `HYPOTHESIZED` | Commander has inferred a possible chain from ASG Vulnerability nodes — not yet tested |
+| `PARTIALLY_VALIDATED` | One or more ChainSteps confirmed; chain not yet complete end-to-end |
+| `VALIDATED` | All ChainSteps confirmed with Evidence; Impact demonstrated |
+| `RULED_OUT` | A required ChainStep failed validation; chain is not exploitable as hypothesized |
 
 ---
 
@@ -503,21 +575,22 @@ A validated, evidenced, documented attack path does.
 
 | # | Contribution |
 |---|-------------|
-| C1 | Attack-Surface-Graph as a continuously evolving semantic world model of the target environment, driving all agent decisions |
+| C1 | Dual-graph world model for autonomous VAPT — Attack Surface Graph (ASG) capturing discovered reality and Attack Path Graph (APG) capturing inferred opportunity, maintained as strictly separate structures with a clean separation of concerns: ASG contains only confirmed facts, APG contains only attack reasoning |
 | C2 | LLM-orchestrated multi-agent architecture for end-to-end autonomous VAPT without human intervention |
-| C3 | ASG-based shared state — agents collaborate through a structured target model, not flat conversation history |
-| C4 | Dynamic planning and real-time re-planning driven by ASG state changes, not task queue exhaustion |
+| C3 | Dual-graph shared state — agents that discover write to the ASG; the Commander that reasons writes to the APG; no agent conflates fact-collection with attack-chain inference |
+| C4 | Dynamic planning driven by dual-graph state — Commander re-plans when new ASG Vulnerability nodes seed new APG AttackChains, when chain validation status changes, or when chains are ruled out; planning is always grounded in current graph state |
 | C5 | Autonomous tool selection and execution through a unified Tool Adapter Layer with typed parsers feeding the ASG |
 | C6 | Unified assessment across Network, Web, and API targets with black-box and grey-box routing in a single pipeline |
-| C7 | Evidence-driven vulnerability validation with evidence artifacts linked directly to ASG vulnerability nodes |
-| C8 | Attack path generation, prioritization, and validation through controlled exploitation with documented evidence chains |
+| C7 | Evidence-driven vulnerability validation with evidence artifacts linked to APG ChainStep nodes via supported_by edges, making every validated chain fully traceable to its proof |
+| C8 | APG-guided attack chain generation, risk scoring, prioritization, and end-to-end validation — attack chains are first-class APG entities with explicit validation lifecycle: HYPOTHESIZED → PARTIALLY_VALIDATED → VALIDATED / RULED_OUT |
 | C9 | ASG-aware parallel tool dispatch — dependency-safe concurrent tool execution using the ASG as the dependency graph, with ordered result reassembly before graph update |
 | C10 | Tiered prompt architecture with prompt caching — stable/context/volatile prompt split enabling prefix caching on the stable tier, reducing token cost for long VAPT sessions |
 | C11 | Phase Budget with graceful degradation — per-agent iteration caps with structured partial result handoff, enabling the Commander to re-plan under real-world time constraints |
 | C12 | Tool Risk Gate with Commander mailbox approval — mandatory scope validation checkpoint for High-risk offensive operations, with atomic claim mechanism preventing concurrent approval races; enables human-in-the-loop insertion without architectural change |
 | C13 | ASG-backed lossless context compaction — three-layer compaction (MicroCompact / AutoCompact / FullCompact) where FullCompact can reduce conversation history to near-zero without losing any findings, because all discoveries are persisted in the ASG |
-| C14 | Context-isolated agent spawning — each specialized agent receives only a scoped ASG slice and restricted tool set at spawn time; returns only structured ASG output to the Commander, eliminating cross-agent context contamination and reducing primary model token consumption |
+| C14 | Context-isolated agent spawning — each specialized agent receives only a scoped ASG/APG slice and restricted tool set at spawn time; returns only structured graph output to the Commander, eliminating cross-agent context contamination |
 | C15 | Methodology-as-configuration via VAPT Protocol Prompt — Commander planning policy encoded as a versioned natural language document, enabling different assessment methodologies (OWASP, PTES, custom) to be benchmarked as independent research variables without code changes |
+| C16 | Dual-graph termination semantics — mission completion is defined by both ASG exhaustion (no unexplored nodes) and APG resolution (all chains in terminal state), providing a formally grounded termination condition that neither pure task-queue nor pure graph-traversal systems can express |
 
 ---
 
@@ -533,19 +606,19 @@ A validated, evidenced, documented attack path does.
 | **PentAGI (GitHub, production)** | General-purpose autonomous agent framework with pentest prompts and 20+ tools in Kali container | Purpose-built VAPT with typed ASG world model, attack path generation, black/grey-box routing, evidence linked to ASG nodes, Tool Risk Gate for offensive operation safety — not a generic framework retargeted at security |
 
 **The gap CMatrix fills:**
-No published system uses a continuously evolving, semantically structured Attack Surface Graph as the shared world model that drives all agent decisions across a unified Network + Web + API assessment pipeline with explicit attack path generation and validation.
+No published system uses a dual-graph world model — a continuously evolving Attack Surface Graph (discovered reality) paired with an Attack Path Graph (inferred opportunity) — as the shared foundation driving all agent decisions across a unified Network + Web + API assessment pipeline with explicit attack chain generation, risk scoring, and lifecycle-tracked validation.
 
 **CMatrix vs PentAGI — specific technical distinctions:**
 
-PentAGI is a capable system (15k+ GitHub stars, production deployments) but it is architecturally a generic agent framework. Its agents reason from flat task history and vector memory. It has no model of the target environment — only a model of its own past actions. When PentAGI finishes a task, it knows what it did. It does not know what the target looks like.
+PentAGI is a capable system (15k+ GitHub stars, production deployments) but it is architecturally a generic agent framework. Its agents reason from flat task history and vector memory. It has no model of the target environment — only a model of its own past actions. When PentAGI finishes a task, it knows what it did. It does not know what the target looks like, and it has no representation of what attack chains are possible.
 
-CMatrix inverts this. The ASG is a live semantic model of the target. Every node represents a discovered fact about the target environment. Every edge represents a relationship between those facts. Agents do not reason from what they did — they reason from what the target is. This is the core architectural difference and the primary research contribution.
+CMatrix maintains two complementary models: the ASG knows what the target is; the APG knows what can be done to it. Agents write only facts to the ASG. The Commander derives attack reasoning into the APG. No other published VAPT system separates these two concerns into distinct structures.
 
 Additional distinctions:
 - PentAGI has no black-box / grey-box assessment mode concept. CMatrix routes agent behavior and tool selection based on declared assessment mode.
-- PentAGI stores evidence as flat artifacts. CMatrix links evidence directly to ASG vulnerability nodes, making the report directly traceable to the graph.
-- PentAGI generates no explicit attack paths. CMatrix generates, prioritizes, and validates attack paths as first-class ASG entities.
-- PentAGI terminates when the task queue is empty. CMatrix terminates when the ASG has no unexplored nodes and all high-priority attack paths are resolved.
+- PentAGI stores evidence as flat artifacts. CMatrix links evidence to APG ChainStep nodes via `supported_by` edges, making every validated chain directly traceable to its proof.
+- PentAGI generates no explicit attack paths. CMatrix generates, scores, prioritizes, and tracks the full validation lifecycle of APG AttackChains.
+- PentAGI terminates when the task queue is empty. CMatrix terminates when the ASG has no unexplored nodes AND all APG chains are in a terminal state — a formally grounded dual termination condition.
 
 ---
 
