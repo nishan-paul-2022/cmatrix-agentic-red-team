@@ -147,11 +147,11 @@ CMatrix includes a professional, independent LaTeX build system for documenting 
 
 | Index | Paper Topic | Build Command | Output Path |
 | :--- | :--- | :--- | :--- |
-| 01 | **LLM Orchestrated Multi-Agent Framework for Autonomous VAPT** | `make paper-01` | `paper-research/paper-structure/paper-01-llm-orch-vapt/paper.pdf` |
-| 02 | **Red Teaming** | `make paper-02` | `paper-research/paper-structure/paper-02-governed-agentic-red-teaming/paper.pdf` |
-| 03 | **HITL Safety** | `make paper-03` | `paper-research/paper-structure/paper-03-checkpoint-resumable-autonomy/paper.pdf` |
-| 04 | **Agent Reasoning** | `make paper-04` | `paper-research/paper-structure/paper-04-hitl-orchestrated-reasoning/paper.pdf` |
-| 05 | **Vulnerability Intelligence** | `make paper-05` | `paper-research/paper-structure/paper-05-agentic-vuln-intelligence/paper.pdf` |
+| 01 | **LLM Orchestrated Multi-Agent Framework for Autonomous VAPT** | `make paper-01` | `docs/paper-research/paper-structure/paper-01-llm-orch-vapt/paper.pdf` |
+| 02 | **Red Teaming** | `make paper-02` | `docs/paper-research/paper-structure/paper-02-governed-agentic-red-teaming/paper.pdf` |
+| 03 | **HITL Safety** | `make paper-03` | `docs/paper-research/paper-structure/paper-03-checkpoint-resumable-autonomy/paper.pdf` |
+| 04 | **Agent Reasoning** | `make paper-04` | `docs/paper-research/paper-structure/paper-04-hitl-orchestrated-reasoning/paper.pdf` |
+| 05 | **Vulnerability Intelligence** | `make paper-05` | `docs/paper-research/paper-structure/paper-05-agentic-vuln-intelligence/paper.pdf` |
 
 ### 🏗️ Building the Papers
 
@@ -195,10 +195,10 @@ A curated list of state-of-the-art AI agents that share a similar vision of agen
 ## 📖 Relevant Resources
 
 ### 📄 Key Academic Papers
-- [Incalmo: Autonomous LLM-assisted System for Red Teaming](paper-research/downloaded-paper-professor/06-incalmo-autonomous-llm-assisted-system-for-red-teaming.pdf)
-- [PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing](paper-research/downloaded-paper-professor/26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing.pdf)
-- [Veritas: A Semantically Grounded Agentic Framework for Memory Corruption Vulnerability Detection in Binaries](paper-research/downloaded-paper-professor/04-veritas-semantically-grounded-agentic-framework-for.pdf)
-- [CVE-Genie: LLM Multi-Agent Framework for Automated CVE Reproducing](paper-research/downloaded-paper-professor/18-cve-genie-llm-multi-agent-framework-for-automated-cve.pdf)
+- [Incalmo: Autonomous LLM-assisted System for Red Teaming](docs/paper-research/downloaded-paper-professor/06-incalmo-autonomous-llm-assisted-system-for-red-teaming.pdf)
+- [PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing](docs/paper-research/downloaded-paper-professor/26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing.pdf)
+- [Veritas: A Semantically Grounded Agentic Framework for Memory Corruption Vulnerability Detection in Binaries](docs/paper-research/downloaded-paper-professor/04-veritas-semantically-grounded-agentic-framework-for.pdf)
+- [CVE-Genie: LLM Multi-Agent Framework for Automated CVE Reproducing](docs/paper-research/downloaded-paper-professor/18-cve-genie-llm-multi-agent-framework-for-automated-cve.pdf)
 
 ### 🔗 External Resources
 - [LLM4Pentest Framework](https://github.com/simon-p-j-r/LLM4Pentest) - Reference for blog and paper on LLMOrch-VAPT.

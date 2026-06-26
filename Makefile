@@ -111,11 +111,11 @@ build-app-backend:
 	@echo "🏗️  Backend doesn't require build step"
 
 # Paper Build Directories
-PAPER_DIR_01 := paper-research/paper-structure/paper-01-llm-orch-vapt
-PAPER_DIR_02 := paper-research/paper-structure/paper-02-governed-agentic-red-teaming
-PAPER_DIR_03 := paper-research/paper-structure/paper-03-checkpoint-resumable-autonomy
-PAPER_DIR_04 := paper-research/paper-structure/paper-04-hitl-orchestrated-reasoning
-PAPER_DIR_05 := paper-research/paper-structure/paper-05-agentic-vuln-intelligence
+PAPER_DIR_01 := docs/paper-research/paper-structure/paper-01-llm-orch-vapt
+PAPER_DIR_02 := docs/paper-research/paper-structure/paper-02-governed-agentic-red-teaming
+PAPER_DIR_03 := docs/paper-research/paper-structure/paper-03-checkpoint-resumable-autonomy
+PAPER_DIR_04 := docs/paper-research/paper-structure/paper-04-hitl-orchestrated-reasoning
+PAPER_DIR_05 := docs/paper-research/paper-structure/paper-05-agentic-vuln-intelligence
 
 paper: paper-01 paper-02 paper-03 paper-04 paper-05
 	@echo "✅ All papers built successfully!"
@@ -151,7 +151,7 @@ paper-05:
 	rm -rf $(PAPER_DIR_05)/main/build
 
 # Presentation Build
-PPT_DIR := paper-thesis/ppt
+PPT_DIR := docs/paper-thesis/ppt
 PPT_NAME ?= presentation.pptx
 SAFE_PPT_NAME := $(notdir $(PPT_NAME))
 
@@ -173,7 +173,7 @@ clean-app-backend:
 
 clean-paper:
 	@echo "🧹 Cleaning Research Paper artifacts..."
-	rm -rf paper-research/paper-structure/paper-*/*.pdf paper-research/paper-structure/paper-*/content/build paper-research/paper-structure/paper-*/contents/build paper-research/paper-structure/paper-*/main/build
+	rm -rf docs/paper-research/paper-structure/paper-*/*.pdf docs/paper-research/paper-structure/paper-*/content/build docs/paper-research/paper-structure/paper-*/contents/build docs/paper-research/paper-structure/paper-*/main/build
 
 # Testing
 test:
