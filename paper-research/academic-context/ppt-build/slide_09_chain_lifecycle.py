@@ -1,7 +1,17 @@
 """
-Slide 9 — Attack Chain Lifecycle
-Visual showing HYPOTHESIZED → PARTIALLY_VALIDATED → VALIDATED / RULED_OUT
-with the Validation Agent self-debugging loop.
+Slide 9 — Attack Chain Lifecycle (Redesigned)
+==============================================
+Layout:
+  TOP HALF:   Horizontal FSM —  HYPOTHESIZED → PARTIALLY VALIDATED
+                                                    ↓ success      ↓ step fails (after cap)
+                                               VALIDATED       RULED_OUT
+              Each state box shows: name + what it means + visual status colour
+
+  BOTTOM LEFT: Validation Agent Self-Debugging Loop
+               Visual cycle: Attempt → Diagnose → Contextualize → Adapt → Retry
+               Horizontal step-by-step with loop-back arrow
+
+  BOTTOM RIGHT: Risk Scoring + chain priority example from shopvault.io
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +32,7 @@ ACCENT_PURP = RGBColor(0xBD, 0x93, 0xF9)
 WHITE       = RGBColor(0xFF, 0xFF, 0xFF)
 GREY_MID    = RGBColor(0xA0, 0xAA, 0xB8)
 CARD_BG     = RGBColor(0x10, 0x16, 0x2B)
+BG_DARK2    = RGBColor(0x0A, 0x0D, 0x1A)
 
 SLIDE_W = Inches(13.333)
 SLIDE_H = Inches(7.5)
@@ -39,8 +50,8 @@ def box(slide, l, t, w, h, fill=None, line_color=None, lw=1.0):
     shp.shadow.inherit = False
     return shp
 
-def txt(slide, text, l, t, w, h, size=11, bold=False, italic=False,
-        color=WHITE, align=PP_ALIGN.LEFT, wrap=True):
+def txt(slide, text, l, t, w, h, size=10, bold=False, italic=False,
+        color=WHITE, align=PP_ALIGN.CENTER, wrap=True):
     tb = slide.shapes.add_textbox(l, t, w, h)
     tf = tb.text_frame; tf.word_wrap = wrap
     p = tf.paragraphs[0]; p.alignment = align
@@ -49,17 +60,8 @@ def txt(slide, text, l, t, w, h, size=11, bold=False, italic=False,
     run.font.bold = bold; run.font.italic = italic; run.font.color.rgb = color
     return tb
 
-def arrow_h(slide, x1, y, x2, color=GREY_MID, lw=2.0):
-    c = slide.shapes.add_connector(pptx.enum.shapes.MSO_CONNECTOR.STRAIGHT, x1, y, x2, y)
-    c.line.color.rgb = color; c.line.width = Pt(lw)
-    ln = c.line._ln
-    he = etree.SubElement(ln, qn('a:headEnd'))
-    he.set('type', 'arrow'); he.set('w', 'med'); he.set('len', 'med')
-    etree.SubElement(ln, qn('a:tailEnd')).set('type', 'none')
-    return c
-
-def arrow_v(slide, x, y1, y2, color=GREY_MID, lw=1.5):
-    c = slide.shapes.add_connector(pptx.enum.shapes.MSO_CONNECTOR.STRAIGHT, x, y1, x, y2)
+def arr(slide, x1, y1, x2, y2, color=GREY_MID, lw=1.4):
+    c = slide.shapes.add_connector(pptx.enum.shapes.MSO_CONNECTOR.STRAIGHT, x1, y1, x2, y2)
     c.line.color.rgb = color; c.line.width = Pt(lw)
     ln = c.line._ln
     he = etree.SubElement(ln, qn('a:headEnd'))
@@ -76,135 +78,197 @@ box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_GOLD)
 box(slide, Inches(0.06), Inches(0), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_GOLD)
 box(slide, Inches(0.06), SLIDE_H-Inches(0.04), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_GOLD)
 
-txt(slide, "ATTACK CHAIN LIFECYCLE", Inches(0.3), Inches(0.08), Inches(8), Inches(0.3),
-    size=11, bold=True, color=ACCENT_GOLD)
-txt(slide, "From Hypothesis to Validated Exploit — APG Chain State Machine",
-    Inches(0.3), Inches(0.38), Inches(12), Inches(0.62), size=28, bold=True, color=WHITE)
-box(slide, Inches(0.3), Inches(1.0), Inches(6), Inches(0.03), fill=ACCENT_GOLD)
+# ── Title ─────────────────────────────────────────────────────────────────────
+txt(slide, "ATTACK CHAIN LIFECYCLE", Inches(0.3), Inches(0.07), Inches(6), Inches(0.24),
+    size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
+txt(slide, "APG Chain State Machine + Validation Agent Self-Debugging Loop",
+    Inches(0.3), Inches(0.31), Inches(12), Inches(0.46),
+    size=24, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
 
-# ══════════════════════════════════════════════
-#  TOP: LINEAR STATE MACHINE
-# ══════════════════════════════════════════════
-sm_top = Inches(1.12)
+# ═══════════════════════════════════════════════════════════════════════════════
+#  TOP — HORIZONTAL FSM
+#  States: HYPOTHESIZED → PARTIALLY_VALIDATED → branch → VALIDATED / RULED_OUT
+# ═══════════════════════════════════════════════════════════════════════════════
+FSM_TOP = Inches(0.88)
+SW  = Inches(2.55)   # state width
+SH  = Inches(1.95)   # state height
+GAP = Inches(0.26)   # gap between states
+
 states = [
-    ("HYPOTHESIZED",         RGBColor(0x50,0x40,0x00), ACCENT_GOLD,
-     "Commander has inferred\na possible chain from\nASG Vulnerability nodes.\nNot yet tested."),
-    ("PARTIALLY\nVALIDATED", RGBColor(0x30,0x40,0x10), ACCENT_LIME,
-     "One or more ChainSteps\nconfirmed. Chain not\ncomplete end-to-end."),
-    ("VALIDATED",            RGBColor(0x08,0x30,0x10), ACCENT_LIME,
-     "All ChainSteps confirmed\nwith Evidence. Impact\ndemonstrated. Mission\nsuccess."),
-    ("RULED_OUT",            RGBColor(0x30,0x08,0x08), ACCENT_RED,
-     "A required ChainStep\nfailed after retry cap.\nChain is not exploitable\nas hypothesized."),
+    ("HYPOTHESIZED",          ACCENT_GOLD,  RGBColor(0x50,0x40,0x00),
+     "Commander inferred a possible\nchain from ASG Vulnerability nodes.\nNot yet tested."),
+    ("PARTIALLY\nVALIDATED",  ACCENT_LIME,  RGBColor(0x28,0x40,0x08),
+     "One or more ChainSteps confirmed.\nChain not complete end-to-end.\nValidation in progress."),
+    ("VALIDATED",             ACCENT_LIME,  RGBColor(0x06,0x28,0x0E),
+     "All ChainSteps confirmed with\nlinked Evidence. Impact demonstrated.\nMission success for this chain."),
+    ("RULED_OUT",             ACCENT_RED,   RGBColor(0x28,0x08,0x08),
+     "A required ChainStep failed after\nmax retries. Chain not exploitable\nas hypothesized. Commander re-plans."),
 ]
-state_w = Inches(2.55)
-state_h = Inches(2.2)
-state_gap = Inches(0.25)
-state_l_start = Inches(0.3)
-arrow_y = sm_top + state_h / 2 + Inches(0.1)
 
-for i, (label, bg, clr, desc) in enumerate(states):
-    l = state_l_start + i * (state_w + state_gap)
-    box(slide, l, sm_top, state_w, state_h, fill=bg, line_color=clr, lw=2.0)
-    txt(slide, label, l+Inches(0.12), sm_top+Inches(0.1),
-        state_w-Inches(0.2), Inches(0.5), size=13, bold=True, color=clr, align=PP_ALIGN.CENTER)
-    box(slide, l+Inches(0.15), sm_top+Inches(0.62), state_w-Inches(0.3), Inches(0.03), fill=clr)
-    txt(slide, desc, l+Inches(0.12), sm_top+Inches(0.72),
-        state_w-Inches(0.2), Inches(1.4), size=10, color=GREY_MID,
-        align=PP_ALIGN.CENTER, wrap=True)
-    # Arrow to next state (except last)
-    if i < len(states) - 1:
-        clr_arrow = clr if i < 2 else ACCENT_RED
-        x1_a = l + state_w
-        x2_a = l + state_w + state_gap
-        arrow_h(slide, x1_a, arrow_y, x2_a, clr_arrow)
+# First 2 states are linear, then it branches to VALIDATED and RULED_OUT
+# Layout: state0 → state1 → (fork) → state2 (top branch) and state3 (bottom branch)
+FORK_X = Inches(0.25) + 2*(SW+GAP) + SW  # x where fork begins
 
-# Branch label for VALIDATED vs RULED_OUT
-txt(slide, "Chain succeeds",
-    state_l_start + 2*(state_w+state_gap) + state_w/2 - Inches(0.6),
-    sm_top + state_h/2 - Inches(0.7), Inches(1.2), Inches(0.28),
-    size=8.5, italic=True, color=ACCENT_LIME, align=PP_ALIGN.CENTER)
-txt(slide, "Step fails\nafter cap",
-    state_l_start + 2*(state_w+state_gap) + state_w + state_gap - Inches(0.05),
-    sm_top + state_h/2 + Inches(0.2), Inches(1.0), Inches(0.4),
-    size=8.5, italic=True, color=ACCENT_RED, align=PP_ALIGN.CENTER)
+# Draw state 0 and 1
+for i in range(2):
+    sl = Inches(0.25) + i * (SW + GAP)
+    st = FSM_TOP
+    label, clr, bg, desc = states[i]
+    box(slide, sl, st, SW, SH, fill=bg, line_color=clr, lw=2.0)
+    # Status indicator strip at top
+    box(slide, sl, st, SW, Inches(0.3), fill=clr)
+    txt(slide, label, sl, st+Inches(0.04), SW, Inches(0.25), size=9.5, bold=True, color=BG_DARK)
+    txt(slide, desc, sl+Inches(0.1), st+Inches(0.38), SW-Inches(0.18), SH-Inches(0.46),
+        size=9, color=GREY_MID, wrap=True)
+    # Arrow →
+    if i == 0:
+        arr(slide, sl+SW, st+SH/2, sl+SW+GAP, st+SH/2, color=ACCENT_GOLD, lw=1.8)
 
-# ══════════════════════════════════════════════
-#  BOTTOM LEFT: SELF-DEBUGGING LOOP
-# ══════════════════════════════════════════════
-loop_l = Inches(0.3)
-loop_t = Inches(3.55)
-loop_w = Inches(5.8)
-loop_h = Inches(3.48)
-box(slide, loop_l, loop_t, loop_w, loop_h,
-    fill=RGBColor(0x08,0x0E,0x20), line_color=ACCENT_RED, lw=1.5)
-txt(slide, "🎯  Validation Agent — Self-Debugging Loop",
-    loop_l+Inches(0.15), loop_t+Inches(0.08), loop_w-Inches(0.25), Inches(0.3),
-    size=13, bold=True, color=ACCENT_RED)
-box(slide, loop_l+Inches(0.15), loop_t+Inches(0.42), loop_w-Inches(0.3), Inches(0.025), fill=ACCENT_RED)
+# Fork point visual (small diamond-like box)
+fork_cx = Inches(0.25) + 2*SW + 2*GAP - Inches(0.18)
+fork_cy = FSM_TOP + SH/2
+box(slide, fork_cx-Inches(0.18), fork_cy-Inches(0.18), Inches(0.36), Inches(0.36),
+    fill=ACCENT_GOLD, line_color=GREY_MID, lw=0.5)
 
-steps_loop = [
-    ("1. Diagnose",     "Analyze why the attempt failed:\nwrong param · auth required · version mismatch · encoding issue",  ACCENT_GOLD),
-    ("2. Contextualize","Query the ASG for additional node attributes\nthat may resolve the diagnosis",                        ACCENT_CYAN),
-    ("3. Adapt",        "Modify tool invocation based on diagnosis + context.\nRetry with corrected approach.",                ACCENT_LIME),
-    ("4. Cap",          "After configurable max retries (default: 3),\nmark ChainStep RULED_OUT · write failure to ASG",       ACCENT_RED),
+# Arrow from state1 to fork
+arr(slide, Inches(0.25)+SW+GAP+SW, FSM_TOP+SH/2, fork_cx-Inches(0.18), fork_cy, color=ACCENT_GOLD, lw=1.8)
+
+# VALIDATED (top-right branch)
+v_l = fork_cx + GAP
+v_t = FSM_TOP
+label, clr, bg, desc = states[2]
+box(slide, v_l, v_t, SW, SH, fill=bg, line_color=clr, lw=2.0)
+box(slide, v_l, v_t, SW, Inches(0.3), fill=clr)
+txt(slide, label, v_l, v_t+Inches(0.04), SW, Inches(0.25), size=9.5, bold=True, color=BG_DARK)
+txt(slide, desc, v_l+Inches(0.1), v_t+Inches(0.38), SW-Inches(0.18), SH-Inches(0.46),
+    size=9, color=GREY_MID, wrap=True)
+arr(slide, fork_cx+Inches(0.18), fork_cy-Inches(0.1), v_l, v_t+SH/2-Inches(0.1),
+    color=ACCENT_LIME, lw=1.8)
+txt(slide, "chain succeeds", fork_cx+Inches(0.22), fork_cy-Inches(0.36),
+    Inches(1.2), Inches(0.22), size=8, italic=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+
+# RULED_OUT (bottom-right branch)
+ro_l = fork_cx + GAP
+ro_t = FSM_TOP + SH + Inches(0.28)
+label, clr, bg, desc = states[3]
+box(slide, ro_l, ro_t, SW, SH, fill=bg, line_color=clr, lw=2.0)
+box(slide, ro_l, ro_t, SW, Inches(0.3), fill=clr)
+txt(slide, label, ro_l, ro_t+Inches(0.04), SW, Inches(0.25), size=9.5, bold=True, color=BG_DARK)
+txt(slide, desc, ro_l+Inches(0.1), ro_t+Inches(0.38), SW-Inches(0.18), SH-Inches(0.46),
+    size=9, color=GREY_MID, wrap=True)
+arr(slide, fork_cx+Inches(0.18), fork_cy+Inches(0.1), ro_l, ro_t+SH/2-Inches(0.1),
+    color=ACCENT_RED, lw=1.8)
+txt(slide, "step fails after cap", fork_cx+Inches(0.22), fork_cy+Inches(0.22),
+    Inches(1.35), Inches(0.22), size=8, italic=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  BOTTOM LEFT — SELF-DEBUGGING LOOP
+#  Horizontal cycle: Attempt → Diagnose → Contextualize → Adapt → [Retry | Cap→RULED_OUT]
+# ═══════════════════════════════════════════════════════════════════════════════
+LOOP_T = FSM_TOP + SH + Inches(0.26) + SH + Inches(0.26)
+LOOP_L = Inches(0.18)
+LOOP_W = Inches(7.8)
+LOOP_H = SLIDE_H - LOOP_T - Inches(0.28)
+
+box(slide, LOOP_L, LOOP_T, LOOP_W, LOOP_H,
+    fill=RGBColor(0x08,0x0C,0x1E), line_color=ACCENT_RED, lw=1.4)
+box(slide, LOOP_L, LOOP_T, LOOP_W, Inches(0.28), fill=ACCENT_RED)
+txt(slide, "🎯  Validation Agent — Self-Debugging Loop  (on ChainStep failure)",
+    LOOP_L, LOOP_T+Inches(0.04), LOOP_W, Inches(0.22), size=9, bold=True, color=BG_DARK)
+
+loop_steps = [
+    ("ATTEMPT",        "Execute tool\nagainst target",        ACCENT_GOLD),
+    ("DIAGNOSE",       "Analyze failure:\nwrong param · auth\nversion mismatch",  ACCENT_GOLD),
+    ("CONTEXTUALIZE",  "Query ASG for\nadditional node\nattributes",               ACCENT_CYAN),
+    ("ADAPT",          "Modify tool call\nbased on diagnosis\n+ context",           ACCENT_LIME),
 ]
-for i, (step, desc, clr) in enumerate(steps_loop):
-    t = loop_t + Inches(0.55) + i * Inches(0.7)
-    box(slide, loop_l+Inches(0.15), t, loop_w-Inches(0.3), Inches(0.65),
-        fill=RGBColor(0x10,0x14,0x28), line_color=clr, lw=0.8)
-    txt(slide, step, loop_l+Inches(0.25), t+Inches(0.06),
-        Inches(1.5), Inches(0.25), size=11, bold=True, color=clr)
-    txt(slide, desc, loop_l+Inches(1.8), t+Inches(0.06),
-        loop_w-Inches(2.0), Inches(0.5), size=9.5, color=GREY_MID, wrap=True)
-    if i < 3:
-        arrow_v(slide, loop_l + loop_w/2, t+Inches(0.65), t+Inches(0.7), color=clr, lw=1.2)
+step_count = len(loop_steps)
+step_w = (LOOP_W - Inches(0.3)) / (step_count + 0.8)
+step_h = LOOP_H - Inches(0.42)
+step_t = LOOP_T + Inches(0.35)
 
-# ══════════════════════════════════════════════
-#  BOTTOM RIGHT: RISK SCORING + PRIORITY
-# ══════════════════════════════════════════════
-rs_l = Inches(6.35)
-rs_t = Inches(3.55)
-rs_w = Inches(6.75)
-rs_h = Inches(1.55)
-box(slide, rs_l, rs_t, rs_w, rs_h,
-    fill=RGBColor(0x12,0x0E,0x04), line_color=ACCENT_GOLD, lw=1.5)
-txt(slide, "Risk Scoring Formula",
-    rs_l+Inches(0.15), rs_t+Inches(0.08), rs_w-Inches(0.25), Inches(0.3),
-    size=13, bold=True, color=ACCENT_GOLD)
-txt(slide,
-    "risk_score  =  CVSS Severity  ×  Exploitability  ×  Impact Classification\n\n"
-    "Priority = risk_score rank across all HYPOTHESIZED + PARTIALLY_VALIDATED chains\n"
-    "Commander pursues highest-priority chain first — re-ranks after every status change.",
-    rs_l+Inches(0.15), rs_t+Inches(0.42), rs_w-Inches(0.25), Inches(1.05),
-    size=10.5, color=GREY_MID, wrap=True)
+prev_r = None
+for i, (step_lbl, desc, clr) in enumerate(loop_steps):
+    sl = LOOP_L + Inches(0.15) + i * (step_w + Inches(0.08))
+    box(slide, sl, step_t, step_w, step_h, fill=RGBColor(0x10,0x14,0x28), line_color=clr, lw=1.0)
+    box(slide, sl, step_t, step_w, Inches(0.24), fill=clr)
+    txt(slide, step_lbl, sl, step_t+Inches(0.03), step_w, Inches(0.2),
+        size=8, bold=True, color=BG_DARK)
+    txt(slide, desc, sl+Inches(0.06), step_t+Inches(0.28), step_w-Inches(0.1), step_h-Inches(0.32),
+        size=8, color=GREY_MID, wrap=True)
+    if prev_r is not None:
+        arr(slide, prev_r, step_t+step_h/2, sl, step_t+step_h/2, color=clr, lw=1.2)
+    prev_r = sl + step_w
 
-# Chain example in shopvault
-ex_l = Inches(6.35)
-ex_t = Inches(5.22)
-ex_w = Inches(6.75)
-ex_h = Inches(1.8)
-box(slide, ex_l, ex_t, ex_w, ex_h,
-    fill=RGBColor(0x08,0x14,0x20), line_color=ACCENT_CYAN, lw=1.2)
-txt(slide, "shopvault.io — APG Chain Priorities",
-    ex_l+Inches(0.15), ex_t+Inches(0.08), ex_w-Inches(0.25), Inches(0.28),
-    size=12, bold=True, color=ACCENT_CYAN)
-chains_ex = [
-    ("Chain-01", "CVE-2022-21661 SQL injection → RCE",             "8.8", ACCENT_RED),
-    ("Chain-03", "Blind SQLi on staging → credential extraction",  "8.1", ACCENT_GOLD),
-    ("Chain-02", "IDOR on /api/v1/orders → customer data",         "7.5", ACCENT_GOLD),
-    ("Chain-04", "Direct DB backup download → full PII",           "trivial", ACCENT_PURP),
+# Retry arrow (back from ADAPT to ATTEMPT) — curved feel via two-step
+last_r = LOOP_L + Inches(0.15) + 3 * (step_w + Inches(0.08)) + step_w
+retry_y = step_t + step_h + Inches(0.06)
+
+# CAP box on far right
+cap_l = last_r + Inches(0.08)
+cap_w = LOOP_W - (cap_l - LOOP_L) - Inches(0.15)
+box(slide, cap_l, step_t, cap_w, step_h, fill=RGBColor(0x22,0x08,0x08), line_color=ACCENT_RED, lw=1.4)
+box(slide, cap_l, step_t, cap_w, Inches(0.24), fill=ACCENT_RED)
+txt(slide, "CAP  (×3 max)", cap_l, step_t+Inches(0.03), cap_w, Inches(0.2), size=8, bold=True, color=BG_DARK)
+arr(slide, prev_r, step_t+step_h/2, cap_l, step_t+step_h/2, color=ACCENT_RED, lw=1.2)
+txt(slide, "→ Mark ChainStep\n   RULED_OUT\n→ Write failure\n   to ASG node",
+    cap_l+Inches(0.06), step_t+Inches(0.28), cap_w-Inches(0.1), step_h-Inches(0.3),
+    size=8, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+
+# Loop-back annotation
+arr(slide, LOOP_L+Inches(0.15)+3*(step_w+Inches(0.08))+step_w*0.5, step_t+step_h,
+    LOOP_L+Inches(0.15)+step_w*0.5, step_t+step_h,
+    color=ACCENT_LIME, lw=1.0)
+txt(slide, "retry (up to cap)", LOOP_L+Inches(0.15)+step_w, step_t+step_h+Inches(0.0),
+    Inches(2.5), Inches(0.2), size=7.5, italic=True, color=ACCENT_LIME)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  BOTTOM RIGHT — Risk Scoring + Priority example
+# ═══════════════════════════════════════════════════════════════════════════════
+RS_L = LOOP_L + LOOP_W + Inches(0.1)
+RS_W = SLIDE_W - RS_L - Inches(0.2)
+RS_T = LOOP_T
+RS_H = LOOP_H
+
+box(slide, RS_L, RS_T, RS_W, RS_H, fill=RGBColor(0x0E,0x0C,0x04), line_color=ACCENT_GOLD, lw=1.4)
+box(slide, RS_L, RS_T, RS_W, Inches(0.28), fill=ACCENT_GOLD)
+txt(slide, "Risk Score + Chain Priority", RS_L, RS_T+Inches(0.04), RS_W, Inches(0.22),
+    size=9, bold=True, color=BG_DARK)
+
+txt(slide, "risk_score = CVSS × Exploitability × Impact",
+    RS_L+Inches(0.1), RS_T+Inches(0.34), RS_W-Inches(0.18), Inches(0.28),
+    size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
+txt(slide, "Priority = rank across all HYPOTHESIZED + PARTIALLY_VALIDATED chains.\n"
+    "Commander pursues highest-priority chain first — re-ranks on every status change.",
+    RS_L+Inches(0.1), RS_T+Inches(0.64), RS_W-Inches(0.18), Inches(0.55),
+    size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+
+# shopvault.io chain priority table
+box(slide, RS_L+Inches(0.1), RS_T+Inches(1.22), RS_W-Inches(0.18), Inches(0.26),
+    fill=RGBColor(0x22,0x18,0x04))
+txt(slide, "shopvault.io  —  APG Chain Priority Order",
+    RS_L+Inches(0.14), RS_T+Inches(1.25), RS_W-Inches(0.25), Inches(0.22),
+    size=8.5, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
+
+chain_rows = [
+    ("1", "Chain-01", "CVE-2022-21661 SQLi → RCE",          "9.1", ACCENT_RED),
+    ("2", "Chain-03", "Blind SQLi on staging → DB creds",    "8.1", ACCENT_GOLD),
+    ("3", "Chain-02", "IDOR on /api/v1/orders → PII",        "7.5", ACCENT_GOLD),
+    ("4", "Chain-04", "Direct DB backup download → PII",     "triv", ACCENT_PURP),
 ]
-for i, (cid, desc, score, clr) in enumerate(chains_ex):
-    t = ex_t + Inches(0.4) + i * Inches(0.34)
-    txt(slide, f"{i+1}.  {cid}  —  {desc}",
-        ex_l+Inches(0.2), t, ex_w-Inches(1.5), Inches(0.3),
-        size=9.5, color=GREY_MID)
-    txt(slide, f"risk: {score}",
-        ex_l+ex_w-Inches(1.3), t, Inches(1.2), Inches(0.3),
+for i, (rank, cid, desc, score, clr) in enumerate(chain_rows):
+    rt = RS_T + Inches(1.52) + i * Inches(0.4)
+    bg = RGBColor(0x18,0x12,0x02) if i % 2 == 0 else RGBColor(0x12,0x0C,0x02)
+    box(slide, RS_L+Inches(0.1), rt, RS_W-Inches(0.18), Inches(0.38), fill=bg, line_color=clr, lw=0.5)
+    txt(slide, rank, RS_L+Inches(0.14), rt+Inches(0.06), Inches(0.22), Inches(0.26),
+        size=9, bold=True, color=clr)
+    txt(slide, f"{cid}  —  {desc}", RS_L+Inches(0.38), rt+Inches(0.06),
+        RS_W-Inches(0.75), Inches(0.26), size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT)
+    txt(slide, score, RS_L+RS_W-Inches(0.55), rt+Inches(0.06), Inches(0.42), Inches(0.26),
         size=9.5, bold=True, color=clr, align=PP_ALIGN.RIGHT)
 
-txt(slide, "09", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.55),
-    Inches(0.35), Inches(0.45), size=13, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.RIGHT)
+txt(slide, "09", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
+    Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.RIGHT)
 
 prs.save(PPTX_PATH)
-print("✅  Slide 9 added.")
+print("✅  Slide 9 (Chain Lifecycle) rewritten.")
