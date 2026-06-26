@@ -5,3 +5,7 @@
 .ruff_cache/
 .mypy_cache/
 node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
