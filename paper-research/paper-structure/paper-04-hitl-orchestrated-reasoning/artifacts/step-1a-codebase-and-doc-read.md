@@ -146,21 +146,21 @@ There is also a streaming endpoint used by an Edge route:
 - `llm-config-template.json`
 
 #### 2.8.2 `docs/` (read; representative + research-relevant)
-- `docs/spec-1-project-overview.md`
-- `docs/spec-2-implementation-plan.md`
-- `docs/spec-3-implementation-plan-phase-3.md`
-- `docs/spec-4-code-quality-guide.md`
-- `docs/spec-5-demo-showcase-plan.md`
-- `docs/task-1-3-vector-database.md`
-- `docs/task-1-4-human-in-the-loop.md`
-- `docs/task-2-1-multi-agent.md`
-- `docs/task-2-2-supervisor-pattern.md`
-- `docs/task-3-2-advanced-reasoning-patterns.md`
-- `docs/task-3-1-1-query-reformulation-engine.md`
-- `docs/task-3-1-3-semantic-reranking.md`
-- `docs/task-3-1-4-self-correcting-loops.md`
-- `docs/task-3-1-5-cve-vector-store.md`
-- `docs/task-4-2-optimization-features.md`
+- `docs/spec/spec-1-project-overview.md`
+- `docs/spec/spec-2-implementation-plan.md`
+- `docs/spec/spec-3-implementation-plan-phase-3.md`
+- `docs/spec/spec-4-code-quality-guide.md`
+- `docs/spec/spec-5-demo-showcase-plan.md`
+- `docs/spec/task-1-3-vector-database.md`
+- `docs/spec/task-1-4-human-in-the-loop.md`
+- `docs/spec/task-2-1-multi-agent.md`
+- `docs/spec/task-2-2-supervisor-pattern.md`
+- `docs/spec/task-3-2-advanced-reasoning-patterns.md`
+- `docs/spec/task-3-1-1-query-reformulation-engine.md`
+- `docs/spec/task-3-1-3-semantic-reranking.md`
+- `docs/spec/task-3-1-4-self-correcting-loops.md`
+- `docs/spec/task-3-1-5-cve-vector-store.md`
+- `docs/spec/task-4-2-optimization-features.md`
 
 #### 2.8.3 `paper-research/` (read; paper-relevant)
 - `paper-research/index.md`
