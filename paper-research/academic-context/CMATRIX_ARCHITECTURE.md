@@ -387,6 +387,39 @@ The Cross-Mission Experience Store is a persistent RAG-backed knowledge base tha
 
 ---
 
+### Attack Strategy Library
+
+*A crystallized, reusable library of validated attack strategies, indexed by target technology fingerprint.*
+
+The Cross-Mission Experience Store records raw exploitation outcomes — what succeeded, what parameters worked, what chain sequence was followed. The Attack Strategy Library is a higher-order abstraction built on top of it: **generalized, reusable attack procedures** distilled from multiple successful outcomes against the same target technology class.
+
+**How crystallization works:**
+
+When the same target fingerprint (e.g., `WordPress 5.x + WooCommerce + Nginx`) produces a validated AttackChain across two or more independent missions, the Commander triggers crystallization. A scoped LLM call generalizes the specific parameters of those chains into a technology-class strategy: a named, parameterized procedure with known entry conditions, tool sequence, and expected evidence artifacts. The strategy is written to the Attack Strategy Library with its source mission IDs and a confidence score derived from how many missions contributed to it.
+
+**At mission start**, after querying the Cross-Mission Experience Store, the Commander additionally retrieves matching Attack Strategies for discovered technology fingerprints. Strategies are injected into the Commander's context as **pre-ranked APG AttackChain seeds** — prioritized above zero-prior chains because they carry a validated track record, not just CVE severity.
+
+**Library entry schema:**
+- Strategy ID and human-readable name (e.g., `STRAT-WP-SQLI-001`)
+- Target technology fingerprint pattern (CMS, framework, version range, service)
+- Vulnerability class and applicable CVE range
+- Generalized tool sequence and parameter template
+- Confidence score (number of contributing missions / total missions against this fingerprint)
+- Last validation date
+
+**Distinction from Cross-Mission Experience Store:**
+
+| | Cross-Mission Experience Store | Attack Strategy Library |
+|---|---|---|
+| Granularity | Per-mission, per-chain raw records | Generalized across multiple missions |
+| Content | Specific tool parameters, exact chain outcomes | Parameterized procedures, confidence scores |
+| Query trigger | Mission start — seed APG hypotheses | Mission start — prioritize APG seeds |
+| Write trigger | Every validated chain at mission close | Crystallization threshold: ≥2 matching missions |
+
+> The Attack Strategy Library introduces **cross-mission procedural learning** to autonomous VAPT. No existing VAPT agent system accumulates and generalizes validated exploitation procedures across engagements. Each system in the prior literature starts from zero knowledge on every mission. CMatrix's Attack Strategy Library makes the system demonstrably more efficient on repeat target-type engagements — a measurable improvement over baseline with a direct experimental evaluation path on HTB/THM machine families sharing technology fingerprints.
+
+---
+
 ## 7. Context-Isolated Agent Spawning
 
 Specialized agents are not persistent processes sharing a context window. Each agent is spawned fresh with a precisely scoped context:
@@ -580,6 +613,43 @@ What changes between these calls is not the model, but the **scope of the prompt
 
 ---
 
+### Engagement Trajectory Export
+
+Every CMatrix mission produces a **structured engagement trajectory** — a complete, machine-readable record of the system's reasoning and decision sequence from mission start to termination.
+
+The trajectory is written incrementally to a per-mission log file. Each entry captures one decision step in the planning cycle:
+
+```
+{
+  "step": <integer>,
+  "timestamp": <ISO 8601>,
+  "trigger": <ASG node ID or APG chain ID that caused this decision>,
+  "asg_snapshot_delta": <nodes and edges added since last step>,
+  "apg_snapshot_delta": <chains and chain status changes since last step>,
+  "commander_reasoning": <abbreviated rationale for the next action>,
+  "action_type": <"spawn_agent" | "approve_tool" | "escalate_tool" | "replan" | "terminate">,
+  "action_payload": <agent ID, tool name, or termination reason>,
+  "agent_output_summary": <structured summary of returned ASG delta>,
+  "strategy_library_hit": <strategy ID if a matching strategy was retrieved, else null>
+}
+```
+
+**What this enables:**
+
+| Use | How the trajectory supports it |
+|-----|-------------------------------|
+| Reproducibility | Any mission can be re-run deterministically from its trajectory; reviewers can verify every claim in the paper |
+| Ablation studies | Trajectory comparison with/without Attack Strategy Library shows strategy hit rate and planning-step reduction |
+| Failure analysis | Steps where the Commander re-plans after a `RULED_OUT` chain expose the system's recovery behavior precisely |
+| Dataset generation | Trajectories are labeled VAPT reasoning sequences — directly usable as SFT training data for fine-tuning security-oriented LLMs |
+| HTB/THM benchmarking | Per-mission trajectories make benchmark results fully auditable rather than relying only on final outcome metrics |
+
+The trajectory export runs as a side-effect hook registered on `PostMissionTerminate` and on every `PostAPGUpdate` event — it adds no overhead to the critical path and requires no changes to agent or Commander logic.
+
+> The trajectory corpus accumulated across benchmark missions constitutes a secondary research contribution independent of CMatrix's architecture: a publicly releasable, labeled dataset of autonomous VAPT reasoning sequences. No such dataset currently exists in the literature.
+
+---
+
 ## 13. Real-World Scenario Walkthrough
 
 **Scenario:** A penetration tester at a security firm has been hired by a mid-sized e-commerce company to assess the security of their externally facing infrastructure. The scope covers all subdomains of `shopvault.io`, their web applications, and any exposed APIs. The assessment mode is **Black-Box** — the tester has no credentials or prior knowledge of the target. They configure CMatrix with the root domain and authorized scope, then start the mission.
@@ -727,12 +797,14 @@ flowchart LR
 | **C8** | **Dual-graph termination semantics** — mission completion is formally defined as the conjunction of ASG exhaustion (no unexplored nodes) and APG resolution (all chains in a terminal state), a condition neither pure task-queue systems nor pure graph-traversal systems can express simultaneously. |
 | **C9** | **Live vulnerability intelligence grounding via a scoped Research Agent** — real-time CVE enrichment, PoC availability assessment, and exploit feasibility research from authoritative sources during active assessment, written back into the ASG as structured node attributes; closes the stale-knowledge gap inherent to systems that reason only from pretrained data. |
 | **C10** | **Cross-mission experience store** — a persistent, RAG-backed knowledge base of validated exploitation outcomes accumulated across missions, queried by the Commander at mission start to seed candidate AttackChains from prior validated patterns on analogous target stacks. *(This generalizes AutoAttacker's within-mission experience-reuse mechanism — see `§15` — to a cross-mission scope; the cross-mission accumulation itself, not the reuse concept, is the contribution.)* |
+| **C11** | **Attack Strategy Library with technology-fingerprint-indexed crystallization** — a higher-order abstraction over the Cross-Mission Experience Store: when the same technology fingerprint produces validated AttackChains across two or more independent missions, the Commander crystallizes those outcomes into a named, parameterized attack strategy with a confidence score. Strategies are retrieved at mission start and injected as pre-ranked APG AttackChain seeds, making CMatrix demonstrably more efficient on repeat target-type engagements. No existing autonomous VAPT system accumulates and generalizes validated exploitation procedures across sessions — every system in prior literature resets to zero knowledge on each mission. |
+| **C12** | **Structured engagement trajectory export** — every mission produces a complete, machine-readable decision log capturing, for each planning cycle step: the ASG/APG trigger, Commander reasoning rationale, action taken, agent output summary, and strategy library hit status. The trajectory corpus serves three simultaneous purposes: full reproducibility of all benchmark claims, ablation study support (strategy hit rate, planning-step reduction with/without C11), and a publicly releasable labeled dataset of autonomous VAPT reasoning sequences — a dataset type that does not currently exist in the literature. |
 
 ---
 
 ## 15. Related Work — Incorporated Concepts
 
-> 📚 **Purpose of this section.** CMatrix's design was developed with reference to five academic papers and two open-source systems from the autonomous offensive-security space. What follows is a **reference map** — for each source, the specific mechanism studied, and exactly where the resulting idea lives inside CMatrix's architecture. This is documentation of provenance, not a comparison.
+> 📚 **Purpose of this section.** CMatrix's design was developed with reference to five academic papers and three open-source systems from the autonomous offensive-security space. What follows is a **reference map** — for each source, the specific mechanism studied, and exactly where the resulting idea lives inside CMatrix's architecture. This is documentation of provenance, not a comparison.
 
 ### 🗺️ Quick Reference
 
@@ -745,6 +817,7 @@ flowchart LR
 | 5 | VulnBot | 📄 Paper | Five-module pipeline (Planner, Memory Retriever, Generator, Executor, Summarizer) built around a Penetration Task Graph for dependency-aware multi-agent collaboration | §7 |
 | 6 | PentAGI | 💻 Repo | Production multi-agent pentesting platform with execution-pattern monitoring — an Adviser/Reflector pair that detects fixation and intervenes before an agent burns its budget | §10 |
 | 7 | Claude Code | 💻 Repo | Two-stage fast-filter-plus-chain-of-thought permission classifier for tool-call auto-approval, plus a formal multi-event hook architecture for operator intervention | §8 |
+| 8 | Hermes Agent | 💻 Repo | Self-improving autonomous agent with a closed learning loop: autonomous skill crystallization from completed tasks, and structured trajectory export for RL/SFT training data generation | §6 · §12 |
 
 ---
 
@@ -821,3 +894,15 @@ Claude Code gates tool execution through `yoloClassifier.ts` — a two-stage *fa
 > ✅ **Incorporated** — two distinct concepts, both living in `§8`:
 > - **LLM-Evaluated Permission Classifier** — CMatrix's Medium-tier Tool Risk Gate decision uses the same fast-filter-plus-brief-CoT two-stage pattern, evaluating scope alignment, chain intent, and parameter safety before returning `EXECUTE` or `ESCALATE`. The call is issued to the same single configured LLM API as every other call in the system (`§12`) — not a separate model.
 > - **Agent Lifecycle Hook System** — CMatrix's six named hooks (`PreToolUse` · `PostToolUse` · `PreAgentSpawn` · `PostAgentReturn` · `PreAPGUpdate` · `PostMissionTerminate`) follow the same named-interception-point philosophy, scaled to CMatrix's dual-graph decision boundaries.
+
+---
+
+#### 8️⃣ Hermes Agent
+`NousResearch/hermes-agent` — self-improving autonomous agent platform
+🔗 [github.com/NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+
+Hermes Agent ships a **closed learning loop**: after completing a non-trivial workflow, the agent autonomously calls `skill_manage` to write a reusable procedural skill — distilled from experience, loaded only when contextually relevant, and self-improving during subsequent use. A companion system (`hermes-agent-self-evolution`) uses real session trajectories as training data for evolutionary skill optimization via DSPy + GEPA. Hermes also exports structured agent trajectories for SFT fine-tuning and RL training via Atropos integration.
+
+> ✅ **Incorporated** — two distinct concepts, adapted to the VAPT domain:
+> - **Attack Strategy Library** (`§6`) — the domain-specific counterpart to Hermes's skill crystallization. Where Hermes crystallizes general-purpose procedural workflows from task experience, CMatrix crystallizes validated attack chains into named, technology-fingerprint-indexed attack strategies when the same target class produces confirmed exploitation outcomes across two or more independent missions. The crystallization is domain-constrained — output is a security-relevant strategy with confidence scoring, not a general-purpose skill — and the retrieval mechanism is integrated into APG seed prioritization, not general task planning. The generalization mechanism (experience → reusable procedure) and the confidence-scoring model both originate with Hermes's skill system.
+> - **Engagement Trajectory Export** (`§12`) — the domain-adapted counterpart to Hermes's trajectory export for RL/SFT. CMatrix logs every planning-cycle step as a structured trajectory entry capturing the ASG/APG trigger, Commander reasoning rationale, action taken, agent output, and strategy library hit status. The format is adapted to CMatrix's dual-graph event structure rather than a general-purpose agent loop. The trajectory corpus serves reproducibility, ablation studies, and dataset generation simultaneously. The concept of deliberately structuring agent execution logs as training-data artifacts originates with Hermes.
