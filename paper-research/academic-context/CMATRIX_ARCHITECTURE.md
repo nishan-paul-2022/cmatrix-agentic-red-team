@@ -810,14 +810,14 @@ flowchart LR
 
 | # | Source | Type | Concept Studied | Lives In CMatrix |
 |---|--------|------|------------------|-------------------|
-| 1 | PentestGPT | 📄 Paper | Tripartite Reasoning / Generation / Parsing architecture, anchored by a Pentesting Task Tree memory structure that overcomes LLM context loss across long engagements | §8 |
-| 2 | AutoAttacker | 📄 Paper | Modular planner / summarizer / code-generator pipeline for post-breach attack automation, with an experience manager that stores and reuses executed attack subtasks | §6 |
-| 3 | Teams of LLM Agents *(HPTSA)* | 📄 Paper | Hierarchical planner that delegates to task-specific sub-agents; shows task-specific document injection improves zero-day exploitation by up to 2.1× over undocumented agents | §7 |
-| 4 | PentestAgent | 📄 Paper | Planning agent with RAG-backed shared memory paired with an execution agent that self-diagnoses and corrects failed exploit attempts before abandoning a path | §6 |
-| 5 | VulnBot | 📄 Paper | Five-module pipeline (Planner, Memory Retriever, Generator, Executor, Summarizer) built around a Penetration Task Graph for dependency-aware multi-agent collaboration | §7 |
-| 6 | PentAGI | 💻 Repo | Production multi-agent pentesting platform with execution-pattern monitoring — an Adviser/Reflector pair that detects fixation and intervenes before an agent burns its budget | §10 |
-| 7 | Claude Code | 💻 Repo | Two-stage fast-filter-plus-chain-of-thought permission classifier for tool-call auto-approval, plus a formal multi-event hook architecture for operator intervention | §8 |
-| 8 | Hermes Agent | 💻 Repo | Self-improving autonomous agent with a closed learning loop: autonomous skill crystallization from completed tasks, and structured trajectory export for RL/SFT training data generation | §6 · §12 |
+| 1 | [PentestGPT](7-list-of-paper-professor.md#26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing) | 📄 Paper | Tripartite Reasoning / Generation / Parsing architecture, anchored by a Pentesting Task Tree memory structure that overcomes LLM context loss across long engagements | §8 |
+| 2 | [AutoAttacker](6-list-of-paper-curated.md#56-autoattacker-a-large-language-model-guided-system-to-implement-automatic-cyber-attacks) | 📄 Paper | Modular planner / summarizer / code-generator pipeline for post-breach attack automation, with an experience manager that stores and reuses executed attack subtasks | §6 |
+| 3 | [Teams of LLM Agents *(HPTSA)*](6-list-of-paper-curated.md#54-teams-of-llm-agents-can-exploit-zero-day-vulnerabilities) | 📄 Paper | Hierarchical planner that delegates to task-specific sub-agents; shows task-specific document injection improves zero-day exploitation by up to 2.1× over undocumented agents | §7 |
+| 4 | [PentestAgent](6-list-of-paper-curated.md#18-pentestagent-incorporating-llm-agents-to-automated-penetration-testing) | 📄 Paper | Planning agent with RAG-backed shared memory paired with an execution agent that self-diagnoses and corrects failed exploit attempts before abandoning a path | §6 |
+| 5 | [VulnBot](6-list-of-paper-curated.md#21-vulnbot-autonomous-penetration-testing-for-a-multi-agent-collaborative-framework) | 📄 Paper | Five-module pipeline (Planner, Memory Retriever, Generator, Executor, Summarizer) built around a Penetration Task Graph for dependency-aware multi-agent collaboration | §7 |
+| 6 | [PentAGI](https://github.com/vxcontrol/pentagi) | 💻 Repo | Production multi-agent pentesting platform with execution-pattern monitoring — an Adviser/Reflector pair that detects fixation and intervenes before an agent burns its budget | §10 |
+| 7 | [Claude Code](https://github.com/yasasbanukaofficial/claude-code/tree/main) | 💻 Repo | Two-stage fast-filter-plus-chain-of-thought permission classifier for tool-call auto-approval, plus a formal multi-event hook architecture for operator intervention | §8 |
+| 8 | [Hermes Agent](https://github.com/NousResearch/hermes-agent) | 💻 Repo | Self-improving autonomous agent with a closed learning loop: autonomous skill crystallization from completed tasks, and structured trajectory export for RL/SFT training data generation | §6 · §12 |
 
 ---
 
@@ -825,7 +825,6 @@ flowchart LR
 
 #### 1️⃣ PentestGPT
 *Evaluating and Harnessing Large Language Models for Automated Penetration Testing* — **USENIX Security '24**
-[↗ reference entry](7-list-of-paper-professor.md#26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing)
 
 PentestGPT splits its pipeline into three modules, each emulating a role on a human pentest team: a **Reasoning Module** that maintains a *Pentesting Task Tree*, a **Generation Module** that expands sub-tasks into concrete commands, and a **Parsing Module** whose sole job is to condense raw tool output *before* it re-enters the reasoning context — keeping noisy terminal output from polluting the LLM's strategic memory.
 
@@ -835,7 +834,6 @@ PentestGPT splits its pipeline into three modules, each emulating a role on a hu
 
 #### 2️⃣ AutoAttacker
 *A Large Language Model Guided System to Implement Automatic Cyber-attacks* — **arXiv '24** (Xu et al.)
-[↗ reference entry](6-list-of-paper-curated.md#56-autoattacker-a-large-language-model-guided-system-to-implement-automatic-cyber-attacks)
 
 AutoAttacker automates the post-breach phase of an attack with a modular planner / summarizer / code-generator design, paired with an **experience manager** that stores executed attack subtasks so they can be retrieved and reused when constructing later, more complex attack chains.
 
@@ -845,7 +843,6 @@ AutoAttacker automates the post-breach phase of an attack with a modular planner
 
 #### 3️⃣ Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities
 **arXiv '24** (Zhu et al.) — introduces **HPTSA**, a hierarchical planner that delegates to task-specific sub-agents
-[↗ reference entry](6-list-of-paper-curated.md#54-teams-of-llm-agents-can-exploit-zero-day-vulnerabilities)
 
 HPTSA's central finding: injecting task-specific documentation directly into a sub-agent's context — rather than relying on the LLM's pre-trained knowledge alone — measurably improves zero-day exploitation performance, by up to **2.1×** over undocumented agents.
 
@@ -855,7 +852,6 @@ HPTSA's central finding: injecting task-specific documentation directly into a s
 
 #### 4️⃣ PentestAgent
 *Incorporating LLM Agents to Automated Penetration Testing* — **AsiaCCS '25** (Shen et al.)
-[↗ reference entry](6-list-of-paper-curated.md#18-pentestagent-incorporating-llm-agents-to-automated-penetration-testing)
 
 PentestAgent pairs a planning agent with RAG-backed shared memory and an execution agent that, on a failed exploit attempt, automatically diagnoses the failure cause and corrects its approach before abandoning the attack path.
 
@@ -865,7 +861,6 @@ PentestAgent pairs a planning agent with RAG-backed shared memory and an executi
 
 #### 5️⃣ VulnBot
 *Autonomous Penetration Testing for a Multi-Agent Collaborative Framework* — **arXiv '25** (Kong et al.)
-[↗ reference entry](6-list-of-paper-curated.md#21-vulnbot-autonomous-penetration-testing-for-a-multi-agent-collaborative-framework)
 
 VulnBot's five-module design — Planner, Memory Retriever, Generator, Executor, **Summarizer** — uses the Summarizer specifically as an inter-agent communication conduit: it condenses each phase's outcome before passing it to the next role, preventing raw execution history from leaking between agents.
 
@@ -877,7 +872,6 @@ VulnBot's five-module design — Planner, Memory Retriever, Generator, Executor,
 
 #### 6️⃣ PentAGI
 `vxcontrol/pentagi` — production multi-agent pentesting platform
-🔗 [github.com/vxcontrol/pentagi](https://github.com/vxcontrol/pentagi)
 
 PentAGI ships an **Adviser** agent that is automatically invoked when execution-pattern monitoring detects trouble — identical tool calls repeated past a configurable threshold, or total tool-call count approaching a limit — alongside a **Reflector** that nudges a stuck agent toward a clean completion rather than letting it run to a hard cutoff.
 
@@ -887,7 +881,6 @@ PentAGI ships an **Adviser** agent that is automatically invoked when execution-
 
 #### 7️⃣ Claude Code
 Anthropic-pattern agentic coding tool — `yasasbanukaofficial/claude-code`
-🔗 [github.com/yasasbanukaofficial/claude-code](https://github.com/yasasbanukaofficial/claude-code/tree/main)
 
 Claude Code gates tool execution through `yoloClassifier.ts` — a two-stage *fast-filter → chain-of-thought* classifier that auto-approves low-stakes calls and escalates the rest — and exposes a **27-event hook architecture** giving operators named interception points throughout the agent loop.
 
@@ -899,7 +892,6 @@ Claude Code gates tool execution through `yoloClassifier.ts` — a two-stage *fa
 
 #### 8️⃣ Hermes Agent
 `NousResearch/hermes-agent` — self-improving autonomous agent platform
-🔗 [github.com/NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 
 Hermes Agent ships a **closed learning loop**: after completing a non-trivial workflow, the agent autonomously calls `skill_manage` to write a reusable procedural skill — distilled from experience, loaded only when contextually relevant, and self-improving during subsequent use. A companion system (`hermes-agent-self-evolution`) uses real session trajectories as training data for evolutionary skill optimization via DSPy + GEPA. Hermes also exports structured agent trajectories for SFT fine-tuning and RL training via Atropos integration.
 
