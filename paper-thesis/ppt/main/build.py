@@ -65,9 +65,9 @@ def build(output_path: str):
     slides = discover_slides(SCRIPT_DIR)
 
     print(f"╔══════════════════════════════════════════════════╗")
-    print(f"║  CMatrix Presentation Builder                    ║")
+    print(f"║  CMatrix Presentation Builder                     ")
     print(f"╠══════════════════════════════════════════════════╣")
-    print(f"║  Found {len(slides):2d} slide module(s)                      ║")
+    print(f"║  Found {len(slides):2d} slide module(s)           ")
     print(f"╚══════════════════════════════════════════════════╝")
     print()
 
