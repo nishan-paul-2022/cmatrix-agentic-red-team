@@ -1,4 +1,4 @@
-.PHONY: help install dev build quality clean pre-commit check paper clean-paper
+.PHONY: help install dev build quality clean pre-commit check paper ppt clean-paper
 
 # Global Environment Variables
 VENV ?= ./venv
@@ -11,35 +11,36 @@ help:
 	@echo "=========================================="
 	@echo ""
 	@echo "🚀 Quick Start:"
-	@echo "  make install        Install all dependencies (app-frontend + app-backend)"
-	@echo "  make dev            Start both app-frontend and app-backend dev servers"
-	@echo "  make quality        Run all quality checks (app-frontend + app-backend)"
+	@echo "  make install        					Install all dependencies (app-frontend + app-backend)"
+	@echo "  make dev            					Start both app-frontend and app-backend dev servers"
+	@echo "  make quality        					Run all quality checks (app-frontend + app-backend)"
 	@echo ""
 	@echo "📦 Setup:"
-	@echo "  make install-app-frontend   Install app-frontend dependencies"
-	@echo "  make install-app-backend    Install app-backend dependencies"
-	@echo "  make pre-commit         Install pre-commit hooks"
+	@echo "  make install-app-frontend   	Install app-frontend dependencies"
+	@echo "  make install-app-backend    	Install app-backend dependencies"
+	@echo "  make pre-commit         			Install pre-commit hooks"
 	@echo ""
 	@echo "🔧 Development:"
-	@echo "  make dev-app-frontend       Start app-frontend dev server"
-	@echo "  make dev-app-backend        Start app-backend dev server"
+	@echo "  make dev-app-frontend       	Start app-frontend dev server"
+	@echo "  make dev-app-backend        	Start app-backend dev server"
 	@echo ""
 	@echo "✨ Code Quality:"
-	@echo "  make quality-app-frontend   Run app-frontend quality checks"
-	@echo "  make quality-app-backend    Run app-backend quality checks"
-	@echo "  make lint               Run linters (app-frontend + app-backend)"
-	@echo "  make format             Format code (app-frontend + app-backend)"
-	@echo "  make typecheck          Run type checkers (app-frontend + app-backend)"
+	@echo "  make quality-app-frontend   	Run app-frontend quality checks"
+	@echo "  make quality-app-backend    	Run app-backend quality checks"
+	@echo "  make lint               			Run linters (app-frontend + app-backend)"
+	@echo "  make format             			Format code (app-frontend + app-backend)"
+	@echo "  make typecheck          			Run type checkers (app-frontend + app-backend)"
 	@echo ""
 	@echo "🏗️  Build:"
-	@echo "  make build-app-frontend     Build app-frontend for production"
-	@echo "  make build-app-backend      Build app-backend (if applicable)"
-	@echo "  make paper              Build the Research Paper PDF"
+	@echo "  make build-app-frontend     	Build app-frontend for production"
+	@echo "  make build-app-backend      	Build app-backend (if applicable)"
+	@echo "  make paper              			Build the Research Paper PDF"
+	@echo "  make ppt                			Build the Presentation PPTX"
 	@echo ""
 	@echo "🧹 Cleanup:"
-	@echo "  make clean              Clean all build artifacts and caches"
-	@echo "  make clean-app-frontend     Clean app-frontend artifacts"
-	@echo "  make clean-app-backend      Clean app-backend artifacts"
+	@echo "  make clean              			Clean all build artifacts and caches"
+	@echo "  make clean-app-frontend     	Clean app-frontend artifacts"
+	@echo "  make clean-app-backend      	Clean app-backend artifacts"
 
 # Installation
 install: install-app-frontend install-app-backend pre-commit
@@ -148,6 +149,15 @@ paper-05:
 	export BIBINPUTS=.:../sections:$$BIBINPUTS; $(LATEXMK) -jobname=main -outdir="." -auxdir="build" $(PAPER_DIR_05)/main/main.tex
 	mv $(PAPER_DIR_05)/main/main.pdf $(PAPER_DIR_05)/paper.pdf
 	rm -rf $(PAPER_DIR_05)/main/build
+
+# Presentation Build
+PPT_DIR := paper-thesis/ppt
+PPT_NAME ?= presentation.pptx
+SAFE_PPT_NAME := $(notdir $(PPT_NAME))
+
+ppt:
+	@echo "🏗️  Building Presentation: $(SAFE_PPT_NAME)..."
+	@cd $(PPT_DIR) && python3 main/build.py "$(SAFE_PPT_NAME)"
 
 # Cleanup
 clean: clean-app-frontend clean-app-backend clean-paper
