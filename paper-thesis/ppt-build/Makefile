@@ -8,8 +8,8 @@
 #   make check         — verify all slide_*.py have build_slide()
 
 PYTHON      ?= python3
-BUILD_SCRIPT = build_ppt.py
-OUTPUT      ?= CMatrix_Presentation.pptx
+BUILD_SCRIPT = main/build.py
+OUTPUT      ?= presentation.pptx
 PPT_DIR     := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 .PHONY: ppt clean list check help
@@ -26,14 +26,14 @@ clean:
 ## List all slide modules in build order
 list:
 	@echo "Slide modules (build order):"
-	@ls "$(PPT_DIR)"slide_*.py 2>/dev/null | sort | nl -ba | \
+	@ls "$(PPT_DIR)"main/slide_*.py 2>/dev/null | sort -V | nl -ba | \
 	  awk '{printf "  %s  %s\n", $$1, $$2}'
 
 ## Verify all slide_*.py files have a build_slide() function
 check:
 	@echo "Checking slide modules..."
 	@ok=0; fail=0; \
-	for f in "$(PPT_DIR)"slide_*.py; do \
+	for f in $$(ls -v "$(PPT_DIR)"main/slide_*.py 2>/dev/null); do \
 	  if grep -q "def build_slide" "$$f"; then \
 	    echo "  ✓  $$(basename $$f)"; ok=$$((ok+1)); \
 	  else \
@@ -55,8 +55,8 @@ help:
 	@echo "  make check            Verify all slides have build_slide()"
 	@echo ""
 	@echo "  Workflow:"
-	@echo "    • Edit any slide_NN_name.py to change a slide"
-	@echo "    • Add slide_NN_name.py with build_slide(prs) to add a slide"
-	@echo "    • Delete or rename a slide_*.py to remove it"
+	@echo "    • Edit any main/slide_N.py to change a slide"
+	@echo "    • Add main/slide_N.py with build_slide(prs) to add a slide"
+	@echo "    • Delete or rename a main/slide_*.py to remove it"
 	@echo "    • Run  make ppt  to regenerate"
 	@echo ""
