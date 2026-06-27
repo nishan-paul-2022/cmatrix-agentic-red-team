@@ -143,7 +143,7 @@ flowchart TD
 
         STEP1["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: /wp-admin/admin-ajax.php\nAction: Confirm WP_Query SQLi\nStatus: ✅ VALIDATED\n↗ supported_by: sqli-extraction.txt"]
 
-        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nGet admin password hash\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
+        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nHash cracked offline → admin:Summer2023!\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
 
         STEP3["ChainStep 3\n─────────────\nTool: Metasploit\nModule: wp_admin_shell_upload\nAction: Deploy webshell → RCE\nStatus: ✅ VALIDATED\n↗ supported_by: webshell-rce.png"]
 
@@ -160,7 +160,7 @@ flowchart TD
         direction TB
         C2S["starts_at → ASG: IDOR on /api/v1/orders\n(user_id parameter unsanitised)"]
 
-        STEP21["ChainStep 1\n─────────────\nTool: SQLMap / ffuf\nAction: Confirm IDOR\nAny user_id returns that user's orders\nStatus: ✅ VALIDATED"]
+        STEP21["ChainStep 1\n─────────────\nTool: SQLMap\nAction: Confirm IDOR — user_id param injectable\nAPI returns any user's orders without auth check\nStatus: ✅ VALIDATED\n↗ supported_by: idor-orders-dump.png"]
 
         IMP2["💀 IMPACT\n─────────────\nAll customer order history exposed\nName · address · payment method visible\nClassification: HIGH"]
 
@@ -168,30 +168,50 @@ flowchart TD
         STEP21 -->|achieves| IMP2
     end
 
-    %% ── CHAIN 03 (RULED OUT) ──────────────────────────────────────
-    subgraph C3["AttackChain: Chain-03 · risk_score: 6.2 · RULED_OUT"]
+    %% ── CHAIN 03 ─────────────────────────────────────────────────
+    subgraph C3["AttackChain: Chain-03 · risk_score: 8.1 · VALIDATED"]
         direction TB
-        C3S["starts_at → ASG: Exposed /backup/db_export.sql"]
+        C3S["starts_at → ASG: SQL error on staging.shopvault.io/login\n(blind SQLi entry point)"]
 
-        STEP31["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nStatus: ❌ RULED_OUT\nReason: File returns 403 after\nfirst access (WAF blocked)\nFailure written to ASG Vuln node"]
+        STEP31["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: staging.shopvault.io/login\nAction: Confirm blind SQLi\nExtract staging database credentials table\nStatus: ✅ VALIDATED\n↗ supported_by: staging-db-dump.png"]
+
+        IMP3["💀 IMPACT\n─────────────\nStaging DB credentials extracted\nCredential reuse risk flagged:\nstaging creds partially overlap production\nClassification: HIGH"]
 
         C3S --> STEP31
+        STEP31 -->|achieves| IMP3
+    end
+
+    %% ── CHAIN 04 ─────────────────────────────────────────────────
+    subgraph C4["AttackChain: Chain-04 · risk_score: 7.0 · VALIDATED"]
+        direction TB
+        C4S["starts_at → ASG: Exposed /backup/db_export_2023.sql\n(Information Disclosure misconfiguration)"]
+
+        STEP41["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nFile publicly accessible — no auth required\nStatus: ✅ VALIDATED immediately\n↗ supported_by: db-backup-download.png"]
+
+        IMP4["💀 IMPACT\n─────────────\nFull customer PII database exposed\nDirect download — no exploitation needed\nClassification: CRITICAL"]
+
+        C4S --> STEP41
+        STEP41 -->|achieves| IMP4
     end
 
     %% ── PRIORITY RANKING ──────────────────────────────────────────
-    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 ← validated first\n#2 Chain-02 · 7.5 ← validated second\n#3 Chain-03 · 6.2 ← ruled out\n\nCommander re-ranks on every status change"]
+    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 (escalated after RCE) ← validated first\n#2 Chain-03 · 8.1 ← validated second\n#3 Chain-02 · 7.5 ← validated third\n#4 Chain-04 · 7.0 ← trivially validated in Phase 4\n\nCommander re-ranks on every status change"]
 
     %% Styles
     style C1 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style C2 fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style C3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style C3 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style C4 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style STEP1 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style STEP2 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style STEP3 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style IMP1 fill:#200818,stroke:#9C27B0,color:#CE93D8
     style STEP21 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style IMP2 fill:#200818,stroke:#9C27B0,color:#CE93D8
-    style STEP31 fill:#200606,stroke:#FF5252,color:#FF5252
+    style STEP31 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP3 fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style STEP41 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP4 fill:#200818,stroke:#9C27B0,color:#CE93D8
     style PRIO fill:#06101E,stroke:#00D4FF,color:#00D4FF
 ```
 
@@ -389,7 +409,7 @@ flowchart LR
         S2["🔗 APG SLICE\nRelevant AttackChains only\n(if this is a Validation task)"]
         S3["🔧 TOOL SET\nAuthorized tools only\nNo others available"]
         S4["📋 TASK SPEC\nCommander's current plan item\nExact objective for this spawn"]
-        S5["📚 KNOWLEDGE DOCS\n(Validation Agent only)\nVulnerability-class expert docs\ninjected at spawn time"]
+        S5["📚 KNOWLEDGE DOCS\n(Validation Agent + Analysis Agent)\nVulnerability-class expert docs\ninjected at spawn time"]
     end
 
     subgraph AGENT["🤖 Isolated Agent Context\n(fresh per task — no prior history)"]
@@ -455,7 +475,7 @@ flowchart TD
 |---------|---------------|
 | Spawn package | 5 components — each scoped, none is the full system state |
 | Tool Set boundary | Agent can ONLY use tools it was authorized for at spawn |
-| Knowledge Docs | Only Validation + Analysis agents receive these — matched to their vulnerability class |
+| Knowledge Docs | Validation Agent + Analysis Agent receive these — matched to their vulnerability class |
 | Return = delta only | The ASG grows by addition — agents don't rewrite existing nodes |
 | Context discarded | The working session is gone — the ASG persists forever |
 
@@ -912,23 +932,24 @@ flowchart TD
         B4["Tool: ffuf\n────────────────────────\nIDOR: user_id param unsanitised\n/api/v2 routes discovered\nVirtual host: internal.shopvault.io"]
         B5["Tool: Nuclei\n────────────────────────\nCVE-2022-21661 template → MATCH\nExposed phpinfo.php on staging\nDefault creds check: admin/admin → fail"]
         B6["Tool: OWASP ZAP\n────────────────────────\nXSS on /search?q= (reflected)\nSQL error on staging login form\nMissing security headers on API"]
-        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Exposed DB backup (6.2)"]
+        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE-2022-21661 SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Staging login blind SQLi (8.1)"]
     end
 
     subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE\nValidation Agent + Evidence Agent spawned"]
         C1["Chain-01 (highest priority: 8.8)\n────────────────────────────────\nStep 1: SQLMap on WP_Query\n→ SQLi confirmed ✅\n→ Evidence: sqli-extraction.txt"]
-        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: password123\n→ Evidence: user-table-dump.png"]
+        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: admin:Summer2023!\n→ Evidence: user-table-dump.png"]
         C3["Step 3: Metasploit wp_admin_shell_upload\n────────────────────────────────\n⚠️ HIGH RISK → Commander Mailbox\n→ Commander APPROVES\n→ Web shell deployed ✅\n→ RCE confirmed!\n→ risk_score escalated: 8.8 → 9.1\n→ Evidence: webshell-rce.png"]
-        C4["Chain-02 (risk: 7.5)\n────────────────────────────────\nffuf: user_id=456 returns user 456 orders\n→ IDOR confirmed ✅\n→ All customer PII accessible\n→ Evidence: idor-orders-dump.png"]
-        C5["Chain-03 (risk: 6.2)\n────────────────────────────────\nGET /backup/db_export_2023.sql\n→ Attempt 1: 403 (WAF blocked)\n→ Diagnose: WAF active\n→ Attempt 2: header bypass → 403\n→ Attempt 3: path variation → 403\n→ CAP REACHED → RULED_OUT\n→ Failure written to ASG Vuln node"]
-        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-02: VALIDATED (7.5)\nChain-03: RULED_OUT (6.2)\n\n📥 ASG DELTA\n4 Evidence nodes + edges added"]
+        C4["Chain-03 (next by risk: 8.1)\n────────────────────────────────\nSQLMap on staging.shopvault.io/login\n→ Blind SQLi confirmed ✅\n→ Staging DB credentials extracted ✅\n→ Commander flags: staging creds overlap production\n→ Additional Impact node: credential reuse risk\n→ Evidence: staging-db-dump.png"]
+        C5["Chain-02 (risk: 7.5)\n────────────────────────────────\nSQLMap on user_id parameter\n→ IDOR confirmed ✅\n→ Any customer's orders accessible without auth\n→ Evidence: idor-orders-dump.png"]
+        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-03: VALIDATED (8.1)\nChain-02: VALIDATED (7.5)\n\n📥 ASG DELTA\nEvidence nodes + edges added"]
     end
 
-    subgraph P4["🟣 PHASE 4 — REPORT\nReport Agent spawned — reads full ASG + APG"]
-        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 2 Validated Attack Chains (RCE + IDOR)\n• 1 Ruled-Out Chain (DB backup WAF-protected)\n• Full attack surface map (14 subdomains · 11 hosts)\n• 9 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Screenshot evidence at every ChainStep\n• ZERO manual commands issued"]
+    subgraph P4["🟣 PHASE 4 — ASG EXHAUSTION + CHAIN-04 + REPORT"]
+        C6["ASG Exhaustion Check\n────────────────────────────────\nCommander reads ASG: all 11 hosts mapped\n→ /backup/db_export_2023.sql still unvalidated\n→ Seed Chain-04: Direct DB backup download\n→ HTTP GET → 200 OK → VALIDATED immediately\n→ Evidence: db-backup-download.png"]
+        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 4 Validated Attack Chains\n• Full attack surface map (14 subdomains · 11 hosts)\n• 11 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Evidence at every ChainStep\n• ZERO manual commands issued"]
     end
 
-    TERM["✅ TERMINATION CONDITION MET\nASG: all 98 nodes explored\nAPG: all 3 chains in terminal state\n→ Report Agent spawned"]
+    TERM["✅ TERMINATION CONDITION MET\nASG: all 111 nodes explored\nAPG: all 4 chains VALIDATED\n→ Report Agent spawned"]
 
     OP --> P1
     A1 --> A2 --> A3 --> D1
@@ -939,7 +960,7 @@ flowchart TD
     C3 --> C4 --> C5 --> D3
     D3 --> TERM
     TERM --> P4
-    P4 --> RPT
+    C6 --> RPT
 
     style OP fill:#041A08,stroke:#7FFF00,color:#7FFF00
     style P1 fill:#062210,stroke:#7FFF00,color:#7FFF00
@@ -950,6 +971,7 @@ flowchart TD
     style D2 fill:#041A08,stroke:#7FFF00,color:#7FFF00
     style D3 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style TERM fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style C6 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style RPT fill:#10081E,stroke:#9C27B0,color:#CE93D8
 ```
 
@@ -971,25 +993,30 @@ timeline
     section After Research
         Step 4  : Trigger: CVE-2022-21661 Vuln node written (CVSS 8.8, PoC confirmed)
                 : Action: Seed Chain-01 in APG — HYPOTHESIZED — priority 1
-        Step 5  : Trigger: IDOR Vuln node written by ZAP
-                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 2
-        Step 6  : Trigger: Exposed DB backup Vuln node written
-                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 3
+        Step 5  : Trigger: IDOR Parameter node written (user_id unsanitised)
+                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 3
+        Step 6  : Trigger: SQL error Vuln node on staging login written by ZAP
+                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 2 (risk 8.1)
+    section Phase 4 — ASG Exhaustion
+        Step 6b : Trigger: Exposed /backup/db_export_2023.sql Endpoint node
+                : Action: Seed Chain-04 in APG — trivially validated via HTTP GET
     section Validation
-        Step 7  : Trigger: Chain-01 is highest priority
+        Step 7  : Trigger: Chain-01 is highest priority (8.8)
                 : Action: Spawn Validation Agent for Chain-01
         Step 8  : Trigger: SQLMap HIGH-risk call arrives at mailbox
                 : Decision: APPROVE — target confirmed in scope — chain context valid
         Step 9  : Trigger: Metasploit HIGH-risk call arrives at mailbox
                 : Decision: APPROVE — Steps 1+2 already VALIDATED — RCE is the goal
         Step 10 : Trigger: Chain-01 → VALIDATED — risk escalated to 9.1
-                : Action: Spawn Validation Agent for Chain-02
-        Step 11 : Trigger: Chain-02 → VALIDATED
-                : Action: Spawn Validation Agent for Chain-03
-        Step 12 : Trigger: Chain-03 → RULED_OUT after 3 retries
-                : Note: Failure reason written to ASG Vuln node
+                : Action: Spawn Validation Agent for Chain-03 (next by risk score 8.1)
+        Step 11 : Trigger: Chain-03 → VALIDATED — staging credentials extracted
+                : Note: Commander flags credential reuse risk as additional Impact node
+        Step 12 : Trigger: Chain-02 next (risk 7.5)
+                : Action: Spawn Validation Agent for Chain-02 — VALIDATED
+        Step 13 : Trigger: Chain-04 — trivial validation (public HTTP GET)
+                : Action: VALIDATED immediately
     section Termination
-        Step 13 : Trigger: ASG exhausted (98 nodes explored) AND APG resolved (3/3 terminal)
+        Step 14 : Trigger: ASG exhausted (111 nodes) AND APG resolved (4/4 chains VALIDATED)
                 : Action: Dual-graph termination condition met — spawn Report Agent
 ```
 
@@ -1015,16 +1042,17 @@ flowchart LR
 
     subgraph APG_FINAL["🟡 APG — Final State"]
         direction TB
-        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated)\nSQLi → Admin → RCE"]
-        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer PII"]
-        CH3["Chain-03: RULED_OUT ❌\nrisk: 6.2\nDB backup WAF-protected"]
+        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated after RCE)\nWordPress SQLi → Admin auth → RCE"]
+        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer order PII"]
+        CH3["Chain-03: VALIDATED ✅\nrisk: 8.1\nStaging blind SQLi → Credential extraction"]
+        CH4["Chain-04: VALIDATED ✅\nrisk: 7.0\nExposed DB backup → Full PII download"]
     end
 
     subgraph REPORT_FINAL["📝 Report Output"]
         direction TB
-        R1["2 validated attack chains\nwith step-by-step reproduction"]
-        R2["4 screenshot evidence artifacts\nlinked at each ChainStep"]
-        R3["9 vulnerabilities\nordered by risk_score"]
+        R1["4 validated attack chains\nwith step-by-step reproduction"]
+        R2["Evidence artifacts linked\nat every ChainStep"]
+        R3["11 vulnerabilities\nordered by risk_score"]
         R4["Remediation guidance\nprioritized by business risk"]
         R5["0 manual commands issued\nduring entire assessment"]
     end
@@ -1087,11 +1115,255 @@ flowchart LR
 | Fact | Significance |
 |------|-------------|
 | **Zero manual commands** | The operator configured scope and pressed start. Everything else was autonomous. |
-| **All tool calls gated** | SQLMap and Metasploit both went through Commander Mailbox — no exploitation without approval |
-| **Chain-03 RULED_OUT** | The system correctly diagnosed WAF protection and stopped after 3 retries — not an infinite loop |
+| **All exploitation gated** | SQLMap and Metasploit both went through Commander Mailbox — no exploitation without explicit approval |
+| **4 chains, all VALIDATED** | Every seeded AttackChain reached a terminal VALIDATED state — including the trivially validated DB backup chain |
 | **risk_score escalated** | Chain-01 started at 8.8 (CVSS); after RCE was confirmed, Commander escalated to 9.1 |
+| **Credential reuse discovered** | Chain-03 validation uncovered staging-to-production credential overlap — flagged as an additional APG Impact node |
 | **Traceability** | Every Impact claim links through ChainSteps back to Evidence files in the ASG |
-| **Dual termination** | Mission ended because 98 nodes explored AND 3/3 chains terminal — not because a timer fired |
+| **Dual termination** | Mission ended because 111 nodes explored AND 4/4 chains VALIDATED — not because a timer fired |
+
+---
+
+## Module 05, Figure 1 — Cross-Mission Experience Store: The Persistent Learning Layer
+
+The ASG and APG are reset fresh for every mission. The Cross-Mission Experience Store is the only structure that survives across missions. This diagram shows its two-direction lifecycle: how it is written at mission close, and how it is queried at mission start.
+
+```mermaid
+flowchart TD
+    subgraph MISSION_A["🟢 Mission A — shopvault.io (completed)"]
+        direction LR
+        A1["APG: Chain-01 VALIDATED\nWordPress 5.9.3 + WooCommerce\nSQLi → Admin → RCE"]
+        A2["APG: Chain-03 VALIDATED\nDjango API + staging SQLi\nBlind SQLi → Credential extraction"]
+    end
+
+    subgraph WRITE["📥 WRITE TRIGGER\nReport Agent — at mission close\nFor every VALIDATED chain"]
+        W1["Store Entry Written:\n──────────────────────────\nTarget fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18\nVuln class: SQLi (CVE-2022-21661)\nTool sequence: SQLMap → SQLMap dump → Metasploit\nChainStep params: WP_Query endpoint · wp_admin_shell_upload\nOutcome: RCE achieved · admin hash cracked · Summer2023!\nMission ID: MIS-001"]
+    end
+
+    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE\n(Persistent · RAG-backed · Survives across missions)"]
+        S1["Entry: MIS-001 · WordPress SQLi → RCE"]
+        S2["Entry: MIS-001 · Django staging blind SQLi"]
+        S3["Entry: MIS-002 · ... (prior missions)"]
+        S4["Entry: MIS-00N · ..."]
+    end
+
+    subgraph QUERY["📤 QUERY TRIGGER\nCommander — at mission start\nAfter first Technology nodes written to ASG"]
+        Q1["Query: WordPress 5.x + WooCommerce\n──────────────────────────\nRetrieves: MIS-001 entry\nInjects into Commander context as:\nCandidate chain hypotheses —\npre-validated patterns from analogous past engagements"]
+    end
+
+    subgraph MISSION_B["🔵 Mission B — new target with WordPress 5.8"]
+        direction LR
+        B1["Commander seeds APG Chain-01\nFront-loaded: SQLi hypothesis\nalready validated on similar stack\n→ Skips zero-prior reasoning\n→ Validation pursued immediately"]
+    end
+
+    MISSION_A --> WRITE
+    WRITE --> STORE
+    STORE --> QUERY
+    QUERY --> MISSION_B
+
+    style MISSION_A fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style WRITE fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style STORE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style QUERY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style MISSION_B fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+**Key properties:**
+- The store is queried **immediately after the first Technology node batch** is written — before Analysis Agent begins enumeration. This front-loads high-probability chains.
+- Only `VALIDATED` chains are written. `RULED_OUT` chains are not stored (they represent dead ends on specific parameters, not reusable patterns).
+- Retrieval returns **candidate hypotheses** — the Commander still evaluates them against the current ASG before seeding APG chains. The store accelerates, it does not override.
+
+---
+
+## Module 05, Figure 2 — Attack Strategy Library: Cross-Mission Procedural Learning
+
+The Cross-Mission Experience Store records raw per-mission outcomes. The Attack Strategy Library is a higher-order abstraction: generalized, named, parameterized attack strategies crystallized from multiple missions that produced the same result on the same technology fingerprint.
+
+```mermaid
+flowchart TD
+    subgraph RAW["🗄️ Cross-Mission Experience Store\n(Raw per-mission records)"]
+        R1["MIS-001: WordPress 5.9.3 + WooCommerce\n→ CVE-2022-21661 SQLi → RCE ✅"]
+        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0\n→ CVE-2022-21661 SQLi → RCE ✅"]
+        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1\n→ CVE-2022-21661 SQLi → RCE ✅"]
+    end
+
+    subgraph THRESHOLD["⚖️ Crystallization Threshold Check\nCommander evaluates after each mission close\nSame fingerprint pattern → VALIDATED\nacross ≥ 2 independent missions?"]
+        T1{"≥ 2 missions\nwith same fingerprint\n→ same VALIDATED\noutcome?"}
+    end
+
+    subgraph CRYSTALLIZE["🔬 Crystallization\nScoped LLM call — generalizes specific params\ninto a technology-class procedure"]
+        CR1["Input: 3 raw mission entries\nOutput: Generalized strategy\n─────────────────────────────\nStrategy ID: STRAT-WP-SQLI-001\nName: WordPress WP_Query SQLi → Admin RCE\nFingerprint: WordPress 5.x + WooCommerce + Nginx\nVuln class: SQLi · CVE range: CVE-2022-21661\nTool sequence: SQLMap (WP_Query endpoint)\n  → SQLMap --dump (users table)\n  → Metasploit (wp_admin_shell_upload)\nConfidence: 3/3 missions (100%)\nLast validated: MIS-012"]
+    end
+
+    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY\n(Named · Parameterized · Confidence-scored)"]
+        L1["STRAT-WP-SQLI-001\nWordPress SQLi → RCE\nConfidence: 100% (3 missions)"]
+        L2["STRAT-DJANGO-IDOR-001\nDjango API IDOR\nConfidence: 67% (2/3 missions)"]
+        L3["STRAT-... (growing library)"]
+    end
+
+    subgraph INJECT["🚀 Mission Start — Strategy Retrieval\nCommander queries Library AFTER\nCross-Mission Experience Store query"]
+        I1["Match: new target has WordPress 5.7\n→ Retrieves STRAT-WP-SQLI-001\n→ Injected as pre-ranked APG AttackChain seed\n→ Prioritized ABOVE zero-prior chains\n   (carries validated track record, not just CVSS)"]
+    end
+
+    RAW --> THRESHOLD
+    T1 -->|"yes"| CRYSTALLIZE
+    T1 -->|"no — keep accumulating"| RAW
+    CRYSTALLIZE --> LIBRARY
+    LIBRARY --> INJECT
+
+    style RAW fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style THRESHOLD fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CRYSTALLIZE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style LIBRARY fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style INJECT fill:#1E1004,stroke:#FFC107,color:#FFC107
+```
+
+**Distinction from Cross-Mission Experience Store:**
+
+| | Experience Store | Strategy Library |
+|---|---|---|
+| Granularity | Per-mission, per-chain raw records | Generalized across ≥2 missions |
+| Content | Specific tool params, exact chain outcomes | Parameterized procedures + confidence scores |
+| Query trigger | After first Technology nodes written | After Experience Store query — same mission start window |
+| Write trigger | Every VALIDATED chain at mission close | Crystallization threshold: ≥2 matching missions |
+
+---
+
+## Module 06, Figure 2 — Validation Agent Self-Debug Loop
+
+When a ChainStep fails, the Validation Agent does not immediately mark it `RULED_OUT`. It enters a bounded 4-step self-debugging loop before giving up.
+
+```mermaid
+flowchart TD
+    START["🎯 Validation Agent\nExecutes ChainStep attempt\n(tool call → result)"]
+
+    RESULT{Result?}
+
+    SUCCESS["✅ ChainStep → VALIDATED\nEvidence written to ASG\nCommander advances chain"]
+
+    DIAGNOSE["🔍 Step 1: DIAGNOSE\n─────────────────────────\nAnalyze why the attempt failed:\n• Wrong parameter / encoding?\n• Authentication required?\n• Version mismatch?\n• Tool flag error?\n• Payload detection / filtering?"]
+
+    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE\n─────────────────────────\nQuery ASG for additional node attributes:\n• Re-read Service version from ASG Service node\n• Check if auth credential captured in prior Evidence node\n• Retrieve any Parameter annotations added since spawn\n• Cross-check APG chain intent vs actual target state"]
+
+    ADAPT["🔧 Step 3: ADAPT\n─────────────────────────\nModify tool invocation based on\ndiagnosis + additional ASG context:\n• Adjust payload / encoding\n• Add auth credential from Evidence node\n• Change tool flags / timing\n• Switch exploitation approach"]
+
+    CAP{"Retry cap\nreached?\n(default: 3)"}
+
+    RETRY["🔄 Retry\nExecute adapted tool call"]
+
+    RULED_OUT["❌ ChainStep → RULED_OUT\n─────────────────────────\nFailure reason written as structured\nannotation to ASG Vulnerability node\nCommander re-reads APG\nRe-prioritizes remaining chains"]
+
+    START --> RESULT
+    RESULT -->|"success"| SUCCESS
+    RESULT -->|"failure"| DIAGNOSE
+    DIAGNOSE --> CONTEXTUALIZE
+    CONTEXTUALIZE --> ADAPT
+    ADAPT --> CAP
+    CAP -->|"no — retry"| RETRY
+    RETRY --> RESULT
+    CAP -->|"yes — give up"| RULED_OUT
+
+    style START fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style RESULT fill:#1E1004,stroke:#FFC107,color:#fff
+    style SUCCESS fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style DIAGNOSE fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CONTEXTUALIZE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style ADAPT fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CAP fill:#1A0606,stroke:#FF5252,color:#fff
+    style RETRY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style RULED_OUT fill:#220606,stroke:#FF5252,color:#FF5252
+```
+
+**Why this matters:**
+- The cap (default 3) prevents infinite loops while giving the agent a real chance to recover from transient errors
+- `RULED_OUT` is a **structured, annotated outcome** — the failure reason is written back to the ASG Vulnerability node so future missions or the Report Agent can read it
+- The Commander re-prioritizes immediately on any `RULED_OUT` — the next-highest chain is pursued without delay
+
+---
+
+## Module 06, Figure 3 — Single LLM API: All Call Types, One Integration Point
+
+CMatrix issues every LLM call through a single configured API. What varies between calls is not the model — it is the scope of the prompt. This diagram makes that explicit.
+
+```mermaid
+flowchart LR
+    API["☁️ SINGLE CONFIGURED\nLLM API\n─────────────\nOne model.\nOne integration point.\nAll behavioral differences\nexplained by prompt scope\n— not routing logic."]
+
+    subgraph CALLS["All LLM Call Types in CMatrix"]
+        direction TB
+
+        CALL1["👑 Commander Reasoning\n─────────────────────────\nScope: FULL\nReceives: complete ASG snapshot\n+ APG chain priorities + chain status\nProduces: next planned action\nFrequency: every planning cycle iteration"]
+
+        CALL2["🗜️ MicroCompact\n─────────────────────────\nScope: NARROW\nReceives: single raw tool output\nInstruction: normalize to ASG schema fields\nProduces: structured JSON → written to ASG\nRaw output: discarded after write\nFrequency: every tool call"]
+
+        CALL3["🗜️ AutoCompact\n─────────────────────────\nScope: NARROW\nReceives: older conversation turns\n(at 60% context threshold)\nInstruction: summarize losslessly\nProduces: summary replaces old turns\nFrequency: triggered at 60% context"]
+
+        CALL4["🔍 Research Agent Normalization\n─────────────────────────\nScope: NARROW\nReceives: raw NVD / Exploit-DB response\nInstruction: extract to ASG Vulnerability schema\nProduces: enriched Vulnerability node attributes\nFrequency: per Research Agent invocation"]
+
+        CALL5["🚦 Permission Classifier\n─────────────────────────\nScope: NARROW\nReceives: tool call + target ASG node\n+ current APG chain context\nInstruction: evaluate 3 axes → binary verdict\nProduces: EXECUTE or ESCALATE\nFrequency: every Medium-risk tool call"]
+    end
+
+    CALL1 --> API
+    CALL2 --> API
+    CALL3 --> API
+    CALL4 --> API
+    CALL5 --> API
+
+    style API fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CALL1 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CALL2 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL3 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style CALL5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+```
+
+**Why single-API matters for research:** Every result CMatrix produces is attributable to one model under one configuration. There is no hidden quality/cost trade-off from silently routing some calls to a cheaper model. Evaluation is honest.
+
+---
+
+## Module 06, Figure 4 — Vulnerability-Class Knowledge Injection
+
+At agent spawn time, Validation Agent and Analysis Agent receive curated offline expert documents matched to their assigned vulnerability class. These are injected once at spawn — not accumulated in conversation history — so they survive context compaction automatically.
+
+```mermaid
+flowchart TD
+    CMD["👑 Commander\nSpawns specialist agent\nwith assigned vulnerability class"]
+
+    subgraph INJECT["📚 Knowledge Injection at Spawn"]
+        direction TB
+
+        K1["Analysis Agent — Web Targets\n────────────────────────────────\n• OWASP Testing Guide checklist\n  (per applicable OWASP category)\n• Common web misconfiguration patterns"]
+
+        K2["Analysis Agent — API Targets\n────────────────────────────────\n• REST API attack surface checklist\n• IDOR patterns\n• Parameter pollution techniques"]
+
+        K3["Validation Agent — SQLi Chains\n────────────────────────────────\n• SQL injection technique taxonomy\n• SQLMap flag reference guide\n• Blind / time-based detection patterns"]
+
+        K4["Validation Agent — XSS Chains\n────────────────────────────────\n• XSS payload pattern library\n• CSP bypass techniques\n• DOM vs reflected vs stored distinction"]
+
+        K5["Validation Agent — Exploit Chains\n────────────────────────────────\n• Metasploit module selection heuristics\n• Payload / encoder selection guide\n• Post-exploitation evidence collection"]
+    end
+
+    subgraph PROP["Key Properties"]
+        direction TB
+        P1["Static · curated · version-controlled\nEncodes practitioner knowledge\nimplicit in LLM pre-training"]
+        P2["Re-injected at every spawn\nNever accumulated in history\n→ Survives FullCompact automatically"]
+        P3["No internet access required\nSeparate from Research Agent\nlive CVE intelligence"]
+    end
+
+    CMD --> INJECT
+    INJECT --> PROP
+
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style INJECT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style K1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K2 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K4 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style PROP fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+> **Distinction from Research Agent:** Research Agent retrieves **live CVE data** for specific discovered versions during a mission. Knowledge injection provides **evergreen offensive technique reasoning** that does not depend on external network access and is re-used across all missions.
 
 ---
 
@@ -1102,8 +1374,13 @@ The diagrams have been migrated to their contextually appropriate modules. Here 
 | Location | Figure | What It Shows |
 |---|---------|---------------|
 | Module 03 | Figure 1: System Architecture | 3-tier swim-lane: Orchestration → Dual-Graph → Agents+Tools |
-| Module 02 | Figure 1: Dual-Graph Model | ASG node tree (9 types) + APG chain lifecycle (3 chains) |
+| Module 02 | Figure 1: Dual-Graph Model | ASG node tree (9 types) + APG chain lifecycle (4 chains) |
 | Module 03 | Figure 2: Agent Spawn Lifecycle | Sequence diagram + spawn package + 3 isolation properties |
 | Module 04 | Figure 1: Tool Risk Gate | Full decision tree + LLM classifier internals + 6 hooks timeline |
 | Module 06 | Figure 1: Planning Cycle | Core loop + re-plan triggers + dual termination + compaction |
+| Module 06 | Figure 2: Validation Agent Self-Debug Loop | 4-step diagnose→contextualize→adapt→cap loop |
+| Module 06 | Figure 3: Single LLM API / Scoped Calls | All call types routed to one API, differentiated by prompt scope |
+| Module 06 | Figure 4: Vulnerability-Class Knowledge Injection | Agent-to-document injection mapping |
 | Module 07 | Figure 1: shopvault.io Walkthrough | Phase-by-phase timeline + Commander log + traceability chain |
+| Module 05 | Figure 1: Cross-Mission Experience Store | Mission-start query + mission-end write lifecycle |
+| Module 05 | Figure 2: Attack Strategy Library Crystallization | Fingerprint → multi-mission → crystallized strategy flow |

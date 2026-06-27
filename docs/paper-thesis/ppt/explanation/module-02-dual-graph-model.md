@@ -535,7 +535,7 @@ flowchart TD
 
         STEP1["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: /wp-admin/admin-ajax.php\nAction: Confirm WP_Query SQLi\nStatus: ✅ VALIDATED\n↗ supported_by: sqli-extraction.txt"]
 
-        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nGet admin password hash\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
+        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nHash cracked offline → admin:Summer2023!\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
 
         STEP3["ChainStep 3\n─────────────\nTool: Metasploit\nModule: wp_admin_shell_upload\nAction: Deploy webshell → RCE\nStatus: ✅ VALIDATED\n↗ supported_by: webshell-rce.png"]
 
@@ -552,7 +552,7 @@ flowchart TD
         direction TB
         C2S["starts_at → ASG: IDOR on /api/v1/orders\n(user_id parameter unsanitised)"]
 
-        STEP21["ChainStep 1\n─────────────\nTool: SQLMap / ffuf\nAction: Confirm IDOR\nAny user_id returns that user's orders\nStatus: ✅ VALIDATED"]
+        STEP21["ChainStep 1\n─────────────\nTool: SQLMap\nAction: Confirm IDOR — user_id param injectable\nAPI returns any user's orders without auth check\nStatus: ✅ VALIDATED\n↗ supported_by: idor-orders-dump.png"]
 
         IMP2["💀 IMPACT\n─────────────\nAll customer order history exposed\nName · address · payment method visible\nClassification: HIGH"]
 
@@ -560,30 +560,50 @@ flowchart TD
         STEP21 -->|achieves| IMP2
     end
 
-    %% ── CHAIN 03 (RULED OUT) ──────────────────────────────────────
-    subgraph C3["AttackChain: Chain-03 · risk_score: 6.2 · RULED_OUT"]
+    %% ── CHAIN 03 ─────────────────────────────────────────────────
+    subgraph C3["AttackChain: Chain-03 · risk_score: 8.1 · VALIDATED"]
         direction TB
-        C3S["starts_at → ASG: Exposed /backup/db_export.sql"]
+        C3S["starts_at → ASG: SQL error on staging.shopvault.io/login\n(blind SQLi entry point)"]
 
-        STEP31["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nStatus: ❌ RULED_OUT\nReason: File returns 403 after\nfirst access (WAF blocked)\nFailure written to ASG Vuln node"]
+        STEP31["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: staging.shopvault.io/login\nAction: Confirm blind SQLi\nExtract staging database credentials table\nStatus: ✅ VALIDATED\n↗ supported_by: staging-db-dump.png"]
+
+        IMP3["💀 IMPACT\n─────────────\nStaging DB credentials extracted\nCredential reuse risk flagged:\nstaging creds partially overlap production\nClassification: HIGH"]
 
         C3S --> STEP31
+        STEP31 -->|achieves| IMP3
+    end
+
+    %% ── CHAIN 04 ─────────────────────────────────────────────────
+    subgraph C4["AttackChain: Chain-04 · risk_score: 7.0 · VALIDATED"]
+        direction TB
+        C4S["starts_at → ASG: Exposed /backup/db_export_2023.sql\n(Information Disclosure misconfiguration)"]
+
+        STEP41["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nFile publicly accessible — no auth required\nStatus: ✅ VALIDATED immediately\n↗ supported_by: db-backup-download.png"]
+
+        IMP4["💀 IMPACT\n─────────────\nFull customer PII database exposed\nDirect download — no exploitation needed\nClassification: CRITICAL"]
+
+        C4S --> STEP41
+        STEP41 -->|achieves| IMP4
     end
 
     %% ── PRIORITY RANKING ──────────────────────────────────────────
-    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 ← validated first\n#2 Chain-02 · 7.5 ← validated second\n#3 Chain-03 · 6.2 ← ruled out\n\nCommander re-ranks on every status change"]
+    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 (escalated after RCE) ← validated first\n#2 Chain-03 · 8.1 ← validated second\n#3 Chain-02 · 7.5 ← validated third\n#4 Chain-04 · 7.0 ← trivially validated in Phase 4\n\nCommander re-ranks on every status change"]
 
     %% Styles
     style C1 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style C2 fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style C3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style C3 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style C4 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style STEP1 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style STEP2 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style STEP3 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style IMP1 fill:#200818,stroke:#9C27B0,color:#CE93D8
     style STEP21 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
     style IMP2 fill:#200818,stroke:#9C27B0,color:#CE93D8
-    style STEP31 fill:#200606,stroke:#FF5252,color:#FF5252
+    style STEP31 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP3 fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style STEP41 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP4 fill:#200818,stroke:#9C27B0,color:#CE93D8
     style PRIO fill:#06101E,stroke:#00D4FF,color:#00D4FF
 ```
 

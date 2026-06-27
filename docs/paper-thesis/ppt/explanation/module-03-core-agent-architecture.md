@@ -625,7 +625,7 @@ flowchart LR
         S2["🔗 APG SLICE\nRelevant AttackChains only\n(if this is a Validation task)"]
         S3["🔧 TOOL SET\nAuthorized tools only\nNo others available"]
         S4["📋 TASK SPEC\nCommander's current plan item\nExact objective for this spawn"]
-        S5["📚 KNOWLEDGE DOCS\n(Validation Agent only)\nVulnerability-class expert docs\ninjected at spawn time"]
+        S5["📚 KNOWLEDGE DOCS\n(Validation Agent + Analysis Agent)\nVulnerability-class expert docs\ninjected at spawn time"]
     end
 
     subgraph AGENT["🤖 Isolated Agent Context\n(fresh per task — no prior history)"]

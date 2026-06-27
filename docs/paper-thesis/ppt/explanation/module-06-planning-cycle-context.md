@@ -701,5 +701,143 @@ flowchart LR
 
 ---
 
+## Figure 2 — Validation Agent Self-Debug Loop
+
+When a ChainStep fails, the Validation Agent does not immediately mark it `RULED_OUT`. It enters a bounded 4-step self-debugging loop before giving up.
+
+```mermaid
+flowchart TD
+    START["🎯 Validation Agent\nExecutes ChainStep attempt\n(tool call → result)"]
+
+    RESULT{Result?}
+
+    SUCCESS["✅ ChainStep → VALIDATED\nEvidence written to ASG\nCommander advances chain"]
+
+    DIAGNOSE["🔍 Step 1: DIAGNOSE\n─────────────────────────\nAnalyze why the attempt failed:\n• Wrong parameter / encoding?\n• Authentication required?\n• Version mismatch?\n• Tool flag error?\n• Payload detection / filtering?"]
+
+    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE\n─────────────────────────\nQuery ASG for additional node attributes:\n• Re-read Service version from ASG Service node\n• Check if auth credential captured in prior Evidence node\n• Retrieve any Parameter annotations added since spawn\n• Cross-check APG chain intent vs actual target state"]
+
+    ADAPT["🔧 Step 3: ADAPT\n─────────────────────────\nModify tool invocation based on\ndiagnosis + additional ASG context:\n• Adjust payload / encoding\n• Add auth credential from Evidence node\n• Change tool flags / timing\n• Switch exploitation approach"]
+
+    CAP{"Retry cap\nreached?\n(default: 3)"}
+
+    RETRY["🔄 Retry\nExecute adapted tool call"]
+
+    RULED_OUT["❌ ChainStep → RULED_OUT\n─────────────────────────\nFailure reason written as structured\nannotation to ASG Vulnerability node\nCommander re-reads APG\nRe-prioritizes remaining chains"]
+
+    START --> RESULT
+    RESULT -->|"success"| SUCCESS
+    RESULT -->|"failure"| DIAGNOSE
+    DIAGNOSE --> CONTEXTUALIZE
+    CONTEXTUALIZE --> ADAPT
+    ADAPT --> CAP
+    CAP -->|"no — retry"| RETRY
+    RETRY --> RESULT
+    CAP -->|"yes — give up"| RULED_OUT
+
+    style START fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style RESULT fill:#1E1004,stroke:#FFC107,color:#fff
+    style SUCCESS fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style DIAGNOSE fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CONTEXTUALIZE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style ADAPT fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CAP fill:#1A0606,stroke:#FF5252,color:#fff
+    style RETRY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style RULED_OUT fill:#220606,stroke:#FF5252,color:#FF5252
+```
+
+**Why this matters:**
+- The cap (default 3) prevents infinite loops while giving the agent a real chance to recover from transient errors
+- `RULED_OUT` is a **structured, annotated outcome** — the failure reason is written back to the ASG Vulnerability node so future missions or the Report Agent can read it
+- The Commander re-prioritizes immediately on any `RULED_OUT` — the next-highest chain is pursued without delay
+
+---
+
+## Figure 3 — Single LLM API: All Call Types, One Integration Point
+
+CMatrix issues every LLM call through a single configured API. What varies between calls is not the model — it is the scope of the prompt. This diagram makes that explicit.
+
+```mermaid
+flowchart LR
+    API["☁️ SINGLE CONFIGURED\nLLM API\n─────────────\nOne model.\nOne integration point.\nAll behavioral differences\nexplained by prompt scope\n— not routing logic."]
+
+    subgraph CALLS["All LLM Call Types in CMatrix"]
+        direction TB
+
+        CALL1["👑 Commander Reasoning\n─────────────────────────\nScope: FULL\nReceives: complete ASG snapshot\n+ APG chain priorities + chain status\nProduces: next planned action\nFrequency: every planning cycle iteration"]
+
+        CALL2["🗜️ MicroCompact\n─────────────────────────\nScope: NARROW\nReceives: single raw tool output\nInstruction: normalize to ASG schema fields\nProduces: structured JSON → written to ASG\nRaw output: discarded after write\nFrequency: every tool call"]
+
+        CALL3["🗜️ AutoCompact\n─────────────────────────\nScope: NARROW\nReceives: older conversation turns\n(at 60% context threshold)\nInstruction: summarize losslessly\nProduces: summary replaces old turns\nFrequency: triggered at 60% context"]
+
+        CALL4["🔍 Research Agent Normalization\n─────────────────────────\nScope: NARROW\nReceives: raw NVD / Exploit-DB response\nInstruction: extract to ASG Vulnerability schema\nProduces: enriched Vulnerability node attributes\nFrequency: per Research Agent invocation"]
+
+        CALL5["🚦 Permission Classifier\n─────────────────────────\nScope: NARROW\nReceives: tool call + target ASG node\n+ current APG chain context\nInstruction: evaluate 3 axes → binary verdict\nProduces: EXECUTE or ESCALATE\nFrequency: every Medium-risk tool call"]
+    end
+
+    CALL1 --> API
+    CALL2 --> API
+    CALL3 --> API
+    CALL4 --> API
+    CALL5 --> API
+
+    style API fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CALL1 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CALL2 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL3 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style CALL5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+```
+
+**Why single-API matters for research:** Every result CMatrix produces is attributable to one model under one configuration. There is no hidden quality/cost trade-off from silently routing some calls to a cheaper model. Evaluation is honest.
+
+---
+
+## Figure 4 — Vulnerability-Class Knowledge Injection
+
+At agent spawn time, Validation Agent and Analysis Agent receive curated offline expert documents matched to their assigned vulnerability class. These are injected once at spawn — not accumulated in conversation history — so they survive context compaction automatically.
+
+```mermaid
+flowchart TD
+    CMD["👑 Commander\nSpawns specialist agent\nwith assigned vulnerability class"]
+
+    subgraph INJECT["📚 Knowledge Injection at Spawn"]
+        direction TB
+
+        K1["Analysis Agent — Web Targets\n────────────────────────────────\n• OWASP Testing Guide checklist\n  (per applicable OWASP category)\n• Common web misconfiguration patterns"]
+
+        K2["Analysis Agent — API Targets\n────────────────────────────────\n• REST API attack surface checklist\n• IDOR patterns\n• Parameter pollution techniques"]
+
+        K3["Validation Agent — SQLi Chains\n────────────────────────────────\n• SQL injection technique taxonomy\n• SQLMap flag reference guide\n• Blind / time-based detection patterns"]
+
+        K4["Validation Agent — XSS Chains\n────────────────────────────────\n• XSS payload pattern library\n• CSP bypass techniques\n• DOM vs reflected vs stored distinction"]
+
+        K5["Validation Agent — Exploit Chains\n────────────────────────────────\n• Metasploit module selection heuristics\n• Payload / encoder selection guide\n• Post-exploitation evidence collection"]
+    end
+
+    subgraph PROP["Key Properties"]
+        direction TB
+        P1["Static · curated · version-controlled\nEncodes practitioner knowledge\nimplicit in LLM pre-training"]
+        P2["Re-injected at every spawn\nNever accumulated in history\n→ Survives FullCompact automatically"]
+        P3["No internet access required\nSeparate from Research Agent\nlive CVE intelligence"]
+    end
+
+    CMD --> INJECT
+    INJECT --> PROP
+
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style INJECT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style K1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K2 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K4 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style PROP fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+> **Distinction from Research Agent:** Research Agent retrieves **live CVE data** for specific discovered versions during a mission. Knowledge injection provides **evergreen offensive technique reasoning** that does not depend on external network access and is re-used across all missions.
+
+---
+
 *Next: [Module 07 — Methodology-as-Configuration, Research Contributions, and Related Work](module-07-methodology-and-research.md)*
 
