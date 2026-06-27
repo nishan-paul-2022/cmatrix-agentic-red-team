@@ -44,7 +44,7 @@ def build_slide(prs):
     txt(slide, "\u201c", ql + Inches(0.15), qt + Inches(0.05), Inches(0.6), Inches(0.7),
         size=60, bold=True, color=ACCENT_CYAN)
     txt(slide,
-        "They automate tool execution.\nCMatrix automates the reasoning\nof a professional penetration tester.",
+        "They automate tool execution. CMatrix automates the reasoning of a professional penetration tester.",
         ql + Inches(0.2), qt + Inches(0.55), qw - Inches(0.4), Inches(1.6),
         size=20, italic=True, color=WHITE, wrap=True, align=PP_ALIGN.LEFT)
     txt(slide, "— CMatrix Design Philosophy",
@@ -58,7 +58,7 @@ def build_slide(prs):
     box(slide, ql, Inches(4.42), qw, Inches(1.42), fill=CARD_BG, line_color=ACCENT_RED, lw=1.0)
     txt(slide,
         "Existing systems have no structured model of the target environment "
-        "and no structured model of what attack paths are possible.\n\n"
+        "and no structured model of what attack paths are possible.  "
         "They know what they did — not what the target is, or what can be done to it.",
         ql + Inches(0.2), Inches(4.5), qw - Inches(0.35), Inches(1.26),
         size=12.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)

@@ -80,7 +80,7 @@ def build_slide(prs):
     box(slide, vp_l, vp_t, vp_w, vp_h, fill=RGBColor(0x10,0x0C,0x22), line_color=ACCENT_PURP, lw=1.2)
     txt(slide, "VAPT PROTOCOL PROMPT", vp_l, vp_t+Inches(0.06), vp_w, Inches(0.22),
         size=8, bold=True, color=ACCENT_PURP)
-    txt(slide, "Phase rules · Re-plan triggers\nTermination conditions\nMethodology-as-config",
+    txt(slide, "Phase rules · Re-plan triggers Termination conditions Methodology-as-config",
         vp_l+Inches(0.1), vp_t+Inches(0.32), vp_w-Inches(0.15), Inches(0.58),
         size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
 
@@ -162,7 +162,7 @@ def build_slide(prs):
     sep_mid = (sep_l + apg_l) / 2
     box(slide, sep_l, T2_T+Inches(0.3), apg_l-sep_l, asg_h,
         fill=RGBColor(0x06,0x10,0x08))
-    txt(slide, "STRICT\nSEPARATION", sep_l+Inches(0.04), T2_T+Inches(0.62),
+    txt(slide, "STRICT SEPARATION", sep_l+Inches(0.04), T2_T+Inches(0.62),
         apg_l-sep_l-Inches(0.04), Inches(0.55),
         size=7, bold=True, color=GREY_MID)
     # Dashed-style separator line

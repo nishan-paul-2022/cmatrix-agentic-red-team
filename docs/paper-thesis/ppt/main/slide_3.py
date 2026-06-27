@@ -16,8 +16,8 @@ def build_slide(prs):
     box(slide, Inches(0.3), Inches(1.2), SLIDE_W - Inches(0.6), Inches(0.56),
         fill=RGBColor(0x12, 0x10, 0x02), line_color=ACCENT_GOLD, lw=1.5)
     txt(slide,
-        "CMatrix is the first autonomous VAPT system to maintain two strictly separated, "
-        "continuously evolving graph structures — one for discovered reality, one for inferred attack opportunity.",
+        "First autonomous VAPT system to maintain two strictly separated, "
+        "continuously evolving graph structures - one for discovered reality, one for inferred attack opportunity.",
         Inches(0.55), Inches(1.28), SLIDE_W - Inches(1.0), Inches(0.44),
         size=13, italic=True, color=ACCENT_GOLD, wrap=True, align=PP_ALIGN.LEFT)
 

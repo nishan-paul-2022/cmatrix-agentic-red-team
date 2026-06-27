@@ -71,14 +71,14 @@ def build_slide(prs):
     box(slide, sep_cx - Inches(0.55), Inches(0.88), Inches(1.1), Inches(5.62),
         fill=RGBColor(0x08,0x10,0x18), line_color=GREY_DARK, lw=0.8)
     box(slide, sep_cx - Inches(0.01), Inches(0.88), Inches(0.02), Inches(5.62), fill=GREY_DARK)
-    txt(slide, "STRICT\nSEPARATION", sep_cx - Inches(0.52), Inches(2.5),
+    txt(slide, "STRICT SEPARATION", sep_cx - Inches(0.52), Inches(2.5),
         Inches(1.04), Inches(0.7), size=8, bold=True, color=GREY_MID)
-    txt(slide, "No agent\ncrosses this\nboundary", sep_cx - Inches(0.5), Inches(3.3),
+    txt(slide, "No agent crosses this boundary", sep_cx - Inches(0.5), Inches(3.3),
         Inches(1.0), Inches(0.75), size=7.5, italic=True, color=GREY_MID)
     connector(slide, sep_cx - Inches(0.04), Inches(4.25),
-              Inches(4.5), Inches(4.25), color=ACCENT_LIME, lw=1.2, label="Discovery\nAgents write")
+              Inches(4.5), Inches(4.25), color=ACCENT_LIME, lw=1.2, label="Discovery Agents write")
     connector(slide, sep_cx + Inches(0.04), Inches(4.6),
-              Inches(8.5), Inches(4.6), color=ACCENT_GOLD, lw=1.2, label="Commander\nwrites")
+              Inches(8.5), Inches(4.6), color=ACCENT_GOLD, lw=1.2, label="Commander writes")
 
     # ── ASG node graph ────────────────────────────────────────────────────────
     NW = Inches(1.22); NH = Inches(0.44)
@@ -163,10 +163,10 @@ def build_slide(prs):
         size=8.5, italic=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
 
     steps = [
-        ("STEP 1", "SQLMap → WP_Query\nSQLi confirmed",       ACCENT_GOLD, "VALIDATED"),
-        ("STEP 2", "Admin hash extracted\n+ cracked offline", ACCENT_GOLD, "VALIDATED"),
-        ("STEP 3", "Metasploit → Web shell\nRCE achieved",    ACCENT_RED,  "VALIDATED"),
-        ("IMPACT", "Full server access\nCustomer PII exposed", ACCENT_PURP, "DEMONSTRATED"),
+        ("STEP 1", "SQLMap → WP_Query SQLi confirmed",       ACCENT_GOLD, "VALIDATED"),
+        ("STEP 2", "Admin hash extracted + cracked offline", ACCENT_GOLD, "VALIDATED"),
+        ("STEP 3", "Metasploit → Web shell RCE achieved",    ACCENT_RED,  "VALIDATED"),
+        ("IMPACT", "Full server access Customer PII exposed", ACCENT_PURP, "DEMONSTRATED"),
     ]
     snw = Inches(2.1); snh = Inches(0.65)
     s_start_t = ac_t + Inches(0.65)
@@ -191,7 +191,7 @@ def build_slide(prs):
             connector(slide, s_cx, sy+snh, s_cx, sy+snh+Inches(0.22), color=clr, lw=1.2)
             txt(slide, "next_step", s_cx+Inches(0.06), sy+snh+Inches(0.02),
                 Inches(0.8), Inches(0.2), size=6.5, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT)
-        txt(slide, "↗ supported_by\nASG Evidence",
+        txt(slide, "↗ supported_by ASG Evidence",
             sl+snw+Inches(0.08), sy+Inches(0.15), Inches(0.85), Inches(0.36),
             size=6.5, italic=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
 

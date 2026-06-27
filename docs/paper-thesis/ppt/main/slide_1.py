@@ -14,21 +14,7 @@ def build_slide(prs):
     box(slide, Inches(0.06), Inches(0), SLIDE_W - Inches(0.06), Inches(0.04), fill=ACCENT_LIME)
     box(slide, Inches(0.06), SLIDE_H - Inches(0.04), SLIDE_W - Inches(0.06), Inches(0.04), fill=ACCENT_CYAN)
 
-    # ── Ghost watermark (dim "CMATRIX" on right) ──────────────────────────────
-    ghost = slide.shapes.add_textbox(Inches(4.5), Inches(0.8), Inches(8.8), Inches(5.8))
-    tf = ghost.text_frame; tf.word_wrap = False
-    p = tf.paragraphs[0]
-    p.alignment = PP_ALIGN.RIGHT
-    run = p.add_run()
-    run.text = "CMATRIX"
-    run.font.name = "Calibri"; run.font.size = Pt(130); run.font.bold = True
-    # Dim colour via XML
-    sp = ghost.element
-    for r in sp.iter(qn('a:r')):
-        for sf in r.iter(qn('a:solidFill')):
-            srgb = sf.find(qn('a:srgbClr'))
-            if srgb is not None:
-                srgb.set('val', '0D2535')
+
 
     # ── Tag + Title ───────────────────────────────────────────────────────────
     txt(slide, "RESEARCH PRESENTATION",
@@ -44,7 +30,7 @@ def build_slide(prs):
 
     # ── Sub-title ─────────────────────────────────────────────────────────────
     txt(slide,
-        "Dual-Graph-Guided LLM-Orchestrated\nMulti-Agent Framework for Autonomous VAPT",
+        "Dual-Graph-Guided LLM-Orchestrated Multi-Agent Framework for Autonomous VAPT",
         Inches(0.5), Inches(3.05), Inches(9.5), Inches(1.2),
         size=22, italic=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
