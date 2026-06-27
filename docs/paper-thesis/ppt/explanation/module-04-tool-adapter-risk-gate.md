@@ -334,4 +334,207 @@ Every step in this chain has a gate. Every gate has a defined behavior. Nothing 
 
 ---
 
-*Next: Module 05 — The Autonomous Planning Cycle, Context Management, and Cross-Mission Learning*
+## Diagram 4 — Tool Risk Gate: Every Tool Call's Journey
+
+No tool in CMatrix executes without passing through this gate. This diagram shows the complete decision path — from an agent requesting a tool call, through all three risk tiers, to either execution or rejection.
+
+### 4A — The Full Risk Gate Decision Tree
+
+```mermaid
+flowchart TD
+    START["🤖 Agent requests tool call\n───────────────────────────\nTool: Gobuster\nTarget: shopvault.io\nParams: -w big.txt -x php,sql"]
+
+    HOOK1["🪝 PreToolUse Hook fires\n───────────────────────\nExternal observers notified.\nHook returns: CONTINUE / BLOCK / MODIFY"]
+
+    HOOK1_CHECK{Hook returns?}
+    HOOK_BLOCK["❌ BLOCKED\nAction cancelled.\nReason logged."]
+    HOOK_MODIFY["🔄 MODIFIED\nPayload updated.\nProceeds with\nmodified params."]
+
+    SCOPE["🔍 Scope Check\n──────────────────\nIs target in declared scope?\nIs this tool authorized\nfor this agent type?"]
+
+    SCOPE_FAIL["❌ OUT OF SCOPE\nTool call rejected.\nAgent notified.\nNo execution."]
+
+    CLASSIFY["🎯 Risk Classification\n──────────────────────\nWhich tier does this call belong to?"]
+
+    LOW{"🟢 LOW RISK?\nPassive tools:\nAmass · httpx\nWhatWeb"}
+    MED{"🟡 MEDIUM RISK?\nActive tools:\nNmap · Gobuster · ffuf\nNuclei · OWASP ZAP"}
+    HIGH{"🔴 HIGH RISK?\nExploitation tools:\nSQLMap · Metasploit"}
+
+    EXEC_LOW["✅ Execute immediately\nNo further approval needed"]
+
+    CLASSIFIER["🧠 LLM Permission Classifier\n────────────────────────────\nFast filter pass:\n  → Clearly safe? → EXECUTE\n  → Clearly risky? → ESCALATE\n\nChain-of-thought pass (ambiguous):\n  Axis 1: Scope alignment\n  Axis 2: Chain intent\n  Axis 3: Parameter safety\n  → Checks for prompt injection"]
+
+    CLF_RESULT{Classifier verdict?}
+    CLF_EXEC["✅ EXECUTE\nProceeds to\nTool Adapter"]
+    CLF_ESC["⬆️ ESCALATE\nRouted to\nCommander Mailbox"]
+
+    MAILBOX["📬 Commander Mailbox\n──────────────────────\nApproval request queued:\n  • Tool + module\n  • Target ASG node\n  • Chain context\n  • Rationale\n\n(Human inserted here\nin supervised mode)"]
+
+    CMD_REVIEW{Commander decides?}
+    CMD_APPROVE["✅ APPROVED\nProceeds to\nTool Adapter"]
+    CMD_REJECT["❌ REJECTED\nCancelled.\nReason annotated\nto APG chain."]
+    CMD_MODIFY["🔄 MODIFIED\nCommander adjusts\nparams, then approves"]
+
+    ADAPTER["⚙️ Tool Adapter executes\n────────────────────────\n1. Translate request → CLI command\n2. Run tool\n3. Parse raw output → structured JSON\n4. Discard raw output"]
+
+    HOOK2["🪝 PostToolUse Hook fires\n─────────────────────────\nStructured findings available.\nHook can: log · alert · validate · block write"]
+
+    ASG_WRITE["🟢 Structured findings\nwritten to ASG as\nnodes + edges"]
+
+    AG_SUMMARY["🤖 Agent receives\ncompact summary only\n(NOT raw output)"]
+
+    START --> HOOK1
+    HOOK1 --> HOOK1_CHECK
+    HOOK1_CHECK -->|BLOCK| HOOK_BLOCK
+    HOOK1_CHECK -->|MODIFY| HOOK_MODIFY
+    HOOK1_CHECK -->|CONTINUE| SCOPE
+    HOOK_MODIFY --> SCOPE
+
+    SCOPE -->|fail| SCOPE_FAIL
+    SCOPE -->|pass| CLASSIFY
+
+    CLASSIFY --> LOW
+    CLASSIFY --> MED
+    CLASSIFY --> HIGH
+
+    LOW -->|yes| EXEC_LOW
+    MED -->|yes| CLASSIFIER
+    HIGH -->|yes| MAILBOX
+
+    CLASSIFIER --> CLF_RESULT
+    CLF_RESULT -->|EXECUTE| CLF_EXEC
+    CLF_RESULT -->|ESCALATE| MAILBOX
+
+    MAILBOX --> CMD_REVIEW
+    CMD_REVIEW -->|APPROVE| CMD_APPROVE
+    CMD_REVIEW -->|REJECT| CMD_REJECT
+    CMD_REVIEW -->|MODIFY| CMD_MODIFY
+
+    EXEC_LOW --> ADAPTER
+    CLF_EXEC --> ADAPTER
+    CMD_APPROVE --> ADAPTER
+    CMD_MODIFY --> ADAPTER
+
+    ADAPTER --> HOOK2
+    HOOK2 --> ASG_WRITE
+    HOOK2 --> AG_SUMMARY
+
+    style START fill:#04162E,stroke:#00D4FF,color:#fff
+    style HOOK1 fill:#0C0820,stroke:#9C27B0,color:#CE93D8
+    style HOOK2 fill:#0C0820,stroke:#9C27B0,color:#CE93D8
+    style HOOK_BLOCK fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style HOOK_MODIFY fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style SCOPE fill:#0A0C1E,stroke:#888,color:#aaa
+    style SCOPE_FAIL fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CLASSIFY fill:#0A0C1E,stroke:#888,color:#aaa
+    style LOW fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style MED fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style HIGH fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style EXEC_LOW fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CLASSIFIER fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CLF_EXEC fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CLF_ESC fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style MAILBOX fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CMD_APPROVE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CMD_REJECT fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CMD_MODIFY fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style ADAPTER fill:#0A0C1E,stroke:#9C27B0,color:#CE93D8
+    style ASG_WRITE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style AG_SUMMARY fill:#04162E,stroke:#00D4FF,color:#00D4FF
+```
+
+---
+
+### 4B — What the LLM Permission Classifier Actually Checks
+
+```mermaid
+flowchart LR
+    INPUT["🟡 Medium-Risk\nTool Call\n─────────────\nTool: Gobuster\nTarget: staging.shopvault.io\nParams: -w big.txt"]
+
+    subgraph FAST["Fast Filter (instant)"]
+        F1{"Obviously safe?\n(passive, in-scope,\nstandard params)"}
+        F2{"Obviously risky?\n(out-of-scope target,\nsuspicious params)"}
+    end
+
+    subgraph COT["Chain-of-Thought Pass (ambiguous cases)"]
+        AX1["Axis 1: SCOPE ALIGNMENT\n──────────────────────\nIs staging.shopvault.io\nin the declared scope?\nWas it explicitly excluded?"]
+        AX2["Axis 2: CHAIN INTENT\n───────────────────\nDoes Gobuster on this host\nmake sense for the current\nAPG AttackChain being pursued?"]
+        AX3["Axis 3: PARAMETER SAFETY\n────────────────────────\nDo params match current\nASG state? Or do they look\nlike they were injected from\ncrawled web content?\n(Prompt injection check)"]
+    end
+
+    VERDICT{"Final verdict"}
+    EXEC["✅ EXECUTE"]
+    ESC["⬆️ ESCALATE\nto Commander\nMailbox"]
+
+    INPUT --> FAST
+    F1 -->|yes| EXEC
+    F2 -->|yes| ESC
+    F1 -->|no| COT
+    F2 -->|no| COT
+    AX1 --> VERDICT
+    AX2 --> VERDICT
+    AX3 --> VERDICT
+    VERDICT -->|all clear| EXEC
+    VERDICT -->|concern| ESC
+
+    style INPUT fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FAST fill:#04100C,stroke:#7FFF00,color:#7FFF00
+    style COT fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style AX1 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style AX2 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style AX3 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style EXEC fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style ESC fill:#1A1002,stroke:#FFC107,color:#FFC107
+```
+
+---
+
+### 4C — The 6 Lifecycle Hooks: Where Operators Can Intervene
+
+```mermaid
+timeline
+    title CMatrix Agent Lifecycle Hook Points
+    section Before Tool
+        PreToolUse : Fires before Risk Gate
+                   : CONTINUE / BLOCK / MODIFY
+                   : Use for: extra scope checks
+    section After Tool
+        PostToolUse : Fires after ASG write
+                    : Log to SIEM · Alert SOC
+                    : Use for: audit trails
+    section Agent Events
+        PreAgentSpawn : Fires before Commander spawns agent
+                      : Override context · extra auth
+        PostAgentReturn : Fires after agent returns delta
+                        : Validate schema · notify systems
+    section APG Events
+        PreAPGUpdate : Fires before new AttackChain written
+                     : External approval gate · compliance
+    section Mission Events
+        PostMissionTerminate : Fires at dual-graph termination
+                             : Push to vuln management platform
+                             : Trigger report delivery
+```
+
+### Risk Gate Summary Table
+
+| Tool | Tier | Gate | Rationale |
+|------|------|------|-----------|
+| Amass | 🟢 LOW | Scope check only | Passive DNS — no target traffic |
+| httpx | 🟢 LOW | Scope check only | Read-only HTTP probing |
+| WhatWeb | 🟢 LOW | Scope check only | Read-only fingerprinting |
+| Nmap | 🟡 MED | LLM Classifier | Active scan — may trigger IDS |
+| Gobuster | 🟡 MED | LLM Classifier | Active — unusual traffic patterns |
+| ffuf | 🟡 MED | LLM Classifier | Active fuzzing — parameter injection risk |
+| Nuclei | 🟡 MED | LLM Classifier | Template matching — active probes |
+| OWASP ZAP | 🟡 MED | LLM Classifier | Active web scan — touches all endpoints |
+| EyeWitness | 🟢 LOW | Scope check only | Screenshot only — no exploitation |
+| SQLMap | 🔴 HIGH | Commander Mailbox | Destructive — extracts data |
+| Metasploit | 🔴 HIGH | Commander Mailbox | Irreversible — achieves code execution |
+
+---
+
+
+---
+
+*Next: Module 05 — The 11 VAPT Tools: Real World vs. CMatrix*

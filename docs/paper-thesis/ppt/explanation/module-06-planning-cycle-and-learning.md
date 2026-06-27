@@ -1,4 +1,4 @@
-# Module 05 — The Planning Cycle, Context Management, and Cross-Mission Learning
+# Module 06 — The Planning Cycle, Context Management, and Cross-Mission Learning
 
 ---
 
@@ -495,4 +495,214 @@ This philosophy shapes every design decision in CMatrix: the APG tracks chains t
 
 ---
 
-*Next: Module 06 — Methodology-as-Configuration, Research Contributions, and Related Work*
+## Diagram 5 — The Autonomous Planning Cycle
+
+The Commander runs this loop continuously — from mission start until the dual-graph termination condition fires. Every iteration is grounded in graph state. Every decision is traceable to a specific graph event.
+
+### 5A — The Core Planning Loop
+
+```mermaid
+flowchart TD
+    START(["🚀 MISSION START\nOperator provides: root domain + scope + mode\nASG seeded: [Domain: shopvault.io]\nAPG: empty"])
+
+    OBS_ASG["👁️ OBSERVE ASG\n─────────────────────────────────\n• Which nodes are unexplored?\n• Which Vulnerability nodes are new?\n• Which Technology nodes need Research?"]
+
+    OBS_APG["👁️ OBSERVE APG\n─────────────────────────────────\n• Which chains are HYPOTHESIZED?\n• Which are PARTIALLY_VALIDATED?\n• Which just went VALIDATED or RULED_OUT?"]
+
+    REASON["🧠 REASON\n─────────────────────────────────\nGiven ASG + APG state:\nWhat is the single best\nnext action right now?"]
+
+    DECIDE{What does\nreasoning\nproduce?}
+
+    EXPLORE["🗺️ EXPLORE\nASG gap detected\n─────────────────\nSpawn discovery agent:\n• Recon → unscanned hosts\n• Analysis → untested tech\n• Research → unenriched CVE"]
+
+    VALIDATE["🎯 VALIDATE\nHigh-priority chain waiting\n─────────────────────────\nSpawn Validation Agent\nfor highest-priority\nHYPOTHESIZED chain"]
+
+    BOTH["↕️ PARALLEL\nBoth ASG gaps AND\nunvalidated chains exist\n─────────────────────\nCommander weighs priority:\nHigh-risk chain beats\nlow-value exploration"]
+
+    AGENT_RUNS["⚡ AGENT EXECUTES\n(tools → Risk Gate → ASG writes)"]
+
+    UPDATE_ASG["📥 UPDATE ASG\nNew nodes + edges written\nby returning agent"]
+
+    UPDATE_APG["📥 UPDATE APG (Commander)\n─────────────────────────\nNew Vuln nodes → seed chains?\nChainStep advanced → update status?\nRULED_OUT chain → re-prioritize?"]
+
+    CYCLE_GUARD{Cycle Guard:\nRepeated\nidentical calls?}
+    REFLECTOR["🪞 REFLECTOR\nRepeated failures?\n→ Issue corrective guidance\n→ Agent adapts approach"]
+    FORCE_REPLAN["🔄 FORCE RE-PLAN\nStop current approach\nCommander reassigns"]
+
+    TERM{Termination\ncondition met?}
+    TERM_CHECK["✅ ASG exhausted?\n(no unexplored nodes)\nAND\n✅ APG resolved?\n(all chains VALIDATED\nor RULED_OUT)"]
+
+    REPORT["📝 Spawn Report Agent\nReads full ASG + APG\nGenerates professional\npenetration test report"]
+
+    DONE(["🏁 MISSION COMPLETE"])
+
+    START --> OBS_ASG
+    OBS_ASG --> OBS_APG
+    OBS_APG --> REASON
+    REASON --> DECIDE
+    DECIDE -->|"ASG gaps only"| EXPLORE
+    DECIDE -->|"APG chains waiting"| VALIDATE
+    DECIDE -->|"Both present"| BOTH
+    EXPLORE --> AGENT_RUNS
+    VALIDATE --> AGENT_RUNS
+    BOTH --> AGENT_RUNS
+    AGENT_RUNS --> CYCLE_GUARD
+    CYCLE_GUARD -->|"yes — fixation\ndetected"| FORCE_REPLAN
+    CYCLE_GUARD -->|"repeated different\nfailures"| REFLECTOR
+    REFLECTOR --> AGENT_RUNS
+    FORCE_REPLAN --> OBS_ASG
+    CYCLE_GUARD -->|"no — normal"| UPDATE_ASG
+    UPDATE_ASG --> UPDATE_APG
+    UPDATE_APG --> TERM
+    TERM --> TERM_CHECK
+    TERM_CHECK -->|"no — continue"| OBS_ASG
+    TERM_CHECK -->|"yes — both\nconditions true"| REPORT
+    REPORT --> DONE
+
+    style START fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style OBS_ASG fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style OBS_APG fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style REASON fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style DECIDE fill:#04162E,stroke:#00D4FF,color:#fff
+    style EXPLORE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style VALIDATE fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style BOTH fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style AGENT_RUNS fill:#0A0C1E,stroke:#9C27B0,color:#CE93D8
+    style UPDATE_ASG fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style UPDATE_APG fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CYCLE_GUARD fill:#1A0606,stroke:#FF5252,color:#fff
+    style REFLECTOR fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FORCE_REPLAN fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style TERM fill:#04162E,stroke:#00D4FF,color:#fff
+    style TERM_CHECK fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style REPORT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style DONE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+---
+
+### 5B — What Triggers a Re-Plan (Graph-Grounded Events)
+
+```mermaid
+flowchart LR
+    subgraph ASG_EVENTS["ASG Trigger Events"]
+        E1["🆕 New Vulnerability node written\n→ Should this seed a new APG chain?"]
+        E2["🆕 New Technology node written\n→ Spawn Research Agent for CVE lookup"]
+        E3["🆕 New Endpoint node written\n→ Analysis Agent needs to probe it"]
+    end
+
+    subgraph APG_EVENTS["APG Trigger Events"]
+        E4["📈 Chain → PARTIALLY_VALIDATED\n→ Re-rank all chain priorities"]
+        E5["✅ Chain → VALIDATED\n→ Mark complete, pursue next"]
+        E6["❌ Chain → RULED_OUT\n→ Remove from queue, re-prioritize"]
+    end
+
+    subgraph GUARD_EVENTS["Cycle Guard Events"]
+        E7["🔁 Same tool call repeated ×3\n→ Force re-plan immediately"]
+        E8["💥 Repeated different failures\n→ Reflector issues guidance"]
+    end
+
+    CMD["👑 Commander\nRe-plans on\nany of these\nevents"]
+
+    E1 --> CMD
+    E2 --> CMD
+    E3 --> CMD
+    E4 --> CMD
+    E5 --> CMD
+    E6 --> CMD
+    E7 --> CMD
+    E8 --> CMD
+
+    style ASG_EVENTS fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style APG_EVENTS fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style GUARD_EVENTS fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+```
+
+---
+
+### 5C — The Dual Termination Condition (Why Both Must Be True)
+
+```mermaid
+flowchart TD
+    Q["❓ Is the mission complete?"]
+
+    C1{"ASG exhausted?\n────────────────\nEvery Domain, Host, Port,\nService, Technology,\nEndpoint, Parameter node\nhas been investigated\nby the appropriate agent"}
+
+    C2{"APG resolved?\n──────────────────\nEvery AttackChain is in\na terminal state:\nVALIDATED or RULED_OUT\n\nNo chain is still\nHYPOTHESIZED or\nPARTIALLY_VALIDATED"}
+
+    ONLY1["❌ NOT DONE\nASG explored but\nchains still open.\nAttack reasoning\nis unfinished."]
+
+    ONLY2["❌ NOT DONE\nAll chains resolved\nbut new ASG nodes\njust written.\nMight seed new chains."]
+
+    NEITHER["❌ NOT DONE\nBoth incomplete.\nContinue mission."]
+
+    BOTH_TRUE["✅ MISSION COMPLETE\nASG is fully mapped.\nAll attack opportunities\nproven or disproven.\nReport Agent spawned."]
+
+    CONTRAST["⚠️ Why existing systems fail:\n─────────────────────────────\nTimer-based: stops mid-chain\nTask-queue-based: can't express APG resolution\nOnly CMatrix defines both\nconditions simultaneously"]
+
+    Q --> C1
+    Q --> C2
+    C1 -->|"yes, C2 no"| ONLY1
+    C2 -->|"yes, C1 no"| ONLY2
+    C1 & C2 -->|"neither"| NEITHER
+    C1 & C2 -->|"BOTH true"| BOTH_TRUE
+    BOTH_TRUE --> CONTRAST
+
+    style Q fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style C1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style C2 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style ONLY1 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style ONLY2 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style NEITHER fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style BOTH_TRUE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CONTRAST fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 5D — Context Compaction: How Long Missions Stay Sharp
+
+```mermaid
+flowchart LR
+    subgraph NORMAL["Normal Operation"]
+        T1["Tool runs\n→ MicroCompact\nRaw output discarded\nAgent sees 3-line summary"]
+    end
+
+    subgraph AUTO["AutoCompact @ 60% context"]
+        T2["Older conversation turns\nsummarized by scoped LLM call\nSummary replaces raw turns\nAgent continues uninterrupted"]
+    end
+
+    subgraph FULL["FullCompact @ 85% context"]
+        T3["Entire history replaced\nfrom scratch using:\n• Current ASG snapshot\n• Current APG priorities\n• Last N tool results\n\nZERO intelligence lost\n(everything important\nis in the graph)"]
+    end
+
+    T1 -->|context grows| AUTO
+    AUTO -->|context grows| FULL
+    FULL -->|fresh context| T1
+
+    ASG_KEY["🟢 ASG is the key\n────────────────\nConversation history\nis expendable because\nall discoveries live\nin the graph permanently.\nFullCompact = safe."]
+
+    FULL --> ASG_KEY
+
+    style NORMAL fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style AUTO fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FULL fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style ASG_KEY fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+### Planning Cycle — Key Insights
+
+| Question | Answer |
+|----------|--------|
+| What drives re-planning? | Explicit graph events — never timers or empty queues |
+| How does the Commander know what to do next? | Reads ASG (unexplored nodes) + APG (chain priorities) |
+| What prevents infinite loops? | Cycle Guard (identical calls) + Reflector (repeated failures) |
+| When does the mission end? | ASG exhausted AND all APG chains terminal — both simultaneously |
+| How does context stay manageable? | 3-layer compaction — history is expendable, graph is permanent |
+
+
+
+---
+
+*Next: Module 07 — Methodology-as-Configuration, Research Contributions, and Related Work*

@@ -1,4 +1,4 @@
-# Module 06 — Methodology-as-Configuration, Research Contributions, and Related Work
+# Module 07 — Methodology-as-Configuration, Research Contributions, and Related Work
 
 ---
 
@@ -373,15 +373,220 @@ The result is a system that is architecturally distinct from every prior autonom
 
 ---
 
-## 📖 Module Reading Order
+---
 
-If you're returning to review specific sections, here's what each module covers:
+## Diagram 6 — Real-World Scenario: shopvault.io End-to-End
 
-| Module | What It Covers |
-|--------|---------------|
-| **Module 01** | What CMatrix is, the VAPT domain, what AI agents are, the core problem with existing systems, and the dual-graph answer |
-| **Module 02** | The ASG and APG in full detail — node types, edge types, the separation principle, how they work together, termination condition |
-| **Module 03** | All 7 agents — Commander, Recon, Analysis, Research, Validation, Evidence, Report — plus context isolation, cross-mission store, and attack strategy library |
-| **Module 04** | Tool Adapter Layer, three-tier Risk Gate, LLM Permission Classifier, Commander mailbox, human-in-the-loop, lifecycle hooks |
-| **Module 05** | Planning cycle, dual termination condition, Cycle Guard/Reflector, three-layer context compaction, single LLM API, cross-mission store, attack strategy library, trajectory export |
-| **Module 06** | VAPT Protocol Prompt, all 12 research contributions with problem/solution/novelty, all 8 related works with attribution |
+This is the complete picture. One real mission. Zero manual commands. Watch every tool, every graph write, every Commander decision, from the moment the operator presses start to the final professional report.
+
+**Target:** `shopvault.io` — an e-commerce platform  
+**Mode:** Black-Box (zero prior knowledge)  
+**Scope:** All subdomains, web apps, REST APIs  
+**Operator action:** Provide domain + scope → press start
+
+---
+
+### 6A — Mission Timeline: Phase by Phase
+
+```mermaid
+flowchart TD
+    OP(["🧑 OPERATOR\nTarget: shopvault.io\nScope: all subdomains\nMode: Black-Box\n→ PRESS START"])
+
+    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE\nRecon Agent spawned"]
+        A1["Tool: Amass\n────────────────────────\n14 subdomains discovered:\napi · admin · staging\npay · mail · static · ..."]
+        A2["Tool: httpx\n────────────────────────\n11 live hosts confirmed\nstaging → unexpected 200 OK\npay → TLS certificate EXPIRED"]
+        A3["Tool: Nmap\n────────────────────────\n28 open ports mapped\nPorts: 80, 443, 8080, 8443, 22\nServices: Nginx 1.18 · OpenSSH 8.9\nUnencrypted HTTP on port 8080"]
+        D1["📥 ASG DELTA\n37 new nodes written:\n14 Domain · 11 Host\n28 Port · 15 Service"]
+    end
+
+    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE\nAnalysis Agent + Research Agent spawned"]
+        B1["Tool: WhatWeb\n────────────────────────\nWordPress 5.9.3 on shopvault.io\nWooCommerce 6.1 detected\nDjango 4.1.2 on api.shopvault.io\n→ Commander spawns Research Agent"]
+        B2["Research Agent: NVD + Exploit-DB\n────────────────────────────────\nCVE-2022-21661 found (CVSS 8.8)\nPoC on Exploit-DB ✓\nMetasploit module available ✓"]
+        B3["Tool: Gobuster\n────────────────────────\n/backup/db_export_2023.sql → 200!\n/wp-admin/login → 200\n/wp-admin/users → 403\n/api/v1/internal/users → 200"]
+        B4["Tool: ffuf\n────────────────────────\nIDOR: user_id param unsanitised\n/api/v2 routes discovered\nVirtual host: internal.shopvault.io"]
+        B5["Tool: Nuclei\n────────────────────────\nCVE-2022-21661 template → MATCH\nExposed phpinfo.php on staging\nDefault creds check: admin/admin → fail"]
+        B6["Tool: OWASP ZAP\n────────────────────────\nXSS on /search?q= (reflected)\nSQL error on staging login form\nMissing security headers on API"]
+        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Exposed DB backup (6.2)"]
+    end
+
+    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE\nValidation Agent + Evidence Agent spawned"]
+        C1["Chain-01 (highest priority: 8.8)\n────────────────────────────────\nStep 1: SQLMap on WP_Query\n→ SQLi confirmed ✅\n→ Evidence: sqli-extraction.txt"]
+        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: password123\n→ Evidence: user-table-dump.png"]
+        C3["Step 3: Metasploit wp_admin_shell_upload\n────────────────────────────────\n⚠️ HIGH RISK → Commander Mailbox\n→ Commander APPROVES\n→ Web shell deployed ✅\n→ RCE confirmed!\n→ risk_score escalated: 8.8 → 9.1\n→ Evidence: webshell-rce.png"]
+        C4["Chain-02 (risk: 7.5)\n────────────────────────────────\nffuf: user_id=456 returns user 456 orders\n→ IDOR confirmed ✅\n→ All customer PII accessible\n→ Evidence: idor-orders-dump.png"]
+        C5["Chain-03 (risk: 6.2)\n────────────────────────────────\nGET /backup/db_export_2023.sql\n→ Attempt 1: 403 (WAF blocked)\n→ Diagnose: WAF active\n→ Attempt 2: header bypass → 403\n→ Attempt 3: path variation → 403\n→ CAP REACHED → RULED_OUT\n→ Failure written to ASG Vuln node"]
+        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-02: VALIDATED (7.5)\nChain-03: RULED_OUT (6.2)\n\n📥 ASG DELTA\n4 Evidence nodes + edges added"]
+    end
+
+    subgraph P4["🟣 PHASE 4 — REPORT\nReport Agent spawned — reads full ASG + APG"]
+        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 2 Validated Attack Chains (RCE + IDOR)\n• 1 Ruled-Out Chain (DB backup WAF-protected)\n• Full attack surface map (14 subdomains · 11 hosts)\n• 9 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Screenshot evidence at every ChainStep\n• ZERO manual commands issued"]
+    end
+
+    TERM["✅ TERMINATION CONDITION MET\nASG: all 98 nodes explored\nAPG: all 3 chains in terminal state\n→ Report Agent spawned"]
+
+    OP --> P1
+    A1 --> A2 --> A3 --> D1
+    D1 --> P2
+    B1 --> B2 --> B3 --> B4 --> B5 --> B6 --> D2
+    D2 --> P3
+    C1 --> C2 --> C3
+    C3 --> C4 --> C5 --> D3
+    D3 --> TERM
+    TERM --> P4
+    P4 --> RPT
+
+    style OP fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style P1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P2 fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style P3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style P4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style D1 fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style D2 fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style D3 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style TERM fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style RPT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 6B — The Commander's Decision Log (Key Moments)
+
+```mermaid
+timeline
+    title Commander Decisions — shopvault.io Mission
+    section Mission Start
+        Step 1  : Seed: Domain node shopvault.io
+                : Action: Spawn Recon Agent
+    section After Phase 1
+        Step 2  : Trigger: 11 live hosts written to ASG
+                : Action: Spawn Analysis Agent (all hosts)
+        Step 3  : Trigger: WordPress 5.9.3 Technology node written
+                : Action: Spawn Research Agent (CVE lookup)
+    section After Research
+        Step 4  : Trigger: CVE-2022-21661 Vuln node written (CVSS 8.8, PoC confirmed)
+                : Action: Seed Chain-01 in APG — HYPOTHESIZED — priority 1
+        Step 5  : Trigger: IDOR Vuln node written by ZAP
+                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 2
+        Step 6  : Trigger: Exposed DB backup Vuln node written
+                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 3
+    section Validation
+        Step 7  : Trigger: Chain-01 is highest priority
+                : Action: Spawn Validation Agent for Chain-01
+        Step 8  : Trigger: SQLMap HIGH-risk call arrives at mailbox
+                : Decision: APPROVE — target confirmed in scope — chain context valid
+        Step 9  : Trigger: Metasploit HIGH-risk call arrives at mailbox
+                : Decision: APPROVE — Steps 1+2 already VALIDATED — RCE is the goal
+        Step 10 : Trigger: Chain-01 → VALIDATED — risk escalated to 9.1
+                : Action: Spawn Validation Agent for Chain-02
+        Step 11 : Trigger: Chain-02 → VALIDATED
+                : Action: Spawn Validation Agent for Chain-03
+        Step 12 : Trigger: Chain-03 → RULED_OUT after 3 retries
+                : Note: Failure reason written to ASG Vuln node
+    section Termination
+        Step 13 : Trigger: ASG exhausted (98 nodes explored) AND APG resolved (3/3 terminal)
+                : Action: Dual-graph termination condition met — spawn Report Agent
+```
+
+---
+
+### 6C — Final Mission Stats
+
+```mermaid
+flowchart LR
+    subgraph ASG_FINAL["🟢 ASG — Final State"]
+        direction TB
+        N1["14 Domain nodes"]
+        N2["11 Host nodes"]
+        N3["28 Port nodes"]
+        N4["15 Service nodes"]
+        N5["3 Technology nodes"]
+        N6["19 Endpoint nodes"]
+        N7["8 Parameter nodes"]
+        N8["9 Vulnerability nodes"]
+        N9["4 Evidence nodes"]
+        NT["= 111 total nodes"]
+    end
+
+    subgraph APG_FINAL["🟡 APG — Final State"]
+        direction TB
+        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated)\nSQLi → Admin → RCE"]
+        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer PII"]
+        CH3["Chain-03: RULED_OUT ❌\nrisk: 6.2\nDB backup WAF-protected"]
+    end
+
+    subgraph REPORT_FINAL["📝 Report Output"]
+        direction TB
+        R1["2 validated attack chains\nwith step-by-step reproduction"]
+        R2["4 screenshot evidence artifacts\nlinked at each ChainStep"]
+        R3["9 vulnerabilities\nordered by risk_score"]
+        R4["Remediation guidance\nprioritized by business risk"]
+        R5["0 manual commands issued\nduring entire assessment"]
+    end
+
+    ASG_FINAL --> REPORT_FINAL
+    APG_FINAL --> REPORT_FINAL
+
+    style ASG_FINAL fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style APG_FINAL fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style REPORT_FINAL fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 6D — Chain-01 Full Traceability: From CVE to Evidence
+
+This is the most important chain in the mission. Every arrow here is a relationship that exists in the dual graph — followable from the report all the way back to the raw evidence file.
+
+```mermaid
+flowchart LR
+    CVE["🚨 ASG\nVulnerability node\nCVE-2022-21661\nCVSS: 8.8\nPoC: Exploit-DB ✓"]
+
+    CH["🟡 APG\nAttackChain: Chain-01\nrisk_score: 9.1\nstatus: VALIDATED\nstarts_at → CVE-2022-21661"]
+
+    S1["🟡 APG\nChainStep 1\nSQLMap → WP_Query SQLi\nstatus: VALIDATED"]
+    S2["🟡 APG\nChainStep 2\nSQLMap dump → hash cracked\nstatus: VALIDATED"]
+    S3["🟡 APG\nChainStep 3\nMetasploit → Web shell\nstatus: VALIDATED"]
+    IMP["🟣 APG\nImpact\nRCE on shopvault.io\nCustomer PII accessible"]
+
+    EV1["📎 ASG\nEvidence\nsqli-extraction.txt"]
+    EV2["📎 ASG\nEvidence\nuser-table-dump.png"]
+    EV3["📎 ASG\nEvidence\nwebshell-rce.png"]
+
+    CVE -->|"starts_at"| CH
+    CH --> S1
+    S1 -->|next_step| S2
+    S2 -->|next_step| S3
+    S3 -->|achieves| IMP
+    S1 -->|supported_by| EV1
+    S2 -->|supported_by| EV2
+    S3 -->|supported_by| EV3
+
+    style CVE fill:#220606,stroke:#FF5252,color:#FF5252
+    style CH fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style S1 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style S2 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style S3 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style EV1 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV2 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV3 fill:#120820,stroke:#9C27B0,color:#CE93D8
+```
+
+**Reading this diagram:** Start at the red CVE node (ASG fact) → follow `starts_at` to the gold Chain (APG reasoning) → follow ChainSteps in order → arrive at the purple Impact (what was demonstrated) → follow `supported_by` back to the purple Evidence nodes (ASG proof). Every claim in the final report has this complete path. Nothing is asserted without evidence.
+
+---
+
+### Summary: What Makes This Remarkable
+
+| Fact | Significance |
+|------|-------------|
+| **Zero manual commands** | The operator configured scope and pressed start. Everything else was autonomous. |
+| **All tool calls gated** | SQLMap and Metasploit both went through Commander Mailbox — no exploitation without approval |
+| **Chain-03 RULED_OUT** | The system correctly diagnosed WAF protection and stopped after 3 retries — not an infinite loop |
+| **risk_score escalated** | Chain-01 started at 8.8 (CVSS); after RCE was confirmed, Commander escalated to 9.1 |
+| **Traceability** | Every Impact claim links through ChainSteps back to Evidence files in the ASG |
+| **Dual termination** | Mission ended because 98 nodes explored AND 3/3 chains terminal — not because a timer fired |
+
+---
+
+*End of Documentation.*

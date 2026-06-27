@@ -1,4 +1,4 @@
-# Module 07 — The 11 VAPT Tools: Real World vs. CMatrix
+# Module 05 — The 11 VAPT Tools: Real World vs. CMatrix
 
 ---
 
@@ -421,19 +421,11 @@ Every single tool above — from the passive Amass query to the destructive Meta
 Agent Request → Risk Gate → Tool Adapter → Tool Execution → Parse → ASG Write
 ```
 
-| Tool | Risk Tier | Gate |
-|------|-----------|------|
-| Amass | LOW | Scope check only → immediate execution |
-| httpx | LOW | Scope check only → immediate execution |
-| WhatWeb | LOW | Scope check only → immediate execution |
-| Nmap | MEDIUM | LLM Permission Classifier (scope + parameter safety) |
-| Gobuster | MEDIUM | LLM Permission Classifier |
-| ffuf | MEDIUM | LLM Permission Classifier |
-| Nuclei | MEDIUM | LLM Permission Classifier |
-| OWASP ZAP | MEDIUM | LLM Permission Classifier |
-| SQLMap | HIGH | Commander Mailbox approval required |
-| Metasploit | HIGH | Commander Mailbox approval required |
-| EyeWitness | LOW | Scope check only (read-only, no exploitation) |
+Every tool call is classified into one of three risk tiers before it executes:
+
+- **LOW tier** (Amass, httpx, WhatWeb, EyeWitness) — these are passive or read-only operations. The scope check passes → they execute immediately. No additional gate.
+- **MEDIUM tier** (Nmap, Gobuster, ffuf, Nuclei, OWASP ZAP) — these are active scans that generate traffic against the target. An LLM Permission Classifier evaluates scope alignment, chain intent, and parameter safety before approving.
+- **HIGH tier** (SQLMap, Metasploit) — these are exploitation tools that can extract real data or achieve real code execution. They route to the Commander Mailbox and require explicit Commander approval — with full chain context reviewed — before running.
 
 > **No raw tool output ever enters an agent's reasoning context. No exploitation tool executes without Commander-level approval. No tool operates outside the declared scope.**
 
@@ -457,4 +449,4 @@ Agent Request → Risk Gate → Tool Adapter → Tool Execution → Parse → AS
 
 ---
 
-*Next: Module 08 — Real-World Scenario Walkthrough (shopvault.io, visualized step by step)*
+*Next: Module 06 — The Planning Cycle, Context Management, and Cross-Mission Learning*

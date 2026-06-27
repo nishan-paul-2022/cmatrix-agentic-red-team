@@ -398,4 +398,207 @@ This **dual termination condition** is the first formally grounded mission-compl
 
 ---
 
+## Diagram 2 — The Dual-Graph Model: ASG + APG Visualised
+
+This diagram shows both graphs side-by-side using the `shopvault.io` mission as a concrete example. Left side = ASG (what was discovered). Right side = APG (what can be done with it). The vertical barrier in the middle = the strict separation boundary.
+
+### 2A — ASG: The Attack Surface Graph (Discovered Reality)
+
+Every node here represents something **confirmed by a tool**. Every edge represents a **confirmed relationship**. No guesses. No hypotheses.
+
+```mermaid
+graph TD
+    %% ── ASG ROOT ──────────────────────────────────────────────
+    DOM["🌐 Domain\nshopvault.io"]
+
+    %% ── HOSTS ─────────────────────────────────────────────────
+    H1["🖥️ Host\n10.0.0.1\nOS: Ubuntu 22.04"]
+    H2["🖥️ Host\n10.0.0.2\nOS: Debian 11"]
+    H3["🖥️ Host\napi.shopvault.io\n10.0.0.5"]
+
+    %% ── PORTS ─────────────────────────────────────────────────
+    P443["🔌 Port :443\ntcp · open"]
+    P8080["🔌 Port :8080\ntcp · open · unencrypted"]
+    P80["🔌 Port :80\ntcp · open"]
+    P22["🔌 Port :22\ntcp · open"]
+
+    %% ── SERVICES ──────────────────────────────────────────────
+    SVC1["⚙️ Service\nNginx 1.18.0"]
+    SVC2["⚙️ Service\nHTTP unencrypted"]
+    SVC3["⚙️ Service\nOpenSSH 8.9p1"]
+
+    %% ── TECHNOLOGIES ──────────────────────────────────────────
+    TECH1["📦 Technology\nWordPress 5.9.3"]
+    TECH2["📦 Technology\nWooCommerce 6.1"]
+    TECH3["📦 Technology\nDjango 4.1.2"]
+
+    %% ── ENDPOINTS ─────────────────────────────────────────────
+    EP1["🔗 Endpoint\n/wp-admin/login\nsensitivity: HIGH"]
+    EP2["🔗 Endpoint\n/backup/db_export.sql\nsensitivity: CRITICAL"]
+    EP3["🔗 Endpoint\n/api/v1/orders"]
+    EP4["🔗 Endpoint\n/api/v1/internal/users\nundocumented!"]
+
+    %% ── PARAMETERS ────────────────────────────────────────────
+    PARAM1["⚙️ Parameter\nuser_id=?\ninjectable: TRUE"]
+
+    %% ── VULNERABILITIES ───────────────────────────────────────
+    VULN1["🚨 Vulnerability\nCVE-2022-21661\nCVSS: 8.8 · SQLi\nPoC: Exploit-DB ✓\nMetasploit module ✓"]
+    VULN2["🚨 Vulnerability\nIDOR on /api/v1/orders\nSeverity: HIGH"]
+    VULN3["🚨 Vulnerability\nExposed DB backup\nSeverity: CRITICAL"]
+
+    %% ── EVIDENCE ──────────────────────────────────────────────
+    EV1["📎 Evidence\nsqli-extraction.txt"]
+    EV2["📎 Evidence\nadmin-panel.png"]
+    EV3["📎 Evidence\nwebshell-rce.png"]
+
+    %% ── EDGES ─────────────────────────────────────────────────
+    DOM -->|has_host| H1
+    DOM -->|has_host| H2
+    DOM -->|has_host| H3
+
+    H1 -->|has_port| P443
+    H1 -->|has_port| P22
+    H2 -->|has_port| P8080
+    H3 -->|has_port| P80
+
+    P443 -->|runs| SVC1
+    P8080 -->|runs| SVC2
+    P22 -->|runs| SVC3
+
+    H1 -->|uses| TECH1
+    H1 -->|uses| TECH2
+    H3 -->|uses| TECH3
+
+    TECH1 -->|affected_by| VULN1
+
+    SVC1 -->|has_endpoint| EP1
+    SVC1 -->|has_endpoint| EP2
+    H3 -->|has_endpoint| EP3
+    H3 -->|has_endpoint| EP4
+
+    EP3 -->|has_parameter| PARAM1
+    PARAM1 -->|affected_by| VULN2
+    EP2 -->|affected_by| VULN3
+
+    VULN1 -->|validated_by| EV1
+    VULN1 -->|validated_by| EV2
+    VULN1 -->|validated_by| EV3
+
+    %% ── STYLES ────────────────────────────────────────────────
+    style DOM fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style H1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style H2 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style H3 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P443 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P8080 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P80 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P22 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style SVC1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style SVC2 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style SVC3 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style TECH1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style TECH2 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style TECH3 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style EP1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style EP2 fill:#1A0404,stroke:#FF5252,color:#FF5252
+    style EP3 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style EP4 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style PARAM1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style VULN1 fill:#220606,stroke:#FF5252,color:#FF5252
+    style VULN2 fill:#220606,stroke:#FF5252,color:#FF5252
+    style VULN3 fill:#220606,stroke:#FF5252,color:#FF5252
+    style EV1 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV2 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV3 fill:#120820,stroke:#9C27B0,color:#CE93D8
+```
+
+**Node colour key:**
+- 🟢 **Lime** — Domain, Host, Port, Service (infrastructure layer)
+- 🔵 **Cyan** — Technology, Endpoint, Parameter (application layer)
+- 🔴 **Red** — Vulnerability (weakness layer)
+- 🟣 **Purple** — Evidence (proof layer)
+
+---
+
+### 2B — APG: The Attack Path Graph (Inferred Opportunity)
+
+The Commander reads the ASG and reasons: *"These vulnerabilities can chain together into complete attack paths."* Those chains live here — in the APG.
+
+```mermaid
+flowchart TD
+    %% ── CHAIN 01 ──────────────────────────────────────────────────
+    subgraph C1["AttackChain: Chain-01 · risk_score: 9.1 · VALIDATED"]
+        direction TB
+        C1S["starts_at → ASG: CVE-2022-21661\n(WordPress SQLi, CVSS 8.8)"]
+
+        STEP1["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: /wp-admin/admin-ajax.php\nAction: Confirm WP_Query SQLi\nStatus: ✅ VALIDATED\n↗ supported_by: sqli-extraction.txt"]
+
+        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nGet admin password hash\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
+
+        STEP3["ChainStep 3\n─────────────\nTool: Metasploit\nModule: wp_admin_shell_upload\nAction: Deploy webshell → RCE\nStatus: ✅ VALIDATED\n↗ supported_by: webshell-rce.png"]
+
+        IMP1["💀 IMPACT\n─────────────\nFull RCE on shopvault.io web server\nCustomer PII database accessible\nClassification: CRITICAL"]
+
+        C1S --> STEP1
+        STEP1 -->|next_step| STEP2
+        STEP2 -->|next_step| STEP3
+        STEP3 -->|achieves| IMP1
+    end
+
+    %% ── CHAIN 02 ──────────────────────────────────────────────────
+    subgraph C2["AttackChain: Chain-02 · risk_score: 7.5 · VALIDATED"]
+        direction TB
+        C2S["starts_at → ASG: IDOR on /api/v1/orders\n(user_id parameter unsanitised)"]
+
+        STEP21["ChainStep 1\n─────────────\nTool: SQLMap / ffuf\nAction: Confirm IDOR\nAny user_id returns that user's orders\nStatus: ✅ VALIDATED"]
+
+        IMP2["💀 IMPACT\n─────────────\nAll customer order history exposed\nName · address · payment method visible\nClassification: HIGH"]
+
+        C2S --> STEP21
+        STEP21 -->|achieves| IMP2
+    end
+
+    %% ── CHAIN 03 (RULED OUT) ──────────────────────────────────────
+    subgraph C3["AttackChain: Chain-03 · risk_score: 6.2 · RULED_OUT"]
+        direction TB
+        C3S["starts_at → ASG: Exposed /backup/db_export.sql"]
+
+        STEP31["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nStatus: ❌ RULED_OUT\nReason: File returns 403 after\nfirst access (WAF blocked)\nFailure written to ASG Vuln node"]
+
+        C3S --> STEP31
+    end
+
+    %% ── PRIORITY RANKING ──────────────────────────────────────────
+    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 ← validated first\n#2 Chain-02 · 7.5 ← validated second\n#3 Chain-03 · 6.2 ← ruled out\n\nCommander re-ranks on every status change"]
+
+    %% Styles
+    style C1 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style C2 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style C3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style STEP1 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style STEP2 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style STEP3 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP1 fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style STEP21 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP2 fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style STEP31 fill:#200606,stroke:#FF5252,color:#FF5252
+    style PRIO fill:#06101E,stroke:#00D4FF,color:#00D4FF
+```
+
+### What the Two Graphs Together Tell You
+
+| Question | Answered By |
+|----------|------------|
+| "What hosts exist on shopvault.io?" | ASG → Domain → Host nodes |
+| "What software is running on port 443?" | ASG → Port → Service → Technology nodes |
+| "Which vulnerabilities were found?" | ASG → Vulnerability nodes (with CVSS, PoC status) |
+| "What are the complete attack paths?" | APG → AttackChain nodes (with ChainSteps) |
+| "Which attack is most dangerous?" | APG → risk_score ranking |
+| "Is each attack actually proven?" | APG → validation_status + supported_by → ASG Evidence |
+| "What is the proof?" | ASG → Evidence nodes (screenshots, tool outputs) |
+
+
+
+---
+
 *Next: Module 03 — The Agent Architecture (Who Does What)*

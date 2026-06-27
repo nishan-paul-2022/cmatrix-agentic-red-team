@@ -446,4 +446,256 @@ This strategy is then indexed in the library. At the start of future missions wh
 
 ---
 
+## Diagram 1 — System Architecture: The Three-Tier Overview
+
+This is the master view of CMatrix. Everything fits into three tiers:
+
+- **Tier 1 (top):** Orchestration — the operator configures, the Commander reasons
+- **Tier 2 (middle):** The dual-graph world model — the two living knowledge stores
+- **Tier 3 (bottom):** The six specialist agents and the tool layer they operate through
+
+```mermaid
+flowchart TD
+    %% ── TIER 1: ORCHESTRATION ──────────────────────────────────────
+    subgraph T1["① ORCHESTRATION TIER"]
+        direction LR
+        OP["🧑 OPERATOR\n─────────────\nDefines: Target domain\nScope boundaries\nAssessment mode\n(Black-Box / Grey-Box)"]
+        CMD["👑 COMMANDER AGENT\n─────────────────────────────\n• Reads full ASG + APG state\n• Plans and delegates tasks\n• Seeds APG AttackChains\n• Approves High-risk tool calls\n• Writes ONLY to APG\n• Determines termination"]
+        VPP["📄 VAPT PROTOCOL PROMPT\n──────────────────────────\nMethodology-as-Config:\n• Phase sequencing rules\n• Re-plan triggers\n• Termination conditions\n• Tool selection heuristics"]
+
+        OP -- "mission config\n(target + scope)" --> CMD
+        CMD <-- "guides\nplanning policy" --> VPP
+    end
+
+    %% ── TIER 2: DUAL-GRAPH WORLD MODEL ─────────────────────────────
+    subgraph T2["② DUAL-GRAPH WORLD MODEL TIER"]
+        direction LR
+        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)\n── Discovered Reality ──\nFacts ONLY. Never contains hypotheses."]
+            A1["Domain · Host · Port\nService · Technology"]
+            A2["Endpoint · Parameter\nVulnerability · Evidence"]
+        end
+        SEP["⬛ STRICT\nSEPARATION\n────────\nNo agent\ncrosses this\nboundary"]
+        subgraph APG["🟡 ATTACK PATH GRAPH (APG)\n── Inferred Opportunity ──\nReasoning ONLY. Never contains raw scan data."]
+            P1["AttackChain\nrisk_score · priority"]
+            P2["ChainStep\nvalidation_status"]
+            P3["Impact\n(demonstrated)"]
+        end
+    end
+
+    %% ── TIER 3: AGENTS + TOOLS ──────────────────────────────────────
+    subgraph T3["③ SPECIALIZED AGENTS + TOOL ADAPTER TIER"]
+        direction LR
+        AGR["🕵️ Recon\nAmass·httpx·Nmap"]
+        AGA["🔬 Analysis\nWhatWeb·Gobuster\nffuf·Nuclei·ZAP"]
+        AGI["🔍 Research\nNVD·Exploit-DB\nGitHub"]
+        AGV["🎯 Validation\nSQLMap·Metasploit"]
+        AGE["📸 Evidence\nEyeWitness"]
+        AGRP["📝 Report\nReads ASG+APG"]
+
+        subgraph TAL["TOOL ADAPTER LAYER + RISK GATE"]
+            RG1["🟢 LOW\nExecute immediately"]
+            RG2["🟡 MED\nLLM Classifier"]
+            RG3["🔴 HIGH\nCommander Mailbox"]
+        end
+    end
+
+    %% ── CROSS-TIER ARROWS ───────────────────────────────────────────
+    CMD -- "reads state" --> ASG
+    APG -- "status feedback" --> CMD
+    CMD -- "derives chains\nfrom new Vulnerability nodes" --> APG
+    CMD -- "spawns with\nscoped context" --> AGR
+    CMD -- "spawns with\nscoped context" --> AGA
+    CMD -- "spawns with\nscoped context" --> AGI
+    CMD -- "spawns with\nscoped context" --> AGV
+    CMD -- "spawns with\nscoped context" --> AGE
+    CMD -- "spawns at\nmission end" --> AGRP
+
+    AGR -- "writes Domain\nHost·Port·Service" --> ASG
+    AGA -- "writes Technology\nEndpoint·Vulnerability" --> ASG
+    AGI -- "enriches Vulnerability\nnodes (CVE+PoC)" --> ASG
+    AGV -- "writes Evidence\nadvances ChainStep" --> ASG
+    AGE -- "writes Evidence\nscreenshots" --> ASG
+
+    AGR --> TAL
+    AGA --> TAL
+    AGV --> TAL
+
+    %% Styling
+    classDef tier1 fill:#061020,stroke:#00D4FF,color:#fff
+    classDef tier2asg fill:#04180C,stroke:#7FFF00,color:#fff
+    classDef tier2apg fill:#1E1004,stroke:#FFC107,color:#fff
+    classDef tier3 fill:#0A081C,stroke:#9C27B0,color:#fff
+    classDef gate_low fill:#0A1A08,stroke:#7FFF00,color:#7FFF00
+    classDef gate_med fill:#1A1000,stroke:#FFC107,color:#FFC107
+    classDef gate_hi fill:#1A0606,stroke:#FF5252,color:#FF5252
+    classDef sep fill:#081018,stroke:#444,color:#888
+
+    class T1 tier1
+    class ASG tier2asg
+    class APG tier2apg
+    class T3 tier3
+    class RG1 gate_low
+    class RG2 gate_med
+    class RG3 gate_hi
+    class SEP sep
+```
+
+### Reading Key
+
+| Colour | Meaning |
+|--------|---------|
+| 🟢 Cyan border | Commander — orchestration layer |
+| 🟢 Lime/Green border | ASG — discovery facts |
+| 🟡 Gold border | APG — attack reasoning |
+| 🟣 Purple border | Agent tier + tool adapter |
+| Solid arrow | Data flow / write |
+| Dashed arrow | Read / feedback |
+
+### Three Things to Notice
+
+1. **The Commander never touches tools.** Every arrow from the Commander goes to agents — never to the Tool Adapter Layer directly.
+2. **Only the Commander writes to the APG.** All six specialist agents write only to the ASG (or read from it). The APG is exclusively the Commander's domain.
+3. **All tool calls go through the Tool Adapter Layer.** There is no path from an agent directly to a tool. The Risk Gate sits in that layer.
+
+
+
+---
+
+## Diagram 3 — Agent Spawn Lifecycle: Born Fresh, Die Clean
+
+This is the most important architectural insight that separates CMatrix from other multi-agent systems. Every agent is born fresh, does exactly one job with a scoped context, and vanishes — leaving only structured graph state behind.
+
+### 3A — The Spawn Lifecycle (single agent)
+
+```mermaid
+sequenceDiagram
+    participant CMD as 👑 Commander
+    participant GATE as 🚦 Risk Gate
+    participant TAL as ⚙️ Tool Adapter
+    participant AG as 🤖 Specialist Agent
+    participant ASG as 🟢 ASG
+    participant APG as 🟡 APG
+
+    Note over CMD: Reads full ASG + APG state
+    Note over CMD: Decides: spawn Analysis Agent<br/>for WordPress 5.9.3 host
+
+    CMD->>AG: spawn(ASG slice + task spec + authorized toolset)
+    Note over AG: Fresh context — no prior history<br/>Knows only: its ASG slice + task
+
+    AG->>GATE: tool_call(WhatWeb, target=shopvault.io)
+    GATE-->>AG: LOW risk → execute immediately
+
+    AG->>TAL: execute(WhatWeb)
+    TAL-->>AG: structured findings<br/>{technology: WordPress, version: 5.9.3}
+    Note over AG: Raw output discarded<br/>Agent sees only compact summary
+
+    AG->>GATE: tool_call(Gobuster, target=shopvault.io)
+    GATE->>CMD: MEDIUM risk → LLM Classifier check
+    CMD-->>GATE: EXECUTE approved
+    GATE->>TAL: execute(Gobuster)
+    TAL-->>AG: structured findings<br/>{endpoint: /backup/db_export.sql, status: 200}
+
+    AG->>GATE: tool_call(SQLMap, target=shopvault.io)
+    GATE->>CMD: HIGH risk → Commander Mailbox
+    Note over CMD: Reviews: target in scope?<br/>Chain context valid? Params safe?
+    CMD-->>AG: APPROVED (or REJECTED/MODIFIED)
+
+    AG->>ASG: write delta<br/>[Technology: WP 5.9.3]<br/>[Endpoint: /backup/db_export.sql]<br/>[Vulnerability: CVE-2022-21661]
+
+    AG->>CMD: return structured ASG delta
+    Note over AG: Working context DISCARDED<br/>All raw tool output gone<br/>All intermediate reasoning gone
+
+    CMD->>APG: read new Vulnerability nodes
+    Note over CMD: Reasons: CVE-2022-21661 → seed Chain-01
+    CMD->>APG: write AttackChain(Chain-01, risk=8.8, HYPOTHESIZED)
+```
+
+---
+
+### 3B — What Each Agent Receives at Spawn (Scoped Context)
+
+```mermaid
+flowchart LR
+    CMD["👑 COMMANDER\nDecides next action"]
+
+    subgraph SPAWN["Agent Spawn Package"]
+        direction TB
+        S1["📊 ASG SLICE\nOnly nodes relevant to this task\nNot the full graph"]
+        S2["🔗 APG SLICE\nRelevant AttackChains only\n(if this is a Validation task)"]
+        S3["🔧 TOOL SET\nAuthorized tools only\nNo others available"]
+        S4["📋 TASK SPEC\nCommander's current plan item\nExact objective for this spawn"]
+        S5["📚 KNOWLEDGE DOCS\n(Validation Agent only)\nVulnerability-class expert docs\ninjected at spawn time"]
+    end
+
+    subgraph AGENT["🤖 Isolated Agent Context\n(fresh per task — no prior history)"]
+        WORK["Works autonomously\nwithin bounded context\nAll tool calls → Risk Gate"]
+    end
+
+    subgraph RETURN["Agent Returns"]
+        R1["✅ Structured ASG Delta\nNew nodes + edges only"]
+        R2["🗑️ Working context DISCARDED\nRaw tool output → gone\nConversation history → gone\nIntermediate reasoning → gone"]
+    end
+
+    CMD -->|"spawn with\nscoped package"| SPAWN
+    SPAWN --> AGENT
+    AGENT --> RETURN
+    RETURN -->|"delta written\nto ASG"| ASG_ICON["🟢 ASG"]
+    RETURN -->|"Commander reads\nnew nodes"| CMD
+
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style SPAWN fill:#0A0C1E,stroke:#9C27B0,color:#9C27B0
+    style AGENT fill:#0A0C1E,stroke:#9C27B0,color:#fff
+    style RETURN fill:#041808,stroke:#7FFF00,color:#7FFF00
+    style ASG_ICON fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style S1 fill:#04180A,stroke:#7FFF00,color:#7FFF00
+    style S2 fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style S3 fill:#180404,stroke:#FF5252,color:#FF5252
+    style S4 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style S5 fill:#100820,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 3C — Why Context Isolation Produces Three Critical Properties
+
+```mermaid
+flowchart TD
+    CI["🔒 CONTEXT ISOLATION\nEvery agent spawns fresh\nEvery agent dies clean"]
+
+    P1["✅ Property 1\nCOMMANDER STAYS CLEAN\n─────────────────────\nCommander only ever sees\nASG/APG state — never\nthousands of lines of\nraw tool output.\nIts reasoning context stays\nsurgically focused."]
+
+    P2["✅ Property 2\nAGENTS CANNOT CONTAMINATE\n─────────────────────────\nAgent A's verbose history\nnever appears in Agent B's\ncontext. Knowledge passes\nonly through the ASG.\nNo shared memory. No\naccidental cross-pollution."]
+
+    P3["✅ Property 3\nREJECTIONS DON'T BIAS PLANNING\n────────────────────────────────\nWhen Commander rejects a\nHigh-risk tool call, that\nrejection never appears in\nthe Commander's own context.\nRefusals don't accumulate\nand skew future decisions."]
+
+    RESULT["🎯 RESULT\nLong missions with many agents\nproduce the same quality of\nreasoning as single-agent tasks.\nContext quality does not degrade\nwith mission complexity."]
+
+    CI --> P1
+    CI --> P2
+    CI --> P3
+    P1 --> RESULT
+    P2 --> RESULT
+    P3 --> RESULT
+
+    style CI fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style P1 fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style P2 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style P3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style RESULT fill:#1A1002,stroke:#FFC107,color:#FFC107
+```
+
+### Reading Key for Diagram 3
+
+| Concept | What to Notice |
+|---------|---------------|
+| Spawn package | 5 components — each scoped, none is the full system state |
+| Tool Set boundary | Agent can ONLY use tools it was authorized for at spawn |
+| Knowledge Docs | Only Validation + Analysis agents receive these — matched to their vulnerability class |
+| Return = delta only | The ASG grows by addition — agents don't rewrite existing nodes |
+| Context discarded | The working session is gone — the ASG persists forever |
+
+
+
+---
+
 *Next: Module 04 — The Tool Adapter Layer and Risk Gate*
