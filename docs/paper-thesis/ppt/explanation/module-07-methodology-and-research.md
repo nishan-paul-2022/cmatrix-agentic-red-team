@@ -398,23 +398,24 @@ flowchart TD
         B4["Tool: ffuf\n────────────────────────\nIDOR: user_id param unsanitised\n/api/v2 routes discovered\nVirtual host: internal.shopvault.io"]
         B5["Tool: Nuclei\n────────────────────────\nCVE-2022-21661 template → MATCH\nExposed phpinfo.php on staging\nDefault creds check: admin/admin → fail"]
         B6["Tool: OWASP ZAP\n────────────────────────\nXSS on /search?q= (reflected)\nSQL error on staging login form\nMissing security headers on API"]
-        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Exposed DB backup (6.2)"]
+        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE-2022-21661 SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Staging login blind SQLi (8.1)"]
     end
 
     subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE\nValidation Agent + Evidence Agent spawned"]
         C1["Chain-01 (highest priority: 8.8)\n────────────────────────────────\nStep 1: SQLMap on WP_Query\n→ SQLi confirmed ✅\n→ Evidence: sqli-extraction.txt"]
-        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: password123\n→ Evidence: user-table-dump.png"]
+        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: admin:Summer2023!\n→ Evidence: user-table-dump.png"]
         C3["Step 3: Metasploit wp_admin_shell_upload\n────────────────────────────────\n⚠️ HIGH RISK → Commander Mailbox\n→ Commander APPROVES\n→ Web shell deployed ✅\n→ RCE confirmed!\n→ risk_score escalated: 8.8 → 9.1\n→ Evidence: webshell-rce.png"]
-        C4["Chain-02 (risk: 7.5)\n────────────────────────────────\nffuf: user_id=456 returns user 456 orders\n→ IDOR confirmed ✅\n→ All customer PII accessible\n→ Evidence: idor-orders-dump.png"]
-        C5["Chain-03 (risk: 6.2)\n────────────────────────────────\nGET /backup/db_export_2023.sql\n→ Attempt 1: 403 (WAF blocked)\n→ Diagnose: WAF active\n→ Attempt 2: header bypass → 403\n→ Attempt 3: path variation → 403\n→ CAP REACHED → RULED_OUT\n→ Failure written to ASG Vuln node"]
-        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-02: VALIDATED (7.5)\nChain-03: RULED_OUT (6.2)\n\n📥 ASG DELTA\n4 Evidence nodes + edges added"]
+        C4["Chain-03 (next by risk: 8.1)\n────────────────────────────────\nSQLMap on staging.shopvault.io/login\n→ Blind SQLi confirmed ✅\n→ Staging DB credentials extracted ✅\n→ Commander flags: staging creds overlap production\n→ Additional Impact node: credential reuse risk\n→ Evidence: staging-db-dump.png"]
+        C5["Chain-02 (risk: 7.5)\n────────────────────────────────\nSQLMap on user_id parameter\n→ IDOR confirmed ✅\n→ Any customer's orders accessible without auth\n→ Evidence: idor-orders-dump.png"]
+        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-03: VALIDATED (8.1)\nChain-02: VALIDATED (7.5)\n\n📥 ASG DELTA\nEvidence nodes + edges added"]
     end
 
-    subgraph P4["🟣 PHASE 4 — REPORT\nReport Agent spawned — reads full ASG + APG"]
-        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 2 Validated Attack Chains (RCE + IDOR)\n• 1 Ruled-Out Chain (DB backup WAF-protected)\n• Full attack surface map (14 subdomains · 11 hosts)\n• 9 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Screenshot evidence at every ChainStep\n• ZERO manual commands issued"]
+    subgraph P4["🟣 PHASE 4 — ASG EXHAUSTION + CHAIN-04 + REPORT"]
+        C6["ASG Exhaustion Check\n────────────────────────────────\nCommander reads ASG: all 11 hosts mapped\n→ /backup/db_export_2023.sql still unvalidated\n→ Seed Chain-04: Direct DB backup download\n→ HTTP GET → 200 OK → VALIDATED immediately\n→ Evidence: db-backup-download.png"]
+        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 4 Validated Attack Chains\n• Full attack surface map (14 subdomains · 11 hosts)\n• 11 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Evidence at every ChainStep\n• ZERO manual commands issued"]
     end
 
-    TERM["✅ TERMINATION CONDITION MET\nASG: all 98 nodes explored\nAPG: all 3 chains in terminal state\n→ Report Agent spawned"]
+    TERM["✅ TERMINATION CONDITION MET\nASG: all 111 nodes explored\nAPG: all 4 chains VALIDATED\n→ Report Agent spawned"]
 
     OP --> P1
     A1 --> A2 --> A3 --> D1
@@ -425,7 +426,7 @@ flowchart TD
     C3 --> C4 --> C5 --> D3
     D3 --> TERM
     TERM --> P4
-    P4 --> RPT
+    C6 --> RPT
 
     style OP fill:#041A08,stroke:#7FFF00,color:#7FFF00
     style P1 fill:#062210,stroke:#7FFF00,color:#7FFF00
@@ -436,6 +437,7 @@ flowchart TD
     style D2 fill:#041A08,stroke:#7FFF00,color:#7FFF00
     style D3 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style TERM fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style C6 fill:#1E1004,stroke:#FFC107,color:#FFC107
     style RPT fill:#10081E,stroke:#9C27B0,color:#CE93D8
 ```
 
@@ -457,10 +459,10 @@ timeline
     section After Research
         Step 4  : Trigger: CVE-2022-21661 Vuln node written (CVSS 8.8, PoC confirmed)
                 : Action: Seed Chain-01 in APG — HYPOTHESIZED — priority 1
-        Step 5  : Trigger: IDOR Vuln node written by ZAP
-                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 2
-        Step 6  : Trigger: Exposed DB backup Vuln node written
-                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 3
+        Step 5  : Trigger: Staging SQLi Vuln node written
+                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 2
+        Step 6  : Trigger: IDOR Vuln node written by ffuf
+                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 3
     section Validation
         Step 7  : Trigger: Chain-01 is highest priority
                 : Action: Spawn Validation Agent for Chain-01
@@ -469,14 +471,16 @@ timeline
         Step 9  : Trigger: Metasploit HIGH-risk call arrives at mailbox
                 : Decision: APPROVE — Steps 1+2 already VALIDATED — RCE is the goal
         Step 10 : Trigger: Chain-01 → VALIDATED — risk escalated to 9.1
-                : Action: Spawn Validation Agent for Chain-02
-        Step 11 : Trigger: Chain-02 → VALIDATED
-                : Action: Spawn Validation Agent for Chain-03
-        Step 12 : Trigger: Chain-03 → RULED_OUT after 3 retries
-                : Note: Failure reason written to ASG Vuln node
-    section Termination
-        Step 13 : Trigger: ASG exhausted (98 nodes explored) AND APG resolved (3/3 terminal)
-                : Action: Dual-graph termination condition met — spawn Report Agent
+                : Action: Spawn Validation Agent for Chain-03 (priority 2)
+        Step 11 : Trigger: Chain-03 → VALIDATED
+                : Action: Spawn Validation Agent for Chain-02 (priority 3)
+        Step 12 : Trigger: Chain-02 → VALIDATED
+    section Termination Check
+        Step 13 : Trigger: 3/3 APG chains resolved, but ASG has unexplored nodes
+                : Action: Seed Chain-04 (DB backup) — priority 4
+        Step 14 : Trigger: Chain-04 → VALIDATED
+                : Action: ASG fully explored (111 nodes) AND APG resolved (4/4)
+                : Spawn Report Agent
 ```
 
 ---
@@ -501,16 +505,17 @@ flowchart LR
 
     subgraph APG_FINAL["🟡 APG — Final State"]
         direction TB
-        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated)\nSQLi → Admin → RCE"]
-        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer PII"]
-        CH3["Chain-03: RULED_OUT ❌\nrisk: 6.2\nDB backup WAF-protected"]
+        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated after RCE)\nWordPress SQLi → Admin auth → RCE"]
+        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer order PII"]
+        CH3["Chain-03: VALIDATED ✅\nrisk: 8.1\nStaging blind SQLi → Credential extraction"]
+        CH4["Chain-04: VALIDATED ✅\nrisk: 7.0\nExposed DB backup → Full PII download"]
     end
 
     subgraph REPORT_FINAL["📝 Report Output"]
         direction TB
-        R1["2 validated attack chains\nwith step-by-step reproduction"]
-        R2["4 screenshot evidence artifacts\nlinked at each ChainStep"]
-        R3["9 vulnerabilities\nordered by risk_score"]
+        R1["4 validated attack chains\nwith step-by-step reproduction"]
+        R2["Evidence artifacts (text + screenshots)\nlinked at each ChainStep"]
+        R3["11 vulnerabilities\nordered by risk_score"]
         R4["Remediation guidance\nprioritized by business risk"]
         R5["0 manual commands issued\nduring entire assessment"]
     end
