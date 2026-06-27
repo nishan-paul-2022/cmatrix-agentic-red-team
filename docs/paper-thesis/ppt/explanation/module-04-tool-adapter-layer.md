@@ -332,11 +332,11 @@ Every step in this chain has a gate. Every gate has a defined behavior. Nothing 
 
 ---
 
-## Diagram 4 — Tool Risk Gate: Every Tool Call's Journey
+## Figure 1 — Tool Risk Gate: Every Tool Call's Journey
 
 No tool in CMatrix executes without passing through this gate. This diagram shows the complete decision path — from an agent requesting a tool call, through all three risk tiers, to either execution or rejection.
 
-### Diagram 4A — The Full Risk Gate Decision Tree
+### Figure 1A — The Full Risk Gate Decision Tree
 
 ```mermaid
 flowchart TD
@@ -443,7 +443,7 @@ flowchart TD
 
 ---
 
-### Diagram 4B — What the LLM Permission Classifier Actually Checks
+### Figure 1B — What the LLM Permission Classifier Actually Checks
 
 ```mermaid
 flowchart LR
@@ -487,7 +487,7 @@ flowchart LR
 
 ---
 
-### Diagram 4C — The 6 Lifecycle Hooks: Where Operators Can Intervene
+### Figure 1C — The 6 Lifecycle Hooks: Where Operators Can Intervene
 
 ```mermaid
 timeline

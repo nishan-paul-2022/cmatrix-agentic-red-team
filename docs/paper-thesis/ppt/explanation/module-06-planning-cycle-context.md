@@ -493,11 +493,11 @@ This philosophy shapes every design decision in CMatrix: the APG tracks chains t
 
 ---
 
-## Diagram 5 — The Autonomous Planning Cycle
+## Figure 1 — The Autonomous Planning Cycle
 
 The Commander runs this loop continuously — from mission start until the dual-graph termination condition fires. Every iteration is grounded in graph state. Every decision is traceable to a specific graph event.
 
-### Diagram 5A — The Core Planning Loop
+### Figure 1A — The Core Planning Loop
 
 ```mermaid
 flowchart TD
@@ -579,7 +579,7 @@ flowchart TD
 
 ---
 
-### Diagram 5B — What Triggers a Re-Plan (Graph-Grounded Events)
+### Figure 1B — What Triggers a Re-Plan (Graph-Grounded Events)
 
 ```mermaid
 flowchart LR
@@ -619,7 +619,7 @@ flowchart LR
 
 ---
 
-### Diagram 5C — The Dual Termination Condition (Why Both Must Be True)
+### Figure 1C — The Dual Termination Condition (Why Both Must Be True)
 
 ```mermaid
 flowchart TD
@@ -659,7 +659,7 @@ flowchart TD
 
 ---
 
-### Diagram 5D — Context Compaction: How Long Missions Stay Sharp
+### Figure 1D — Context Compaction: How Long Missions Stay Sharp
 
 ```mermaid
 flowchart LR

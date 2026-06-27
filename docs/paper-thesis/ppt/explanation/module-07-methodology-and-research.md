@@ -367,7 +367,7 @@ The result is a system that is architecturally distinct from every prior autonom
 
 ---
 
-## Diagram 6 — Real-World Scenario: shopvault.io End-to-End
+## Figure 1 — Real-World Scenario: shopvault.io End-to-End
 
 This is the complete picture. One real mission. Zero manual commands. Watch every tool, every graph write, every Commander decision, from the moment the operator presses start to the final professional report.
 
@@ -378,7 +378,7 @@ This is the complete picture. One real mission. Zero manual commands. Watch ever
 
 ---
 
-### Diagram 6A — Mission Timeline: Phase by Phase
+### Figure 1A — Mission Timeline: Phase by Phase
 
 ```mermaid
 flowchart TD
@@ -441,7 +441,7 @@ flowchart TD
 
 ---
 
-### Diagram 6B — The Commander's Decision Log (Key Moments)
+### Figure 1B — The Commander's Decision Log (Key Moments)
 
 ```mermaid
 timeline
@@ -481,7 +481,7 @@ timeline
 
 ---
 
-### Diagram 6C — Final Mission Stats
+### Figure 1C — Final Mission Stats
 
 ```mermaid
 flowchart LR
@@ -525,7 +525,7 @@ flowchart LR
 
 ---
 
-### Diagram 6D — Chain-01 Full Traceability: From CVE to Evidence
+### Figure 1D — Chain-01 Full Traceability: From CVE to Evidence
 
 This is the most important chain in the mission. Every arrow here is a relationship that exists in the dual graph — followable from the report all the way back to the raw evidence file.
 

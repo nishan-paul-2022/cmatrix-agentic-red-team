@@ -400,11 +400,11 @@ This **dual termination condition** is the first formally grounded mission-compl
 
 ---
 
-## Diagram 2 — The Dual-Graph Model: ASG + APG Visualised
+## Figure 1 — The Dual-Graph Model: ASG + APG Visualised
 
 This diagram shows both graphs side-by-side using the `shopvault.io` mission as a concrete example. Left side = ASG (what was discovered). Right side = APG (what can be done with it). The vertical barrier in the middle = the strict separation boundary.
 
-### Diagram 2A — ASG: The Attack Surface Graph (Discovered Reality)
+### Figure 1A — ASG: The Attack Surface Graph (Discovered Reality)
 
 Every node here represents something **confirmed by a tool**. Every edge represents a **confirmed relationship**. No guesses. No hypotheses.
 
@@ -522,7 +522,7 @@ graph TD
 
 ---
 
-### Diagram 2B — APG: The Attack Path Graph (Inferred Opportunity)
+### Figure 1B — APG: The Attack Path Graph (Inferred Opportunity)
 
 The Commander reads the ASG and reasons: *"These vulnerabilities can chain together into complete attack paths."* Those chains live here — in the APG.
 

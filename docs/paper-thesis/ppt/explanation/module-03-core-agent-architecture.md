@@ -449,7 +449,7 @@ The full planning cycle that uses these structures, and the context management t
 
 ---
 
-## Diagram 1 — System Architecture: The Three-Tier Overview
+## Figure 1 — System Architecture: The Three-Tier Overview
 
 This is the master view of CMatrix. Everything fits into three tiers:
 
@@ -562,11 +562,11 @@ flowchart TD
 
 ---
 
-## Diagram 3 — Agent Spawn Lifecycle: Born Fresh, Die Clean
+## Figure 2 — Agent Spawn Lifecycle: Born Fresh, Die Clean
 
 This is the most important architectural insight that separates CMatrix from other multi-agent systems. Every agent is born fresh, does exactly one job with a scoped context, and vanishes — leaving only structured graph state behind.
 
-### Diagram 3A — The Spawn Lifecycle (Single Agent)
+### Figure 2A — The Spawn Lifecycle (Single Agent)
 
 ```mermaid
 sequenceDiagram
@@ -613,7 +613,7 @@ sequenceDiagram
 
 ---
 
-### Diagram 3B — What Each Agent Receives at Spawn (Scoped Context)
+### Figure 2B — What Each Agent Receives at Spawn (Scoped Context)
 
 ```mermaid
 flowchart LR
@@ -657,7 +657,7 @@ flowchart LR
 
 ---
 
-### Diagram 3C — Why Context Isolation Produces Three Critical Properties
+### Figure 2C — Why Context Isolation Produces Three Critical Properties
 
 ```mermaid
 flowchart TD
@@ -685,7 +685,7 @@ flowchart TD
     style RESULT fill:#1A1002,stroke:#FFC107,color:#FFC107
 ```
 
-### Reading Key for Diagram 3
+### Reading Key for Figure 2
 
 | Concept | What to Notice |
 |---------|----------------|

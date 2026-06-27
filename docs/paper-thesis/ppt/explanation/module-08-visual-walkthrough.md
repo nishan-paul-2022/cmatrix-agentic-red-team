@@ -4,7 +4,7 @@
 
 ---
 
-## Diagram 1 — System Architecture: The Three-Tier Overview
+## Module 03, Figure 1 — System Architecture: The Three-Tier Overview
 
 This is the master view of CMatrix. Everything fits into three tiers:
 
@@ -117,15 +117,15 @@ flowchart TD
 
 ---
 
-*Diagram 2 below: Dual-Graph Model (ASG node tree + APG attack chain, visualised)*
+*Module 02, Figure 1 below: Dual-Graph Model (ASG node tree + APG attack chain, visualised)*
 
 ---
 
-## Diagram 2 — The Dual-Graph Model: ASG + APG Visualised
+## Module 02, Figure 1 — The Dual-Graph Model: ASG + APG Visualised
 
 This diagram shows both graphs side-by-side using the `shopvault.io` mission as a concrete example. Left side = ASG (what was discovered). Right side = APG (what can be done with it). The vertical barrier in the middle = the strict separation boundary.
 
-### 2A — ASG: The Attack Surface Graph (Discovered Reality)
+### Figure 1A — ASG: The Attack Surface Graph (Discovered Reality)
 
 Every node here represents something **confirmed by a tool**. Every edge represents a **confirmed relationship**. No guesses. No hypotheses.
 
@@ -243,7 +243,7 @@ graph TD
 
 ---
 
-### 2B — APG: The Attack Path Graph (Inferred Opportunity)
+### Figure 1B — APG: The Attack Path Graph (Inferred Opportunity)
 
 The Commander reads the ASG and reasons: *"These vulnerabilities can chain together into complete attack paths."* Those chains live here — in the APG.
 
@@ -322,15 +322,15 @@ flowchart TD
 
 ---
 
-*Diagram 3 below: Agent Spawn Lifecycle*
+*Module 03, Figure 2 below: Agent Spawn Lifecycle*
 
 ---
 
-## Diagram 3 — Agent Spawn Lifecycle: Born Fresh, Die Clean
+## Module 03, Figure 2 — Agent Spawn Lifecycle: Born Fresh, Die Clean
 
 This is the most important architectural insight that separates CMatrix from other multi-agent systems. Every agent is born fresh, does exactly one job with a scoped context, and vanishes — leaving only structured graph state behind.
 
-### 3A — The Spawn Lifecycle (single agent)
+### Figure 2A — The Spawn Lifecycle (single agent)
 
 ```mermaid
 sequenceDiagram
@@ -377,7 +377,7 @@ sequenceDiagram
 
 ---
 
-### 3B — What Each Agent Receives at Spawn (Scoped Context)
+### Figure 2B — What Each Agent Receives at Spawn (Scoped Context)
 
 ```mermaid
 flowchart LR
@@ -421,7 +421,7 @@ flowchart LR
 
 ---
 
-### 3C — Why Context Isolation Produces Three Critical Properties
+### Figure 2C — Why Context Isolation Produces Three Critical Properties
 
 ```mermaid
 flowchart TD
@@ -449,7 +449,7 @@ flowchart TD
     style RESULT fill:#1A1002,stroke:#FFC107,color:#FFC107
 ```
 
-### Reading Key for Diagram 3
+### Reading Key for Figure 2
 
 | Concept | What to Notice |
 |---------|---------------|
@@ -461,15 +461,15 @@ flowchart TD
 
 ---
 
-*Diagram 4 below: Tool Risk Gate Flow*
+*Module 04, Figure 1 below: Tool Risk Gate Flow*
 
 ---
 
-## Diagram 4 — Tool Risk Gate: Every Tool Call's Journey
+## Module 04, Figure 1 — Tool Risk Gate: Every Tool Call's Journey
 
 No tool in CMatrix executes without passing through this gate. This diagram shows the complete decision path — from an agent requesting a tool call, through all three risk tiers, to either execution or rejection.
 
-### 4A — The Full Risk Gate Decision Tree
+### Figure 1A — The Full Risk Gate Decision Tree
 
 ```mermaid
 flowchart TD
@@ -576,7 +576,7 @@ flowchart TD
 
 ---
 
-### 4B — What the LLM Permission Classifier Actually Checks
+### Figure 1B — What the LLM Permission Classifier Actually Checks
 
 ```mermaid
 flowchart LR
@@ -620,7 +620,7 @@ flowchart LR
 
 ---
 
-### 4C — The 6 Lifecycle Hooks: Where Operators Can Intervene
+### Figure 1C — The 6 Lifecycle Hooks: Where Operators Can Intervene
 
 ```mermaid
 timeline
@@ -665,15 +665,15 @@ timeline
 
 ---
 
-*Diagram 5 below: Autonomous Planning Cycle Loop*
+*Module 06, Figure 1 below: Autonomous Planning Cycle Loop*
 
 ---
 
-## Diagram 5 — The Autonomous Planning Cycle
+## Module 06, Figure 1 — The Autonomous Planning Cycle
 
 The Commander runs this loop continuously — from mission start until the dual-graph termination condition fires. Every iteration is grounded in graph state. Every decision is traceable to a specific graph event.
 
-### 5A — The Core Planning Loop
+### Figure 1A — The Core Planning Loop
 
 ```mermaid
 flowchart TD
@@ -755,7 +755,7 @@ flowchart TD
 
 ---
 
-### 5B — What Triggers a Re-Plan (Graph-Grounded Events)
+### Figure 1B — What Triggers a Re-Plan (Graph-Grounded Events)
 
 ```mermaid
 flowchart LR
@@ -795,7 +795,7 @@ flowchart LR
 
 ---
 
-### 5C — The Dual Termination Condition (Why Both Must Be True)
+### Figure 1C — The Dual Termination Condition (Why Both Must Be True)
 
 ```mermaid
 flowchart TD
@@ -835,7 +835,7 @@ flowchart TD
 
 ---
 
-### 5D — Context Compaction: How Long Missions Stay Sharp
+### Figure 1D — Context Compaction: How Long Missions Stay Sharp
 
 ```mermaid
 flowchart LR
@@ -877,11 +877,11 @@ flowchart LR
 
 ---
 
-*Diagram 6 below: shopvault.io Full Mission Walkthrough*
+*Module 07, Figure 1 below: shopvault.io Full Mission Walkthrough*
 
 ---
 
-## Diagram 6 — Real-World Scenario: shopvault.io End-to-End
+## Module 07, Figure 1 — Real-World Scenario: shopvault.io End-to-End
 
 This is the complete picture. One real mission. Zero manual commands. Watch every tool, every graph write, every Commander decision, from the moment the operator presses start to the final professional report.
 
@@ -892,7 +892,7 @@ This is the complete picture. One real mission. Zero manual commands. Watch ever
 
 ---
 
-### 6A — Mission Timeline: Phase by Phase
+### Figure 1A — Mission Timeline: Phase by Phase
 
 ```mermaid
 flowchart TD
@@ -955,7 +955,7 @@ flowchart TD
 
 ---
 
-### 6B — The Commander's Decision Log (Key Moments)
+### Figure 1B — The Commander's Decision Log (Key Moments)
 
 ```mermaid
 timeline
@@ -995,7 +995,7 @@ timeline
 
 ---
 
-### 6C — Final Mission Stats
+### Figure 1C — Final Mission Stats
 
 ```mermaid
 flowchart LR
@@ -1039,7 +1039,7 @@ flowchart LR
 
 ---
 
-### 6D — Chain-01 Full Traceability: From CVE to Evidence
+### Figure 1D — Chain-01 Full Traceability: From CVE to Evidence
 
 This is the most important chain in the mission. Every arrow here is a relationship that exists in the dual graph — followable from the report all the way back to the raw evidence file.
 
@@ -1097,13 +1097,13 @@ flowchart LR
 
 ## Module 08 — Complete ✅
 
-All 6 diagrams are now in this file:
+The diagrams have been migrated to their contextually appropriate modules. Here is the new mapping:
 
-| # | Diagram | What It Shows |
+| Location | Figure | What It Shows |
 |---|---------|---------------|
-| 1 | System Architecture | 3-tier swim-lane: Orchestration → Dual-Graph → Agents+Tools |
-| 2 | Dual-Graph Model | ASG node tree (9 types) + APG chain lifecycle (3 chains) |
-| 3 | Agent Spawn Lifecycle | Sequence diagram + spawn package + 3 isolation properties |
-| 4 | Tool Risk Gate | Full decision tree + LLM classifier internals + 6 hooks timeline |
-| 5 | Planning Cycle | Core loop + re-plan triggers + dual termination + compaction |
-| 6 | shopvault.io Walkthrough | Phase-by-phase timeline + Commander log + traceability chain |
+| Module 03 | Figure 1: System Architecture | 3-tier swim-lane: Orchestration → Dual-Graph → Agents+Tools |
+| Module 02 | Figure 1: Dual-Graph Model | ASG node tree (9 types) + APG chain lifecycle (3 chains) |
+| Module 03 | Figure 2: Agent Spawn Lifecycle | Sequence diagram + spawn package + 3 isolation properties |
+| Module 04 | Figure 1: Tool Risk Gate | Full decision tree + LLM classifier internals + 6 hooks timeline |
+| Module 06 | Figure 1: Planning Cycle | Core loop + re-plan triggers + dual termination + compaction |
+| Module 07 | Figure 1: shopvault.io Walkthrough | Phase-by-phase timeline + Commander log + traceability chain |
