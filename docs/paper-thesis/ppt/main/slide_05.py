@@ -69,7 +69,7 @@ def build_slide(prs):
     box(slide, cmd_l, cmd_t, cmd_w, Inches(0.3), fill=ACCENT_CYAN)
     txt(slide, "COMMANDER AGENT", cmd_l, cmd_t+Inches(0.03), cmd_w, Inches(0.24),
         size=9.5, bold=True, color=BG_DARK)
-    bullets = ["Reads ASG + APG state", "Plans & delegates tasks", "Approves High-risk ops", "Writes to APG only"]
+    bullets = ["Reads ASG + APG state", "Plans & delegates tasks", "Seeds APG AttackChains from Vulnerability nodes", "Approves High-risk ops", "Writes to APG only"]
     for i, b in enumerate(bullets):
         txt(slide, f"• {b}", cmd_l+Inches(0.1), cmd_t+Inches(0.35)+i*Inches(0.18),
             cmd_w-Inches(0.15), Inches(0.18), size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
@@ -80,7 +80,7 @@ def build_slide(prs):
     box(slide, vp_l, vp_t, vp_w, vp_h, fill=RGBColor(0x10,0x0C,0x22), line_color=ACCENT_PURP, lw=1.2)
     txt(slide, "VAPT PROTOCOL PROMPT", vp_l, vp_t+Inches(0.06), vp_w, Inches(0.22),
         size=8, bold=True, color=ACCENT_PURP)
-    txt(slide, "Phase rules · Re-plan triggers Termination conditions Methodology-as-config",
+    txt(slide, "Phase rules · Re-plan triggers · Termination conditions · Methodology-as-config (C7)",
         vp_l+Inches(0.1), vp_t+Inches(0.32), vp_w-Inches(0.15), Inches(0.58),
         size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
 
@@ -254,7 +254,7 @@ def build_slide(prs):
             size=7, color=GREY_MID, align=PP_ALIGN.LEFT, italic=True)
 
     # ── Slide number ──────────────────────────────────────────────────────────────
-    txt(slide, "04", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
+    txt(slide, "05", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
         Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.RIGHT)
 
 

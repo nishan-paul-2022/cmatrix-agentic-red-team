@@ -112,7 +112,17 @@ def build_slide(prs):
     txt(slide, "step fails after cap", fork_cx+Inches(0.22), fork_cy+Inches(0.22),
         Inches(1.35), Inches(0.22), size=8, italic=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
+    # PARTIALLY_VALIDATED → RULED_OUT direct path (if a later step fails after cap)
+    pv_l = Inches(0.25) + 1*(SW+GAP)   # left edge of PARTIALLY_VALIDATED state
+    pv_mid_x = pv_l + SW/2
+    pv_bot_y = FSM_TOP + SH
+    arr(slide, pv_mid_x, pv_bot_y, ro_l + SW/2, ro_t,
+        color=ACCENT_RED, lw=1.0)
+    txt(slide, "later step fails after cap",
+        pv_mid_x - Inches(0.1), pv_bot_y + Inches(0.04),
+        Inches(1.5), Inches(0.22), size=7, italic=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+
     #  BOTTOM LEFT — SELF-DEBUGGING LOOP
     #  Horizontal cycle: Attempt → Diagnose → Contextualize → Adapt → [Retry | Cap→RULED_OUT]
     # ═══════════════════════════════════════════════════════════════════════════════
@@ -186,13 +196,12 @@ def build_slide(prs):
     txt(slide, "Risk Score + Chain Priority", RS_L, RS_T+Inches(0.04), RS_W, Inches(0.22),
         size=9, bold=True, color=BG_DARK)
 
-    txt(slide, "risk_score = CVSS × Exploitability × Impact",
+    txt(slide, "risk_score derived from: CVSS severity · exploitability (PoC availability) · impact classification",
         RS_L+Inches(0.1), RS_T+Inches(0.34), RS_W-Inches(0.18), Inches(0.28),
-        size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
-    txt(slide, "Priority = rank across all HYPOTHESIZED + PARTIALLY_VALIDATED chains.\n"
-        "Commander pursues highest-priority chain first — re-ranks on every status change.",
-        RS_L+Inches(0.1), RS_T+Inches(0.64), RS_W-Inches(0.18), Inches(0.55),
-        size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+        size=9.5, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
+    txt(slide, "(formula finalized during evaluation phase; not a fixed multiplicative product)",
+        RS_L+Inches(0.1), RS_T+Inches(0.62), RS_W-Inches(0.18), Inches(0.2),
+        size=8, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT)
 
     # shopvault.io chain priority table
     box(slide, RS_L+Inches(0.1), RS_T+Inches(1.22), RS_W-Inches(0.18), Inches(0.26),
@@ -205,7 +214,7 @@ def build_slide(prs):
         ("1", "Chain-01", "CVE-2022-21661 SQLi → RCE",          "9.1", ACCENT_RED),
         ("2", "Chain-03", "Blind SQLi on staging → DB creds",    "8.1", ACCENT_GOLD),
         ("3", "Chain-02", "IDOR on /api/v1/orders → PII",        "7.5", ACCENT_GOLD),
-        ("4", "Chain-04", "Direct DB backup download → PII",     "triv", ACCENT_PURP),
+        ("4", "Chain-04", "Direct DB backup download → PII",     "7.0", ACCENT_PURP),
     ]
     for i, (rank, cid, desc, score, clr) in enumerate(chain_rows):
         rt = RS_T + Inches(1.52) + i * Inches(0.4)
@@ -218,7 +227,16 @@ def build_slide(prs):
         txt(slide, score, RS_L+RS_W-Inches(0.55), rt+Inches(0.06), Inches(0.42), Inches(0.26),
             size=9.5, bold=True, color=clr, align=PP_ALIGN.RIGHT)
 
-    txt(slide, "09", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
+    # ── Exploitation Philosophy footer ──────────────────────────────────────────
+    box(slide, Inches(0.18), SLIDE_H-Inches(0.52), SLIDE_W-Inches(0.36), Inches(0.38),
+        fill=RGBColor(0x08,0x0A,0x1C), line_color=ACCENT_PURP, lw=1.0)
+    txt(slide,
+        "Exploitation Philosophy:  Success = validated APG AttackChains with evidence — not obtained shells.  "
+        "A mission is complete when every attack opportunity is proven or disproven.",
+        Inches(0.35), SLIDE_H-Inches(0.49), SLIDE_W-Inches(0.65), Inches(0.32),
+        size=9, italic=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT, wrap=True)
+
+    txt(slide, "13", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
         Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.RIGHT)
 
 

@@ -182,7 +182,7 @@ def build_slide(prs):
         txt(slide, num, sl, st, sw, Inches(0.28), size=18, bold=True, color=clr)
         txt(slide, label, sl, st+Inches(0.24), sw, Inches(0.2), size=7.5, color=GREY_MID)
 
-    txt(slide, "08", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
+    txt(slide, "15", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
         Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.RIGHT)
 
 

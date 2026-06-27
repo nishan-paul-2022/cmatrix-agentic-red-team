@@ -27,8 +27,8 @@ def build_slide(prs):
          "ASG (discovered reality) & APG (inferred opportunity) are strictly separated with enforced write ownership."),
         ("C2", "Graph-Driven Re-Planning",
          "Re-planning fires on explicit graph triggers (e.g., new vuln node seeds a chain) rather than arbitrary schedules."),
-        ("C3", "APG Attack Chain Lifecycle",
-         "Attack chains are first-class entities: risk-scored, prioritized, and lifecycle-tracked with evidence-linked ChainSteps."),
+        ("C3", "APG Attack Chain Lifecycle with Evidence Traceability",
+         "Attack chains are first-class entities: risk-scored, prioritized, lifecycle-tracked. Every ChainStep links to ASG Evidence via supported_by."),
         ("C4", "ASG-Aware Parallel Dispatch",
          "Dependency-safe concurrent tool execution using the ASG itself as the dependency graph, instead of a task scheduler."),
         ("C5", "Tool Risk Gate + Mailbox",
@@ -72,4 +72,4 @@ def build_slide(prs):
 
 
 
-    slide_number(slide, "03", ACCENT_GOLD)
+    slide_number(slide, "17", ACCENT_GOLD)

@@ -213,8 +213,9 @@ def build_slide(prs):
     txt(slide,
         "Separation Principle:  Discovery agents write only to the ASG — they never reason about chains.  "
         "The Commander writes only to the APG — it never runs tools.  "
-        "No agent conflates discovered facts with hypothesised attack reasoning.",
+        "No agent conflates discovered facts with hypothesised attack reasoning.  "
+        "Graph (not RAG): typed edges express that CVE-X \u2018affected_by\u2019 Service-Y — a relationship that vector similarity cannot represent.",
         Inches(0.5), Inches(6.5), SLIDE_W-Inches(0.9), Inches(0.58),
-        size=11, italic=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT, wrap=True)
+        size=10.5, italic=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT, wrap=True)
 
-    slide_number(slide, "05", ACCENT_LIME)
+    slide_number(slide, "06", ACCENT_LIME)

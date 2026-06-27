@@ -184,7 +184,7 @@ def build_slide(prs):
             size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
     # ── Slide number ──────────────────────────────────────────────────────────────
-    txt(slide, "06", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
+    txt(slide, "07", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
         Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_PURP, align=PP_ALIGN.RIGHT)
 
 

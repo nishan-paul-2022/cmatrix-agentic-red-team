@@ -1,163 +1,152 @@
 """
-Slide 10 — Cross-Mission Learning (Experience Store + Attack Strategy Library)
+Slide 10 — Tool Adapter Layer / Risk Gate
+==========================================
+Shows the full PreToolUse decision tree:
+  Scope Check → Risk Classification (LOW/MED/HIGH) →
+    LOW: execute immediately
+    MED: LLM Permission Classifier (Fast Filter + CoT) → APPROVE/REJECT/MODIFY
+    HIGH: Commander Mailbox → APPROVE/REJECT
+Correct REJECT annotation: failure annotated to ASG Vulnerability node (not APG).
+Shows all 6 lifecycle hooks.
 """
 from palette import *
 import pptx.enum.shapes
 
 
-def arrow_h(slide, x1, y, x2, color=None, lw=1.5):
-    """Horizontal arrow from (x1,y) to (x2,y) — used by slide_10 flow diagram."""
-    return arr(slide, x1, y, x2, y, color=color or GREY_MID, lw=lw)
-
-
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
+    chrome(slide, ACCENT_RED)
+    slide_header(slide, "TOOL ADAPTER LAYER / RISK GATE",
+                 "Every Tool Call Passes Through a Risk Classifier Before Execution",
+                 ACCENT_RED, title_size=24, divider_w=11)
 
-    # ── Chrome ─────────────────────────────────────────────────────────────────────
-    box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_TEAL)
-    box(slide, Inches(0.06), Inches(0), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_TEAL)
-    box(slide, Inches(0.06), SLIDE_H-Inches(0.04), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_TEAL)
+    # ── LEFT: Decision tree ───────────────────────────────────────────────────
+    DT_L, DT_W = Inches(0.22), Inches(8.2)
+    DT_T, DT_H = Inches(0.98), SLIDE_H - Inches(1.26)
+    box(slide, DT_L, DT_T, DT_W, DT_H,
+        fill=RGBColor(0x08, 0x06, 0x1A), line_color=ACCENT_RED, lw=1.2)
+    txt(slide, "PRE-TOOL-USE DECISION TREE", DT_L + Inches(0.1), DT_T + Inches(0.06),
+        DT_W - Inches(0.2), Inches(0.2), size=9, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
 
-    txt(slide, "CROSS-MISSION LEARNING", Inches(0.3), Inches(0.08), Inches(8), Inches(0.3),
-        size=11, bold=True, color=ACCENT_TEAL)
-    txt(slide, "Experience Store + Attack Strategy Library — CMatrix Gets Smarter Each Mission",
-        Inches(0.3), Inches(0.38), Inches(12.5), Inches(0.62), size=26, bold=True, color=WHITE)
-    box(slide, Inches(0.3), Inches(1.0), Inches(7), Inches(0.03), fill=ACCENT_TEAL)
+    # Step 1: Tool call received
+    s1_t = DT_T + Inches(0.36)
+    box(slide, DT_L + Inches(0.3), s1_t, DT_W - Inches(0.6), Inches(0.4),
+        fill=RGBColor(0x10, 0x0C, 0x24), line_color=ACCENT_PURP, lw=1.2)
+    txt(slide, "Agent requests tool call  (e.g. gobuster -u target.com -w wordlist.txt)",
+        DT_L + Inches(0.44), s1_t + Inches(0.06), DT_W - Inches(0.72), Inches(0.3),
+        size=9, color=WHITE, align=PP_ALIGN.LEFT)
 
-    # ══════════════════════════════════════════════
-    #  FLOW DIAGRAM: Mission N → Store → Mission N+1
-    # ══════════════════════════════════════════════
-    flow_t = Inches(1.1)
-    flow_h = Inches(1.0)
+    arr(slide, DT_L + DT_W / 2, s1_t + Inches(0.4), DT_L + DT_W / 2, s1_t + Inches(0.62),
+        color=ACCENT_RED, lw=1.4)
 
-    # Mission N box
-    box(slide, Inches(0.3), flow_t, Inches(2.5), flow_h,
-        fill=RGBColor(0x06,0x14,0x20), line_color=ACCENT_CYAN, lw=1.5)
-    txt(slide, "Mission N\n(completed)", Inches(0.45), flow_t+Inches(0.15),
-        Inches(2.2), Inches(0.7), size=13, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.CENTER)
+    # Step 2: Scope check
+    s2_t = s1_t + Inches(0.68)
+    box(slide, DT_L + Inches(0.3), s2_t, DT_W - Inches(0.6), Inches(0.42),
+        fill=RGBColor(0x18, 0x06, 0x06), line_color=ACCENT_RED, lw=1.4)
+    box(slide, DT_L + Inches(0.3), s2_t, DT_W - Inches(0.6), Inches(0.16), fill=ACCENT_RED)
+    txt(slide, "SCOPE CHECK", DT_L + Inches(0.4), s2_t + Inches(0.01),
+        DT_W - Inches(0.75), Inches(0.16), size=8, bold=True, color=BG_DARK)
+    txt(slide, "Target in declared scope?  No → BLOCKED immediately, reason logged.",
+        DT_L + Inches(0.4), s2_t + Inches(0.18), DT_W - Inches(0.72), Inches(0.2),
+        size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT)
 
-    # Arrow → Report Agent writes
-    arrow_h(slide, Inches(2.8), flow_t+flow_h/2, Inches(4.0), ACCENT_CYAN)
-    txt(slide, "Report Agent writes\nvalidated chains",
-        Inches(2.82), flow_t+Inches(0.1), Inches(1.12), Inches(0.75),
-        size=8.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
+    arr(slide, DT_L + DT_W / 2, s2_t + Inches(0.42), DT_L + DT_W / 2, s2_t + Inches(0.64),
+        color=ACCENT_GOLD, lw=1.4)
 
-    # Cross-Mission Experience Store box
-    box(slide, Inches(4.1), flow_t-Inches(0.3), Inches(2.6), flow_h+Inches(0.6),
-        fill=RGBColor(0x04,0x20,0x1E), line_color=ACCENT_TEAL, lw=2.0)
-    txt(slide, "Cross-Mission\nExperience Store",
-        Inches(4.22), flow_t-Inches(0.18), Inches(2.35), Inches(0.5),
-        size=12, bold=True, color=ACCENT_TEAL, align=PP_ALIGN.CENTER)
-    txt(slide, "RAG-backed · persistent\nacross all missions",
-        Inches(4.22), flow_t+Inches(0.35), Inches(2.35), Inches(0.4),
-        size=9, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
+    # Step 3: Risk classification
+    s3_t = s2_t + Inches(0.70)
+    box(slide, DT_L + Inches(0.3), s3_t, DT_W - Inches(0.6), Inches(0.42),
+        fill=RGBColor(0x18, 0x14, 0x04), line_color=ACCENT_GOLD, lw=1.4)
+    box(slide, DT_L + Inches(0.3), s3_t, DT_W - Inches(0.6), Inches(0.16), fill=ACCENT_GOLD)
+    txt(slide, "RISK CLASSIFICATION", DT_L + Inches(0.4), s3_t + Inches(0.01),
+        DT_W - Inches(0.75), Inches(0.16), size=8, bold=True, color=BG_DARK)
+    txt(slide, "Three axes: Scope Alignment  ·  Chain Intent  ·  Parameter Safety  →  LOW / MED / HIGH",
+        DT_L + Inches(0.4), s3_t + Inches(0.18), DT_W - Inches(0.72), Inches(0.2),
+        size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT)
 
-    # Arrow → Crystallize (if 2+ same fingerprint)
-    arrow_h(slide, Inches(6.7), flow_t+flow_h/2, Inches(7.9), ACCENT_GOLD)
-    txt(slide, "Crystallize\n(>=2 missions)",
-        Inches(6.72), flow_t+Inches(0.05), Inches(1.12), Inches(0.75),
-        size=8.5, italic=True, color=ACCENT_GOLD, align=PP_ALIGN.CENTER)
+    # Three branches
+    branch_y = s3_t + Inches(0.42)
+    arr(slide, DT_L + DT_W / 2, branch_y, DT_L + DT_W / 2, branch_y + Inches(0.22),
+        color=GREY_MID, lw=1.2)
 
-    # Attack Strategy Library box
-    box(slide, Inches(8.0), flow_t-Inches(0.3), Inches(2.6), flow_h+Inches(0.6),
-        fill=RGBColor(0x20,0x18,0x04), line_color=ACCENT_GOLD, lw=2.0)
-    txt(slide, "Attack Strategy\nLibrary",
-        Inches(8.12), flow_t-Inches(0.18), Inches(2.35), Inches(0.5),
-        size=12, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.CENTER)
-    txt(slide, "Named strategies · confidence scores\ntechnology-fingerprint indexed",
-        Inches(8.12), flow_t+Inches(0.35), Inches(2.35), Inches(0.4),
-        size=9, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
-
-    # Arrow → Mission N+1
-    arrow_h(slide, Inches(10.6), flow_t+flow_h/2, Inches(11.8), ACCENT_LIME)
-    txt(slide, "Pre-ranked seeds\nat mission start",
-        Inches(10.62), flow_t+Inches(0.1), Inches(1.12), Inches(0.75),
-        size=8.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
-
-    # Mission N+1 box
-    box(slide, Inches(11.9), flow_t, Inches(1.25), flow_h,
-        fill=RGBColor(0x06,0x20,0x10), line_color=ACCENT_LIME, lw=1.5)
-    txt(slide, "Mission\nN+1", Inches(11.95), flow_t+Inches(0.12),
-        Inches(1.15), Inches(0.75), size=12, bold=True, color=ACCENT_LIME, align=PP_ALIGN.CENTER)
-
-    # Also: Experience Store feeds Mission N+1
-    arrow_h(slide, Inches(5.4), flow_t+flow_h*0.9, Inches(11.9), ACCENT_TEAL)
-    txt(slide, "Candidate chain hypotheses injected into Commander context",
-        Inches(6.6), flow_t+flow_h*0.9+Inches(0.04), Inches(4.0), Inches(0.28),
-        size=8.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
-
-    # ══════════════════════════════════════════════
-    #  TWO CARDS BELOW: Experience Store vs Library
-    # ══════════════════════════════════════════════
-    card_t = Inches(2.42)
-    card_h = Inches(4.55)
-
-    # Experience Store card
-    es_l = Inches(0.3); es_w = Inches(6.2)
-    box(slide, es_l, card_t, es_w, card_h,
-        fill=RGBColor(0x04,0x18,0x18), line_color=ACCENT_TEAL, lw=1.5)
-    box(slide, es_l, card_t, es_w, Inches(0.4), fill=ACCENT_TEAL)
-    txt(slide, "C10  ·  Cross-Mission Experience Store",
-        es_l+Inches(0.12), card_t+Inches(0.06), es_w-Inches(0.2), Inches(0.28),
-        size=12, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
-
-    es_items = [
-        ("What it stores",
-         "Per-mission · per-chain raw records of validated exploitation outcomes.\n"
-         "Target technology fingerprint · CVE · successful tool invocation · ChainStep sequence · mission outcome."),
-        ("When it's written",
-         "Report Agent writes one entry for every chain with terminal status VALIDATED at mission close."),
-        ("When it's read",
-         "Commander queries immediately after Recon Agent writes first Technology nodes to ASG — "
-         "before Analysis begins. Retrieved records become candidate chain hypotheses."),
-        ("Research origin",
-         "Generalizes AutoAttacker's within-mission experience-reuse mechanism to cross-mission scope. "
-         "AutoAttacker reuses subtasks within one session; CMatrix accumulates across every mission ever run."),
+    branches = [
+        (DT_L + Inches(0.3), Inches(2.06), ACCENT_LIME, "LOW\nPassive Discovery",
+         "Execute immediately\nNo approval required"),
+        (DT_L + Inches(3.08), Inches(2.06), ACCENT_GOLD, "MED\nActive Enumeration",
+         "LLM Permission Classifier\n  Fast Filter → CoT → APPROVE/MODIFY/REJECT"),
+        (DT_L + Inches(5.86), Inches(2.06), ACCENT_RED, "HIGH\nExploit Operations",
+         "Commander Mailbox\n  Human-in-the-loop APPROVE / REJECT"),
     ]
-    for i, (heading, body) in enumerate(es_items):
-        t = card_t + Inches(0.5) + i * Inches(0.98)
-        box(slide, es_l+Inches(0.12), t, es_w-Inches(0.24), Inches(0.94),
-            fill=RGBColor(0x06,0x22,0x22), line_color=ACCENT_TEAL, lw=0.5)
-        txt(slide, heading, es_l+Inches(0.22), t+Inches(0.06), es_w-Inches(0.38), Inches(0.26),
-            size=11, bold=True, color=ACCENT_TEAL)
-        txt(slide, body, es_l+Inches(0.22), t+Inches(0.34), es_w-Inches(0.38), Inches(0.56),
-            size=9.5, color=GREY_MID, wrap=True)
+    bw = Inches(2.22)
+    bh = Inches(1.5)
+    bt = branch_y + Inches(0.22)
+    for bl, _, clr, title, detail in branches:
+        box(slide, bl, bt, bw, bh, fill=RGBColor(0x08, 0x0C, 0x22), line_color=clr, lw=1.6)
+        box(slide, bl, bt, bw, Inches(0.28), fill=clr)
+        txt(slide, title, bl, bt + Inches(0.03), bw, Inches(0.24), size=8.5, bold=True, color=BG_DARK)
+        txt(slide, detail, bl + Inches(0.1), bt + Inches(0.34), bw - Inches(0.16), bh - Inches(0.38),
+            size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    # Attack Strategy Library card
-    sl_l = Inches(6.75); sl_w = Inches(6.38)
-    box(slide, sl_l, card_t, sl_w, card_h,
-        fill=RGBColor(0x1C,0x14,0x04), line_color=ACCENT_GOLD, lw=1.5)
-    box(slide, sl_l, card_t, sl_w, Inches(0.4), fill=ACCENT_GOLD)
-    txt(slide, "C11  ·  Attack Strategy Library",
-        sl_l+Inches(0.12), card_t+Inches(0.06), sl_w-Inches(0.2), Inches(0.28),
-        size=12, bold=True, color=BG_DARK)
-
-    sl_items = [
-        ("What it stores",
-         "Generalized attack procedures distilled from multiple validated outcomes against the same "
-         "target technology class. Named strategies (e.g. STRAT-WP-SQLI-001) with confidence scores."),
-        ("Crystallization threshold",
-         "Same technology fingerprint (e.g. WordPress 5.x + WooCommerce + Nginx) produces validated "
-         "AttackChain in 2 or more independent missions → Commander triggers crystallization."),
-        ("When it's used",
-         "Retrieved at mission start. Strategies are injected as pre-ranked APG AttackChain seeds — "
-         "prioritized above zero-prior chains because they carry validated track record."),
-        ("Why it matters",
-         "No existing autonomous VAPT system accumulates and generalizes validated exploitation "
-         "procedures across sessions. Every prior system resets to zero knowledge on each mission. "
-         "CMatrix's library makes it measurably more efficient on repeat target-type engagements."),
+    # Outcomes
+    out_t = bt + bh + Inches(0.16)
+    outcomes = [
+        (DT_L + Inches(0.3), "EXECUTE", ACCENT_LIME),
+        (DT_L + Inches(3.08), "EXECUTE / MODIFY / REJECT", ACCENT_GOLD),
+        (DT_L + Inches(5.86), "APPROVE / REJECT", ACCENT_RED),
     ]
-    for i, (heading, body) in enumerate(sl_items):
-        t = card_t + Inches(0.5) + i * Inches(0.98)
-        box(slide, sl_l+Inches(0.12), t, sl_w-Inches(0.24), Inches(0.94),
-            fill=RGBColor(0x22,0x18,0x06), line_color=ACCENT_GOLD, lw=0.5)
-        txt(slide, heading, sl_l+Inches(0.22), t+Inches(0.06), sl_w-Inches(0.38), Inches(0.26),
-            size=11, bold=True, color=ACCENT_GOLD)
-        txt(slide, body, sl_l+Inches(0.22), t+Inches(0.34), sl_w-Inches(0.38), Inches(0.56),
-            size=9.5, color=GREY_MID, wrap=True)
+    for ol, label, clr in outcomes:
+        arr(slide, ol + bw / 2, bt + bh, ol + bw / 2, out_t, color=clr, lw=1.2)
+        box(slide, ol, out_t, bw, Inches(0.3), fill=clr)
+        txt(slide, label, ol, out_t + Inches(0.04), bw, Inches(0.24), size=8, bold=True, color=BG_DARK)
 
-    txt(slide, "10", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.55),
-        Inches(0.35), Inches(0.45), size=13, bold=True, color=ACCENT_TEAL, align=PP_ALIGN.RIGHT)
+    # REJECT annotation note (correct target: ASG Vulnerability node)
+    rej_t = out_t + Inches(0.35)
+    box(slide, DT_L + Inches(0.3), rej_t, DT_W - Inches(0.6), Inches(0.42),
+        fill=RGBColor(0x18, 0x06, 0x06), line_color=ACCENT_RED, lw=0.8)
+    txt(slide,
+        "REJECT outcome:  Tool call cancelled.  Failure reason annotated to ASG Vulnerability node "
+        "(not the APG). Commander re-reads ASG on next cycle.",
+        DT_L + Inches(0.4), rej_t + Inches(0.04), DT_W - Inches(0.72), Inches(0.34),
+        size=8.5, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
+    # Hooks summary
+    hook_t = rej_t + Inches(0.5)
+    box(slide, DT_L + Inches(0.3), hook_t, DT_W - Inches(0.6), Inches(0.28),
+        fill=RGBColor(0x10, 0x0A, 0x22), line_color=ACCENT_PURP, lw=0.8)
+    txt(slide,
+        "Lifecycle Hooks (all 6):  PreToolUse  ·  PostToolUse  ·  PreAgentSpawn  ·  "
+        "PostAgentReturn  ·  PreAPGUpdate  ·  PostMissionTerminate",
+        DT_L + Inches(0.4), hook_t + Inches(0.04), DT_W - Inches(0.72), Inches(0.2),
+        size=8, italic=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
 
+    # ── RIGHT: Tool risk tier table ───────────────────────────────────────────
+    TP_L = DT_L + DT_W + Inches(0.14)
+    TP_W = SLIDE_W - TP_L - Inches(0.22)
+    TP_T, TP_H = Inches(0.98), SLIDE_H - Inches(1.26)
+
+    box(slide, TP_L, TP_T, TP_W, TP_H,
+        fill=RGBColor(0x06, 0x08, 0x18), line_color=ACCENT_PURP, lw=1.2)
+    box(slide, TP_L, TP_T, TP_W, Inches(0.28), fill=ACCENT_PURP)
+    txt(slide, "TOOL RISK TIERS", TP_L, TP_T + Inches(0.04), TP_W, Inches(0.22),
+        size=9.5, bold=True, color=BG_DARK)
+
+    tool_tiers = [
+        (ACCENT_LIME, "LOW — Passive",    ["Amass", "httpx", "WhatWeb", "EyeWitness"]),
+        (ACCENT_GOLD, "MED — Active",     ["Nmap", "Gobuster", "ffuf", "Nuclei", "OWASP ZAP"]),
+        (ACCENT_RED,  "HIGH — Exploit",   ["SQLMap", "Metasploit"]),
+    ]
+    tier_h = (TP_H - Inches(0.32)) / 3
+    for i, (clr, label, tools) in enumerate(tool_tiers):
+        tt = TP_T + Inches(0.32) + i * tier_h
+        box(slide, TP_L + Inches(0.1), tt, TP_W - Inches(0.2), tier_h - Inches(0.06),
+            fill=RGBColor(0x0C, 0x0A, 0x1E), line_color=clr, lw=0.9)
+        box(slide, TP_L + Inches(0.1), tt, TP_W - Inches(0.2), Inches(0.26), fill=clr)
+        txt(slide, label, TP_L + Inches(0.18), tt + Inches(0.03),
+            TP_W - Inches(0.3), Inches(0.22), size=9, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
+        tool_str = "\n".join(f"• {t}" for t in tools)
+        txt(slide, tool_str, TP_L + Inches(0.18), tt + Inches(0.32),
+            TP_W - Inches(0.3), tier_h - Inches(0.38),
+            size=9, color=clr, align=PP_ALIGN.LEFT, wrap=True)
+
+    slide_number(slide, "10", ACCENT_RED)
