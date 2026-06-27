@@ -461,4 +461,649 @@ flowchart TD
 
 ---
 
-*Diagram 4 coming next: Tool Risk Gate Flow*
+*Diagram 4 below: Tool Risk Gate Flow*
+
+---
+
+## Diagram 4 — Tool Risk Gate: Every Tool Call's Journey
+
+No tool in CMatrix executes without passing through this gate. This diagram shows the complete decision path — from an agent requesting a tool call, through all three risk tiers, to either execution or rejection.
+
+### 4A — The Full Risk Gate Decision Tree
+
+```mermaid
+flowchart TD
+    START["🤖 Agent requests tool call\n───────────────────────────\nTool: Gobuster\nTarget: shopvault.io\nParams: -w big.txt -x php,sql"]
+
+    HOOK1["🪝 PreToolUse Hook fires\n───────────────────────\nExternal observers notified.\nHook returns: CONTINUE / BLOCK / MODIFY"]
+
+    HOOK1_CHECK{Hook returns?}
+    HOOK_BLOCK["❌ BLOCKED\nAction cancelled.\nReason logged."]
+    HOOK_MODIFY["🔄 MODIFIED\nPayload updated.\nProceeds with\nmodified params."]
+
+    SCOPE["🔍 Scope Check\n──────────────────\nIs target in declared scope?\nIs this tool authorized\nfor this agent type?"]
+
+    SCOPE_FAIL["❌ OUT OF SCOPE\nTool call rejected.\nAgent notified.\nNo execution."]
+
+    CLASSIFY["🎯 Risk Classification\n──────────────────────\nWhich tier does this call belong to?"]
+
+    LOW{"🟢 LOW RISK?\nPassive tools:\nAmass · httpx\nWhatWeb"}
+    MED{"🟡 MEDIUM RISK?\nActive tools:\nNmap · Gobuster · ffuf\nNuclei · OWASP ZAP"}
+    HIGH{"🔴 HIGH RISK?\nExploitation tools:\nSQLMap · Metasploit"}
+
+    EXEC_LOW["✅ Execute immediately\nNo further approval needed"]
+
+    CLASSIFIER["🧠 LLM Permission Classifier\n────────────────────────────\nFast filter pass:\n  → Clearly safe? → EXECUTE\n  → Clearly risky? → ESCALATE\n\nChain-of-thought pass (ambiguous):\n  Axis 1: Scope alignment\n  Axis 2: Chain intent\n  Axis 3: Parameter safety\n  → Checks for prompt injection"]
+
+    CLF_RESULT{Classifier verdict?}
+    CLF_EXEC["✅ EXECUTE\nProceeds to\nTool Adapter"]
+    CLF_ESC["⬆️ ESCALATE\nRouted to\nCommander Mailbox"]
+
+    MAILBOX["📬 Commander Mailbox\n──────────────────────\nApproval request queued:\n  • Tool + module\n  • Target ASG node\n  • Chain context\n  • Rationale\n\n(Human inserted here\nin supervised mode)"]
+
+    CMD_REVIEW{Commander decides?}
+    CMD_APPROVE["✅ APPROVED\nProceeds to\nTool Adapter"]
+    CMD_REJECT["❌ REJECTED\nCancelled.\nReason annotated\nto APG chain."]
+    CMD_MODIFY["🔄 MODIFIED\nCommander adjusts\nparams, then approves"]
+
+    ADAPTER["⚙️ Tool Adapter executes\n────────────────────────\n1. Translate request → CLI command\n2. Run tool\n3. Parse raw output → structured JSON\n4. Discard raw output"]
+
+    HOOK2["🪝 PostToolUse Hook fires\n─────────────────────────\nStructured findings available.\nHook can: log · alert · validate · block write"]
+
+    ASG_WRITE["🟢 Structured findings\nwritten to ASG as\nnodes + edges"]
+
+    AG_SUMMARY["🤖 Agent receives\ncompact summary only\n(NOT raw output)"]
+
+    START --> HOOK1
+    HOOK1 --> HOOK1_CHECK
+    HOOK1_CHECK -->|BLOCK| HOOK_BLOCK
+    HOOK1_CHECK -->|MODIFY| HOOK_MODIFY
+    HOOK1_CHECK -->|CONTINUE| SCOPE
+    HOOK_MODIFY --> SCOPE
+
+    SCOPE -->|fail| SCOPE_FAIL
+    SCOPE -->|pass| CLASSIFY
+
+    CLASSIFY --> LOW
+    CLASSIFY --> MED
+    CLASSIFY --> HIGH
+
+    LOW -->|yes| EXEC_LOW
+    MED -->|yes| CLASSIFIER
+    HIGH -->|yes| MAILBOX
+
+    CLASSIFIER --> CLF_RESULT
+    CLF_RESULT -->|EXECUTE| CLF_EXEC
+    CLF_RESULT -->|ESCALATE| MAILBOX
+
+    MAILBOX --> CMD_REVIEW
+    CMD_REVIEW -->|APPROVE| CMD_APPROVE
+    CMD_REVIEW -->|REJECT| CMD_REJECT
+    CMD_REVIEW -->|MODIFY| CMD_MODIFY
+
+    EXEC_LOW --> ADAPTER
+    CLF_EXEC --> ADAPTER
+    CMD_APPROVE --> ADAPTER
+    CMD_MODIFY --> ADAPTER
+
+    ADAPTER --> HOOK2
+    HOOK2 --> ASG_WRITE
+    HOOK2 --> AG_SUMMARY
+
+    style START fill:#04162E,stroke:#00D4FF,color:#fff
+    style HOOK1 fill:#0C0820,stroke:#9C27B0,color:#CE93D8
+    style HOOK2 fill:#0C0820,stroke:#9C27B0,color:#CE93D8
+    style HOOK_BLOCK fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style HOOK_MODIFY fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style SCOPE fill:#0A0C1E,stroke:#888,color:#aaa
+    style SCOPE_FAIL fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CLASSIFY fill:#0A0C1E,stroke:#888,color:#aaa
+    style LOW fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style MED fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style HIGH fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style EXEC_LOW fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CLASSIFIER fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CLF_EXEC fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CLF_ESC fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style MAILBOX fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CMD_APPROVE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CMD_REJECT fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CMD_MODIFY fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style ADAPTER fill:#0A0C1E,stroke:#9C27B0,color:#CE93D8
+    style ASG_WRITE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style AG_SUMMARY fill:#04162E,stroke:#00D4FF,color:#00D4FF
+```
+
+---
+
+### 4B — What the LLM Permission Classifier Actually Checks
+
+```mermaid
+flowchart LR
+    INPUT["🟡 Medium-Risk\nTool Call\n─────────────\nTool: Gobuster\nTarget: staging.shopvault.io\nParams: -w big.txt"]
+
+    subgraph FAST["Fast Filter (instant)"]
+        F1{"Obviously safe?\n(passive, in-scope,\nstandard params)"}
+        F2{"Obviously risky?\n(out-of-scope target,\nsuspicious params)"}
+    end
+
+    subgraph COT["Chain-of-Thought Pass (ambiguous cases)"]
+        AX1["Axis 1: SCOPE ALIGNMENT\n──────────────────────\nIs staging.shopvault.io\nin the declared scope?\nWas it explicitly excluded?"]
+        AX2["Axis 2: CHAIN INTENT\n───────────────────\nDoes Gobuster on this host\nmake sense for the current\nAPG AttackChain being pursued?"]
+        AX3["Axis 3: PARAMETER SAFETY\n────────────────────────\nDo params match current\nASG state? Or do they look\nlike they were injected from\ncrawled web content?\n(Prompt injection check)"]
+    end
+
+    VERDICT{"Final verdict"}
+    EXEC["✅ EXECUTE"]
+    ESC["⬆️ ESCALATE\nto Commander\nMailbox"]
+
+    INPUT --> FAST
+    F1 -->|yes| EXEC
+    F2 -->|yes| ESC
+    F1 -->|no| COT
+    F2 -->|no| COT
+    AX1 --> VERDICT
+    AX2 --> VERDICT
+    AX3 --> VERDICT
+    VERDICT -->|all clear| EXEC
+    VERDICT -->|concern| ESC
+
+    style INPUT fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FAST fill:#04100C,stroke:#7FFF00,color:#7FFF00
+    style COT fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style AX1 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style AX2 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style AX3 fill:#041420,stroke:#00D4FF,color:#00D4FF
+    style EXEC fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style ESC fill:#1A1002,stroke:#FFC107,color:#FFC107
+```
+
+---
+
+### 4C — The 6 Lifecycle Hooks: Where Operators Can Intervene
+
+```mermaid
+timeline
+    title CMatrix Agent Lifecycle Hook Points
+    section Before Tool
+        PreToolUse : Fires before Risk Gate
+                   : CONTINUE / BLOCK / MODIFY
+                   : Use for: extra scope checks
+    section After Tool
+        PostToolUse : Fires after ASG write
+                    : Log to SIEM · Alert SOC
+                    : Use for: audit trails
+    section Agent Events
+        PreAgentSpawn : Fires before Commander spawns agent
+                      : Override context · extra auth
+        PostAgentReturn : Fires after agent returns delta
+                        : Validate schema · notify systems
+    section APG Events
+        PreAPGUpdate : Fires before new AttackChain written
+                     : External approval gate · compliance
+    section Mission Events
+        PostMissionTerminate : Fires at dual-graph termination
+                             : Push to vuln management platform
+                             : Trigger report delivery
+```
+
+### Risk Gate Summary Table
+
+| Tool | Tier | Gate | Rationale |
+|------|------|------|-----------|
+| Amass | 🟢 LOW | Scope check only | Passive DNS — no target traffic |
+| httpx | 🟢 LOW | Scope check only | Read-only HTTP probing |
+| WhatWeb | 🟢 LOW | Scope check only | Read-only fingerprinting |
+| Nmap | 🟡 MED | LLM Classifier | Active scan — may trigger IDS |
+| Gobuster | 🟡 MED | LLM Classifier | Active — unusual traffic patterns |
+| ffuf | 🟡 MED | LLM Classifier | Active fuzzing — parameter injection risk |
+| Nuclei | 🟡 MED | LLM Classifier | Template matching — active probes |
+| OWASP ZAP | 🟡 MED | LLM Classifier | Active web scan — touches all endpoints |
+| EyeWitness | 🟢 LOW | Scope check only | Screenshot only — no exploitation |
+| SQLMap | 🔴 HIGH | Commander Mailbox | Destructive — extracts data |
+| Metasploit | 🔴 HIGH | Commander Mailbox | Irreversible — achieves code execution |
+
+---
+
+*Diagram 5 below: Autonomous Planning Cycle Loop*
+
+---
+
+## Diagram 5 — The Autonomous Planning Cycle
+
+The Commander runs this loop continuously — from mission start until the dual-graph termination condition fires. Every iteration is grounded in graph state. Every decision is traceable to a specific graph event.
+
+### 5A — The Core Planning Loop
+
+```mermaid
+flowchart TD
+    START(["🚀 MISSION START\nOperator provides: root domain + scope + mode\nASG seeded: [Domain: shopvault.io]\nAPG: empty"])
+
+    OBS_ASG["👁️ OBSERVE ASG\n─────────────────────────────────\n• Which nodes are unexplored?\n• Which Vulnerability nodes are new?\n• Which Technology nodes need Research?"]
+
+    OBS_APG["👁️ OBSERVE APG\n─────────────────────────────────\n• Which chains are HYPOTHESIZED?\n• Which are PARTIALLY_VALIDATED?\n• Which just went VALIDATED or RULED_OUT?"]
+
+    REASON["🧠 REASON\n─────────────────────────────────\nGiven ASG + APG state:\nWhat is the single best\nnext action right now?"]
+
+    DECIDE{What does\nreasoning\nproduce?}
+
+    EXPLORE["🗺️ EXPLORE\nASG gap detected\n─────────────────\nSpawn discovery agent:\n• Recon → unscanned hosts\n• Analysis → untested tech\n• Research → unenriched CVE"]
+
+    VALIDATE["🎯 VALIDATE\nHigh-priority chain waiting\n─────────────────────────\nSpawn Validation Agent\nfor highest-priority\nHYPOTHESIZED chain"]
+
+    BOTH["↕️ PARALLEL\nBoth ASG gaps AND\nunvalidated chains exist\n─────────────────────\nCommander weighs priority:\nHigh-risk chain beats\nlow-value exploration"]
+
+    AGENT_RUNS["⚡ AGENT EXECUTES\n(tools → Risk Gate → ASG writes)"]
+
+    UPDATE_ASG["📥 UPDATE ASG\nNew nodes + edges written\nby returning agent"]
+
+    UPDATE_APG["📥 UPDATE APG (Commander)\n─────────────────────────\nNew Vuln nodes → seed chains?\nChainStep advanced → update status?\nRULED_OUT chain → re-prioritize?"]
+
+    CYCLE_GUARD{Cycle Guard:\nRepeated\nidentical calls?}
+    REFLECTOR["🪞 REFLECTOR\nRepeated failures?\n→ Issue corrective guidance\n→ Agent adapts approach"]
+    FORCE_REPLAN["🔄 FORCE RE-PLAN\nStop current approach\nCommander reassigns"]
+
+    TERM{Termination\ncondition met?}
+    TERM_CHECK["✅ ASG exhausted?\n(no unexplored nodes)\nAND\n✅ APG resolved?\n(all chains VALIDATED\nor RULED_OUT)"]
+
+    REPORT["📝 Spawn Report Agent\nReads full ASG + APG\nGenerates professional\npenetration test report"]
+
+    DONE(["🏁 MISSION COMPLETE"])
+
+    START --> OBS_ASG
+    OBS_ASG --> OBS_APG
+    OBS_APG --> REASON
+    REASON --> DECIDE
+    DECIDE -->|"ASG gaps only"| EXPLORE
+    DECIDE -->|"APG chains waiting"| VALIDATE
+    DECIDE -->|"Both present"| BOTH
+    EXPLORE --> AGENT_RUNS
+    VALIDATE --> AGENT_RUNS
+    BOTH --> AGENT_RUNS
+    AGENT_RUNS --> CYCLE_GUARD
+    CYCLE_GUARD -->|"yes — fixation\ndetected"| FORCE_REPLAN
+    CYCLE_GUARD -->|"repeated different\nfailures"| REFLECTOR
+    REFLECTOR --> AGENT_RUNS
+    FORCE_REPLAN --> OBS_ASG
+    CYCLE_GUARD -->|"no — normal"| UPDATE_ASG
+    UPDATE_ASG --> UPDATE_APG
+    UPDATE_APG --> TERM
+    TERM --> TERM_CHECK
+    TERM_CHECK -->|"no — continue"| OBS_ASG
+    TERM_CHECK -->|"yes — both\nconditions true"| REPORT
+    REPORT --> DONE
+
+    style START fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style OBS_ASG fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style OBS_APG fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style REASON fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style DECIDE fill:#04162E,stroke:#00D4FF,color:#fff
+    style EXPLORE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style VALIDATE fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style BOTH fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style AGENT_RUNS fill:#0A0C1E,stroke:#9C27B0,color:#CE93D8
+    style UPDATE_ASG fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style UPDATE_APG fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CYCLE_GUARD fill:#1A0606,stroke:#FF5252,color:#fff
+    style REFLECTOR fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FORCE_REPLAN fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style TERM fill:#04162E,stroke:#00D4FF,color:#fff
+    style TERM_CHECK fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style REPORT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style DONE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+---
+
+### 5B — What Triggers a Re-Plan (Graph-Grounded Events)
+
+```mermaid
+flowchart LR
+    subgraph ASG_EVENTS["ASG Trigger Events"]
+        E1["🆕 New Vulnerability node written\n→ Should this seed a new APG chain?"]
+        E2["🆕 New Technology node written\n→ Spawn Research Agent for CVE lookup"]
+        E3["🆕 New Endpoint node written\n→ Analysis Agent needs to probe it"]
+    end
+
+    subgraph APG_EVENTS["APG Trigger Events"]
+        E4["📈 Chain → PARTIALLY_VALIDATED\n→ Re-rank all chain priorities"]
+        E5["✅ Chain → VALIDATED\n→ Mark complete, pursue next"]
+        E6["❌ Chain → RULED_OUT\n→ Remove from queue, re-prioritize"]
+    end
+
+    subgraph GUARD_EVENTS["Cycle Guard Events"]
+        E7["🔁 Same tool call repeated ×3\n→ Force re-plan immediately"]
+        E8["💥 Repeated different failures\n→ Reflector issues guidance"]
+    end
+
+    CMD["👑 Commander\nRe-plans on\nany of these\nevents"]
+
+    E1 --> CMD
+    E2 --> CMD
+    E3 --> CMD
+    E4 --> CMD
+    E5 --> CMD
+    E6 --> CMD
+    E7 --> CMD
+    E8 --> CMD
+
+    style ASG_EVENTS fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style APG_EVENTS fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style GUARD_EVENTS fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+```
+
+---
+
+### 5C — The Dual Termination Condition (Why Both Must Be True)
+
+```mermaid
+flowchart TD
+    Q["❓ Is the mission complete?"]
+
+    C1{"ASG exhausted?\n────────────────\nEvery Domain, Host, Port,\nService, Technology,\nEndpoint, Parameter node\nhas been investigated\nby the appropriate agent"}
+
+    C2{"APG resolved?\n──────────────────\nEvery AttackChain is in\na terminal state:\nVALIDATED or RULED_OUT\n\nNo chain is still\nHYPOTHESIZED or\nPARTIALLY_VALIDATED"}
+
+    ONLY1["❌ NOT DONE\nASG explored but\nchains still open.\nAttack reasoning\nis unfinished."]
+
+    ONLY2["❌ NOT DONE\nAll chains resolved\nbut new ASG nodes\njust written.\nMight seed new chains."]
+
+    NEITHER["❌ NOT DONE\nBoth incomplete.\nContinue mission."]
+
+    BOTH_TRUE["✅ MISSION COMPLETE\nASG is fully mapped.\nAll attack opportunities\nproven or disproven.\nReport Agent spawned."]
+
+    CONTRAST["⚠️ Why existing systems fail:\n─────────────────────────────\nTimer-based: stops mid-chain\nTask-queue-based: can't express APG resolution\nOnly CMatrix defines both\nconditions simultaneously"]
+
+    Q --> C1
+    Q --> C2
+    C1 -->|"yes, C2 no"| ONLY1
+    C2 -->|"yes, C1 no"| ONLY2
+    C1 & C2 -->|"neither"| NEITHER
+    C1 & C2 -->|"BOTH true"| BOTH_TRUE
+    BOTH_TRUE --> CONTRAST
+
+    style Q fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style C1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style C2 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style ONLY1 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style ONLY2 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style NEITHER fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style BOTH_TRUE fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style CONTRAST fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 5D — Context Compaction: How Long Missions Stay Sharp
+
+```mermaid
+flowchart LR
+    subgraph NORMAL["Normal Operation"]
+        T1["Tool runs\n→ MicroCompact\nRaw output discarded\nAgent sees 3-line summary"]
+    end
+
+    subgraph AUTO["AutoCompact @ 60% context"]
+        T2["Older conversation turns\nsummarized by scoped LLM call\nSummary replaces raw turns\nAgent continues uninterrupted"]
+    end
+
+    subgraph FULL["FullCompact @ 85% context"]
+        T3["Entire history replaced\nfrom scratch using:\n• Current ASG snapshot\n• Current APG priorities\n• Last N tool results\n\nZERO intelligence lost\n(everything important\nis in the graph)"]
+    end
+
+    T1 -->|context grows| AUTO
+    AUTO -->|context grows| FULL
+    FULL -->|fresh context| T1
+
+    ASG_KEY["🟢 ASG is the key\n────────────────\nConversation history\nis expendable because\nall discoveries live\nin the graph permanently.\nFullCompact = safe."]
+
+    FULL --> ASG_KEY
+
+    style NORMAL fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style AUTO fill:#1A1002,stroke:#FFC107,color:#FFC107
+    style FULL fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style ASG_KEY fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+### Planning Cycle — Key Insights
+
+| Question | Answer |
+|----------|--------|
+| What drives re-planning? | Explicit graph events — never timers or empty queues |
+| How does the Commander know what to do next? | Reads ASG (unexplored nodes) + APG (chain priorities) |
+| What prevents infinite loops? | Cycle Guard (identical calls) + Reflector (repeated failures) |
+| When does the mission end? | ASG exhausted AND all APG chains terminal — both simultaneously |
+| How does context stay manageable? | 3-layer compaction — history is expendable, graph is permanent |
+
+---
+
+*Diagram 6 below: shopvault.io Full Mission Walkthrough*
+
+---
+
+## Diagram 6 — Real-World Scenario: shopvault.io End-to-End
+
+This is the complete picture. One real mission. Zero manual commands. Watch every tool, every graph write, every Commander decision, from the moment the operator presses start to the final professional report.
+
+**Target:** `shopvault.io` — an e-commerce platform  
+**Mode:** Black-Box (zero prior knowledge)  
+**Scope:** All subdomains, web apps, REST APIs  
+**Operator action:** Provide domain + scope → press start
+
+---
+
+### 6A — Mission Timeline: Phase by Phase
+
+```mermaid
+flowchart TD
+    OP(["🧑 OPERATOR\nTarget: shopvault.io\nScope: all subdomains\nMode: Black-Box\n→ PRESS START"])
+
+    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE\nRecon Agent spawned"]
+        A1["Tool: Amass\n────────────────────────\n14 subdomains discovered:\napi · admin · staging\npay · mail · static · ..."]
+        A2["Tool: httpx\n────────────────────────\n11 live hosts confirmed\nstaging → unexpected 200 OK\npay → TLS certificate EXPIRED"]
+        A3["Tool: Nmap\n────────────────────────\n28 open ports mapped\nPorts: 80, 443, 8080, 8443, 22\nServices: Nginx 1.18 · OpenSSH 8.9\nUnencrypted HTTP on port 8080"]
+        D1["📥 ASG DELTA\n37 new nodes written:\n14 Domain · 11 Host\n28 Port · 15 Service"]
+    end
+
+    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE\nAnalysis Agent + Research Agent spawned"]
+        B1["Tool: WhatWeb\n────────────────────────\nWordPress 5.9.3 on shopvault.io\nWooCommerce 6.1 detected\nDjango 4.1.2 on api.shopvault.io\n→ Commander spawns Research Agent"]
+        B2["Research Agent: NVD + Exploit-DB\n────────────────────────────────\nCVE-2022-21661 found (CVSS 8.8)\nPoC on Exploit-DB ✓\nMetasploit module available ✓"]
+        B3["Tool: Gobuster\n────────────────────────\n/backup/db_export_2023.sql → 200!\n/wp-admin/login → 200\n/wp-admin/users → 403\n/api/v1/internal/users → 200"]
+        B4["Tool: ffuf\n────────────────────────\nIDOR: user_id param unsanitised\n/api/v2 routes discovered\nVirtual host: internal.shopvault.io"]
+        B5["Tool: Nuclei\n────────────────────────\nCVE-2022-21661 template → MATCH\nExposed phpinfo.php on staging\nDefault creds check: admin/admin → fail"]
+        B6["Tool: OWASP ZAP\n────────────────────────\nXSS on /search?q= (reflected)\nSQL error on staging login form\nMissing security headers on API"]
+        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Exposed DB backup (6.2)"]
+    end
+
+    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE\nValidation Agent + Evidence Agent spawned"]
+        C1["Chain-01 (highest priority: 8.8)\n────────────────────────────────\nStep 1: SQLMap on WP_Query\n→ SQLi confirmed ✅\n→ Evidence: sqli-extraction.txt"]
+        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: password123\n→ Evidence: user-table-dump.png"]
+        C3["Step 3: Metasploit wp_admin_shell_upload\n────────────────────────────────\n⚠️ HIGH RISK → Commander Mailbox\n→ Commander APPROVES\n→ Web shell deployed ✅\n→ RCE confirmed!\n→ risk_score escalated: 8.8 → 9.1\n→ Evidence: webshell-rce.png"]
+        C4["Chain-02 (risk: 7.5)\n────────────────────────────────\nffuf: user_id=456 returns user 456 orders\n→ IDOR confirmed ✅\n→ All customer PII accessible\n→ Evidence: idor-orders-dump.png"]
+        C5["Chain-03 (risk: 6.2)\n────────────────────────────────\nGET /backup/db_export_2023.sql\n→ Attempt 1: 403 (WAF blocked)\n→ Diagnose: WAF active\n→ Attempt 2: header bypass → 403\n→ Attempt 3: path variation → 403\n→ CAP REACHED → RULED_OUT\n→ Failure written to ASG Vuln node"]
+        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-02: VALIDATED (7.5)\nChain-03: RULED_OUT (6.2)\n\n📥 ASG DELTA\n4 Evidence nodes + edges added"]
+    end
+
+    subgraph P4["🟣 PHASE 4 — REPORT\nReport Agent spawned — reads full ASG + APG"]
+        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 2 Validated Attack Chains (RCE + IDOR)\n• 1 Ruled-Out Chain (DB backup WAF-protected)\n• Full attack surface map (14 subdomains · 11 hosts)\n• 9 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Screenshot evidence at every ChainStep\n• ZERO manual commands issued"]
+    end
+
+    TERM["✅ TERMINATION CONDITION MET\nASG: all 98 nodes explored\nAPG: all 3 chains in terminal state\n→ Report Agent spawned"]
+
+    OP --> P1
+    A1 --> A2 --> A3 --> D1
+    D1 --> P2
+    B1 --> B2 --> B3 --> B4 --> B5 --> B6 --> D2
+    D2 --> P3
+    C1 --> C2 --> C3
+    C3 --> C4 --> C5 --> D3
+    D3 --> TERM
+    TERM --> P4
+    P4 --> RPT
+
+    style OP fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style P1 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style P2 fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style P3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style P4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style D1 fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style D2 fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style D3 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style TERM fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style RPT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 6B — The Commander's Decision Log (Key Moments)
+
+```mermaid
+timeline
+    title Commander Decisions — shopvault.io Mission
+    section Mission Start
+        Step 1  : Seed: Domain node shopvault.io
+                : Action: Spawn Recon Agent
+    section After Phase 1
+        Step 2  : Trigger: 11 live hosts written to ASG
+                : Action: Spawn Analysis Agent (all hosts)
+        Step 3  : Trigger: WordPress 5.9.3 Technology node written
+                : Action: Spawn Research Agent (CVE lookup)
+    section After Research
+        Step 4  : Trigger: CVE-2022-21661 Vuln node written (CVSS 8.8, PoC confirmed)
+                : Action: Seed Chain-01 in APG — HYPOTHESIZED — priority 1
+        Step 5  : Trigger: IDOR Vuln node written by ZAP
+                : Action: Seed Chain-02 in APG — HYPOTHESIZED — priority 2
+        Step 6  : Trigger: Exposed DB backup Vuln node written
+                : Action: Seed Chain-03 in APG — HYPOTHESIZED — priority 3
+    section Validation
+        Step 7  : Trigger: Chain-01 is highest priority
+                : Action: Spawn Validation Agent for Chain-01
+        Step 8  : Trigger: SQLMap HIGH-risk call arrives at mailbox
+                : Decision: APPROVE — target confirmed in scope — chain context valid
+        Step 9  : Trigger: Metasploit HIGH-risk call arrives at mailbox
+                : Decision: APPROVE — Steps 1+2 already VALIDATED — RCE is the goal
+        Step 10 : Trigger: Chain-01 → VALIDATED — risk escalated to 9.1
+                : Action: Spawn Validation Agent for Chain-02
+        Step 11 : Trigger: Chain-02 → VALIDATED
+                : Action: Spawn Validation Agent for Chain-03
+        Step 12 : Trigger: Chain-03 → RULED_OUT after 3 retries
+                : Note: Failure reason written to ASG Vuln node
+    section Termination
+        Step 13 : Trigger: ASG exhausted (98 nodes explored) AND APG resolved (3/3 terminal)
+                : Action: Dual-graph termination condition met — spawn Report Agent
+```
+
+---
+
+### 6C — Final Mission Stats
+
+```mermaid
+flowchart LR
+    subgraph ASG_FINAL["🟢 ASG — Final State"]
+        direction TB
+        N1["14 Domain nodes"]
+        N2["11 Host nodes"]
+        N3["28 Port nodes"]
+        N4["15 Service nodes"]
+        N5["3 Technology nodes"]
+        N6["19 Endpoint nodes"]
+        N7["8 Parameter nodes"]
+        N8["9 Vulnerability nodes"]
+        N9["4 Evidence nodes"]
+        NT["= 111 total nodes"]
+    end
+
+    subgraph APG_FINAL["🟡 APG — Final State"]
+        direction TB
+        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated)\nSQLi → Admin → RCE"]
+        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer PII"]
+        CH3["Chain-03: RULED_OUT ❌\nrisk: 6.2\nDB backup WAF-protected"]
+    end
+
+    subgraph REPORT_FINAL["📝 Report Output"]
+        direction TB
+        R1["2 validated attack chains\nwith step-by-step reproduction"]
+        R2["4 screenshot evidence artifacts\nlinked at each ChainStep"]
+        R3["9 vulnerabilities\nordered by risk_score"]
+        R4["Remediation guidance\nprioritized by business risk"]
+        R5["0 manual commands issued\nduring entire assessment"]
+    end
+
+    ASG_FINAL --> REPORT_FINAL
+    APG_FINAL --> REPORT_FINAL
+
+    style ASG_FINAL fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style APG_FINAL fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style REPORT_FINAL fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+---
+
+### 6D — Chain-01 Full Traceability: From CVE to Evidence
+
+This is the most important chain in the mission. Every arrow here is a relationship that exists in the dual graph — followable from the report all the way back to the raw evidence file.
+
+```mermaid
+flowchart LR
+    CVE["🚨 ASG\nVulnerability node\nCVE-2022-21661\nCVSS: 8.8\nPoC: Exploit-DB ✓"]
+
+    CH["🟡 APG\nAttackChain: Chain-01\nrisk_score: 9.1\nstatus: VALIDATED\nstarts_at → CVE-2022-21661"]
+
+    S1["🟡 APG\nChainStep 1\nSQLMap → WP_Query SQLi\nstatus: VALIDATED"]
+    S2["🟡 APG\nChainStep 2\nSQLMap dump → hash cracked\nstatus: VALIDATED"]
+    S3["🟡 APG\nChainStep 3\nMetasploit → Web shell\nstatus: VALIDATED"]
+    IMP["🟣 APG\nImpact\nRCE on shopvault.io\nCustomer PII accessible"]
+
+    EV1["📎 ASG\nEvidence\nsqli-extraction.txt"]
+    EV2["📎 ASG\nEvidence\nuser-table-dump.png"]
+    EV3["📎 ASG\nEvidence\nwebshell-rce.png"]
+
+    CVE -->|"starts_at"| CH
+    CH --> S1
+    S1 -->|next_step| S2
+    S2 -->|next_step| S3
+    S3 -->|achieves| IMP
+    S1 -->|supported_by| EV1
+    S2 -->|supported_by| EV2
+    S3 -->|supported_by| EV3
+
+    style CVE fill:#220606,stroke:#FF5252,color:#FF5252
+    style CH fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style S1 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style S2 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style S3 fill:#0E0C02,stroke:#7FFF00,color:#7FFF00
+    style IMP fill:#200818,stroke:#9C27B0,color:#CE93D8
+    style EV1 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV2 fill:#120820,stroke:#9C27B0,color:#CE93D8
+    style EV3 fill:#120820,stroke:#9C27B0,color:#CE93D8
+```
+
+**Reading this diagram:** Start at the red CVE node (ASG fact) → follow `starts_at` to the gold Chain (APG reasoning) → follow ChainSteps in order → arrive at the purple Impact (what was demonstrated) → follow `supported_by` back to the purple Evidence nodes (ASG proof). Every claim in the final report has this complete path. Nothing is asserted without evidence.
+
+---
+
+### Summary: What Makes This Remarkable
+
+| Fact | Significance |
+|------|-------------|
+| **Zero manual commands** | The operator configured scope and pressed start. Everything else was autonomous. |
+| **All tool calls gated** | SQLMap and Metasploit both went through Commander Mailbox — no exploitation without approval |
+| **Chain-03 RULED_OUT** | The system correctly diagnosed WAF protection and stopped after 3 retries — not an infinite loop |
+| **risk_score escalated** | Chain-01 started at 8.8 (CVSS); after RCE was confirmed, Commander escalated to 9.1 |
+| **Traceability** | Every Impact claim links through ChainSteps back to Evidence files in the ASG |
+| **Dual termination** | Mission ended because 98 nodes explored AND 3/3 chains terminal — not because a timer fired |
+
+---
+
+## Module 08 — Complete ✅
+
+All 6 diagrams are now in this file:
+
+| # | Diagram | What It Shows |
+|---|---------|---------------|
+| 1 | System Architecture | 3-tier swim-lane: Orchestration → Dual-Graph → Agents+Tools |
+| 2 | Dual-Graph Model | ASG node tree (9 types) + APG chain lifecycle (3 chains) |
+| 3 | Agent Spawn Lifecycle | Sequence diagram + spawn package + 3 isolation properties |
+| 4 | Tool Risk Gate | Full decision tree + LLM classifier internals + 6 hooks timeline |
+| 5 | Planning Cycle | Core loop + re-plan triggers + dual termination + compaction |
+| 6 | shopvault.io Walkthrough | Phase-by-phase timeline + Commander log + traceability chain |
