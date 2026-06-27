@@ -4,46 +4,64 @@
 
 ## 🎯 One-Line Summary
 
-CMatrix has **one brain** (the Commander) and **six specialist hands** (agents). Each agent is born fresh for its task, does only what it's authorized to do, and dies when it's done — leaving only structured knowledge behind.
+CMatrix has **one brain** (the Commander) and **six specialist hands** (agents). Each agent is born fresh for its task, does only what it's authorized to do, and vanishes when done — leaving only structured knowledge in the graph.
 
 ---
 
-## 🎭 Think of a Surgical Team
+## 🎭 Think of a High-Stakes Surgical Team
 
-Imagine a complex surgical operation. There's:
-- A **lead surgeon** who directs the operation, makes all major decisions, and coordinates the team.
-- A **scrub nurse** who handles instruments.
-- An **anesthesiologist** who manages sedation.
-- A **resident** who handles specific tasks assigned by the lead.
+Imagine a complex cardiac surgery. The operating theater has:
+- A **Lead Surgeon** — directs the entire operation. Makes all major decisions. Coordinates the team. Doesn't hand instruments.
+- A **Cardiac Specialist** — focuses exclusively on the heart. Doesn't manage anesthesia.
+- An **Anesthesiologist** — manages sedation and pain. Doesn't touch the surgical site.
+- A **Scrub Nurse** — handles instrument handoffs. Doesn't make medical decisions.
+- A **Circulating Nurse** — documents everything. Gets supplies from outside the sterile field.
 
-Each person has a specific role. The scrub nurse doesn't decide whether to operate. The anesthesiologist doesn't wield the scalpel. The lead surgeon doesn't administer sedation. **Clear separation of roles makes the system reliable.**
+Each person has a specific, non-overlapping role. Nobody does two people's jobs. Nobody interferes with another's domain. Clear separation of roles is what makes the operation safe and reliable — because:
+- The lead surgeon can focus entirely on strategic decisions without getting distracted by instrument handling
+- The cardiac specialist can focus deeply on their domain without worrying about anesthesia
+- If the scrub nurse makes an error, it doesn't cascade into the anesthesiologist's domain
 
-CMatrix's agent architecture follows the same logic. One orchestrating intelligence (the Commander) directs specialists who each handle exactly one domain of responsibility.
+**CMatrix's agent architecture follows this exact logic.** One orchestrating intelligence (the Commander) directs specialists who each own exactly one domain of responsibility.
 
 ---
 
 ## 👑 The Commander Agent — The Orchestrating Brain
 
-The Commander is the intelligence center of CMatrix. It is the *only* agent that:
-- Reads the complete state of both the ASG and APG
-- Makes decisions about what to do next
-- Spawns other agents and assigns their tasks
-- **Writes to the APG** (creates and updates AttackChains)
-- Approves or rejects High-risk tool calls from the mailbox
+The Commander is the intelligence center of CMatrix. It is the only agent that:
 
-The Commander never runs tools directly. It never touches a vulnerability scanner or an exploit framework. Its job is purely **reasoning and orchestration** — reading the dual graph, figuring out what's most important, and delegating to specialists.
+- Reads the **complete state** of both the ASG and APG at all times
+- **Decides what to do next** at every step of the mission
+- **Spawns specialist agents** and gives each one its specific task
+- **Writes to the APG** — creates new AttackChains, updates chain statuses, assigns risk scores and priorities
+- **Approves or rejects** High-risk tool calls from the Commander mailbox
+- **Determines mission termination** when the dual-graph condition is met
 
-This might sound like a limitation, but it's actually a strength. A surgeon who focuses entirely on decision-making and delegates execution to trusted specialists produces better outcomes than one who tries to do everything themselves.
+**The Commander never runs tools directly.** It never invokes a scanner, never touches an exploit framework, never makes external requests. Its job is 100% reasoning and orchestration.
 
-**Key decisions the Commander makes at each cycle:**
-- Which ASG nodes are unexplored? What should be investigated next?
-- Which Vulnerability nodes should seed new APG AttackChains?
-- Which AttackChain has the highest risk score and deserves validation first?
-- Has a chain been fully validated end-to-end?
-- Is it time to terminate the mission?
-- Should a High-risk tool call be approved?
+This is not a limitation — it's a design strength. A decision-maker who focuses entirely on strategy and delegates all execution produces better outcomes than one who tries to do everything. The Commander's context stays clean because it only ever sees structured graph state — not thousands of lines of raw tool output.
 
-The Commander is guided by the **VAPT Protocol Prompt** — a structured document that encodes the assessment methodology (which phases come first, when to re-plan, when to terminate). This is covered in Module 06.
+### Key Decisions the Commander Makes at Every Cycle
+
+```
+1. Which ASG nodes are unexplored? What category should be investigated next?
+2. Which new Vulnerability nodes should seed APG AttackChains?
+3. Which AttackChain currently has the highest risk_score and should be validated next?
+4. Has a ChainStep failed enough times to be marked RULED_OUT?
+5. Has an AttackChain been validated end-to-end with all Evidence linked?
+6. Is the dual-graph termination condition now met?
+7. Should a High-risk tool call from an agent be approved, rejected, or modified?
+```
+
+The Commander is guided by the **VAPT Protocol Prompt** — a structured natural language document that encodes the assessment methodology (which phases come first, when to re-plan, when to terminate, which tools to use for which node types). This is covered in depth in Module 06.
+
+### What "Writes Only to APG" Means
+
+This write-boundary rule is a hard architectural constraint. No discovery agent — Recon, Analysis, Research, Validation, Evidence — can modify the APG. Only the Commander can. This means:
+
+- Attack reasoning is entirely the Commander's responsibility
+- Discovery agents can't accidentally contaminate the attack reasoning layer
+- The APG is always consistent with the Commander's current understanding
 
 ---
 
@@ -51,20 +69,34 @@ The Commander is guided by the **VAPT Protocol Prompt** — a structured documen
 
 **Mission:** Map the external attack surface. Discover what exists.
 
-The Recon Agent is spawned at the beginning of an assessment and given one job: find everything that's out there. It doesn't analyze. It doesn't assess vulnerabilities. It just discovers.
+The Recon Agent is spawned at the beginning of an assessment with a single goal: find everything that's out there. It does not analyze. It does not assess vulnerabilities. It discovers.
 
-**Tools it uses:**
-- **Amass** — finds all subdomains through DNS brute-forcing, certificate transparency logs, and passive OSINT sources
-- **httpx** — checks which discovered hosts are actually alive and responding
-- **Nmap** — scans live hosts for open ports, running services, OS information
+### Background: What is Reconnaissance?
 
-**What it writes to the ASG:**
-- Domain nodes (root domain + all subdomains discovered)
-- Host nodes (IP addresses, OS, liveness status)
-- Port nodes (open ports with protocol)
-- Service nodes (software names, versions, banners)
+In military strategy, reconnaissance means gathering information about enemy positions before any action is taken. In cybersecurity, it means systematically mapping a target to understand what services are exposed, what hosts are alive, and what the external surface looks like — before doing anything that touches security vulnerabilities.
 
-When done, the Recon Agent returns its **structured ASG delta** (the set of new nodes and edges it created) to the Commander. Its working context is then discarded — completely. The Commander uses the ASG to understand what was found; it doesn't need the Recon Agent's conversation history.
+### Tools the Recon Agent Uses
+
+| Tool | What It Does |
+|------|-------------|
+| **Amass** | Subdomain enumeration — finds all subdomains of a root domain through DNS brute-forcing (trying thousands of possible subdomain names), certificate transparency logs (SSL certificates publicly list all domains they cover), and passive OSINT sources (third-party databases that have indexed domain information) |
+| **httpx** | HTTP probing — takes the list of discovered subdomains and checks which ones are actually alive and responding to HTTP requests. Returns status codes, server banners, TLS details, and redirect chains |
+| **Nmap** | Port scanning and service fingerprinting — scans each live host to find all open ports, identifies what software is running on each port (service version, OS), and optionally runs basic vulnerability scripts |
+
+### Background: What are Ports?
+
+Every server on the internet communicates through numbered **ports**. Think of an IP address as a building's street address, and ports as individual apartments. Port 80 is HTTP (web traffic). Port 443 is HTTPS (encrypted web). Port 22 is SSH (remote shell access). Port 3306 is MySQL (database). When Nmap "scans ports," it's essentially knocking on every door of the building and asking "is anyone home?"
+
+### What the Recon Agent Writes to the ASG
+
+```
+Domain nodes    — root domain + all discovered subdomains
+Host nodes      — IP addresses, OS information, liveness status
+Port nodes      — open port numbers with protocols
+Service nodes   — software names, version numbers, banners
+```
+
+When done, the Recon Agent returns its **structured ASG delta** (the set of new nodes and edges it created) to the Commander. Its entire working context — conversation history, intermediate reasoning, raw tool outputs — is then discarded. The Commander uses only the ASG to understand what was found.
 
 ---
 
@@ -72,159 +104,325 @@ When done, the Recon Agent returns its **structured ASG delta** (the set of new 
 
 **Mission:** Take the discovered surface and find vulnerabilities. Make the unknown known.
 
-The Analysis Agent is spawned after Recon has populated the ASG with hosts, ports, and services. Now the question shifts from "what exists?" to "what weaknesses exist in what was found?"
+The Analysis Agent is spawned after Recon has populated the ASG with hosts, ports, and services. The question now shifts from "what exists?" to "what weaknesses exist in what was found?"
 
-**Tools it uses:**
-- **WhatWeb** — fingerprints the technology stack (CMS, frameworks, JavaScript libraries, version numbers)
-- **Gobuster** — brute-forces directories to find hidden paths, admin panels, backup files, exposed resources
-- **ffuf** — fuzzes APIs and parameters to find undocumented endpoints and injection points
-- **Nuclei** — template-based scanner that checks services against thousands of known CVE and misconfiguration signatures
-- **OWASP ZAP** — active web application scanner that crawls and probes for OWASP Top 10 vulnerabilities
+### Background: What is Technology Fingerprinting?
 
-**What it writes to the ASG:**
-- Technology nodes (CMS, framework, library versions)
-- Endpoint nodes (discovered URL paths and API routes)
-- Parameter nodes (input fields, query parameters)
-- Vulnerability nodes (CVEs, misconfigurations, weaknesses)
+When you visit a website, the server gives away clues about itself — in HTTP headers, in HTML comments, in cookie names, in URL patterns. "Fingerprinting" is the process of reading these clues to identify *exactly* what software is running. Knowing that a target runs "WordPress 5.9.3 with WooCommerce 6.1 on Nginx 1.18.0" is critical because each of these specific versions may have specific known vulnerabilities.
 
-The Analysis Agent transforms raw infrastructure into a map of security weaknesses. When it finds, say, WordPress 5.9.3 — it doesn't just write "WordPress found." It triggers the Research Agent to find what CVEs affect that version and writes enriched Vulnerability nodes.
+### Background: What is OWASP Top 10?
+
+The **OWASP (Open Web Application Security Project) Top 10** is a globally recognized list of the most critical web application security risks. Examples:
+- **Injection** (e.g., SQL injection — inserting malicious code into database queries)
+- **Broken Authentication** (weak or bypassable login mechanisms)
+- **IDOR** (Insecure Direct Object Reference — accessing other users' data by manipulating IDs)
+- **XSS** (Cross-Site Scripting — injecting malicious JavaScript into web pages)
+- **Security Misconfiguration** (default passwords, exposed admin panels, debug mode left on)
+
+When the Analysis Agent runs OWASP ZAP, it's specifically checking for vulnerabilities in this list.
+
+### Tools the Analysis Agent Uses
+
+| Tool | What It Does |
+|------|-------------|
+| **WhatWeb** | Technology fingerprinting — identifies CMS (WordPress, Drupal), frameworks (Django, Laravel), JavaScript libraries (jQuery version), server software, and version numbers from HTTP responses and HTML content |
+| **Gobuster** | Directory and file brute-forcing — tries thousands of known URL paths (like `/admin`, `/backup`, `/config.php`, `/db_export.sql`) to find hidden pages, admin panels, and exposed files that aren't linked from the main site |
+| **ffuf** | Fast web fuzzer — discovers undocumented API endpoints (by trying path variations), finds injectable parameters, and discovers virtual host names that might not be publicly documented |
+| **Nuclei** | Template-based vulnerability scanner — has a library of thousands of detection templates for known CVEs, misconfigurations, default credentials, and exposed sensitive files. Matches each template against discovered services |
+| **OWASP ZAP** | Active web application scanner — crawls the entire web application, then actively probes for injection flaws, authentication bypasses, XSS, CSRF weaknesses, and other OWASP Top 10 vulnerabilities |
+
+### Background: What is SQL Injection?
+
+**SQL injection** is one of the oldest and most devastating web vulnerabilities. When a web application passes user input directly to a database query without sanitizing it, an attacker can inject their own SQL commands. For example:
+
+Normal login: `SELECT * FROM users WHERE username='alice' AND password='secret'`
+
+With SQL injection: `SELECT * FROM users WHERE username='alice' OR 1=1--` (the `--` comments out the rest, the `OR 1=1` always returns true → login bypassed)
+
+More advanced injections can dump entire databases, extract credentials, or even achieve OS-level command execution. This is why CVE-2022-21661 (WordPress WP_Query SQL injection) is so dangerous.
+
+### What the Analysis Agent Writes to the ASG
+
+```
+Technology nodes  — CMS, framework, library versions
+Endpoint nodes    — discovered URL paths and API routes
+Parameter nodes   — input fields, query parameters, headers
+Vulnerability nodes — CVEs, misconfigurations, weaknesses (enriched by Research Agent)
+```
 
 ---
 
 ## 🔍 The Research Agent — The Intelligence Officer
 
-**Mission:** Ground vulnerability findings in real-world intelligence. Close the knowledge gap between what was found and what is known about it.
+**Mission:** Ground vulnerability findings in real-world intelligence. Close the gap between what was found and what is known about it.
 
-This agent is spawned on-demand — whenever the Commander or Analysis Agent encounters a vulnerability, technology version, or CVE that needs enrichment. It never runs VAPT tools. It connects to external intelligence sources.
+This agent is spawned on-demand — whenever the Commander or Analysis Agent encounters a technology version, CVE, or weakness that needs enrichment. It doesn't run VAPT tools against the target. Instead, it connects to external intelligence databases.
 
-**Authorized sources:**
-- **NVD (National Vulnerability Database)** — CVE technical details, CVSS scores, affected version ranges
-- **Exploit-DB** — publicly available proof-of-concept (PoC) exploits, classified by type
-- **GitHub** — security advisories, PoC repositories, vendor patch information
-- **Vendor security advisories** — sourced from ASG Technology node metadata
+### The Problem It Solves: Stale Knowledge
 
-**What it writes to the ASG:**
-- Enriched attributes on Vulnerability nodes: CVE severity, CVSS vector, exploitability assessment (PoC exists / no public PoC / actively exploited in the wild), recommended validation approach
+LLMs are trained on data up to a cutoff date. A vulnerability discovered in 2024 may not be in the model's training data. A PoC published on Exploit-DB three months ago might not be known. The Research Agent closes this gap by querying authoritative live sources — not relying on what the model already knows.
 
-**The most important rule about the Research Agent:** It is the *only* agent authorized to make outbound requests to external networks. Every other agent operates exclusively on the target environment. This boundary is a hard design constraint — it prevents agents from accidentally leaking target information to external services or conducting unauthorized external queries.
+### Authorized Intelligence Sources
 
-> No raw web content ever enters the LLM context — only the structured intelligence record extracted from the response.
+| Source | What It Provides |
+|--------|-----------------|
+| **NVD (National Vulnerability Database)** | Official US government CVE database — technical details, CVSS scores, affected version ranges, vendor references |
+| **Exploit-DB** | Public database of proof-of-concept (PoC) exploit code — if a public PoC exists for a CVE, Exploit-DB has it |
+| **GitHub** | PoC repositories, security advisories, vendor patches — often the first place working exploit code appears |
+| **Vendor security advisories** | Sourced from ASG Technology node metadata — official vendor statements about vulnerabilities in their products |
 
-This ensures Research Agent output is consistent with the same principle applied to tool outputs: structured findings only, never noisy raw data.
+### What It Writes to the ASG
+
+The Research Agent writes enriched attributes onto existing Vulnerability nodes:
+
+```
+CVE severity and CVSS vector (e.g., "CVSS 8.8 / AV:N/AC:L/PR:L/UI:N")
+Exploitability assessment:
+    - "PoC exists on Exploit-DB" (can be exploited by someone following public instructions)
+    - "Metasploit module available" (can be exploited with one command in Metasploit)
+    - "Actively exploited in the wild" (real attackers are using this right now)
+    - "No public PoC" (still dangerous but harder to exploit without custom research)
+Recommended validation approach (e.g., "Use SQLMap with --dbms=mysql flag, then Metasploit wp_query module")
+```
+
+### The Critical Rule: Research Agent is the ONLY External Agent
+
+> The Research Agent is the **only** agent authorized to make outbound requests to external networks. All other agents operate exclusively on the local target environment.
+
+This boundary is a hard design constraint enforced by the architecture. It prevents:
+- Accidentally sending target information to external services (data leakage)
+- Other agents conducting unauthorized external queries
+- Non-Research Agent tool calls being routed to the internet
+
+Additionally: **no raw web content ever enters the LLM context.** When the Research Agent queries NVD, it gets back a JSON response. The Tool Adapter normalizes that JSON into structured Vulnerability node attributes. The raw JSON is discarded. Only the clean, structured extract enters the agent's context — ensuring consistency with the principle applied to all tool outputs.
 
 ---
 
 ## 🎯 The Validation Agent — The Proof-Maker
 
-**Mission:** Prove that discovered vulnerabilities are real and exploitable. Not discover — prove.
+**Mission:** Prove that discovered vulnerabilities are real and exploitable. Not find — prove.
 
 This is the most critical and sensitive agent in the system. It receives a specific APG AttackChain from the Commander and executes controlled exploitation to validate each ChainStep in sequence.
 
-**Tools it uses:**
-- **SQLMap** — automated SQL injection detection and exploitation
-- **Metasploit** — exploitation framework for running known exploits against identified vulnerabilities
+The Validation Agent does not discover vulnerabilities. It proves them. The difference is fundamental: discovery means finding evidence that something *might* be exploitable. Validation means actually running the exploit and demonstrating it works.
 
-**What happens when a step succeeds:**
-The ChainStep status advances toward `VALIDATED`. Evidence is written to the ASG.
+### Tools the Validation Agent Uses
 
-**What happens when a step fails:**
-This is where the Validation Agent gets interesting. Instead of immediately giving up and marking the step `RULED_OUT`, it enters a **structured self-debugging loop**:
+| Tool | What It Does |
+|------|-------------|
+| **SQLMap** | Automated SQL injection testing and exploitation — detects injectable parameters, confirms the vulnerability, classifies the injection type (error-based, blind, time-based), extracts database contents, and can attempt privilege escalation |
+| **Metasploit** | The industry-standard exploitation framework — has thousands of modules for known vulnerabilities. Given a CVE and target, it automates the exploit execution, handles payload delivery, and manages post-exploitation sessions |
 
-### The Self-Debugging Loop
+### What Happens When a ChainStep Succeeds
+
+The ChainStep's `validation_status` advances toward `VALIDATED`. An Evidence node is created in the ASG and linked to the ChainStep via a `supported_by` edge.
+
+### What Happens When a ChainStep Fails — The Self-Debugging Loop
+
+This is where the Validation Agent distinguishes itself. Instead of immediately giving up and marking the step `RULED_OUT`, it enters a **structured self-debugging loop**:
 
 ```
-ATTEMPT → DIAGNOSE → CONTEXTUALIZE → ADAPT → retry (up to cap)
-                                                    ↓ (if cap reached)
-                                              RULED_OUT + write failure reason to ASG
+Attempt → FAIL
+          ↓
+    DIAGNOSE: Why did it fail?
+    Possible causes:
+      - Wrong parameter name or format
+      - Authentication required (didn't know the endpoint needed auth)
+      - Version mismatch (CVE applies to slightly different version range)
+      - Payload encoding issue (the payload needs URL-encoding or base64)
+      - Tool flag error (wrong SQLMap DBMS flag, wrong Metasploit target)
+          ↓
+    CONTEXTUALIZE: Query the ASG for more info
+    Examples:
+      - Check the Service node — does it have more version details?
+      - Check Evidence nodes from prior steps — was a credential captured?
+      - Check Parameter nodes — is there a session token we should include?
+          ↓
+    ADAPT: Modify the invocation based on diagnosis + new context
+    Retry with the corrected approach
+          ↓
+    If retry fails: repeat loop
+    After max retries (default: 3): mark ChainStep RULED_OUT
+    Write failure reason as structured annotation to ASG Vulnerability node
 ```
 
-1. **ATTEMPT** — Execute the tool against the target.
-2. **DIAGNOSE** — Analyze *why* it failed. Wrong parameter? Authentication required? Version mismatch? Payload encoding issue? Tool flag error?
-3. **CONTEXTUALIZE** — Query the ASG for additional information that might resolve the diagnosis. (E.g., "Let me check if the Service node has more version details" or "Was a credential captured in a prior Evidence node?")
-4. **ADAPT** — Modify the tool invocation based on diagnosis and new context. Retry with the corrected approach.
-5. **CAP** — After a configurable maximum retry count (default: 3 attempts), mark the ChainStep `RULED_OUT` and write the failure reason as a structured annotation on the Vulnerability node in the ASG.
+**Why does this loop matter?**
 
-Why is this loop valuable? Because most exploit failures in real penetration testing aren't fundamental — they're parameter issues, timing issues, encoding issues, version mismatches. A skilled human tester would diagnose and adapt. The self-debugging loop gives CMatrix's Validation Agent the same capability. The cap prevents infinite loops; the loop prevents premature abandonment.
+In real penetration testing, most initial exploit failures are not fundamental failures — they're parameter issues, encoding issues, timing issues, version mismatches. A skilled human tester would diagnose and adapt. The self-debugging loop gives the Validation Agent this same capability:
+- The **cap** (default 3 retries) prevents infinite loops — the system eventually accepts failure and moves on
+- The loop prevents premature abandonment — just because the first attempt failed doesn't mean the vulnerability isn't real
+- The **failure reason written to ASG** preserves why it failed — this informs future missions (Cross-Mission Experience Store) and enriches the final report
+
+When the Commander sees a `RULED_OUT` step, it re-prioritizes the APG and moves to the next chain.
 
 ### Vulnerability-Class Knowledge Injection
 
-The Validation Agent doesn't go into its task empty-handed. At spawn time, it receives **curated offline expert knowledge** matched to the vulnerability class it's working on:
+The Validation Agent doesn't go into its task empty-handed. At spawn time, it receives **curated offline expert knowledge documents** matched to the vulnerability class it's assigned:
 
-| What it's validating | What knowledge it receives |
-|---------------------|--------------------------|
-| SQL injection chains | SQL injection technique taxonomy; SQLMap flag reference; blind/time-based detection patterns |
-| XSS chains | XSS payload patterns; CSP bypass techniques; DOM vs reflected vs stored distinction |
-| Exploit chains | Metasploit module selection heuristics; payload/encoder selection guide |
+| What It's Validating | Knowledge Documents Injected |
+|---------------------|------------------------------|
+| SQL injection chains | SQL injection technique taxonomy (error-based vs. blind vs. time-based vs. out-of-band); SQLMap flag reference; WAF bypass techniques |
+| XSS chains | XSS payload patterns; CSP (Content Security Policy) bypass techniques; DOM vs. reflected vs. stored XSS distinctions |
+| Exploit chains via Metasploit | Metasploit module selection heuristics; payload selection guide (Meterpreter vs. shell); encoder selection for antivirus evasion |
+| API target chains | REST API attack surface checklist; IDOR (Insecure Direct Object Reference) patterns; parameter pollution techniques |
 
-These documents are pre-loaded, version-controlled expert knowledge. They encode practitioner wisdom that would otherwise be implicit in the model's training — and they're re-injected at spawn time every time, so they never get lost to context compaction.
+### Background: What Are These Techniques?
+
+- **Blind SQL injection** — when the database doesn't return data directly, but you can infer information by asking yes/no questions (does the database name start with 'a'? if yes, the page takes longer to load)
+- **CSP bypass** — Content Security Policy is a browser security feature that prevents certain scripts from running. XSS attackers find ways around it
+- **IDOR** — If an API endpoint is `/api/orders?user_id=123`, and changing `123` to `456` returns another user's orders — that's IDOR (Insecure Direct Object Reference). The system doesn't check whether you're authorized to access user 456's data
+- **Meterpreter** — A special Metasploit payload that gives the attacker a powerful interactive shell on the compromised system with built-in commands for privilege escalation, pivoting, data exfiltration, etc.
+
+These documents are **static, curated, version-controlled** — they encode expert practitioner knowledge that the LLM's general training may have imprecisely or incompletely. They're re-injected at spawn time every time, so they're never lost to context compaction.
+
+> **This is distinct from the Research Agent's live intelligence.** Research Agent retrieves real-time CVE data for specific discovered versions. Knowledge injection provides static, evergreen offensive technique reasoning that doesn't require internet access.
 
 ---
 
 ## 📸 The Evidence Agent — The Documentarian
 
-**Mission:** Capture proof of everything. Make findings impossible to dispute.
+**Mission:** Capture proof that cannot be disputed. Turn validated exploits into permanent evidence artifacts.
 
-After the Validation Agent confirms a ChainStep, the Evidence Agent is spawned to create visual proof artifacts.
+After the Validation Agent confirms a ChainStep or the Commander decides it's time to document validated findings, the Evidence Agent is spawned.
 
-**Tool it uses:**
-- **EyeWitness** — headless screenshot capture of web pages, exposed panels, and API responses
+### Tool It Uses
 
-**What it writes to the ASG:**
-- Evidence nodes (screenshot files, response captures, exploitation outputs)
-- `validated_by` edges linking Evidence to the corresponding ASG Vulnerability nodes
-- `supported_by` edges linking Evidence to the corresponding APG ChainStep nodes
+| Tool | What It Does |
+|------|-------------|
+| **EyeWitness** | Headless screenshot capture — visits web pages, admin panels, and API endpoints in a real browser (without showing the screen), captures screenshots, and returns the image files |
 
-This creates the traceability chain: every claimed vulnerability in the final report has a corresponding Evidence node in the ASG, linked directly to the proof artifact.
+### What It Writes to the ASG
+
+```
+Evidence nodes — screenshot image files, exploitation output captures
+    -- validated_by edges: Vulnerability → Evidence (this vulnerability has this proof)
+    -- supported_by edges: APG ChainStep → Evidence (this step was proven by this artifact)
+```
+
+The `supported_by` edge is critical. It creates an unbroken chain from the final report's "validated attack chain" all the way back to the screenshot that proves step 3 actually worked.
 
 ---
 
 ## 📝 The Report Agent — The Writer
 
-**Mission:** Translate the dual-graph world model into a professional human-readable report.
+**Mission:** Translate the dual-graph world model into a professional, human-readable penetration test report.
 
-The Report Agent is the last agent spawned in a mission. It reads the complete ASG and APG and produces the final penetration test report. It does not run tools. It makes no security decisions. It is purely a reader and writer.
+The Report Agent is the last agent spawned in a mission. It reads the complete ASG and APG — all discovered nodes, all attack chains, all evidence — and generates the final deliverable. It makes no security decisions. It runs no tools. It is purely a reader and translator.
 
-**Report structure it produces:**
-- **Executive Summary** — business impact, derived from APG Impact nodes
-- **Technical Findings** — every vulnerability with severity, sourced from ASG Vulnerability nodes
-- **Attack Surface Map** — complete discovered environment from the ASG
-- **Validated Attack Chains** — step-by-step chains from the APG with linked Evidence at each step
-- **Remediation Guidance** — prioritized by APG risk scores
+### Report Structure
+
+| Section | Source |
+|---------|--------|
+| **Executive Summary** | APG Impact nodes → business-level description of what was demonstrated |
+| **Technical Findings** | All ASG Vulnerability nodes with CVSS scores, enriched with Research Agent intelligence |
+| **Attack Surface Map** | Complete ASG — all subdomains, hosts, ports, services, endpoints, parameters |
+| **Validated Attack Chains** | All `VALIDATED` APG chains with step-by-step reproduction, tool outputs, and Evidence linked at each step |
+| **Remediation Guidance** | Prioritized by APG risk_score — what to fix first, based on danger level |
+
+The Report Agent doesn't need anything beyond the dual graph. Everything it needs to write a complete, professional penetration test report is already stored in the ASG and APG. This is the payoff for building and maintaining the world model throughout the entire assessment.
 
 ---
 
 ## 🧊 Context Isolation — The Most Underappreciated Design Choice
 
-Here's the design principle that ties all agents together: **every agent is spawned fresh and dies when done.**
+Here's the design principle that ties all agents together:
 
-Agents are not persistent processes that accumulate history. Each agent spawn:
-- Receives only the **ASG slice** relevant to its task (not the full graph)
-- Receives only the **APG slice** relevant to its task (if applicable)
-- Receives only the **tool set** it's authorized to use (not all tools)
-- Receives a specific **task specification** from the Commander
+> **Every specialist agent is spawned fresh with a scoped context and vanishes when it's done.**
 
-When the agent completes, it returns only **structured output** — new ASG nodes and edges. Its entire working context (conversation history, tool outputs, intermediate reasoning) is discarded.
+Agents are not persistent processes that accumulate history across tasks. Each spawn event is a fresh start:
 
-Why is this so important?
+**What each agent receives at spawn:**
+- The **ASG slice** relevant to its task — not the full graph, just what it needs
+- The **APG slice** relevant to its task — if applicable (e.g., the Validation Agent gets the specific AttackChain it's validating)
+- The **restricted toolset** it's authorized to use — not all tools, only the ones appropriate for its role
+- The **task specification** from the Commander's current plan
+- (For Validation/Analysis Agents): **Knowledge documents** for its assigned vulnerability class
 
-1. **The Commander's context stays clean.** It never sees raw tool outputs, verbose scan results, or intermediate reasoning from agents. It only sees ASG/APG state changes. This keeps the Commander sharp and focused.
+**When the agent completes:**
+- It returns only its **structured output** — new ASG nodes and edges (or APG status updates)
+- Its entire working context — all conversation history, all tool outputs, all intermediate reasoning — is **permanently discarded**
 
-2. **Agents can't contaminate each other.** If Agent A runs a massive directory brute-force and generates thousands of lines of output, none of that leaks into Agent B's context when it's spawned later.
+### Why This Matters: Three Properties Context Isolation Guarantees
 
-3. **Rejected High-risk calls vanish.** If the Commander rejects a dangerous tool call, that rejection never appears in the Commander's own context — preventing the refusal from subtly biasing future planning decisions.
+**Property 1: The Commander's context stays surgically clean.**
+
+The Commander only ever sees ASG/APG state — never the raw working history of agents it has spawned. If the Recon Agent ran Nmap across 100 hosts and got 50,000 lines of output, none of those lines ever appear in the Commander's context. It only sees the resulting Host/Port/Service nodes in the ASG. This keeps the Commander focused and its reasoning context manageable.
+
+**Property 2: Agents cannot contaminate each other.**
+
+If Agent A generates massive raw tool output while analyzing a web application, and Agent B is later spawned to validate a different vulnerability — Agent B has no knowledge of Agent A's work except through what was written to the ASG. There is no shared context. There is no shared conversation history. Each agent's "memory" is exactly the ASG/APG slice it was given.
+
+**Property 3: Rejected High-risk calls vanish cleanly.**
+
+If the Commander rejects a dangerous tool call — say, an agent proposed running Metasploit against a target that isn't fully confirmed to be in scope — that rejection event never appears in the Commander's own context. The Commander doesn't accumulate a history of "things I said no to." This prevents the refusals from subtly biasing future planning decisions (a known failure mode in systems where the planning agent sees its own rejection history).
+
+### Background: What is a Context Window?
+
+An LLM can only "see" a certain amount of text at once. This limit is called the **context window** — measured in tokens (roughly 0.75 words per token). Modern LLMs have large context windows (128K–1M tokens), but long-running pentests can still exceed these limits because tool outputs are enormous (full Nmap scans, ZAP reports, directory brute-force results can be thousands of lines each).
+
+Context isolation prevents this problem by design: each agent's context is bounded by exactly the information it was spawned with — not the entire mission history. The context never "accumulates" across agents. Only the ASG/APG grows — and those are graph data structures, not text in a context window.
 
 ---
 
-## 🗺️ Who Does What — Quick Reference
+## 🌐 Cross-Mission Learning — Beyond the Scope of a Single Mission
 
-| Agent | Role | Tools | Writes to |
+CMatrix doesn't just learn within a mission — it remembers across missions. Two structures handle this:
+
+### The Cross-Mission Experience Store
+
+When a mission terminates with validated chains, the Report Agent writes a structured summary into a **persistent, RAG-backed knowledge base** — the Cross-Mission Experience Store.
+
+**What RAG means:** RAG = Retrieval-Augmented Generation. Instead of the LLM relying only on what it was trained on, it can query an external database at runtime and retrieve relevant information to inject into its context. Think of it like giving the LLM access to a searchable library it can consult before answering.
+
+**What gets written at mission close:**
+```
+Target technology fingerprint (CMS, framework, version, service)
+Vulnerability class and CVE
+Successful tool invocation and exact parameters
+ChainStep sequence that achieved validation
+Mission outcome summary
+```
+
+**What happens at mission start:**
+Immediately after the Recon Agent writes the first batch of Technology nodes to the ASG, the Commander queries the store. It retrieves exploitation records from past missions on similar technology stacks. These are injected as **candidate chain hypotheses** — pre-validated patterns — into the Commander's reasoning context. Instead of starting from zero, the Commander can front-load high-probability chains that have worked before.
+
+### The Attack Strategy Library
+
+While the Cross-Mission Experience Store stores raw, per-mission records — "this exact chain worked on this exact target" — the Attack Strategy Library is a **higher-order abstraction**: generalized, named, reusable attack procedures.
+
+**How crystallization works:**
+When the same target fingerprint (e.g., `WordPress 5.x + WooCommerce + Nginx`) produces a validated AttackChain across **two or more independent missions**, the Commander triggers crystallization. A scoped LLM call generalizes those specific chains into a named strategy:
+
+```
+STRAT-WP-SQLI-001
+Name: "WordPress WP_Query SQL Injection to RCE"
+Target fingerprint: WordPress 5.x + WooCommerce (any version) + any reverse proxy
+Entry condition: CVE-2022-21661 confirmed or WP_Query injection point identified
+Tool sequence:
+    1. SQLMap --dbms=mysql --level=3 --risk=2 (extract admin hash)
+    2. Offline hash cracking (hashcat, wordlist: rockyou)
+    3. Metasploit wp_admin_shell_upload (with cracked credentials)
+Expected evidence: SQLMap output, WordPress admin panel screenshot, webshell execution screenshot
+Confidence score: 0.85 (contributed by 4 independent missions)
+Last validated: 2025-11-03
+```
+
+This strategy is then indexed in the library. At the start of future missions where WordPress 5.x is detected, the Commander retrieves this strategy and uses it as a pre-ranked APG AttackChain seed — prioritized above chains with no prior track record.
+
+> **No existing autonomous VAPT system does this.** Every other system in the literature resets to zero knowledge on each mission. CMatrix gets better — measurably — with every engagement it completes.
+
+---
+
+## 🗺️ Agent Quick Reference
+
+| Agent | Role | Tools | Writes To |
 |-------|------|-------|-----------|
 | **Commander** | Orchestration, reasoning, APG management | None | APG only |
 | **Recon** | External discovery | Amass, httpx, Nmap | ASG (Domain, Host, Port, Service) |
-| **Analysis** | Deep enumeration, vuln discovery | WhatWeb, Gobuster, ffuf, Nuclei, OWASP ZAP | ASG (Technology, Endpoint, Parameter, Vulnerability) |
-| **Research** | Live CVE intelligence | NVD, Exploit-DB, GitHub APIs | ASG (Vulnerability node enrichment) |
-| **Validation** | Controlled exploitation | SQLMap, Metasploit | ASG (Evidence nodes), APG (chain status) |
-| **Evidence** | Proof capture | EyeWitness | ASG (Evidence nodes) |
+| **Analysis** | Deep enumeration, vulnerability discovery | WhatWeb, Gobuster, ffuf, Nuclei, OWASP ZAP | ASG (Technology, Endpoint, Parameter, Vulnerability) |
+| **Research** | Live CVE intelligence | NVD, Exploit-DB, GitHub APIs | ASG (Vulnerability node enrichment only) |
+| **Validation** | Controlled exploitation | SQLMap, Metasploit | ASG (Evidence nodes) + APG (ChainStep status) |
+| **Evidence** | Proof capture | EyeWitness | ASG (Evidence nodes + validated_by/supported_by edges) |
 | **Report** | Final report generation | None | Report document (reads full ASG + APG) |
 
 ---
@@ -234,10 +432,17 @@ Why is this so important?
 | Concept | Plain English |
 |---------|---------------|
 | Commander | The brain — reads everything, plans everything, writes only to APG, never runs tools |
-| Specialist agents | Spawn fresh, do one job, return structured output, then vanish |
-| Context isolation | No agent's raw history pollutes any other agent or the Commander |
-| Self-debugging loop | Validation Agent diagnoses and adapts on failure before giving up |
-| Knowledge injection | Validation Agent gets expert documents pre-loaded at spawn time |
+| Recon Agent | Discovers what exists — domains, hosts, ports, services |
+| Analysis Agent | Finds vulnerabilities in what was discovered — technologies, endpoints, parameters, CVEs |
+| Research Agent | Enriches CVE findings with live intelligence — the only agent that reaches the internet |
+| Validation Agent | Proves vulnerabilities are real through controlled exploitation |
+| Self-debugging loop | Validation Agent diagnoses and adapts on failure before giving up — up to a configurable cap |
+| Knowledge injection | Specialist agents get curated expert documents pre-loaded at spawn — offline, version-controlled |
+| Evidence Agent | Captures screenshots and proof artifacts for every validated finding |
+| Report Agent | Reads the full dual graph and generates the professional pentest report |
+| Context isolation | Every agent spawns fresh, returns only structured output, then vanishes — no shared history |
+| Cross-Mission Store | Persistent RAG database of validated exploitation outcomes across all missions |
+| Attack Strategy Library | Crystallized, generalized, named attack strategies indexed by target technology fingerprint |
 
 ---
 
