@@ -1,6 +1,7 @@
 # CMatrix Presentation Audit — 06: Workflow Consistency
 
-> Cross-check of every workflow diagram against module-08-visual-walkthrough.md. Checks step correctness, sequence, and transition accuracy.
+> Cross-check of every workflow diagram against module-08-visual-walkthrough.md. Checks step correctness, sequence, and transition accuracy.  
+> *Last updated: merged findings from two independent audit passes.*
 
 ---
 
@@ -152,10 +153,48 @@ No errors. The planning cycle is correctly and completely reproduced.
 |---|---|
 | shopvault.io Mission Timeline | Chain-04 in wrong phase |
 | Chain-01 Traceability | None |
-| Agent Spawn Lifecycle | None |
-| Risk Gate Decision Tree | 4 lifecycle hooks not shown (minor) |
-| Planning Cycle | None |
+| Agent Spawn Lifecycle | APG slice absent from spawn call notation (minor); `starts_at` edge missing from Slide 5 diagram |
+| Risk Gate Decision Tree | 4 lifecycle hooks not shown (minor); REJECT path targets APG instead of ASG |
+| Planning Cycle | Cycle Guard outputs conflated (different trigger conditions shown as one node) |
+| Attack Chain Lifecycle | PARTIALLY_VALIDATED → RULED_OUT transition path missing from state machine |
 | Commander Decision Log | None |
 
-**Total workflow errors:** 1 critical (Chain-04 phase placement)  
+**Total workflow errors:** 5 (1 critical, 4 medium)  
 **Total minor gaps:** 2 (Nuclei output absent from narrative; 4 hooks not shown)
+
+---
+
+## Workflow 7 — New Issues from Second Audit Pass
+
+### WF4 — Spawn Call Notation Missing APG Slice (Slide 7)
+
+The sequence diagram on Slide 7 shows:
+```
+spawn(ASG slice + task + toolset)
+```
+The "Agent Spawn Package" detail box below correctly lists APG Slice as a component (for Validation tasks). However, the top-level spawn call notation omits it, making the spawn call look like it never includes the APG slice.
+
+**Fix:** Change spawn call to: `spawn(ASG slice + APG slice[optional] + task + toolset)` to accurately represent that Validation agents receive an APG slice at spawn.
+
+### WF5 — PARTIALLY_VALIDATED → RULED_OUT Transition Missing from State Machine (Slide 12)
+
+The state machine on Slide 12 shows transitions:
+- HYPOTHESIZED → PARTIALLY_VALIDATED (step confirmed)
+- PARTIALLY_VALIDATED → VALIDATED (chain succeeds)
+- step fails after cap → RULED_OUT
+
+But there is no arrow from PARTIALLY_VALIDATED → RULED_OUT. If a later ChainStep fails after 3 retries, the chain was already PARTIALLY_VALIDATED and must transition to RULED_OUT. This path is implied by architecture.md §6 (Validation Agent self-debug cap) but is invisible on the diagram.
+
+**Fix:** Add a `step fails after cap` arrow from PARTIALLY_VALIDATED directly to RULED_OUT.
+
+### WF6 — Cycle Guard Outputs Conflated (Slide 13)
+
+Slide 13 shows: `Cycle Guard → REFLECTOR or FORCE RE-PLAN` as a single decision node with two outputs.
+
+Architecture.md §10 distinguishes two completely separate mechanisms triggered by different conditions:
+- **Cycle Guard** fires on *identical repeated calls* (same tool + same target + same params) → **force re-plan**
+- **Reflector** fires on *distinct repeated failures* (different calls, all failing) → **corrective guidance**
+
+The current diagram implies both outputs come from the same Cycle Guard event. This conflation is technically incorrect and will invite a supervisor question: "Which one fires? Under what condition?"
+
+**Fix:** Show two separate conditional paths from the agent execution result: one path for identical-call repetition → Cycle Guard → Force Re-Plan; a separate path for distinct-failure repetition → Reflector → Corrective Guidance.

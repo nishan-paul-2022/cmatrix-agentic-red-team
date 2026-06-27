@@ -1,6 +1,7 @@
 # CMatrix Presentation Audit — 03: Weaknesses
 
-> Every flaw identified, graded by severity and impact on a supervisor presentation.
+> Every flaw identified, graded by severity and impact on a supervisor presentation.  
+> *Last updated: merged findings from two independent audit passes.*
 
 **Severity Scale:**
 - 🔴 CRITICAL — Will cause supervisor to question research validity
@@ -224,3 +225,55 @@ No slide articulates this philosophy directly.
 **Impact:** Without it, a supervisor might assume CMatrix's goal is to get shells — which mischaracterises the research intent.
 
 **Fix:** Add one sentence to the scenario slide (slide 10) or the chain lifecycle slide (slide 12): "Success = validated APG AttackChains with evidence — not obtained shells. A mission is complete when every attack opportunity is proven or disproven."
+
+---
+
+## W16 — C3 Description Silently Truncated on Slide 3 🟡 MINOR
+
+**Slide:** 3 (Novel Contribution)
+
+**Claim on slide:** C3 listed as `APG Attack Chain Lifecycle`
+
+**What architecture.md §14 actually says for C3:** "APG attack chain lifecycle **with evidence traceability**" — attack chains are lifecycle-tracked with every ChainStep linked to its proof via a `supported_by` edge to an ASG Evidence node.
+
+**Why this matters:** "Evidence traceability" is the differentiating property of C3. Without it, C3 sounds like a basic state machine. With it, C3 is an accountability mechanism that makes every claim in the final report verifiable end-to-end. Dropping it silently undercuts the contribution.
+
+**Fix:** Change slide 3 C3 label to: `APG Attack Chain Lifecycle with Evidence Traceability`.
+
+---
+
+## W17 — Slide 5 Missing `starts_at` Cross-Graph Edge 🟠 MAJOR
+
+**Slide:** 5 (Dual-Graph World Model)
+
+**Problem:** The dual-graph diagram shows ASG and APG side-by-side with a "STRICT SEPARATION" barrier. However, it does not show the `starts_at` edge — the cross-graph relationship where APG AttackChains point back to ASG Vulnerability nodes as their origin. This is the most important inter-graph relationship in the entire architecture: it is what ties attack reasoning to confirmed discovered facts.
+
+Slide 11 correctly shows `starts_at` for Chain-01 specifically, but Slide 5 — which establishes the conceptual model — never shows it at all.
+
+**What a supervisor thinks:** *"How does the APG know which vulnerability it is reasoning about? The graphs look completely disconnected."*
+
+**Fix:** Add a dashed arrow from the APG `AttackChain` node to the ASG `Vulnerability` node labeled `starts_at`. This one edge makes the dual-graph relationship legible without violating the separation principle (it is a read reference, not a write).
+
+---
+
+## W18 — Slide 9 REJECT Path Annotation Is Technically Wrong 🟠 MAJOR
+
+**Slide:** 9 (Tool Risk Gate)
+
+**Claim on slide:** REJECT → "Cancelled / Annotated to APG"
+
+**What architecture.md §8 says:** "Reason annotated to APG chain" — wait, let me be precise. Architecture.md §6 Validation Agent states: "failure reason is written to the ASG as a structured annotation on the Vulnerability node." The rejection annotation target is the **ASG Vulnerability node**, not the APG chain directly.
+
+**Impact:** This is a subtle but real technical error. A supervisor who reads §8 carefully will ask: "You annotate the rejection to the APG — but the APG contains attack reasoning, not tool failure records. Why would a tool rejection go there?"
+
+**Fix:** Change to: `Cancelled — failure reason annotated to ASG Vulnerability node`.
+
+---
+
+## W19 — No Closing Summary Slide 🟡 MINOR
+
+**Problem:** The presentation's last content slide is slide 15 (Cross-Mission Learning), followed immediately by slide 16 (References). There is no closing statement, no "what this research will demonstrate," and no call to action. The supervisor's final impression before Q&A is a technical diagram about strategy crystallization, followed by a reference list.
+
+**What a supervisor expects:** A closing slide that recaps what was presented, states what the research claims to demonstrate, and frames the next step — typically: "This is the system I am asking you to supervise."
+
+**Fix:** Add a closing slide (position: after Contributions, before References) with three bullets: (1) what CMatrix is, (2) what it claims to demonstrate, (3) what supervision/approval you are seeking.

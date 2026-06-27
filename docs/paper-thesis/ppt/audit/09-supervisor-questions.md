@@ -1,6 +1,7 @@
 # CMatrix Presentation Audit — 09: Supervisor Questions
 
-> 30 questions a rigorous thesis supervisor is likely to ask during or immediately after this presentation. Each question is annotated with: which slide failed to prevent it, and how to prepare an answer.
+> 35 questions a rigorous thesis supervisor is likely to ask during or immediately after this presentation. Each question is annotated with: which slide failed to prevent it, and how to prepare an answer.  
+> *Last updated: merged findings from two independent audit passes. Q31–Q35 added from second pass.*
 
 ---
 
@@ -161,6 +162,31 @@
 
 ---
 
+## Category H — Additional Challenges (Second Audit Pass)
+
+**Q31.** "In Slide 9, WhatWeb is classified as LOW risk. But WhatWeb actively probes HTTP responses — shouldn't that be Medium tier?"
+- **Triggered by:** The conceptual boundary between passive and active is not explained on slide 9
+- **Preparation:** The tier assignment follows the module-08 walkthrough and the deployment specification. WhatWeb sends HTTP requests but does not enumerate paths, fuzz parameters, or trigger security controls. The LOW/MED boundary is defined in the architecture as: LOW = passive fingerprinting (no state change on target), MED = active enumeration (triggers logs, may trigger WAF). WhatWeb falls on the LOW side because it reads from a single HTTP response without iterating paths. Be prepared to acknowledge this as a definitional choice that could legitimately be debated.
+
+**Q32.** "How does the ASG/APG system handle a case where the ASG says a node is exhausted but the APG still has a HYPOTHESIZED chain starting from that node?"
+- **Triggered by:** The dual termination logic is explained as two independent conditions but the interaction between them is never shown
+- **Answer source:** architecture.md §10 Termination
+- **Preparation:** This is a valid edge case. The termination condition requires BOTH conditions to be true simultaneously. If an ASG node is exhausted (marked as fully investigated) but an APG AttackChain still starts from a Vulnerability on that node and is still HYPOTHESIZED, the termination condition is not met — the APG is unresolved. The Commander would re-examine the chain and either attempt validation or RULE_OUT the chain based on the existing ASG state. The chain cannot be left in HYPOTHESIZED at termination.
+
+**Q33.** "Can CMatrix be fooled by a honeypot or active deception on the target? What happens when tool output is intentionally misleading?"
+- **Triggered by:** No adversarial robustness discussion in any slide
+- **Preparation:** This is a known limitation not addressed in the current architecture scope. CMatrix trusts tool output as ground truth — a honeypot returning a realistic-looking service banner would be recorded as fact in the ASG. This is an honest limitation of any automated assessment tool that does not incorporate active deception detection. Scope it explicitly: CMatrix is designed for authorized assessments of cooperative targets, not adversarially hardened environments. This is a future work direction.
+
+**Q34.** "Your C8 claims dual-graph termination is novel — can you cite evidence that no prior system uses both conditions simultaneously?"
+- **Triggered by:** The novelty claim for C8 is asserted without a literature proof
+- **Preparation:** The literature argument is: (1) timer-based systems (e.g., PentestGPT) terminate by time limit — they cannot express APG resolution as a condition; (2) task-queue-based systems (e.g., VulnBot) terminate when the task queue is empty — this is an ASG-exhaustion-only condition that cannot express "all attack chains resolved"; (3) no published VAPT system defines termination as a conjunction of both surface exhaustion and attack reasoning completion. This needs to be stated more rigorously in the thesis, with direct references to the termination conditions of each prior system.
+
+**Q35.** "What publication venue are you targeting? If this is heading toward USENIX Security or IEEE S&P, how do you plan to make the novelty argument measurably stronger?"
+- **Triggered by:** No publication plan discussed in any slide
+- **Preparation:** Have a clear answer. If targeting a top venue (USENIX Security, IEEE S&P, CCS), the novelty claim must be backed by an ablation study demonstrating that the dual-graph architecture produces measurably better outcomes than the baseline. If targeting a mid-tier venue (RAID, ACSAC, AsiaCCS), the architectural design contribution alone may be sufficient. Know which tier you are targeting and what the corresponding evidence bar is.
+
+---
+
 ## Summary: Questions by Preventability
 
 | Category | Q# | Preventable by Adding | Priority |
@@ -170,4 +196,7 @@
 | Technical errors | Q9–Q11 | Fix 3 errors | 🔴 Critical |
 | Missing contributions | Q16, Q20 | C4 + C12 coverage | 🟠 Major |
 | Implementation status | Q14, Q21, Q29 | Implementation status statement | 🟠 Major |
-| Timeline | Q30 | Timeline slide | 🟡 Minor |
+| Dual-graph justification | Q4, Q32, Q34 | Add separation principle rationale to slide 5 | 🟠 Major |
+| LLM + model design | Q7, Q31 | Single LLM API bullet + WhatWeb tier note | 🟡 Minor |
+| Adversarial robustness | Q33 | Explicitly scope as future work | 🟡 Minor |
+| Publication/timeline | Q30, Q35 | Timeline + venue slide | 🟡 Minor |

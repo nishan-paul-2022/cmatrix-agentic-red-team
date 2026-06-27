@@ -1,6 +1,7 @@
 # CMatrix Presentation Audit — 04: Slide Ordering
 
-> Evaluation of the current slide sequence, swap recommendations, and the proposed corrected order.
+> Evaluation of the current slide sequence, swap recommendations, and the proposed corrected order.  
+> *Last updated: merged findings from two independent audit passes.*
 
 ---
 
@@ -46,6 +47,18 @@ All four of these concepts are *prerequisites* for understanding the walkthrough
 Slide 3 presents C1–C12 before the audience has seen the ASG, the APG, the Commander, or any agent. Contributions like "C4: ASG-Aware Parallel Dispatch" and "C8: Dual-Graph Termination Semantics" are incomprehensible without the architectural context established in slides 4–14.
 
 The contributions slide should appear **after** the audience understands what they are contributions to.
+
+**O3 — A Dedicated Related Work Gap Analysis Slide Is Missing (Second Audit Finding)**
+
+The current presentation does not have a slide that explicitly shows: *what each prior system does vs. what it lacks vs. how CMatrix addresses that gap.* The References slide (slide 16) shows what CMatrix borrowed from each source, but not what CMatrix uniquely adds that those sources lack.
+
+A three-column table slide — "System / What it lacks / CMatrix addresses by" — positioned between Problem (slide 2) and Architecture (slide 4) would serve two purposes:
+1. Ground the problem statement (slide 2) in named prior work
+2. Pre-frame the architecture as a motivated response to identified gaps
+
+This is the "Related Work" section of a thesis paper, condensed into one slide.
+
+**Fix:** Insert a Related Work Gap Analysis slide at position 3 (after Problem, before Scope).
 
 ---
 

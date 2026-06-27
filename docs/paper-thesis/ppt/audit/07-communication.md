@@ -1,6 +1,7 @@
 # CMatrix Presentation Audit — 07: Communication Effectiveness
 
-> Evaluates whether the presentation successfully communicates: what was built, why it was built, how it works, why it is different, and why it matters. Audience assumed: thesis supervisor, first encounter with this work.
+> Evaluates whether the presentation successfully communicates: what was built, why it was built, how it works, why it is different, and why it matters. Audience assumed: thesis supervisor, first encounter with this work.  
+> *Last updated: merged findings from two independent audit passes.*
 
 ---
 
@@ -142,3 +143,23 @@ If the supervisor does not have a cybersecurity background, slides 5–12 will b
 | Why it is different | 5/10 | Differentiation is implicit; no explicit comparison table |
 | Why it matters | 5/10 | Impact present but unquantified; no evaluation metrics |
 | Story flow | 5/10 | Three broken transitions; contributions misplaced |
+
+---
+
+## 7.8 — Additional Communication Gaps (Second Audit Pass)
+
+### COM3 — Graph vs. Flat Vector Store: Distinction Never Explained
+
+The presentation treats the choice of a graph-based world model as self-evidently correct. It never explains what a graph gives you that a flat vector store (RAG memory, like PentestGPT uses) does not.
+
+This distinction is critical to the thesis. For a supervisor who works in NLP and knows about RAG-based memory architectures, one sentence is enough: *"Vector similarity cannot express typed relationships — that CVE-X affects Service-Y, not just that they are semantically related. A graph can represent that CVE-2022-21661 `affected_by` the exact WordPress 5.9.3 node discovered by WhatWeb, then `starts_at` Chain-01 in the APG. RAG cannot distinguish discovery from reasoning; the dual-graph architecture enforces that boundary structurally."*
+
+**Fix:** Add this one-sentence rationale to slide 5 (Dual-Graph World Model) as a footer annotation.
+
+### COM4 — Context Compaction "Why It Matters" Link Is Implicit (Slide 14)
+
+Slide 14 explains the three compaction layers (MicroCompact, AutoCompact, FullCompact) mechanistically — what each one does. It does not state why this matters for long missions.
+
+Without the motivation, a supervisor may see this as an engineering nicety rather than a research contribution. The motivation is: without compaction, Commander context degrades after 20–30 tool calls and planning quality collapses — a failure mode that is empirically demonstrable.
+
+**Fix:** Add one sentence before the compaction diagram: *"Without compaction, Commander context fills within 20–30 tool calls on a realistic engagement. Planning quality collapses when the Commander can no longer see earlier discoveries. These three layers are the architectural answer."*

@@ -1,5 +1,7 @@
 # CMatrix Presentation Audit — 10: Scores, Final Assessment & Action Plan
 
+> *Last updated: scores reconciled across two independent audit passes. Second audit rated overall 7/10; first audit rated 6.5/10. The higher score reflects a more generous assessment of workflow accuracy. Merged score: **6.5/10**, conservatively reflecting structural defects identified by both passes.*
+
 ---
 
 ## Scores (0–10)
@@ -48,7 +50,12 @@ This presentation is **not ready** for a first supervisor meeting in its current
 | 6 | Add Commander seeding role: "Seeds APG AttackChains from Vulnerability nodes" | 4 | 2 min |
 | 7 | Renumber all slides sequentially 01–16 | All | 10 min |
 
-**Total estimated time for blocking fixes: ~36 minutes**
+**Total estimated time for blocking fixes: ~51 minutes** (increased from 36 min due to 3 newly found issues)
+
+> **3 new blocking fixes added from second audit pass:**
+> - Fix `starts_at` cross-graph edge absent from Slide 5 APG diagram
+> - Fix REJECT path annotation on Slide 9 ("APG" → "ASG Vulnerability node")
+> - Fix PARTIALLY_VALIDATED → RULED_OUT path missing from Slide 12 state machine
 
 ---
 
@@ -75,12 +82,17 @@ This presentation is **not ready** for a first supervisor meeting in its current
 |---|---|---|---|
 | 16 | Add C4 (Parallel Dispatch) diagram to spawn lifecycle slide | 7 | 20 min |
 | 17 | Add Exploitation Philosophy statement to chain lifecycle slide | 12 | 5 min |
-| 18 | Add "Separation eliminates fact/hypothesis conflation" to dual-graph slide | 5 | 5 min |
+| 18 | Add "Separation eliminates fact/hypothesis conflation" + graph-vs-vector-store rationale to dual-graph slide | 5 | 8 min |
 | 19 | Add named prior work to Problem slide | 2 | 5 min |
 | 20 | Simplify title subtitle to plain-language statement | 1 | 5 min |
 | 21 | Remove termination condition summary from planning cycle (slide 13) — covered on slide 14 | 13 | 5 min |
 | 22 | Add Implementation Status statement (either demo-ready or design-level) | 1 or 2 | 5 min |
 | 23 | Add C7 research implication to VAPT Protocol Prompt box | 4 | 5 min |
+| 24 | Fix Cycle Guard / Reflector conflation in planning cycle diagram — show two separate conditional paths | 13 | 10 min |
+| 25 | Fix spawn call notation to include `APG slice[optional]` | 7 | 3 min |
+| 26 | Add Context Compaction motivation sentence ("without this, context fills in 20–30 calls") | 14 | 3 min |
+| 27 | Add Related Work Gap Analysis slide (3-column: System / Lacks / CMatrix Addresses) | New slide | 25 min |
+| 28 | Add closing summary slide (what CMatrix is, what it claims, what you are asking for) | New slide | 15 min |
 
 ---
 
@@ -89,26 +101,30 @@ This presentation is **not ready** for a first supervisor meeting in its current
 ```
 01  Title (+ implementation status note)
 02  The Problem (+ named prior work)
-03  Scope (NEW — In Scope / Out of Scope)
-04  System Architecture (+ Commander seeding role + C7 note)
-05  Dual-Graph World Model (+ separation principle explanation)
-06  Agent Architecture (+ Report Agent added)
-07  Agent Spawn Lifecycle (+ C4 parallel dispatch annotation)
-08  Offensive Tool Catalogue
-09  Tool Adapter Layer / Risk Gate
-10  Autonomous Planning Cycle
-11  Attack Chain Lifecycle (+ Exploitation Philosophy statement)
-12  Dual Termination + Context Compaction
-13  Cross-Mission Learning (+ C12 coverage)
-14  Real-World Scenario (Chain-04 in Phase 4)
-15  Chain-01 Traceability
-16  Novel Contribution C1–C12 (moved to here)
-17  What CMatrix Uniquely Introduces (NEW)
-18  Evaluation Plan (NEW)
-19  Inspirations & References (C3 attribution fixed)
+03  Related Work Gap Analysis (NEW — System / Lacks / CMatrix Addresses)
+04  Scope (NEW — In Scope / Out of Scope)
+05  System Architecture (+ Commander seeding role + C7 note)
+06  Dual-Graph World Model (+ starts_at edge + separation rationale + graph-vs-vector note)
+07  Agent Architecture (+ Report Agent added)
+08  Agent Spawn Lifecycle (+ APG slice in spawn call + C4 parallel dispatch annotation)
+09  Offensive Tool Catalogue
+10  Tool Adapter Layer / Risk Gate (+ ASG REJECT annotation fix)
+11  Autonomous Planning Cycle (+ split Cycle Guard / Reflector paths)
+12  Attack Chain Lifecycle (+ PARTIALLY_VALIDATED→RULED_OUT path + Exploitation Philosophy)
+13  Dual Termination + Context Compaction (+ compaction motivation sentence)
+14  Cross-Mission Learning (+ C12 coverage)
+15  Real-World Scenario (Chain-04 in Phase 4)
+16  Chain-01 Traceability
+17  Novel Contribution C1–C12 (moved to here; C3 label fixed to "with Evidence Traceability")
+18  What CMatrix Uniquely Introduces (NEW)
+19  Evaluation Plan (NEW)
+20  Closing Summary (NEW)
+21  Inspirations & References (C3 attribution fixed)
 ```
 
-**Total: 19 slides (3 new slides added; 1 repositioned)**
+**Total: 21 slides (5 new slides added; 1 repositioned)**
+
+> Note: The second audit proposed an 18-slide structure. This merged structure extends to 21 slides by adding: Related Work Gap Analysis (recommended by second audit), Closing Summary (recommended by both), and preserving our additional Scope slide and "What CMatrix Uniquely Introduces" slide.
 
 ---
 
