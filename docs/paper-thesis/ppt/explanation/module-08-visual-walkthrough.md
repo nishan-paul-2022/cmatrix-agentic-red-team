@@ -4,119 +4,6 @@
 
 ---
 
-## Module 03, Figure 1 — System Architecture: The Three-Tier Overview
-
-This is the master view of CMatrix. Everything fits into three tiers:
-
-- **Tier 1 (top):** Orchestration — the operator configures, the Commander reasons
-- **Tier 2 (middle):** The dual-graph world model — the two living knowledge stores
-- **Tier 3 (bottom):** The six specialist agents and the tool layer they operate through
-
-```mermaid
-flowchart TD
-    %% ── TIER 1: ORCHESTRATION ──────────────────────────────────────
-    subgraph T1["① ORCHESTRATION TIER"]
-        direction LR
-        OP["🧑 OPERATOR\n─────────────\nDefines: Target domain\nScope boundaries\nAssessment mode\n(Black-Box / Grey-Box)"]
-        CMD["👑 COMMANDER AGENT\n─────────────────────────────\n• Reads full ASG + APG state\n• Plans and delegates tasks\n• Seeds APG AttackChains\n• Approves High-risk tool calls\n• Writes ONLY to APG\n• Determines termination"]
-        VPP["📄 VAPT PROTOCOL PROMPT\n──────────────────────────\nMethodology-as-Config:\n• Phase sequencing rules\n• Re-plan triggers\n• Termination conditions\n• Tool selection heuristics"]
-
-        OP -- "mission config\n(target + scope)" --> CMD
-        CMD <-- "guides\nplanning policy" --> VPP
-    end
-
-    %% ── TIER 2: DUAL-GRAPH WORLD MODEL ─────────────────────────────
-    subgraph T2["② DUAL-GRAPH WORLD MODEL TIER"]
-        direction LR
-        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)\n── Discovered Reality ──\nFacts ONLY. Never contains hypotheses."]
-            A1["Domain · Host · Port\nService · Technology"]
-            A2["Endpoint · Parameter\nVulnerability · Evidence"]
-        end
-        SEP["⬛ STRICT\nSEPARATION\n────────\nNo agent\ncrosses this\nboundary"]
-        subgraph APG["🟡 ATTACK PATH GRAPH (APG)\n── Inferred Opportunity ──\nReasoning ONLY. Never contains raw scan data."]
-            P1["AttackChain\nrisk_score · priority"]
-            P2["ChainStep\nvalidation_status"]
-            P3["Impact\n(demonstrated)"]
-        end
-    end
-
-    %% ── TIER 3: AGENTS + TOOLS ──────────────────────────────────────
-    subgraph T3["③ SPECIALIZED AGENTS + TOOL ADAPTER TIER"]
-        direction LR
-        AGR["🕵️ Recon\nAmass·httpx·Nmap"]
-        AGA["🔬 Analysis\nWhatWeb·Gobuster\nffuf·Nuclei·ZAP"]
-        AGI["🔍 Research\nNVD·Exploit-DB\nGitHub"]
-        AGV["🎯 Validation\nSQLMap·Metasploit"]
-        AGE["📸 Evidence\nEyeWitness"]
-        AGRP["📝 Report\nReads ASG+APG"]
-
-        subgraph TAL["TOOL ADAPTER LAYER + RISK GATE"]
-            RG1["🟢 LOW\nExecute immediately"]
-            RG2["🟡 MED\nLLM Classifier"]
-            RG3["🔴 HIGH\nCommander Mailbox"]
-        end
-    end
-
-    %% ── CROSS-TIER ARROWS ───────────────────────────────────────────
-    CMD -- "reads state" --> ASG
-    APG -- "status feedback" --> CMD
-    CMD -- "derives chains\nfrom new Vulnerability nodes" --> APG
-    CMD -- "spawns with\nscoped context" --> AGR
-    CMD -- "spawns with\nscoped context" --> AGA
-    CMD -- "spawns with\nscoped context" --> AGI
-    CMD -- "spawns with\nscoped context" --> AGV
-    CMD -- "spawns with\nscoped context" --> AGE
-    CMD -- "spawns at\nmission end" --> AGRP
-
-    AGR -- "writes Domain\nHost·Port·Service" --> ASG
-    AGA -- "writes Technology\nEndpoint·Vulnerability" --> ASG
-    AGI -- "enriches Vulnerability\nnodes (CVE+PoC)" --> ASG
-    AGV -- "writes Evidence\nadvances ChainStep" --> ASG
-    AGE -- "writes Evidence\nscreenshots" --> ASG
-
-    AGR --> TAL
-    AGA --> TAL
-    AGV --> TAL
-
-    %% Styling
-    classDef tier1 fill:#061020,stroke:#00D4FF,color:#fff
-    classDef tier2asg fill:#04180C,stroke:#7FFF00,color:#fff
-    classDef tier2apg fill:#1E1004,stroke:#FFC107,color:#fff
-    classDef tier3 fill:#0A081C,stroke:#9C27B0,color:#fff
-    classDef gate_low fill:#0A1A08,stroke:#7FFF00,color:#7FFF00
-    classDef gate_med fill:#1A1000,stroke:#FFC107,color:#FFC107
-    classDef gate_hi fill:#1A0606,stroke:#FF5252,color:#FF5252
-    classDef sep fill:#081018,stroke:#444,color:#888
-
-    class T1 tier1
-    class ASG tier2asg
-    class APG tier2apg
-    class T3 tier3
-    class RG1 gate_low
-    class RG2 gate_med
-    class RG3 gate_hi
-    class SEP sep
-```
-
-### Reading Key
-
-| Colour | Meaning |
-|--------|---------|
-| 🟢 Cyan border | Commander — orchestration layer |
-| 🟢 Lime/Green border | ASG — discovery facts |
-| 🟡 Gold border | APG — attack reasoning |
-| 🟣 Purple border | Agent tier + tool adapter |
-| Solid arrow | Data flow / write |
-| Dashed arrow | Read / feedback |
-
-### Three Things to Notice
-
-1. **The Commander never touches tools.** Every arrow from the Commander goes to agents — never to the Tool Adapter Layer directly.
-2. **Only the Commander writes to the APG.** All six specialist agents write only to the ASG (or read from it). The APG is exclusively the Commander's domain.
-3. **All tool calls go through the Tool Adapter Layer.** There is no path from an agent directly to a tool. The Risk Gate sits in that layer.
-
----
-
 *Module 02, Figure 1 below: Dual-Graph Model (ASG node tree + APG attack chain, visualised)*
 
 ---
@@ -319,6 +206,119 @@ flowchart TD
 | "Which attack is most dangerous?" | APG → risk_score ranking |
 | "Is each attack actually proven?" | APG → validation_status + supported_by → ASG Evidence |
 | "What is the proof?" | ASG → Evidence nodes (screenshots, tool outputs) |
+
+---
+
+## Module 03, Figure 1 — System Architecture: The Three-Tier Overview
+
+This is the master view of CMatrix. Everything fits into three tiers:
+
+- **Tier 1 (top):** Orchestration — the operator configures, the Commander reasons
+- **Tier 2 (middle):** The dual-graph world model — the two living knowledge stores
+- **Tier 3 (bottom):** The six specialist agents and the tool layer they operate through
+
+```mermaid
+flowchart TD
+    %% ── TIER 1: ORCHESTRATION ──────────────────────────────────────
+    subgraph T1["① ORCHESTRATION TIER"]
+        direction LR
+        OP["🧑 OPERATOR\n─────────────\nDefines: Target domain\nScope boundaries\nAssessment mode\n(Black-Box / Grey-Box)"]
+        CMD["👑 COMMANDER AGENT\n─────────────────────────────\n• Reads full ASG + APG state\n• Plans and delegates tasks\n• Seeds APG AttackChains\n• Approves High-risk tool calls\n• Writes ONLY to APG\n• Determines termination"]
+        VPP["📄 VAPT PROTOCOL PROMPT\n──────────────────────────\nMethodology-as-Config:\n• Phase sequencing rules\n• Re-plan triggers\n• Termination conditions\n• Tool selection heuristics"]
+
+        OP -- "mission config\n(target + scope)" --> CMD
+        CMD <-- "guides\nplanning policy" --> VPP
+    end
+
+    %% ── TIER 2: DUAL-GRAPH WORLD MODEL ─────────────────────────────
+    subgraph T2["② DUAL-GRAPH WORLD MODEL TIER"]
+        direction LR
+        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)\n── Discovered Reality ──\nFacts ONLY. Never contains hypotheses."]
+            A1["Domain · Host · Port\nService · Technology"]
+            A2["Endpoint · Parameter\nVulnerability · Evidence"]
+        end
+        SEP["⬛ STRICT\nSEPARATION\n────────\nNo agent\ncrosses this\nboundary"]
+        subgraph APG["🟡 ATTACK PATH GRAPH (APG)\n── Inferred Opportunity ──\nReasoning ONLY. Never contains raw scan data."]
+            P1["AttackChain\nrisk_score · priority"]
+            P2["ChainStep\nvalidation_status"]
+            P3["Impact\n(demonstrated)"]
+        end
+    end
+
+    %% ── TIER 3: AGENTS + TOOLS ──────────────────────────────────────
+    subgraph T3["③ SPECIALIZED AGENTS + TOOL ADAPTER TIER"]
+        direction LR
+        AGR["🕵️ Recon\nAmass·httpx·Nmap"]
+        AGA["🔬 Analysis\nWhatWeb·Gobuster\nffuf·Nuclei·ZAP"]
+        AGI["🔍 Research\nNVD·Exploit-DB\nGitHub"]
+        AGV["🎯 Validation\nSQLMap·Metasploit"]
+        AGE["📸 Evidence\nEyeWitness"]
+        AGRP["📝 Report\nReads ASG+APG"]
+
+        subgraph TAL["TOOL ADAPTER LAYER + RISK GATE"]
+            RG1["🟢 LOW\nExecute immediately"]
+            RG2["🟡 MED\nLLM Classifier"]
+            RG3["🔴 HIGH\nCommander Mailbox"]
+        end
+    end
+
+    %% ── CROSS-TIER ARROWS ───────────────────────────────────────────
+    CMD -- "reads state" --> ASG
+    APG -- "status feedback" --> CMD
+    CMD -- "derives chains\nfrom new Vulnerability nodes" --> APG
+    CMD -- "spawns with\nscoped context" --> AGR
+    CMD -- "spawns with\nscoped context" --> AGA
+    CMD -- "spawns with\nscoped context" --> AGI
+    CMD -- "spawns with\nscoped context" --> AGV
+    CMD -- "spawns with\nscoped context" --> AGE
+    CMD -- "spawns at\nmission end" --> AGRP
+
+    AGR -- "writes Domain\nHost·Port·Service" --> ASG
+    AGA -- "writes Technology\nEndpoint·Vulnerability" --> ASG
+    AGI -- "enriches Vulnerability\nnodes (CVE+PoC)" --> ASG
+    AGV -- "writes Evidence\nadvances ChainStep" --> ASG
+    AGE -- "writes Evidence\nscreenshots" --> ASG
+
+    AGR --> TAL
+    AGA --> TAL
+    AGV --> TAL
+
+    %% Styling
+    classDef tier1 fill:#061020,stroke:#00D4FF,color:#fff
+    classDef tier2asg fill:#04180C,stroke:#7FFF00,color:#fff
+    classDef tier2apg fill:#1E1004,stroke:#FFC107,color:#fff
+    classDef tier3 fill:#0A081C,stroke:#9C27B0,color:#fff
+    classDef gate_low fill:#0A1A08,stroke:#7FFF00,color:#7FFF00
+    classDef gate_med fill:#1A1000,stroke:#FFC107,color:#FFC107
+    classDef gate_hi fill:#1A0606,stroke:#FF5252,color:#FF5252
+    classDef sep fill:#081018,stroke:#444,color:#888
+
+    class T1 tier1
+    class ASG tier2asg
+    class APG tier2apg
+    class T3 tier3
+    class RG1 gate_low
+    class RG2 gate_med
+    class RG3 gate_hi
+    class SEP sep
+```
+
+### Reading Key
+
+| Colour | Meaning |
+|--------|---------|
+| 🟢 Cyan border | Commander — orchestration layer |
+| 🟢 Lime/Green border | ASG — discovery facts |
+| 🟡 Gold border | APG — attack reasoning |
+| 🟣 Purple border | Agent tier + tool adapter |
+| Solid arrow | Data flow / write |
+| Dashed arrow | Read / feedback |
+
+### Three Things to Notice
+
+1. **The Commander never touches tools.** Every arrow from the Commander goes to agents — never to the Tool Adapter Layer directly.
+2. **Only the Commander writes to the APG.** All six specialist agents write only to the ASG (or read from it). The APG is exclusively the Commander's domain.
+3. **All tool calls go through the Tool Adapter Layer.** There is no path from an agent directly to a tool. The Risk Gate sits in that layer.
 
 ---
 
