@@ -152,7 +152,7 @@ paper-05:
 
 # Presentation Build
 PPT_DIR := docs/paper-thesis/ppt
-PPT_NAME ?= presentation.pptx
+PPT_NAME ?= presentation-draft.pptx
 SAFE_PPT_NAME := $(notdir $(PPT_NAME))
 
 ppt:
