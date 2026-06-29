@@ -897,6 +897,249 @@ flowchart LR
 
 ---
 
+## Module 06, Figure 2 — Validation Agent Self-Debug Loop
+
+When a ChainStep fails, the Validation Agent does not immediately mark it `RULED_OUT`. It enters a bounded 4-step self-debugging loop before giving up.
+
+```mermaid
+flowchart TD
+    START["🎯 Validation Agent<br/>Executes ChainStep attempt<br/>(tool call → result)"]
+
+    RESULT{Result?}
+
+    SUCCESS["✅ ChainStep → VALIDATED<br/>Evidence written to ASG<br/>Commander advances chain"]
+
+    DIAGNOSE["🔍 Step 1: DIAGNOSE<br/>─────────────────────────<br/>Analyze why the attempt failed:<br/>• Wrong parameter / encoding?<br/>• Authentication required?<br/>• Version mismatch?<br/>• Tool flag error?<br/>• Payload detection / filtering?"]
+
+    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE<br/>─────────────────────────<br/>Query ASG for additional node attributes:<br/>• Re-read Service version from ASG Service node<br/>• Check if auth credential captured in prior Evidence node<br/>• Retrieve any Parameter annotations added since spawn<br/>• Cross-check APG chain intent vs actual target state"]
+
+    ADAPT["🔧 Step 3: ADAPT<br/>─────────────────────────<br/>Modify tool invocation based on<br/>diagnosis + additional ASG context:<br/>• Adjust payload / encoding<br/>• Add auth credential from Evidence node<br/>• Change tool flags / timing<br/>• Switch exploitation approach"]
+
+    CAP{"Retry cap<br/>reached?<br/>(default: 3)"}
+
+    RETRY["🔄 Retry<br/>Execute adapted tool call"]
+
+    RULED_OUT["❌ ChainStep → RULED_OUT<br/>─────────────────────────<br/>Failure reason written as structured<br/>annotation to ASG Vulnerability node<br/>Commander re-reads APG<br/>Re-prioritizes remaining chains"]
+
+    START --> RESULT
+    RESULT -->|"success"| SUCCESS
+    RESULT -->|"failure"| DIAGNOSE
+    DIAGNOSE --> CONTEXTUALIZE
+    CONTEXTUALIZE --> ADAPT
+    ADAPT --> CAP
+    CAP -->|"no — retry"| RETRY
+    RETRY --> RESULT
+    CAP -->|"yes — give up"| RULED_OUT
+
+    style START fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style RESULT fill:#1E1004,stroke:#FFC107,color:#fff
+    style SUCCESS fill:#041A08,stroke:#7FFF00,color:#7FFF00
+    style DIAGNOSE fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style CONTEXTUALIZE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style ADAPT fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CAP fill:#1A0606,stroke:#FF5252,color:#fff
+    style RETRY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style RULED_OUT fill:#220606,stroke:#FF5252,color:#FF5252
+```
+
+**Why this matters:**
+- The cap (default 3) prevents infinite loops while giving the agent a real chance to recover from transient errors
+- `RULED_OUT` is a **structured, annotated outcome** — the failure reason is written back to the ASG Vulnerability node so future missions or the Report Agent can read it
+- The Commander re-prioritizes immediately on any `RULED_OUT` — the next-highest chain is pursued without delay
+
+---
+
+## Module 06, Figure 3 — Single LLM API: All Call Types, One Integration Point
+
+CMatrix issues every LLM call through a single configured API. What varies between calls is not the model — it is the scope of the prompt. This diagram makes that explicit.
+
+```mermaid
+flowchart LR
+    API["☁️ SINGLE CONFIGURED<br/>LLM API<br/>─────────────<br/>One model.<br/>One integration point.<br/>All behavioral differences<br/>explained by prompt scope<br/>— not routing logic."]
+
+    subgraph CALLS["All LLM Call Types in CMatrix"]
+        direction TB
+
+        CALL1["👑 Commander Reasoning<br/>─────────────────────────<br/>Scope: FULL<br/>Receives: complete ASG snapshot<br/>+ APG chain priorities + chain status<br/>Produces: next planned action<br/>Frequency: every planning cycle iteration"]
+
+        CALL2["🗜️ MicroCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: single raw tool output<br/>Instruction: normalize to ASG schema fields<br/>Produces: structured JSON → written to ASG<br/>Raw output: discarded after write<br/>Frequency: every tool call"]
+
+        CALL3["🗜️ AutoCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: older conversation turns<br/>(at 60% context threshold)<br/>Instruction: summarize losslessly<br/>Produces: summary replaces old turns<br/>Frequency: triggered at 60% context"]
+
+        CALL4["🔍 Research Agent Normalization<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: raw NVD / Exploit-DB response<br/>Instruction: extract to ASG Vulnerability schema<br/>Produces: enriched Vulnerability node attributes<br/>Frequency: per Research Agent invocation"]
+
+        CALL5["🚦 Permission Classifier<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: tool call + target ASG node<br/>+ current APG chain context<br/>Instruction: evaluate 3 axes → binary verdict<br/>Produces: EXECUTE or ESCALATE<br/>Frequency: every Medium-risk tool call"]
+    end
+
+    CALL1 --> API
+    CALL2 --> API
+    CALL3 --> API
+    CALL4 --> API
+    CALL5 --> API
+
+    style API fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style CALL1 fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CALL2 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL3 fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style CALL4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style CALL5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+```
+
+**Why single-API matters for research:** Every result CMatrix produces is attributable to one model under one configuration. There is no hidden quality/cost trade-off from silently routing some calls to a cheaper model. Evaluation is honest.
+
+---
+
+## Module 06, Figure 4 — Vulnerability-Class Knowledge Injection
+
+At agent spawn time, Validation Agent and Analysis Agent receive curated offline expert documents matched to their assigned vulnerability class. These are injected once at spawn — not accumulated in conversation history — so they survive context compaction automatically.
+
+```mermaid
+flowchart TD
+    CMD["👑 Commander<br/>Spawns specialist agent<br/>with assigned vulnerability class"]
+
+    subgraph INJECT["📚 Knowledge Injection at Spawn"]
+        direction TB
+
+        K1["Analysis Agent — Web Targets<br/>────────────────────────────────<br/>• OWASP Testing Guide checklist<br/>  (per applicable OWASP category)<br/>• Common web misconfiguration patterns"]
+
+        K2["Analysis Agent — API Targets<br/>────────────────────────────────<br/>• REST API attack surface checklist<br/>• IDOR patterns<br/>• Parameter pollution techniques"]
+
+        K3["Validation Agent — SQLi Chains<br/>────────────────────────────────<br/>• SQL injection technique taxonomy<br/>• SQLMap flag reference guide<br/>• Blind / time-based detection patterns"]
+
+        K4["Validation Agent — XSS Chains<br/>────────────────────────────────<br/>• XSS payload pattern library<br/>• CSP bypass techniques<br/>• DOM vs reflected vs stored distinction"]
+
+        K5["Validation Agent — Exploit Chains<br/>────────────────────────────────<br/>• Metasploit module selection heuristics<br/>• Payload / encoder selection guide<br/>• Post-exploitation evidence collection"]
+    end
+
+    subgraph PROP["Key Properties"]
+        direction TB
+        P1["Static · curated · version-controlled<br/>Encodes practitioner knowledge<br/>implicit in LLM pre-training"]
+        P2["Re-injected at every spawn<br/>Never accumulated in history<br/>→ Survives FullCompact automatically"]
+        P3["No internet access required<br/>Separate from Research Agent<br/>live CVE intelligence"]
+    end
+
+    CMD --> INJECT
+    INJECT --> PROP
+
+    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style INJECT fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style K1 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K2 fill:#082018,stroke:#00D4FF,color:#00D4FF
+    style K3 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K4 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style K5 fill:#1A0606,stroke:#FF5252,color:#FF5252
+    style PROP fill:#041A08,stroke:#7FFF00,color:#7FFF00
+```
+
+> **Distinction from Research Agent:** Research Agent retrieves **live CVE data** for specific discovered versions during a mission. Knowledge injection provides **evergreen offensive technique reasoning** that does not depend on external network access and is re-used across all missions.
+
+---
+
+## Module 06, Figure 5 — Cross-Mission Experience Store: The Persistent Learning Layer
+
+The ASG and APG are reset fresh for every mission. The Cross-Mission Experience Store is the only structure that survives across missions. This diagram shows its two-direction lifecycle: how it is written at mission close, and how it is queried at mission start.
+
+```mermaid
+flowchart TD
+    subgraph MISSION_A["🟢 Mission A — shopvault.io (completed)"]
+        direction LR
+        A1["APG: Chain-01 VALIDATED<br/>WordPress 5.9.3 + WooCommerce<br/>SQLi → Admin → RCE"]
+        A2["APG: Chain-03 VALIDATED<br/>Django API + staging SQLi<br/>Blind SQLi → Credential extraction"]
+    end
+
+    subgraph WRITE["📥 WRITE TRIGGER (Mission Close)"]
+        W1["Store Entry Written:<br/>──────────────────────────<br/>Target fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18<br/>Vuln class: SQLi (CVE-2022-21661)<br/>Tool sequence: SQLMap → SQLMap dump → Metasploit<br/>ChainStep params: WP_Query endpoint · wp_admin_shell_upload<br/>Outcome: RCE achieved · admin hash cracked · Summer2023!<br/>Mission ID: MIS-001"]
+    end
+
+    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE"]
+        S1["Entry: MIS-001 · WordPress SQLi → RCE"]
+        S2["Entry: MIS-001 · Django staging blind SQLi"]
+        S3["Entry: MIS-002 · ... (prior missions)"]
+        S4["Entry: MIS-00N · ..."]
+    end
+
+    subgraph QUERY["📤 QUERY TRIGGER (Mission Start)"]
+        Q1["Query: WordPress 5.x + WooCommerce<br/>──────────────────────────<br/>Retrieves: MIS-001 entry<br/>Injects into Commander context as:<br/>Candidate chain hypotheses —<br/>pre-validated patterns from analogous past engagements"]
+    end
+
+    subgraph MISSION_B["🔵 Mission B — new target with WordPress 5.8"]
+        direction LR
+        B1["Commander seeds APG Chain-01<br/>Front-loaded: SQLi hypothesis<br/>already validated on similar stack<br/>→ Skips zero-prior reasoning<br/>→ Validation pursued immediately"]
+    end
+
+    MISSION_A --> WRITE
+    WRITE --> STORE
+    STORE --> QUERY
+    QUERY --> MISSION_B
+
+    style MISSION_A fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style WRITE fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style STORE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style QUERY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style MISSION_B fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+**Key properties:**
+- The store is queried **immediately after the first Technology node batch** is written — before Analysis Agent begins enumeration. This front-loads high-probability chains.
+- Only `VALIDATED` chains are written. `RULED_OUT` chains are not stored (they represent dead ends on specific parameters, not reusable patterns).
+- Retrieval returns **candidate hypotheses** — the Commander still evaluates them against the current ASG before seeding APG chains. The store accelerates, it does not override.
+
+---
+
+## Module 06, Figure 6 — Attack Strategy Library: Cross-Mission Procedural Learning
+
+The Cross-Mission Experience Store records raw per-mission outcomes. The Attack Strategy Library is a higher-order abstraction: generalized, named, parameterized attack strategies crystallized from multiple missions that produced the same result on the same technology fingerprint.
+
+```mermaid
+flowchart TD
+    subgraph RAW["🗄️ Cross-Mission Experience Store"]
+        R1["MIS-001: WordPress 5.9.3 + WooCommerce<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
+        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
+        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
+    end
+
+    subgraph THRESHOLD["⚖️ Crystallization Threshold Check"]
+        T1{"≥ 2 missions<br/>with same fingerprint<br/>→ same VALIDATED<br/>outcome?"}
+    end
+
+    subgraph CRYSTALLIZE["🔬 Crystallization"]
+        CR1["Input: 3 raw mission entries<br/>Output: Generalized strategy<br/>─────────────────────────────<br/>Strategy ID: STRAT-WP-SQLI-001<br/>Name: WordPress WP_Query SQLi → Admin RCE<br/>Fingerprint: WordPress 5.x + WooCommerce + Nginx<br/>Vuln class: SQLi · CVE range: CVE-2022-21661<br/>Tool sequence: SQLMap (WP_Query endpoint)<br/>  → SQLMap --dump (users table)<br/>  → Metasploit (wp_admin_shell_upload)<br/>Confidence: 3/3 missions (100%)<br/>Last validated: MIS-012"]
+    end
+
+    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY"]
+        L1["STRAT-WP-SQLI-001<br/>WordPress SQLi → RCE<br/>Confidence: 100% (3 missions)"]
+        L2["STRAT-DJANGO-IDOR-001<br/>Django API IDOR<br/>Confidence: 67% (2/3 missions)"]
+        L3["STRAT-... (growing library)"]
+    end
+
+    subgraph INJECT["🚀 Mission Start — Strategy Retrieval"]
+        I1["Match: new target has WordPress 5.7<br/>→ Retrieves STRAT-WP-SQLI-001<br/>→ Injected as pre-ranked APG AttackChain seed<br/>→ Prioritized ABOVE zero-prior chains<br/>   (carries validated track record, not just CVSS)"]
+    end
+
+    RAW --> THRESHOLD
+    T1 -->|"yes"| CRYSTALLIZE
+    T1 -->|"no — keep accumulating"| RAW
+    CRYSTALLIZE --> LIBRARY
+    LIBRARY --> INJECT
+
+    style RAW fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style THRESHOLD fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CRYSTALLIZE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style LIBRARY fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style INJECT fill:#1E1004,stroke:#FFC107,color:#FFC107
+```
+
+**Distinction from Cross-Mission Experience Store:**
+
+| | Experience Store | Strategy Library |
+|---|---|---|
+| Granularity | Per-mission, per-chain raw records | Generalized across ≥2 missions |
+| Content | Specific tool params, exact chain outcomes | Parameterized procedures + confidence scores |
+| Query trigger | After first Technology nodes written | After Experience Store query — same mission start window |
+| Write trigger | Every VALIDATED chain at mission close | Crystallization threshold: ≥2 matching missions |
+
+---
+
 *Module 07, Figure 1 below: shopvault.io Full Mission Walkthrough*
 
 ---
@@ -1121,249 +1364,6 @@ flowchart LR
 | **Credential reuse discovered** | Chain-03 validation uncovered staging-to-production credential overlap — flagged as an additional APG Impact node |
 | **Traceability** | Every Impact claim links through ChainSteps back to Evidence files in the ASG |
 | **Dual termination** | Mission ended because 111 nodes explored AND 4/4 chains VALIDATED — not because a timer fired |
-
----
-
-## Module 06, Figure 5 — Cross-Mission Experience Store: The Persistent Learning Layer
-
-The ASG and APG are reset fresh for every mission. The Cross-Mission Experience Store is the only structure that survives across missions. This diagram shows its two-direction lifecycle: how it is written at mission close, and how it is queried at mission start.
-
-```mermaid
-flowchart TD
-    subgraph MISSION_A["🟢 Mission A — shopvault.io (completed)"]
-        direction LR
-        A1["APG: Chain-01 VALIDATED<br/>WordPress 5.9.3 + WooCommerce<br/>SQLi → Admin → RCE"]
-        A2["APG: Chain-03 VALIDATED<br/>Django API + staging SQLi<br/>Blind SQLi → Credential extraction"]
-    end
-
-    subgraph WRITE["📥 WRITE TRIGGER (Mission Close)"]
-        W1["Store Entry Written:<br/>──────────────────────────<br/>Target fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18<br/>Vuln class: SQLi (CVE-2022-21661)<br/>Tool sequence: SQLMap → SQLMap dump → Metasploit<br/>ChainStep params: WP_Query endpoint · wp_admin_shell_upload<br/>Outcome: RCE achieved · admin hash cracked · Summer2023!<br/>Mission ID: MIS-001"]
-    end
-
-    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE"]
-        S1["Entry: MIS-001 · WordPress SQLi → RCE"]
-        S2["Entry: MIS-001 · Django staging blind SQLi"]
-        S3["Entry: MIS-002 · ... (prior missions)"]
-        S4["Entry: MIS-00N · ..."]
-    end
-
-    subgraph QUERY["📤 QUERY TRIGGER (Mission Start)"]
-        Q1["Query: WordPress 5.x + WooCommerce<br/>──────────────────────────<br/>Retrieves: MIS-001 entry<br/>Injects into Commander context as:<br/>Candidate chain hypotheses —<br/>pre-validated patterns from analogous past engagements"]
-    end
-
-    subgraph MISSION_B["🔵 Mission B — new target with WordPress 5.8"]
-        direction LR
-        B1["Commander seeds APG Chain-01<br/>Front-loaded: SQLi hypothesis<br/>already validated on similar stack<br/>→ Skips zero-prior reasoning<br/>→ Validation pursued immediately"]
-    end
-
-    MISSION_A --> WRITE
-    WRITE --> STORE
-    STORE --> QUERY
-    QUERY --> MISSION_B
-
-    style MISSION_A fill:#062210,stroke:#7FFF00,color:#7FFF00
-    style WRITE fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style STORE fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style QUERY fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style MISSION_B fill:#10081E,stroke:#9C27B0,color:#CE93D8
-```
-
-**Key properties:**
-- The store is queried **immediately after the first Technology node batch** is written — before Analysis Agent begins enumeration. This front-loads high-probability chains.
-- Only `VALIDATED` chains are written. `RULED_OUT` chains are not stored (they represent dead ends on specific parameters, not reusable patterns).
-- Retrieval returns **candidate hypotheses** — the Commander still evaluates them against the current ASG before seeding APG chains. The store accelerates, it does not override.
-
----
-
-## Module 06, Figure 6 — Attack Strategy Library: Cross-Mission Procedural Learning
-
-The Cross-Mission Experience Store records raw per-mission outcomes. The Attack Strategy Library is a higher-order abstraction: generalized, named, parameterized attack strategies crystallized from multiple missions that produced the same result on the same technology fingerprint.
-
-```mermaid
-flowchart TD
-    subgraph RAW["🗄️ Cross-Mission Experience Store"]
-        R1["MIS-001: WordPress 5.9.3 + WooCommerce<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
-        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
-        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
-    end
-
-    subgraph THRESHOLD["⚖️ Crystallization Threshold Check"]
-        T1{"≥ 2 missions<br/>with same fingerprint<br/>→ same VALIDATED<br/>outcome?"}
-    end
-
-    subgraph CRYSTALLIZE["🔬 Crystallization"]
-        CR1["Input: 3 raw mission entries<br/>Output: Generalized strategy<br/>─────────────────────────────<br/>Strategy ID: STRAT-WP-SQLI-001<br/>Name: WordPress WP_Query SQLi → Admin RCE<br/>Fingerprint: WordPress 5.x + WooCommerce + Nginx<br/>Vuln class: SQLi · CVE range: CVE-2022-21661<br/>Tool sequence: SQLMap (WP_Query endpoint)<br/>  → SQLMap --dump (users table)<br/>  → Metasploit (wp_admin_shell_upload)<br/>Confidence: 3/3 missions (100%)<br/>Last validated: MIS-012"]
-    end
-
-    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY"]
-        L1["STRAT-WP-SQLI-001<br/>WordPress SQLi → RCE<br/>Confidence: 100% (3 missions)"]
-        L2["STRAT-DJANGO-IDOR-001<br/>Django API IDOR<br/>Confidence: 67% (2/3 missions)"]
-        L3["STRAT-... (growing library)"]
-    end
-
-    subgraph INJECT["🚀 Mission Start — Strategy Retrieval"]
-        I1["Match: new target has WordPress 5.7<br/>→ Retrieves STRAT-WP-SQLI-001<br/>→ Injected as pre-ranked APG AttackChain seed<br/>→ Prioritized ABOVE zero-prior chains<br/>   (carries validated track record, not just CVSS)"]
-    end
-
-    RAW --> THRESHOLD
-    T1 -->|"yes"| CRYSTALLIZE
-    T1 -->|"no — keep accumulating"| RAW
-    CRYSTALLIZE --> LIBRARY
-    LIBRARY --> INJECT
-
-    style RAW fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style THRESHOLD fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style CRYSTALLIZE fill:#062210,stroke:#7FFF00,color:#7FFF00
-    style LIBRARY fill:#10081E,stroke:#9C27B0,color:#CE93D8
-    style INJECT fill:#1E1004,stroke:#FFC107,color:#FFC107
-```
-
-**Distinction from Cross-Mission Experience Store:**
-
-| | Experience Store | Strategy Library |
-|---|---|---|
-| Granularity | Per-mission, per-chain raw records | Generalized across ≥2 missions |
-| Content | Specific tool params, exact chain outcomes | Parameterized procedures + confidence scores |
-| Query trigger | After first Technology nodes written | After Experience Store query — same mission start window |
-| Write trigger | Every VALIDATED chain at mission close | Crystallization threshold: ≥2 matching missions |
-
----
-
-## Module 06, Figure 2 — Validation Agent Self-Debug Loop
-
-When a ChainStep fails, the Validation Agent does not immediately mark it `RULED_OUT`. It enters a bounded 4-step self-debugging loop before giving up.
-
-```mermaid
-flowchart TD
-    START["🎯 Validation Agent<br/>Executes ChainStep attempt<br/>(tool call → result)"]
-
-    RESULT{Result?}
-
-    SUCCESS["✅ ChainStep → VALIDATED<br/>Evidence written to ASG<br/>Commander advances chain"]
-
-    DIAGNOSE["🔍 Step 1: DIAGNOSE<br/>─────────────────────────<br/>Analyze why the attempt failed:<br/>• Wrong parameter / encoding?<br/>• Authentication required?<br/>• Version mismatch?<br/>• Tool flag error?<br/>• Payload detection / filtering?"]
-
-    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE<br/>─────────────────────────<br/>Query ASG for additional node attributes:<br/>• Re-read Service version from ASG Service node<br/>• Check if auth credential captured in prior Evidence node<br/>• Retrieve any Parameter annotations added since spawn<br/>• Cross-check APG chain intent vs actual target state"]
-
-    ADAPT["🔧 Step 3: ADAPT<br/>─────────────────────────<br/>Modify tool invocation based on<br/>diagnosis + additional ASG context:<br/>• Adjust payload / encoding<br/>• Add auth credential from Evidence node<br/>• Change tool flags / timing<br/>• Switch exploitation approach"]
-
-    CAP{"Retry cap<br/>reached?<br/>(default: 3)"}
-
-    RETRY["🔄 Retry<br/>Execute adapted tool call"]
-
-    RULED_OUT["❌ ChainStep → RULED_OUT<br/>─────────────────────────<br/>Failure reason written as structured<br/>annotation to ASG Vulnerability node<br/>Commander re-reads APG<br/>Re-prioritizes remaining chains"]
-
-    START --> RESULT
-    RESULT -->|"success"| SUCCESS
-    RESULT -->|"failure"| DIAGNOSE
-    DIAGNOSE --> CONTEXTUALIZE
-    CONTEXTUALIZE --> ADAPT
-    ADAPT --> CAP
-    CAP -->|"no — retry"| RETRY
-    RETRY --> RESULT
-    CAP -->|"yes — give up"| RULED_OUT
-
-    style START fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style RESULT fill:#1E1004,stroke:#FFC107,color:#fff
-    style SUCCESS fill:#041A08,stroke:#7FFF00,color:#7FFF00
-    style DIAGNOSE fill:#1A0606,stroke:#FF5252,color:#FF5252
-    style CONTEXTUALIZE fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style ADAPT fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style CAP fill:#1A0606,stroke:#FF5252,color:#fff
-    style RETRY fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style RULED_OUT fill:#220606,stroke:#FF5252,color:#FF5252
-```
-
-**Why this matters:**
-- The cap (default 3) prevents infinite loops while giving the agent a real chance to recover from transient errors
-- `RULED_OUT` is a **structured, annotated outcome** — the failure reason is written back to the ASG Vulnerability node so future missions or the Report Agent can read it
-- The Commander re-prioritizes immediately on any `RULED_OUT` — the next-highest chain is pursued without delay
-
----
-
-## Module 06, Figure 3 — Single LLM API: All Call Types, One Integration Point
-
-CMatrix issues every LLM call through a single configured API. What varies between calls is not the model — it is the scope of the prompt. This diagram makes that explicit.
-
-```mermaid
-flowchart LR
-    API["☁️ SINGLE CONFIGURED<br/>LLM API<br/>─────────────<br/>One model.<br/>One integration point.<br/>All behavioral differences<br/>explained by prompt scope<br/>— not routing logic."]
-
-    subgraph CALLS["All LLM Call Types in CMatrix"]
-        direction TB
-
-        CALL1["👑 Commander Reasoning<br/>─────────────────────────<br/>Scope: FULL<br/>Receives: complete ASG snapshot<br/>+ APG chain priorities + chain status<br/>Produces: next planned action<br/>Frequency: every planning cycle iteration"]
-
-        CALL2["🗜️ MicroCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: single raw tool output<br/>Instruction: normalize to ASG schema fields<br/>Produces: structured JSON → written to ASG<br/>Raw output: discarded after write<br/>Frequency: every tool call"]
-
-        CALL3["🗜️ AutoCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: older conversation turns<br/>(at 60% context threshold)<br/>Instruction: summarize losslessly<br/>Produces: summary replaces old turns<br/>Frequency: triggered at 60% context"]
-
-        CALL4["🔍 Research Agent Normalization<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: raw NVD / Exploit-DB response<br/>Instruction: extract to ASG Vulnerability schema<br/>Produces: enriched Vulnerability node attributes<br/>Frequency: per Research Agent invocation"]
-
-        CALL5["🚦 Permission Classifier<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: tool call + target ASG node<br/>+ current APG chain context<br/>Instruction: evaluate 3 axes → binary verdict<br/>Produces: EXECUTE or ESCALATE<br/>Frequency: every Medium-risk tool call"]
-    end
-
-    CALL1 --> API
-    CALL2 --> API
-    CALL3 --> API
-    CALL4 --> API
-    CALL5 --> API
-
-    style API fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style CALL1 fill:#1E1004,stroke:#FFC107,color:#FFC107
-    style CALL2 fill:#062210,stroke:#7FFF00,color:#7FFF00
-    style CALL3 fill:#062210,stroke:#7FFF00,color:#7FFF00
-    style CALL4 fill:#10081E,stroke:#9C27B0,color:#CE93D8
-    style CALL5 fill:#1A0606,stroke:#FF5252,color:#FF5252
-```
-
-**Why single-API matters for research:** Every result CMatrix produces is attributable to one model under one configuration. There is no hidden quality/cost trade-off from silently routing some calls to a cheaper model. Evaluation is honest.
-
----
-
-## Module 06, Figure 4 — Vulnerability-Class Knowledge Injection
-
-At agent spawn time, Validation Agent and Analysis Agent receive curated offline expert documents matched to their assigned vulnerability class. These are injected once at spawn — not accumulated in conversation history — so they survive context compaction automatically.
-
-```mermaid
-flowchart TD
-    CMD["👑 Commander<br/>Spawns specialist agent<br/>with assigned vulnerability class"]
-
-    subgraph INJECT["📚 Knowledge Injection at Spawn"]
-        direction TB
-
-        K1["Analysis Agent — Web Targets<br/>────────────────────────────────<br/>• OWASP Testing Guide checklist<br/>  (per applicable OWASP category)<br/>• Common web misconfiguration patterns"]
-
-        K2["Analysis Agent — API Targets<br/>────────────────────────────────<br/>• REST API attack surface checklist<br/>• IDOR patterns<br/>• Parameter pollution techniques"]
-
-        K3["Validation Agent — SQLi Chains<br/>────────────────────────────────<br/>• SQL injection technique taxonomy<br/>• SQLMap flag reference guide<br/>• Blind / time-based detection patterns"]
-
-        K4["Validation Agent — XSS Chains<br/>────────────────────────────────<br/>• XSS payload pattern library<br/>• CSP bypass techniques<br/>• DOM vs reflected vs stored distinction"]
-
-        K5["Validation Agent — Exploit Chains<br/>────────────────────────────────<br/>• Metasploit module selection heuristics<br/>• Payload / encoder selection guide<br/>• Post-exploitation evidence collection"]
-    end
-
-    subgraph PROP["Key Properties"]
-        direction TB
-        P1["Static · curated · version-controlled<br/>Encodes practitioner knowledge<br/>implicit in LLM pre-training"]
-        P2["Re-injected at every spawn<br/>Never accumulated in history<br/>→ Survives FullCompact automatically"]
-        P3["No internet access required<br/>Separate from Research Agent<br/>live CVE intelligence"]
-    end
-
-    CMD --> INJECT
-    INJECT --> PROP
-
-    style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style INJECT fill:#10081E,stroke:#9C27B0,color:#CE93D8
-    style K1 fill:#082018,stroke:#00D4FF,color:#00D4FF
-    style K2 fill:#082018,stroke:#00D4FF,color:#00D4FF
-    style K3 fill:#1A0606,stroke:#FF5252,color:#FF5252
-    style K4 fill:#1A0606,stroke:#FF5252,color:#FF5252
-    style K5 fill:#1A0606,stroke:#FF5252,color:#FF5252
-    style PROP fill:#041A08,stroke:#7FFF00,color:#7FFF00
-```
-
-> **Distinction from Research Agent:** Research Agent retrieves **live CVE data** for specific discovered versions during a mission. Knowledge injection provides **evergreen offensive technique reasoning** that does not depend on external network access and is re-used across all missions.
 
 ---
 
