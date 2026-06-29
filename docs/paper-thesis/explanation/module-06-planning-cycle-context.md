@@ -501,36 +501,36 @@ The Commander runs this loop continuously — from mission start until the dual-
 
 ```mermaid
 flowchart TD
-    START(["🚀 MISSION START\nOperator provides: root domain + scope + mode\nASG seeded: [Domain: shopvault.io]\nAPG: empty"])
+    START(["🚀 MISSION START<br/>Operator provides: root domain + scope + mode<br/>ASG seeded: [Domain: shopvault.io]<br/>APG: empty"])
 
-    OBS_ASG["👁️ OBSERVE ASG\n─────────────────────────────────\n• Which nodes are unexplored?\n• Which Vulnerability nodes are new?\n• Which Technology nodes need Research?"]
+    OBS_ASG["👁️ OBSERVE ASG<br/>─────────────────────────────────<br/>• Which nodes are unexplored?<br/>• Which Vulnerability nodes are new?<br/>• Which Technology nodes need Research?"]
 
-    OBS_APG["👁️ OBSERVE APG\n─────────────────────────────────\n• Which chains are HYPOTHESIZED?\n• Which are PARTIALLY_VALIDATED?\n• Which just went VALIDATED or RULED_OUT?"]
+    OBS_APG["👁️ OBSERVE APG<br/>─────────────────────────────────<br/>• Which chains are HYPOTHESIZED?<br/>• Which are PARTIALLY_VALIDATED?<br/>• Which just went VALIDATED or RULED_OUT?"]
 
-    REASON["🧠 REASON\n─────────────────────────────────\nGiven ASG + APG state:\nWhat is the single best\nnext action right now?"]
+    REASON["🧠 REASON<br/>─────────────────────────────────<br/>Given ASG + APG state:<br/>What is the single best<br/>next action right now?"]
 
-    DECIDE{What does\nreasoning\nproduce?}
+    DECIDE{What does<br/>reasoning<br/>produce?}
 
-    EXPLORE["🗺️ EXPLORE\nASG gap detected\n─────────────────\nSpawn discovery agent:\n• Recon → unscanned hosts\n• Analysis → untested tech\n• Research → unenriched CVE"]
+    EXPLORE["🗺️ EXPLORE<br/>ASG gap detected<br/>─────────────────<br/>Spawn discovery agent:<br/>• Recon → unscanned hosts<br/>• Analysis → untested tech<br/>• Research → unenriched CVE"]
 
-    VALIDATE["🎯 VALIDATE\nHigh-priority chain waiting\n─────────────────────────\nSpawn Validation Agent\nfor highest-priority\nHYPOTHESIZED chain"]
+    VALIDATE["🎯 VALIDATE<br/>High-priority chain waiting<br/>─────────────────────────<br/>Spawn Validation Agent<br/>for highest-priority<br/>HYPOTHESIZED chain"]
 
-    BOTH["↕️ PARALLEL\nBoth ASG gaps AND\nunvalidated chains exist\n─────────────────────\nCommander weighs priority:\nHigh-risk chain beats\nlow-value exploration"]
+    BOTH["↕️ PARALLEL<br/>Both ASG gaps AND<br/>unvalidated chains exist<br/>─────────────────────<br/>Commander weighs priority:<br/>High-risk chain beats<br/>low-value exploration"]
 
-    AGENT_RUNS["⚡ AGENT EXECUTES\n(tools → Risk Gate → ASG writes)"]
+    AGENT_RUNS["⚡ AGENT EXECUTES<br/>(tools → Risk Gate → ASG writes)"]
 
-    UPDATE_ASG["📥 UPDATE ASG\nNew nodes + edges written\nby returning agent"]
+    UPDATE_ASG["📥 UPDATE ASG<br/>New nodes + edges written<br/>by returning agent"]
 
-    UPDATE_APG["📥 UPDATE APG (Commander)\n─────────────────────────\nNew Vuln nodes → seed chains?\nChainStep advanced → update status?\nRULED_OUT chain → re-prioritize?"]
+    UPDATE_APG["📥 UPDATE APG (Commander)<br/>─────────────────────────<br/>New Vuln nodes → seed chains?<br/>ChainStep advanced → update status?<br/>RULED_OUT chain → re-prioritize?"]
 
-    CYCLE_GUARD{Cycle Guard:\nRepeated\nidentical calls?}
-    REFLECTOR["🪞 REFLECTOR\nRepeated failures?\n→ Issue corrective guidance\n→ Agent adapts approach"]
-    FORCE_REPLAN["🔄 FORCE RE-PLAN\nStop current approach\nCommander reassigns"]
+    CYCLE_GUARD{Cycle Guard:<br/>Repeated<br/>identical calls?}
+    REFLECTOR["🪞 REFLECTOR<br/>Repeated failures?<br/>→ Issue corrective guidance<br/>→ Agent adapts approach"]
+    FORCE_REPLAN["🔄 FORCE RE-PLAN<br/>Stop current approach<br/>Commander reassigns"]
 
-    TERM{Termination\ncondition met?}
-    TERM_CHECK["✅ ASG exhausted?\n(no unexplored nodes)\nAND\n✅ APG resolved?\n(all chains VALIDATED\nor RULED_OUT)"]
+    TERM{Termination<br/>condition met?}
+    TERM_CHECK["✅ ASG exhausted?<br/>(no unexplored nodes)<br/>AND<br/>✅ APG resolved?<br/>(all chains VALIDATED<br/>or RULED_OUT)"]
 
-    REPORT["📝 Spawn Report Agent\nReads full ASG + APG\nGenerates professional\npenetration test report"]
+    REPORT["📝 Spawn Report Agent<br/>Reads full ASG + APG<br/>Generates professional<br/>penetration test report"]
 
     DONE(["🏁 MISSION COMPLETE"])
 
@@ -545,8 +545,8 @@ flowchart TD
     VALIDATE --> AGENT_RUNS
     BOTH --> AGENT_RUNS
     AGENT_RUNS --> CYCLE_GUARD
-    CYCLE_GUARD -->|"yes — fixation\ndetected"| FORCE_REPLAN
-    CYCLE_GUARD -->|"repeated different\nfailures"| REFLECTOR
+    CYCLE_GUARD -->|"yes — fixation<br/>detected"| FORCE_REPLAN
+    CYCLE_GUARD -->|"repeated different<br/>failures"| REFLECTOR
     REFLECTOR --> AGENT_RUNS
     FORCE_REPLAN --> OBS_ASG
     CYCLE_GUARD -->|"no — normal"| UPDATE_ASG
@@ -554,7 +554,7 @@ flowchart TD
     UPDATE_APG --> TERM
     TERM --> TERM_CHECK
     TERM_CHECK -->|"no — continue"| OBS_ASG
-    TERM_CHECK -->|"yes — both\nconditions true"| REPORT
+    TERM_CHECK -->|"yes — both<br/>conditions true"| REPORT
     REPORT --> DONE
 
     style START fill:#041A08,stroke:#7FFF00,color:#7FFF00
@@ -584,23 +584,23 @@ flowchart TD
 ```mermaid
 flowchart LR
     subgraph ASG_EVENTS["ASG Trigger Events"]
-        E1["🆕 New Vulnerability node written\n→ Should this seed a new APG chain?"]
-        E2["🆕 New Technology node written\n→ Spawn Research Agent for CVE lookup"]
-        E3["🆕 New Endpoint node written\n→ Analysis Agent needs to probe it"]
+        E1["🆕 New Vulnerability node written<br/>→ Should this seed a new APG chain?"]
+        E2["🆕 New Technology node written<br/>→ Spawn Research Agent for CVE lookup"]
+        E3["🆕 New Endpoint node written<br/>→ Analysis Agent needs to probe it"]
     end
 
     subgraph APG_EVENTS["APG Trigger Events"]
-        E4["📈 Chain → PARTIALLY_VALIDATED\n→ Re-rank all chain priorities"]
-        E5["✅ Chain → VALIDATED\n→ Mark complete, pursue next"]
-        E6["❌ Chain → RULED_OUT\n→ Remove from queue, re-prioritize"]
+        E4["📈 Chain → PARTIALLY_VALIDATED<br/>→ Re-rank all chain priorities"]
+        E5["✅ Chain → VALIDATED<br/>→ Mark complete, pursue next"]
+        E6["❌ Chain → RULED_OUT<br/>→ Remove from queue, re-prioritize"]
     end
 
     subgraph GUARD_EVENTS["Cycle Guard Events"]
-        E7["🔁 Same tool call repeated ×3\n→ Force re-plan immediately"]
-        E8["💥 Repeated different failures\n→ Reflector issues guidance"]
+        E7["🔁 Same tool call repeated ×3<br/>→ Force re-plan immediately"]
+        E8["💥 Repeated different failures<br/>→ Reflector issues guidance"]
     end
 
-    CMD["👑 Commander\nRe-plans on\nany of these\nevents"]
+    CMD["👑 Commander<br/>Re-plans on<br/>any of these<br/>events"]
 
     E1 --> CMD
     E2 --> CMD
@@ -625,19 +625,19 @@ flowchart LR
 flowchart TD
     Q["❓ Is the mission complete?"]
 
-    C1{"ASG exhausted?\n────────────────\nEvery Domain, Host, Port,\nService, Technology,\nEndpoint, Parameter node\nhas been investigated\nby the appropriate agent"}
+    C1{"ASG exhausted?<br/>────────────────<br/>Every Domain, Host, Port,<br/>Service, Technology,<br/>Endpoint, Parameter node<br/>has been investigated<br/>by the appropriate agent"}
 
-    C2{"APG resolved?\n──────────────────\nEvery AttackChain is in\na terminal state:\nVALIDATED or RULED_OUT\n\nNo chain is still\nHYPOTHESIZED or\nPARTIALLY_VALIDATED"}
+    C2{"APG resolved?<br/>──────────────────<br/>Every AttackChain is in<br/>a terminal state:<br/>VALIDATED or RULED_OUT<br/><br/>No chain is still<br/>HYPOTHESIZED or<br/>PARTIALLY_VALIDATED"}
 
-    ONLY1["❌ NOT DONE\nASG explored but\nchains still open.\nAttack reasoning\nis unfinished."]
+    ONLY1["❌ NOT DONE<br/>ASG explored but<br/>chains still open.<br/>Attack reasoning<br/>is unfinished."]
 
-    ONLY2["❌ NOT DONE\nAll chains resolved\nbut new ASG nodes\njust written.\nMight seed new chains."]
+    ONLY2["❌ NOT DONE<br/>All chains resolved<br/>but new ASG nodes<br/>just written.<br/>Might seed new chains."]
 
-    NEITHER["❌ NOT DONE\nBoth incomplete.\nContinue mission."]
+    NEITHER["❌ NOT DONE<br/>Both incomplete.<br/>Continue mission."]
 
-    BOTH_TRUE["✅ MISSION COMPLETE\nASG is fully mapped.\nAll attack opportunities\nproven or disproven.\nReport Agent spawned."]
+    BOTH_TRUE["✅ MISSION COMPLETE<br/>ASG is fully mapped.<br/>All attack opportunities<br/>proven or disproven.<br/>Report Agent spawned."]
 
-    CONTRAST["⚠️ Why existing systems fail:\n─────────────────────────────\nTimer-based: stops mid-chain\nTask-queue-based: can't express APG resolution\nOnly CMatrix defines both\nconditions simultaneously"]
+    CONTRAST["⚠️ Why existing systems fail:<br/>─────────────────────────────<br/>Timer-based: stops mid-chain<br/>Task-queue-based: can't express APG resolution<br/>Only CMatrix defines both<br/>conditions simultaneously"]
 
     Q --> C1
     Q --> C2
@@ -664,22 +664,22 @@ flowchart TD
 ```mermaid
 flowchart LR
     subgraph NORMAL["Normal Operation"]
-        T1["Tool runs\n→ MicroCompact\nRaw output discarded\nAgent sees 3-line summary"]
+        T1["Tool runs<br/>→ MicroCompact<br/>Raw output discarded<br/>Agent sees 3-line summary"]
     end
 
     subgraph AUTO["AutoCompact @ 60% context"]
-        T2["Older conversation turns\nsummarized by scoped LLM call\nSummary replaces raw turns\nAgent continues uninterrupted"]
+        T2["Older conversation turns<br/>summarized by scoped LLM call<br/>Summary replaces raw turns<br/>Agent continues uninterrupted"]
     end
 
     subgraph FULL["FullCompact @ 85% context"]
-        T3["Entire history replaced\nfrom scratch using:\n• Current ASG snapshot\n• Current APG priorities\n• Last N tool results\n\nZERO intelligence lost\n(everything important\nis in the graph)"]
+        T3["Entire history replaced<br/>from scratch using:<br/>• Current ASG snapshot<br/>• Current APG priorities<br/>• Last N tool results<br/><br/>ZERO intelligence lost<br/>(everything important<br/>is in the graph)"]
     end
 
     T1 -->|context grows| AUTO
     AUTO -->|context grows| FULL
     FULL -->|fresh context| T1
 
-    ASG_KEY["🟢 ASG is the key\n────────────────\nConversation history\nis expendable because\nall discoveries live\nin the graph permanently.\nFullCompact = safe."]
+    ASG_KEY["🟢 ASG is the key<br/>────────────────<br/>Conversation history<br/>is expendable because<br/>all discoveries live<br/>in the graph permanently.<br/>FullCompact = safe."]
 
     FULL --> ASG_KEY
 
@@ -707,23 +707,23 @@ When a ChainStep fails, the Validation Agent does not immediately mark it `RULED
 
 ```mermaid
 flowchart TD
-    START["🎯 Validation Agent\nExecutes ChainStep attempt\n(tool call → result)"]
+    START["🎯 Validation Agent<br/>Executes ChainStep attempt<br/>(tool call → result)"]
 
     RESULT{Result?}
 
-    SUCCESS["✅ ChainStep → VALIDATED\nEvidence written to ASG\nCommander advances chain"]
+    SUCCESS["✅ ChainStep → VALIDATED<br/>Evidence written to ASG<br/>Commander advances chain"]
 
-    DIAGNOSE["🔍 Step 1: DIAGNOSE\n─────────────────────────\nAnalyze why the attempt failed:\n• Wrong parameter / encoding?\n• Authentication required?\n• Version mismatch?\n• Tool flag error?\n• Payload detection / filtering?"]
+    DIAGNOSE["🔍 Step 1: DIAGNOSE<br/>─────────────────────────<br/>Analyze why the attempt failed:<br/>• Wrong parameter / encoding?<br/>• Authentication required?<br/>• Version mismatch?<br/>• Tool flag error?<br/>• Payload detection / filtering?"]
 
-    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE\n─────────────────────────\nQuery ASG for additional node attributes:\n• Re-read Service version from ASG Service node\n• Check if auth credential captured in prior Evidence node\n• Retrieve any Parameter annotations added since spawn\n• Cross-check APG chain intent vs actual target state"]
+    CONTEXTUALIZE["📊 Step 2: CONTEXTUALIZE<br/>─────────────────────────<br/>Query ASG for additional node attributes:<br/>• Re-read Service version from ASG Service node<br/>• Check if auth credential captured in prior Evidence node<br/>• Retrieve any Parameter annotations added since spawn<br/>• Cross-check APG chain intent vs actual target state"]
 
-    ADAPT["🔧 Step 3: ADAPT\n─────────────────────────\nModify tool invocation based on\ndiagnosis + additional ASG context:\n• Adjust payload / encoding\n• Add auth credential from Evidence node\n• Change tool flags / timing\n• Switch exploitation approach"]
+    ADAPT["🔧 Step 3: ADAPT<br/>─────────────────────────<br/>Modify tool invocation based on<br/>diagnosis + additional ASG context:<br/>• Adjust payload / encoding<br/>• Add auth credential from Evidence node<br/>• Change tool flags / timing<br/>• Switch exploitation approach"]
 
-    CAP{"Retry cap\nreached?\n(default: 3)"}
+    CAP{"Retry cap<br/>reached?<br/>(default: 3)"}
 
-    RETRY["🔄 Retry\nExecute adapted tool call"]
+    RETRY["🔄 Retry<br/>Execute adapted tool call"]
 
-    RULED_OUT["❌ ChainStep → RULED_OUT\n─────────────────────────\nFailure reason written as structured\nannotation to ASG Vulnerability node\nCommander re-reads APG\nRe-prioritizes remaining chains"]
+    RULED_OUT["❌ ChainStep → RULED_OUT<br/>─────────────────────────<br/>Failure reason written as structured<br/>annotation to ASG Vulnerability node<br/>Commander re-reads APG<br/>Re-prioritizes remaining chains"]
 
     START --> RESULT
     RESULT -->|"success"| SUCCESS
@@ -759,20 +759,20 @@ CMatrix issues every LLM call through a single configured API. What varies betwe
 
 ```mermaid
 flowchart LR
-    API["☁️ SINGLE CONFIGURED\nLLM API\n─────────────\nOne model.\nOne integration point.\nAll behavioral differences\nexplained by prompt scope\n— not routing logic."]
+    API["☁️ SINGLE CONFIGURED<br/>LLM API<br/>─────────────<br/>One model.<br/>One integration point.<br/>All behavioral differences<br/>explained by prompt scope<br/>— not routing logic."]
 
     subgraph CALLS["All LLM Call Types in CMatrix"]
         direction TB
 
-        CALL1["👑 Commander Reasoning\n─────────────────────────\nScope: FULL\nReceives: complete ASG snapshot\n+ APG chain priorities + chain status\nProduces: next planned action\nFrequency: every planning cycle iteration"]
+        CALL1["👑 Commander Reasoning<br/>─────────────────────────<br/>Scope: FULL<br/>Receives: complete ASG snapshot<br/>+ APG chain priorities + chain status<br/>Produces: next planned action<br/>Frequency: every planning cycle iteration"]
 
-        CALL2["🗜️ MicroCompact\n─────────────────────────\nScope: NARROW\nReceives: single raw tool output\nInstruction: normalize to ASG schema fields\nProduces: structured JSON → written to ASG\nRaw output: discarded after write\nFrequency: every tool call"]
+        CALL2["🗜️ MicroCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: single raw tool output<br/>Instruction: normalize to ASG schema fields<br/>Produces: structured JSON → written to ASG<br/>Raw output: discarded after write<br/>Frequency: every tool call"]
 
-        CALL3["🗜️ AutoCompact\n─────────────────────────\nScope: NARROW\nReceives: older conversation turns\n(at 60% context threshold)\nInstruction: summarize losslessly\nProduces: summary replaces old turns\nFrequency: triggered at 60% context"]
+        CALL3["🗜️ AutoCompact<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: older conversation turns<br/>(at 60% context threshold)<br/>Instruction: summarize losslessly<br/>Produces: summary replaces old turns<br/>Frequency: triggered at 60% context"]
 
-        CALL4["🔍 Research Agent Normalization\n─────────────────────────\nScope: NARROW\nReceives: raw NVD / Exploit-DB response\nInstruction: extract to ASG Vulnerability schema\nProduces: enriched Vulnerability node attributes\nFrequency: per Research Agent invocation"]
+        CALL4["🔍 Research Agent Normalization<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: raw NVD / Exploit-DB response<br/>Instruction: extract to ASG Vulnerability schema<br/>Produces: enriched Vulnerability node attributes<br/>Frequency: per Research Agent invocation"]
 
-        CALL5["🚦 Permission Classifier\n─────────────────────────\nScope: NARROW\nReceives: tool call + target ASG node\n+ current APG chain context\nInstruction: evaluate 3 axes → binary verdict\nProduces: EXECUTE or ESCALATE\nFrequency: every Medium-risk tool call"]
+        CALL5["🚦 Permission Classifier<br/>─────────────────────────<br/>Scope: NARROW<br/>Receives: tool call + target ASG node<br/>+ current APG chain context<br/>Instruction: evaluate 3 axes → binary verdict<br/>Produces: EXECUTE or ESCALATE<br/>Frequency: every Medium-risk tool call"]
     end
 
     CALL1 --> API
@@ -799,27 +799,27 @@ At agent spawn time, Validation Agent and Analysis Agent receive curated offline
 
 ```mermaid
 flowchart TD
-    CMD["👑 Commander\nSpawns specialist agent\nwith assigned vulnerability class"]
+    CMD["👑 Commander<br/>Spawns specialist agent<br/>with assigned vulnerability class"]
 
     subgraph INJECT["📚 Knowledge Injection at Spawn"]
         direction TB
 
-        K1["Analysis Agent — Web Targets\n────────────────────────────────\n• OWASP Testing Guide checklist\n  (per applicable OWASP category)\n• Common web misconfiguration patterns"]
+        K1["Analysis Agent — Web Targets<br/>────────────────────────────────<br/>• OWASP Testing Guide checklist<br/>  (per applicable OWASP category)<br/>• Common web misconfiguration patterns"]
 
-        K2["Analysis Agent — API Targets\n────────────────────────────────\n• REST API attack surface checklist\n• IDOR patterns\n• Parameter pollution techniques"]
+        K2["Analysis Agent — API Targets<br/>────────────────────────────────<br/>• REST API attack surface checklist<br/>• IDOR patterns<br/>• Parameter pollution techniques"]
 
-        K3["Validation Agent — SQLi Chains\n────────────────────────────────\n• SQL injection technique taxonomy\n• SQLMap flag reference guide\n• Blind / time-based detection patterns"]
+        K3["Validation Agent — SQLi Chains<br/>────────────────────────────────<br/>• SQL injection technique taxonomy<br/>• SQLMap flag reference guide<br/>• Blind / time-based detection patterns"]
 
-        K4["Validation Agent — XSS Chains\n────────────────────────────────\n• XSS payload pattern library\n• CSP bypass techniques\n• DOM vs reflected vs stored distinction"]
+        K4["Validation Agent — XSS Chains<br/>────────────────────────────────<br/>• XSS payload pattern library<br/>• CSP bypass techniques<br/>• DOM vs reflected vs stored distinction"]
 
-        K5["Validation Agent — Exploit Chains\n────────────────────────────────\n• Metasploit module selection heuristics\n• Payload / encoder selection guide\n• Post-exploitation evidence collection"]
+        K5["Validation Agent — Exploit Chains<br/>────────────────────────────────<br/>• Metasploit module selection heuristics<br/>• Payload / encoder selection guide<br/>• Post-exploitation evidence collection"]
     end
 
     subgraph PROP["Key Properties"]
         direction TB
-        P1["Static · curated · version-controlled\nEncodes practitioner knowledge\nimplicit in LLM pre-training"]
-        P2["Re-injected at every spawn\nNever accumulated in history\n→ Survives FullCompact automatically"]
-        P3["No internet access required\nSeparate from Research Agent\nlive CVE intelligence"]
+        P1["Static · curated · version-controlled<br/>Encodes practitioner knowledge<br/>implicit in LLM pre-training"]
+        P2["Re-injected at every spawn<br/>Never accumulated in history<br/>→ Survives FullCompact automatically"]
+        P3["No internet access required<br/>Separate from Research Agent<br/>live CVE intelligence"]
     end
 
     CMD --> INJECT
@@ -847,28 +847,28 @@ The ASG and APG are reset fresh for every mission. The Cross-Mission Experience 
 flowchart TD
     subgraph MISSION_A["🟢 Mission A — shopvault.io (completed)"]
         direction LR
-        A1["APG: Chain-01 VALIDATED\nWordPress 5.9.3 + WooCommerce\nSQLi → Admin → RCE"]
-        A2["APG: Chain-03 VALIDATED\nDjango API + staging SQLi\nBlind SQLi → Credential extraction"]
+        A1["APG: Chain-01 VALIDATED<br/>WordPress 5.9.3 + WooCommerce<br/>SQLi → Admin → RCE"]
+        A2["APG: Chain-03 VALIDATED<br/>Django API + staging SQLi<br/>Blind SQLi → Credential extraction"]
     end
 
-    subgraph WRITE["📥 WRITE TRIGGER\nReport Agent — at mission close\nFor every VALIDATED chain"]
-        W1["Store Entry Written:\n──────────────────────────\nTarget fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18\nVuln class: SQLi (CVE-2022-21661)\nTool sequence: SQLMap → SQLMap dump → Metasploit\nChainStep params: WP_Query endpoint · wp_admin_shell_upload\nOutcome: RCE achieved · admin hash cracked · Summer2023!\nMission ID: MIS-001"]
+    subgraph WRITE["📥 WRITE TRIGGER<br/>Report Agent — at mission close<br/>For every VALIDATED chain"]
+        W1["Store Entry Written:<br/>──────────────────────────<br/>Target fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18<br/>Vuln class: SQLi (CVE-2022-21661)<br/>Tool sequence: SQLMap → SQLMap dump → Metasploit<br/>ChainStep params: WP_Query endpoint · wp_admin_shell_upload<br/>Outcome: RCE achieved · admin hash cracked · Summer2023!<br/>Mission ID: MIS-001"]
     end
 
-    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE\n(Persistent · RAG-backed · Survives across missions)"]
+    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE<br/>(Persistent · RAG-backed · Survives across missions)"]
         S1["Entry: MIS-001 · WordPress SQLi → RCE"]
         S2["Entry: MIS-001 · Django staging blind SQLi"]
         S3["Entry: MIS-002 · ... (prior missions)"]
         S4["Entry: MIS-00N · ..."]
     end
 
-    subgraph QUERY["📤 QUERY TRIGGER\nCommander — at mission start\nAfter first Technology nodes written to ASG"]
-        Q1["Query: WordPress 5.x + WooCommerce\n──────────────────────────\nRetrieves: MIS-001 entry\nInjects into Commander context as:\nCandidate chain hypotheses —\npre-validated patterns from analogous past engagements"]
+    subgraph QUERY["📤 QUERY TRIGGER<br/>Commander — at mission start<br/>After first Technology nodes written to ASG"]
+        Q1["Query: WordPress 5.x + WooCommerce<br/>──────────────────────────<br/>Retrieves: MIS-001 entry<br/>Injects into Commander context as:<br/>Candidate chain hypotheses —<br/>pre-validated patterns from analogous past engagements"]
     end
 
     subgraph MISSION_B["🔵 Mission B — new target with WordPress 5.8"]
         direction LR
-        B1["Commander seeds APG Chain-01\nFront-loaded: SQLi hypothesis\nalready validated on similar stack\n→ Skips zero-prior reasoning\n→ Validation pursued immediately"]
+        B1["Commander seeds APG Chain-01<br/>Front-loaded: SQLi hypothesis<br/>already validated on similar stack<br/>→ Skips zero-prior reasoning<br/>→ Validation pursued immediately"]
     end
 
     MISSION_A --> WRITE
@@ -896,28 +896,28 @@ The Cross-Mission Experience Store records raw per-mission outcomes. The Attack 
 
 ```mermaid
 flowchart TD
-    subgraph RAW["🗄️ Cross-Mission Experience Store\n(Raw per-mission records)"]
-        R1["MIS-001: WordPress 5.9.3 + WooCommerce\n→ CVE-2022-21661 SQLi → RCE ✅"]
-        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0\n→ CVE-2022-21661 SQLi → RCE ✅"]
-        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1\n→ CVE-2022-21661 SQLi → RCE ✅"]
+    subgraph RAW["🗄️ Cross-Mission Experience Store<br/>(Raw per-mission records)"]
+        R1["MIS-001: WordPress 5.9.3 + WooCommerce<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
+        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
+        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
     end
 
-    subgraph THRESHOLD["⚖️ Crystallization Threshold Check\nCommander evaluates after each mission close\nSame fingerprint pattern → VALIDATED\nacross ≥ 2 independent missions?"]
-        T1{"≥ 2 missions\nwith same fingerprint\n→ same VALIDATED\noutcome?"}
+    subgraph THRESHOLD["⚖️ Crystallization Threshold Check<br/>Commander evaluates after each mission close<br/>Same fingerprint pattern → VALIDATED<br/>across ≥ 2 independent missions?"]
+        T1{"≥ 2 missions<br/>with same fingerprint<br/>→ same VALIDATED<br/>outcome?"}
     end
 
-    subgraph CRYSTALLIZE["🔬 Crystallization\nScoped LLM call — generalizes specific params\ninto a technology-class procedure"]
-        CR1["Input: 3 raw mission entries\nOutput: Generalized strategy\n─────────────────────────────\nStrategy ID: STRAT-WP-SQLI-001\nName: WordPress WP_Query SQLi → Admin RCE\nFingerprint: WordPress 5.x + WooCommerce + Nginx\nVuln class: SQLi · CVE range: CVE-2022-21661\nTool sequence: SQLMap (WP_Query endpoint)\n  → SQLMap --dump (users table)\n  → Metasploit (wp_admin_shell_upload)\nConfidence: 3/3 missions (100%)\nLast validated: MIS-012"]
+    subgraph CRYSTALLIZE["🔬 Crystallization<br/>Scoped LLM call — generalizes specific params<br/>into a technology-class procedure"]
+        CR1["Input: 3 raw mission entries<br/>Output: Generalized strategy<br/>─────────────────────────────<br/>Strategy ID: STRAT-WP-SQLI-001<br/>Name: WordPress WP_Query SQLi → Admin RCE<br/>Fingerprint: WordPress 5.x + WooCommerce + Nginx<br/>Vuln class: SQLi · CVE range: CVE-2022-21661<br/>Tool sequence: SQLMap (WP_Query endpoint)<br/>  → SQLMap --dump (users table)<br/>  → Metasploit (wp_admin_shell_upload)<br/>Confidence: 3/3 missions (100%)<br/>Last validated: MIS-012"]
     end
 
-    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY\n(Named · Parameterized · Confidence-scored)"]
-        L1["STRAT-WP-SQLI-001\nWordPress SQLi → RCE\nConfidence: 100% (3 missions)"]
-        L2["STRAT-DJANGO-IDOR-001\nDjango API IDOR\nConfidence: 67% (2/3 missions)"]
+    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY<br/>(Named · Parameterized · Confidence-scored)"]
+        L1["STRAT-WP-SQLI-001<br/>WordPress SQLi → RCE<br/>Confidence: 100% (3 missions)"]
+        L2["STRAT-DJANGO-IDOR-001<br/>Django API IDOR<br/>Confidence: 67% (2/3 missions)"]
         L3["STRAT-... (growing library)"]
     end
 
-    subgraph INJECT["🚀 Mission Start — Strategy Retrieval\nCommander queries Library AFTER\nCross-Mission Experience Store query"]
-        I1["Match: new target has WordPress 5.7\n→ Retrieves STRAT-WP-SQLI-001\n→ Injected as pre-ranked APG AttackChain seed\n→ Prioritized ABOVE zero-prior chains\n   (carries validated track record, not just CVSS)"]
+    subgraph INJECT["🚀 Mission Start — Strategy Retrieval<br/>Commander queries Library AFTER<br/>Cross-Mission Experience Store query"]
+        I1["Match: new target has WordPress 5.7<br/>→ Retrieves STRAT-WP-SQLI-001<br/>→ Injected as pre-ranked APG AttackChain seed<br/>→ Prioritized ABOVE zero-prior chains<br/>   (carries validated track record, not just CVSS)"]
     end
 
     RAW --> THRESHOLD

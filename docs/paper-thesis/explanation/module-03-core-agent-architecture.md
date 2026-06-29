@@ -462,62 +462,62 @@ flowchart TD
     %% ── TIER 1: ORCHESTRATION ──────────────────────────────────────
     subgraph T1["① ORCHESTRATION TIER"]
         direction LR
-        OP["🧑 OPERATOR\n─────────────\nDefines: Target domain\nScope boundaries\nAssessment mode\n(Black-Box / Grey-Box)"]
-        CMD["👑 COMMANDER AGENT\n─────────────────────────────\n• Reads full ASG + APG state\n• Plans and delegates tasks\n• Seeds APG AttackChains\n• Approves High-risk tool calls\n• Writes ONLY to APG\n• Determines termination"]
-        VPP["📄 VAPT PROTOCOL PROMPT\n──────────────────────────\nMethodology-as-Config:\n• Phase sequencing rules\n• Re-plan triggers\n• Termination conditions\n• Tool selection heuristics"]
+        OP["🧑 OPERATOR<br/>─────────────<br/>Defines: Target domain<br/>Scope boundaries<br/>Assessment mode<br/>(Black-Box / Grey-Box)"]
+        CMD["👑 COMMANDER AGENT<br/>─────────────────────────────<br/>• Reads full ASG + APG state<br/>• Plans and delegates tasks<br/>• Seeds APG AttackChains<br/>• Approves High-risk tool calls<br/>• Writes ONLY to APG<br/>• Determines termination"]
+        VPP["📄 VAPT PROTOCOL PROMPT<br/>──────────────────────────<br/>Methodology-as-Config:<br/>• Phase sequencing rules<br/>• Re-plan triggers<br/>• Termination conditions<br/>• Tool selection heuristics"]
 
-        OP -- "mission config\n(target + scope)" --> CMD
-        CMD <-- "guides\nplanning policy" --> VPP
+        OP -- "mission config<br/>(target + scope)" --> CMD
+        CMD <-- "guides<br/>planning policy" --> VPP
     end
 
     %% ── TIER 2: DUAL-GRAPH WORLD MODEL ─────────────────────────────
     subgraph T2["② DUAL-GRAPH WORLD MODEL TIER"]
         direction LR
-        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)\n── Discovered Reality ──\nFacts ONLY. Never contains hypotheses."]
-            A1["Domain · Host · Port\nService · Technology"]
-            A2["Endpoint · Parameter\nVulnerability · Evidence"]
+        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)<br/>── Discovered Reality ──<br/>Facts ONLY. Never contains hypotheses."]
+            A1["Domain · Host · Port<br/>Service · Technology"]
+            A2["Endpoint · Parameter<br/>Vulnerability · Evidence"]
         end
-        SEP["⬛ STRICT\nSEPARATION\n────────\nNo agent\ncrosses this\nboundary"]
-        subgraph APG["🟡 ATTACK PATH GRAPH (APG)\n── Inferred Opportunity ──\nReasoning ONLY. Never contains raw scan data."]
-            P1["AttackChain\nrisk_score · priority"]
-            P2["ChainStep\nvalidation_status"]
-            P3["Impact\n(demonstrated)"]
+        SEP["⬛ STRICT<br/>SEPARATION<br/>────────<br/>No agent<br/>crosses this<br/>boundary"]
+        subgraph APG["🟡 ATTACK PATH GRAPH (APG)<br/>── Inferred Opportunity ──<br/>Reasoning ONLY. Never contains raw scan data."]
+            P1["AttackChain<br/>risk_score · priority"]
+            P2["ChainStep<br/>validation_status"]
+            P3["Impact<br/>(demonstrated)"]
         end
     end
 
     %% ── TIER 3: AGENTS + TOOLS ──────────────────────────────────────
     subgraph T3["③ SPECIALIZED AGENTS + TOOL ADAPTER TIER"]
         direction LR
-        AGR["🕵️ Recon\nAmass·httpx·Nmap"]
-        AGA["🔬 Analysis\nWhatWeb·Gobuster\nffuf·Nuclei·ZAP"]
-        AGI["🔍 Research\nNVD·Exploit-DB\nGitHub"]
-        AGV["🎯 Validation\nSQLMap·Metasploit"]
-        AGE["📸 Evidence\nEyeWitness"]
-        AGRP["📝 Report\nReads ASG+APG"]
+        AGR["🕵️ Recon<br/>Amass·httpx·Nmap"]
+        AGA["🔬 Analysis<br/>WhatWeb·Gobuster<br/>ffuf·Nuclei·ZAP"]
+        AGI["🔍 Research<br/>NVD·Exploit-DB<br/>GitHub"]
+        AGV["🎯 Validation<br/>SQLMap·Metasploit"]
+        AGE["📸 Evidence<br/>EyeWitness"]
+        AGRP["📝 Report<br/>Reads ASG+APG"]
 
         subgraph TAL["TOOL ADAPTER LAYER + RISK GATE"]
-            RG1["🟢 LOW\nExecute immediately"]
-            RG2["🟡 MED\nLLM Classifier"]
-            RG3["🔴 HIGH\nCommander Mailbox"]
+            RG1["🟢 LOW<br/>Execute immediately"]
+            RG2["🟡 MED<br/>LLM Classifier"]
+            RG3["🔴 HIGH<br/>Commander Mailbox"]
         end
     end
 
     %% ── CROSS-TIER ARROWS ───────────────────────────────────────────
     CMD -- "reads state" --> ASG
     APG -- "status feedback" --> CMD
-    CMD -- "derives chains\nfrom new Vulnerability nodes" --> APG
-    CMD -- "spawns with\nscoped context" --> AGR
-    CMD -- "spawns with\nscoped context" --> AGA
-    CMD -- "spawns with\nscoped context" --> AGI
-    CMD -- "spawns with\nscoped context" --> AGV
-    CMD -- "spawns with\nscoped context" --> AGE
-    CMD -- "spawns at\nmission end" --> AGRP
+    CMD -- "derives chains<br/>from new Vulnerability nodes" --> APG
+    CMD -- "spawns with<br/>scoped context" --> AGR
+    CMD -- "spawns with<br/>scoped context" --> AGA
+    CMD -- "spawns with<br/>scoped context" --> AGI
+    CMD -- "spawns with<br/>scoped context" --> AGV
+    CMD -- "spawns with<br/>scoped context" --> AGE
+    CMD -- "spawns at<br/>mission end" --> AGRP
 
-    AGR -- "writes Domain\nHost·Port·Service" --> ASG
-    AGA -- "writes Technology\nEndpoint·Vulnerability" --> ASG
-    AGI -- "enriches Vulnerability\nnodes (CVE+PoC)" --> ASG
-    AGV -- "writes Evidence\nadvances ChainStep" --> ASG
-    AGE -- "writes Evidence\nscreenshots" --> ASG
+    AGR -- "writes Domain<br/>Host·Port·Service" --> ASG
+    AGA -- "writes Technology<br/>Endpoint·Vulnerability" --> ASG
+    AGI -- "enriches Vulnerability<br/>nodes (CVE+PoC)" --> ASG
+    AGV -- "writes Evidence<br/>advances ChainStep" --> ASG
+    AGE -- "writes Evidence<br/>screenshots" --> ASG
 
     AGR --> TAL
     AGA --> TAL
@@ -617,34 +617,34 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    CMD["👑 COMMANDER\nDecides next action"]
+    CMD["👑 COMMANDER<br/>Decides next action"]
 
     subgraph SPAWN["Agent Spawn Package"]
         direction TB
-        S1["📊 ASG SLICE\nOnly nodes relevant to this task\nNot the full graph"]
-        S2["🔗 APG SLICE\nRelevant AttackChains only\n(if this is a Validation task)"]
-        S3["🔧 TOOL SET\nAuthorized tools only\nNo others available"]
-        S4["📋 TASK SPEC\nCommander's current plan item\nExact objective for this spawn"]
-        S5["📚 KNOWLEDGE DOCS\n(Validation Agent + Analysis Agent)\nVulnerability-class expert docs\ninjected at spawn time"]
+        S1["📊 ASG SLICE<br/>Only nodes relevant to this task<br/>Not the full graph"]
+        S2["🔗 APG SLICE<br/>Relevant AttackChains only<br/>(if this is a Validation task)"]
+        S3["🔧 TOOL SET<br/>Authorized tools only<br/>No others available"]
+        S4["📋 TASK SPEC<br/>Commander's current plan item<br/>Exact objective for this spawn"]
+        S5["📚 KNOWLEDGE DOCS<br/>(Validation Agent + Analysis Agent)<br/>Vulnerability-class expert docs<br/>injected at spawn time"]
     end
 
-    subgraph AGENT["🤖 Isolated Agent Context\n(fresh per task — no prior history)"]
-        WORK["Works autonomously\nwithin bounded context\nAll tool calls → Risk Gate"]
+    subgraph AGENT["🤖 Isolated Agent Context<br/>(fresh per task — no prior history)"]
+        WORK["Works autonomously<br/>within bounded context<br/>All tool calls → Risk Gate"]
     end
 
     subgraph RETURN["Agent Returns"]
-        R1["✅ Structured ASG Delta\nNew nodes + edges only"]
-        R2["🗑️ Working context DISCARDED\nRaw tool output → gone\nConversation history → gone\nIntermediate reasoning → gone"]
+        R1["✅ Structured ASG Delta<br/>New nodes + edges only"]
+        R2["🗑️ Working context DISCARDED<br/>Raw tool output → gone<br/>Conversation history → gone<br/>Intermediate reasoning → gone"]
     end
 
-    CMD -->|"spawn with\nscoped package"| SPAWN
+    CMD -->|"spawn with<br/>scoped package"| SPAWN
     SPAWN --> AGENT
     AGENT --> RETURN
-    RETURN -->|"delta written\nto ASG"| ASG_ICON["🟢 ASG"]
-    RETURN -->|"Commander reads\nnew nodes"| CMD
+    RETURN -->|"delta written<br/>to ASG"| ASG_ICON["🟢 ASG"]
+    RETURN -->|"Commander reads<br/>new nodes"| CMD
 
     style CMD fill:#04162E,stroke:#00D4FF,color:#00D4FF
-    style SPAWN fill:#0A0C1E,stroke:#9C27B0,color:#9C27B0
+    style SPAWN fill:#0A0C1E,stroke:#9C27B0,color:#CE93D8
     style AGENT fill:#0A0C1E,stroke:#9C27B0,color:#fff
     style RETURN fill:#041808,stroke:#7FFF00,color:#7FFF00
     style ASG_ICON fill:#062210,stroke:#7FFF00,color:#7FFF00
@@ -661,15 +661,15 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    CI["🔒 CONTEXT ISOLATION\nEvery agent spawns fresh\nEvery agent dies clean"]
+    CI["🔒 CONTEXT ISOLATION<br/>Every agent spawns fresh<br/>Every agent dies clean"]
 
-    P1["✅ Property 1\nCOMMANDER STAYS CLEAN\n─────────────────────\nCommander only ever sees\nASG/APG state — never\nthousands of lines of\nraw tool output.\nIts reasoning context stays\nsurgically focused."]
+    P1["✅ Property 1<br/>COMMANDER STAYS CLEAN<br/>─────────────────────<br/>Commander only ever sees<br/>ASG/APG state — never<br/>thousands of lines of<br/>raw tool output.<br/>Its reasoning context stays<br/>surgically focused."]
 
-    P2["✅ Property 2\nAGENTS CANNOT CONTAMINATE\n─────────────────────────\nAgent A's verbose history\nnever appears in Agent B's\ncontext. Knowledge passes\nonly through the ASG.\nNo shared memory. No\naccidental cross-pollution."]
+    P2["✅ Property 2<br/>AGENTS CANNOT CONTAMINATE<br/>─────────────────────────<br/>Agent A's verbose history<br/>never appears in Agent B's<br/>context. Knowledge passes<br/>only through the ASG.<br/>No shared memory. No<br/>accidental cross-pollution."]
 
-    P3["✅ Property 3\nREJECTIONS DON'T BIAS PLANNING\n────────────────────────────────\nWhen Commander rejects a\nHigh-risk tool call, that\nrejection never appears in\nthe Commander's own context.\nRefusals don't accumulate\nand skew future decisions."]
+    P3["✅ Property 3<br/>REJECTIONS DON'T BIAS PLANNING<br/>────────────────────────────────<br/>When Commander rejects a<br/>High-risk tool call, that<br/>rejection never appears in<br/>the Commander's own context.<br/>Refusals don't accumulate<br/>and skew future decisions."]
 
-    RESULT["🎯 RESULT\nLong missions with many agents\nproduce the same quality of\nreasoning as single-agent tasks.\nContext quality does not degrade\nwith mission complexity."]
+    RESULT["🎯 RESULT<br/>Long missions with many agents<br/>produce the same quality of<br/>reasoning as single-agent tasks.<br/>Context quality does not degrade<br/>with mission complexity."]
 
     CI --> P1
     CI --> P2

@@ -382,40 +382,40 @@ This is the complete picture. One real mission. Zero manual commands. Watch ever
 
 ```mermaid
 flowchart TD
-    OP(["🧑 OPERATOR\nTarget: shopvault.io\nScope: all subdomains\nMode: Black-Box\n→ PRESS START"])
+    OP(["🧑 OPERATOR<br/>Target: shopvault.io<br/>Scope: all subdomains<br/>Mode: Black-Box<br/>→ PRESS START"])
 
-    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE\nRecon Agent spawned"]
-        A1["Tool: Amass\n────────────────────────\n14 subdomains discovered:\napi · admin · staging\npay · mail · static · ..."]
-        A2["Tool: httpx\n────────────────────────\n11 live hosts confirmed\nstaging → unexpected 200 OK\npay → TLS certificate EXPIRED"]
-        A3["Tool: Nmap\n────────────────────────\n28 open ports mapped\nPorts: 80, 443, 8080, 8443, 22\nServices: Nginx 1.18 · OpenSSH 8.9\nUnencrypted HTTP on port 8080"]
-        D1["📥 ASG DELTA\n37 new nodes written:\n14 Domain · 11 Host\n28 Port · 15 Service"]
+    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE<br/>Recon Agent spawned"]
+        A1["Tool: Amass<br/>────────────────────────<br/>14 subdomains discovered:<br/>api · admin · staging<br/>pay · mail · static · ..."]
+        A2["Tool: httpx<br/>────────────────────────<br/>11 live hosts confirmed<br/>staging → unexpected 200 OK<br/>pay → TLS certificate EXPIRED"]
+        A3["Tool: Nmap<br/>────────────────────────<br/>28 open ports mapped<br/>Ports: 80, 443, 8080, 8443, 22<br/>Services: Nginx 1.18 · OpenSSH 8.9<br/>Unencrypted HTTP on port 8080"]
+        D1["📥 ASG DELTA<br/>37 new nodes written:<br/>14 Domain · 11 Host<br/>28 Port · 15 Service"]
     end
 
-    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE\nAnalysis Agent + Research Agent spawned"]
-        B1["Tool: WhatWeb\n────────────────────────\nWordPress 5.9.3 on shopvault.io\nWooCommerce 6.1 detected\nDjango 4.1.2 on api.shopvault.io\n→ Commander spawns Research Agent"]
-        B2["Research Agent: NVD + Exploit-DB\n────────────────────────────────\nCVE-2022-21661 found (CVSS 8.8)\nPoC on Exploit-DB ✓\nMetasploit module available ✓"]
-        B3["Tool: Gobuster\n────────────────────────\n/backup/db_export_2023.sql → 200!\n/wp-admin/login → 200\n/wp-admin/users → 403\n/api/v1/internal/users → 200"]
-        B4["Tool: ffuf\n────────────────────────\nIDOR: user_id param unsanitised\n/api/v2 routes discovered\nVirtual host: internal.shopvault.io"]
-        B5["Tool: Nuclei\n────────────────────────\nCVE-2022-21661 template → MATCH\nExposed phpinfo.php on staging\nDefault creds check: admin/admin → fail"]
-        B6["Tool: OWASP ZAP\n────────────────────────\nXSS on /search?q= (reflected)\nSQL error on staging login form\nMissing security headers on API"]
-        D2["📥 ASG DELTA: 61 new nodes\nTechnology(3) · Endpoint(19)\nParameter(8) · Vulnerability(9)\n\n📥 APG DELTA: 3 chains seeded\nChain-01: CVE-2022-21661 SQLi→RCE (8.8)\nChain-02: IDOR orders API (7.5)\nChain-03: Staging login blind SQLi (8.1)"]
+    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE<br/>Analysis Agent + Research Agent spawned"]
+        B1["Tool: WhatWeb<br/>────────────────────────<br/>WordPress 5.9.3 on shopvault.io<br/>WooCommerce 6.1 detected<br/>Django 4.1.2 on api.shopvault.io<br/>→ Commander spawns Research Agent"]
+        B2["Research Agent: NVD + Exploit-DB<br/>────────────────────────────────<br/>CVE-2022-21661 found (CVSS 8.8)<br/>PoC on Exploit-DB ✓<br/>Metasploit module available ✓"]
+        B3["Tool: Gobuster<br/>────────────────────────<br/>/backup/db_export_2023.sql → 200!<br/>/wp-admin/login → 200<br/>/wp-admin/users → 403<br/>/api/v1/internal/users → 200"]
+        B4["Tool: ffuf<br/>────────────────────────<br/>IDOR: user_id param unsanitised<br/>/api/v2 routes discovered<br/>Virtual host: internal.shopvault.io"]
+        B5["Tool: Nuclei<br/>────────────────────────<br/>CVE-2022-21661 template → MATCH<br/>Exposed phpinfo.php on staging<br/>Default creds check: admin/admin → fail"]
+        B6["Tool: OWASP ZAP<br/>────────────────────────<br/>XSS on /search?q= (reflected)<br/>SQL error on staging login form<br/>Missing security headers on API"]
+        D2["📥 ASG DELTA: 61 new nodes<br/>Technology(3) · Endpoint(19)<br/>Parameter(8) · Vulnerability(9)<br/><br/>📥 APG DELTA: 3 chains seeded<br/>Chain-01: CVE-2022-21661 SQLi→RCE (8.8)<br/>Chain-02: IDOR orders API (7.5)<br/>Chain-03: Staging login blind SQLi (8.1)"]
     end
 
-    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE\nValidation Agent + Evidence Agent spawned"]
-        C1["Chain-01 (highest priority: 8.8)\n────────────────────────────────\nStep 1: SQLMap on WP_Query\n→ SQLi confirmed ✅\n→ Evidence: sqli-extraction.txt"]
-        C2["Step 2: SQLMap --dump users table\n────────────────────────────────\n→ Admin hash extracted ✅\n→ Offline crack: admin:Summer2023!\n→ Evidence: user-table-dump.png"]
-        C3["Step 3: Metasploit wp_admin_shell_upload\n────────────────────────────────\n⚠️ HIGH RISK → Commander Mailbox\n→ Commander APPROVES\n→ Web shell deployed ✅\n→ RCE confirmed!\n→ risk_score escalated: 8.8 → 9.1\n→ Evidence: webshell-rce.png"]
-        C4["Chain-03 (next by risk: 8.1)\n────────────────────────────────\nSQLMap on staging.shopvault.io/login\n→ Blind SQLi confirmed ✅\n→ Staging DB credentials extracted ✅\n→ Commander flags: staging creds overlap production\n→ Additional Impact node: credential reuse risk\n→ Evidence: staging-db-dump.png"]
-        C5["Chain-02 (risk: 7.5)\n────────────────────────────────\nSQLMap on user_id parameter\n→ IDOR confirmed ✅\n→ Any customer's orders accessible without auth\n→ Evidence: idor-orders-dump.png"]
-        D3["📥 APG DELTA\nChain-01: VALIDATED (9.1)\nChain-03: VALIDATED (8.1)\nChain-02: VALIDATED (7.5)\n\n📥 ASG DELTA\nEvidence nodes + edges added"]
+    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE<br/>Validation Agent + Evidence Agent spawned"]
+        C1["Chain-01 (highest priority: 8.8)<br/>────────────────────────────────<br/>Step 1: SQLMap on WP_Query<br/>→ SQLi confirmed ✅<br/>→ Evidence: sqli-extraction.txt"]
+        C2["Step 2: SQLMap --dump users table<br/>────────────────────────────────<br/>→ Admin hash extracted ✅<br/>→ Offline crack: admin:Summer2023!<br/>→ Evidence: user-table-dump.png"]
+        C3["Step 3: Metasploit wp_admin_shell_upload<br/>────────────────────────────────<br/>⚠️ HIGH RISK → Commander Mailbox<br/>→ Commander APPROVES<br/>→ Web shell deployed ✅<br/>→ RCE confirmed!<br/>→ risk_score escalated: 8.8 → 9.1<br/>→ Evidence: webshell-rce.png"]
+        C4["Chain-03 (next by risk: 8.1)<br/>────────────────────────────────<br/>SQLMap on staging.shopvault.io/login<br/>→ Blind SQLi confirmed ✅<br/>→ Staging DB credentials extracted ✅<br/>→ Commander flags: staging creds overlap production<br/>→ Additional Impact node: credential reuse risk<br/>→ Evidence: staging-db-dump.png"]
+        C5["Chain-02 (risk: 7.5)<br/>────────────────────────────────<br/>SQLMap on user_id parameter<br/>→ IDOR confirmed ✅<br/>→ Any customer's orders accessible without auth<br/>→ Evidence: idor-orders-dump.png"]
+        D3["📥 APG DELTA<br/>Chain-01: VALIDATED (9.1)<br/>Chain-03: VALIDATED (8.1)<br/>Chain-02: VALIDATED (7.5)<br/><br/>📥 ASG DELTA<br/>Evidence nodes + edges added"]
     end
 
     subgraph P4["🟣 PHASE 4 — ASG EXHAUSTION + CHAIN-04 + REPORT"]
-        C6["ASG Exhaustion Check\n────────────────────────────────\nCommander reads ASG: all 11 hosts mapped\n→ /backup/db_export_2023.sql still unvalidated\n→ Seed Chain-04: Direct DB backup download\n→ HTTP GET → 200 OK → VALIDATED immediately\n→ Evidence: db-backup-download.png"]
-        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT\n─────────────────────────────────────────\n• Executive Summary\n• 4 Validated Attack Chains\n• Full attack surface map (14 subdomains · 11 hosts)\n• 11 vulnerabilities with CVSS scores\n• Remediation guidance ordered by risk_score\n• Evidence at every ChainStep\n• ZERO manual commands issued"]
+        C6["ASG Exhaustion Check<br/>────────────────────────────────<br/>Commander reads ASG: all 11 hosts mapped<br/>→ /backup/db_export_2023.sql still unvalidated<br/>→ Seed Chain-04: Direct DB backup download<br/>→ HTTP GET → 200 OK → VALIDATED immediately<br/>→ Evidence: db-backup-download.png"]
+        RPT["📋 PROFESSIONAL PENETRATION TEST REPORT<br/>─────────────────────────────────────────<br/>• Executive Summary<br/>• 4 Validated Attack Chains<br/>• Full attack surface map (14 subdomains · 11 hosts)<br/>• 11 vulnerabilities with CVSS scores<br/>• Remediation guidance ordered by risk_score<br/>• Evidence at every ChainStep<br/>• ZERO manual commands issued"]
     end
 
-    TERM["✅ TERMINATION CONDITION MET\nASG: all 111 nodes explored\nAPG: all 4 chains VALIDATED\n→ Report Agent spawned"]
+    TERM["✅ TERMINATION CONDITION MET<br/>ASG: all 111 nodes explored<br/>APG: all 4 chains VALIDATED<br/>→ Report Agent spawned"]
 
     OP --> P1
     A1 --> A2 --> A3 --> D1
@@ -505,19 +505,19 @@ flowchart LR
 
     subgraph APG_FINAL["🟡 APG — Final State"]
         direction TB
-        CH1["Chain-01: VALIDATED ✅\nrisk: 9.1 (escalated after RCE)\nWordPress SQLi → Admin auth → RCE"]
-        CH2["Chain-02: VALIDATED ✅\nrisk: 7.5\nIDOR → Customer order PII"]
-        CH3["Chain-03: VALIDATED ✅\nrisk: 8.1\nStaging blind SQLi → Credential extraction"]
-        CH4["Chain-04: VALIDATED ✅\nrisk: 7.0\nExposed DB backup → Full PII download"]
+        CH1["Chain-01: VALIDATED ✅<br/>risk: 9.1 (escalated after RCE)<br/>WordPress SQLi → Admin auth → RCE"]
+        CH2["Chain-02: VALIDATED ✅<br/>risk: 7.5<br/>IDOR → Customer order PII"]
+        CH3["Chain-03: VALIDATED ✅<br/>risk: 8.1<br/>Staging blind SQLi → Credential extraction"]
+        CH4["Chain-04: VALIDATED ✅<br/>risk: 7.0<br/>Exposed DB backup → Full PII download"]
     end
 
     subgraph REPORT_FINAL["📝 Report Output"]
         direction TB
-        R1["4 validated attack chains\nwith step-by-step reproduction"]
-        R2["Evidence artifacts (text + screenshots)\nlinked at each ChainStep"]
-        R3["11 vulnerabilities\nordered by risk_score"]
-        R4["Remediation guidance\nprioritized by business risk"]
-        R5["0 manual commands issued\nduring entire assessment"]
+        R1["4 validated attack chains<br/>with step-by-step reproduction"]
+        R2["Evidence artifacts (text + screenshots)<br/>linked at each ChainStep"]
+        R3["11 vulnerabilities<br/>ordered by risk_score"]
+        R4["Remediation guidance<br/>prioritized by business risk"]
+        R5["0 manual commands issued<br/>during entire assessment"]
     end
 
     ASG_FINAL --> REPORT_FINAL
@@ -536,18 +536,18 @@ This is the most important chain in the mission. Every arrow here is a relations
 
 ```mermaid
 flowchart LR
-    CVE["🚨 ASG\nVulnerability node\nCVE-2022-21661\nCVSS: 8.8\nPoC: Exploit-DB ✓"]
+    CVE["🚨 ASG<br/>Vulnerability node<br/>CVE-2022-21661<br/>CVSS: 8.8<br/>PoC: Exploit-DB ✓"]
 
-    CH["🟡 APG\nAttackChain: Chain-01\nrisk_score: 9.1\nstatus: VALIDATED\nstarts_at → CVE-2022-21661"]
+    CH["🟡 APG<br/>AttackChain: Chain-01<br/>risk_score: 9.1<br/>status: VALIDATED<br/>starts_at → CVE-2022-21661"]
 
-    S1["🟡 APG\nChainStep 1\nSQLMap → WP_Query SQLi\nstatus: VALIDATED"]
-    S2["🟡 APG\nChainStep 2\nSQLMap dump → hash cracked\nstatus: VALIDATED"]
-    S3["🟡 APG\nChainStep 3\nMetasploit → Web shell\nstatus: VALIDATED"]
-    IMP["🟣 APG\nImpact\nRCE on shopvault.io\nCustomer PII accessible"]
+    S1["🟡 APG<br/>ChainStep 1<br/>SQLMap → WP_Query SQLi<br/>status: VALIDATED"]
+    S2["🟡 APG<br/>ChainStep 2<br/>SQLMap dump → hash cracked<br/>status: VALIDATED"]
+    S3["🟡 APG<br/>ChainStep 3<br/>Metasploit → Web shell<br/>status: VALIDATED"]
+    IMP["🟣 APG<br/>Impact<br/>RCE on shopvault.io<br/>Customer PII accessible"]
 
-    EV1["📎 ASG\nEvidence\nsqli-extraction.txt"]
-    EV2["📎 ASG\nEvidence\nuser-table-dump.png"]
-    EV3["📎 ASG\nEvidence\nwebshell-rce.png"]
+    EV1["📎 ASG<br/>Evidence<br/>sqli-extraction.txt"]
+    EV2["📎 ASG<br/>Evidence<br/>user-table-dump.png"]
+    EV3["📎 ASG<br/>Evidence<br/>webshell-rce.png"]
 
     CVE -->|"starts_at"| CH
     CH --> S1

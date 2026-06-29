@@ -411,47 +411,47 @@ Every node here represents something **confirmed by a tool**. Every edge represe
 ```mermaid
 graph TD
     %% ── ASG ROOT ──────────────────────────────────────────────
-    DOM["🌐 Domain\nshopvault.io"]
+    DOM["🌐 Domain<br/>shopvault.io"]
 
     %% ── HOSTS ─────────────────────────────────────────────────
-    H1["🖥️ Host\n10.0.0.1\nOS: Ubuntu 22.04"]
-    H2["🖥️ Host\n10.0.0.2\nOS: Debian 11"]
-    H3["🖥️ Host\napi.shopvault.io\n10.0.0.5"]
+    H1["🖥️ Host<br/>10.0.0.1<br/>OS: Ubuntu 22.04"]
+    H2["🖥️ Host<br/>10.0.0.2<br/>OS: Debian 11"]
+    H3["🖥️ Host<br/>api.shopvault.io<br/>10.0.0.5"]
 
     %% ── PORTS ─────────────────────────────────────────────────
-    P443["🔌 Port :443\ntcp · open"]
-    P8080["🔌 Port :8080\ntcp · open · unencrypted"]
-    P80["🔌 Port :80\ntcp · open"]
-    P22["🔌 Port :22\ntcp · open"]
+    P443["🔌 Port :443<br/>tcp · open"]
+    P8080["🔌 Port :8080<br/>tcp · open · unencrypted"]
+    P80["🔌 Port :80<br/>tcp · open"]
+    P22["🔌 Port :22<br/>tcp · open"]
 
     %% ── SERVICES ──────────────────────────────────────────────
-    SVC1["⚙️ Service\nNginx 1.18.0"]
-    SVC2["⚙️ Service\nHTTP unencrypted"]
-    SVC3["⚙️ Service\nOpenSSH 8.9p1"]
+    SVC1["⚙️ Service<br/>Nginx 1.18.0"]
+    SVC2["⚙️ Service<br/>HTTP unencrypted"]
+    SVC3["⚙️ Service<br/>OpenSSH 8.9p1"]
 
     %% ── TECHNOLOGIES ──────────────────────────────────────────
-    TECH1["📦 Technology\nWordPress 5.9.3"]
-    TECH2["📦 Technology\nWooCommerce 6.1"]
-    TECH3["📦 Technology\nDjango 4.1.2"]
+    TECH1["📦 Technology<br/>WordPress 5.9.3"]
+    TECH2["📦 Technology<br/>WooCommerce 6.1"]
+    TECH3["📦 Technology<br/>Django 4.1.2"]
 
     %% ── ENDPOINTS ─────────────────────────────────────────────
-    EP1["🔗 Endpoint\n/wp-admin/login\nsensitivity: HIGH"]
-    EP2["🔗 Endpoint\n/backup/db_export.sql\nsensitivity: CRITICAL"]
-    EP3["🔗 Endpoint\n/api/v1/orders"]
-    EP4["🔗 Endpoint\n/api/v1/internal/users\nundocumented!"]
+    EP1["🔗 Endpoint<br/>/wp-admin/login<br/>sensitivity: HIGH"]
+    EP2["🔗 Endpoint<br/>/backup/db_export.sql<br/>sensitivity: CRITICAL"]
+    EP3["🔗 Endpoint<br/>/api/v1/orders"]
+    EP4["🔗 Endpoint<br/>/api/v1/internal/users<br/>undocumented!"]
 
     %% ── PARAMETERS ────────────────────────────────────────────
-    PARAM1["⚙️ Parameter\nuser_id=?\ninjectable: TRUE"]
+    PARAM1["⚙️ Parameter<br/>user_id=?<br/>injectable: TRUE"]
 
     %% ── VULNERABILITIES ───────────────────────────────────────
-    VULN1["🚨 Vulnerability\nCVE-2022-21661\nCVSS: 8.8 · SQLi\nPoC: Exploit-DB ✓\nMetasploit module ✓"]
-    VULN2["🚨 Vulnerability\nIDOR on /api/v1/orders\nSeverity: HIGH"]
-    VULN3["🚨 Vulnerability\nExposed DB backup\nSeverity: CRITICAL"]
+    VULN1["🚨 Vulnerability<br/>CVE-2022-21661<br/>CVSS: 8.8 · SQLi<br/>PoC: Exploit-DB ✓<br/>Metasploit module ✓"]
+    VULN2["🚨 Vulnerability<br/>IDOR on /api/v1/orders<br/>Severity: HIGH"]
+    VULN3["🚨 Vulnerability<br/>Exposed DB backup<br/>Severity: CRITICAL"]
 
     %% ── EVIDENCE ──────────────────────────────────────────────
-    EV1["📎 Evidence\nsqli-extraction.txt"]
-    EV2["📎 Evidence\nadmin-panel.png"]
-    EV3["📎 Evidence\nwebshell-rce.png"]
+    EV1["📎 Evidence<br/>sqli-extraction.txt"]
+    EV2["📎 Evidence<br/>admin-panel.png"]
+    EV3["📎 Evidence<br/>webshell-rce.png"]
 
     %% ── EDGES ─────────────────────────────────────────────────
     DOM -->|has_host| H1
@@ -531,15 +531,15 @@ flowchart TD
     %% ── CHAIN 01 ──────────────────────────────────────────────────
     subgraph C1["AttackChain: Chain-01 · risk_score: 9.1 · VALIDATED"]
         direction TB
-        C1S["starts_at → ASG: CVE-2022-21661\n(WordPress SQLi, CVSS 8.8)"]
+        C1S["starts_at → CVE-2022-21661 (WordPress SQLi, CVSS 8.8)"]
 
-        STEP1["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: /wp-admin/admin-ajax.php\nAction: Confirm WP_Query SQLi\nStatus: ✅ VALIDATED\n↗ supported_by: sqli-extraction.txt"]
+        STEP1["ChainStep 1 — SQLMap<br/>Target: /wp-admin/admin-ajax.php<br/>Action: Confirm WP_Query SQLi<br/>Status: ✅ VALIDATED<br/>Evidence: sqli-extraction.txt"]
 
-        STEP2["ChainStep 2\n─────────────\nTool: SQLMap --dump\nAction: Extract WordPress users table\nHash cracked offline → admin:Summer2023!\nStatus: ✅ VALIDATED\n↗ supported_by: users-table-dump.png"]
+        STEP2["ChainStep 2 — SQLMap --dump<br/>Action: Extract WP users table<br/>Hash cracked → admin:Summer2023!<br/>Status: ✅ VALIDATED<br/>Evidence: users-table-dump.png"]
 
-        STEP3["ChainStep 3\n─────────────\nTool: Metasploit\nModule: wp_admin_shell_upload\nAction: Deploy webshell → RCE\nStatus: ✅ VALIDATED\n↗ supported_by: webshell-rce.png"]
+        STEP3["ChainStep 3 — Metasploit<br/>Module: wp_admin_shell_upload<br/>Action: Deploy webshell → RCE<br/>Status: ✅ VALIDATED<br/>Evidence: webshell-rce.png"]
 
-        IMP1["💀 IMPACT\n─────────────\nFull RCE on shopvault.io web server\nCustomer PII database accessible\nClassification: CRITICAL"]
+        IMP1["💀 IMPACT<br/>Full RCE on shopvault.io<br/>Customer PII database accessible<br/>Classification: CRITICAL"]
 
         C1S --> STEP1
         STEP1 -->|next_step| STEP2
@@ -550,11 +550,11 @@ flowchart TD
     %% ── CHAIN 02 ──────────────────────────────────────────────────
     subgraph C2["AttackChain: Chain-02 · risk_score: 7.5 · VALIDATED"]
         direction TB
-        C2S["starts_at → ASG: IDOR on /api/v1/orders\n(user_id parameter unsanitised)"]
+        C2S["starts_at → IDOR on /api/v1/orders (user_id unsanitised)"]
 
-        STEP21["ChainStep 1\n─────────────\nTool: SQLMap\nAction: Confirm IDOR — user_id param injectable\nAPI returns any user's orders without auth check\nStatus: ✅ VALIDATED\n↗ supported_by: idor-orders-dump.png"]
+        STEP21["ChainStep 1 — SQLMap<br/>Action: Confirm IDOR<br/>user_id returns any user's orders<br/>No auth check required<br/>Status: ✅ VALIDATED<br/>Evidence: idor-orders-dump.png"]
 
-        IMP2["💀 IMPACT\n─────────────\nAll customer order history exposed\nName · address · payment method visible\nClassification: HIGH"]
+        IMP2["💀 IMPACT<br/>All customer order history exposed<br/>Name · address · payment visible<br/>Classification: HIGH"]
 
         C2S --> STEP21
         STEP21 -->|achieves| IMP2
@@ -563,11 +563,11 @@ flowchart TD
     %% ── CHAIN 03 ─────────────────────────────────────────────────
     subgraph C3["AttackChain: Chain-03 · risk_score: 8.1 · VALIDATED"]
         direction TB
-        C3S["starts_at → ASG: SQL error on staging.shopvault.io/login\n(blind SQLi entry point)"]
+        C3S["starts_at → SQL error on staging.shopvault.io/login (blind SQLi)"]
 
-        STEP31["ChainStep 1\n─────────────\nTool: SQLMap\nTarget: staging.shopvault.io/login\nAction: Confirm blind SQLi\nExtract staging database credentials table\nStatus: ✅ VALIDATED\n↗ supported_by: staging-db-dump.png"]
+        STEP31["ChainStep 1 — SQLMap<br/>Target: staging.shopvault.io/login<br/>Action: Confirm blind SQLi<br/>Extract staging DB credentials<br/>Status: ✅ VALIDATED<br/>Evidence: staging-db-dump.png"]
 
-        IMP3["💀 IMPACT\n─────────────\nStaging DB credentials extracted\nCredential reuse risk flagged:\nstaging creds partially overlap production\nClassification: HIGH"]
+        IMP3["💀 IMPACT<br/>Staging DB credentials extracted<br/>Credential reuse risk flagged<br/>Staging creds overlap production<br/>Classification: HIGH"]
 
         C3S --> STEP31
         STEP31 -->|achieves| IMP3
@@ -576,18 +576,18 @@ flowchart TD
     %% ── CHAIN 04 ─────────────────────────────────────────────────
     subgraph C4["AttackChain: Chain-04 · risk_score: 7.0 · VALIDATED"]
         direction TB
-        C4S["starts_at → ASG: Exposed /backup/db_export_2023.sql\n(Information Disclosure misconfiguration)"]
+        C4S["starts_at → Exposed /backup/db_export_2023.sql (Info Disclosure)"]
 
-        STEP41["ChainStep 1\n─────────────\nAction: Direct HTTP GET of .sql file\nFile publicly accessible — no auth required\nStatus: ✅ VALIDATED immediately\n↗ supported_by: db-backup-download.png"]
+        STEP41["ChainStep 1 — Direct HTTP GET<br/>Target: /backup/db_export_2023.sql<br/>File publicly accessible, no auth<br/>Status: ✅ VALIDATED immediately<br/>Evidence: db-backup-download.png"]
 
-        IMP4["💀 IMPACT\n─────────────\nFull customer PII database exposed\nDirect download — no exploitation needed\nClassification: CRITICAL"]
+        IMP4["💀 IMPACT<br/>Full customer PII database exposed<br/>Direct download, no exploit needed<br/>Classification: CRITICAL"]
 
         C4S --> STEP41
         STEP41 -->|achieves| IMP4
     end
 
     %% ── PRIORITY RANKING ──────────────────────────────────────────
-    PRIO["📊 APG Priority Queue\n──────────────────────\n#1 Chain-01 · 9.1 (escalated after RCE) ← validated first\n#2 Chain-03 · 8.1 ← validated second\n#3 Chain-02 · 7.5 ← validated third\n#4 Chain-04 · 7.0 ← trivially validated in Phase 4\n\nCommander re-ranks on every status change"]
+    PRIO["📊 APG Priority Queue<br/>──────────────────────<br/>#1 Chain-01 · 9.1 (escalated after RCE) ← validated first<br/>#2 Chain-03 · 8.1 ← validated second<br/>#3 Chain-02 · 7.5 ← validated third<br/>#4 Chain-04 · 7.0 ← trivially validated in Phase 4<br/><br/>Commander re-ranks on every status change"]
 
     %% Styles
     style C1 fill:#1E1004,stroke:#FFC107,color:#FFC107

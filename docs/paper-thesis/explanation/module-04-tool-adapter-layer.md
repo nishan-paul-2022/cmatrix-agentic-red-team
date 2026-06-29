@@ -340,46 +340,46 @@ No tool in CMatrix executes without passing through this gate. This diagram show
 
 ```mermaid
 flowchart TD
-    START["🤖 Agent requests tool call\n───────────────────────────\nTool: Gobuster\nTarget: shopvault.io\nParams: -w big.txt -x php,sql"]
+    START["🤖 Agent requests tool call<br/>───────────────────────────<br/>Tool: Gobuster<br/>Target: shopvault.io<br/>Params: -w big.txt -x php,sql"]
 
-    HOOK1["🪝 PreToolUse Hook fires\n───────────────────────\nExternal observers notified.\nHook returns: CONTINUE / BLOCK / MODIFY"]
+    HOOK1["🪝 PreToolUse Hook fires<br/>───────────────────────<br/>External observers notified.<br/>Hook returns: CONTINUE / BLOCK / MODIFY"]
 
     HOOK1_CHECK{Hook returns?}
-    HOOK_BLOCK["❌ BLOCKED\nAction cancelled.\nReason logged."]
-    HOOK_MODIFY["🔄 MODIFIED\nPayload updated.\nProceeds with\nmodified params."]
+    HOOK_BLOCK["❌ BLOCKED<br/>Action cancelled.<br/>Reason logged."]
+    HOOK_MODIFY["🔄 MODIFIED<br/>Payload updated.<br/>Proceeds with<br/>modified params."]
 
-    SCOPE["🔍 Scope Check\n──────────────────\nIs target in declared scope?\nIs this tool authorized\nfor this agent type?"]
+    SCOPE["🔍 Scope Check<br/>──────────────────<br/>Is target in declared scope?<br/>Is this tool authorized<br/>for this agent type?"]
 
-    SCOPE_FAIL["❌ OUT OF SCOPE\nTool call rejected.\nAgent notified.\nNo execution."]
+    SCOPE_FAIL["❌ OUT OF SCOPE<br/>Tool call rejected.<br/>Agent notified.<br/>No execution."]
 
-    CLASSIFY["🎯 Risk Classification\n──────────────────────\nWhich tier does this call belong to?"]
+    CLASSIFY["🎯 Risk Classification<br/>──────────────────────<br/>Which tier does this call belong to?"]
 
-    LOW{"🟢 LOW RISK?\nPassive tools:\nAmass · httpx\nWhatWeb"}
-    MED{"🟡 MEDIUM RISK?\nActive tools:\nNmap · Gobuster · ffuf\nNuclei · OWASP ZAP"}
-    HIGH{"🔴 HIGH RISK?\nExploitation tools:\nSQLMap · Metasploit"}
+    LOW{"🟢 LOW RISK?<br/>Passive tools:<br/>Amass · httpx<br/>WhatWeb"}
+    MED{"🟡 MEDIUM RISK?<br/>Active tools:<br/>Nmap · Gobuster · ffuf<br/>Nuclei · OWASP ZAP"}
+    HIGH{"🔴 HIGH RISK?<br/>Exploitation tools:<br/>SQLMap · Metasploit"}
 
-    EXEC_LOW["✅ Execute immediately\nNo further approval needed"]
+    EXEC_LOW["✅ Execute immediately<br/>No further approval needed"]
 
-    CLASSIFIER["🧠 LLM Permission Classifier\n────────────────────────────\nFast filter pass:\n  → Clearly safe? → EXECUTE\n  → Clearly risky? → ESCALATE\n\nChain-of-thought pass (ambiguous):\n  Axis 1: Scope alignment\n  Axis 2: Chain intent\n  Axis 3: Parameter safety\n  → Checks for prompt injection"]
+    CLASSIFIER["🧠 LLM Permission Classifier<br/>────────────────────────────<br/>Fast filter pass:<br/>  → Clearly safe? → EXECUTE<br/>  → Clearly risky? → ESCALATE<br/><br/>Chain-of-thought pass (ambiguous):<br/>  Axis 1: Scope alignment<br/>  Axis 2: Chain intent<br/>  Axis 3: Parameter safety<br/>  → Checks for prompt injection"]
 
     CLF_RESULT{Classifier verdict?}
-    CLF_EXEC["✅ EXECUTE\nProceeds to\nTool Adapter"]
-    CLF_ESC["⬆️ ESCALATE\nRouted to\nCommander Mailbox"]
+    CLF_EXEC["✅ EXECUTE<br/>Proceeds to<br/>Tool Adapter"]
+    CLF_ESC["⬆️ ESCALATE<br/>Routed to<br/>Commander Mailbox"]
 
-    MAILBOX["📬 Commander Mailbox\n──────────────────────\nApproval request queued:\n  • Tool + module\n  • Target ASG node\n  • Chain context\n  • Rationale\n\n(Human inserted here\nin supervised mode)"]
+    MAILBOX["📬 Commander Mailbox<br/>──────────────────────<br/>Approval request queued:<br/>  • Tool + module<br/>  • Target ASG node<br/>  • Chain context<br/>  • Rationale<br/><br/>(Human inserted here<br/>in supervised mode)"]
 
     CMD_REVIEW{Commander decides?}
-    CMD_APPROVE["✅ APPROVED\nProceeds to\nTool Adapter"]
-    CMD_REJECT["❌ REJECTED\nCancelled.\nReason annotated\nto APG chain."]
-    CMD_MODIFY["🔄 MODIFIED\nCommander adjusts\nparams, then approves"]
+    CMD_APPROVE["✅ APPROVED<br/>Proceeds to<br/>Tool Adapter"]
+    CMD_REJECT["❌ REJECTED<br/>Cancelled.<br/>Reason annotated<br/>to APG chain."]
+    CMD_MODIFY["🔄 MODIFIED<br/>Commander adjusts<br/>params, then approves"]
 
-    ADAPTER["⚙️ Tool Adapter executes\n────────────────────────\n1. Translate request → CLI command\n2. Run tool\n3. Parse raw output → structured JSON\n4. Discard raw output"]
+    ADAPTER["⚙️ Tool Adapter executes<br/>────────────────────────<br/>1. Translate request → CLI command<br/>2. Run tool<br/>3. Parse raw output → structured JSON<br/>4. Discard raw output"]
 
-    HOOK2["🪝 PostToolUse Hook fires\n─────────────────────────\nStructured findings available.\nHook can: log · alert · validate · block write"]
+    HOOK2["🪝 PostToolUse Hook fires<br/>─────────────────────────<br/>Structured findings available.<br/>Hook can: log · alert · validate · block write"]
 
-    ASG_WRITE["🟢 Structured findings\nwritten to ASG as\nnodes + edges"]
+    ASG_WRITE["🟢 Structured findings<br/>written to ASG as<br/>nodes + edges"]
 
-    AG_SUMMARY["🤖 Agent receives\ncompact summary only\n(NOT raw output)"]
+    AG_SUMMARY["🤖 Agent receives<br/>compact summary only<br/>(NOT raw output)"]
 
     START --> HOOK1
     HOOK1 --> HOOK1_CHECK
@@ -447,22 +447,22 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    INPUT["🟡 Medium-Risk\nTool Call\n─────────────\nTool: Gobuster\nTarget: staging.shopvault.io\nParams: -w big.txt"]
+    INPUT["🟡 Medium-Risk<br/>Tool Call<br/>─────────────<br/>Tool: Gobuster<br/>Target: staging.shopvault.io<br/>Params: -w big.txt"]
 
     subgraph FAST["Fast Filter (instant)"]
-        F1{"Obviously safe?\n(passive, in-scope,\nstandard params)"}
-        F2{"Obviously risky?\n(out-of-scope target,\nsuspicious params)"}
+        F1{"Obviously safe?<br/>(passive, in-scope,<br/>standard params)"}
+        F2{"Obviously risky?<br/>(out-of-scope target,<br/>suspicious params)"}
     end
 
     subgraph COT["Chain-of-Thought Pass (ambiguous cases)"]
-        AX1["Axis 1: SCOPE ALIGNMENT\n──────────────────────\nIs staging.shopvault.io\nin the declared scope?\nWas it explicitly excluded?"]
-        AX2["Axis 2: CHAIN INTENT\n───────────────────\nDoes Gobuster on this host\nmake sense for the current\nAPG AttackChain being pursued?"]
-        AX3["Axis 3: PARAMETER SAFETY\n────────────────────────\nDo params match current\nASG state? Or do they look\nlike they were injected from\ncrawled web content?\n(Prompt injection check)"]
+        AX1["Axis 1: SCOPE ALIGNMENT<br/>──────────────────────<br/>Is staging.shopvault.io<br/>in the declared scope?<br/>Was it explicitly excluded?"]
+        AX2["Axis 2: CHAIN INTENT<br/>───────────────────<br/>Does Gobuster on this host<br/>make sense for the current<br/>APG AttackChain being pursued?"]
+        AX3["Axis 3: PARAMETER SAFETY<br/>────────────────────────<br/>Do params match current<br/>ASG state? Or do they look<br/>like they were injected from<br/>crawled web content?<br/>(Prompt injection check)"]
     end
 
     VERDICT{"Final verdict"}
     EXEC["✅ EXECUTE"]
-    ESC["⬆️ ESCALATE\nto Commander\nMailbox"]
+    ESC["⬆️ ESCALATE<br/>to Commander<br/>Mailbox"]
 
     INPUT --> FAST
     F1 -->|yes| EXEC
