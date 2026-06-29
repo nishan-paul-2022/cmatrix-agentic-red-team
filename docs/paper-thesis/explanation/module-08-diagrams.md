@@ -247,18 +247,18 @@ flowchart TD
         VPP["📄 VAPT PROTOCOL PROMPT<br/>──────────────────────────<br/>Methodology-as-Config:<br/>• Phase sequencing rules<br/>• Re-plan triggers<br/>• Termination conditions<br/>• Tool selection heuristics"]
 
         OP -- "mission config<br/>(target + scope)" --> CMD
-        CMD <-- "guides<br/>planning policy" --> VPP
+        CMD <-- "guides planning policy" --> VPP
     end
 
     %% ── TIER 2: DUAL-GRAPH WORLD MODEL ─────────────────────────────
     subgraph T2["② DUAL-GRAPH WORLD MODEL TIER"]
         direction LR
-        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)<br/>── Discovered Reality ──<br/>Facts ONLY. Never contains hypotheses."]
+        subgraph ASG["🟢 ATTACK SURFACE GRAPH (ASG)"]
             A1["Domain · Host · Port<br/>Service · Technology"]
             A2["Endpoint · Parameter<br/>Vulnerability · Evidence"]
         end
         SEP["⬛ STRICT<br/>SEPARATION<br/>────────<br/>No agent<br/>crosses this<br/>boundary"]
-        subgraph APG["🟡 ATTACK PATH GRAPH (APG)<br/>── Inferred Opportunity ──<br/>Reasoning ONLY. Never contains raw scan data."]
+        subgraph APG["🟡 ATTACK PATH GRAPH (APG)"]
             P1["AttackChain<br/>risk_score · priority"]
             P2["ChainStep<br/>validation_status"]
             P3["Impact<br/>(demonstrated)"]
@@ -412,7 +412,7 @@ flowchart LR
         S5["📚 KNOWLEDGE DOCS<br/>(Validation Agent + Analysis Agent)<br/>Vulnerability-class expert docs<br/>injected at spawn time"]
     end
 
-    subgraph AGENT["🤖 Isolated Agent Context<br/>(fresh per task — no prior history)"]
+    subgraph AGENT["🤖 Isolated Agent Context"]
         WORK["Works autonomously<br/>within bounded context<br/>All tool calls → Risk Gate"]
     end
 
@@ -918,14 +918,14 @@ This is the complete picture. One real mission. Zero manual commands. Watch ever
 flowchart TD
     OP(["🧑 OPERATOR<br/>Target: shopvault.io<br/>Scope: all subdomains<br/>Mode: Black-Box<br/>→ PRESS START"])
 
-    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE<br/>Recon Agent spawned"]
+    subgraph P1["🟢 PHASE 1 — RECONNAISSANCE"]
         A1["Tool: Amass<br/>────────────────────────<br/>14 subdomains discovered:<br/>api · admin · staging<br/>pay · mail · static · ..."]
         A2["Tool: httpx<br/>────────────────────────<br/>11 live hosts confirmed<br/>staging → unexpected 200 OK<br/>pay → TLS certificate EXPIRED"]
         A3["Tool: Nmap<br/>────────────────────────<br/>28 open ports mapped<br/>Ports: 80, 443, 8080, 8443, 22<br/>Services: Nginx 1.18 · OpenSSH 8.9<br/>Unencrypted HTTP on port 8080"]
         D1["📥 ASG DELTA<br/>37 new nodes written:<br/>14 Domain · 11 Host<br/>28 Port · 15 Service"]
     end
 
-    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE<br/>Analysis Agent + Research Agent spawned"]
+    subgraph P2["🔵 PHASE 2 — ANALYSIS + INTELLIGENCE"]
         B1["Tool: WhatWeb<br/>────────────────────────<br/>WordPress 5.9.3 on shopvault.io<br/>WooCommerce 6.1 detected<br/>Django 4.1.2 on api.shopvault.io<br/>→ Commander spawns Research Agent"]
         B2["Research Agent: NVD + Exploit-DB<br/>────────────────────────────────<br/>CVE-2022-21661 found (CVSS 8.8)<br/>PoC on Exploit-DB ✓<br/>Metasploit module available ✓"]
         B3["Tool: Gobuster<br/>────────────────────────<br/>/backup/db_export_2023.sql → 200!<br/>/wp-admin/login → 200<br/>/wp-admin/users → 403<br/>/api/v1/internal/users → 200"]
@@ -935,7 +935,7 @@ flowchart TD
         D2["📥 ASG DELTA: 61 new nodes<br/>Technology(3) · Endpoint(19)<br/>Parameter(8) · Vulnerability(9)<br/><br/>📥 APG DELTA: 3 chains seeded<br/>Chain-01: CVE-2022-21661 SQLi→RCE (8.8)<br/>Chain-02: IDOR orders API (7.5)<br/>Chain-03: Staging login blind SQLi (8.1)"]
     end
 
-    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE<br/>Validation Agent + Evidence Agent spawned"]
+    subgraph P3["🔴 PHASE 3 — VALIDATION + EVIDENCE"]
         C1["Chain-01 (highest priority: 8.8)<br/>────────────────────────────────<br/>Step 1: SQLMap on WP_Query<br/>→ SQLi confirmed ✅<br/>→ Evidence: sqli-extraction.txt"]
         C2["Step 2: SQLMap --dump users table<br/>────────────────────────────────<br/>→ Admin hash extracted ✅<br/>→ Offline crack: admin:Summer2023!<br/>→ Evidence: user-table-dump.png"]
         C3["Step 3: Metasploit wp_admin_shell_upload<br/>────────────────────────────────<br/>⚠️ HIGH RISK → Commander Mailbox<br/>→ Commander APPROVES<br/>→ Web shell deployed ✅<br/>→ RCE confirmed!<br/>→ risk_score escalated: 8.8 → 9.1<br/>→ Evidence: webshell-rce.png"]
@@ -1136,18 +1136,18 @@ flowchart TD
         A2["APG: Chain-03 VALIDATED<br/>Django API + staging SQLi<br/>Blind SQLi → Credential extraction"]
     end
 
-    subgraph WRITE["📥 WRITE TRIGGER<br/>Report Agent — at mission close<br/>For every VALIDATED chain"]
+    subgraph WRITE["📥 WRITE TRIGGER (Mission Close)"]
         W1["Store Entry Written:<br/>──────────────────────────<br/>Target fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18<br/>Vuln class: SQLi (CVE-2022-21661)<br/>Tool sequence: SQLMap → SQLMap dump → Metasploit<br/>ChainStep params: WP_Query endpoint · wp_admin_shell_upload<br/>Outcome: RCE achieved · admin hash cracked · Summer2023!<br/>Mission ID: MIS-001"]
     end
 
-    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE<br/>(Persistent · RAG-backed · Survives across missions)"]
+    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE"]
         S1["Entry: MIS-001 · WordPress SQLi → RCE"]
         S2["Entry: MIS-001 · Django staging blind SQLi"]
         S3["Entry: MIS-002 · ... (prior missions)"]
         S4["Entry: MIS-00N · ..."]
     end
 
-    subgraph QUERY["📤 QUERY TRIGGER<br/>Commander — at mission start<br/>After first Technology nodes written to ASG"]
+    subgraph QUERY["📤 QUERY TRIGGER (Mission Start)"]
         Q1["Query: WordPress 5.x + WooCommerce<br/>──────────────────────────<br/>Retrieves: MIS-001 entry<br/>Injects into Commander context as:<br/>Candidate chain hypotheses —<br/>pre-validated patterns from analogous past engagements"]
     end
 
@@ -1181,27 +1181,27 @@ The Cross-Mission Experience Store records raw per-mission outcomes. The Attack 
 
 ```mermaid
 flowchart TD
-    subgraph RAW["🗄️ Cross-Mission Experience Store<br/>(Raw per-mission records)"]
+    subgraph RAW["🗄️ Cross-Mission Experience Store"]
         R1["MIS-001: WordPress 5.9.3 + WooCommerce<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
         R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
         R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1<br/>→ CVE-2022-21661 SQLi → RCE ✅"]
     end
 
-    subgraph THRESHOLD["⚖️ Crystallization Threshold Check<br/>Commander evaluates after each mission close<br/>Same fingerprint pattern → VALIDATED<br/>across ≥ 2 independent missions?"]
+    subgraph THRESHOLD["⚖️ Crystallization Threshold Check"]
         T1{"≥ 2 missions<br/>with same fingerprint<br/>→ same VALIDATED<br/>outcome?"}
     end
 
-    subgraph CRYSTALLIZE["🔬 Crystallization<br/>Scoped LLM call — generalizes specific params<br/>into a technology-class procedure"]
+    subgraph CRYSTALLIZE["🔬 Crystallization"]
         CR1["Input: 3 raw mission entries<br/>Output: Generalized strategy<br/>─────────────────────────────<br/>Strategy ID: STRAT-WP-SQLI-001<br/>Name: WordPress WP_Query SQLi → Admin RCE<br/>Fingerprint: WordPress 5.x + WooCommerce + Nginx<br/>Vuln class: SQLi · CVE range: CVE-2022-21661<br/>Tool sequence: SQLMap (WP_Query endpoint)<br/>  → SQLMap --dump (users table)<br/>  → Metasploit (wp_admin_shell_upload)<br/>Confidence: 3/3 missions (100%)<br/>Last validated: MIS-012"]
     end
 
-    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY<br/>(Named · Parameterized · Confidence-scored)"]
+    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY"]
         L1["STRAT-WP-SQLI-001<br/>WordPress SQLi → RCE<br/>Confidence: 100% (3 missions)"]
         L2["STRAT-DJANGO-IDOR-001<br/>Django API IDOR<br/>Confidence: 67% (2/3 missions)"]
         L3["STRAT-... (growing library)"]
     end
 
-    subgraph INJECT["🚀 Mission Start — Strategy Retrieval<br/>Commander queries Library AFTER<br/>Cross-Mission Experience Store query"]
+    subgraph INJECT["🚀 Mission Start — Strategy Retrieval"]
         I1["Match: new target has WordPress 5.7<br/>→ Retrieves STRAT-WP-SQLI-001<br/>→ Injected as pre-ranked APG AttackChain seed<br/>→ Prioritized ABOVE zero-prior chains<br/>   (carries validated track record, not just CVSS)"]
     end
 
