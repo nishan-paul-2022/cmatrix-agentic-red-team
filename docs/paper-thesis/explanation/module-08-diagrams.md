@@ -139,15 +139,15 @@ flowchart TD
     %% ── CHAIN 01 ──────────────────────────────────────────────────
     subgraph C1["AttackChain: Chain-01 · risk_score: 9.1 · VALIDATED"]
         direction TB
-        C1S["starts_at → ASG: CVE-2022-21661<br/>(WordPress SQLi, CVSS 8.8)"]
+        C1S["starts_at → CVE-2022-21661 (WordPress SQLi, CVSS 8.8)"]
 
-        STEP1["ChainStep 1<br/>─────────────<br/>Tool: SQLMap<br/>Target: /wp-admin/admin-ajax.php<br/>Action: Confirm WP_Query SQLi<br/>Status: ✅ VALIDATED<br/>↗ supported_by: sqli-extraction.txt"]
+        STEP1["ChainStep 1 — SQLMap<br/>Target: /wp-admin/admin-ajax.php<br/>Action: Confirm WP_Query SQLi<br/>Status: ✅ VALIDATED<br/>Evidence: sqli-extraction.txt"]
 
-        STEP2["ChainStep 2<br/>─────────────<br/>Tool: SQLMap --dump<br/>Action: Extract WordPress users table<br/>Hash cracked offline → admin:Summer2023!<br/>Status: ✅ VALIDATED<br/>↗ supported_by: users-table-dump.png"]
+        STEP2["ChainStep 2 — SQLMap --dump<br/>Action: Extract WP users table<br/>Hash cracked → admin:Summer2023!<br/>Status: ✅ VALIDATED<br/>Evidence: users-table-dump.png"]
 
-        STEP3["ChainStep 3<br/>─────────────<br/>Tool: Metasploit<br/>Module: wp_admin_shell_upload<br/>Action: Deploy webshell → RCE<br/>Status: ✅ VALIDATED<br/>↗ supported_by: webshell-rce.png"]
+        STEP3["ChainStep 3 — Metasploit<br/>Module: wp_admin_shell_upload<br/>Action: Deploy webshell → RCE<br/>Status: ✅ VALIDATED<br/>Evidence: webshell-rce.png"]
 
-        IMP1["💀 IMPACT<br/>─────────────<br/>Full RCE on shopvault.io web server<br/>Customer PII database accessible<br/>Classification: CRITICAL"]
+        IMP1["💀 IMPACT<br/>Full RCE on shopvault.io<br/>Customer PII database accessible<br/>Classification: CRITICAL"]
 
         C1S --> STEP1
         STEP1 -->|next_step| STEP2
@@ -158,11 +158,11 @@ flowchart TD
     %% ── CHAIN 02 ──────────────────────────────────────────────────
     subgraph C2["AttackChain: Chain-02 · risk_score: 7.5 · VALIDATED"]
         direction TB
-        C2S["starts_at → ASG: IDOR on /api/v1/orders<br/>(user_id parameter unsanitised)"]
+        C2S["starts_at → IDOR on /api/v1/orders (user_id unsanitised)"]
 
-        STEP21["ChainStep 1<br/>─────────────<br/>Tool: SQLMap<br/>Action: Confirm IDOR — user_id param injectable<br/>API returns any user's orders without auth check<br/>Status: ✅ VALIDATED<br/>↗ supported_by: idor-orders-dump.png"]
+        STEP21["ChainStep 1 — SQLMap<br/>Action: Confirm IDOR<br/>user_id returns any user's orders<br/>No auth check required<br/>Status: ✅ VALIDATED<br/>Evidence: idor-orders-dump.png"]
 
-        IMP2["💀 IMPACT<br/>─────────────<br/>All customer order history exposed<br/>Name · address · payment method visible<br/>Classification: HIGH"]
+        IMP2["💀 IMPACT<br/>All customer order history exposed<br/>Name · address · payment visible<br/>Classification: HIGH"]
 
         C2S --> STEP21
         STEP21 -->|achieves| IMP2
@@ -171,11 +171,11 @@ flowchart TD
     %% ── CHAIN 03 ─────────────────────────────────────────────────
     subgraph C3["AttackChain: Chain-03 · risk_score: 8.1 · VALIDATED"]
         direction TB
-        C3S["starts_at → ASG: SQL error on staging.shopvault.io/login<br/>(blind SQLi entry point)"]
+        C3S["starts_at → SQL error on staging.shopvault.io/login (blind SQLi)"]
 
-        STEP31["ChainStep 1<br/>─────────────<br/>Tool: SQLMap<br/>Target: staging.shopvault.io/login<br/>Action: Confirm blind SQLi<br/>Extract staging database credentials table<br/>Status: ✅ VALIDATED<br/>↗ supported_by: staging-db-dump.png"]
+        STEP31["ChainStep 1 — SQLMap<br/>Target: staging.shopvault.io/login<br/>Action: Confirm blind SQLi<br/>Extract staging DB credentials<br/>Status: ✅ VALIDATED<br/>Evidence: staging-db-dump.png"]
 
-        IMP3["💀 IMPACT<br/>─────────────<br/>Staging DB credentials extracted<br/>Credential reuse risk flagged:<br/>staging creds partially overlap production<br/>Classification: HIGH"]
+        IMP3["💀 IMPACT<br/>Staging DB credentials extracted<br/>Credential reuse risk flagged<br/>Staging creds overlap production<br/>Classification: HIGH"]
 
         C3S --> STEP31
         STEP31 -->|achieves| IMP3
@@ -184,11 +184,11 @@ flowchart TD
     %% ── CHAIN 04 ─────────────────────────────────────────────────
     subgraph C4["AttackChain: Chain-04 · risk_score: 7.0 · VALIDATED"]
         direction TB
-        C4S["starts_at → ASG: Exposed /backup/db_export_2023.sql<br/>(Information Disclosure misconfiguration)"]
+        C4S["starts_at → Exposed /backup/db_export_2023.sql (Info Disclosure)"]
 
-        STEP41["ChainStep 1<br/>─────────────<br/>Action: Direct HTTP GET of .sql file<br/>File publicly accessible — no auth required<br/>Status: ✅ VALIDATED immediately<br/>↗ supported_by: db-backup-download.png"]
+        STEP41["ChainStep 1 — Direct HTTP GET<br/>Target: /backup/db_export_2023.sql<br/>File publicly accessible, no auth<br/>Status: ✅ VALIDATED immediately<br/>Evidence: db-backup-download.png"]
 
-        IMP4["💀 IMPACT<br/>─────────────<br/>Full customer PII database exposed<br/>Direct download — no exploitation needed<br/>Classification: CRITICAL"]
+        IMP4["💀 IMPACT<br/>Full customer PII database exposed<br/>Direct download, no exploit needed<br/>Classification: CRITICAL"]
 
         C4S --> STEP41
         STEP41 -->|achieves| IMP4
