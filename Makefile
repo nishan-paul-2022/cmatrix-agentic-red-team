@@ -157,7 +157,8 @@ SAFE_PPT_NAME := $(notdir $(PPT_NAME))
 
 ppt:
 	@echo "🏗️  Building Presentation: $(SAFE_PPT_NAME)..."
-	@cd $(PPT_DIR) && python3 build.py "$(SAFE_PPT_NAME)"
+	@cd $(PPT_DIR) && python3 src/build.py "output/$(SAFE_PPT_NAME)"
+	@rm -rf $(PPT_DIR)/src/__pycache__
 
 # Cleanup
 clean: clean-app-frontend clean-app-backend clean-paper
