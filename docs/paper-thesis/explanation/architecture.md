@@ -720,7 +720,7 @@ The Commander now spawns the **Evidence Agent** to document Chain-01.
 
 The Commander returns to the APG. Chain-02 (IDOR) is next. It spawns the Validation Agent with Chain-02.
 
-**SQLMap** tests the `user_id` parameter. It confirms the parameter is injectable and the API returns order data for arbitrary user IDs without authentication checks. ChainStep validated. Chain-02 status: `VALIDATED`.
+The Validation Agent sends a direct HTTP request to the orders endpoint, substituting a different `user_id` value. It confirms the API returns order data for arbitrary user IDs without any authorization check. ChainStep validated. Chain-02 status: `VALIDATED`.
 
 The Evidence Agent runs **EyeWitness** to capture the API response showing orders from a different customer account. Evidence linked.
 

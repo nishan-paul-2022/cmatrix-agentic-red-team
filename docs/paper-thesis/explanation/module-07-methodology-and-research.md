@@ -406,7 +406,7 @@ flowchart TD
         C2["Step 2: SQLMap --dump users table<br/>────────────────────────────────<br/>→ Admin hash extracted ✅<br/>→ Offline crack: admin:Summer2023!<br/>→ Evidence: user-table-dump.png"]
         C3["Step 3: Metasploit wp_admin_shell_upload<br/>────────────────────────────────<br/>⚠️ HIGH RISK → Commander Mailbox<br/>→ Commander APPROVES<br/>→ Web shell deployed ✅<br/>→ RCE confirmed!<br/>→ risk_score escalated: 8.8 → 9.1<br/>→ Evidence: webshell-rce.png"]
         C4["Chain-03 (next by risk: 8.1)<br/>────────────────────────────────<br/>SQLMap on staging.shopvault.io/login<br/>→ Blind SQLi confirmed ✅<br/>→ Staging DB credentials extracted ✅<br/>→ Commander flags: staging creds overlap production<br/>→ Additional Impact node: credential reuse risk<br/>→ Evidence: staging-db-dump.png"]
-        C5["Chain-02 (risk: 7.5)<br/>────────────────────────────────<br/>SQLMap on user_id parameter<br/>→ IDOR confirmed ✅<br/>→ Any customer's orders accessible without auth<br/>→ Evidence: idor-orders-dump.png"]
+        C5["Chain-02 (risk: 7.5)<br/>────────────────────────────────<br/>Direct HTTP request with user_id manipulation<br/>→ IDOR confirmed ✅<br/>→ Any customer's orders accessible without auth<br/>→ Evidence: idor-orders-dump.png"]
         D3["📥 APG DELTA<br/>Chain-01: VALIDATED (9.1)<br/>Chain-03: VALIDATED (8.1)<br/>Chain-02: VALIDATED (7.5)<br/><br/>📥 ASG DELTA<br/>Evidence nodes + edges added"]
     end
 
@@ -579,10 +579,10 @@ flowchart LR
 |------|-------------|
 | **Zero manual commands** | The operator configured scope and pressed start. Everything else was autonomous. |
 | **All tool calls gated** | SQLMap and Metasploit both went through Commander Mailbox — no exploitation without approval |
-| **Chain-03 RULED_OUT** | The system correctly diagnosed WAF protection and stopped after 3 retries — not an infinite loop |
+| **All 4 chains VALIDATED** | Chain-01 (RCE), Chain-02 (IDOR), Chain-03 (staging SQLi), Chain-04 (DB backup) — each proven with linked Evidence |
 | **risk_score escalated** | Chain-01 started at 8.8 (CVSS); after RCE was confirmed, Commander escalated to 9.1 |
 | **Traceability** | Every Impact claim links through ChainSteps back to Evidence files in the ASG |
-| **Dual termination** | Mission ended because 98 nodes explored AND 3/3 chains terminal — not because a timer fired |
+| **Dual termination** | Mission ended because all 111 ASG nodes explored AND 4/4 chains VALIDATED — not because a timer fired |
 
 ---
 
