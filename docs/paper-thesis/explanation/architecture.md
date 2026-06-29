@@ -245,7 +245,7 @@ flowchart TD
     Recon -->|"ASG delta\nnew nodes + edges"| ASG
     Analysis -->|"ASG delta\nnew nodes + edges"| ASG
     Research -->|"enriched Vulnerability\nnode attributes"| ASG
-    Validation -->|"Evidence nodes\nChainStep status"| ASG
+    Validation -->|"Evidence nodes\n(ChainStep results returned to Commander\n→ Commander updates APG)"| ASG
     Evidence -->|"Evidence nodes\nlinked to findings"| ASG
     Report -->|"reads complete\nASG + APG"| FinalReport
 

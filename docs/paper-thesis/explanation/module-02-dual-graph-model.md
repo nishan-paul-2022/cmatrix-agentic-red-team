@@ -529,7 +529,7 @@ The Commander reads the ASG and reasons: *"These vulnerabilities can chain toget
 ```mermaid
 flowchart TD
     %% ── CHAIN 01 ──────────────────────────────────────────────────
-    subgraph C1["AttackChain: Chain-01 · risk_score: 9.1 · VALIDATED"]
+    subgraph C1["AttackChain: Chain-01 · risk_score: 9.1 (escalated after RCE confirmed) · VALIDATED"]
         direction TB
         C1S["starts_at → CVE-2022-21661 (WordPress SQLi, CVSS 8.8)"]
 
@@ -552,7 +552,7 @@ flowchart TD
         direction TB
         C2S["starts_at → IDOR on /api/v1/orders (user_id unsanitised)"]
 
-        STEP21["ChainStep 1 — SQLMap<br/>Action: Confirm IDOR<br/>user_id returns any user's orders<br/>No auth check required<br/>Status: ✅ VALIDATED<br/>Evidence: idor-orders-dump.png"]
+        STEP21["ChainStep 1 — Direct HTTP Request<br/>Action: Confirm IDOR<br/>Change user_id → returns another user's orders<br/>No authorization check exists<br/>Status: ✅ VALIDATED<br/>Evidence: idor-orders-dump.png"]
 
         IMP2["💀 IMPACT<br/>All customer order history exposed<br/>Name · address · payment visible<br/>Classification: HIGH"]
 

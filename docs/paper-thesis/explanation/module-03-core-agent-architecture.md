@@ -423,7 +423,7 @@ The full planning cycle that uses these structures, and the context management t
 | **Recon** | External discovery | Amass, httpx, Nmap | ASG (Domain, Host, Port, Service) |
 | **Analysis** | Deep enumeration, vulnerability discovery | WhatWeb, Gobuster, ffuf, Nuclei, OWASP ZAP | ASG (Technology, Endpoint, Parameter, Vulnerability) |
 | **Research** | Live CVE intelligence | NVD, Exploit-DB, GitHub APIs | ASG (Vulnerability node enrichment only) |
-| **Validation** | Controlled exploitation | SQLMap, Metasploit | ASG (Evidence nodes) + APG (ChainStep status) |
+| **Validation** | Controlled exploitation | SQLMap, Metasploit | ASG (Evidence nodes) — validation results returned to Commander, who updates APG ChainStep status |
 | **Evidence** | Proof capture | EyeWitness | ASG (Evidence nodes + validated_by/supported_by edges) |
 | **Report** | Final report generation | None | Report document (reads full ASG + APG) |
 
@@ -522,6 +522,7 @@ flowchart TD
     AGR --> TAL
     AGA --> TAL
     AGV --> TAL
+    AGE --> TAL
 
     %% Styling
     classDef tier1 fill:#061020,stroke:#00D4FF,color:#fff
@@ -596,10 +597,11 @@ sequenceDiagram
     GATE->>TAL: execute(Gobuster)
     TAL-->>AG: structured findings<br/>{endpoint: /backup/db_export.sql, status: 200}
 
-    AG->>GATE: tool_call(SQLMap, target=shopvault.io)
-    GATE->>CMD: HIGH risk → Commander Mailbox
-    Note over CMD: Reviews: target in scope?<br/>Chain context valid? Params safe?
-    CMD-->>AG: APPROVED (or REJECTED/MODIFIED)
+    AG->>GATE: tool_call(Nuclei, target=shopvault.io)
+    GATE->>CMD: MEDIUM risk → LLM Classifier check
+    CMD-->>GATE: EXECUTE approved
+    GATE->>TAL: execute(Nuclei)
+    TAL-->>AG: structured findings<br/>{vulnerability: CVE-2022-21661, severity: HIGH}
 
     AG->>ASG: write delta<br/>[Technology: WP 5.9.3]<br/>[Endpoint: /backup/db_export.sql]<br/>[Vulnerability: CVE-2022-21661]
 
