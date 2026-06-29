@@ -1,8 +1,5 @@
 """
-Slide 04 — Scope
-=================
-Clearly defines: In Scope, Out of Scope, Assessment Modes (Black-Box vs Grey-Box),
-and the operator's role in the initial configuration.
+Slide 4 — Scope
 """
 from palette import *
 
@@ -10,87 +7,93 @@ from palette import *
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
-    chrome(slide, ACCENT_CYAN)
-    slide_header(slide, "SCOPE", "What CMatrix Assesses — and What It Does Not",
-                 ACCENT_CYAN, title_size=34, divider_w=9)
+    chrome(slide, ACCENT_LIME)
 
-    # ── Left: IN SCOPE ────────────────────────────────────────────────────────
-    IN_L, IN_W = Inches(0.22), Inches(5.9)
-    IN_T, IN_H = Inches(1.08), Inches(5.4)
-    box(slide, IN_L, IN_T, IN_W, IN_H,
-        fill=RGBColor(0x04, 0x18, 0x0C), line_color=ACCENT_LIME, lw=1.8)
-    box(slide, IN_L, IN_T, IN_W, Inches(0.34), fill=ACCENT_LIME)
-    txt(slide, "✓  IN SCOPE", IN_L + Inches(0.12), IN_T + Inches(0.05),
-        IN_W - Inches(0.2), Inches(0.26), size=12, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
+    slide_header(slide, "SCOPE", "What CMatrix Assesses — and What It Does Not",
+                 ACCENT_LIME, title_size=34)
+    slide_number(slide, "04", ACCENT_LIME)
+
+    # ── Left column: IN SCOPE ─────────────────────────────────────────────────
+    L_L = Inches(0.3)
+    L_W = Inches(6.3)
+    col_t = Inches(1.15)
+    col_h = Inches(6.1)
+
+    box(slide, L_L, col_t, L_W, Inches(0.36), fill=ACCENT_LIME)
+    txt(slide, "\u2713  IN SCOPE", L_L + Inches(0.12), col_t + Inches(0.04),
+        L_W - Inches(0.2), Inches(0.28), size=12, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
 
     in_scope = [
         ("Web Applications", "HTTP/HTTPS services, CMS, REST APIs, GraphQL endpoints."),
         ("Network Services", "Exposed ports, services, TLS/SSL, open protocols."),
         ("API Attack Surface", "REST endpoints, parameter injection, IDOR, auth bypass."),
         ("Black-Box Mode", "Zero prior knowledge. Operator provides: root domain + scope declaration only."),
-        ("Grey-Box Mode", "Partial knowledge. Operator additionally provides: known IP ranges, credentials, "
-                         "network topology fragments. ASG Host nodes are pre-seeded."),
-        ("Authorised Assessments", "CMatrix operates only within declared scope. Scope check fires before "
-                                   "every tool execution at the Risk Gate."),
+        ("Grey-Box Mode", "Partial knowledge. Operator additionally provides: known IP ranges, credentials, network topology fragments. ASG Host nodes are pre-seeded."),
+        ("Authorised Assessments", "CMatrix operates only within declared scope. Scope check fires before every tool execution at the Risk Gate."),
     ]
-    for i, (heading, body) in enumerate(in_scope):
-        it = IN_T + Inches(0.44) + i * Inches(0.83)
-        box(slide, IN_L + Inches(0.12), it, IN_W - Inches(0.24), Inches(0.78),
-            fill=RGBColor(0x06, 0x22, 0x10), line_color=ACCENT_LIME, lw=0.5)
-        txt(slide, heading, IN_L + Inches(0.22), it + Inches(0.05),
-            IN_W - Inches(0.36), Inches(0.26), size=11, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
-        txt(slide, body, IN_L + Inches(0.22), it + Inches(0.3),
-            IN_W - Inches(0.36), Inches(0.42), size=9.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    # ── Right: OUT OF SCOPE ───────────────────────────────────────────────────
-    OUT_L, OUT_W = Inches(6.32), Inches(4.9)
-    OUT_T, OUT_H = Inches(1.08), Inches(3.4)
-    box(slide, OUT_L, OUT_T, OUT_W, OUT_H,
-        fill=RGBColor(0x1C, 0x08, 0x08), line_color=ACCENT_RED, lw=1.8)
-    box(slide, OUT_L, OUT_T, OUT_W, Inches(0.34), fill=ACCENT_RED)
-    txt(slide, "✕  OUT OF SCOPE", OUT_L + Inches(0.12), OUT_T + Inches(0.05),
-        OUT_W - Inches(0.2), Inches(0.26), size=12, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
+    CARD_IN = RGBColor(0x08, 0x20, 0x0A)
+    item_h = Inches(0.76)
+    item_gap = Inches(0.07)
+    item_t = col_t + Inches(0.42)
+
+    for i, (title, body) in enumerate(in_scope):
+        top = item_t + i * (item_h + item_gap)
+        box(slide, L_L, top, L_W, item_h, fill=CARD_IN, line_color=ACCENT_LIME, lw=0.8)
+        txt(slide, title, L_L + Inches(0.14), top + Inches(0.06),
+            L_W - Inches(0.25), Inches(0.28), size=11.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+        txt(slide, body, L_L + Inches(0.14), top + Inches(0.34),
+            L_W - Inches(0.25), Inches(0.38), size=10, color=WHITE, align=PP_ALIGN.LEFT, wrap=True)
+
+    # ── Right column: OUT OF SCOPE ────────────────────────────────────────────
+    R_L = Inches(6.83)
+    R_W = Inches(6.3)
+
+    box(slide, R_L, col_t, R_W, Inches(0.36), fill=ACCENT_RED)
+    txt(slide, "\u2715  OUT OF SCOPE", R_L + Inches(0.12), col_t + Inches(0.04),
+        R_W - Inches(0.2), Inches(0.28), size=12, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
 
     out_scope = [
-        "White-Box  (source code review, SAST)",
-        "Mobile Applications  (iOS, Android)",
-        "Cloud / IoT Infrastructure  (AWS, Azure, embedded devices)",
-        "Wireless Networks  (Wi-Fi, Bluetooth, RF)",
-        "Active Directory / Domain Services",
-        "Physical / Social Engineering Attacks",
+        "\u2715  White-Box  (source code review, SAST)",
+        "\u2715  Mobile Applications  (iOS, Android)",
+        "\u2715  Cloud / IoT Infrastructure  (AWS, Azure, embedded devices)",
+        "\u2715  Wireless Networks  (Wi-Fi, Bluetooth, RF)",
+        "\u2715  Active Directory / Domain Services",
+        "\u2715  Physical / Social Engineering Attacks",
     ]
-    for i, item in enumerate(out_scope):
-        ot = OUT_T + Inches(0.44) + i * Inches(0.48)
-        box(slide, OUT_L + Inches(0.12), ot, OUT_W - Inches(0.24), Inches(0.42),
-            fill=RGBColor(0x28, 0x0C, 0x0C), line_color=ACCENT_RED, lw=0.4)
-        txt(slide, f"✕  {item}", OUT_L + Inches(0.22), ot + Inches(0.06),
-            OUT_W - Inches(0.36), Inches(0.32), size=10, color=GREY_MID, align=PP_ALIGN.LEFT)
 
-    # ── Right bottom: Operator config note ───────────────────────────────────
-    OP_T = OUT_T + OUT_H + Inches(0.12)
-    OP_H = Inches(5.4) - (OP_T - IN_T)
-    box(slide, OUT_L, OP_T, OUT_W, OP_H,
-        fill=RGBColor(0x06, 0x10, 0x22), line_color=ACCENT_CYAN, lw=1.2)
-    box(slide, OUT_L, OP_T, OUT_W, Inches(0.3), fill=ACCENT_CYAN)
+    CARD_OUT = RGBColor(0x2A, 0x08, 0x08)
+    out_item_h = Inches(0.42)
+    out_item_gap = Inches(0.06)
+    out_t = col_t + Inches(0.42)
+
+    for i, label in enumerate(out_scope):
+        top = out_t + i * (out_item_h + out_item_gap)
+        box(slide, R_L, top, R_W, out_item_h, fill=CARD_OUT, line_color=ACCENT_RED, lw=0.7)
+        txt(slide, label, R_L + Inches(0.12), top + Inches(0.06),
+            R_W - Inches(0.2), Inches(0.30), size=11, color=WHITE, align=PP_ALIGN.LEFT)
+
+    # ── Operator Configuration box ────────────────────────────────────────────
+    op_t = col_t + Inches(0.42) + 6 * (out_item_h + out_item_gap) + Inches(0.1)
+    op_h = Inches(1.65)
+    box(slide, R_L, op_t, R_W, Inches(0.32), fill=ACCENT_CYAN)
     txt(slide, "OPERATOR CONFIGURATION  (one-time, before mission start)",
-        OUT_L + Inches(0.1), OP_T + Inches(0.04), OUT_W - Inches(0.18), Inches(0.24),
-        size=9, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
+        R_L + Inches(0.12), op_t + Inches(0.04), R_W - Inches(0.2), Inches(0.25),
+        size=10, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
 
-    op_items = [
-        "Root domain (e.g. shopvault.io)",
-        "Scope declaration  (all subdomains · web apps · APIs)",
-        "Assessment mode  (Black-Box or Grey-Box)",
-        "Grey-Box extras if applicable  (IP ranges, credentials)",
+    op_lines = [
+        "\u2192  Root domain (e.g. shopvault.io)",
+        "\u2192  Scope declaration  (all subdomains \u00b7 web apps \u00b7 APIs)",
+        "\u2192  Assessment mode  (Black-Box or Grey-Box)",
+        "\u2192  Grey-Box extras if applicable  (IP ranges, credentials)",
     ]
-    for i, item in enumerate(op_items):
-        ot2 = OP_T + Inches(0.38) + i * Inches(0.34)
-        txt(slide, f"→  {item}", OUT_L + Inches(0.18), ot2,
-            OUT_W - Inches(0.3), Inches(0.3), size=9.5, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+    CARD_OP = RGBColor(0x04, 0x14, 0x28)
+    box(slide, R_L, op_t + Inches(0.32), R_W, op_h - Inches(0.32), fill=CARD_OP, line_color=ACCENT_CYAN, lw=0.8)
+    for i, line in enumerate(op_lines):
+        txt(slide, line, R_L + Inches(0.16), op_t + Inches(0.38) + i * Inches(0.29),
+            R_W - Inches(0.3), Inches(0.27), size=10.5, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
-    txt(slide,
-        "All subsequent tool calls, reasoning, and reporting are fully autonomous — "
-        "zero manual commands during the assessment.",
-        OUT_L + Inches(0.18), OP_T + Inches(1.78), OUT_W - Inches(0.3), Inches(0.52),
+    # Italic footnote
+    txt(slide, "All subsequent tool calls, reasoning, and reporting are fully autonomous — zero manual commands during the assessment.",
+        R_L, op_t + op_h + Inches(0.06), R_W, Inches(0.38),
         size=9.5, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
-
-    slide_number(slide, "04", ACCENT_CYAN)

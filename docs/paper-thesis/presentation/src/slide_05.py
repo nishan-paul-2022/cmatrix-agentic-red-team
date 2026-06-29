@@ -1,262 +1,186 @@
 """
-Slide 4 — System Architecture (Redesigned: 3-Tier Swim-Lane)
-=============================================================
-Layout philosophy:
-  TIER 1  (top strip)   — Operator  →  Commander  ↔  VAPT Protocol
-  TIER 2  (centre zone) — ASG  ←──────────────────→  APG  (dual graph)
-  TIER 3  (bottom zone) — 6 Specialized Agents  |  Tool Adapter Layer + 11 tools
-
-Each tier is a labelled swim-lane. Arrows cross tier boundaries only where
-architecturally meaningful (Commander → Agents, Agents → ASG, ASG → APG).
+Slide 5 — System Architecture
 """
 from palette import *
-import pptx.enum.shapes
 
-# ── Slide-specific colours ────────────────────────────────────────────────────
-BG_T1 = RGBColor(0x06, 0x10, 0x20)   # tier 1 bg (orchestration)
-BG_T2 = RGBColor(0x05, 0x14, 0x0A)   # tier 2 bg (dual graph)
-BG_T3 = RGBColor(0x0A, 0x08, 0x1C)   # tier 3 bg (agents / tools)
 
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
+    chrome(slide, ACCENT_CYAN)
 
-    # ── Chrome (left bar + top + bottom) ─────────────────────────────────────────
-    box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_CYAN)
-    box(slide, Inches(0.06), Inches(0), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_CYAN)
-    box(slide, Inches(0.06), SLIDE_H-Inches(0.04), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_CYAN)
+    slide_header(slide, "SYSTEM ARCHITECTURE", "CMatrix \u2014 Three-Tier Architecture Overview",
+                 ACCENT_CYAN, title_size=30)
+    slide_number(slide, "05", ACCENT_CYAN)
 
-    # ── Title ─────────────────────────────────────────────────────────────────────
-    txt(slide, "SYSTEM ARCHITECTURE", Inches(0.3), Inches(0.07), Inches(6), Inches(0.26),
-        size=10, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
-    txt(slide, "CMatrix — Three-Tier Architecture Overview",
-        Inches(0.3), Inches(0.33), Inches(11), Inches(0.5),
-        size=26, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
+    # ── TIER 1: ORCHESTRATION ─────────────────────────────────────────────────
+    T1_T = Inches(1.0)
+    T1_H = Inches(1.6)
+    FULL_W = SLIDE_W - Inches(0.6)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  TIER 1  —  ORCHESTRATION  (top band, full width)
-    #  y: 0.88 → 2.28  (height 1.40")
-    # ═══════════════════════════════════════════════════════════════════════════════
-    T1_T = Inches(0.88)
-    T1_H = Inches(1.40)
-    T1_B = T1_T + T1_H
+    box(slide, Inches(0.3), T1_T, FULL_W, T1_H, fill=RGBColor(0x06, 0x0E, 0x22),
+        line_color=ACCENT_CYAN, lw=1.0)
+    txt(slide, "\u2460 ORCHESTRATION", Inches(0.42), T1_T + Inches(0.06),
+        Inches(3), Inches(0.22), size=9, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
-    # Tier background + label
-    box(slide, Inches(0.18), T1_T, SLIDE_W-Inches(0.36), T1_H,
-        fill=BG_T1, line_color=ACCENT_CYAN, lw=0.6)
-    txt(slide, "① ORCHESTRATION", Inches(0.22), T1_T+Inches(0.05),
-        Inches(1.6), Inches(0.22), size=7.5, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+    # Operator box
+    op_l, op_w = Inches(0.42), Inches(2.1)
+    box(slide, op_l, T1_T + Inches(0.28), op_w, Inches(1.18), fill=GREY_DARK, line_color=GREY_MID, lw=0.8)
+    txt(slide, "OPERATOR", op_l, T1_T + Inches(0.38), op_w, Inches(0.25),
+        size=11, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
+    txt(slide, "Target \u00b7 Scope \u00b7 Mode", op_l, T1_T + Inches(0.65), op_w, Inches(0.30),
+        size=9.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
 
-    # — OPERATOR node —
-    op_l, op_t = Inches(0.35), T1_T+Inches(0.28)
-    op_w, op_h = Inches(1.7), Inches(0.96)
-    box(slide, op_l, op_t, op_w, op_h, fill=RGBColor(0x0C,0x18,0x2E), line_color=GREY_MID, lw=0.8)
-    txt(slide, "OPERATOR", op_l, op_t+Inches(0.06), op_w, Inches(0.24),
-        size=9, bold=True, color=GREY_MID)
-    txt(slide, "Target · Scope · Mode", op_l, op_t+Inches(0.34), op_w, Inches(0.55),
-        size=8, color=GREY_MID, italic=True)
+    # mission config arrow label
+    txt(slide, "mission config", Inches(2.65), T1_T + Inches(0.78), Inches(1.2), Inches(0.22),
+        size=8, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
+    arr(slide, Inches(2.52), T1_T + Inches(0.88), Inches(2.72), T1_T + Inches(0.88),
+        color=GREY_MID, lw=1.2)
 
-    # — Arrow: Operator → Commander —
-    arr(slide, op_l+op_w, op_t+op_h/2, Inches(2.28), op_t+op_h/2, color=ACCENT_CYAN, lw=1.5)
-    txt(slide, "mission config", Inches(2.08), op_t+op_h/2-Inches(0.3),
-        Inches(0.9), Inches(0.26), size=7, italic=True, color=GREY_DARK)
-
-    # — COMMANDER block —
-    cmd_l, cmd_t = Inches(2.28), T1_T+Inches(0.15)
-    cmd_w, cmd_h = Inches(3.1), Inches(1.1)
-    box(slide, cmd_l, cmd_t, cmd_w, cmd_h, fill=RGBColor(0x04,0x16,0x2E), line_color=ACCENT_CYAN, lw=2.0)
-    # Cyan header bar
-    box(slide, cmd_l, cmd_t, cmd_w, Inches(0.3), fill=ACCENT_CYAN)
-    txt(slide, "COMMANDER AGENT", cmd_l, cmd_t+Inches(0.03), cmd_w, Inches(0.24),
-        size=9.5, bold=True, color=BG_DARK)
-    bullets = ["Reads ASG + APG state", "Plans & delegates tasks", "Seeds APG AttackChains from Vulnerability nodes", "Approves High-risk ops", "Writes to APG only"]
-    for i, b in enumerate(bullets):
-        txt(slide, f"• {b}", cmd_l+Inches(0.1), cmd_t+Inches(0.35)+i*Inches(0.18),
-            cmd_w-Inches(0.15), Inches(0.18), size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
-
-    # — VAPT PROTOCOL block —
-    vp_l, vp_t = Inches(5.6), T1_T+Inches(0.28)
-    vp_w, vp_h = Inches(2.3), Inches(0.96)
-    box(slide, vp_l, vp_t, vp_w, vp_h, fill=RGBColor(0x10,0x0C,0x22), line_color=ACCENT_PURP, lw=1.2)
-    txt(slide, "VAPT PROTOCOL PROMPT", vp_l, vp_t+Inches(0.06), vp_w, Inches(0.22),
-        size=8, bold=True, color=ACCENT_PURP)
-    txt(slide, "Phase rules · Re-plan triggers · Termination conditions · Methodology-as-config (C7)",
-        vp_l+Inches(0.1), vp_t+Inches(0.32), vp_w-Inches(0.15), Inches(0.58),
-        size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
-
-    # Commander ↔ VAPT Protocol
-    arr(slide, cmd_l+cmd_w, cmd_t+cmd_h/2, vp_l, vp_t+vp_h/2, color=ACCENT_PURP, lw=1.0, bidirectional=True)
-
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  TIER 2  —  DUAL-GRAPH WORLD MODEL  (centre band)
-    #  y: 2.34 → 4.18  (height 1.84")
-    # ═══════════════════════════════════════════════════════════════════════════════
-    T2_T = T1_B + Inches(0.06)
-    T2_H = Inches(1.84)
-    T2_B = T2_T + T2_H
-
-    box(slide, Inches(0.18), T2_T, SLIDE_W-Inches(0.36), T2_H,
-        fill=BG_T2, line_color=ACCENT_LIME, lw=0.6)
-    txt(slide, "② DUAL-GRAPH WORLD MODEL", Inches(0.22), T2_T+Inches(0.05),
-        Inches(2.6), Inches(0.22), size=7.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
-
-    # — ASG block (left) —
-    asg_l, asg_t = Inches(0.35), T2_T+Inches(0.3)
-    asg_w, asg_h = Inches(4.7), Inches(1.42)
-    box(slide, asg_l, asg_t, asg_w, asg_h, fill=RGBColor(0x04,0x18,0x0C), line_color=ACCENT_LIME, lw=1.8)
-    box(slide, asg_l, asg_t, asg_w, Inches(0.3), fill=ACCENT_LIME)
-    txt(slide, "ATTACK SURFACE GRAPH  (ASG)", asg_l, asg_t+Inches(0.04), asg_w, Inches(0.24),
-        size=9.5, bold=True, color=BG_DARK)
-    # Node types row 1
-    node_cols = [
-        ("Domain", ACCENT_LIME), ("Host", ACCENT_LIME), ("Port", ACCENT_LIME),
-        ("Service", ACCENT_LIME), ("Technology", ACCENT_LIME),
+    # Commander Agent box
+    cmd_l, cmd_w = Inches(2.72), Inches(3.85)
+    box(slide, cmd_l, T1_T + Inches(0.28), cmd_w, Inches(1.18),
+        fill=RGBColor(0x00, 0x28, 0x38), line_color=ACCENT_CYAN, lw=1.5)
+    txt(slide, "COMMANDER AGENT", cmd_l, T1_T + Inches(0.34), cmd_w, Inches(0.26),
+        size=11, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.CENTER)
+    cmd_bullets = [
+        "\u2022 Reads ASG + APG state",
+        "\u2022 Plans & delegates tasks",
+        "\u2022 Seeds APG AttackChains from Vulnerability nodes",
+        "\u2022 Approves High-risk ops",
+        "\u2022 Writes to APG only",
     ]
-    nw = (asg_w - Inches(0.3)) / len(node_cols)
-    for i, (name, clr) in enumerate(node_cols):
-        nl = asg_l + Inches(0.15) + i * nw
-        box(slide, nl, asg_t+Inches(0.36), nw-Inches(0.06), Inches(0.25),
-            fill=RGBColor(0x08,0x28,0x12), line_color=clr, lw=0.5)
-        txt(slide, name, nl, asg_t+Inches(0.38), nw-Inches(0.06), Inches(0.22),
-            size=7.5, bold=True, color=clr)
-    # Node types row 2
-    node_cols2 = [
-        ("Endpoint", ACCENT_LIME), ("Parameter", ACCENT_LIME),
-        ("Vulnerability", ACCENT_LIME), ("Evidence", ACCENT_LIME),
-    ]
-    nw2 = (asg_w - Inches(0.3)) / 4
-    for i, (name, clr) in enumerate(node_cols2):
-        nl = asg_l + Inches(0.15) + i * nw2
-        box(slide, nl, asg_t+Inches(0.66), nw2-Inches(0.06), Inches(0.25),
-            fill=RGBColor(0x08,0x28,0x12), line_color=clr, lw=0.5)
-        txt(slide, name, nl, asg_t+Inches(0.68), nw2-Inches(0.06), Inches(0.22),
-            size=7.5, bold=True, color=clr)
-    txt(slide, "Discovered Reality — confirmed facts only. Never contains hypotheses.",
-        asg_l+Inches(0.12), asg_t+Inches(0.97), asg_w-Inches(0.2), Inches(0.38),
-        size=8, italic=True, color=RGBColor(0x60,0xC0,0x70), align=PP_ALIGN.LEFT)
+    for j, line in enumerate(cmd_bullets):
+        txt(slide, line, cmd_l + Inches(0.12), T1_T + Inches(0.6) + j * Inches(0.16),
+            cmd_w - Inches(0.2), Inches(0.18), size=8.5, color=WHITE, align=PP_ALIGN.LEFT)
 
-    # — APG block (right) —
-    apg_l, apg_t = Inches(8.3), T2_T+Inches(0.3)
-    apg_w, apg_h = Inches(4.8), Inches(1.42)
-    box(slide, apg_l, apg_t, apg_w, apg_h, fill=RGBColor(0x1E,0x10,0x04), line_color=ACCENT_GOLD, lw=1.8)
-    box(slide, apg_l, apg_t, apg_w, Inches(0.3), fill=ACCENT_GOLD)
-    txt(slide, "ATTACK PATH GRAPH  (APG)", apg_l, apg_t+Inches(0.04), apg_w, Inches(0.24),
-        size=9.5, bold=True, color=BG_DARK)
-    apg_nodes = [("AttackChain", ACCENT_GOLD), ("ChainStep", ACCENT_GOLD), ("Impact", ACCENT_GOLD)]
-    apg_nw = (apg_w - Inches(0.3)) / 3
-    for i, (name, clr) in enumerate(apg_nodes):
-        nl = apg_l + Inches(0.15) + i * apg_nw
-        box(slide, nl, apg_t+Inches(0.36), apg_nw-Inches(0.1), Inches(0.25),
-            fill=RGBColor(0x2E,0x18,0x04), line_color=clr, lw=0.5)
-        txt(slide, name, nl, apg_t+Inches(0.38), apg_nw-Inches(0.1), Inches(0.22),
-            size=7.5, bold=True, color=clr)
-    txt(slide, "risk_score  ·  validation_status  ·  priority",
-        apg_l+Inches(0.12), apg_t+Inches(0.68), apg_w-Inches(0.2), Inches(0.22),
-        size=8, color=GREY_MID, align=PP_ALIGN.LEFT)
-    txt(slide, "Inferred Opportunity — attack reasoning only. Never contains raw scan data.",
-        apg_l+Inches(0.12), apg_t+Inches(0.95), apg_w-Inches(0.2), Inches(0.38),
-        size=8, italic=True, color=RGBColor(0xC0,0x90,0x20), align=PP_ALIGN.LEFT)
+    # VAPT Protocol Prompt box
+    vp_l, vp_w = Inches(6.77), Inches(6.28)
+    box(slide, vp_l, T1_T + Inches(0.28), vp_w, Inches(1.18),
+        fill=RGBColor(0x0A, 0x10, 0x2C), line_color=ACCENT_PURP, lw=1.0)
+    txt(slide, "VAPT PROTOCOL PROMPT", vp_l, T1_T + Inches(0.34), vp_w, Inches(0.24),
+        size=10, bold=True, color=ACCENT_PURP, align=PP_ALIGN.CENTER)
+    txt(slide, "Phase rules \u00b7 Re-plan triggers \u00b7 Termination conditions \u00b7 Methodology-as-config (C7)",
+        vp_l + Inches(0.12), T1_T + Inches(0.65), vp_w - Inches(0.22), Inches(0.55),
+        size=9.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    # — Separation zone between ASG and APG —
-    sep_l = asg_l + asg_w
-    sep_mid = (sep_l + apg_l) / 2
-    box(slide, sep_l, T2_T+Inches(0.3), apg_l-sep_l, asg_h,
-        fill=RGBColor(0x06,0x10,0x08))
-    txt(slide, "STRICT SEPARATION", sep_l+Inches(0.04), T2_T+Inches(0.62),
-        apg_l-sep_l-Inches(0.04), Inches(0.55),
-        size=7, bold=True, color=GREY_MID)
-    # Dashed-style separator line
-    box(slide, sep_mid-Inches(0.01), T2_T+Inches(0.3), Inches(0.02), asg_h,
-        fill=GREY_DARK)
+    # ── TIER 2: DUAL-GRAPH WORLD MODEL ────────────────────────────────────────
+    T2_T = T1_T + T1_H + Inches(0.12)
+    T2_H = Inches(1.85)
+    box(slide, Inches(0.3), T2_T, FULL_W, T2_H, fill=RGBColor(0x04, 0x10, 0x04),
+        line_color=ACCENT_LIME, lw=1.0)
+    txt(slide, "\u2461 DUAL-GRAPH WORLD MODEL", Inches(0.42), T2_T + Inches(0.06),
+        Inches(4), Inches(0.22), size=9, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
 
-    # — ASG → APG arrow: Commander derives chains —
-    arr(slide, asg_l+asg_w/2, asg_t+asg_h, asg_l+asg_w/2, T2_B+Inches(0.1),
-        color=ACCENT_GOLD, lw=0.8)
+    # ASG box
+    asg_l, asg_w = Inches(0.42), Inches(6.05)
+    box(slide, asg_l, T2_T + Inches(0.28), asg_w, Inches(1.48),
+        fill=RGBColor(0x06, 0x1A, 0x06), line_color=ACCENT_LIME, lw=1.0)
+    txt(slide, "ATTACK SURFACE GRAPH  (ASG)", asg_l, T2_T + Inches(0.33), asg_w, Inches(0.26),
+        size=10, bold=True, color=ACCENT_LIME, align=PP_ALIGN.CENTER)
 
-    # — Commander → ASG (reads) —
-    arr(slide, cmd_l+cmd_w/2, T1_B, asg_l+asg_w*0.3, T2_T, color=ACCENT_CYAN, lw=1.2)
-    # — APG → Commander (feedback) —
-    arr(slide, apg_l+apg_w*0.5, T2_T, cmd_l+cmd_w*0.7, T1_B, color=ACCENT_GOLD, lw=1.0)
+    asg_nodes = ["Domain", "Host", "Port", "Service", "Technology"]
+    asg_nodes2 = ["Endpoint", "Parameter", "Vulnerability", "Evidence"]
+    nw = Inches(1.08)
+    ngap = Inches(0.06)
+    for j, n in enumerate(asg_nodes):
+        nl = asg_l + Inches(0.08) + j * (nw + ngap)
+        box(slide, nl, T2_T + Inches(0.62), nw, Inches(0.28), fill=ACCENT_LIME)
+        txt(slide, n, nl, T2_T + Inches(0.64), nw, Inches(0.24),
+            size=8.5, bold=True, color=BG_DARK, align=PP_ALIGN.CENTER)
+    nw2 = Inches(1.2)
+    for j, n in enumerate(asg_nodes2):
+        nl = asg_l + Inches(0.08) + j * (nw2 + ngap)
+        box(slide, nl, T2_T + Inches(0.96), nw2, Inches(0.28), fill=ACCENT_LIME)
+        txt(slide, n, nl, T2_T + Inches(0.98), nw2, Inches(0.24),
+            size=8.5, bold=True, color=BG_DARK, align=PP_ALIGN.CENTER)
+    txt(slide, "Discovered Reality \u2014 confirmed facts only. Never contains hypotheses.",
+        asg_l + Inches(0.08), T2_T + Inches(1.3), asg_w - Inches(0.15), Inches(0.22),
+        size=8.5, italic=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  TIER 3  —  AGENTS + TOOL LAYER  (bottom band)
-    #  y: 4.26 → 7.24  (height 2.98")
-    # ═══════════════════════════════════════════════════════════════════════════════
-    T3_T = T2_B + Inches(0.06)
-    T3_H = SLIDE_H - T3_T - Inches(0.28)
+    # STRICT SEPARATION label
+    sep_l = Inches(6.6)
+    txt(slide, "STRICT\nSEPARATION", sep_l, T2_T + Inches(0.7), Inches(0.8), Inches(0.6),
+        size=7.5, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
 
-    box(slide, Inches(0.18), T3_T, SLIDE_W-Inches(0.36), T3_H,
-        fill=BG_T3, line_color=ACCENT_PURP, lw=0.6)
-    txt(slide, "③ SPECIALIZED AGENTS  +  TOOL ADAPTER LAYER", Inches(0.22), T3_T+Inches(0.04),
-        Inches(5), Inches(0.22), size=7.5, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+    # APG box
+    apg_l, apg_w = Inches(7.6), Inches(5.45)
+    box(slide, apg_l, T2_T + Inches(0.28), apg_w, Inches(1.48),
+        fill=RGBColor(0x1A, 0x14, 0x00), line_color=ACCENT_GOLD, lw=1.0)
+    txt(slide, "ATTACK PATH GRAPH  (APG)", apg_l, T2_T + Inches(0.33), apg_w, Inches(0.26),
+        size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.CENTER)
 
-    # — 6 Agent cards (left section) —
+    apg_nodes = ["AttackChain", "ChainStep", "Impact"]
+    anw = Inches(1.55)
+    for j, n in enumerate(apg_nodes):
+        nl = apg_l + Inches(0.1) + j * (anw + Inches(0.08))
+        box(slide, nl, T2_T + Inches(0.62), anw, Inches(0.28), fill=ACCENT_GOLD)
+        txt(slide, n, nl, T2_T + Inches(0.64), anw, Inches(0.24),
+            size=8.5, bold=True, color=BG_DARK, align=PP_ALIGN.CENTER)
+    txt(slide, "risk_score  \u00b7  validation_status  \u00b7  priority",
+        apg_l + Inches(0.1), T2_T + Inches(0.97), apg_w - Inches(0.18), Inches(0.22),
+        size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT)
+    txt(slide, "Inferred Opportunity \u2014 attack reasoning only. Never contains raw scan data.",
+        apg_l + Inches(0.1), T2_T + Inches(1.2), apg_w - Inches(0.18), Inches(0.22),
+        size=8.5, italic=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
+
+    # ── TIER 3: SPECIALIZED AGENTS ────────────────────────────────────────────
+    T3_T = T2_T + T2_H + Inches(0.12)
+    T3_H = SLIDE_H - T3_T - Inches(0.18)
+    box(slide, Inches(0.3), T3_T, FULL_W, T3_H, fill=RGBColor(0x04, 0x04, 0x10),
+        line_color=ACCENT_PURP, lw=1.0)
+    txt(slide, "\u2462 SPECIALIZED AGENTS  +  TOOL ADAPTER LAYER", Inches(0.42), T3_T + Inches(0.05),
+        Inches(6), Inches(0.22), size=9, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+
     agents = [
-        ("Recon",      "Amass · httpx · Nmap",                         ACCENT_LIME),
-        ("Analysis",   "WhatWeb · Gobuster · ffuf · Nuclei · ZAP",     ACCENT_CYAN),
-        ("Research",   "NVD · Exploit-DB · GitHub",                    ACCENT_GOLD),
-        ("Validation", "SQLMap · Metasploit",                          ACCENT_RED),
-        ("Evidence",   "EyeWitness",                                   ACCENT_PURP),
-        ("Report",     "Reads ASG + APG",                              GREY_MID),
+        ("Recon", ACCENT_LIME, "\u00b7 Amass \n\u00b7 httpx \n\u00b7 Nmap"),
+        ("Analysis", ACCENT_CYAN, "\u00b7 WhatWeb\n \u00b7 Gobuster \n\u00b7 ffuf \n\u00b7 Nuclei\n \u00b7 ZAP"),
+        ("Research", ACCENT_GOLD, "\u00b7 NVD\n\u00b7 Exploit-DB \n\u00b7 GitHub"),
+        ("Validation", ACCENT_RED, "\u00b7 SQLMap\n \u00b7 Metasploit"),
+        ("Evidence", ACCENT_PURP, "EyeWitness"),
+        ("Report", GREY_MID, "Reads ASG + APG"),
     ]
-    ag_col_w = Inches(8.9)
-    aw = (ag_col_w - Inches(0.45)) / 6
-    ah = T3_H - Inches(0.35)
-    ag_start = Inches(0.35)
-    ag_top = T3_T + Inches(0.28)
 
-    for i, (name, tools, clr) in enumerate(agents):
-        al = ag_start + i * (aw + Inches(0.06))
-        box(slide, al, ag_top, aw, ah, fill=RGBColor(0x0C,0x0E,0x22), line_color=clr, lw=1.2)
-        # Color header
-        box(slide, al, ag_top, aw, Inches(0.24), fill=clr)
-        txt(slide, name, al, ag_top+Inches(0.02), aw, Inches(0.22),
-            size=7.5, bold=True, color=BG_DARK)
-        txt(slide, tools, al+Inches(0.06), ag_top+Inches(0.3), aw-Inches(0.1), ah-Inches(0.3),
-            size=7, color=clr, align=PP_ALIGN.LEFT, wrap=True)
-        # Arrow from Commander to agent (downward)
-        arr(slide, cmd_l + cmd_w*0.4 + i*(cmd_w*0.1), T1_B+Inches(0.05),
-            al+aw/2, ag_top, color=clr, lw=0.5)
-        # Arrow from agent to ASG
-        if name not in ("Report",):
-            arr(slide, al+aw/2, ag_top,
-                asg_l + asg_w*0.2 + i*(asg_w*0.08), T2_B,
-                color=RGBColor(0x20,0x50,0x28), lw=0.4)
+    ag_w = Inches(1.5)
+    ag_gap = Inches(0.06)
+    ag_t = T3_T + Inches(0.28)
+    ag_h = T3_H - Inches(0.34)
 
-    # — Tool Adapter Layer (right section, inside T3) —
-    tal_l = Inches(9.45)
-    tal_w = SLIDE_W - tal_l - Inches(0.22)
-    tal_t = T3_T + Inches(0.28)
-    tal_h = T3_H - Inches(0.35)
-    box(slide, tal_l, tal_t, tal_w, tal_h, fill=RGBColor(0x0A,0x08,0x1E), line_color=ACCENT_PURP, lw=1.2)
-    # Header
-    box(slide, tal_l, tal_t, tal_w, Inches(0.26), fill=ACCENT_PURP)
-    txt(slide, "TOOL ADAPTER LAYER", tal_l, tal_t+Inches(0.03), tal_w, Inches(0.22),
-        size=8, bold=True, color=BG_DARK)
+    for j, (name, color, tools) in enumerate(agents):
+        al = Inches(0.42) + j * (ag_w + ag_gap)
+        box(slide, al, ag_t, ag_w, ag_h, fill=RGBColor(0x08, 0x10, 0x20),
+            line_color=color, lw=1.0)
+        box(slide, al, ag_t, ag_w, Inches(0.26), fill=color)
+        txt(slide, name, al, ag_t + Inches(0.02), ag_w, Inches(0.22),
+            size=10, bold=True, color=BG_DARK if color != GREY_MID else WHITE, align=PP_ALIGN.CENTER)
+        txt(slide, tools, al + Inches(0.08), ag_t + Inches(0.30), ag_w - Inches(0.14), ag_h - Inches(0.35),
+            size=8.5, color=color, align=PP_ALIGN.LEFT, wrap=True)
 
-    # Risk gate tiers
-    risk_defs = [
-        ("LOW",  "Passive", "Execute immediately", ACCENT_LIME),
-        ("MED",  "Active",  "LLM Classifier → exec/escalate", ACCENT_GOLD),
-        ("HIGH", "Exploit", "Commander Mailbox approval", ACCENT_RED),
+    # TOOL ADAPTER LAYER panel
+    tal_l = Inches(0.42) + 6 * (ag_w + ag_gap)
+    tal_w = SLIDE_W - Inches(0.6) - tal_l + Inches(0.3)
+    box(slide, tal_l, ag_t, tal_w, ag_h, fill=RGBColor(0x10, 0x08, 0x24),
+        line_color=ACCENT_PURP, lw=1.0)
+    txt(slide, "TOOL ADAPTER LAYER", tal_l, ag_t + Inches(0.04), tal_w, Inches(0.24),
+        size=9.5, bold=True, color=ACCENT_PURP, align=PP_ALIGN.CENTER)
+
+    tiers = [
+        ("LOW", ACCENT_LIME, "Passive", "Execute immediately"),
+        ("MED", ACCENT_GOLD, "Active", "LLM Classifier \u2192 exec/escalate"),
+        ("HIGH", ACCENT_RED, "Exploit", "Commander Mailbox approval"),
     ]
-    rh = (tal_h - Inches(0.32)) / 3
-    for i, (tier, kind, action, clr) in enumerate(risk_defs):
-        rt = tal_t + Inches(0.3) + i * rh
-        box(slide, tal_l+Inches(0.1), rt, tal_w-Inches(0.2), rh-Inches(0.06),
-            fill=RGBColor(0x10,0x0C,0x24), line_color=clr, lw=0.7)
-        box(slide, tal_l+Inches(0.1), rt, Inches(0.38), rh-Inches(0.06), fill=clr)
-        txt(slide, tier, tal_l+Inches(0.1), rt+Inches(0.02), Inches(0.38), rh-Inches(0.1),
-            size=7, bold=True, color=BG_DARK)
-        txt(slide, kind, tal_l+Inches(0.52), rt+Inches(0.02), tal_w-Inches(0.65), Inches(0.2),
-            size=7.5, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        txt(slide, action, tal_l+Inches(0.52), rt+Inches(0.22), tal_w-Inches(0.65), Inches(0.3),
-            size=7, color=GREY_MID, align=PP_ALIGN.LEFT, italic=True)
-
-    # ── Slide number ──────────────────────────────────────────────────────────────
-    txt(slide, "05", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
-        Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.RIGHT)
-
-
-    # ── Palette ───────────────────────────────────────────────────────────────────
-
+    tier_h = Inches(0.72)
+    tier_gap = Inches(0.06)
+    for k, (label, color, sublabel, desc) in enumerate(tiers):
+        tt = ag_t + Inches(0.32) + k * (tier_h + tier_gap)
+        # Badge
+        box(slide, tal_l + Inches(0.08), tt, Inches(0.52), tier_h, fill=color)
+        txt(slide, label, tal_l + Inches(0.08), tt + Inches(0.22), Inches(0.52), Inches(0.28),
+            size=9, bold=True, color=BG_DARK, align=PP_ALIGN.CENTER)
+        # Desc panel
+        box(slide, tal_l + Inches(0.65), tt, tal_w - Inches(0.75), tier_h,
+            fill=RGBColor(0x08, 0x06, 0x18), line_color=color, lw=0.7)
+        txt(slide, sublabel, tal_l + Inches(0.72), tt + Inches(0.06),
+            tal_w - Inches(0.85), Inches(0.22), size=9.5, bold=True, color=color, align=PP_ALIGN.LEFT)
+        txt(slide, desc, tal_l + Inches(0.72), tt + Inches(0.3),
+            tal_w - Inches(0.85), Inches(0.36), size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)

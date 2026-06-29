@@ -1,190 +1,155 @@
 """
-Slide 6 — Agent Architecture (Redesigned)
-==========================================
-Layout:
-  LEFT panel (40%): Context-Isolated Spawning model — visual showing
-    Commander → spawn → isolated box (ASG slice + APG slice + toolset + task) → return delta
-    This is the KEY architectural insight that makes CMatrix different.
-
-  RIGHT panel (58%): 6 agent cards in 2-col × 3-row grid
-    Each card: phase tag | name | role sentence | tools | key property highlight
+Slide 7 — Agent Architecture
 """
 from palette import *
-import pptx.enum.shapes
-
-
-BG_DARK2    = RGBColor(0x0A, 0x0D, 0x1A)
 
 
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
+    chrome(slide, ACCENT_PURP)
 
-    # ── Chrome ────────────────────────────────────────────────────────────────────
-    box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_PURP)
-    box(slide, Inches(0.06), Inches(0), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_PURP)
-    box(slide, Inches(0.06), SLIDE_H-Inches(0.04), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_PURP)
+    slide_header(slide, "AGENT ARCHITECTURE",
+                 "Context-Isolated Agents \u2014 Spawn \u00b7 Execute \u00b7 Return \u00b7 Discard",
+                 ACCENT_PURP, title_size=28)
+    slide_number(slide, "07", ACCENT_PURP)
 
-    # ── Title ─────────────────────────────────────────────────────────────────────
-    txt(slide, "AGENT ARCHITECTURE", Inches(0.3), Inches(0.07), Inches(6), Inches(0.26),
-        size=10, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
-    txt(slide, "Context-Isolated Agents — Spawn · Execute · Return · Discard",
-        Inches(0.3), Inches(0.32), Inches(11), Inches(0.48),
-        size=24, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
+    # ── LEFT: Context Isolation Model ─────────────────────────────────────────
+    L, LW = Inches(0.3), Inches(5.05)
+    LT = Inches(1.0)
+    LH = Inches(6.28)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  LEFT — Context Isolation Model (visual diagram)
-    #  Shows: Commander → spawn with scoped context → isolated agent → return structured delta
-    # ═══════════════════════════════════════════════════════════════════════════════
-    LP_L = Inches(0.18)
-    LP_W = Inches(4.85)
-    LP_T = Inches(0.88)
-    LP_H = SLIDE_H - LP_T - Inches(0.28)
+    box(slide, L, LT, LW, LH, fill=RGBColor(0x08, 0x06, 0x18), line_color=ACCENT_PURP, lw=1.0)
+    txt(slide, "CONTEXT ISOLATION MODEL", L, LT + Inches(0.08), LW, Inches(0.24),
+        size=10, bold=True, color=ACCENT_PURP, align=PP_ALIGN.CENTER)
 
-    box(slide, LP_L, LP_T, LP_W, LP_H, fill=RGBColor(0x08,0x0C,0x20), line_color=ACCENT_PURP, lw=1.2)
-    txt(slide, "CONTEXT ISOLATION MODEL", LP_L, LP_T+Inches(0.06),
-        LP_W, Inches(0.22), size=9, bold=True, color=ACCENT_PURP)
+    # Commander Agent
+    box(slide, L + Inches(0.15), LT + Inches(0.36), LW - Inches(0.3), Inches(0.28),
+        fill=ACCENT_CYAN)
+    txt(slide, "COMMANDER AGENT", L + Inches(0.15), LT + Inches(0.37), LW - Inches(0.3), Inches(0.24),
+        size=9.5, bold=True, color=BG_DARK, align=PP_ALIGN.CENTER)
+    box(slide, L + Inches(0.15), LT + Inches(0.64), LW - Inches(0.3), Inches(0.28),
+        fill=RGBColor(0x00, 0x24, 0x38), line_color=ACCENT_CYAN, lw=0.8)
+    txt(slide, "Reads ASG + APG \u2192 decides next action",
+        L + Inches(0.18), LT + Inches(0.66), LW - Inches(0.36), Inches(0.22),
+        size=9, italic=True, color=WHITE, align=PP_ALIGN.CENTER)
 
-    # — Commander node —
-    cmd_cx = LP_L + LP_W/2
-    box(slide, LP_L+Inches(0.9), LP_T+Inches(0.38), Inches(3.0), Inches(0.55),
-        fill=RGBColor(0x04,0x18,0x32), line_color=ACCENT_CYAN, lw=1.8)
-    box(slide, LP_L+Inches(0.9), LP_T+Inches(0.38), Inches(3.0), Inches(0.2), fill=ACCENT_CYAN)
-    txt(slide, "COMMANDER AGENT", LP_L+Inches(0.9), LP_T+Inches(0.4), Inches(3.0), Inches(0.18),
-        size=8, bold=True, color=BG_DARK)
-    txt(slide, "Reads ASG + APG → decides next action", LP_L+Inches(0.9), LP_T+Inches(0.6),
-        Inches(3.0), Inches(0.26), size=8, color=GREY_MID, italic=True)
+    txt(slide, "spawn with scoped context",
+        L + Inches(0.15), LT + Inches(0.97), LW - Inches(0.3), Inches(0.18),
+        size=8, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
+    arr(slide, L + LW/2, LT + Inches(1.12), L + LW/2, LT + Inches(1.3),
+        color=GREY_MID, lw=1.0)
 
-    # Arrow: spawn ↓
-    arr(slide, cmd_cx, LP_T+Inches(0.93), cmd_cx, LP_T+Inches(1.18), color=ACCENT_PURP, lw=1.5)
-    txt(slide, "spawn with scoped context", cmd_cx+Inches(0.08), LP_T+Inches(0.95),
-        Inches(1.8), Inches(0.22), size=7.5, italic=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+    # Isolated context box
+    iso_t = LT + Inches(1.32)
+    iso_h = Inches(3.3)
+    box(slide, L + Inches(0.12), iso_t, LW - Inches(0.24), iso_h,
+        fill=RGBColor(0x04, 0x04, 0x14), line_color=GREY_DARK, lw=0.8)
+    txt(slide, "ISOLATED AGENT CONTEXT  (fresh per task)",
+        L + Inches(0.18), iso_t + Inches(0.06), LW - Inches(0.36), Inches(0.22),
+        size=8.5, bold=True, color=GREY_MID, align=PP_ALIGN.LEFT)
 
-    # — Isolated Context Box —
-    ic_l = LP_L + Inches(0.22)
-    ic_t = LP_T + Inches(1.25)
-    ic_w = LP_W - Inches(0.44)
-    ic_h = Inches(3.5)
-    box(slide, ic_l, ic_t, ic_w, ic_h, fill=RGBColor(0x0A,0x10,0x28), line_color=ACCENT_PURP, lw=1.0)
-    box(slide, ic_l, ic_t, ic_w, Inches(0.24), fill=RGBColor(0x20,0x10,0x30))
-    txt(slide, "ISOLATED AGENT CONTEXT  (fresh per task)", ic_l, ic_t+Inches(0.04),
-        ic_w, Inches(0.18), size=7.5, bold=True, color=ACCENT_PURP)
-
-    # 4 context components inside the isolated box
-    ctx_items = [
-        ("ASG SLICE", "Only nodes relevant to this task",  ACCENT_LIME, RGBColor(0x04,0x16,0x0A)),
-        ("APG SLICE", "Relevant AttackChains (if any)",    ACCENT_GOLD, RGBColor(0x1A,0x10,0x02)),
-        ("TOOL SET",  "Authorized tools only — no others", ACCENT_RED,  RGBColor(0x18,0x06,0x06)),
-        ("TASK SPEC", "Commander's current plan item",     ACCENT_CYAN, RGBColor(0x04,0x14,0x20)),
+    context_items = [
+        ("ASG SLICE", ACCENT_LIME, "Only nodes relevant to this task"),
+        ("APG SLICE", ACCENT_GOLD, "Relevant AttackChains (if any)"),
+        ("TOOL SET", ACCENT_RED, "Authorized tools only \u2014 no others"),
+        ("TASK SPEC", ACCENT_CYAN, "Commander's current plan item"),
     ]
-    ctx_h = (ic_h - Inches(0.35)) / 4
-    for i, (label, detail, clr, bg) in enumerate(ctx_items):
-        ct = ic_t + Inches(0.3) + i * ctx_h
-        box(slide, ic_l+Inches(0.1), ct, ic_w-Inches(0.2), ctx_h-Inches(0.06),
-            fill=bg, line_color=clr, lw=0.8)
-        txt(slide, label, ic_l+Inches(0.18), ct+Inches(0.04), Inches(1.1), ctx_h-Inches(0.14),
-            size=8, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        txt(slide, detail, ic_l+Inches(1.32), ct+Inches(0.04), ic_w-Inches(1.5), ctx_h-Inches(0.14),
-            size=8, color=GREY_MID, italic=True, align=PP_ALIGN.LEFT)
+    for k, (label, color, desc) in enumerate(context_items):
+        ct = iso_t + Inches(0.34) + k * Inches(0.72)
+        box(slide, L + Inches(0.18), ct, LW - Inches(0.36), Inches(0.6),
+            fill=RGBColor(0x0A, 0x0A, 0x20), line_color=color, lw=0.8)
+        txt(slide, label, L + Inches(0.24), ct + Inches(0.06), Inches(1.2), Inches(0.22),
+            size=9, bold=True, color=color, align=PP_ALIGN.LEFT)
+        txt(slide, desc, L + Inches(1.5), ct + Inches(0.06), LW - Inches(1.7), Inches(0.22),
+            size=8.5, italic=True, color=WHITE, align=PP_ALIGN.LEFT)
 
-    # Arrow: return ↓
-    ret_y_top = ic_t + ic_h
-    arr(slide, cmd_cx, ret_y_top, cmd_cx, ret_y_top+Inches(0.32), color=ACCENT_LIME, lw=1.5)
+    # Returns box
+    ret_t = iso_t + iso_h + Inches(0.1)
+    box(slide, L + Inches(0.12), ret_t, LW - Inches(0.24), Inches(0.62),
+        fill=RGBColor(0x04, 0x14, 0x04), line_color=ACCENT_LIME, lw=1.0)
+    txt(slide, "RETURNS: Structured ASG Delta (new nodes + edges only)",
+        L + Inches(0.18), ret_t + Inches(0.06), LW - Inches(0.36), Inches(0.24),
+        size=9.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.CENTER)
+    txt(slide, "Working context discarded \u2014 no raw history passes to Commander",
+        L + Inches(0.18), ret_t + Inches(0.3), LW - Inches(0.36), Inches(0.22),
+        size=8.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
 
-    # — Returned delta box —
-    rd_t = ret_y_top + Inches(0.38)
-    rd_h = Inches(0.56)
-    box(slide, ic_l, rd_t, ic_w, rd_h, fill=RGBColor(0x04,0x1E,0x0C), line_color=ACCENT_LIME, lw=1.4)
-    txt(slide, "RETURNS: Structured ASG Delta (new nodes + edges only)", ic_l, rd_t+Inches(0.06),
-        ic_w, Inches(0.22), size=8, bold=True, color=ACCENT_LIME)
-    txt(slide, "Working context discarded — no raw history passes to Commander",
-        ic_l, rd_t+Inches(0.3), ic_w, Inches(0.22), size=7.5, italic=True, color=GREY_MID)
-
-    # — 3 properties of context isolation —
-    props_t = rd_t + rd_h + Inches(0.1)
-    props = [
-        ("Commander context stays clean",     ACCENT_CYAN),
-        ("Agents can't contaminate each other", ACCENT_PURP),
-        ("High-risk refusals don't bias planning", ACCENT_RED),
+    # Benefit badges
+    benefits = [
+        ("\u2713 Commander context stays clean", ACCENT_LIME),
+        ("\u2713 Agents can\u2019t contaminate each other", ACCENT_LIME),
+        ("\u2713 High-risk refusals don\u2019t bias planning", ACCENT_RED),
     ]
-    for i, (prop, clr) in enumerate(props):
-        pt = props_t + i * Inches(0.27)
-        box(slide, ic_l, pt, ic_w, Inches(0.24), fill=RGBColor(0x0C,0x10,0x22),
-            line_color=clr, lw=0.6)
-        txt(slide, f"✓  {prop}", ic_l+Inches(0.1), pt+Inches(0.03),
-            ic_w-Inches(0.15), Inches(0.2), size=8, color=clr, align=PP_ALIGN.LEFT)
+    for k, (label, color) in enumerate(benefits):
+        bt = ret_t + Inches(0.72) + k * Inches(0.36)
+        box(slide, L + Inches(0.12), bt, LW - Inches(0.24), Inches(0.30),
+            fill=RGBColor(0x06, 0x10, 0x06) if color == ACCENT_LIME else RGBColor(0x18, 0x06, 0x06),
+            line_color=color, lw=0.7)
+        txt(slide, label, L + Inches(0.2), bt + Inches(0.04), LW - Inches(0.38), Inches(0.22),
+            size=9, color=color, align=PP_ALIGN.LEFT)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  RIGHT — 6 Agent cards (2 columns × 3 rows)
-    # ═══════════════════════════════════════════════════════════════════════════════
-    RP_L = Inches(5.22)
-    RP_W = SLIDE_W - RP_L - Inches(0.18)
+    # ── RIGHT: Agent Cards ────────────────────────────────────────────────────
+    R = Inches(5.55)
+    RW1 = Inches(3.8)
+    RW2 = Inches(3.8)
+    RSTART = R
+    RCOL2 = R + RW1 + Inches(0.08)
 
-    agents_def = [
-        ("👑 Commander",  ACCENT_CYAN,  "ORCHESTRATION",
+    agent_cards = [
+        # (col, row, title, accent, badge_text, badge_color, subtitle, tools, tools_bg, body)
+        (0, 0, "Commander", ACCENT_GOLD, "ORCHESTRATION", ACCENT_CYAN,
          "Reads the dual graph. Plans. Delegates. Never runs tools.",
-         "No tools — reasons over ASG + APG",
+         "No tools \u2014 reasons over ASG + APG", RGBColor(0x00, 0x30, 0x30),
          "Only agent that writes to APG. Approves High-risk ops via mailbox."),
-        ("🕵️ Recon",     ACCENT_LIME,  "PHASE 1",
+        (1, 0, "Recon", ACCENT_LIME, "PHASE 1", ACCENT_LIME,
          "External reconnaissance and host discovery.",
-         "Amass  ·  httpx  ·  Nmap",
+         "Amass \u00b7 httpx \u00b7 Nmap", RGBColor(0x00, 0x28, 0x08),
          "Writes Domain, Host, Port, Service nodes to ASG."),
-        ("🔬 Analysis",  ACCENT_TEAL,  "PHASE 2",
+        (0, 1, "Analysis", ACCENT_CYAN, "PHASE 2", ACCENT_CYAN,
          "Deep enumeration and vulnerability discovery.",
-         "WhatWeb · Gobuster · ffuf · Nuclei · ZAP",
+         "WhatWeb \u00b7 Gobuster \u00b7 ffuf \u00b7 Nuclei \u00b7 ZAP", RGBColor(0x00, 0x22, 0x30),
          "Writes Technology, Endpoint, Parameter, Vulnerability nodes."),
-        ("🔍 Research",  ACCENT_GOLD,  "INTELLIGENCE",
-         "Live CVE grounding — only agent with outbound internet access.",
-         "NVD · Exploit-DB · GitHub · Vendor Advisories",
+        (1, 1, "Research", ACCENT_GOLD, "INTELLIGENCE", ACCENT_GOLD,
+         "Live CVE grounding \u2014 only agent with outbound internet access.",
+         "NVD \u00b7 Exploit-DB \u00b7 GitHub \u00b7 Vendor Advisories", RGBColor(0x26, 0x18, 0x00),
          "Enriches ASG Vulnerability nodes with real-time CVSS + PoC data."),
-        ("🎯 Validation", ACCENT_RED,  "PHASE 3",
+        (0, 2, "Validation", ACCENT_RED, "PHASE 3", ACCENT_RED,
          "Proves vulnerabilities are real and exploitable.",
-         "SQLMap  ·  Metasploit",
-         "Self-debugging loop: Diagnose → Contextualize → Adapt → Cap (×3)."),
-        ("📸 Evidence",  ACCENT_PURP, "PHASE 3",
+         "SQLMap \u00b7 Metasploit", RGBColor(0x28, 0x04, 0x04),
+         "Self-debugging loop: Diagnose \u2192 Contextualize \u2192 Adapt \u2192 Cap (\u00d73)."),
+        (1, 2, "Evidence", ACCENT_PURP, "PHASE 3", ACCENT_PURP,
          "Captures proof artifacts for every validated finding.",
-         "EyeWitness",
+         "EyeWitness", RGBColor(0x18, 0x0A, 0x28),
          "Links Evidence nodes to ASG findings via validated_by edges."),
     ]
 
-    card_cols = 2
-    card_w = (RP_W - Inches(0.12)) / card_cols
-    card_h = (SLIDE_H - Inches(1.0) - Inches(0.28)) / 3
-    gap_x = Inches(0.12); gap_y = Inches(0.1)
-    c_start_t = Inches(0.9)
+    card_h = Inches(1.96)
+    card_gap = Inches(0.09)
 
-    for idx, (name, clr, phase, role, tools, behavior) in enumerate(agents_def):
-        col = idx % card_cols
-        row = idx // card_cols
-        cl = RP_L + col * (card_w + gap_x)
-        ct = c_start_t + row * (card_h + gap_y)
+    for col, row, title, accent, badge, badge_bg, subtitle, tools, tools_bg, body in agent_cards:
+        cx = RSTART + col * (RW1 + Inches(0.08))
+        cy = Inches(1.0) + row * (card_h + card_gap)
+        cw = RW1
 
-        # Card body
-        box(slide, cl, ct, card_w, card_h, fill=CARD_BG, line_color=clr, lw=1.4)
-        # Phase tag
-        tag_w = Inches(1.1)
-        box(slide, cl+card_w-tag_w, ct, tag_w, Inches(0.24), fill=clr)
-        txt(slide, phase, cl+card_w-tag_w, ct+Inches(0.03), tag_w, Inches(0.2),
-            size=7.5, bold=True, color=BG_DARK)
-        # Name
-        txt(slide, name, cl+Inches(0.1), ct+Inches(0.04), card_w-tag_w-Inches(0.15), Inches(0.26),
-            size=12, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        # Divider
-        box(slide, cl+Inches(0.1), ct+Inches(0.34), card_w-Inches(0.2), Inches(0.02), fill=clr)
-        # Role (italic)
-        txt(slide, role, cl+Inches(0.1), ct+Inches(0.38), card_w-Inches(0.18), Inches(0.24),
-            size=8.5, italic=True, color=WHITE, align=PP_ALIGN.LEFT)
-        # Tools strip
-        box(slide, cl+Inches(0.1), ct+Inches(0.65), card_w-Inches(0.2), Inches(0.24),
-            fill=RGBColor(0x08,0x10,0x22), line_color=clr, lw=0.5)
-        txt(slide, tools, cl+Inches(0.18), ct+Inches(0.67), card_w-Inches(0.3), Inches(0.2),
-            size=7.5, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        # Behavior
-        txt(slide, behavior, cl+Inches(0.1), ct+Inches(0.93), card_w-Inches(0.18), card_h-Inches(1.0),
-            size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
-
-    # ── Slide number ──────────────────────────────────────────────────────────────
-    txt(slide, "07", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
-        Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_PURP, align=PP_ALIGN.RIGHT)
-
-
+        box(slide, cx, cy, cw, card_h, fill=RGBColor(0x08, 0x0C, 0x20), line_color=accent, lw=1.0)
+        # Badge
+        box(slide, cx + cw - Inches(1.4), cy + Inches(0.04), Inches(1.34), Inches(0.24),
+            fill=badge_bg)
+        txt(slide, badge, cx + cw - Inches(1.4), cy + Inches(0.06), Inches(1.34), Inches(0.20),
+            size=7.5, bold=True, color=WHITE if badge_bg != ACCENT_LIME else BG_DARK, align=PP_ALIGN.CENTER)
+        # Title
+        txt(slide, f"\U0001f451 {title}" if title == "Commander" else title,
+            cx + Inches(0.1), cy + Inches(0.06), cw - Inches(1.5), Inches(0.3),
+            size=14, bold=True, color=accent, align=PP_ALIGN.LEFT)
+        # Subtitle
+        txt(slide, subtitle, cx + Inches(0.1), cy + Inches(0.38), cw - Inches(0.2), Inches(0.26),
+            size=9, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+        # Tools row
+        box(slide, cx + Inches(0.08), cy + Inches(0.68), cw - Inches(0.16), Inches(0.24),
+            fill=tools_bg)
+        txt(slide, tools, cx + Inches(0.12), cy + Inches(0.70), cw - Inches(0.22), Inches(0.20),
+            size=8.5, bold=True, color=accent, align=PP_ALIGN.LEFT)
+        # Body
+        txt(slide, body, cx + Inches(0.1), cy + Inches(0.98), cw - Inches(0.2), Inches(0.88),
+            size=9, color=WHITE, align=PP_ALIGN.LEFT, wrap=True)

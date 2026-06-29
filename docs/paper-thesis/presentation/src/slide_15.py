@@ -1,188 +1,278 @@
 """
-Slide 8 — Real-World Scenario Walkthrough: shopvault.io
-=========================================================
-Redesign: Replace the 4 vertical panel columns with a cleaner layout:
-
-  TOP ROW:   Timeline header with phase arrows connecting them (flow reading)
-  BODY:      4 panels but with a more structured grid — each panel has a clear
-             "Input → Agent → Output → ASG/APG delta" micro-structure.
-  BOTTOM:    Stats bar with final mission outcome counts.
-
-Key improvement: Each phase panel now shows the DATA FLOW (what went in, what
-came out) not just a list — making the autonomy visible.
+Slide 15 — Real-World Scenario: shopvault.io Black-Box Assessment
 """
 from palette import *
-import pptx.enum.shapes
-
-
-def arr_h(slide, x1, y1, x2, y2, color=None, lw=2.0):
-    """Horizontal connector arrow (x1,y1) → (x2,y2)."""
-    return arr(slide, x1, y1, x2, y2, color=color or GREY_MID, lw=lw)
 
 
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
+    chrome(slide, ACCENT_GOLD)
 
-    # ── Chrome ─────────────────────────────────────────────────────────────────────
-    box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_GOLD)
-    box(slide, Inches(0.06), Inches(0), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_GOLD)
-    box(slide, Inches(0.06), SLIDE_H-Inches(0.04), SLIDE_W-Inches(0.06), Inches(0.04), fill=ACCENT_GOLD)
-
-    # ── Title ──────────────────────────────────────────────────────────────────────
-    txt(slide, "REAL-WORLD SCENARIO", Inches(0.3), Inches(0.07), Inches(5), Inches(0.24),
-        size=10, bold=True, color=ACCENT_GOLD)
+    # ── Header ────────────────────────────────────────────────────────────────
+    txt(slide, "REAL-WORLD SCENARIO",
+        Inches(0.3), Inches(0.07), Inches(5.0), Inches(0.27),
+        size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
     txt(slide, "Mission: shopvault.io — Black-Box Assessment — Zero Manual Commands",
-        Inches(0.3), Inches(0.31), Inches(12.5), Inches(0.48),
-        size=24, bold=True, color=WHITE)
+        Inches(0.3), Inches(0.31), Inches(12.5), Inches(0.51),
+        size=24, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
 
-    # ── Context banner ─────────────────────────────────────────────────────────────
-    box(slide, Inches(0.18), Inches(0.84), SLIDE_W-Inches(0.36), Inches(0.38),
-        fill=RGBColor(0x10,0x10,0x04), line_color=ACCENT_GOLD, lw=0.8)
-    txt(slide,
-        "Scope: all subdomains · web applications · REST APIs of shopvault.io  "
-        "·  Mode: Black-Box (zero prior knowledge)  "
-        "·  Operator configures root domain + scope → presses start.",
-        Inches(0.35), Inches(0.9), SLIDE_W-Inches(0.65), Inches(0.3),
-        size=9, italic=True, color=ACCENT_GOLD)
+    # Scope banner
+    box(slide, Inches(0.18), Inches(0.84), Inches(12.973), Inches(0.38),
+        fill=RGBColor(0x10, 0x10, 0x04), line_color=ACCENT_GOLD, lw=0.8)
+    txt(slide, "Scope: all subdomains · web applications · REST APIs of shopvault.io  ·  Mode: Black-Box (zero prior knowledge)  ·  Operator configures root domain + scope → presses start.",
+        Inches(0.35), Inches(0.90), Inches(12.683), Inches(0.25),
+        size=9.0, italic=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
 
-    # ═══════════════════════════════════════════════════════════════════════════════
-    #  PHASE DEFINITIONS
-    # ═══════════════════════════════════════════════════════════════════════════════
-    phases = [
-        {
-            "label": "PHASE 1\nReconnaissance", "color": ACCENT_LIME,
-            "bg": RGBColor(0x04,0x14,0x08),
-            "agent": "🕵️ Recon Agent",
-            "tools": ["Amass", "httpx", "Nmap"],
-            "findings": [
-                ("Amass",  "14 subdomains discovered\napi · admin · staging · pay · ..."),
-                ("httpx",  "11 live hosts confirmed\nstaging returns unexpected 200"),
-                ("Nmap",   "Ports 80, 443, 8080, 8443 open\npay.shopvault.io: expired TLS"),
-            ],
-            "delta": "ASG ← 37 new nodes",
-            "delta_color": ACCENT_LIME,
-        },
-        {
-            "label": "PHASE 2\nAnalysis + Intel", "color": ACCENT_CYAN,
-            "bg": RGBColor(0x04,0x10,0x18),
-            "agent": "🔬 Analysis + 🔍 Research",
-            "tools": ["WhatWeb", "Gobuster", "ffuf", "Nuclei", "ZAP"],
-            "findings": [
-                ("WhatWeb",  "WordPress 5.9.3 · Django API\n→ Research: CVE-2022-21661 (CVSS 8.8)"),
-                ("Gobuster", "/backup/db_export_2023.sql EXPOSED\n/admin/users · /admin/login"),
-                ("ffuf",     "IDOR: user_id param unsanitized\n/api/v1/internal/users found"),
-                ("ZAP",      "XSS on /search?q=\nSQL error on staging login"),
-            ],
-            "delta": "ASG ← 61 nodes\nAPG ← 3 chains seeded",
-            "delta_color": ACCENT_CYAN,
-        },
-        {
-            "label": "PHASE 3\nValidation", "color": ACCENT_RED,
-            "bg": RGBColor(0x18,0x06,0x06),
-            "agent": "🎯 Validation + 📸 Evidence",
-            "tools": ["SQLMap", "Metasploit", "EyeWitness"],
-            "findings": [
-                ("Chain-01\n(risk 8.8)", "SQLMap → SQLi confirmed\nAdmin hash cracked → Metasploit → RCE\nStatus: VALIDATED (escalated 9.1)"),
-                ("Chain-02\n(risk 7.5)", "SQLMap on user_id → IDOR confirmed\nAny customer orders accessible"),
-                ("Chain-03\n(risk 8.1)", "Blind SQLi on staging → DB creds\nCredential reuse risk flagged"),
-            ],
-            "delta": "APG ← 3 chains VALIDATED\nASG ← Evidence nodes linked",
-            "delta_color": ACCENT_RED,
-        },
-        {
-            "label": "PHASE 4\nReport", "color": ACCENT_PURP,
-            "bg": RGBColor(0x10,0x08,0x1C),
-            "agent": "📝 Report Agent",
-            "tools": ["Reads ASG + APG"],
-            "findings": [
-                ("Output", "Executive summary · 4 validated chains\nRCE + IDOR + SQLi + exposed DB backup\n11 vuln entries · full attack surface map\nEvidence at every ChainStep"),
-            ],
-            "delta": "ZERO manual commands",
-            "delta_color": ACCENT_PURP,
-        },
+    # ═══════════════════════════════════════════════════════
+    # PHASE COLUMNS
+    # ═══════════════════════════════════════════════════════
+    PHASE_TOP = Inches(1.30)
+    PHASE_H = Inches(5.48)
+    HEADER_H = Inches(0.50)
+
+    # ── PHASE 1: Reconnaissance ───────────────────────────
+    P1_L = Inches(0.18)
+    P1_W = Inches(2.62)
+    box(slide, P1_L, PHASE_TOP, P1_W, PHASE_H,
+        fill=RGBColor(0x04, 0x14, 0x08), line_color=ACCENT_LIME, lw=1.2)
+    box(slide, P1_L, PHASE_TOP, P1_W, HEADER_H,
+        fill=RGBColor(0x08, 0x10, 0x1C), line_color=ACCENT_LIME, lw=1.2)
+    txt(slide, "PHASE 1\nReconnaissance",
+        Inches(0.26), PHASE_TOP + Inches(0.06), Inches(2.50), Inches(0.44),
+        size=10, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+
+    # Agent label
+    txt(slide, "🕵️ Recon Agent",
+        Inches(0.26), PHASE_TOP + Inches(0.58), Inches(2.50), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+
+    # Tools strip
+    box(slide, Inches(0.26), PHASE_TOP + Inches(0.80), Inches(2.46), Inches(0.20),
+        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_LIME, lw=0.8)
+    txt(slide, "Amass  ·  httpx  ·  Nmap",
+        Inches(0.30), PHASE_TOP + Inches(0.81), Inches(2.42), Inches(0.22),
+        size=7.0, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+
+    # Tool result blocks
+    p1_tools = [
+        ("Amass",  Inches(1.06), ["14 subdomains discovered", "api · admin · staging · pay · ..."]),
+        ("httpx",  Inches(2.05), ["11 live hosts confirmed",  "staging returns unexpected 200"]),
+        ("Nmap",   Inches(1.29), ["Ports 80, 443, 8080, 8443 open", "pay.shopvault.io: expired TLS"]),
     ]
+    block_top = PHASE_TOP + Inches(1.06)
+    for tool_name, block_h, body_lines in p1_tools:
+        box(slide, Inches(0.26), block_top, Inches(2.46), block_h,
+            fill=RGBColor(0x08, 0x0E, 0x1C), line_color=ACCENT_LIME, lw=0.8)
+        # Left accent stripe
+        box(slide, Inches(0.26), block_top, Inches(0.05), block_h, fill=ACCENT_LIME)
+        txt(slide, tool_name,
+            Inches(0.34), block_top + Inches(0.04), Inches(2.32), Inches(0.24),
+            size=8.0, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+        for bi, line in enumerate(body_lines):
+            txt(slide, line,
+                Inches(0.34), block_top + Inches(0.26) + bi * Inches(0.22),
+                Inches(2.32), Inches(0.22),
+                size=8.0, color=GREY_MID, align=PP_ALIGN.LEFT)
+        block_top += block_h + Inches(0.063)
 
-    # ── Phase layout calculations ─────────────────────────────────────────────────
-    PANEL_TOP = Inches(1.3)
-    PANEL_BOT = SLIDE_H - Inches(0.72)
-    PANEL_H   = PANEL_BOT - PANEL_TOP
+    # ASG count footer
+    box(slide, P1_L, PHASE_TOP + PHASE_H - Inches(0.44), P1_W, Inches(0.44),
+        fill=RGBColor(0x06, 0x0C, 0x18), line_color=ACCENT_LIME, lw=0.8)
+    txt(slide, "ASG ← 37 new nodes",
+        Inches(0.28), PHASE_TOP + PHASE_H - Inches(0.38), Inches(2.47), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
 
-    # widths: Phase1=2.6, Phase2=3.8, Phase3=4.0, Phase4=2.5
-    phase_widths = [Inches(2.62), Inches(3.80), Inches(3.98), Inches(2.62)]
-    GAP = Inches(0.06)
-    start_l = Inches(0.18)
+    # ── Phase arrow divider ───────────────────────────────
+    arr(slide, Inches(2.80), PHASE_TOP + Inches(0.25), Inches(2.86), PHASE_TOP + Inches(0.25),
+        color=ACCENT_CYAN, lw=1.8)
 
-    panel_lefts = []
-    xl = start_l
-    for i, pw in enumerate(phase_widths):
-        panel_lefts.append(xl)
-        xl += pw + GAP
+    # ── PHASE 2: Analysis + Intel ─────────────────────────
+    P2_L = Inches(2.86)
+    P2_W = Inches(3.80)
+    box(slide, P2_L, PHASE_TOP, P2_W, PHASE_H,
+        fill=RGBColor(0x04, 0x10, 0x18), line_color=ACCENT_CYAN, lw=1.2)
+    box(slide, P2_L, PHASE_TOP, P2_W, HEADER_H,
+        fill=RGBColor(0x08, 0x10, 0x1C), line_color=ACCENT_CYAN, lw=1.2)
+    txt(slide, "PHASE 2\nAnalysis + Intel",
+        Inches(2.94), PHASE_TOP + Inches(0.06), Inches(3.68), Inches(0.44),
+        size=10, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
-    for i, (ph, pl, pw) in enumerate(zip(phases, panel_lefts, phase_widths)):
-        clr = ph["color"]
-        # Panel background
-        box(slide, pl, PANEL_TOP, pw, PANEL_H, fill=ph["bg"], line_color=clr, lw=1.2)
-        # Phase header
-        box(slide, pl, PANEL_TOP, pw, Inches(0.5), fill=RGBColor(0x08,0x10,0x1C), line_color=clr, lw=1.2)
-        txt(slide, ph["label"], pl+Inches(0.08), PANEL_TOP+Inches(0.06),
-            pw-Inches(0.12), Inches(0.42), size=10, bold=True, color=clr, align=PP_ALIGN.CENTER)
-        # Agent name
-        txt(slide, ph["agent"], pl+Inches(0.08), PANEL_TOP+Inches(0.56),
-            pw-Inches(0.12), Inches(0.22), size=8.5, bold=True, color=clr)
-        # Tool strip
-        tools_str = "  ·  ".join(ph["tools"])
-        box(slide, pl+Inches(0.08), PANEL_TOP+Inches(0.8), pw-Inches(0.16), Inches(0.2),
-            fill=RGBColor(0x08,0x10,0x22), line_color=clr, lw=0.4)
-        txt(slide, tools_str, pl+Inches(0.12), PANEL_TOP+Inches(0.81), pw-Inches(0.2), Inches(0.18),
-            size=7, bold=True, color=clr)
-        # Finding rows
-        findings = ph["findings"]
-        row_h_avail = PANEL_H - Inches(1.08) - Inches(0.52)
-        row_h = row_h_avail / len(findings)
-        for j, (tool_lbl, detail) in enumerate(findings):
-            ft = PANEL_TOP + Inches(1.06) + j * row_h
-            fh = row_h - Inches(0.06)
-            box(slide, pl+Inches(0.08), ft, pw-Inches(0.16), fh,
-                fill=RGBColor(0x08,0x0E,0x1C), line_color=clr, lw=0.4)
-            # Tool badge (top-left corner colour strip)
-            box(slide, pl+Inches(0.08), ft, Inches(0.05), fh, fill=clr)
-            txt(slide, tool_lbl, pl+Inches(0.16), ft+Inches(0.04),
-                pw-Inches(0.3), Inches(0.26), size=8, bold=True, color=clr, wrap=True)
-            txt(slide, detail, pl+Inches(0.16), ft+Inches(0.3),
-                pw-Inches(0.3), fh-Inches(0.34), size=8, color=GREY_MID, wrap=True)
-        # Delta strip at bottom
-        delta_t = PANEL_BOT - Inches(0.44)
-        box(slide, pl, delta_t, pw, Inches(0.44), fill=RGBColor(0x06,0x0C,0x18), line_color=clr, lw=0.8)
-        txt(slide, ph["delta"], pl+Inches(0.1), delta_t+Inches(0.06),
-            pw-Inches(0.15), Inches(0.34), size=8.5, bold=True, color=ph["delta_color"])
+    txt(slide, "🔬 Analysis + 🔍 Research",
+        Inches(2.94), PHASE_TOP + Inches(0.58), Inches(3.68), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
-        # Arrow connecting phases
-        if i < 3:
-            next_l = panel_lefts[i+1]
-            arr_h(slide, pl+pw, PANEL_TOP+Inches(0.25), next_l, PANEL_TOP+Inches(0.25),
-                  color=phases[i+1]["color"], lw=1.8)
+    box(slide, Inches(2.94), PHASE_TOP + Inches(0.80), Inches(3.64), Inches(0.20),
+        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_CYAN, lw=0.8)
+    txt(slide, "WhatWeb  ·  Gobuster  ·  ffuf  ·  Nuclei  ·  ZAP",
+        Inches(2.98), PHASE_TOP + Inches(0.81), Inches(3.60), Inches(0.22),
+        size=7.0, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
 
-    # ── Bottom summary strip ───────────────────────────────────────────────────────
-    box(slide, Inches(0.18), SLIDE_H-Inches(0.68), SLIDE_W-Inches(0.36), Inches(0.54),
-        fill=RGBColor(0x08,0x10,0x22), line_color=ACCENT_CYAN, lw=1.2)
+    p2_tools = [
+        ("WhatWeb", Inches(0.91), ["WordPress 5.9.3 · Django API", "→ Research: CVE-2022-21661 (CVSS 8.8)"]),
+        ("Gobuster", Inches(0.91), ["/backup/db_export_2023.sql EXPOSED", "/admin/users · /admin/login"]),
+        ("ffuf",    Inches(0.91), ["IDOR: user_id param unsanitized",   "/api/v1/internal/users found"]),
+        ("ZAP",     Inches(0.91), ["XSS on /search?q=",                 "SQL error on staging login"]),
+    ]
+    block_top = PHASE_TOP + Inches(1.06)
+    for tool_name, block_h, body_lines in p2_tools:
+        box(slide, Inches(2.94), block_top, Inches(3.64), block_h,
+            fill=RGBColor(0x08, 0x0E, 0x1C), line_color=ACCENT_CYAN, lw=0.8)
+        box(slide, Inches(2.94), block_top, Inches(0.05), block_h, fill=ACCENT_CYAN)
+        txt(slide, tool_name,
+            Inches(3.02), block_top + Inches(0.04), Inches(3.50), Inches(0.24),
+            size=8.0, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+        for bi, line in enumerate(body_lines):
+            txt(slide, line,
+                Inches(3.02), block_top + Inches(0.26) + bi * Inches(0.22),
+                Inches(3.50), Inches(0.22),
+                size=8.0, color=GREY_MID, align=PP_ALIGN.LEFT)
+        block_top += block_h + Inches(0.00)
+
+    box(slide, P2_L, PHASE_TOP + PHASE_H - Inches(0.44), P2_W, Inches(0.44),
+        fill=RGBColor(0x06, 0x0C, 0x18), line_color=ACCENT_CYAN, lw=0.8)
+    txt(slide, "ASG ← 61 nodes",
+        Inches(2.96), PHASE_TOP + PHASE_H - Inches(0.38), Inches(3.65), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+    txt(slide, "APG ← 3 chains seeded",
+        Inches(2.96), PHASE_TOP + PHASE_H - Inches(0.17), Inches(3.65), Inches(0.20),
+        size=8.5, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+
+    # ── Phase arrow divider ───────────────────────────────
+    arr(slide, Inches(6.66), PHASE_TOP + Inches(0.25), Inches(6.72), PHASE_TOP + Inches(0.25),
+        color=ACCENT_RED, lw=1.8)
+
+    # ── PHASE 3: Validation ───────────────────────────────
+    P3_L = Inches(6.72)
+    P3_W = Inches(3.98)
+    box(slide, P3_L, PHASE_TOP, P3_W, PHASE_H,
+        fill=RGBColor(0x18, 0x06, 0x06), line_color=ACCENT_RED, lw=1.2)
+    box(slide, P3_L, PHASE_TOP, P3_W, HEADER_H,
+        fill=RGBColor(0x08, 0x10, 0x1C), line_color=ACCENT_RED, lw=1.2)
+    txt(slide, "PHASE 3\nValidation",
+        Inches(6.80), PHASE_TOP + Inches(0.06), Inches(3.86), Inches(0.44),
+        size=10, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+    txt(slide, "🎯 Validation + 📸 Evidence",
+        Inches(6.80), PHASE_TOP + Inches(0.58), Inches(3.86), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+    box(slide, Inches(6.80), PHASE_TOP + Inches(0.80), Inches(3.82), Inches(0.20),
+        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_RED, lw=0.8)
+    txt(slide, "SQLMap  ·  Metasploit  ·  EyeWitness",
+        Inches(6.84), PHASE_TOP + Inches(0.81), Inches(3.78), Inches(0.22),
+        size=7.0, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+    p3_chains = [
+        ("Chain-01", "(risk 8.8)", Inches(0.935),
+         ["SQLMap → SQLi confirmed", "Admin hash cracked → Metasploit → RCE", "Status: VALIDATED (escalated 9.1)"]),
+        ("Chain-02", "(risk 7.5)", Inches(0.935),
+         ["SQLMap on user_id → IDOR confirmed", "Any customer orders accessible"]),
+        ("Chain-03", "(risk 8.1)", Inches(0.935),
+         ["Blind SQLi on staging → DB creds", "Credential reuse risk flagged"]),
+        ("Chain-04", "(validated instantly)", Inches(0.935),
+         ["Direct GET on exposed DB backup file", "Misconfiguration → full PII exposure, no agent needed"]),
+    ]
+    block_top = PHASE_TOP + Inches(1.06)
+    for chain_name, risk_label, block_h, body_lines in p3_chains:
+        box(slide, Inches(6.80), block_top, Inches(3.82), block_h,
+            fill=RGBColor(0x08, 0x0E, 0x1C), line_color=ACCENT_RED, lw=0.8)
+        box(slide, Inches(6.80), block_top, Inches(0.05), block_h, fill=ACCENT_RED)
+        txt(slide, chain_name,
+            Inches(6.88), block_top + Inches(0.04), Inches(3.68), Inches(0.24),
+            size=8.0, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+        txt(slide, risk_label,
+            Inches(6.88), block_top + Inches(0.24), Inches(3.68), Inches(0.22),
+            size=8.0, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+        for bi, line in enumerate(body_lines):
+            txt(slide, line,
+                Inches(6.88), block_top + Inches(0.44) + bi * Inches(0.22),
+                Inches(3.68), Inches(0.22),
+                size=8.0, color=GREY_MID, align=PP_ALIGN.LEFT)
+        block_top += block_h + Inches(0.005)
+
+    box(slide, P3_L, PHASE_TOP + PHASE_H - Inches(0.44), P3_W, Inches(0.44),
+        fill=RGBColor(0x06, 0x0C, 0x18), line_color=ACCENT_RED, lw=0.8)
+    txt(slide, "APG ← 4 chains VALIDATED",
+        Inches(6.82), PHASE_TOP + PHASE_H - Inches(0.38), Inches(3.83), Inches(0.22),
+        size=8.5, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+    txt(slide, "ASG ← Evidence nodes linked",
+        Inches(6.82), PHASE_TOP + PHASE_H - Inches(0.17), Inches(3.83), Inches(0.20),
+        size=8.5, bold=True, color=ACCENT_RED, align=PP_ALIGN.LEFT)
+
+    # ── Phase arrow divider ───────────────────────────────
+    arr(slide, Inches(10.70), PHASE_TOP + Inches(0.25), Inches(10.76), PHASE_TOP + Inches(0.25),
+        color=ACCENT_PURP, lw=1.8)
+
+    # ── PHASE 4: Report ───────────────────────────────────
+    P4_L = Inches(10.76)
+    P4_W = Inches(2.42)
+    box(slide, P4_L, PHASE_TOP, P4_W, PHASE_H,
+        fill=RGBColor(0x10, 0x08, 0x1C), line_color=ACCENT_PURP, lw=1.2)
+    box(slide, P4_L, PHASE_TOP, P4_W, HEADER_H,
+        fill=RGBColor(0x08, 0x10, 0x1C), line_color=ACCENT_PURP, lw=1.2)
+    txt(slide, "PHASE 4\nReport",
+        Inches(10.84), PHASE_TOP + Inches(0.06), Inches(2.32), Inches(0.44),
+        size=10, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+
+    txt(slide, "📝 Report Agent",
+        Inches(10.84), PHASE_TOP + Inches(0.58), Inches(2.32), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+
+    box(slide, Inches(10.84), PHASE_TOP + Inches(0.80), Inches(2.254), Inches(0.20),
+        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_PURP, lw=0.8)
+    txt(slide, "Reads ASG + APG",
+        Inches(10.88), PHASE_TOP + Inches(0.81), Inches(2.214), Inches(0.22),
+        size=7.0, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+
+    # Output block
+    box(slide, Inches(10.84), PHASE_TOP + Inches(1.06), Inches(2.254), Inches(3.82),
+        fill=RGBColor(0x08, 0x0E, 0x1C), line_color=ACCENT_PURP, lw=0.8)
+    box(slide, Inches(10.84), PHASE_TOP + Inches(1.06), Inches(0.05), Inches(3.82), fill=ACCENT_PURP)
+    txt(slide, "Output",
+        Inches(10.92), PHASE_TOP + Inches(1.10), Inches(2.214), Inches(0.24),
+        size=8.0, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+    output_lines = [
+        "Executive summary · 4 validated chains",
+        "RCE + IDOR + SQLi + exposed DB backup",
+        "11 vuln entries · full attack surface map",
+        "Evidence at every ChainStep",
+    ]
+    for bi, line in enumerate(output_lines):
+        txt(slide, line,
+            Inches(10.92), PHASE_TOP + Inches(1.36) + bi * Inches(0.22),
+            Inches(2.214), Inches(0.22),
+            size=8.0, color=GREY_MID, align=PP_ALIGN.LEFT)
+
+    # Footer note
+    box(slide, P4_L, PHASE_TOP + PHASE_H - Inches(0.44), P4_W, Inches(0.44),
+        fill=RGBColor(0x06, 0x0C, 0x18), line_color=ACCENT_PURP, lw=0.8)
+    txt(slide, "ZERO manual commands",
+        Inches(10.86), PHASE_TOP + PHASE_H - Inches(0.34), Inches(2.254), Inches(0.24),
+        size=8.5, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+
+    # ═══════════════════════════════════════════════════════
+    # BOTTOM STATS BAR
+    # ═══════════════════════════════════════════════════════
+    STATS_TOP = Inches(6.78)
+    box(slide, Inches(0.18), STATS_TOP, Inches(12.973), Inches(0.54),
+        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_CYAN, lw=1.2)
+
     stats = [
-        ("14", "subdomains", ACCENT_LIME),
-        ("11", "live hosts", ACCENT_LIME),
-        ("28", "open ports", ACCENT_CYAN),
-        ("19", "endpoints", ACCENT_CYAN),
-        ("11", "vulnerabilities", ACCENT_GOLD),
-        ("4",  "validated chains", ACCENT_RED),
-        ("0",  "manual commands", ACCENT_PURP),
+        ("14",   "subdomains",       ACCENT_LIME, Inches(0.22)),
+        ("11",   "live hosts",       ACCENT_LIME, Inches(2.039)),
+        ("28",   "open ports",       ACCENT_CYAN, Inches(3.858)),
+        ("19",   "endpoints",        ACCENT_CYAN, Inches(5.677)),
+        ("11",   "vulnerabilities",  ACCENT_GOLD, Inches(7.496)),
+        ("4",    "validated chains", ACCENT_RED,  Inches(9.315)),
+        ("0",    "manual commands",  ACCENT_PURP, Inches(11.134)),
     ]
-    sw = (SLIDE_W - Inches(0.6)) / len(stats)
-    for i, (num, label, clr) in enumerate(stats):
-        sl = Inches(0.22) + i * sw
-        st = SLIDE_H - Inches(0.65)
-        txt(slide, num, sl, st, sw, Inches(0.28), size=18, bold=True, color=clr)
-        txt(slide, label, sl, st+Inches(0.24), sw, Inches(0.2), size=7.5, color=GREY_MID)
+    for val, label, color, stat_l in stats:
+        txt(slide, val,
+            stat_l, STATS_TOP + Inches(0.03), Inches(1.82), Inches(0.40),
+            size=18, bold=True, color=color, align=PP_ALIGN.LEFT)
+        txt(slide, label,
+            stat_l, STATS_TOP + Inches(0.40), Inches(1.82), Inches(0.23),
+            size=7.5, color=GREY_MID, align=PP_ALIGN.LEFT)
 
-    txt(slide, "15", SLIDE_W-Inches(0.4), SLIDE_H-Inches(0.52),
-        Inches(0.35), Inches(0.42), size=13, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.RIGHT)
-
-
+    slide_number(slide, "15", ACCENT_GOLD)

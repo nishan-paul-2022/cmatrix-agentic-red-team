@@ -1,164 +1,149 @@
 """
-Slide 08 — Agent Spawn Lifecycle
-==================================
-Shows the detailed spawn sequence diagram with the correct spawn call notation
-including APG slice [optional], and shows 5 context components.
-Also annotates C4 parallel dispatch.
+Slide 8 — Context-Isolated Agent Spawn Lifecycle (sequence diagram)
 """
 from palette import *
-import pptx.enum.shapes
 
 
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
-    chrome(slide, ACCENT_PURP)
-    slide_header(slide, "AGENT SPAWN LIFECYCLE",
-                 "Context-Isolated Spawn · Execute · Return · Discard",
-                 ACCENT_PURP, title_size=28, divider_w=10)
+    chrome(slide, ACCENT_CYAN)
 
-    # ── LEFT: Spawn sequence diagram ─────────────────────────────────────────
-    LP_L, LP_W = Inches(0.22), Inches(7.2)
-    LP_T, LP_H = Inches(0.98), SLIDE_H - Inches(1.26)
-    box(slide, LP_L, LP_T, LP_W, LP_H,
-        fill=RGBColor(0x06, 0x08, 0x1C), line_color=ACCENT_PURP, lw=1.2)
-    txt(slide, "SPAWN SEQUENCE (single-agent case)", LP_L + Inches(0.1), LP_T + Inches(0.06),
-        LP_W - Inches(0.2), Inches(0.2), size=9, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+    slide_header(slide, "AGENT ARCHITECTURE", "Context-Isolated Agent Spawn Lifecycle",
+                 ACCENT_CYAN, title_size=30)
+    txt(slide, "Every agent is born fresh \u00b7 does exactly one job \u00b7 dies clean \u00b7 leaves only structured graph state behind",
+        Inches(0.3), Inches(0.9), Inches(12.5), Inches(0.26),
+        size=10, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT)
+    slide_number(slide, "08", ACCENT_CYAN)
 
-    # Commander → spawn call
-    cmd_cx = LP_L + LP_W / 2
-    cmd_t = LP_T + Inches(0.38)
-    box(slide, LP_L + Inches(0.6), cmd_t, Inches(5.95), Inches(0.5),
-        fill=RGBColor(0x04, 0x16, 0x30), line_color=ACCENT_CYAN, lw=1.8)
-    box(slide, LP_L + Inches(0.6), cmd_t, Inches(5.95), Inches(0.2), fill=ACCENT_CYAN)
-    txt(slide, "COMMANDER AGENT", LP_L + Inches(0.6), cmd_t + Inches(0.02),
-        Inches(5.95), Inches(0.18), size=8, bold=True, color=BG_DARK)
-    txt(slide, "Reads ASG + APG → decides next action",
-        LP_L + Inches(0.65), cmd_t + Inches(0.22), Inches(5.85), Inches(0.22),
-        size=8, color=GREY_MID, italic=True)
+    # ── Sequence Diagram ───────────────────────────────────────────────────────
+    DL = Inches(0.3)
+    DW = Inches(8.6)
+    DT = Inches(1.25)
+    DH = Inches(5.95)
 
-    # Spawn arrow
-    arr(slide, cmd_cx, cmd_t + Inches(0.5), cmd_cx, cmd_t + Inches(0.82),
-        color=ACCENT_PURP, lw=1.8)
-    txt(slide, "spawn(ASG slice + APG slice[optional] + task + toolset)",
-        cmd_cx + Inches(0.08), cmd_t + Inches(0.52),
-        Inches(3.4), Inches(0.26), size=8, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
+    box(slide, DL, DT, DW, DH, fill=RGBColor(0x06, 0x08, 0x14), line_color=GREY_DARK, lw=0.8)
 
-    # Isolated agent box
-    ic_t = cmd_t + Inches(0.88)
-    ic_l = LP_L + Inches(0.22)
-    ic_w = LP_W - Inches(0.44)
-    ic_h = Inches(2.9)
-    box(slide, ic_l, ic_t, ic_w, ic_h,
-        fill=RGBColor(0x08, 0x0C, 0x22), line_color=ACCENT_PURP, lw=1.0)
-    box(slide, ic_l, ic_t, ic_w, Inches(0.22), fill=RGBColor(0x18, 0x0C, 0x28))
-    txt(slide, "ISOLATED AGENT CONTEXT  (fresh per task — never shared)",
-        ic_l + Inches(0.08), ic_t + Inches(0.03), ic_w - Inches(0.12), Inches(0.18),
-        size=8, bold=True, color=ACCENT_PURP)
-
-    ctx_items = [
-        ("ASG SLICE", "Subgraph relevant to this task only — no global state", ACCENT_LIME, RGBColor(0x04, 0x18, 0x0C)),
-        ("APG SLICE", "Relevant AttackChains only — Validation agents only",   ACCENT_GOLD, RGBColor(0x18, 0x10, 0x02)),
-        ("TOOL SET",  "Authorized tools only — no cross-phase access",          ACCENT_RED,  RGBColor(0x1A, 0x06, 0x06)),
-        ("TASK SPEC", "Commander's current plan item",                          ACCENT_CYAN, RGBColor(0x04, 0x12, 0x20)),
-        ("KNOWLEDGE", "Vulnerability-class docs injected at spawn (§7)",        ACCENT_PURP, RGBColor(0x12, 0x06, 0x1E)),
+    # Swimlane headers
+    lanes = [
+        ("Commander", Inches(0.4), ACCENT_GOLD),
+        ("Agent", Inches(2.05), ACCENT_CYAN),
+        ("Risk Gate", Inches(3.5), ACCENT_RED),
+        ("Tool Adapter", Inches(5.1), ACCENT_PURP),
+        ("ASG", Inches(7.0), ACCENT_LIME),
     ]
-    ctx_row_h = (ic_h - Inches(0.28)) / len(ctx_items)
-    for i, (label, detail, clr, bg) in enumerate(ctx_items):
-        ct = ic_t + Inches(0.26) + i * ctx_row_h
-        box(slide, ic_l + Inches(0.1), ct, ic_w - Inches(0.2), ctx_row_h - Inches(0.04),
-            fill=bg, line_color=clr, lw=0.7)
-        txt(slide, label, ic_l + Inches(0.18), ct + Inches(0.04), Inches(1.1), ctx_row_h - Inches(0.1),
-            size=8, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        txt(slide, detail, ic_l + Inches(1.32), ct + Inches(0.04), ic_w - Inches(1.5), ctx_row_h - Inches(0.1),
-            size=8, color=GREY_MID, italic=True, align=PP_ALIGN.LEFT)
+    for name, lx, color in lanes:
+        box(slide, lx, DT + Inches(0.06), Inches(1.4), Inches(0.28), fill=color)
+        txt(slide, name, lx, DT + Inches(0.08), Inches(1.4), Inches(0.24),
+            size=9.5, bold=True, color=BG_DARK if color != ACCENT_PURP else WHITE, align=PP_ALIGN.CENTER)
+        # Dotted vertical line
+        for seg in range(12):
+            box(slide, lx + Inches(0.68), DT + Inches(0.38) + seg * Inches(0.44),
+                Inches(0.02), Inches(0.28), fill=GREY_DARK)
 
-    # Return arrow
-    ret_y = ic_t + ic_h
-    arr(slide, cmd_cx, ret_y, cmd_cx, ret_y + Inches(0.3), color=ACCENT_LIME, lw=1.8)
-    rd_t = ret_y + Inches(0.35)
-    rd_h = Inches(0.52)
-    box(slide, ic_l, rd_t, ic_w, rd_h,
-        fill=RGBColor(0x04, 0x1C, 0x0C), line_color=ACCENT_LIME, lw=1.4)
-    txt(slide, "RETURNS: Structured ASG Delta only  — working context discarded",
-        ic_l + Inches(0.1), rd_t + Inches(0.04), ic_w - Inches(0.16), Inches(0.22),
-        size=8.5, bold=True, color=ACCENT_LIME)
-    txt(slide, "No raw history, no conversation, no cross-contamination between agents.",
-        ic_l + Inches(0.1), rd_t + Inches(0.27), ic_w - Inches(0.16), Inches(0.22),
-        size=8, italic=True, color=GREY_MID)
-
-    # Properties
-    props = [
-        ("Commander context stays clean between all delegated tasks", ACCENT_CYAN),
-        ("Agent failures cannot contaminate other agents' reasoning",  ACCENT_PURP),
-        ("High-risk refusals do not bias future planning decisions",   ACCENT_RED),
+    # Sequence steps (simplified)
+    steps = [
+        # (from_x, to_x, y, label, label_side, label_color, dashed)
+        (Inches(1.1), Inches(2.05), DT + Inches(0.58), "spawn(ASG slice + task + toolset)", "top", WHITE, False),
+        (Inches(2.75), Inches(3.5), DT + Inches(0.98), "tool_call(WhatWeb) \u2014 LOW risk", "top", WHITE, False),
+        (Inches(3.5), Inches(3.5), DT + Inches(1.16), "\u2192 execute immediately", "right", ACCENT_LIME, True),
+        (Inches(3.5), Inches(5.1), DT + Inches(1.36), "execute(WhatWeb)", "top", GREY_MID, False),
+        (Inches(5.1), Inches(2.75), DT + Inches(1.56), "structured findings [tech: WP 5.9.3]", "top", GREY_MID, True),
+        (Inches(2.75), Inches(3.5), DT + Inches(1.96), "tool_call(Gobuster) \u2014 MED risk", "top", WHITE, False),
+        (Inches(3.5), Inches(3.5), DT + Inches(2.14), "LLM Classif\u2026 \u2192 EXECUTE", "right", ACCENT_GOLD, True),
+        (Inches(3.5), Inches(5.1), DT + Inches(2.34), "execute(Gobuster)", "top", GREY_MID, False),
+        (Inches(5.1), Inches(2.75), DT + Inches(2.54), "structured findings [endpoint: /backup/\u2026]", "top", GREY_MID, True),
+        (Inches(2.75), Inches(3.5), DT + Inches(2.94), "tool_call(SQLMap) \u2014 HIGH risk", "top", ACCENT_RED, False),
+        (Inches(1.12), Inches(1.12), DT + Inches(3.14), "Commander Mailbox \u2014\napproval request", "left", ACCENT_GOLD, True),
+        (Inches(1.12), Inches(3.5), DT + Inches(3.74), "APPROVED\n(scope valid, chain intent ok)", "top", ACCENT_LIME, False),
+        (Inches(3.5), Inches(5.1), DT + Inches(4.14), "", "top", GREY_MID, False),
+        (Inches(5.1), Inches(7.0), DT + Inches(4.54), "write delta [Tech node][Endpoint node][Vuln node]", "top", ACCENT_LIME, False),
+        (Inches(2.75), Inches(1.12), DT + Inches(4.94), "return structured ASG delta", "top", GREY_MID, True),
     ]
-    for i, (prop, clr) in enumerate(props):
-        pt = rd_t + rd_h + Inches(0.1) + i * Inches(0.26)
-        box(slide, ic_l, pt, ic_w, Inches(0.22), fill=RGBColor(0x0C, 0x0E, 0x22), line_color=clr, lw=0.5)
-        txt(slide, f"✓  {prop}", ic_l + Inches(0.08), pt + Inches(0.03),
-            ic_w - Inches(0.12), Inches(0.18), size=8.5, color=clr, align=PP_ALIGN.LEFT)
 
-    # ── RIGHT: C4 Parallel Dispatch ───────────────────────────────────────────
-    RP_L = LP_L + LP_W + Inches(0.14)
-    RP_W = SLIDE_W - RP_L - Inches(0.22)
-    RP_T, RP_H = Inches(0.98), SLIDE_H - Inches(1.26)
+    for (x1, x2, y, label, side, color, dashed) in steps:
+        if dashed:
+            for seg in range(6):
+                sx = x1 + seg * (x2 - x1) / 6
+                box(slide, sx, y, (x2 - x1) / 8, Inches(0.02), fill=color)
+        else:
+            arr(slide, x1, y, x2, y, color=color, lw=1.0)
+        if label:
+            ly = y - Inches(0.2)
+            mid_x = min(x1, x2)
+            lw_txt = abs(x2 - x1) + Inches(0.5)
+            txt(slide, label, mid_x, ly, lw_txt, Inches(0.28),
+                size=7.5, color=color, align=PP_ALIGN.LEFT, wrap=True)
 
-    box(slide, RP_L, RP_T, RP_W, RP_H,
-        fill=RGBColor(0x06, 0x0C, 0x1C), line_color=ACCENT_GOLD, lw=1.4)
-    box(slide, RP_L, RP_T, RP_W, Inches(0.3), fill=ACCENT_GOLD)
-    txt(slide, "C4 — ASG-Aware Parallel Dispatch", RP_L, RP_T + Inches(0.04), RP_W, Inches(0.24),
-        size=9.5, bold=True, color=BG_DARK)
+    # Bottom summary boxes in diagram
+    box(slide, DL + Inches(0.05), DT + DH - Inches(0.92), Inches(2.3), Inches(0.84),
+        fill=RGBColor(0x06, 0x16, 0x06), line_color=ACCENT_LIME, lw=0.8)
+    txt(slide, "Commander reads new Vuln nodes\n\u2192 seeds APG Chain-01",
+        DL + Inches(0.1), DT + DH - Inches(0.88), Inches(2.2), Inches(0.76),
+        size=8, color=ACCENT_LIME, align=PP_ALIGN.LEFT, wrap=True)
+    box(slide, DL + Inches(2.5), DT + DH - Inches(0.92), Inches(3.0), Inches(0.84),
+        fill=RGBColor(0x12, 0x08, 0x00), line_color=ACCENT_GOLD, lw=0.8)
+    txt(slide, "\U0001f5d1\ufe0f Working context DISCARDED\nRaw tool output \u00b7 history \u00b7 reasoning \u2192 gone",
+        DL + Inches(2.6), DT + DH - Inches(0.88), Inches(2.8), Inches(0.76),
+        size=8, color=ACCENT_GOLD, align=PP_ALIGN.LEFT, wrap=True)
 
-    txt(slide, "When the ASG contains multiple independent sub-graphs — "
-               "hosts or services with no shared edges — the Commander can spawn "
-               "multiple agents concurrently.",
-        RP_L + Inches(0.1), RP_T + Inches(0.38), RP_W - Inches(0.16), Inches(0.7),
-        size=9.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+    # ── RIGHT PANEL ───────────────────────────────────────────────────────────
+    R = Inches(9.15)
+    RW = SLIDE_W - R - Inches(0.15)
 
-    # Visual: 3 hosts side by side
-    host_labels = ["Host A\n192.168.1.10", "Host B\n10.0.1.5", "Host C\n172.16.0.8"]
-    host_colors = [ACCENT_LIME, ACCENT_CYAN, ACCENT_GOLD]
-    hw = (RP_W - Inches(0.3)) / 3 - Inches(0.06)
-    ht = RP_T + Inches(1.18)
-    for i, (lbl, clr) in enumerate(zip(host_labels, host_colors)):
-        hl = RP_L + Inches(0.1) + i * (hw + Inches(0.06))
-        box(slide, hl, ht, hw, Inches(0.6),
-            fill=RGBColor(0x08, 0x14, 0x22), line_color=clr, lw=1.2)
-        txt(slide, lbl, hl, ht + Inches(0.06), hw, Inches(0.5),
-            size=8.5, bold=True, color=clr)
-        # Arrow down to agent
-        arr(slide, hl + hw / 2, ht + Inches(0.6), hl + hw / 2, ht + Inches(0.96),
-            color=clr, lw=1.2)
-        box(slide, hl, ht + Inches(1.0), hw, Inches(0.44),
-            fill=RGBColor(0x10, 0x0C, 0x22), line_color=clr, lw=1.0)
-        txt(slide, "Analysis\nAgent", hl, ht + Inches(1.02), hw, Inches(0.4),
-            size=8, bold=True, color=clr)
+    # Agent Spawn Package
+    box(slide, R, DT, RW, Inches(2.26), fill=RGBColor(0x08, 0x10, 0x20), line_color=GREY_DARK, lw=0.8)
+    txt(slide, "Agent Spawn Package", R + Inches(0.12), DT + Inches(0.08),
+        RW - Inches(0.2), Inches(0.26), size=12, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
 
-    txt(slide, "ASG edges determine dependency — agents on independent sub-graphs run concurrently.\n"
-               "The sequence diagrams in this deck show the single-agent case for clarity.",
-        RP_L + Inches(0.1), RP_T + Inches(2.0), RP_W - Inches(0.16), Inches(0.7),
-        size=9, italic=True, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
-
-    # Risk tier summary
-    box(slide, RP_L + Inches(0.1), RP_T + Inches(2.82), RP_W - Inches(0.2), Inches(0.26),
-        fill=RGBColor(0x12, 0x10, 0x06))
-    txt(slide, "RISK TIER  ·  TOOL CLASS", RP_L + Inches(0.18), RP_T + Inches(2.85),
-        RP_W - Inches(0.3), Inches(0.22), size=8, bold=True, color=ACCENT_GOLD)
-
-    tiers = [
-        ("LOW",  "Passive discovery — execute immediately",        ACCENT_LIME),
-        ("MED",  "Active enumeration — LLM classifier → exec",    ACCENT_GOLD),
-        ("HIGH", "Exploit operations — Commander Mailbox approval", ACCENT_RED),
+    package_items = [
+        ("\u25cf ASG SLICE  Only nodes relevant to this task \u2014 not the full graph", ACCENT_LIME),
+        ("\u25cf APG SLICE  Relevant AttackChains only (Validation tasks)", ACCENT_GOLD),
+        ("\u25cf TOOL SET  Authorized tools only \u2014 no others available", ACCENT_RED),
+        ("\u25cf TASK SPEC  Commander's current plan item \u2014 exact objective", ACCENT_CYAN),
+        ("\u25cf KNOWLEDGE DOCS  Vuln-class expert docs (Analysis + Validation)", ACCENT_PURP),
     ]
-    for i, (tier, action, clr) in enumerate(tiers):
-        tt = RP_T + Inches(3.14) + i * Inches(0.52)
-        box(slide, RP_L + Inches(0.1), tt, RP_W - Inches(0.2), Inches(0.48),
-            fill=RGBColor(0x0C, 0x0E, 0x22), line_color=clr, lw=0.7)
-        box(slide, RP_L + Inches(0.1), tt, Inches(0.5), Inches(0.48), fill=clr)
-        txt(slide, tier, RP_L + Inches(0.12), tt + Inches(0.06), Inches(0.46), Inches(0.36),
-            size=9, bold=True, color=BG_DARK)
-        txt(slide, action, RP_L + Inches(0.66), tt + Inches(0.06), RP_W - Inches(0.8), Inches(0.36),
-            size=9, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+    for k, (label, color) in enumerate(package_items):
+        pt = DT + Inches(0.38) + k * Inches(0.34)
+        box(slide, R + Inches(0.08), pt, RW - Inches(0.16), Inches(0.28),
+            fill=RGBColor(0x04, 0x08, 0x1A), line_color=GREY_DARK, lw=0.5)
+        txt(slide, label, R + Inches(0.12), pt + Inches(0.03), RW - Inches(0.22), Inches(0.22),
+            size=8, color=color, align=PP_ALIGN.LEFT, wrap=True)
 
-    slide_number(slide, "08", ACCENT_PURP)
+    box(slide, R + Inches(0.08), DT + Inches(2.08), RW - Inches(0.16), Inches(0.26),
+        fill=RGBColor(0x02, 0x14, 0x04), line_color=ACCENT_LIME, lw=1.0)
+    txt(slide, "Returns: Structured ASG Delta (new nodes + edges only)",
+        R + Inches(0.12), DT + Inches(0.5) + Inches(1.62), RW - Inches(0.22), Inches(0.22),
+        size=8.5, bold=True, color=ACCENT_LIME, align=PP_ALIGN.CENTER)
+
+    txt(slide, "Raw tool output \u00b7 conversation history \u00b7 intermediate reasoning \u2192 DISCARDED",
+        R + Inches(0.08), DT + Inches(2.38), RW - Inches(0.16), Inches(0.26),
+        size=7.5, italic=True, color=GREY_MID, align=PP_ALIGN.CENTER)
+
+    # Benefit cards
+    benefits = [
+        ("\u2611 Commander Stays Clean",
+         "Commander only ever sees ASG/APG state \u2014 never thousands of lines of raw tool output. Reasoning context stays surgically focused.",
+         ACCENT_CYAN),
+        ("\u2611 Agents Can\u2019t Contaminate",
+         "Agent A's verbose history never appears in Agent B's context. Knowledge passes only through the ASG. No shared memory. No cross-pollution.",
+         ACCENT_PURP),
+        ("\u2611 Rejections Don\u2019t Bias Planning",
+         "When Commander rejects a High-risk tool call, that rejection never appears in the Commander's own context. Refusals don't accumulate and skew future decisions.",
+         ACCENT_RED),
+    ]
+    for k, (title, body, color) in enumerate(benefits):
+        bt = DT + Inches(2.68) + k * Inches(1.1)
+        box(slide, R, bt, RW, Inches(1.04), fill=RGBColor(0x04, 0x08, 0x18), line_color=color, lw=0.8)
+        txt(slide, title, R + Inches(0.1), bt + Inches(0.06), RW - Inches(0.2), Inches(0.26),
+            size=10, bold=True, color=color, align=PP_ALIGN.LEFT)
+        txt(slide, body, R + Inches(0.1), bt + Inches(0.34), RW - Inches(0.2), Inches(0.62),
+            size=8.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+
+    # Result callout
+    rt = DT + Inches(2.68) + 3 * Inches(1.1) + Inches(0.04)
+    box(slide, R, rt, RW, Inches(0.5), fill=RGBColor(0x0A, 0x18, 0x0A), line_color=ACCENT_LIME, lw=0.8)
+    txt(slide, "\U0001f534 Result: Long missions with many agents produce the same reasoning quality as "
+        "single-agent tasks \u2014 context quality does not degrade with mission complexity.",
+        R + Inches(0.1), rt + Inches(0.06), RW - Inches(0.2), Inches(0.4),
+        size=8, color=ACCENT_LIME, align=PP_ALIGN.LEFT, wrap=True)

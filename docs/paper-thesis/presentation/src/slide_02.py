@@ -25,7 +25,7 @@ def build_slide(prs):
     ]
 
     card_l, card_w = Inches(0.3), Inches(5.8)
-    card_h, card_gap = Inches(1.25), Inches(0.1)
+    card_h, card_gap = Inches(1.09), Inches(0.10)
     card_top = Inches(1.32)
 
     for i, (title, body) in enumerate(problems):
