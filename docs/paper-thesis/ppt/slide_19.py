@@ -1,12 +1,9 @@
 """
-Slide 19 — Evaluation Plan
-============================
-Shows the planned evaluation strategy:
-- Platforms: HackTheBox, TryHackMe, custom lab VMs
-- Metrics: Vulnerability coverage, chain precision, time-to-finding vs baseline
-- Baseline: PentestGPT (flat history), manual VAPT (timed expert), random tool agent
-- Research questions
-- Expected deliverable: ablation comparing dual-graph vs single-graph vs no-graph
+Slide 19 — Summary (Closing Slide)
+=====================================
+Crystallises: What is CMatrix, what it claims, what you are asking the supervisor for,
+and a current status snapshot.
+Matches presentation-final.pptx Slide 19.
 """
 from palette import *
 
@@ -14,126 +11,135 @@ from palette import *
 def build_slide(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(slide, BG_DARK)
-    chrome(slide, ACCENT_GOLD)
-    slide_header(slide, "EVALUATION PLAN",
-                 "How We Will Validate CMatrix Claims Empirically",
-                 ACCENT_GOLD, title_size=32, divider_w=9)
 
-    # ── Left column: Platforms + Research Questions ───────────────────────────
-    LP_L, LP_W = Inches(0.22), Inches(6.4)
-    LP_T = Inches(1.08)
+    # Chrome: cyan left + lime top + cyan bottom
+    box(slide, Inches(0), Inches(0), Inches(0.06), SLIDE_H, fill=ACCENT_CYAN)
+    box(slide, Inches(0.06), Inches(0), SLIDE_W - Inches(0.06), Inches(0.04), fill=ACCENT_LIME)
+    box(slide, Inches(0.06), SLIDE_H - Inches(0.04), SLIDE_W - Inches(0.06), Inches(0.04), fill=ACCENT_CYAN)
 
-    # Platforms
-    box(slide, LP_L, LP_T, LP_W, Inches(2.5),
-        fill=RGBColor(0x0C, 0x10, 0x22), line_color=ACCENT_CYAN, lw=1.4)
-    box(slide, LP_L, LP_T, LP_W, Inches(0.32), fill=ACCENT_CYAN)
-    txt(slide, "EVALUATION PLATFORMS", LP_L, LP_T + Inches(0.04), LP_W, Inches(0.26),
-        size=10, bold=True, color=BG_DARK)
+    # Title
+    txt(slide, "SUMMARY", Inches(0.3), Inches(0.08), Inches(5), Inches(0.26),
+        size=10, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+    txt(slide, "CMatrix — What We Built, What We Claim, What We Need",
+        Inches(0.3), Inches(0.34), Inches(12.5), Inches(0.52),
+        size=28, bold=True, color=WHITE, align=PP_ALIGN.LEFT)
+    box(slide, Inches(0.3), Inches(0.92), Inches(11), Inches(0.03), fill=GREY_MID)
 
-    platforms = [
-        ("HackTheBox (HTB)", "Retired machines — Linux + Windows — known ground-truth vulnerabilities for coverage scoring.", ACCENT_CYAN),
-        ("TryHackMe (THM)", "Guided CTF environments with intentionally vulnerable web applications and APIs.", ACCENT_LIME),
-        ("Custom Lab VMs",  "Controlled WordPress + Django stack mirroring shopvault.io for repeatable A/B testing.", ACCENT_GOLD),
+    # ── Left column ───────────────────────────────────────────────────────────
+    SUM_L, SUM_W = Inches(0.3), Inches(5.5)
+    SUM_T = Inches(1.08)
+
+    # What CMatrix Is
+    box(slide, SUM_L, SUM_T, SUM_W, Inches(1.65),
+        fill=RGBColor(0x04, 0x12, 0x22), line_color=ACCENT_CYAN, lw=1.6)
+    txt(slide, "WHAT CMATRIX IS", SUM_L + Inches(0.12), SUM_T + Inches(0.06),
+        SUM_W - Inches(0.2), Inches(0.22),
+        size=10, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+    txt(slide,
+        "A dual-graph-guided, LLM-orchestrated multi-agent framework for autonomous Vulnerability "
+        "Assessment and Penetration Testing.  It maintains two strictly separated graph structures — "
+        "the ASG (what the target is) and the APG (what can be done to it) — and uses both to "
+        "plan, dispatch, validate, and formally terminate a complete VAPT engagement without human intervention.",
+        SUM_L + Inches(0.14), SUM_T + Inches(0.34), SUM_W - Inches(0.24), Inches(1.26),
+        size=10.5, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
+
+    # Current Status
+    STATUS_T = SUM_T + Inches(1.78)
+    box(slide, SUM_L, STATUS_T, SUM_W, Inches(4.49),
+        fill=RGBColor(0x04, 0x18, 0x0C), line_color=ACCENT_LIME, lw=1.4)
+    txt(slide, "CURRENT STATUS", SUM_L + Inches(0.12), STATUS_T + Inches(0.06),
+        SUM_W - Inches(0.2), Inches(0.22),
+        size=10, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
+    txt(slide,
+        "We are currently in the architecture proposal phase, prior to implementation.",
+        SUM_L + Inches(0.14), STATUS_T + Inches(0.34), SUM_W - Inches(0.24), Inches(0.32),
+        size=10.5, bold=True, color=WHITE, align=PP_ALIGN.LEFT, wrap=True)
+
+    status_bullets = [
+        "→  All 12 contributions are fully specified at the architecture level - no implementation has begun.",
+        "→  Some contributions are more load-bearing than others - prioritization hasn't been finalized.",
+        "→  HTB/THM evaluation plan is outlined but not yet run.",
+        "→  This meeting is seeking scope and direction sign-off before implementation work starts.",
     ]
-    for i, (name, detail, clr) in enumerate(platforms):
-        pt = LP_T + Inches(0.38) + i * Inches(0.68)
-        box(slide, LP_L + Inches(0.1), pt, LP_W - Inches(0.2), Inches(0.62),
-            fill=RGBColor(0x08, 0x14, 0x24), line_color=clr, lw=0.6)
-        txt(slide, name, LP_L + Inches(0.2), pt + Inches(0.04), LP_W - Inches(0.32), Inches(0.22),
-            size=10, bold=True, color=clr, align=PP_ALIGN.LEFT)
-        txt(slide, detail, LP_L + Inches(0.2), pt + Inches(0.28), LP_W - Inches(0.32), Inches(0.3),
+    for i, bullet in enumerate(status_bullets):
+        txt(slide, bullet,
+            SUM_L + Inches(0.14), STATUS_T + Inches(0.74) + i * Inches(0.38),
+            SUM_W - Inches(0.24), Inches(0.34),
             size=9, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    # Research Questions
-    rq_t = LP_T + Inches(2.6)
-    box(slide, LP_L, rq_t, LP_W, Inches(3.76),
-        fill=RGBColor(0x0E, 0x0C, 0x04), line_color=ACCENT_GOLD, lw=1.4)
-    box(slide, LP_L, rq_t, LP_W, Inches(0.32), fill=ACCENT_GOLD)
-    txt(slide, "RESEARCH QUESTIONS", LP_L, rq_t + Inches(0.04), LP_W, Inches(0.26),
-        size=10, bold=True, color=BG_DARK)
+    # Stat boxes
+    stat_t = STATUS_T + Inches(3.22)
+    for j, (num, label, clr) in enumerate([
+        ("12 / 12", "Contributions specified", ACCENT_LIME),
+        ("0 / 12",  "Contributions implemented", RGBColor(0x8A, 0x8A, 0x8A)),
+    ]):
+        sl = SUM_L + Inches(0.14) + j * Inches(2.62)
+        box(slide, sl, stat_t, Inches(2.55), Inches(1.2),
+            fill=RGBColor(0x06, 0x22, 0x10) if j == 0 else RGBColor(0x14, 0x14, 0x14),
+            line_color=clr, lw=1.0)
+        txt(slide, num, sl + Inches(0.1), stat_t + Inches(0.06),
+            Inches(2.35), Inches(0.6),
+            size=32, bold=True, color=clr, align=PP_ALIGN.CENTER)
+        txt(slide, label, sl + Inches(0.1), stat_t + Inches(0.72),
+            Inches(2.35), Inches(0.3),
+            size=9, color=GREY_MID, align=PP_ALIGN.CENTER)
 
-    rqs = [
-        ("RQ1", "Does the dual-graph architecture improve vulnerability coverage compared to a flat-memory baseline?"),
-        ("RQ2", "Does formal dual termination reduce false-early-stops vs timer-based termination?"),
-        ("RQ3", "Does cross-mission learning measurably reduce time-to-finding on repeat target-type engagements?"),
-        ("RQ4", "Does the risk gate reduce unintended offensive actions without significantly reducing coverage?"),
-    ]
-    for i, (rq, text) in enumerate(rqs):
-        qt = rq_t + Inches(0.38) + i * Inches(0.82)
-        box(slide, LP_L + Inches(0.1), qt, Inches(0.45), Inches(0.7), fill=ACCENT_GOLD)
-        txt(slide, rq, LP_L + Inches(0.12), qt + Inches(0.18), Inches(0.42), Inches(0.32),
-            size=10, bold=True, color=BG_DARK)
-        txt(slide, text, LP_L + Inches(0.62), qt + Inches(0.04), LP_W - Inches(0.74), Inches(0.64),
-            size=9, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
-
-    # ── Right column: Metrics + Baseline + Ablation ───────────────────────────
-    RP_L = LP_L + LP_W + Inches(0.14)
+    # ── Right column: Claims + What We Need ──────────────────────────────────
+    RP_L = SUM_L + SUM_W + Inches(0.22)
     RP_W = SLIDE_W - RP_L - Inches(0.22)
-    RP_T = LP_T
+    RP_T = SUM_T
 
-    # Metrics
-    box(slide, RP_L, RP_T, RP_W, Inches(2.3),
-        fill=RGBColor(0x06, 0x14, 0x08), line_color=ACCENT_LIME, lw=1.4)
-    box(slide, RP_L, RP_T, RP_W, Inches(0.32), fill=ACCENT_LIME)
-    txt(slide, "EVALUATION METRICS", RP_L, RP_T + Inches(0.04), RP_W, Inches(0.26),
-        size=10, bold=True, color=BG_DARK)
+    # What We Claim
+    box(slide, RP_L, RP_T, RP_W, Inches(3.04),
+        fill=RGBColor(0x16, 0x12, 0x02), line_color=ACCENT_GOLD, lw=1.4)
+    txt(slide, "WHAT WE CLAIM", RP_L + Inches(0.12), RP_T + Inches(0.06),
+        RP_W - Inches(0.2), Inches(0.22),
+        size=10, bold=True, color=ACCENT_GOLD, align=PP_ALIGN.LEFT)
 
-    metrics = [
-        ("Vulnerability Coverage", "% of known vulns discovered vs ground truth per machine"),
-        ("Chain Precision",         "% of APG AttackChains that result in VALIDATED status"),
-        ("Time-to-Finding",         "Wall-clock time from mission start to first VALIDATED chain"),
-        ("False Early-Stop Rate",   "% of missions terminated before surface exhaustion"),
-        ("Tool Call Efficiency",    "Mean tool calls to first VALIDATED chain per target"),
+    claims = [
+        ("→  CMatrix is the first autonomous VAPT system to maintain two strictly separated, \n"
+         "      continuously evolving graph structures for simultaneous discovery and attack reasoning."),
+        "→  Formal dual termination provides a theoretically sound, verifiable completion criterion that prior systems cannot express.",
+        ("→  Cross-mission learning accumulates validated exploitation outcomes across all missions — \n"
+         "      a capability no prior published VAPT system demonstrates."),
+        "→  The architecture produces a machine-readable decision trace usable for training security-specialized LLMs.",
     ]
-    for i, (name, desc) in enumerate(metrics):
-        mt = RP_T + Inches(0.38) + i * Inches(0.38)
-        box(slide, RP_L + Inches(0.1), mt, RP_W - Inches(0.2), Inches(0.34),
-            fill=RGBColor(0x06, 0x1C, 0x0A), line_color=ACCENT_LIME, lw=0.4)
-        txt(slide, name, RP_L + Inches(0.18), mt + Inches(0.04),
-            Inches(1.85), Inches(0.26), size=9, bold=True, color=ACCENT_LIME, align=PP_ALIGN.LEFT)
-        txt(slide, desc, RP_L + Inches(2.08), mt + Inches(0.04),
-            RP_W - Inches(2.2), Inches(0.26), size=9, color=GREY_MID, align=PP_ALIGN.LEFT)
-
-    # Baselines
-    bl_t = RP_T + Inches(2.4)
-    box(slide, RP_L, bl_t, RP_W, Inches(1.6),
-        fill=RGBColor(0x18, 0x08, 0x08), line_color=ACCENT_RED, lw=1.4)
-    box(slide, RP_L, bl_t, RP_W, Inches(0.32), fill=ACCENT_RED)
-    txt(slide, "BASELINES", RP_L, bl_t + Inches(0.04), RP_W, Inches(0.26),
-        size=10, bold=True, color=WHITE)
-
-    baselines = [
-        ("PentestGPT", "Flat conversation history — no structured world model"),
-        ("Random Tool Agent", "Same tool set, random action selection — no planning"),
-        ("Manual Expert", "Timed human VAPT expert on same targets for ground truth"),
-    ]
-    for i, (name, desc) in enumerate(baselines):
-        bt = bl_t + Inches(0.38) + i * Inches(0.4)
-        txt(slide, f"✕  {name}:  {desc}",
-            RP_L + Inches(0.16), bt, RP_W - Inches(0.28), Inches(0.36),
+    for i, claim in enumerate(claims):
+        ct = RP_T + Inches(0.34) + i * Inches(0.64)
+        box(slide, RP_L + Inches(0.1), ct, RP_W - Inches(0.2), Inches(0.58),
+            fill=RGBColor(0x1E, 0x16, 0x02), line_color=ACCENT_GOLD, lw=0.5)
+        txt(slide, claim, RP_L + Inches(0.18), ct + Inches(0.04),
+            RP_W - Inches(0.3), Inches(0.5),
             size=9, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    # Ablation
-    ab_t = bl_t + Inches(1.7)
-    box(slide, RP_L, ab_t, RP_W, Inches(2.3),
-        fill=RGBColor(0x08, 0x10, 0x22), line_color=ACCENT_PURP, lw=1.4)
-    box(slide, RP_L, ab_t, RP_W, Inches(0.32), fill=ACCENT_PURP)
-    txt(slide, "ABLATION STUDY", RP_L, ab_t + Inches(0.04), RP_W, Inches(0.26),
-        size=10, bold=True, color=BG_DARK)
+    # What We Are Asking For
+    wn_t = RP_T + Inches(3.16)
+    box(slide, RP_L, wn_t, RP_W, Inches(3.1),
+        fill=RGBColor(0x04, 0x14, 0x10), line_color=ACCENT_CYAN, lw=1.6)
+    box(slide, RP_L, wn_t, RP_W, Inches(0.32), fill=RGBColor(0x0A, 0x0D, 0x1A))
+    txt(slide, "WHAT WE ARE ASKING FOR", RP_L + Inches(0.12), wn_t + Inches(0.04),
+        RP_W - Inches(0.2), Inches(0.26),
+        size=10, bold=True, color=BG_DARK, align=PP_ALIGN.LEFT)
 
-    ablations = [
-        ("A1 — No dual-graph",   "CMatrix with flat history only (remove ASG + APG)"),
-        ("A2 — ASG only",        "CMatrix with ASG discovery but no APG reasoning"),
-        ("A3 — No compaction",   "CMatrix with unlimited raw history (no C6)"),
-        ("A4 — No learning",     "CMatrix without C10/C11 cross-mission store"),
+    asks = [
+        ("Feedback on Scope",
+         "Are the 12 contributions appropriately scoped for our thesis?"),
+        ("Evaluation Guidance",
+         "Is the HTB/THM ablation plan sufficient to prove the core claims?"),
+        ("Implementation Priority",
+         "Which of the 12 contributions should be fully implemented vs theoretically validated?"),
+        ("Publication Venue",
+         "USENIX Security / IEEE S&P / ACSAC — which tier matches the contribution level?"),
     ]
-    for i, (variant, desc) in enumerate(ablations):
-        at = ab_t + Inches(0.38) + i * Inches(0.46)
-        box(slide, RP_L + Inches(0.1), at, RP_W - Inches(0.2), Inches(0.4),
-            fill=RGBColor(0x0C, 0x0E, 0x26), line_color=ACCENT_PURP, lw=0.4)
-        txt(slide, variant, RP_L + Inches(0.18), at + Inches(0.04), Inches(1.6), Inches(0.3),
-            size=9, bold=True, color=ACCENT_PURP, align=PP_ALIGN.LEFT)
-        txt(slide, desc, RP_L + Inches(1.82), at + Inches(0.04), RP_W - Inches(1.98), Inches(0.3),
+    for i, (heading, question) in enumerate(asks):
+        at = wn_t + Inches(0.38) + i * Inches(0.68)
+        box(slide, RP_L + Inches(0.1), at, RP_W - Inches(0.2), Inches(0.62),
+            fill=RGBColor(0x06, 0x1C, 0x16), line_color=ACCENT_CYAN, lw=0.6)
+        txt(slide, heading, RP_L + Inches(0.2), at + Inches(0.04),
+            RP_W - Inches(0.32), Inches(0.22),
+            size=10, bold=True, color=ACCENT_CYAN, align=PP_ALIGN.LEFT)
+        txt(slide, question, RP_L + Inches(0.2), at + Inches(0.28),
+            RP_W - Inches(0.32), Inches(0.3),
             size=9, color=GREY_MID, align=PP_ALIGN.LEFT, wrap=True)
 
-    slide_number(slide, "19", ACCENT_GOLD)
+    slide_number(slide, "19", ACCENT_CYAN)
