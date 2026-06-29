@@ -1124,7 +1124,7 @@ flowchart LR
 
 ---
 
-## Module 05, Figure 1 — Cross-Mission Experience Store: The Persistent Learning Layer
+## Module 06, Figure 5 — Cross-Mission Experience Store: The Persistent Learning Layer
 
 The ASG and APG are reset fresh for every mission. The Cross-Mission Experience Store is the only structure that survives across missions. This diagram shows its two-direction lifecycle: how it is written at mission close, and how it is queried at mission start.
 
@@ -1175,7 +1175,7 @@ flowchart TD
 
 ---
 
-## Module 05, Figure 2 — Attack Strategy Library: Cross-Mission Procedural Learning
+## Module 06, Figure 6 — Attack Strategy Library: Cross-Mission Procedural Learning
 
 The Cross-Mission Experience Store records raw per-mission outcomes. The Attack Strategy Library is a higher-order abstraction: generalized, named, parameterized attack strategies crystallized from multiple missions that produced the same result on the same technology fingerprint.
 
@@ -1382,5 +1382,5 @@ The diagrams have been migrated to their contextually appropriate modules. Here 
 | Module 06 | Figure 3: Single LLM API / Scoped Calls | All call types routed to one API, differentiated by prompt scope |
 | Module 06 | Figure 4: Vulnerability-Class Knowledge Injection | Agent-to-document injection mapping |
 | Module 07 | Figure 1: shopvault.io Walkthrough | Phase-by-phase timeline + Commander log + traceability chain |
-| Module 05 | Figure 1: Cross-Mission Experience Store | Mission-start query + mission-end write lifecycle |
-| Module 05 | Figure 2: Attack Strategy Library Crystallization | Fingerprint → multi-mission → crystallized strategy flow |
+| Module 06 | Figure 5: Cross-Mission Experience Store | Mission-start query + mission-end write lifecycle |
+| Module 06 | Figure 6: Attack Strategy Library Crystallization | Fingerprint → multi-mission → crystallized strategy flow |

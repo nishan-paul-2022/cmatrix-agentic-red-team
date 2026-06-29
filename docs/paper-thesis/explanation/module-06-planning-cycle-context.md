@@ -839,5 +839,110 @@ flowchart TD
 
 ---
 
+## Figure 5 — Cross-Mission Experience Store: The Persistent Learning Layer
+
+The ASG and APG are reset fresh for every mission. The Cross-Mission Experience Store is the only structure that survives across missions. This diagram shows its two-direction lifecycle: how it is written at mission close, and how it is queried at mission start.
+
+```mermaid
+flowchart TD
+    subgraph MISSION_A["🟢 Mission A — shopvault.io (completed)"]
+        direction LR
+        A1["APG: Chain-01 VALIDATED\nWordPress 5.9.3 + WooCommerce\nSQLi → Admin → RCE"]
+        A2["APG: Chain-03 VALIDATED\nDjango API + staging SQLi\nBlind SQLi → Credential extraction"]
+    end
+
+    subgraph WRITE["📥 WRITE TRIGGER\nReport Agent — at mission close\nFor every VALIDATED chain"]
+        W1["Store Entry Written:\n──────────────────────────\nTarget fingerprint: WordPress 5.9.3 · WooCommerce 6.1 · Nginx 1.18\nVuln class: SQLi (CVE-2022-21661)\nTool sequence: SQLMap → SQLMap dump → Metasploit\nChainStep params: WP_Query endpoint · wp_admin_shell_upload\nOutcome: RCE achieved · admin hash cracked · Summer2023!\nMission ID: MIS-001"]
+    end
+
+    subgraph STORE["🗄️ CROSS-MISSION EXPERIENCE STORE\n(Persistent · RAG-backed · Survives across missions)"]
+        S1["Entry: MIS-001 · WordPress SQLi → RCE"]
+        S2["Entry: MIS-001 · Django staging blind SQLi"]
+        S3["Entry: MIS-002 · ... (prior missions)"]
+        S4["Entry: MIS-00N · ..."]
+    end
+
+    subgraph QUERY["📤 QUERY TRIGGER\nCommander — at mission start\nAfter first Technology nodes written to ASG"]
+        Q1["Query: WordPress 5.x + WooCommerce\n──────────────────────────\nRetrieves: MIS-001 entry\nInjects into Commander context as:\nCandidate chain hypotheses —\npre-validated patterns from analogous past engagements"]
+    end
+
+    subgraph MISSION_B["🔵 Mission B — new target with WordPress 5.8"]
+        direction LR
+        B1["Commander seeds APG Chain-01\nFront-loaded: SQLi hypothesis\nalready validated on similar stack\n→ Skips zero-prior reasoning\n→ Validation pursued immediately"]
+    end
+
+    MISSION_A --> WRITE
+    WRITE --> STORE
+    STORE --> QUERY
+    QUERY --> MISSION_B
+
+    style MISSION_A fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style WRITE fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style STORE fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style QUERY fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style MISSION_B fill:#10081E,stroke:#9C27B0,color:#CE93D8
+```
+
+**Key properties:**
+- The store is queried **immediately after the first Technology node batch** is written — before Analysis Agent begins enumeration. This front-loads high-probability chains.
+- Only `VALIDATED` chains are written. `RULED_OUT` chains are not stored (they represent dead ends on specific parameters, not reusable patterns).
+- Retrieval returns **candidate hypotheses** — the Commander still evaluates them against the current ASG before seeding APG chains. The store accelerates, it does not override.
+
+---
+
+## Figure 6 — Attack Strategy Library: Cross-Mission Procedural Learning
+
+The Cross-Mission Experience Store records raw per-mission outcomes. The Attack Strategy Library is a higher-order abstraction: generalized, named, parameterized attack strategies crystallized from multiple missions that produced the same result on the same technology fingerprint.
+
+```mermaid
+flowchart TD
+    subgraph RAW["🗄️ Cross-Mission Experience Store\n(Raw per-mission records)"]
+        R1["MIS-001: WordPress 5.9.3 + WooCommerce\n→ CVE-2022-21661 SQLi → RCE ✅"]
+        R2["MIS-007: WordPress 5.8.2 + WooCommerce 6.0\n→ CVE-2022-21661 SQLi → RCE ✅"]
+        R3["MIS-012: WordPress 5.9.1 + WooCommerce 6.1\n→ CVE-2022-21661 SQLi → RCE ✅"]
+    end
+
+    subgraph THRESHOLD["⚖️ Crystallization Threshold Check\nCommander evaluates after each mission close\nSame fingerprint pattern → VALIDATED\nacross ≥ 2 independent missions?"]
+        T1{"≥ 2 missions\nwith same fingerprint\n→ same VALIDATED\noutcome?"}
+    end
+
+    subgraph CRYSTALLIZE["🔬 Crystallization\nScoped LLM call — generalizes specific params\ninto a technology-class procedure"]
+        CR1["Input: 3 raw mission entries\nOutput: Generalized strategy\n─────────────────────────────\nStrategy ID: STRAT-WP-SQLI-001\nName: WordPress WP_Query SQLi → Admin RCE\nFingerprint: WordPress 5.x + WooCommerce + Nginx\nVuln class: SQLi · CVE range: CVE-2022-21661\nTool sequence: SQLMap (WP_Query endpoint)\n  → SQLMap --dump (users table)\n  → Metasploit (wp_admin_shell_upload)\nConfidence: 3/3 missions (100%)\nLast validated: MIS-012"]
+    end
+
+    subgraph LIBRARY["📚 ATTACK STRATEGY LIBRARY\n(Named · Parameterized · Confidence-scored)"]
+        L1["STRAT-WP-SQLI-001\nWordPress SQLi → RCE\nConfidence: 100% (3 missions)"]
+        L2["STRAT-DJANGO-IDOR-001\nDjango API IDOR\nConfidence: 67% (2/3 missions)"]
+        L3["STRAT-... (growing library)"]
+    end
+
+    subgraph INJECT["🚀 Mission Start — Strategy Retrieval\nCommander queries Library AFTER\nCross-Mission Experience Store query"]
+        I1["Match: new target has WordPress 5.7\n→ Retrieves STRAT-WP-SQLI-001\n→ Injected as pre-ranked APG AttackChain seed\n→ Prioritized ABOVE zero-prior chains\n   (carries validated track record, not just CVSS)"]
+    end
+
+    RAW --> THRESHOLD
+    T1 -->|"yes"| CRYSTALLIZE
+    T1 -->|"no — keep accumulating"| RAW
+    CRYSTALLIZE --> LIBRARY
+    LIBRARY --> INJECT
+
+    style RAW fill:#04162E,stroke:#00D4FF,color:#00D4FF
+    style THRESHOLD fill:#1E1004,stroke:#FFC107,color:#FFC107
+    style CRYSTALLIZE fill:#062210,stroke:#7FFF00,color:#7FFF00
+    style LIBRARY fill:#10081E,stroke:#9C27B0,color:#CE93D8
+    style INJECT fill:#1E1004,stroke:#FFC107,color:#FFC107
+```
+
+**Distinction from Cross-Mission Experience Store:**
+
+| | Experience Store | Strategy Library |
+|---|---|---|
+| Granularity | Per-mission, per-chain raw records | Generalized across ≥2 missions |
+| Content | Specific tool params, exact chain outcomes | Parameterized procedures + confidence scores |
+| Query trigger | After first Technology nodes written | After Experience Store query — same mission start window |
+| Write trigger | Every VALIDATED chain at mission close | Crystallization threshold: ≥2 matching missions |
+
+---
+
 *Next: [Module 07 — Methodology-as-Configuration, Research Contributions, and Related Work](module-07-methodology-and-research.md)*
 
