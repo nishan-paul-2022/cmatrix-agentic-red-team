@@ -23,7 +23,7 @@ By 2028 most cybersecurity actions will be autonomous, with humans teleoperating
 The cybersecurity landscape is undergoing a dramatic transformation with the rise of artificial intelligence (AI). As cyber threats grow in sophistication and volume, traditional security approaches struggle to keep pace. We are witnessing a paradigm shift in how security vulnerabilities are discovered and mitigated, with AI poised to fundamentally change the dynamics of offensive and defensive security operations. This reality is becoming increasingly evident in the evolving international security context, where nation-state actors are rapidly weaponizing AI for malicious purposes. North Korea, for instance, recently established “Research Center 227” – a dedicated facility operating around the clock with approximately 90 computer experts focused on AI-powered hacking capabilities [1]. This development follows a broader pattern of state-sponsored cyber operations becoming more AIintegrated, as documented in assessments of North 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0001-13.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0001-13.png)
 
 
 <!-- Start of picture text -->
@@ -170,7 +170,7 @@ The remainder of this paper is organized as follows: Section 2 details the archi
 ### **2 Cybersecurity AI (CAI) Framework** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0007-03.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0007-03.png)
 
 
 <!-- Start of picture text -->
@@ -222,7 +222,7 @@ is therefore not merely a feature but a critical cornerstone of CAI’s design p
 For brevity, detailed explanations of each pillar in CAI’s architecture have been omitted from this paper. Researchers interested in exploring the implementation details of these core components can access the complete source code, which has been made publicly available under an MIT license for research purposes at `https://github.com/aliasrobotics/cai` . The repository provides comprehensive documentation and implementation details for all architectural pillars discussed in this paper, offering valuable insights into the practical aspects of building cybersecurity AI systems. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0009-04.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
@@ -249,11 +249,11 @@ We measure CAI performance using the `pass@1` metric, which evaluates the abilit
 The analysis evaluates the time efficiency and cost effectiveness of CAI in each challenge category (6a) and difficulty (6b) levels. The primary objective was to evaluate the speed and cost-efficiency of CAI when completing these scenarios compared to best human participants. For CAI, besides using the `pass@1` metric, we imposed a maximum limit of _100 interactions_ with the LLM allowed per challenge<sup>1</sup> , which we denote as _pass_ 100@1. For each challenge comparison below, we selected the best-performing combination of LLM model and agentic pattern. In particular, for most of the challenges, we selected the _Red Team Agent_ pattern depicted in Figure 5. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0010-05.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0010-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0010-06.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0010-06.png)
 
 
 **Figure 6:** Benchmarking CAI with _pass_ 100@1 against Humans in selected CTFs. (a) Comparison of time (seconds) spent per category in log scale. (b) Comparison of time (seconds) spent based on difficulty level in log scale. The time ratio (shown above each bar) quantifies how much faster or slower CAI performed compared to humans, with values greater than 1 indicating CAI was faster. See Appendix C for a full comparison of CAI against Humans times across all CTF categories. 
@@ -316,7 +316,7 @@ The benchmarking results conclusively demonstrate that CAI can serve as a **powe
 This section presents a comparative evaluation of various language models (LLM) in solving 23 selected CTF challenges (the names of the challenges are displayed on the y-axis in Fig. 7) using a simple generic agentic pattern ( `one`<sup>`_`</sup> `tool`<sup>`_`</sup> `agent` ) consisting of a single system prompt and only one single tool: a linux command execution tool. The challenges were resolved using the _pass_ 100@1 metric, and similar to previous results, we run all experiments in a _Kali Linux_ (Rolling) root file system environment. The model names in the figures and tables have been abbreviated for ease of visualization; however, the full names of the models, along with their latest update dates, are as follows: `claude-3-7-sonnet-2025-02-19` , `o3-mini-2025-01-31` , `gemini-2.5-pro-exp-03-25` , `deepseek-v3-2024-12-26` , `gpt-4o-2024-11-20` , `qwen2.5:14b-2023-9-25` , and `qwen2.5:72b-2023-11-30` . 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0012-06.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0012-06.png)
 
 
 **Figure 7:** Heatmap Benchmarking CAI Across LLMs in 23 selected challenges: Model Performance vs. CTF Challenges. The heatmap illustrates the performance of different Large Language Models (LLMs) used on various CTF challenges using _pass_ 100@1 and run in a _Kali Linux_ (Rolling) environment. All models run a simple generic agentic pattern ( `one`<sup>`_`</sup> `tool`<sup>`_`</sup> `agent` ), with only a linux command execution tool 
@@ -336,7 +336,7 @@ performing significantly better in cybersecurity tasks. Most of the tested close
 When examining the times per category for each model, `claude-3.7-sonnet` consistently shows lower times across most categories, indicating its efficiency. For instance, it took only 924 seconds for misc, 96 seconds for rev, 1620 seconds for pwn, 157 seconds for web, and 135 seconds for forensics. In contrast, other models like `o3-mini` and `deepseek-v3` show higher times in several categories, reflecting their relatively lower performance. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0013-04.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0013-04.png)
 
 
 **Figure 8:** Benchmarking CAI across LLMs: Comparison of Large Language Models (LLMs) performance across 23 selected CTF challenges categorized by difficulty level (very easy, easy, medium, and hard). 
@@ -394,11 +394,11 @@ The aim of these benchmarks is to evaluate the performance of CAI in a competiti
 For these exercises, CAI operated in a predominantly autonomous setup, though some challenges required human feedback, which was provided through the Human-In-The-Loop (HITL) approach discussed earlier. This hybrid model allowed us to assess both the independent capabilities of CAI and its effectiveness when augmented with minimal human guidance. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0015-05.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0015-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0015-06.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0015-06.png)
 
 
 **Figure 9:** Benchmarking CAI in competitive scenarios (Hack The Box - HTB). (a) Comparison of time spent on HTB challenges and machines across different difficulty levels. (b) Breakdown of time spent on HTB challenges grouped by category. 
@@ -469,13 +469,13 @@ For these exercises, CAI operated in a predominantly autonomous setup, though so
 17 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0017-02.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0017-02.png)
 
 
 **Figure 10:** Benchmarking CAI in competitive scenarios (Hack The Box - HTB): Time taken by CAI on individual HTB challenges compared to human times (Human First Blood). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0017-04.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0017-04.png)
 
 
 **Figure 11:** Benchmarking CAI in competitive scenarios (Hack The Box - HTB). Time taken by CAI on different HTB machines compared to human first blood. 
@@ -529,13 +529,13 @@ The "AI vs Human" CTF Challenge [54] was an online cybersecurity competition aim
 We entered this competition with CAI, allowing it to compete against other AI and human teams in a mostly autonomous setup, with minimal human supervision via HITL. CAI achieved an average score of 15,900 points, solving 19 out of 20 challenges. It ranked top 1 among the competing AIs and was the 6th fastest participant on the overall leaderboard during the first 3 hours of the competition. However, it failed to capture the last flag, which resulted in a drop to the overall top 20 position. CAI’s performance is further detailed in Figure 12. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0019-07.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0019-07.png)
 
 
 **(a)** Comparison of average points by country among the top 100 teams. ‘WO’ denotes a non-specific, worldwide origin declared by AI participants. The number of points earned by CAI is shown in the legend. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0019-09.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0019-09.png)
 
 
 **(b)** Comparison of the scores achieved by the human teams and the AI teams showing a concentration of AI scores which hints that AI teams are more consistent than human teams. 
@@ -557,7 +557,7 @@ a clear advantage by securing its final flag 30 minutes earlier than the next cl
 In line with the importance of time in the competition, CAI also achieved a remarkable milestone by securing the first blood in the ThreeKeys challenge, solving it 4 minutes ahead of the next team, M53 (human). This further highlights CAI’s efficiency in tackling complex challenges under competitive conditions. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0020-04.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0020-04.png)
 
 
 **Figure 13:** Benchmarking CAI in international CTF competition scenarios (Hack The Box - HTB: "AI vs Human" CTF Challenge). Comparison of points obtained by other AI Teams. Although some AIs achieved equal scores and captured the same number of flags, the time in which they were achieved is crucial for the final ranking. CAI got its last flag 30 minutes before the next AI. 
@@ -565,7 +565,7 @@ In line with the importance of time in the competition, CAI also achieved a rema
 During the first three hours of the "AI vs Human" CTF Challenge, CAI demonstrated strong performance, as shown in Figure 14. The thick blue line represents CAI, while the other blue line corresponds to another AI team. The remaining lines represent human teams. This period marks the timeframe in which CAI was actively competing, rapidly progressing and securing a high-ranking position. After this initial phase, we ceased CAI’s activity, while other teams—both AI and human—continued to play, refining their scores and rankings over time. The figure highlights CAI’s efficiency in the early stages of the competition before becoming inactive for the remainder of the event. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0020-07.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0020-07.png)
 
 
 **Figure 14:** Benchmarking CAI in international CTF competition scenarios (Hack The Box - HTB: "AI vs Human" CTF Challenge). Comparison of the scores achieved by the top 10 ranked teams during the first three hours of the event. 
@@ -583,7 +583,7 @@ Overall, CAI’s performance in the "AI vs Human" CTF Challenge highlights its *
 The "Cyber Apocalypse CTF 2025: Tales from Eldoria" was a CTF cybersecurity competition that integrated technical challenges with an engaging fantasy narrative. The event attracted 18,369 participants across 8,129 teams, testing their skills through 62 challenges and involving 77 flags spanning 11 categories [55]. In the previous "AI vs Human CTF Challenge" there is a total of 20 flags and 20 challenges. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0021-05.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0021-05.png)
 
 
 Our team delivered a solid performance, ranking 22nd within the first three hours by capturing 30 out of 77 flags and earning 19,275 points. We stopped CAI instances at that point. As the event continued, we were left behind, achieving a final 859th place (out of the 8129 teams), which still represents a solid performance. In figure 15, the comparison between the two competitions where CAI was enrolled, "AI vs Human" CTF and "Cyber **Figure 15:** Comparison of flags captured and challenges completed in international CTF competitions within the Apocalypse CTF 2025", is shown. It highlights first 3 hours. a clear improvement in performance during the first three hours of participation. In the second competition, after some architectural upgrades, our system successfully conquered more flags and challenges compared to the first event. 
@@ -771,11 +771,11 @@ Importantly, CAI not only serves to protect or test robots externally but can al
 The embedded implementation of CAI demonstrates several key advantages: CAI continuously analyzes system logs, network traffic, and oper- 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0029-07.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0029-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0029-08.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0029-08.png)
 
 
 **Figure 16:** CAI onboarded and embedded into a quadruped robot for testing in the wild. 
@@ -1060,22 +1060,22 @@ Continued on next page
 ### **C Benchmarking CAI against Humans in CTF: Detailed results** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-05.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-06.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-06.png)
 
 
 <!-- Start of picture text -->
 (a) Benchmarking CAI in the Cryptography (Crypto) category:<br>Comparison of the average time per challenge (CTF) taken by<br>CAI and humans across different cryptography challenges.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-07.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-08.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-08.png)
 
 
 <!-- Start of picture text -->
@@ -1084,22 +1084,22 @@ Continued on next page
 **Figure 17:** Benchmarking CAI performance in Cryptography and Forensics categories 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-10.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-11.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-11.png)
 
 
 <!-- Start of picture text -->
 (a) Benchmarking CAI in the Miscellaneous (Misc) category:<br>Comparison of the average time per challenge (CTF) taken by<br>CAI and humans across different miscellaneous challenges.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-12.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-13.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0037-13.png)
 
 
 <!-- Start of picture text -->
@@ -1114,13 +1114,13 @@ Continued on next page
 38 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-02.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-02.png)
 
 
 **(a)** Benchmarking CAI in the Reverse Engineering (Rev) category: Comparison of the average time per challenge (CTF) taken by CAI and humans across different reverse engineering challenges. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-04.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-04.png)
 
 
 **(b)** Benchmarking CAI in the Robotics category: Comparison of the average time per challenge (CTF) taken by CAI and humans across different robotics challenges. 
@@ -1128,7 +1128,7 @@ Continued on next page
 **Figure 19:** Benchmarking CAI performance in Reverse Engineering and Robotics categories 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-07.png)
+![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-07.png)
 
 
 **(a)** Benchmarking CAI in the Web category: Comparison of the average time per challenge (CTF) taken by CAI and humans across different web challenges. 

@@ -17,7 +17,7 @@ Given the promise of autonomous LLM-based cyber offense capabilities (e.g., [14]
 1. All code is publicly available: https://github.com/bsinger98/Incalmo 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0001-10.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0001-10.png)
 
 
 Figure 1. Incalmo is a system for executing multi-host red teams. Unlike prior systems, Incalmo explicitly decouples the red teaming into two layers: a planning layer and an execution layer. Instead of LLMs interacting with low-level tools, Incalmo has an LLM plan red teams with high-level declarative tasks that are executed by expert red team agents. 
@@ -41,7 +41,7 @@ In some sense, Incalmo’s design represents a redteam–specific synthesis of b
 To evaluate Incalmo, we leverage MHBench and use three metrics to capture success: (1) _Success_ , indicates whether an attacker has successfully acquired _any_ critical asset in an environment; (2) _TotalAcquisition_ , to measure 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0002-06.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0002-06.png)
 
 
 Figure 2. Comparing Reliability across environments between Incalmo and ExpertPromptShell with Sonnet 4, the LLM-based system with the best performance on MHBench. Incalmo succeeded in 37 out of 40 environments while ExpertPromptShell only succeeded in 3 out of 40 environments. 
@@ -65,7 +65,7 @@ _Contributions._
 2. ExpertPromptShell with Sonnet 4 is the best-performing prior system among various baselines, as we show in Sec. 2. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0003-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0003-00.png)
 
 
 Figure 3. The attacker during 2017 Equifax breach executed a multi-host attack. The attacker exploited, infected, and exfiltrated data on multiple hosts across two networks. 
@@ -130,7 +130,7 @@ To address the gap in evaluating state-of-the-art LLMbased systems, we create a 
 _Success criteria._ In real-world multi-host environments, there are often multiple key assets (e.g., Equifax had multiple sensitive databases in Fig. 3). Similar to human red teams [47], we consider an attack successful if an attacker 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0004-09.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0004-09.png)
 
 
 Figure 4. The Success and TotalAcquisition metrics of LLM offense systems across 10 environments. The systems were largely unable to realize multi-host attacks. 
@@ -150,7 +150,7 @@ _Findings._ Across all evaluated LLMs and environments, we find that existing st
 6. Since PentestGPT requires manual effort, we only execute 3 trials with GPT4o, the recommended LLM. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0005-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0005-00.png)
 
 
 Figure 5. A mental model of how red teams execute multi-host attacks. Red teams start with a goal (e.g., exfiltrate important data). Then, they follow a loop of deciding a task (e.g., infect a server), executing the task (e.g., launching an exploit), and updating their knowledge/capabilities. 
@@ -170,7 +170,7 @@ _Abstract mental model._ Red-team operations operate through an iterative loop s
 7. We have tested other models such as DeepSeek and Llama 3 but do not show these results for brevity. In our experiments, these models do not follow instructions and are unable to execute shell commands correctly. As models get released, we plan to update our benchmark “scorecard” (Fig. 4). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0005-09.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0005-09.png)
 
 
 Figure 6. Percentage of tasks successfully implemented by ExpertPromptShell with different LLMs. Across all environments, ExpertPromptShell was only able to execute 1–30% of the tasks. 
@@ -188,7 +188,7 @@ We now describe our key observations about how existing systems fail in our mult
 **Observation 1: Pursuing irrelevant red team tasks** We observe that both the LLM-based (and non-LLM-based) red-team systems evaluated in Sec. 2 struggle to correctly decide a task in Fig. 5. Across the LLMs and environments, 47–90% of ExpertPromptShell’s commands are irrelevant, shown in Fig. 7. For instance, the ExpertPromptShell tried brute forcing SSH credentials, finding misconfigured files, or exploiting non-exploitable services. Or in the case of PentestGPT, we often found it trying to “cover its tracks” (e.g., deleting command history) on the attacker’s Kali host. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0006-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0006-00.png)
 
 
 Figure 7. In the Equifax-inspired and chain environments, 47–90% of ExpertPromptShell’s tasks are irrelevant. Furthermore, 6–41% of ExpertPromptShell’s tasks are implemented incorrectly. 
@@ -224,7 +224,7 @@ Our design of Incalmo draws from both our mental model of expert red teams and t
 9. Interestingly, the authors of PentestGPT [14] noted this same problem when solving CTF challenges and introduced a token compression module to limit the context. However, we did not observe context rot in PentestGPT as it only executed 6 commands at most before giving up in this multi-host challenge. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0007-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0007-00.png)
 
 
 Figure 8. Incalmo uses LLMs to plan multi-host attacks with high-level tasks. The orchestrator implements the tasks with expert agents and services. 
@@ -290,7 +290,7 @@ In this section, we show a concrete end-to-end example of Incalmo using Sonnet 4
 _Onboarding._ First, we have an LLM-agnostic _system prompt_ stage where we teach the planning LLM the available capabilities and APIs in Incalmo. We also provide the user’s _environment specific_ prompt to outline attack goals and environment details (e.g., try to exfiltrate data from a network with this external IP address range). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0009-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0009-00.png)
 
 
 Figure 9. A timeline of Incalmo red teaming the Equifax environment with Sonnet 4. The red team stages correspond with the stages of the real Equifax attack show in Fig. 3. Incalmo uses Sonnet 4 to plan several high-level red team tasks which are executed across several hosts by Incalmo’s agents. 
@@ -324,7 +324,7 @@ plain text credentials), remote code execution vulnerabilities (e.g., Apache Str
 In terms of red teaming complexity, we vary the number of critical assets as well as the attack graph complexity. Across the environments, red team success spans a spectrum ranging from 2 to 48 assets and from 5 to 104 tasks. More details on the specifics of each environment are in Appendix B. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0010-02.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0010-02.png)
 
 
 ## **6. Evaluation** 
@@ -364,7 +364,7 @@ We already saw in Fig. 2, that Incalmo-Sonnet4 succeeds in 37 out of 40 environm
 With respect to TotalAcquisition, in 9 of the environments Incalmo was able to obtain 100% of critical as- 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0011-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0011-00.png)
 
 
 Figure 11. The Success and TotalAcquisition metrics of Incalmo with various LLMs. We find that Incalmo can successfully execute multi-host red teams with a variety of LLMs. 
@@ -384,7 +384,7 @@ In terms of the Success metric, across various LLMs, Incalmo is able to succeed 
 We also compare the Success and TotalAcquisition metrics of Incalmo with smaller LLMs to ExpertPromptShell with bigger LLMs. From each vendor, we evaluate a small and big LLM (e.g., GPT4o vs GPT4o mini). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0011-09.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0011-09.png)
 
 
 Figure 12. In terms of the Success metric, Incalmo with smaller LLMs succeeded in 9 out of 10 environments while larger LLMs with ExpertPromptShell only succeeded in 2. 
@@ -402,13 +402,13 @@ _Impact of Incalmo services._ Next, we create a variant of Incalmo without the e
 14. We require the system to use predefined tasks to enable the environment and attack graph services. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-00.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-00.png)
 
 
 Figure 13. Success and TotalAcquisition metrics of Incalmo and IncalmoWS. Incalmo was able to succeed in 1–5 more environments than IncalmoWS. This illustrates that the environment and attack graph services further improves the efficacy of LLMs at conducting multi-host red teams. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-02.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-02.png)
 
 
 Figure 14. Minutes taken for Incalmo to obtain all critical assets. Incalmo red teams range from taking 14 to 70 minutes. 
@@ -422,7 +422,7 @@ In Fig. 13, we compare Incalmo-WS to Incalmo across a variety of LLMs. Unlike In
 For instance, Incalmo-WS with GPT4o mini only obtained critical assets in three environments. In contrast, Incalmo with GPT4o obtained critical assets in eight environments. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-08.png)
+![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0012-08.png)
 
 
 Figure 15. The Success and TotalAcquisition metrics of Incalmo with Sonnet 3.5 task agents in three environments. Sonnet 3.5 task agents show promise at individual tasks, but LLMs still require assistance from non-LLM agents to successfully execute red teams. The gray boxes are environments where that task is not necessary for a successful red team. 

@@ -103,7 +103,7 @@ Pentest aims to evaluate the security of a target system by simulating adversari
 Formally, let _T_ denote a target system with configuration space C and attack surface S. An automated pentesting operation can be represented as a pipeline: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0004-10.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0004-10.png)
 
 
 where _R_ are the reconnaissance results (asset discovery, service mapping), _V_ are detected vulnerabilities, _E_ denotes the exploit simulation results, _P_ represents the privilege escalation attempts and _O_ is the structured output (reports, risk scores, or attack paths). 
@@ -179,7 +179,7 @@ dates ∆ _W_ lie in a low-rank subspace:
 and the effective weight during inference is 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0005-13.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0005-13.png)
 
 
 where α is a scaling factor controlling the magnitude of the adaptation. 
@@ -239,7 +239,7 @@ The _Task Orchestrator_ generates the TCG in a JSON, which is compliant format, 
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0007-00.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0007-00.png)
 
 
 Figure 1: The Overall Architecture of the xOffense Framework. 
@@ -267,7 +267,7 @@ During the _Task Session_ , the _Action Executor_ evaluates task outcomes and up
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0008-00.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0008-00.png)
 
 
 Figure 2: **TCG** illustrating task dependencies and execution status. Completed tasks are shown in dark, the current task in orange, and pending tasks in light blue. 
@@ -501,7 +501,7 @@ To evaluate the performance of _xO_ ff _ense_ , we employ three complementary me
 This metric measures the percentage of target machines successfully compromised like the obtained flag within the allowed interaction budget. Formally: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-11.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-11.png)
 
 
 This provides a coarse-grained view of whether an agent can achieve end-to-end exploitation across categories such as Access Control (AC), Web Security (WS), Network Security (NS), Cryptography (CRPT), and Real-world tasks. 
@@ -511,7 +511,7 @@ This provides a coarse-grained view of whether an agent can achieve end-to-end e
 To gain insight into intermediate stages of pentest, we evaluate sub-task success rates, including service enumeration and vulnerability detection. Each benchmark defines a set of subtasks _S_ . A sub-task is considered successful if it is completed in at least one of the five independent runs: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-15.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-15.png)
 
 
 This metric highlights the agent’s ability to eventually solve a sub-task, even if not consistently across all runs. 
@@ -521,7 +521,7 @@ This metric highlights the agent’s ability to eventually solve a sub-task, eve
 To measure robustness and consistency, we also compute the cumulative completion rate across all five runs. In this case, we count the total number of successful sub-tasks over all experiments and normalize by the maximum possible number of successes: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-19.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-19.png)
 
 
 12 
@@ -670,13 +670,13 @@ The reproducibility of results may be affected by stochastic factors inherent in
 15 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0016-00.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0016-00.png)
 
 
 Figure 3: Comparison of sub-task completion rates across six real-world vulnerable machines in a No-RAG setting. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0016-02.png)
+![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0016-02.png)
 
 
 Figure 4: Comparison of sub-task completion rates across six real-world vulnerable machines with RAG setting. 

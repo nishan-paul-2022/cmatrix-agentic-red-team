@@ -55,7 +55,7 @@ The remainder of this report is organized as follows: Section 2 presents compreh
 ## **2 Results: Five CTF Dominations** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0002-09.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0002-09.png)
 
 
 <!-- Start of picture text -->
@@ -70,7 +70,7 @@ Figure 1 demonstrates CAI’s extraordinary consistency: achieving elite 1% stat
 In the inaugural “AI vs Human” CTF Challenge hosted by Hack The Box and Palisade Research<sup>1</sup> , CAI competed directly against both human teams and other AI systems across 20 challenges in cryptography and reverse engineering. CAI achieved 15,900 points solving 19/20 challenges, ranking #1 among AI teams and 6th overall during the first 3 hours before we paused operation. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0003-02.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0003-02.png)
 
 
 **Figure 2:** Performance comparison of AI teams in HTB “AI vs Human” CTF. CAI (top) achieved its final flag 30 minutes before the next AI team, demonstrating superior velocity despite equal point totals. The time advantage proved decisive for the #1 AI ranking and $750 prize. 
@@ -88,7 +88,7 @@ CAI achieved Rank 1 globally at hour 7–8 before finishing sixth overall in the
 > 1 `https://ctf.hackthebox.com/event/2000/scoreboard` 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0003-10.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0003-10.png)
 
 
 <!-- Start of picture text -->
@@ -138,7 +138,7 @@ Figure 5 reveals critical timing dynamics. When CAI
 > 2 `https://ctftime.org/event/2904/` 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0004-08.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0004-08.png)
 
 
 <!-- Start of picture text -->
@@ -174,7 +174,7 @@ The Neurogrid AI Security Showdown represented the ultimate test of autonomous h
 Figure 6 captures CAI’s commanding performance trajectory. The data reveals extraordinary early-stage dominance: CAI reached 10,517 points in just 64 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0005-07.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0005-07.png)
 
 
 <!-- Start of picture text -->
@@ -207,13 +207,13 @@ To determine when auxiliary model perspectives enhance performance, we implement
 **(a) Token-Level Uncertainty via Perplexity:** We quantify the model’s predictive uncertainty through perplexity _P_ out the output tokens: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-10.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-10.png)
 
 
 where _N_ is the sequence length and _p_ ( _xi|x<i_ ) represents the conditional probability of output token _xi_ given preceding context. Perplexity measures the geometric mean of inverse probabilities, providing sensitivity to low-confidence predictions. To convert to an entropy-like measure bounded in [0 _,_ 1], we apply: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-12.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-12.png)
 
 
 where _|V |_ represents the vocabulary size (maximum possible perplexity). High _Hp_ indicates potential outof-distribution inputs or high model uncertainty. 
@@ -221,7 +221,7 @@ where _|V |_ represents the vocabulary size (maximum possible perplexity). High 
 **(b) Task-Level Confidence Calibration:** Beyond token-level metrics, the model provides holistic task confidence estimates _c ∈_ [0 _,_ 1] which we transform to Shannon entropy: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-15.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-15.png)
 
 
 This captures the model’s self-assessed uncertainty about the overall task solution, complementing the fine-grained token-level perplexity. 
@@ -229,7 +229,7 @@ This captures the model’s self-assessed uncertainty about the overall task sol
 We combine these two signals through a weighted harmonic mean, which penalizes cases where either metric indicates high uncertainty: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-18.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0006-18.png)
 
 
 where _α, β >_ 0 are empirically tuned weights (typically _α_ = 0 _._ 7 _, β_ = 0 _._ 3 based on validation data). The harmonic mean ensures conservative switching—auxiliary models activate only when both uncertainty measures remain low. 
@@ -243,7 +243,7 @@ When entropy indicators exceeds threshold _τ_ , the system transitions to an al
 This architecture enables CAI to maintain `alias1` ’s specialized cybersecurity capabilities while selectively incorporating diverse reasoning perspectives when en- 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0007-00.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -252,7 +252,7 @@ CAI w/o support CAI w/ support ( k = 20)<br>CAI w/ support ( k = 10) CAI w/ supp
 **Figure 7:** Cost analysis of multi-model orchestration strategies (log scale) 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0007-02.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -290,13 +290,13 @@ The data reveals a fundamental truth: **Jeopardy CTFs now primarily reward autom
 Consider the following analogy: imagine two security 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0008-00.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0008-00.png)
 
 
 **Figure 9:** `CAIBench-Jeopardy CTFs(Cybench)` [9] performance comparison across leading AI models: 40-minute evaluation, $10 budget and 300 interactions per CTF task. Under resource constraints, `alias1` maintains effectiveness while competitors show significant degradation. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0008-02.png)
+![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0008-02.png)
 
 
 **Figure 10:** `CAIBench-Jeopardy CTFs(Cybench)` [9] performance comparison across leading AI models: 240-minute evaluation, $40 budget and 300 interactions per CTF task. The `alias1` model (CAI’s core LLM) demonstrates superior breadth in challenge solving, particularly in categories where other models struggle. 

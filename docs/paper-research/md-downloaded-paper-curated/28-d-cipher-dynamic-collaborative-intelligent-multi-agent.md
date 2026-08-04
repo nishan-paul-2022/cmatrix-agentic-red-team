@@ -19,7 +19,7 @@ M. Udeshi, M. Shao, H. Xi, K. Milner, V.S.C. Putrevu, B. Dolan-Gavitt, P. Krishn
 This work was supported in part by the NYUAD Center for Artificial Intelligence and Robotics (CAIR), funded by Tamkeen under the NYUAD Research Institute Award CG010, NYUAD Center for Cyber Security (CCS), funded by Tamkeen under the NYUAD Research Institute Award G1104. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0001-11.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0001-11.png)
 
 
 <!-- Start of picture text -->
@@ -82,7 +82,7 @@ Recent works build LLM agents targeted towards CTFs. Table I shows a feature com
 ## **D-CIPHER Multi-Agent System** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0003-02.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0003-02.png)
 
 
 <!-- Start of picture text -->
@@ -111,7 +111,7 @@ All agents interact with the same Linux container environment containing the CTF
 ## _C. Workflow_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-04.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-04.png)
 
 
 Auto-prompter Autonomously generated after several exploratory turns Challenge: Collision Course Objective: Recover the administrator's password that was encrypted using original database IDs. The password is stored in password.bin and was encrypted using a custom AES implementation. Files Analysis: encrypt_database.py is the main script that processes the database and encrypts the password... Observations: Each ID was hashed using MD5 with a 3-character salt... only first 4 characters are used... The encryption password is created by concatenating all original IDs... Attack Strategy: Since we know original IDs were 1-500..., we can brute force the salt by trying all possible 3-char combinations, find the salt..., use the mapping to recover..., and use my_aes.py to decrypt password.bin. 
@@ -129,15 +129,15 @@ _1) Auto-prompter:_ The Auto-prompter agent is provided the CTF information in i
 > 1Ghidra is a popular reverse engineering tool. https://ghidra-sre.org/. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-12.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-13.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-14.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-14.png)
 
 
 <!-- Start of picture text -->
@@ -259,7 +259,7 @@ Figure 5(a) plots the _% solved_ of D-CIPHER across categories on NYU CTF Bench.
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0007-01.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0007-01.png)
 
 
 <!-- Start of picture text -->
@@ -328,7 +328,7 @@ Figure 6 shows the percentage breakdown of the challenge termination (exit) reas
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0008-01.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
@@ -438,7 +438,7 @@ We inspected D-CIPHER’s conversation logs to document the common errors that l
 **Agent produces no action:** The agent’s response does not contain an action but only reasoning, usually if it is stuck 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-09.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-09.png)
 
 
 <!-- Start of picture text -->
@@ -449,7 +449,7 @@ AUTO-PROMPTER GeneratePrompt<br><!-- End of picture text -->
 Please use `run_command` tool to explore the challenge, and generate the CTF challenge prompt to solve the challenge using the `generate_prompt` tool." 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-12.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-12.png)
 
 
 <!-- Start of picture text -->
@@ -458,7 +458,7 @@ GeneratePrompt<br><!-- End of picture text -->
 ## GeneratePrompt 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-14.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-14.png)
 
 
 <!-- Start of picture text -->
@@ -467,7 +467,7 @@ Use hard-coded prompt<br><!-- End of picture text -->
 ## PLANNER 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-16.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-16.png)
 
 
 <!-- Start of picture text -->
@@ -478,7 +478,7 @@ Fig. 8. Auto-prompter generates empty prompt; fallback to hard-coded one.
 and thinks that it needs user input despite being prompted to operate autonomously. This happens frequently with LLaMa 3.1 405B and Gemini 1.5 Flash which produce wrong syntax for function calls so the action is not parsed, as seen in Figure 9. In this case, we prompt the agent to retry. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-19.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-19.png)
 
 
 <!-- Start of picture text -->
@@ -489,7 +489,7 @@ PLANNER<br><!-- End of picture text -->
 <function=run_command>{\"command\": \"file thoroughlyStripped --preserve-dates -d -M -P -k -F -\"}\"</ function> 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-22.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-22.png)
 
 
 <!-- Start of picture text -->
@@ -498,14 +498,14 @@ Observation<br><!-- End of picture text -->
 Please run a command to explore the challenge, or delegate the next task to the Executor using the `delegate` tool. If you think that you cannot proceed, give up on the challenge. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-24.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-24.png)
 
 
 <!-- Start of picture text -->
 PLANNER<br><function=run_command>{\"command\": \"strings<br>thoroughlyStripped\"}\"</function><br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-25.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-25.png)
 
 
 <!-- Start of picture text -->
@@ -520,22 +520,22 @@ Fig. 9. Function call is not parsed correctly due to a formatting error by the L
 11 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-01.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-02.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-02.png)
 
 
 <!-- Start of picture text -->
 PLANNER Delegate<br>Adjust the developed exploit to focus specifically on<br>vulnerabilities during active multiplayer sessions. Apply<br>this exploit against the real multiplayer server, which is<br>hosted at IP 34.234.204.29 and uses port 39079...<br>EXECUTOR CreateFile<br>from pwn import *<br># Setup the connection to the multiplayer server<br>server = '34.234.204.29'<br>port = 39079<br>c = remote(server, port)<br>...<br>Observation<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-03.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-04.png)
+![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-04.png)
 
 
 <!-- Start of picture text -->
