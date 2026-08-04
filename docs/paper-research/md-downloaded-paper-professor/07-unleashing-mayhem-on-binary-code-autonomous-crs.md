@@ -27,15 +27,15 @@ Offline symbolic executors [5], [13] reason about a single execution path at a t
 Online symbolic execution [9], [28] forks at each branch point. Previous instructions are never re-executed, but the continued forking puts a strain on memory, slowing down the execution engine as the number of branches increase. The result is no forward progress and thus principles #1 and #3 are not met. Some online executors such as KLEE stop forking to avoid being slowed down by their memory 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-14.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-15.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-15.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-16.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0001-16.png)
 
 
 © 2012, Sang Kil Cha. Under license to IEEE. DOI 10.1109/SP.2012.31 
@@ -81,7 +81,7 @@ We highlight several key points for finding exploitable bugs:
 **Execute as much natively as possible:** Symbolic execution is slow compared to concrete execution since the semantics of an instruction are simulated in software. In orzHttpd, millions of instructions set up the basic server before an attacker can even connect to a socket. We want to execute these instructions concretely and then switch to symbolic 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0003-07.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
@@ -134,7 +134,7 @@ as explained earlier; here we assume they are simply given to us. We leverage BA
 In MAYHEM, each IL statement type has a corresponding symbolic execution rule. Assertions in the IL are immediately appended to the formula. Conditional jump statements create two formulas: one where the branch guard is asserted true and the true branch is followed, and one which asserts the negation of the guard and the false branch is followed. For example, if we already have formula _f_ and execute cjmp _e_ 1, _e_ 2, _e_ 3 where _e_ 1 is the branch guard and _e_ 2 and _e_ 3 are jump targets, then we create the two formulas: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0004-13.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0004-13.png)
 
 
 where _FSE_ stands for forward symbolic execution of the jump target. Due to space, we give the exact semantics in a companion paper [15], [24]. 
@@ -150,7 +150,7 @@ Offline symbolic execution—as found in systems such as SAGE [13] —requires t
 383 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0005-00.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
@@ -159,7 +159,7 @@ Offline Online<br>millions of  millions of<br>instructions instructions<br>1 1 3
 Figure 3: Hybrid execution tries to combine the speed of online execution and the memory use of offline execution to efficiently explore the input space. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0005-02.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
@@ -258,7 +258,7 @@ The bounds resolution algorithm described above is sufficient to generate a cons
 386 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0008-00.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -307,7 +307,7 @@ Modeling a symbolic load using a memory object is beneficial when the size of th
 Whenever the memory object size exceeds the threshold, MAYHEM will concretize the index used to access it. However, instead of picking a satisfying value at random, MAYHEM attempts to _prioritize_ the possible concretization 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0009-08.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0009-08.png)
 
 
 <!-- Start of picture text -->
@@ -348,7 +348,7 @@ MAYHEM consists of about 27,000 lines of C/C++ and OCaml code. Our binary instru
 We evaluated our system on 2 virtual machines running on a desktop with a 3.40GHz Intel(R) Core i7-2600 CPU and 16GB of RAM. Each VM had 4GB RAM and was running Debian Linux (Squeeze) VM and Windows XP SP3 respectively. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0010-09.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0010-09.png)
 
 
 <!-- Start of picture text -->
@@ -411,7 +411,7 @@ execution reaches the maximum number of live interpreters and starts terminating
 **Faster than Offline Execution.** Figure 8 shows the exploration time for /bin/echo using different limits on the maximum number of running executors. For this experiment, we use 6 bytes of symbolic arguments to explore the entire input space in a reasonable amount of time. When the maximum number of running executors is 1, it means 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0011-04.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0011-04.png)
 
 
 <!-- Start of picture text -->
@@ -457,7 +457,7 @@ Recall from _§_ V, index-based memory modeling enables MAYHEM to reason about s
 Table III: Performance comparison for different IST representations. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0012-10.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0012-10.png)
 
 
 <!-- Start of picture text -->
@@ -492,7 +492,7 @@ We measured the code coverage of 25 coreutils applications as a function of time
 Table IV: AEG comparison: binary-only execution requires more instructions. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0013-02.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0013-02.png)
 
 
 <!-- Start of picture text -->
@@ -511,7 +511,7 @@ We picked 8 different programs from the AEG working examples [2] and ran both to
 **Precondition Size.** As an additional experiment, we measured how the presence of a precondition affects exploit generation times. Specifically, we picked 6 programs that require a crashing input to find an exploitable bug and started to iteratively decrease the size of the precondition and 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0013-09.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0013-09.png)
 
 
 <!-- Start of picture text -->
@@ -532,7 +532,7 @@ Z3 supports incremental solving, so as an additional experiment, we measured the
 392 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0014-00.png)
+![](images/07-unleashing-mayhem-on-binary-code-autonomous-crs.pdf-0014-00.png)
 
 
 <!-- Start of picture text -->

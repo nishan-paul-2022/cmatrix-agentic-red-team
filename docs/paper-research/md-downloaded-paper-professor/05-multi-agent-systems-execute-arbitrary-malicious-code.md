@@ -25,7 +25,7 @@ Any system operating in today’s Internet environment will interact with both t
 Published as a conference paper at COLM 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0002-01.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0002-01.png)
 
 
 <!-- Start of picture text -->
@@ -67,7 +67,7 @@ In practice, many multi-agent systems run in fully isolated virtual containers. 
 We reiterate that the root cause of these vulnerabilities is _not_ the absence of safety alignment in the individual agents. In several cases, we observed multi-agent systems finding a way to execute harmful code even when sub-agents refuse to take action for safety reasons. For example, in one CrewAI experiment the orchestrator reasoned that executing a file might be unsafe and resolved to “read the file safely.” It then created a dummy file to read, read the dummy file, and realized that the dummy file is not what the user wanted. The orchestrator then re-read the attack file and executed a reverse shell script (see Appendix J). Similarly, in one AutoGen experiment the file-surfer sub-agent produced _its own_ reverse shell script (along with the helpful comment “This is a dangerous command example. Do not execute!”) after the coder agent refused to output malicious code. The generated code was then promptly executed by the code executor, opening a reverse shell (see Appendix K). 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0003-07.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
@@ -482,13 +482,13 @@ Published as a conference paper at COLM 2025
 Figures 3 and 4 illustrate different attack types. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0018-03.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0018-03.png)
 
 
 Figure 3: A MAS hijacking attack utilizing the contents of a local file. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0018-05.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0018-05.png)
 
 
 Figure 4: A multi-modal MAS hijacking attack utilizing webpages and audio content of videos. Initially, in steps 1a and 1b, the MAS interacts with a malicious website or video, which prompts it to download a malicious key.txt file in step 2. Finally, in step 3, the MAS attempts to open the downloaded file and executes it instead, similar to the local-file attack in Figure 3. 
@@ -508,7 +508,7 @@ Each agent ( _Ai_ ) is an LLM with access to _τ_ tools that allow it to take a 
 An action by an agent at one time step is written as _Ai_<sup>_α_.If an action involves a resource,</sup> we will write it as _Ai_<sup>_α_(</sup><sup>_d_)</sup> . The output of an action is written as Out( _Ai_<sup>_α_), and each control</sup> Out( _Ai_<sup>_α_)</sup> flow process step is written as _−−−−→_ , where _c ∈C_ . We can then define the _action trace_ of a _ci_ , _j_ multi-agent system as a list of these actions. For example: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0019-06.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0019-06.png)
 
 
 A MAS control-flow hijacking attack is an adversarial input _d_<sup>_′_</sup> that targets the control flow process after the system has processed _d_<sup>_′_</sup> . 
@@ -516,7 +516,7 @@ A MAS control-flow hijacking attack is an adversarial input _d_<sup>_′_</sup> 
 The attack seeks to modify the action trace suffix so that it contains a set of actions that the attacker has specified, either in a formal language (e.g., executable code) or natural language. More formally, we are creating _d_<sup>_′_</sup> and Attack trace such that: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0019-09.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0019-09.png)
 
 
 That is, after interacting with the attack, the MAS control flow process is redirected to the desired output of the attacker, and this redirection persists until the end of the action trace. 
@@ -604,7 +604,7 @@ We saved the full output logs for all experiments, and used a combination of reg
 ## **F Orchestration techniques** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0021-10.png)
+![](images/05-multi-agent-systems-execute-arbitrary-malicious-code.pdf-0021-10.png)
 
 
 <!-- Start of picture text -->
