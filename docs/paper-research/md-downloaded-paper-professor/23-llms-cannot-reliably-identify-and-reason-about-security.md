@@ -19,7 +19,7 @@ This paper makes the following contributions:
 - We develop SecLLMHolmes, a comprehensive framework to test LLMs for their ability to identify and reason about software vulnerabilities. Our framework is fully automated and includes a set of 228 code scenarios, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0002-00.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0002-00.png)
 
 
 <!-- Start of picture text -->
@@ -38,7 +38,7 @@ Figure 1: LLM chat input format. LLMs operate on a three-part input format: (1) 
 **Large Language Models (LLMs).** All language models work on the basic principle of next word (token) prediction; i.e., given a sequence of words (tokens) _x_ 1 _, x_ 2 _, ..., xn−_ 1 select a word (token) _xn_ with the highest probability to appear next in the sequence 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0002-07.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0002-07.png)
 
 
 where _V_ is the vocabulary of the model. Language models learn to perform this task by training on a large amount of text data (i.e., natural language text or code) and use various techniques (e.g., attention mechanism [12]) to learn to focus on certain parts of the input for better output prediction. Language models have shown excellent proficiency in NLP tasks, as well as good results for programming language tasks such as code generation, code suggestion, natural language querying for code, etc. 
@@ -104,35 +104,35 @@ ML-based static analysis tools [18], [28] not only face the accuracy-coverage tr
 Recent works have evaluated LLMs for vulnerable code generation [8], code repair [7], and vulnerability detection [34]. However, these approaches are either limited by the number of LLMs, coverage of vulnerabilities, diversity of prompts, range of code complexities, robustness testing, or require manual labor for evaluating LLMs. Most importantly, these studies only evaluate binary responses, checking whether the LLM gives the right label to code snippets (e.g., ‘vulnerable’ or ‘not vulnerable’). In this paper, we present the first comprehensive evaluation framework to evaluate LLMs on the task of vulnerability detection, providing a multi-faceted analysis of the capabilities of LLMs, including going beyond binary decisions and evaluating their rea- 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-06.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-06.png)
 
 
 <!-- Start of picture text -->
 Datasets<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-07.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
 Prompt<br>Templates<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-08.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-08.png)
 
 
 <!-- Start of picture text -->
 LLM<br>Parameters<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-09.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-09.png)
 
 
 <!-- Start of picture text -->
 Ground<br>Truth<br>Response Evaluator<br>+ 4 Accuracy<br>Extr. 'Pe' Grnd. Truth<br>Label<br>GPT-4 2 yes/no/'n/a'<br>1<br>3<br>Reason 'Pr' 5 Reason<br>Rouge<br>Grnd Truth  Cos. Sim.<br>Reas. 'Gr' GPT-4 Eval<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-10.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0003-10.png)
 
 
 <!-- Start of picture text -->
@@ -370,7 +370,7 @@ For this experiment, we select the same two classes of security weaknesses used 
 As running experiments on all prompts is not feasible due to budget constraints, we perform the experiment on only one prompt, **S4** (ZS-RO), based on three reasons; (1) this prompt does not provide any additional information like definition or step-by-step reasoning instructions to the LLM, so the response will be mainly based on the intrinsic 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-00.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -379,14 +379,14 @@ As running experiments on all prompts is not feasible due to budget constraints,
 (a) CWE-787 (Out-of-Bound Write) 2 _v_ : This code scenario encodes certain characters in the user input string. The program assumes that encoding expansion will only expand a given character by a factor of 4, however the ampersand encoding expands by 5. If the attacker provides a string of many ampersands, the string will over flow the destination buffer. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-02.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
 codechat-bison ( 1st Response)<br>Yes, the code contains instances of the security vulnerability known as<br>out-of-bounds write.  The code allocates a buffer of size (4 * sizeof(char) *<br>MAX_SIZE) + 1 bytes. However,   the code does not check to ensure that the<br>length of the input string does not exceed the size of the buffer.  This could<br>lead to an out-of-bounds write if the input string is longer than the buffer.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-03.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0008-03.png)
 
 
 <!-- Start of picture text -->
@@ -459,7 +459,7 @@ extra information or examples helps LLMs in decision making?. Table 11 shows the
 **(3) Correct Reasoning Rate (CRR):** Evaluates how often the model’s correct answers also have the correct reasoning. E.g., for prompt ‘D2,’ ‘codechat-bison@001’ provides reasoning for 15 answers out of the 24 correct answers and out of those 15 reasonings 14 are correct. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0009-06.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0009-06.png)
 
 
 **Best Prompts:** Based on the above three metrics, we choose the best overall prompts for each model from four categories of prompts (described in Section 3.3) i.e., ZS - TO, ZS - RO, FS - TO, and FS - RO. We calculate a _Scoreprompt_ , which is the weighted sum of the three metrics where each metric is assigned an equal weight of 0 _._ 33. We then select the best prompt from each of the above defined four categories as the one that maximizes _Scoreprompt_ , as shown in Table 11. **Observations.** ‘gpt-4’ performs the best among the tested LLMs, with a maximum accuracy of 89.5%. There is no prompt for which all LLMs perform consistently better, but instead they show different success for different types of prompts. GPT models and ‘codechat-bison’ perform better when prompted to follow a human-like step-by-step reasoning process (as shown in Figure 4) , i.e., R4, R6, and R2 prompts, respectively. ‘chat-bison’ performs best when assigned a ‘security expert’ role, while ‘codellama34b’ works best with the S1 prompt, which simply asks if the code snippet contains a certain vulnerability. While ‘gpt-4’ and ‘codellama34b’ show an increase in accuracy when provided with a vulnerability definition, compared to standard prompts, the same trend is not found in the other LLMs. 
@@ -513,14 +513,14 @@ section, focusing on five aspects: (1) for how many cases does the LLM provide a
 TABLE 12: Faithfulness of LLMs. The Table shows the <u>Reason Rate</u> i.e., # scenarios for which LLM provides reasoning / # total scenarios answered by LLM (out of total 816 scenarios). Then it displays # of scenarios with correct answer and correct reasoning ( ), # correct answer but incorrect reasoning ( ), # incorrect answer and incorrect reasoning ( ), and # incorrect answer but correct reasoning ( ). 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-01.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-01.png)
 
 
 <!-- Start of picture text -->
 1 ...<br>2 void read_file(char* file_path) {<br>3 char* resolved_path = realpath(file_path, NULL);<br>4 if (resolved_path == NULL) {<br>5 printf("Error: Invalid Path\n");<br>6 return;<br>7 }<br>8 char* dir = "/Users/user1/";<br>9 /* safely creates full_path by concatenating<br>file_path with dir */<br>10 FILE *fp;<br>11 char *data = malloc(256);<br>12 fp = fopen(full_path, "r");<br>13 while (fgets(data, 256, fp) != NULL)<br>14 { /* processes file */ }<br>15 ...<br>16 }<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-02.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-02.png)
 
 
 <!-- Start of picture text -->
@@ -529,21 +529,21 @@ Model Reas. Details<br>Rate<br>406 32 270 16<br>chat-bison 724 /782 /724<br>368 
 (a) CWE-476 (NULL-Pointer Derefence) 1 _v_ : This code scenario sanitizes the user provided file path, opens file at that file path, and processes it. The code does not check for the NULL value of fopen in case an error is raised. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-04.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-04.png)
 
 
 <!-- Start of picture text -->
 GPT-3.5  (Standard S1)<br>No, this code does not contain  instances of the security vulnerability<br>known as  NULL pointer dereference .<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-05.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-05.png)
 
 
 <!-- Start of picture text -->
 chat-bison<br>....<br>Analysis:  ......<br>b)  The `cmd_files` function validates the command for ';' character. But it<br>does not validate the command for other special characters like '|', '$' or<br>'&&'. So, there is a possibility of command injection.<br>.<br>Decision:  ....  the code is safe from command injection vulnerabilty.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-06.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-06.png)
 
 
 <!-- Start of picture text -->
@@ -556,15 +556,15 @@ each CWE using _Scorecwe_ , with equal weight to all factors, from four promptin
 **Observations.** Most models show poor performance in classifying the patched versions correctly, which makes these LLMs non-suitable for real-world cases as they will mostly flag safe code as vulnerable, causing manyfalse alarms. We observe that few-shot prompting performs significantly better than zero-shot prompting for almost all models (pvalue = 0.003), and role-oriented prompts perform slightly better than task-oriented prompts (p-value = 0.1). The reason for this is that assigning a role to the model grounds its knowledge for the given task and prevents it from hallucinating, which can be seen in the increase in reasoning score for role-oriented prompts. However, Table 13 shows that ‘codechat-bison@001’ does not provide answers for ‘CWE787’ and ‘CWE-416’ for few-shot prompts. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-10.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-11.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-12.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0010-12.png)
 
 
 <!-- Start of picture text -->
@@ -640,7 +640,7 @@ TABLE 13: Evaluation of LLMs over a wide range of eight most critical vulnerabil
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0011-03.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0011-03.png)
 
 
 <!-- Start of picture text -->
@@ -703,7 +703,7 @@ TABLE 15: Evaluation for Code-Level Augmentations. The tables show ∆ _a_ (# of
 **Observations.** Table 15a shows that even trivial augmentations like the addition of whitespaces (Figure 7a) and newline characters lead all LLMs to an incorrect answer and reasoning in some cases, and further breaks their chain-ofthought reasoning. Furthermore, changing function or variable names or the presence of unreachable code lead to incorrect answers. When looking at non-trivial augmentations, Table 15b shows that LLM performance is also affected by function and variable names, e.g., changing a variable name to ‘buffer’ in NT1 leads to the wrong detection of a buffer overflow and changing a function name to ‘non <u>vulnerable’</u> or to a safe function name increases the chances to be detected as non-vulnerable. Most importantly, LLMs present a bias towards library functions that are usually used for sanitization or are considered potentially vulnerable. E.g., all LLMs would declare the safe usage of ‘strcat’ in C as vulnerable, and unsafe uses of ‘strncat’ would be flagged as safe (Figure 7b). Similarly, the unsafe use of sanitizing library functions like ‘realpath’ in C or ‘escape’ in Python 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-03.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-03.png)
 
 
 <!-- Start of picture text -->
@@ -712,7 +712,7 @@ chat-bison<br>The `dst_buf` is allocated with a size of 4 * sizeof(char) * MAX_S
 (a) Example of a complete change in ‘chat-bison’ decision by just adding whitespaces (T5) in code scenario CWE-787 2 _v_ (shown in Figure 3a) after line 22. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-05.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-05.png)
 
 
 <!-- Start of picture text -->
@@ -721,7 +721,7 @@ GPT-4<br>the code is not safe from out-of-bounds write due to the  incorrect use
 (b) Example of NT5 augmentation to CWE-787 2 _v_ , where even the addition of safely used ‘strcat’ successfully confuses ‘gpt-4’ to classify the code as vulnerable merely on the basis of the presence of ‘strcat.’ However, the addition of ‘strncat’ leads to the classification of vulnerable code as safe. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-07.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0012-07.png)
 
 
 <!-- Start of picture text -->
@@ -945,7 +945,7 @@ sponses in json format, could eliminate even these two anomalies.
 **Hard:** CWE-22 ‘3 _v_ ’ (see Figure 9c) contains two functions: ‘resolve <u>path’</u> that takes in a path and replaces all white 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0016-00.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0016-00.png)
 
 
 <!-- Start of picture text -->
@@ -1094,7 +1094,7 @@ Figure 9: Examples of Different Difficulty Levels
 Figure 10: #define expressions for ‘NT6’ code augmentations 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0018-02.png)
+![](images/23-llms-cannot-reliably-identify-and-reason-about-security.pdf-0018-02.png)
 
 
 <!-- Start of picture text -->
