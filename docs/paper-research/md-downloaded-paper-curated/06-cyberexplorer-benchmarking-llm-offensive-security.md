@@ -49,7 +49,7 @@ et al [29] shows that better prompting and tool use can achieve high scores on e
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0003-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -108,7 +108,7 @@ We present CTFExplorerEval, an evaluation framework that measures how security a
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0005-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
@@ -190,7 +190,7 @@ Table 5 and Fig. 3 provide deeper insight into how agents utilize exploration. T
 Table 5: Exploration Efficiency (EE) and Redundancy Rate (RR) across models 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0006-11.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0006-11.png)
 
 
 <!-- Start of picture text -->
@@ -211,78 +211,78 @@ Fig. 4 shows how reasoning depth evolves across targets over time. Each heatmap 
 Fig. 5 shows the maximum reasoning level achieved per target. GPT 5.2 and Gemini 3 Pro reach L4 on more ports, which shows stronger exploitation. In contrast, Claude Sonnet 4 and Qwen 3.5 remain at intermediate levels (L1–L3), which indicates partial progress without consistent completion. The distribution shows a trade-off between selective depth and uniform exploration. Some models focus deep reasoning on a few ports and leave others at L0–L1, while others maintain steady mid-level 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-05.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-05.png)
 
 
 <!-- Start of picture text -->
 L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-06.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-06.png)
 
 
 <!-- Start of picture text -->
 P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 Time Phases T3 T4<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-07.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-07.png)
 
 
 <!-- Start of picture text -->
 P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-08.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-09.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-09.png)
 
 
 <!-- Start of picture text -->
 L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-10.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-10.png)
 
 
 <!-- Start of picture text -->
 P32P31P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br>Explored Target Ports<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-11.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-11.png)
 
 
 <!-- Start of picture text -->
 L4<br>L3<br>L2<br>L1<br>L0<br>Reasoning Level<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-12.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-12.png)
 
 
 <!-- Start of picture text -->
 T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-13.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-13.png)
 
 
 <!-- Start of picture text -->
 P38P37P36P35P34P33P32P31P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-14.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-15.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-15.png)
 
 
 <!-- Start of picture text -->
 L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-16.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-16.png)
 
 
 <!-- Start of picture text -->
@@ -295,7 +295,7 @@ Figure 4: Exploration progress heatmap across model runs.
 progress. DeepSeek V4 Pro shows deep reasoning on selected targets, which reflects prioritization. Claude Opus 4.5 shows a more balanced spread with steady progress across targets. Overall, targetwise depth shows that strong performance depends on consistent depth across targets, not just reaching L4. Models with broad coverage and deeper reasoning show more effective exploration. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0008-01.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
@@ -316,7 +316,7 @@ To show multi-step reasoning, we present two cases: _The Silent Corridor_ and _T
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0009-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
@@ -455,7 +455,7 @@ Across models, agents typically generate a small number of files per instance. E
 To interpret extracted findings through a security-relevant lens, we further map vulnerability signals to the OWASP Top-10 taxonomy using keyword-based matching over finding descriptions. Fig. 8 presents the normalized distribution of discovered vulnerability categories across models. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0013-05.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0013-05.png)
 
 
 <!-- Start of picture text -->
@@ -472,7 +472,7 @@ Here we demonstrate how the agentic chain and knowledge hand-off can exploit a c
 13 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0014-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0014-00.png)
 
 
 <!-- Start of picture text -->
@@ -640,7 +640,7 @@ The following analysis leverages this experimental setup to examine success rate
 We analyze the impact of budget allocation and agent escalation limits on entrypoint-level outcomes by comparing the proportion of solved and dead-end trajectories across multiple hyperparameter configurations. Each setting varies the fraction of available budget and the maximum number of agents permitted during execution, enabling an examination of how resource scaling influences agentic behavior. Figure 10 summarizes the distribution of solved and dead-end entrypoints for GPT-5.2 and Opus-4.5 under these configurations. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0017-07.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0017-07.png)
 
 
 <!-- Start of picture text -->
@@ -686,7 +686,7 @@ This asymmetry is clearly illustrated in Figure 11, which shows the distribution
 18 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-00.png)
 
 
 <!-- Start of picture text -->
@@ -695,7 +695,7 @@ This asymmetry is clearly illustrated in Figure 11, which shows the distribution
 Figure 11: Average number of agents used per entrypoint for solved and dead-end trajectories. Across all configurations, dead-end cases consistently require more agents, highlighting escalation as a reactive response to uncertainty rather than productive progress. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-02.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-02.png)
 
 
 <!-- Start of picture text -->
@@ -718,7 +718,7 @@ While aggregate success metrics provide a coarse view of agent performance, they
 19 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-00.png)
 
 
 <!-- Start of picture text -->
@@ -727,7 +727,7 @@ SOLVED<br>400 DEAD_END<br>300<br>200<br>100<br>0<br>2 4 6 8 10<br>Agents per Ent
 Figure 13: Depth-breadth trade-off in agentic execution. Each point corresponds to an entrypoint, with the x-axis indicating the number of agents spawned (breadth) and the y-axis denoting total interaction rounds (depth). Successful trajectories form a compact cluster with limited agent usage and moderate depth, whereas dead-end trajectories exhibit heavy-tailed dispersion across both dimensions, indicating compounding escalation without effective progress. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-02.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-02.png)
 
 
 <!-- Start of picture text -->
@@ -746,7 +746,7 @@ A similar pattern emerges when analyzing total interaction depth. As shown in Fi
 20 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-00.png)
 
 
 <!-- Start of picture text -->
@@ -755,7 +755,7 @@ A similar pattern emerges when analyzing total interaction depth. As shown in Fi
 Figure 15: Distribution of total interaction rounds per entrypoint. Dead-end trajectories consistently consume substantially more rounds than successful ones, often extending to several hundred interactions. Increased depth does not correspond to improved outcomes, but instead reflects prolonged persistence following early reasoning collapse. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-02.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-02.png)
 
 
 <!-- Start of picture text -->
@@ -815,7 +815,7 @@ To examine this relationship more directly, Figure 17 visualizes the coupling be
 22 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0023-00.png)
+![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0023-00.png)
 
 
 <!-- Start of picture text -->

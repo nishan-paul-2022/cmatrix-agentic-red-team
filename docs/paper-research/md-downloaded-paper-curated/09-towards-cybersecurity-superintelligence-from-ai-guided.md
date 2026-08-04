@@ -41,7 +41,7 @@ In this work, we present an evolution toward Cybersecurity Superintelligence. We
 > 2Refer to [6] for comprehensive benchmarking methodology and evaluation results of the `alias` model series. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0002-06.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0002-06.png)
 
 
 <!-- Start of picture text -->
@@ -50,7 +50,7 @@ Legend<br>alias2 01/26 alias2 (25/33, 76%, +34%)<br>alias1 10/25 alias1 (14/33, 
 **Figure 1:** Evolution of Alias Robotics’ cybersecurity-specialized `alias` LLM family on the `CAIBench-Jeopardy CTFs (Cybench)` benchmark. Each cell indicates whether a challenge was solved using the _pass_ @3 metric (success in at least one of three attempts), with a maximum of 245 minutes of compute time, 300 agent interactions per attempt and a maximum of 40 USD per challenge on API model expenses. See Appendix A for a comparison including all evaluated models. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0003-00.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -75,7 +75,7 @@ CAI [3] eliminated PentestGPT’s human tool execution bottleneck through a full
 > 3As of January 2026, PentestGPT v1.0.0 has evolved into an agentic tool capable of conducting automated tasks without human intervention, though CAI pioneered this automated approach. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0004-00.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -125,14 +125,14 @@ The cost differential proved equally stark: $109 total API cost versus $17,218 e
 CAI’s expert-level performance revealed a fundamental ceiling: speed and autonomy alone do not constitute superintelligence in cybersecurity. Matching human experts, even at 3,600× their speed, still produces human-equivalent reasoning. Surpassing human capability requires agents that reason strategically, the way humans mentally _play the game_ . Just as a chess grandmaster evaluates attacker/defender lines before committing to a move, security professionals apply game theory: evaluating the current state, imagining 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-00.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
 Attack Graph Topology<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-01.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-01.png)
 
 
 <!-- Start of picture text -->
@@ -231,7 +231,7 @@ Funding: European Innovation Council (GA 101161136). Competing interests: None. 
 ## **A Full Model Comparison** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0011-01.png)
+![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0011-01.png)
 
 
 <!-- Start of picture text -->

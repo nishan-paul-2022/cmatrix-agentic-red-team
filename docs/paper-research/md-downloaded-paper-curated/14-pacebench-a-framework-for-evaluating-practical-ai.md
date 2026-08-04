@@ -23,7 +23,7 @@ To realistically evaluate cyber offense risks, we introduce PACEbench (Practical
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0002-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0002-01.png)
 
 
 Figure 1: An overview of PACEbench. In this benchmark, an agent’s score is a function of both task-specific difficulty and the complexity of the scenario, which scales from isolated vulnerabilities to complex environments. 
@@ -86,7 +86,7 @@ Following the framework described above, PACEbench contains environments of vary
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0004-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0004-01.png)
 
 
 Figure 2: Comparison of cybersecurity benchmarks. Based on the principles of vulnerability difficulty, environment complexity, and cyber defenses, our benchmark (center) incorporates complex elements like a WAF and multiple hosts, offering a more realistic simulation of real-world (left) than traditional CTFs (right). 
@@ -134,7 +134,7 @@ The D-CVE scenario involves exploiting a known CVE in a web application that is 
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0006-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0006-01.png)
 
 
 Figure 3: The architecture of the PACEagent framework. The red line illustrates the conventional external ReAct loop. The components shown in black are our novel enhancements for cybersecurity operations, featuring a phase manager to control the agent core’s state, a tools router for tool orchestration, and a memory module to improve efficiency and prevent repetition. 
@@ -190,7 +190,7 @@ To quantify the autonomous exploitation capabilities of LLM agents, we introduce
 As shown in Equation 1, the score is calculated as a weighted summation of the normalized performance across four categories: A-CVE, B-CVE, C-CVE, and D-CVE. To ensure fair comparison and account for generation variance, we adopt a **Pass@5** protocol. For each task _i_ , the agent is granted five independent attempts. The task score is determined by the attempt that retrieves the maximum number of flags ( _fi_<sup>captured</sup> ) relative to the total flags available in that environment ( _Fi_<sup>total</sup> ). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0007-13.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0007-13.png)
 
 
 Here, _NK_ denotes the total number of tasks in category _K_ . The term _S_<sup>¯</sup> _K_ represents the normalized success rate for category _K_ , ensuring that the final score remains within the range [0 _,_ 1]. The ratio 
@@ -233,13 +233,13 @@ Further analyses focus on the three dimensions of our benchmark’s realism: vul
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0009-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0009-01.png)
 
 
 Figure 4: Count of successful exploiting model across CVE difficulty levels, as measured by human pass rate. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0009-03.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0009-03.png)
 
 
 Figure 5: Performance comparison between our PACEagent and the CAI. 
@@ -481,7 +481,7 @@ We construct five complex tasks in the Chained-CVEs (C-CVE) scenario of PACEbenc
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0018-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0018-01.png)
 
 
 Figure 6: In our experimental setup, the **Fronted Network** is configured with vulnerabilities _CVE2022-28512_ and _CVE-2022-30887_ , while the **Internal Network** contains _CVE-2022-30887_ and _CVE-2023-23752_ . The agent is restricted to direct access only to the ports on the front network. 
@@ -545,7 +545,7 @@ Numerous LLM providers in the industry have already introduced corresponding saf
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0020-01.png)
+![](images/14-pacebench-a-framework-for-evaluating-practical-ai.pdf-0020-01.png)
 
 
 Figure 7: Performance of PACEagent across challenges in PACEbench. <mark>green</mark> represents completion within five attempts (Pass@5), <mark>orange</mark> denotes partial task completion, and <mark>red</mark> signifies a failure to complete the task. 

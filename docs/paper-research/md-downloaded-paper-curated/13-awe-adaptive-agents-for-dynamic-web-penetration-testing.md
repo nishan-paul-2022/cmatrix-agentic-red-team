@@ -73,71 +73,71 @@ Large language models have recently motivated systems that apply natural languag
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-00.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-01.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-02.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-03.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-04.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-05.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-06.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-07.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-08.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-09.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-10.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-11.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-12.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-13.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-14.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-15.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-15.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-16.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-16.png)
 
 
 Fig. 1. AWE system architecture. 
@@ -171,55 +171,55 @@ At the center of this layer is the Intelligent Orchestrator , which mediates all
 The Orchestration Layer finally also enforces resource governance by monitoring token spend, runtime, and tool costs. This information steers scheduling so AWE can exit early after high-impact findings or scale back low-yield agents, keeping operations within practical limits while focusing depth where it matters. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-03.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-04.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-05.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-06.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-07.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-08.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-09.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-10.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-11.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-12.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-13.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-14.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-15.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-15.png)
 
 
 ## _B. Specialized Agents Layer_ 
@@ -231,11 +231,11 @@ The XSS agent is the best example to explain the approach. The agent first condu
 Agents for SQL injection, server-side template injection, command injection, XXE, SSRF, IDOR, and LFI follow similar principles. The SQL injection agent combines deterministic 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-20.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-20.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-21.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-21.png)
 
 
 Fig. 2. Five-phase XSS detection pipeline. 
@@ -273,7 +273,7 @@ This section outlines our evaluation methodology, including benchmark selection,
 We evaluate AWE on two complementary benchmarks to assess both competitive performance and controlled vulnerability analysis. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0005-12.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0005-12.png)
 
 
 <!-- Start of picture text -->
@@ -341,7 +341,7 @@ _Overall Performance:_ Table I presents aggregate results. MAPTA attains a highe
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0007-00.png)
+![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->

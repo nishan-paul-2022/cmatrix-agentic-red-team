@@ -304,7 +304,7 @@ Andreas Happe et al.
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0012-02.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->
@@ -355,7 +355,7 @@ Andreas Happe et al.
 14 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0014-02.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0014-02.png)
 
 
 <!-- Start of picture text -->
@@ -908,11 +908,11 @@ Andreas Happe et al.
 30 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-02.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-03.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-03.png)
 
 
 **Fig. 5** Graph of accumulated context token usage over time (indicated by the rounds) for different LLMs. Colors indicate different test-cases and are identical in both graphs (also see Figure 6). 
@@ -944,11 +944,11 @@ Andreas Happe et al.
 32 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-02.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-03.png)
+![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-03.png)
 
 
 **Fig. 6** Graphs of accumulated context token usage over time (indicated by the rounds) for different LLMs. Both graphs use identical colors for identifying test-cases. 

@@ -65,7 +65,7 @@ Can LLMs Hack Enterprise Networks?
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0003-02.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0003-02.png)
 
 
 Fig. 1. Our prototype combines two Active Directory attacks (AS-REP Kerberos Roasting, following up by password-cracking) to compromise a user account without human interaction (Experiment run can be found in run-20250129-085237.json). 
@@ -346,7 +346,7 @@ Our study evaluates the autonomous actions of LLMs that perform enterprise netwo
 Our experiment environment architecture is demonstrated in Figure 2. We are using A Game of Active Directory<sup>12</sup> (short Goad), version 3, to create a simulated vulnerable Microsoft Windows Active Directory (short AD) within the virtual test network. To allow our prototype to interact with the AD, a Linux virtual machine is placed on the same virtual network. The prototype is allowed to execute commands over SSH on this virtual machine. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0013-07.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0013-07.png)
 
 
 <!-- Start of picture text -->
@@ -371,7 +371,7 @@ the 192.168.56.0/24 network range of our virtual test network and instruct it to
 ### **3.2 Testbed** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0014-04.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0014-04.png)
 
 
 <!-- Start of picture text -->
@@ -568,7 +568,7 @@ Can LLMs Hack Enterprise Networks?
 21 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0021-02.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0021-02.png)
 
 
 <!-- Start of picture text -->
@@ -699,7 +699,7 @@ Can LLMs Hack Enterprise Networks?
 25 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0025-02.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0025-02.png)
 
 
 <!-- Start of picture text -->
@@ -836,7 +836,7 @@ Further analyzing our most expensive model (o1+GPT-4o), 94 _._ 07% of the cost o
 _5.5.2 Overall Time Consumption._ Figure 10(a) highlights how time was spent by the different prototype configurations. We differentiate between time spent by the Planner, the Executor, and time spent waiting on command completion. DeepSeek-V3, Gemini-2.5-Flash, and the combined o1+GPT-4o prototype exhibit a similar behavior of spending 60% of their time on high-level strategy making (Planner), 15–20% of the time on selecting and analyzing commands (Executor), and finally waiting for commands to be finished for 20–25% of the time. Qwen3’s Planner is not incorporating the Executor’s information correctly, thus the Planner’s cost are lower and more time is spent executing commands. GPT-4o is a non-reasoning model and thus spends less time updating the PTT and selecting new tasks to be forwarded to the Executor. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0029-05.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0029-05.png)
 
 
 <!-- Start of picture text -->
@@ -857,7 +857,7 @@ Andreas Happe and Jürgen Cito
 30 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0030-02.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0030-02.png)
 
 
 <!-- Start of picture text -->
@@ -884,7 +884,7 @@ Can LLMs Hack Enterprise Networks?
 31 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0031-02.png)
+![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0031-02.png)
 
 
 <!-- Start of picture text -->

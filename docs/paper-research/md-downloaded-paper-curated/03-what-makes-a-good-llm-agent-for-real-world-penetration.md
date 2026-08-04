@@ -118,7 +118,7 @@ What distinguishes transient from persistent challenges? Transient challenges di
 The Cochise case shows this distinction from a different angle. Cochise’s AD-specific attack primitives (Kerberoasting, NTLM relay, BloodHound integration) are capability additions that models cannot replicate through improved reasoning alone. However, this specialization comes at the cost of generality: Cochise underperforms on XBOW and the PentestGPT Benchmark (34% and 4/13 with GPT-4o) compared to general-purpose systems like VulnBot (39% and 6/13), while leading on GOAD by leveraging domain-specific knowledge unavailable to other systems. Neither approach, compensating 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0004-07.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0004-07.png)
 
 
 <!-- Start of picture text -->
@@ -189,7 +189,7 @@ Current systems uniformly lack this capability. PentestGPT’s Penetration Testi
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0006-00.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -270,7 +270,7 @@ Table 4: Search strategy comparison. EGATS is the only approach that combines ex
 TDA combines the above 4 dimensions into a Task Difficulty Index (TDI): 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0008-06.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0008-06.png)
 
 
 where _H_<sup>ˆ</sup> is the normalized horizon estimate and all weights sum to 1. Higher TDI indicates greater difficulty. We set _wH_ = _wE_ = 0 _._ 3 and _wC_ = _wS_ = 0 _._ 2 based on grid search over a validation set of 30 execution traces from HTB machines not included in the PentestGPT benchmark (retired machines from 2022–2023, predating our evaluation set). We test 256 configurations with each weight in _{_ 0 _._ 1 _,_ 0 _._ 2 _,_ 0 _._ 3 _,_ 0 _._ 4 _}_ constrained to sum to 1.0; task completion varies within _±_ 3% across configurations where all weights remain in [0 _._ 1 _,_ 0 _._ 4], indicating that the approach is not sensitive to precise weight selection. 
@@ -304,7 +304,7 @@ Algorithm 1 presents the TDA-guided search procedure. SELECTNODE uses UCB to bal
 ration: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0009-05.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0009-05.png)
 
 
 where φ( _n_ ) is the promise score, _N_ is total actions, _Nn_ is actions on node _n_ ’s subtree, _c_ = _√_ 2 is the exploration constant, and the _−_ λ _·_ δ( _n_ ) term penalizes high-difficulty nodes (λ = 0 _._ 5, validated via grid search; see Appendix D). 
@@ -372,7 +372,7 @@ The PentestGPT benchmark shows larger architectural differences. PENTESTGPT V2 r
 Table 6: Ablation study results (GPT-5.2 thinking). Base: raw shell access with reactive prompting. Each row adds a component cumulatively. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0011-01.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0011-01.png)
 
 
 <!-- Start of picture text -->
@@ -437,7 +437,7 @@ To illustrate where TDA-EGATS falls short, we examine PlayerTwo, the only Pentes
 This failure exposes a TDA limitation: it cannot distinguish “difficult but tractable” from “novel requiring creative reasoning,” as both present as high TDI. When RAG retrieval 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0012-07.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0012-07.png)
 
 
 <!-- Start of picture text -->
@@ -652,7 +652,7 @@ Table 12 presents the complete evidence confidence scoring rubric used by the TD
 **Path Confidence Computation.** For a path _P_ = ( _n_ 0 _, n_ 1 _,..., nk_ ) from root to current node, the evidence confidence is computed as: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0017-05.png)
+![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0017-05.png)
 
 
 where _e_ ( _ni_ ) is the confidence score assigned to node _ni_ based on Table 12. The root node _n_ 0 is excluded as it represents the initial state before any evidence is gathered. 

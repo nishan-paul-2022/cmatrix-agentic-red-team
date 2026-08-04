@@ -83,14 +83,14 @@ Generalized Direct Preference Optimization (GDPO) [24] builds on direct preferen
 Fine-tuning LLMs using reinforcement learning, in particular GRPO, for reasoning has shown promising results beyond typical scenarios such as coding and mathematics. For instance, [10, 30] 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-07.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
 Pen-Strategist<br>PTT  - summary of the Strategy model Step model<br>attack environment Analyze the previous step GPT2 - semantic<br>+ and results embedding extraction<br>Previous Step Reason out the next strategy<br>based on the previous Next step prediction<br>+ findings (PTT)<br>Previous Step Result Derived strategy with MCP server prediction<br>reasoning<br>Agent setup<br>1. Better strategy derivation.<br>Plug into other<br>frameworks<br>2. Correct next step (action) prediction.<br>Execution<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-08.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-08.png)
 
 
 **Figure 1: System overview of the Pen-Strategist. The framework is designed to be modular, allowing integration with other agent-based architectures.** 
@@ -110,85 +110,85 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Trovato et al. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-02.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-03.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-03.png)
 
 
 <!-- Start of picture text -->
 Walkthroughs<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-04.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-05.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-06.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-07.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-08.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-08.png)
 
 
 <!-- Start of picture text -->
 Human Summarizer<br>interaction<br>Summarize the<br>results<br>Command<br>execution<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-09.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-09.png)
 
 
 <!-- Start of picture text -->
 Target machine<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-10.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-11.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-12.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-13.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-14.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-14.png)
 
 
 <!-- Start of picture text -->
 Generator<br>SubtaskGenerator<br>breakdown<br>MCP tool selection for<br>each subtask<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-15.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-15.png)
 
 
 <!-- Start of picture text -->
 PTT  - summary of the attack Next strategy  - best<br>environment strategy for the current state<br>1. Reconnaissance - done Do a vulnerability analysis on theimagemagick 7.1.0-49<br>{findings: <>}<br>2.Vulnerability scan Explanation<br>       2.1. Port 22 - {findings: < >} The discovery of the 'magick' binary<br>       2.2. Port 80 - {findings: < >} is significant as ImageMagick has<br>.... been known to havevulnerabilities...<br>Next step  - next action MCP tools  - MCP tools Results summary  -<br>to execute the strategy that can be used to results summary of the<br>Do a google search for more execute subtasks commands executed<br>information<br>Explanation To find vulnerabilities of {'Google search': 'Search forknown vulnerabilities andexploits for ImageMagick ImageMagick version 7.1.0 hastwo significant vulnerabilities:CVE-2022-44268 and CVE-<br>ImageMagick 7.1.0-49, do a version 7.1.0-49'} 2022-44267....<br>google search...<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-16.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-16.png)
 
 
 <!-- Start of picture text -->
 - Human action<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-17.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-17.png)
 
 
 **Figure 2: Dataset collection steps (a) and a sample data point (b).** 
@@ -284,14 +284,14 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Trovato et al. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-02.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-02.png)
 
 
 <!-- Start of picture text -->
 Update ({G}, {A}, πθ)<br>User prompt<br><PTT> {ptt} </PTT> Qwen3-14B LoRA<br> <PS> {prev_step} (frozen) G11 A11<br></PS> (r=8, alpha=16) G22 A22<br> <PSR> {prev_res}<br></PSR> Reward functions<br> Derive a Newstrategy for thenext step in thepentesting process Generation 1 (GGeneration 1 (G1)Generation 1 (G1)Generation n (G1) n) (G ) R i i with the GTsimilarityStrategy Responseformatformat<br>based on theprevious step and {R , R ,1 2 ....., R }n Language Responselengthlength<br>the findings.....  {A1 , A2 ,....., A n }<br>...<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-03.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-03.png)
 
 
 <!-- Start of picture text -->
@@ -316,11 +316,11 @@ iii) **Generation length reward (** _𝑅𝑙_ **)** the model to keep the gener
 the reasoning tends to explode as training progresses. The reward function is defined according to the Equations 1 and 2. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-13.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-14.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-14.png)
 
 
 iv) **Language reward (** _𝑅𝑒_ **)** forces the model to stick to the English language without mixing with other languages during the reasoning. This ensures the generated rationale is directly applicable to the similarity reward without any complexities. The language reward is defined as 1.0 if the output is in English, 0.0 if it is in any other language, and -1.0 if the output is empty. 
@@ -328,13 +328,13 @@ iv) **Language reward (** _𝑅𝑒_ **)** forces the model to stick to the Engl
 Finally, we sum up all reward components into a single total reward, denoted as _𝑅_ total. Since four strategies are generated for each prompt, we obtain four corresponding _𝑅_ total values, each reflecting the quality of the respective strategy. Rtotal = { _𝑅_ total ( _𝑦_ 1) _, 𝑅_ total ( _𝑦_ 2) _, 𝑅_ total ( _𝑦_ 3) _, 𝑅_ total ( _𝑦_ 4)}. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-17.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-17.png)
 
 
 To encourage higher-quality strategies while discouraging weaker ones, GRPO assigns each sampled completion an advantage score based on its relative performance within the group using the Equation 3. For a given prompt, we sample _𝑁_ = 4 candidate completions { _𝑦𝑖_ } _𝑖_<sup>_𝑁_</sup> =1<sup>, each of which is evaluated using a set of reward functions.</sup> The advantage _𝐴𝑖_ is computed as the normalized deviation of the total reward of _𝑦𝑖_ from the group mean, where positive values indicate above-average performance and negative values indicate below-average quality. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-19.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-19.png)
 
 
 The policy is then optimized using an advantage-weighted objective, as defined in Equation 4, which increases the likelihood of higher-advantage completions while reducing that of loweradvantage ones. In parallel, a Kullback–Leibler (KL) divergence [22] penalty is applied to constrain the learned policy _𝜋𝜃_ from deviating excessively from a fixed reference policy _𝜋_ ref, which corresponds to the base pretrained model. This regularization term improves training stability and prevents overfitting to high-reward samples by maintaining proximity to the reference distribution. 
@@ -354,7 +354,7 @@ Given the input formed by concatenating the strategy and its explanation, we ext
 We formulate the learning problem as a two-task multi-label classification setting, where a shared representation is used to jointly predict (i) the next step label and (ii) the MCP server set. For each training instance, we compute a cross-entropy loss for step prediction and a binary cross-entropy loss for MCP prediction using the ground-truth labels _𝑦_ step ∈ _𝐴_ and multi-hot vector _𝑦_ mcp ∈{0 _,_ 1}<sup>|</sup><sup>_𝑀_|</sup> , respectively: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-05.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-05.png)
 
 
 where _𝑧 𝑗_<sup>(mcp)</sup> denotes the logit corresponding to the _𝑗_ -th MCP class and _𝜎_ (·) is the sigmoid activation. The final objective is a 
@@ -364,7 +364,7 @@ where _𝑧 𝑗_<sup>(mcp)</sup> denotes the logit corresponding to the _𝑗_ 
 **Require:** Dataset D with inputs _𝑥_ , step labels _𝑦_<sup>(</sup><sup>_𝑠_)</sup> , and MCP labels _𝑦_<sup>(</sup><sup>_𝑚_)</sup> **Require:** Frozen GPT-2 encoder _𝑓𝜃_ , dual CNN heads _𝑔𝜙𝑠_ and _𝑔𝜙𝑚_ **Require:** Learning rate _𝜂𝑡_ , batch size _𝐵_ , epochs _𝐸_ , weight decay _𝑤𝑑_ , and loss weights _𝜆𝑠, 𝜆𝑚_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-09.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-09.png)
 
 
 weighted combination of both losses, calculated as L = _𝜆_ stepLstep + _𝜆_ mcpLmcp. 
@@ -382,7 +382,7 @@ We evaluate the fine-tuned strategy and step models using the heldout test set o
 For step prediction and MCP server prediction, we use accuracy and Micro F1 score as evaluation metrics, respectively. Accuracy measures the model’s ability to correctly predict the exact next step as the ground truth. In contrast, MCP server prediction is a multi-label task, as a single step may involve multiple servers. Therefore, in addition to accuracy, which captures the correctness of the entire predicted set, we use the Micro F1 score to evaluate element-wise prediction performance. The F1 score is computed at the per-sample level and then averaged across all samples to obtain the final Micro F1 score. For each sample _𝑛_ , the true positives ( _𝑇𝑃𝑛_ ), false positives ( _𝐹𝑃𝑛_ ), and false negatives ( _𝐹𝑁𝑛_ ) are computed as: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-17.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-17.png)
 
 
 Here, _𝑁_ denotes the total number of samples in the evaluation set and _𝐾_ denotes the number of MCP server labels in the multilabel prediction space. For each sample _𝑛_ ∈{1 _, . . . , 𝑁_ } and label _𝑗_ ∈{1 _, . . . , 𝐾_ }, the ground-truth indicator _𝑦𝑛,𝑗_ ∈{0 _,_ 1} specifies whether MCP label _𝑗_ is actually present, while the predicted indicator _𝑦_ ˆ _𝑛,𝑗_ ∈{0 _,_ 1} specifies whether the model predicts that label. The corresponding results are presented in Section 6.1. 
@@ -493,7 +493,7 @@ The next strategy involves exploiting the confirmed SQL injection vulnerability 
 As outlined in Section 5.2, we assess the Strategy model by integrating it as the backend of strategy analyzer agents within automated pentesting frameworks. Figure 7 shows the performance of these frameworks across six HTB machines, using GPT-5 and the Strategy model as backends. The higher patterned bars show that our model consistently outperforms GPT-5, achieving higher subtask completion rates across all machines and frameworks. Overall, the finetuned model improved the subtask completion rate of PentestGPT by 46.5% and AutoPentester by 43.4%, VulnBot by 52.5%, across all the test machines. These findings indicate that RL-augmented frameworks demonstrate clear performance gains, indicating that 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0009-18.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0009-18.png)
 
 
 <!-- Start of picture text -->
@@ -612,7 +612,7 @@ Below we show some example free text comments we received from the participants.
 Both the comments favor our model for its clarity and stronger strategic reasoning. In Comment 1, our model is credited with correctly identifying the key exploitation path, modifying a writable script likely executed with elevated privileges, while Claude-4.6sonnet is criticized for redundant checks and GPT-5 for less confident and imprecise reasoning. In Comment 2, Claude-4.6-sonnet demonstrates a valid approach; however, it is viewed as overly 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-11.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-11.png)
 
 
 <!-- Start of picture text -->
@@ -631,7 +631,7 @@ _6.6.1_ **Evaluating Different Fine-tuning Techniques:** Here, we assess how dif
 _6.6.2_ **Fine-tuning Different Open-source Models:** To generalize the effectiveness of the GRPO training using the collected 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-18.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-18.png)
 
 
 <!-- Start of picture text -->
@@ -800,7 +800,7 @@ This section presents the complete prompts used during model fine-tuning and eva
 ## **System Prompt** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-16.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-16.png)
 
 
 **Figure 10: System prompt used for the Strategy model finetuning.** 
@@ -810,7 +810,7 @@ Figure 10 presents the system prompt used during both finetuning and inference o
 ## **User Prompt** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-20.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-20.png)
 
 
 **Figure 11: User prompt used for the Strategy model finetuning.** 
@@ -830,7 +830,7 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation and Analysis 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0015-02.png)
+![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0015-02.png)
 
 
 derives a precise privilege escalation path through script modification, while Option 2 (Calude-4.6-Sonnet) includes redundant checks such as SUID/SGID bit verification that are unnecessary given the established execution context, and Option 3 (GPT-5) lacks precision in identifying the exploitation vector. 

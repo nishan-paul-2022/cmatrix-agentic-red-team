@@ -103,7 +103,7 @@ Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0004-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
@@ -134,7 +134,7 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0005-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
@@ -197,7 +197,7 @@ Manuscript submitted to ACM
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0007-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0007-02.png)
 
 
 Fig. 3. Overview of applications of agentic AI to cybersecurity. Figure maps core research and operational domains, such as autonomous defense, threat intelligence, enterprise automation, and simulation and training, together with representative subcomponents. 
@@ -378,7 +378,7 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 15 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0015-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0015-02.png)
 
 
 <!-- Start of picture text -->
@@ -407,7 +407,7 @@ Manuscript submitted to ACM
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0016-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0016-02.png)
 
 
 <!-- Start of picture text -->
@@ -660,7 +660,7 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 27 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0027-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0027-02.png)
 
 
 <!-- Start of picture text -->
@@ -689,7 +689,7 @@ Manuscript submitted to ACM
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0028-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0028-02.png)
 
 
 <!-- Start of picture text -->
@@ -720,7 +720,7 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 29 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0029-02.png)
+![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0029-02.png)
 
 
 <!-- Start of picture text -->

@@ -109,7 +109,7 @@ Our approach introduces a two-level hierarchy consisting of an LLM-based strateg
 **Strategic Planner (LLM):** The LLM operates at a coarse temporal resolution and produces a structured _intent_ conditioned on the current observation and auxiliary context. The intent encodes high-level decisions such as action type, MITRE ATT&CK tactic, target selection, and risk posture. Formally, the planner defines: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0005-10.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0005-10.png)
 
 
 where _zt_ is the structured intent and _mt_ represents optional memory or contextual inputs. The LLM parameters remain fixed during training. 
@@ -117,7 +117,7 @@ where _zt_ is the structured intent and _mt_ represents optional memory or conte
 **Tactical Controller (RL):** The RL controller executes actions at every timestep, conditioned on both the current observation and the LLM-generated intent: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0005-13.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0005-13.png)
 
 
 This allows the controller to learn environment-grounded policies while following high-level strategic guidance. 
@@ -165,7 +165,7 @@ Table 1: Hierarchical reward shaping components used for training the RL control
 To address sparse and delayed rewards, we introduce a novel reward function composed of multiple components: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0006-06.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0006-06.png)
 
 
 where _r_ env is the environment reward that provides task-level feedback, _r_ progress is the progress reward that encourages advancement through multi-stage objectives, _r_ constraint represents constraint penalties that discourage invalid or out-of-order actions, and _r_ alignment is the alignment reward that incentivizes consistency between RL actions and LLM intent. This decomposition is aimed towards improving credit assignment and stabilizes learning in long-horizon settings. Table 1 summarizes the reward components used to guide learning across different stages of the task. 
@@ -175,7 +175,7 @@ where _r_ env is the environment reward that provides task-level feedback, _r_ p
 The RL controller is trained using an actor-critic method, Proximal Policy Optimization (PPO)[22], to maximize expected return: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0006-10.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0006-10.png)
 
 
 where _γ_ is the discount factor and _T_ is the maximum number of timesteps. The controller receives both state and intent information, enabling it to learn when to follow or deviate from the planner based on environment feedback. 
@@ -197,7 +197,7 @@ A Prepprint
 We evaluate the proposed hierarchical LLM–RL framework in a high-fidelity cyber defense simulation to assess its effectiveness in generating long-horizon, multi-stage attack strategies against adaptive defenders. Figure 1 illustrates the proposed red teaming architecture within a simulation-based testbed. Our experiments are designed to answer a key research question: whether integrating LLM-based strategic planning with RL-based execution improves autonomous red team performance against AI-enabled SOAR systems. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0007-04.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0007-04.png)
 
 
 Figure 1: Hierarchical LLM-RL red teaming framework architecture implemented in the CybORG CAGE 4 environment. The LLM planner provides strategic intent every 20 environment steps, while the RL controller selects tactical actions at every step. LLM weights remain fixed; only the RL controller is trained via PPO. The 4-layer reward shaping aligns policy optimization with kill-chain progression and strategic intent following. 
@@ -219,7 +219,7 @@ A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchest
 A Prepprint 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0008-02.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0008-02.png)
 
 
 Figure 2: MITRE ATT&CK kill chain progression in CAGE 4. Each stage requires completion of the previous stage on the same host. The minimum path from discovery to impact requires 10 environment steps (12 with stealth scanning). Blue team defenders detect indicator files created during exploitation and escalation, triggering host restoration that removes all red team access. 
@@ -399,7 +399,7 @@ A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchest
 A Prepprint 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0012-02.png)
+![](images/11-a-red-teaming-framework-for-evaluating-robustness-of-ai.pdf-0012-02.png)
 
 
 Figure 3: Non-monotonic scaling in the Qwen3 model family. Left axis: episodes achieving compromise (out of 200). Right axis: average peak hosts discovered. Only the two smallest models achieve any compromise, while models at 4B+ never attempt exploitation. 

@@ -3,13 +3,13 @@
 **Terry Yue Zhuo**<sup>1</sup><sup>_,_2</sup><sup>_∗_</sup> **Dingmin Wang**<sup>2</sup> **Hantian Ding**<sup>2</sup> **Varun Kumar**<sup>2</sup> **Zijian Wang**<sup>2</sup> 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-03.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-03.png)
 
 
 1 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-05.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-05.png)
 
 
 _Monash University_ 2 _AWS AI Labs_ 
@@ -23,7 +23,7 @@ Large Language Models (LLMs) have achieved remarkable success in software engine
 https://github.com/amazon-science/cyber-zero 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-11.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-11.png)
 
 
 <!-- Start of picture text -->
@@ -93,88 +93,88 @@ We collect thousands of writeups from CTFtime, leveraging the CTF Archives repos
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
 Writeups<br>Vulnerability Analysis<br> After a lot of reverse engineering using Ghidra, the binary<br>was renamed for clarity. Key components of the program: …<br>Format String Vulnerability<br>A format string bug was found in the greet function, which is<br>called via print_actions.<br>… Strategy<br>Leak base address using format string. Calculate the actual<br>Payload Use printf format strings to …<br>Flag: CTF{xxx}<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-01.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-02.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
 List all files in<br>the current<br>directory to<br>verify the<br>challenge binary<br>is present.<br>ls -la<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-03.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-04.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-04.png)
 
 
 <!-- Start of picture text -->
 Error: Function 'main' not found<br>in random_vault<br>... ---HINT_START---<br>[HINT]<br>The binary doesn't have a main function.<br>Try using...<br>[/HINT]<br>---HINT_END---<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-05.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-05.png)
 
 
 <!-- Start of picture text -->
 CTF Challenge<br>Name:  Random Vault<br>Category:  Pwn<br>Files:  ["random_vault"]<br>Server:  The challenge server is running<br>on 200.136.252.34<br>A legacy service that was once used to store HARPA's<br>secrets has been discovered. The service was accidentally<br>left accessible on the internet until December 2019. Your<br>goal is to exploit the service's vulnerabilities to extract the<br>secrets still stored on the server.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-06.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-06.png)
 
 
 <!-- Start of picture text -->
 Player Model<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-07.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-08.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-08.png)
 
 
 <!-- Start of picture text -->
 Terminal Model<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-09.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-10.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-11.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-12.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-12.png)
 
 
 <!-- Start of picture text -->
 The edited script looks<br>good! Let’s run it as<br>follows:<br>python3 exploit.py<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-13.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-14.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-15.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-15.png)
 
 
 <!-- Start of picture text -->
@@ -259,7 +259,7 @@ In this section, we evaluate all LLMs with the Pass@1 metric, where we sample on
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0007-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -282,7 +282,7 @@ Figure 3: Comparison of various LLMs across model size (log-scale billions of pa
 Understanding how cybersecurity agents scale across different dimensions is crucial for advancing their effectiveness and generalizability. In this section, we investigate three key scaling dimensions through controlled experiment: (1) _inference-time compute_ : whether increased sampling improves performance and how fine-tuned models benefit from additional rollouts, (2) _task diversity_ :how training on varied challenges affects cross-benchmark generalization, and (3) _trajectory density_ : whether multiple synthetic trajectories per task enhance agent performance. Each dimension provides insights into the opportunities and limitations of scaling cybersecurity agents. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0008-03.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0008-03.png)
 
 
 <!-- Start of picture text -->
@@ -303,7 +303,7 @@ Figure 4: Effect of inference-time compute budgets. Zero-shot and fine-tuned Qwe
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
@@ -316,7 +316,7 @@ Figure 5: Effect of training task diversity. Models trained on increasing percen
 #### 4.3 SCALING WITH DATA SAMPLING 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-04.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
@@ -1083,7 +1083,7 @@ open output.txt
 33 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0034-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0034-00.png)
 
 
 <!-- Start of picture text -->
@@ -1292,21 +1292,21 @@ open structure_analysis.txt
 42 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-00.png)
 
 
 <!-- Start of picture text -->
 3:<br>4:Testing k=123 multiplication:<br>5:Group mul: (3287298867445145065283726543398164915140533485340117  ⌋<br>�→ 27589360868365386517379858200594389287783606128406133788999820  ⌋<br>�→ 4887979431149460628971738238281896127199,<br>�→ 13511561456192903041000845302288103066225954076785039356761251  ⌋<br>�→ 50462005822381920182723000707004085667898743918218893820938318  ⌋<br>�→ 5922787070791339955496985730428)<br>6:Field mul: (3287298867445145065283726543398164915140533485340117  ⌋<br>�→ 27589360868365386517379858200594389287783606128406133788999820  ⌋<br>�→ 4887979431149460628971738238281896127199,<br>�→ 13511561456192903041000845302288103066225954076785039356761251  ⌋<br>�→ 50462005822381920182723000707004085667898743918218893820938318  ⌋<br>�→ 5922787070791339955496985730428)<br>7:<br>8:Field multiplicative order: 308640534931154687675082997833432352  ⌋<br>�→ 20837917329010622058110876527425778902651318084579509534356687  ⌋<br>�→ 3908793609230754351169620749514457816070026459157392283166<br>9:Factors of order: 2^4 * 3^3 * 3271 * 18119 * 23857 * 35923 *<br>�→ 1505323 * 3036643 * 3878597 * 7306661 * 661850419 * 696183413<br>�→ * 737026033 * 748888849 * 764475661 * 790916521 * 1000657271 *<br>�→ 1016247923 * 1213865039 * 2090081803 * 3882107087 * 4012893277<br>(Open file:<br>�→ /__home__LLM_CTF_Database__yadlp/structure_analysis.txt)<br>(Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-01.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-01.png)
 
 
 <!-- Start of picture text -->
 Player Model https://ctftime.org/writeup/30584<br>This analysis reveals something crucial! The group operation is<br>�→ exactly isomorphic to multiplication in the quadratic field<br>�→ extension GF(p²) with x² - D as the defining polynomial. This<br>�→ is confirmed by:<br>1. The group multiplication exactly matches field multiplication<br>�→ (the coordinates are identical)<br>2. The group law (x1x2 + Dy1y2, x1y2 + x2y1 + 2y1y2) corresponds<br>�→ to multiplication in GF(p²)<br>3. We now know the order of the multiplicative group: p² - 1<br>This means we can convert this discrete logarithm problem in the<br>�→ custom group to a discrete logarithm problem in a finite field<br>�→ GF(p²). This is a well-known problem with several algorithms<br>�→ available.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-02.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-02.png)
 
 
 <!-- Start of picture text -->
@@ -1509,14 +1509,14 @@ File updated. Please review the changes and make sure they are _�→_ correct 
 53 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-00.png)
 
 
 <!-- Start of picture text -->
 (Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br>Player Model https://ctftime.org/writeup/30584<br>The script looks good with proper indentation. Let's run it to get<br>�→ the complete flag:<br>python3 solve_flag.py<br>Terminal Model https://ctftime.org/writeup/30584<br>Flag: b'DUCTF{a_1337_hyp3rb0la_m33ts_th3_mult1pl3_DLP!!}'<br>(Open file: solve_flag.py)<br>(Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-01.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-01.png)
 
 
 <!-- Start of picture text -->
@@ -1647,7 +1647,7 @@ challenge.eml: ASCII text (Open file: n/a) (Current directory: /__home__LLM_CTF_
 57 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-00.png)
 
 
 <!-- Start of picture text -->
@@ -1658,7 +1658,7 @@ challenge.eml: ASCII text (Open file: n/a) (Current directory: /__home__LLM_CTF_
 - 14: 15: Please click the link below to access and download the resume: 16: http://storage.microsoftcloudservices.com:41075/index.php 17: 18: Best regards, 19: Assistant to Lord Malakar 20: 21: --boundary-string-(Open file: challenge.eml) (Current directory: /__home__LLM_CTF_Database__A_new_Hire) (Interactive session: n/a) bash-$ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-02.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-02.png)
 
 
 <!-- Start of picture text -->
@@ -1707,14 +1707,14 @@ I'll add the code to download_resume.py to make a POST request and _�→_ save
 60 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-00.png)
 
 
 <!-- Start of picture text -->
 with open('resume_content', 'wb') as f:<br>f.write(response.content)<br>print(f'Status code: {response.status_code}')<br>print('Headers saved to response_headers.txt')<br>print('Content saved to resume_content')<br>except requests.exceptions.RequestException as e:<br>print(f'Error occurred: {e}')<br>sys.exit(1)<br>if __name__ == '__main__':<br>download_resume()<br>end_of_edit<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-01.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-01.png)
 
 
 <!-- Start of picture text -->
@@ -1790,7 +1790,7 @@ hexdump -C resume_content
 63 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0064-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0064-00.png)
 
 
 <!-- Start of picture text -->
@@ -1801,7 +1801,7 @@ hexdump -C resume_content
 64 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0065-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0065-00.png)
 
 
 <!-- Start of picture text -->
@@ -2267,14 +2267,14 @@ Let me check the aloha function: open aloha.txt
 **Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/aloha.txt] int32_t aloha(void) { int32_t iVar1; undefined8 uVar2; time_t tVar3; tVar3 = time(0); srand(tVar3); uVar2 = rand(); DAT_006020a0 = (char *)(uVar2 << 0xc); iVar1 = mprotect(DAT_006020a0, 0x1000, 7); if (iVar1 == -1) { puts("0_o"); DAT_006020a0 = 0; return -1; } printf("mmaped @%p\n", DAT_006020a0); return 0; } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-01.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-01.png)
 
 
 <!-- Start of picture text -->
 Player Model https://ctftime.org/writeup/25465<br>After analyzing both functions, here's what we need to do:<br>1. The aloha function (beer option):<br>- Generates a random address (shifted by 12 bits)<br>- Makes that region RWX using mprotect<br>- Stores address in DAT_006020a0<br>- Prints the address<br>2. The drinkmybeer function (horse option):<br>- Creates a new RWX page<br>- Takes our input (0x1000 bytes)<br>- Overwrites specific regions with 'A's<br>- Copies some predefined code<br>- Executes at offset 0x400<br>The key observation is that we have TWO RWX pages:<br>1. One from beer option (random address)<br>2. One from horse option (for our input)<br>Let's first see what shellcode is being copied to our input. We<br>�→ can examine the binary sections at 0x400660 and 0x4006a0:<br>hexdump -C emoji_binary > binary_dump.txt<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-02.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-02.png)
 
 
 <!-- Start of picture text -->
@@ -2369,7 +2369,7 @@ create analyze.py
 85 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0086-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0086-00.png)
 
 
 <!-- Start of picture text -->
@@ -3084,7 +3084,7 @@ decompile snake.exe > decompiled_output.txt
 105 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0106-00.png)
+![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0106-00.png)
 
 
 <!-- Start of picture text -->

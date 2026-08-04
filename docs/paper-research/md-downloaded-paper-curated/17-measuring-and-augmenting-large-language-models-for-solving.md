@@ -79,25 +79,25 @@ Measuring and Augmenting Large Language Models for Solving Capture-the-Flag Chal
 diverse challenges that encompass a wide range of cybersecurity topics. Each challenge constitutes a carefully designed sandbox environment that mimics real-world security vulnerabilities. In these scenarios, organizers set up services or create situations laden with specific vulnerabilities, containing a hidden text string or “flag.” 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-03.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-03.png)
 
 
 <!-- Start of picture text -->
 Challenge<br>Description<br>CTF Challenges<br>Attached<br>Files<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-04.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-04.png)
 
 
 <!-- Start of picture text -->
 Core CTF Knowledge<br>Exploit Actions<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-05.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-06.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-06.png)
 
 
 <!-- Start of picture text -->
@@ -128,7 +128,7 @@ To support the study and practice of CTF competitions, engaging with various CTF
 Since the release of GPT-3.5 in 2022 [17], Large Language Models (LLMs) have attracted increasing attention. Trained on extensive natural language data, these models are fine-tuned for various downstream tasks [40, 61, 66, 84]. Leading LLMs such as o1 [22], GPT-4 [35], Claude 3.5 Sonnet [11], and Llama-3.1 [23] have excelled in natural language understanding [52] and code generation [94]. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-19.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0003-19.png)
 
 
 <!-- Start of picture text -->
@@ -165,25 +165,25 @@ Transitioning to the Exploiting phase, the demands on LLMs’ capability further
 As such, **technical knowledge** is needed in both phases. However, current research primarily evaluates LLMs based on their overall performance in solving CTF challenges [70, 71, 89], without adequately recognizing the importance of technical knowledge. To address this oversight, this section presents a benchmark specifically designed to assess the technical knowledge of LLMs, using single-choice and open-ended questions to isolate this evaluation from reasoning ability. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-12.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-12.png)
 
 
 <!-- Start of picture text -->
 ❶ Write-up Collection ❷ Technical Knowledge<br>Extraction<br>Prompt Template<br>- Challenge Description<br> - Exploit Methods<br> - Exploit Scripts In case of a XSS challenge...Label 1<br>Hallucination Judge and Filter ❸ Knowledge Filtering<br>⨁<br>single-choice question<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-13.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-13.png)
 
 
 <!-- Start of picture text -->
 In a XSS challenge, which option is right?<br>open-ended question<br>In a XSS challenge, what should you do?<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-14.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-15.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0004-15.png)
 
 
 <!-- Start of picture text -->
@@ -328,7 +328,7 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-02.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
@@ -349,43 +349,43 @@ Our above discussion (“Broader Implications for the CTF Domain”) sheds light
 various aspects of the CTF community (e.g., education, training, and competition). That said, the measurement study findings also uncover _technical challenges_ that LLMs face when solving CTF. To effectively address them and unleash the full potential of LLMs in the CTF domain, we propose CTFAgent to augment LLMs for CTF. Below, we first elaborate on how findings from our measurement study inform the design of CTFAgent and then present the design. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-10.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-10.png)
 
 
 <!-- Start of picture text -->
 §4.3 EA Module<br>Interactive Command<br>Advanced CTF tools<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-11.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-11.png)
 
 
 <!-- Start of picture text -->
 Understanding<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-12.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-12.png)
 
 
 <!-- Start of picture text -->
 Exploiting<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-13.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-13.png)
 
 
 <!-- Start of picture text -->
 Technical<br>Knowledge<br>Hints<br>Retrieval<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-14.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-15.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-15.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-16.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0008-16.png)
 
 
 **Figure 6: Overview of CTFAgent.** 
@@ -405,7 +405,7 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Measuring and Augmenting Large Language Models for Solving Capture-the-Flag Challenges 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0009-02.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
@@ -440,62 +440,62 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-02.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-03.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-03.png)
 
 
 <!-- Start of picture text -->
 Description:Huff, puff, and blow that buffer over.<br>Flag: csawctf{....}<br>CTFAgent<br>Calling run command, args: command=ls ~/ctf_files<br>CTF Environment<br>puffin<br>CTFAgent<br>Calling decompile, args: binary=puffin, function=main<br>CTF Environment<br>Use IDA to decompile ...<br>int __fastcall main(int argc, const char **argv, const char **envp)....<br>DB-Understanding<br>To successfully exploit a buffer overflow vulnerability, you should..<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-04.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-05.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-06.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-07.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-08.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-09.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-10.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-11.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-12.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-13.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-14.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-15.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0010-15.png)
 
 
 <!-- Start of picture text -->
@@ -626,7 +626,7 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0012-02.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->
@@ -664,7 +664,7 @@ The evaluation results of these three variants on the Intercode CTF Dataset and 
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0012-13.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0012-13.png)
 
 
 <!-- Start of picture text -->
@@ -967,7 +967,7 @@ In §3, we designed customized system prompts for the tasks of knowledge extract
 **Figure 11: Visualization of the 173 clusters obtained by applying Affinity Propagation to 2,013 CTF technical knowledge points; see the detailed cluster results on our project website.** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0016-18.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0016-18.png)
 
 
 <!-- Start of picture text -->
@@ -1003,7 +1003,7 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Measuring and Augmenting Large Language Models for Solving Capture-the-Flag Challenges 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0017-02.png)
+![](images/17-measuring-and-augmenting-large-language-models-for-solving.pdf-0017-02.png)
 
 
 <!-- Start of picture text -->

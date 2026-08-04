@@ -63,32 +63,32 @@ tions (Section 6) can be seen as practical implementations of these MAS-inspired
 **LLMs as Hybrid Models.** Finally, _hybrid_ architectures integrate multiple LLM (or AI) components into modular frameworks, aiming to combine the autonomous adaptability of generalist models with 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-07.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
 Prompt<br>Templates<br>Web Search<br>Internal<br>Human<br>Knowledge<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-08.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-08.png)
 
 
 <!-- Start of picture text -->
 Pentesting Tools<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-09.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-10.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-10.png)
 
 
 <!-- Start of picture text -->
 5<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-11.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0003-11.png)
 
 
 <!-- Start of picture text -->
@@ -119,7 +119,7 @@ We adopt three complementary metrics to assess the performance of each LLM model
 **(1) Subtask Completion Rate (SCR)** A core goal in real-world PT is _incremental progress_ — successfully completing each subtask _j_ (e.g., reconnaissance, exploitation, post-exploitation) is valuable, even if a full compromise is not achieved. We thus define: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-06.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-06.png)
 
 
 > 1Reconnaissance tasks included network scans (e.g., Nmap), SMB enumeration, and SQL wildcards. Credential attacks employed Hydra for brute-forcing FTP, SSH, and Telnet. Exploitation targeted known CVEs in services like VSFTPD and Apache Tomcat. Post-exploitation tasks included privilege escalation and lateral movement. MITM involved credential interception; web attacks tested SSTI, DOM XSS, etc. AD tasks focused on Groups.xml cracking. See Appendix D for full details and Appendix E for NLP challenges. 
@@ -133,11 +133,11 @@ where _Fm,j_ denotes the number of failed attempts for model _m_ on subtask _j_ 
 **(3) Ease of Use and User Interaction Metrics** We assess _ease of use_ through three indicators: total user interactions ( _Im,j_ ), human interventions ( _HIm,j_ ), and a knowledge level score ( _KLm,j_ ). These metrics capture how efficiently the model integrates into a penetration tester’s workflow and how much oversight or expertise is required: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-12.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-13.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0004-13.png)
 
 
 Here, _Um,j,i_ and _Hm,j,i_ denote the number of user interactions and human interventions in attempt _i_ , respectively, while _Km,j,i ∈{_ Basic = 1 _,_ Intermediate = 2 _,_ Expert = 3 _}_ describes the model’s displayed knowledge level.<sup>2</sup> _NI_ , _NH_ , and _N_ are the total counts of interactions, interventions, and attempts, respectively. 
@@ -147,7 +147,7 @@ A high interaction count ( _Im,j_ ) may indicate the model requires frequent pro
 2Basic knowledge involves general cybersecurity principles, basic networking, and simple reconnaissance techniques. Intermediate knowledge includes exploitation techniques, web security fundamentals, and privilege escalation. Expert knowledge covers complex post-exploitation tactics, Active Directory exploitation, and advanced protocol analysis. This metric is manually labeled by the authors. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0005-00.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0005-00.png)
 
 
 Figure 2: LLM Performance Drop-Off Across Penetration Testing Task Complexity: the average performance trend (indicated by success rate) of models across penetration testing tasks, arranged in increasing complexity. 
@@ -163,7 +163,7 @@ As shown in Table 5, LLM agents varied widely in their ability to complete penet
 **Complex Multi-Step Tasks** Performance dropped sharply in multi-step workflows such as post-exploitation and Active Directory enumeration, especially for Gemini and AUTOATTACKER. These failures stem from brittle planning and limited context reuse across subtasks. In contrast, PENHEAL, GPT-4, and PENTESTGPT maintained 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0005-07.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0005-07.png)
 
 
 Figure 3: Distribution of Failure Modes Across LLMs in Penetration Testing: the percentage (FR) of different failure modes encountered across various LLMs during penetration testing tasks. 
@@ -193,7 +193,7 @@ Below, we consolidate the primary failure modes (Table 6).
 Table 1: Ease of Use Metrics: Scores are represented as I / HI / KL, where I = number of interactions, HI = human interventions, KL = knowledge level required (1 = low, 2 = medium, 3 = high). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0006-02.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0006-02.png)
 
 
 Figure 4: Context Retention Timeline: Cumulative Errors Over Steps. The X-axis represents the interaction steps (phases in the exploitation workflow), and the Y- axis shows the cumulative count of context errors. 
@@ -223,7 +223,7 @@ Table 2: Failure Modes (FMs) mapped to Failure Reasons (FRs) and deeper Root Cau
 **Discussion** While Table 6 identified the highlevel failure modes, Table 2 traces these categories to their finer-grained internal origins (Huang et al., 2025; Liu et al., 2023a; Yao et al., 2023). For FM1 (hallucinations and syntax errors), the dominant cause was prompt ambiguity (57%), followed by token-level drift (30%) and stochastic decoding variability (13%). This suggests that many surfacelevel command failures arise not merely from model weakness but from underspecified or unstable prompt–token interactions. For FM2 (looping and repetition), the majority of cases (68%) stemmed from missing stop conditions in prompt chains, with smaller fractions due to absent interagent memory (22%) or exposure bias toward “safe” repeats (10%). These results highlight the structural role of planning and state-tracking mechanisms in preventing regressions across subtasks. Finally, FM3 (tool and task coverage gaps) was most often linked to context window limits and overshadowing (50%). These issues were a direct consequence of long, multi-phase prompts, while alignment bias (30%), knowledge gaps (8%), and missing runtime hooks (12%) further contributed to task incompletion. Taken together, this analysis clarifies that each failure mode is not monolithic but decomposes into distinct, quantifiable root causes. Moreover, it provides a concrete motivation for the interventions described in Section 6: GCM addresses context loss, IAM mitigates missing state propagation, CCI constrains prompt drift, AP remedies brittle stop conditions, and RTM compensates for the absence of runtime checks. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0007-03.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0007-03.png)
 
 
 Figure 5: Risk-Task Matrix with Recommended Human Oversight. Tasks are ordered from least to most complex (bottom to top), with risk levels (Low, Medium, High) categorized along the columns. The intervention score (numerical values) represents the degree of human oversight needed, with higher values indicating greater human involvement. 
@@ -245,7 +245,7 @@ plaintext credentials were present in the intercepted stream. They treated authe
 Table 3: Subtask Completion Rate (SCR) improvements for modular penetration testing agents under functional augmentations. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0008-02.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0008-02.png)
 
 
 Figure 6: Concentric Donut Chart of Human Interventions by Risk Level Across LLMs.The color-coded risk levels (Green = Low, Yellow = Medium, Red = High) indicate the proportion of interventions required at each level.The numerical values in each segment represent the percentage of total human interventions required per risk level for each model. 
@@ -485,7 +485,7 @@ Rando et al. (2023) investigate PassGPT, an LLM designed to optimize password cr
 Beyond penetration testing, LLMs have also proven valuable as cybersecurity training and simulation tools. Tann et al. (2023) explore their role in 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0015-00.png)
+![](images/19-from-capabilities-to-performance-evaluating-key-functional.pdf-0015-00.png)
 
 
 Figure 7: High-Level Lifecycle for LLM-Augmented Penetration Testing, illustrating how LLMs integrate into various offensive phases (e.g., Reconnaissance, Exploitation, Privilege Escalation) and potential failure/ethical risks. 

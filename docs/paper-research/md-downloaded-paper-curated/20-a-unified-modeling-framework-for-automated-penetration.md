@@ -47,14 +47,14 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0002-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0002-02.png)
 
 
 <!-- Start of picture text -->
 Real Network or Cyber Range<br>• High Temporal Expenditure<br>• Significant Economic Expenditure<br>• Substantial Complexity and Challenge<br>× • Limited Variability Simulation Modeling Challenge<br>• Inability to Capture Dynamic and  • Simulation Quality<br>Stochastic Characteristics Effectively . • Real-world Abstraction<br>• Lack of Systematic Simulation Model-<br>Simulation Environment ing Approaches<br>• Low Cost • Lack of Dynamic Scenario Modeling<br>• Simple and Flexible • Lack of Public Datasets<br>• Diverse Scenarios<br>Intelligent Automatic Execution • Rapid Feedback<br>Decision-making √<br>Automated Penetration Testing Training or Testing Environment<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0002-03.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0002-03.png)
 
 
 Figure 1: The Necessity and Challenges of Simulation Environments Modeling in AutoPT 
@@ -116,13 +116,13 @@ _3) Formal expression:_ As illustrated in Figure 2, the AutoPT system comprises 
 Attacker and defender actions exhibit dual input-output roles within the system. At time _t_ , the input _A_ ( _t_ ) = [ _A_<sup>_A_</sup> ( _t_ ) _, A_<sup>_D_</sup> ( _t_ )] comprises the attacker’s action vector _A_<sup>_a_</sup> ( _t_ ) = [ _a_<sup>_a_</sup> 1<sup>_, aa_</sup> 2<sup>_, . . . , aa_</sup> _p_<sup>]</sup> and the defender’s action vector _A_<sup>_D_</sup> ( _t_ ) = [ _a_<sup>_d_</sup> 1<sup>_, ad_</sup> 2<sup>_, . . . , ad_</sup> _q_<sup>]. The</sup> system output _Y_ ( _t_ ) = [ _Y_<sup>_A_</sup> ( _t_ ) _, Y_<sup>_D_</sup> ( _t_ )] mirrors this structure, with _Y_<sup>_a_</sup> ( _t_ ) = [ _y_ 1<sup>_a, y_</sup> 2<sup>_a, . . . , y_</sup> _p_<sup>_a_]and</sup><sup>_YD_(</sup><sup>_t_)=[</sup><sup>_y_</sup> 1<sup>_d, y_</sup> 2<sup>_d, . . . , y_</sup> _q_<sup>_d_].</sup> While _p_ = _q_ (distinct input-output dimensions for attackers and defenders), these can be standardized via zero-padding to a unified dimension _p_<sup>_′_</sup> , where _p_<sup>_′_</sup> = max( _p, q_ ), without loss of generality. We therefore understand the AutoPT simulation system as a discrete-time system, and its state equation can be represented as a stochastic difference equation: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0003-16.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0003-16.png)
 
 
 The system’s output equation is given as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0003-18.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0003-18.png)
 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
@@ -130,7 +130,7 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0004-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
@@ -205,7 +205,7 @@ In this section, we present the **M** ulti- **D** imensional **C** lassification
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0006-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0006-02.png)
 
 
 <!-- Start of picture text -->
@@ -272,7 +272,7 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0008-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
@@ -315,14 +315,14 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 9 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
 𝑆0𝐴 = 0,0,0,0<br>𝑁𝑠𝑡𝑎𝑟𝑡 𝑁𝑠𝑡𝑎𝑟𝑡 𝑆0𝐷 = [0,0,0,0,0]<br>𝑆𝑆1𝐷1𝐴= [9,1,7,8,1]= 0,0,0,0 𝑆𝑆0𝐷0𝐴= [9,7,1,8,1]= 0,0,0,0<br>𝑁𝑑𝑎𝑡𝑎 𝑁𝑑𝑎𝑡𝑎 𝑆𝑆0𝐷0𝐴= [5,9,8,1,1]= 0,0,0,0<br>Network Model Graph Model Attribute Model<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-03.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-03.png)
 
 
 Figure 5: A numerical simulation network with four nodes [20]. The left, middle, right diagram shows the network model, graph model and attribute model, respectively. 
@@ -338,22 +338,22 @@ CyberBattleSim focuses on threat modeling during the postcompromise lateral move
 The attacker aims to gain network control by exploiting vulnerabilities and maximizing rewards through three actions: performing a local attack, performing a remote attack, and connecting to other nodes. Actions are parameterized by the source node where the underlying operation should take place, and they are only permitted on nodes owned by the agent. As illustrated in Figure 6, the attacker starts from a Windows 7 node, exploits vulnerabilities, and uses cached credentials to move laterally, ultimately accessing an SQL database. Defenders monitor activities to detect and mitigate attacks by reimaging infected nodes. Attack success also depends on predefined probabilities. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-10.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-11.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-12.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-12.png)
 
 
 <!-- Start of picture text -->
 Windows 2019<br>SQL Server 12<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-13.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-13.png)
 
 
 <!-- Start of picture text -->
@@ -362,59 +362,59 @@ Vulnerability X.Y.Z<br>SQL SQL<br>Initial agentWindows 7node SMB SMB hack Window
 Figure 6: Schematic Diagram of CyberBattleSim Network [49] 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-15.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-15.png)
 
 
 <!-- Start of picture text -->
 Subnet_1<br>(1, 0)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-16.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-16.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-17.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-17.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-18.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-18.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-19.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-19.png)
 
 
 <!-- Start of picture text -->
 (3, 0) (3, 1) (3, 2)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-20.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-20.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-21.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-21.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-22.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-22.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-23.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-23.png)
 
 
 <!-- Start of picture text -->
 Subnet_4<br>(5, 0) (5, 1) (5, 2)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-24.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-24.png)
 
 
 <!-- Start of picture text -->
 Subnet_5<br>(5, 0) (5, 1) (5, 2)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-25.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-25.png)
 
 
 <!-- Start of picture text -->
@@ -510,7 +510,7 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 Table II: Classification Statistics of Simulation Modeling Methods in Automated Penetration Testing Literature 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0011-03.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0011-03.png)
 
 
 <!-- Start of picture text -->
@@ -535,7 +535,7 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0012-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->
@@ -614,11 +614,11 @@ ticularly versions, so we simulate potential data loss with a predefined probabi
 For example, the attributes _Xi_ can be set as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0014-07.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0014-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0014-08.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0014-08.png)
 
 
 To enhance network attribute generation, we incorporate an underlying pattern based on expert knowledge. Nodes within the same LAN often exhibit similarities, particularly concerning operating systems and installed software, such as Windows and Office. This suggests they may share common system and software vulnerabilities, mirroring real-world scenarios where nodes in the same department have similarities. However, due to varying user habits, some vulnerabilities may be addressed through system patches or software updates, and this aspect is also simulated in our network model. Link attributes can be configured based on research needs and decision-making methods. The selection of node and link attributes for intelligent decision-making should align with the specific method and scenario. 
@@ -954,11 +954,11 @@ ulating sql injection vulnerability exploitation using q- learning reinforcement
 - [89] Q. Li, M. Hu, H. Hao, M. Zhang, and Y. Li, “Innes: An intelligent network penetration testing model based on deep reinforcement learning,” _Applied Intelligence_ , vol. 53, no. 22, pp. 27110–27127, 2023. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-11.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-12.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-12.png)
 
 
 **Yunfei Wang** received the B.S. degree in civil engineering from the Hunan University, Changsha, China, in 2020. She is now pursuing the Ph.D degree at the National University of Defense Technology, Changsha, China. She is also a visiting scholar at Tsinghua University. Her research interests include auto penetration test, reinforcement learning and cyber-security. 
@@ -978,11 +978,11 @@ ulating sql injection vulnerability exploitation using q- learning reinforcement
 - [95] C. Sarraute, O. Buffet, and J. Hoffmann, “Pomdps make better hackers: Accounting for uncertainty in penetration testing,” in _Proceedings of the AAAI Conference on Artificial Intelligence_ , vol. 26, pp. 1816–1824, 2012. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-21.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-21.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-22.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0020-22.png)
 
 
 **Wenhao Wang** received the Ph.D. degrees from the National University of Defense Technology, Changsha, China. He is now a lecturer at the National University of Defense Technology. His research interests include auto penetration test, reinforcement learning and cyber-security. 
@@ -994,11 +994,11 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 21 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-02.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-03.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-03.png)
 
 
 **Chao Zhang** (Member, IEEE) received the B.S. and Ph.D. degrees from Peking University. He did Postdoctoral Research at UC Berkeley. He is an Associate Professor at Tsinghua University. His research interest lie in software and system security, including AI for security and security for AI. 
@@ -1006,7 +1006,7 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 **Jiandong Jin** received the M.S. and Ph.D. degrees from Peking University. He is an engineer in the Computer Center from Peking University. His research interest include system security, including AI for security and security for AI. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-06.png)
+![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-06.png)
 
 
 **Cheng Zhu** received the Ph.D. degree in management science and engineering from the National University of Defense Technology, China, in 2005. He is currently a Professor with the National Key Laboratory of Information Systems Engineering, National University of Defense Technology. His current research interest is computer network data mining, command and control, and cyber security. 

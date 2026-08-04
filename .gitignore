@@ -11,4 +11,8 @@ __pycache__/
 *.py[cod]
 
 convert.py
+convert_all.py
+debug.py
 venv/
+test_img/
+docs/paper-research/md-downloaded-paper-curated/images/
