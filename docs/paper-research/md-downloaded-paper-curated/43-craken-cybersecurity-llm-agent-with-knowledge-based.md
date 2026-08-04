@@ -56,12 +56,35 @@ Table 1: Feature comparison of automated LLM agents for cybersecurity.
 2 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0003-00.png)
+```mermaid
+flowchart TD
+    subgraph MultiAgentSystem [Planner-Executor Multi-Agent System]
+        direction TB
+        Trigger --> Planner
+        Planner -->|Decompose| Tasks
+        Planner -->|Delegate Tasks| Executor
+        Executor -->|Summary Tasks| Planner
+        Executor -->|Submit Flag| Grader[Grader]
+    end
 
-
-<!-- Start of picture text -->
-Planner-Executor Multi-Agent System Retrieval System<br>Trigger<br>Retriever<br>Challenge Knowledge Hint<br>Decompose<br>Context Documents Query<br>Retrieval Rewriter<br>Planner Injection<br>Database<br>Grader<br>Search<br>Delegate Tasks Summary Tasks Generate<br>Grader<br>Vector Based<br>Grading ...<br>Executor Executor ... Executor Graph Based Grader<br>Hallucination<br>Grader Query<br>Submit Flag Answer Rewriter<br><!-- End of picture text -->
-
+    subgraph RetrievalSystem [Retrieval System]
+        direction TB
+        Retriever -->|Challenge Context| Search
+        Search -->|Documents| RelGrader[Relevance Grader]
+        RelGrader --> Generator
+        Generator -->|Knowledge Hint| HalGrader[Hallucination Grader]
+        HalGrader -->|Knowledge Hint| AnsGrader[Answer Grader]
+        AnsGrader -->|Injection| Executor
+        
+        RelGrader -.->|Irrelevant| Rewriter[Query Rewriter]
+        HalGrader -.->|Hallucinated| Rewriter
+        AnsGrader -.->|Incomplete| Rewriter
+        Rewriter -.->|Query| Retriever
+        
+        Search -->|Vector Based Search| VectorDB[(Vector Database)]
+        Search -->|Graph Based Search| GraphDB[(Knowledge Graph)]
+    end
+```
 Figure 1: Architecture of CRAKEN composed of two parts: 1. Planner-Executor based [47] multiagent system, and 2. the iterative retrieval system for RAG on the knowledge database. 
 
 NYU CTF baseline agent [32] and Turtayev et al. [38] incorporate LLMs in a ReAct [50] framework and provide specific cybersecurity tools. While Turtayev et al. [38] saturate the relatively easy InterCode-CTF benchmark [49], the NYU CTF baseline achieves only 5% on NYU CTF Bench [32]. EnIGMA [1] enhances the agent’s capabilities by providing interactive tools for server access and debugging, LM summarizer for context management, and demonstrations for complex tool usage to achieve higher performance on NYU CTF Bench and Cybench [51]. Inspired by human CTF teams, D-CIPHER [39] combines approaches of plan-and-solve prompting [42] and ReWOO [47] to formulate a multi-agent system of planner, executor, and auto-prompter agents that collaborate to solve a single CTF. Multi-agent collaborative interactions naturally include summarization and context management, improving each agent’s focus and allowing the system to solve CTFs without advanced interactive tools. D-CIPHER achieves state-of-the-art results on NYU CTF Bench and Cybench as shown in Table 1. Real world cybersecurity tasks require intensive knowledge of software systems, recently discovered vulnerabilities, and exploitation techniques. However, cybersecurity agents are limited by the LLM’s knowledge from training data and information provided in-context. CRAKEN incorporates RAG into LLM agents for improvement on the knowledge-intensive cybersecurity task. 
@@ -113,28 +136,16 @@ hybrid Graph-RAG algorithm improves the quality and relevance of responses. Appe
 **Knowledge Database.** We formulate three distinct knowledge databases to evaluate the impact of the kind of cybersecurity knowledge on the agent’s performance. The primary database “writeups” consists of 1,298 CTF writeups structured as markdown format and designed to assess improvements in cybersecurity reasoning and planning skills. We exclude all writeups from CSAW CTFs as they were used in the NYU CTF Bench [32] that we evaluate on. We also formulate the “payload” database with 135 attack payloads containing compact exploit scripts to determine if implementations of offensive capabilities enhanced performance. Lastly, the “code” database includes 4,656 code snippets to measure potential benefits from improved coding proficiency. Evaluating with these distinct databases allows us to isolate which knowledge domains most significantly impact performance, providing insights into the relative importance of conceptual understanding versus practical implementation techniques. We curated the knowledge databases from GitHub and Hugging Face. We pre-processed the data into a consistent two-column format: task description and solution for “code” database, and exploit code and vulnerability name for “payload” database<sup>2</sup> . 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-02.png)
-
-
-<!-- Start of picture text -->
-APPEARED_IN<br>Query MENTIONS<br>Text      search<br><!-- End of picture text -->
-
 **Implementation.** We implement the retrieval process using the LangChain framework. We integrate Milvus [22] for efficient vector-based similarity search, and Neo4j [24] for managing graph knowledge relationships for GraphRAG. This technological foundation enables CRAKEN to decompose complex tasks, retrieve domain-specific knowledge, and execute multi-step solutions across diverse security challenges. We implement the multi-agent system on top of D-CIPHER [39]. The planner, executor, and autoprompter agent structure, the agent interaction mechanisms, the Docker environment, and the tools provided stay the same. We integrate the retrieval process at the delegation step by default to inject knowledge-based hints for executors. These minimal modifications to the agentic system demonstrate the modularity of CRAKEN’s retrieval process and indicate that it can be integrated with any agentic system. 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-04.png)
-
-
-<!-- Start of picture text -->
-Text      search<br>Graph       search<br>Database<br><!-- End of picture text -->
-
-
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-05.png)
-
-
-<!-- Start of picture text -->
-Structured LLM<br>Retrieval Retrieval Agent<br><!-- End of picture text -->
-
+```mermaid
+flowchart TD
+    Query -->|Text search| TextDB[(Text Database)]
+    Query -->|Graph search| GraphDB[(Graph Database)]
+    TextDB -->|Retrieval| Agent[Structured LLM Retrieval Agent]
+    GraphDB -->|Retrieval| Agent
+```
 Figure 2: Graph-RAG Retrieval 
 
 ## **4 Experiment Setup** 
@@ -202,23 +213,41 @@ percentage of calling each step in CRAKEN’s retrieval algorithm. A mere 43.8% 
 **Failure Analysis.** We also evaluate how models handle challenging failures shown in Fig. 5. Claude models demonstrate significantly higher persistence, with Claude 3.7 showing a remarkable low give-up rate of 0.50% compared to Claude 3.5’s 20.00%, and 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-05.png)
+```text
+Venn Diagram Data: Overlap of CTFs solved by three agents on NYU CTF Bench
+- Total Solved: 51
+- CRAKEN: 42
+- D-CIPHER: 38
+- EnIGMA: 27
 
-
-<!-- Start of picture text -->
-Total (51)<br>12 (23.5%)<br>8 (15.7%) 4 (7.8%)<br>21 (41.2%)<br>1 (2.0%) 1 (2.0%)<br>4 (7.8%)<br>EnIGMA (27)<br>CRAKEN (42) D-CIPHER (38)<br><!-- End of picture text -->
-
+- CRAKEN only: 8 (15.7%)
+- D-CIPHER only: 4 (7.8%)
+- EnIGMA only: 4 (7.8%)
+- All three (Intersection): 21 (41.2%)
+- CRAKEN + D-CIPHER: 12 (23.5%)
+- CRAKEN + EnIGMA: 1 (2.0%)
+- D-CIPHER + EnIGMA: 1 (2.0%)
+```
 Figure 3: Overlap of CTFs solved by three agents on NYU CTF Bench. 
 
 much lower than GPT-4o at 62.00% and GPT-4.1 at 16.00%. This persistence difference is particularly pronounced in specialized categories like "cry," "web," and "pwn," where GPT-4o gives up 63-83% of the time while Claude 3.7 typically continues until hitting cost limits (66.33% of exits). Both Claude models show higher solution rates (21.00% and 18.59%) compared to GPT models (around 11.5-12%). The increased "Max rounds" exits in Claude 3.7 (12.56% vs 1.00% in 3.5) suggest improved planning depth, though occasionally leads to error states (2.01%) when handling complex data structures or file formats. These errors typically occurs when models attempt to parse unusual file formats or execute operations with misinterpreted data structure, but Claude’s persistence means it attempts solutions even when facing potential format challenges rather than abandoning the task. 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-08.png)
-
-
-<!-- Start of picture text -->
-Grade Grade Grade<br>Retrieve Generate Success<br>Documents Hallucination Answer<br>100% 43.8% 100% 27.3% 95.2%<br>39.3% 16.8% 4.8%<br>72.7%<br>Rewrite Empty 65.0%<br>100% Retry 33.7%<br>Query Response<br>1.3%<br><!-- End of picture text -->
-
+```mermaid
+flowchart LR
+    Retrieve[Retrieve Documents] -->|43.8%| GradeDoc{Grade Documents}
+    GradeDoc -->|100%| Generate[Generate]
+    Generate -->|27.3%| GradeHal{Grade Hallucination}
+    GradeHal -->|95.2%| GradeAns{Grade Answer}
+    GradeAns --> Success
+    
+    GradeDoc -->|39.3%| Rewrite[Rewrite Query]
+    GradeHal -->|72.7%| Retry[Retry]
+    GradeAns -->|4.8%| Empty[Empty Response]
+    
+    Rewrite --> Retrieve
+    Retry --> Generate
+```
 Figure 4: Transition diagram visualizing the RAG process. 
 
 ### **5.1 Evaluation on different configurations** 
@@ -228,12 +257,12 @@ Figure 4: Transition diagram visualizing the RAG process.
 7 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0008-00.png)
-
-
-<!-- Start of picture text -->
-Solved Giveup Max cost Max rounds Error<br>Claude 3.5 Sonnet Claude 3.7 Sonnet GPT 4o GPT 4.1<br>cryptoforen.pwnrevwebmisc total cryptoforen.pwnrevwebmisc total cryptoforen.pwnrevwebmisc total cryptoforen.pwnrevwebmisc total<br>100%<br>10% 21% 17% 12% 13%<br>27% 10% 29% 17% 29%<br>75% 42% 33% 17% 20%<br>67% 67% 64% 61% 58% 47%<br>50% 69% 47% 77% 65% 54% 66% 79% 63% 62% 53% 82% 78% 29% 64%<br>38% 68% 47% 72% 53% 62%<br>42% 63%<br>25% 13% 18% 20% 13% 37% 21%<br>0% 19%2% 1 20% 18% 33% 16% 25% 21% 13% 20% 13% 25% 1% 1 29% 18% 20% 16% 1% 1 21% 2% 1 21% 20% 2% 1 1% 1 21% 16%2% 1<br><!-- End of picture text -->
-
+```text
+Table: CRAKEN exit analysis by category on Claude 3.5 Sonnet, Claude 3.7 Sonnet, GPT 4o and GPT 4.1.
+Metrics shown for categories: crypto, foren, pwn, rev, web, misc, total.
+Exit Cases: Solved, Give up, Max cost, Max rounds, Error.
+(Data omitted for brevity, see original paper for full statistics)
+```
 Figure 5: CRAKEN exit analysis by category on Claude 3.5 Sonnet, Claude 3.7 Sonnet, GPT 4o and GPT 4.1. There are 5 type of exit cases [39] - Max Cost, Max Round, Solved, Give up, and Error. 
 
 framework on the NYU CTF Bench under two configurations: default vector-based retrieval and Graph-RAG, with all other settings held constant. Under this configuration, Graph-RAG achieved a highest accuracy of 22% in solving CTF challenges (shown in Table 2), successfully addressing two additional challenges: _2021q-pwn-haystack_ and _2022q-msc-quantum_leap_ . In addition to the overall performance gains, category-wise improvements are also evident, with the exception of reverse engineering challenges, as shown in Table 2. Specifically, the success rate for crypto challenges increased from 11 _._ 5% to 15 _._ 4%, forensic challenges from 20 _._ 0% to 26 _._ 7%, pwn challenges from 17 _._ 9% to 20 _._ 5%, and misc. category challenges from 25 _._ 0% to 29 _._ 2%. Importantly, these performance improvements were achieved while maintaining a comparable average cost, matching the CRAKEN default configuration, i.e., $0 _._ 82. These results highlight the effectiveness of graph-based retrieval in enhancing the problem-solving capabilities of CRAKEN without incurring extra computational costs. 
@@ -493,11 +522,8 @@ Based on the provided context, this note analyzes vulnerabilities in RC4 stream 
 **Key Vulnerabilities in RC4 Stream Cipher Implementations** 
 
 
-![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0016-08.png)
-
-
-<!-- Start of picture text -->
-1. Predictable or Constant Initialization Vectors (IVs)<br>As shown in the Google CTF “dogestore” challenge:<br>iv = get_iv();<br>openssl::symm::decrypt(<br>openssl::symm::cipher::aes_256_ctr(),<br>&key,<br>&some(&iv, data)<br>)<br>The vulnerability here is that the IV remains constant across different encryptions. In stream ciphers:<br>• A constant IV with the same key produces identical keystreams<br>• This effectively reduces the encryption to a simple XOR with a fixed keystream<br>• Attackers can leak the keystream and decrypt any message<br>2. Keystream Reuse Vulnerability<br>From the WhiteHat challenge about A5/1 cipher:<br>• The implementation only changed the timestamp every 30 seconds<br>• Without a counter (like in CTR mode), the keystream remained constant for that period<br>• This allowed attackers to recover the keystream by XORing known plaintext with ciphertext<br>• With the keystream, attackers could encrypt arbitrary messages<br>3. Improper State Maintenance in RC4<br>The “hack-tac-toe” challenge demonstrates another critical weakness:<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>The keystream repeats after just 16 bytes, meaning:<br>• The internal state wasn’t being properly updated or maintained<br>• The implementation reused the same keystream block repeatedly<br>• This allowed complete decryption by simply XORing with the repeated key pattern<br>4. Implementation Flaws and Code Tampering<br>From the “journey2” challenge, a vulnerability where a single byte in the RC4 algorithm was modified:<br>- k = s[(s[i] + s[j]) % 256]<br>+ k = s[(s[j] - s[i]) % 256]<br>This shows:<br><!-- End of picture text -->
+```text
+1. Predictable or Constant Initialization Vectors (IVs)<br>As shown in the Google CTF “dogestore” challenge:<br>iv = get_iv();<br>openssl::symm::decrypt(<br>openssl::symm::cipher::aes_256_ctr(),<br>&key,<br>&some(&iv, data)<br>)<br>The vulnerability here is that the IV remains constant across different encryptions. In stream ciphers:<br>• A constant IV with the same key produces identical keystreams<br>• This effectively reduces the encryption to a simple XOR with a fixed keystream<br>• Attackers can leak the keystream and decrypt any message<br>2. Keystream Reuse Vulnerability<br>From the WhiteHat challenge about A5/1 cipher:<br>• The implementation only changed the timestamp every 30 seconds<br>• Without a counter (like in CTR mode), the keystream remained constant for that period<br>• This allowed attackers to recover the keystream by XORing known plaintext with ciphertext<br>• With the keystream, attackers could encrypt arbitrary messages<br>3. Improper State Maintenance in RC4<br>The “hack-tac-toe” challenge demonstrates another critical weakness:<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>The keystream repeats after just 16 bytes, meaning:<br>• The internal state wasn’t being properly updated or maintained<br>• The implementation reused the same keystream block repeatedly<br>• This allowed complete decryption by simply XORing with the repeated key pattern<br>4. Implementation Flaws and Code Tampering<br>From the “journey2” challenge, a vulnerability where a single byte in the RC4 algorithm was modified:<br>- k = s[(s[i] + s[j]) % 256]<br>+ k = s[(s[j] - s[i]) % 256]<br>This shows:<br>```
 
 16 
 
