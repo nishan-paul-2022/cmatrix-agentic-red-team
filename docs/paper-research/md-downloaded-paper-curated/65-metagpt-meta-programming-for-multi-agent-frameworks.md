@@ -29,9 +29,9 @@ Inspired by such ideas, we design a promising <u>GPT-based Meta-Programming</u> 
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0002-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 1: **The software development SOPs between MetaGPT and real-world human teams.** In software engineering, SOPs promote collaboration among various roles. MetaGPT showcases its ability to decompose complex tasks into specific actionable procedures assigned to various roles (e.g., Product Manager, Architect, Engineer, etc.). 
 
 documents, design artifacts, flowcharts, and interface specifications. The use of intermediate structured outputs significantly increases the success rate of target code generation. Because it helps maintain consistency in communication, minimizing ambiguities and errors during collaboration. More graphically, in a company simulated by MetaGPT, all employees follow a strict and streamlined workflow, and all their handovers must comply with certain established standards. This reduces the risk of hallucinations caused by idle chatter between LLMs, particularly in role-playing frameworks, like: “ _Hi, hello and how are you?”_ – Alice (Product Manager); “ _Great! Have you had lunch?”_ – Bob (Architect). 
@@ -69,9 +69,9 @@ Some works emphasize cooperation and competition related to planning and strateg
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0004-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 2: An example of the communication protocol (left) and iterative programming with executable feedback (right). **Left** : Agents use a shared message pool to publish structured messages. They can also subscribe to relevant messages based on their profiles. **Right** : After generating the initial code, the Engineer agent runs and checks for errors. If errors occur, the agent checks past messages stored in memory and compares them with the PRD, system design, and code files. 
 
 ## 3 METAGPT: A META-PROGRAMMING FRAMEWORK 
@@ -93,9 +93,9 @@ Every agent monitors the environment ( _i.e._ , the message pool in MetaGPT) to 
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0005-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 3: A diagram showing the software development process in MetaGPT, emphasizing its significant dependence on SOPs. The more detailed demonstration can be found in Appendix B. 
 
 Specifically, as shown in Figure 1, upon obtaining user requirements, the Product Manager undertakes a thorough analysis, formulating a detailed PRD that includes User Stories and Requirement Pool. This serves as a preliminary functional breakdown. The structured PRD is then passed to the Architect, who translates the requirements into system design components, such as File Lists, Data Structures, and Interface Definitions. Once captured in the system design, the information is directed towards the Project Manager for task distribution. Engineers proceed to execute the designated classes and functions as outlined (detailed in Figure 2). In the following stage, the QA Engineer formulates test cases to enforce stringent code quality. In the final step, MetaGPT produces a meticulously crafted software solution. We provide a detailed schematic (Figure 3) and a concrete instance (Appendix B) of the SOP workflow in MetaGPT. 
@@ -151,12 +151,19 @@ For SoftwareDev, we prioritize practical use and evaluate performance through hu
 ### 4.2 MAIN RESULT 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0007-06.png)
+```text
+HumanEval Pass@1 of MBPP and HumanEval (%)
+MBPP 81.7 82.3 85.9 87.7
+65.8 67.7 67.0
+58.1
+47.0 47.0
+32.9 38.6 36.0
+26.9
+17.1 15.2 17.6 18.9
+— —
+AlphaCode(1.1B)Incoder (6.7B)CodeGeeX (13B)CodeGeeX-Mono(16.1B) PaLM Coder(540B) Codex (175B)Codex + CodeT GPT-4 (w/o Feedback)MetaGPT MetaGPT
 
-
-<!-- Start of picture text -->
-HumanEval Pass@1 of MBPP and HumanEval (%)<br>MBPP 81.7 82.3 85.9 87.7<br>65.8 67.7 67.0<br>58.1<br>47.0 47.0<br>32.9 38.6 36.0<br>26.9<br>17.1 15.2 17.6 18.9<br>— —<br>AlphaCode(1.1B)Incoder (6.7B)CodeGeeX (13B)CodeGeeX-Mono(16.1B) PaLM Coder(540B) Codex (175B)Codex + CodeT GPT-4 (w/o Feedback)MetaGPT MetaGPT<br><!-- End of picture text -->
-
+```
 Figure 4: Pass rates on the MBPP and HumanEval with a single attempt. 
 
 **Performance** Figure 4 demonstrates that MetaGPT outperforms all preceding approaches in both HumanEval and MBPP benchmarks. When MetaGPT collaborates with GPT-4, it significantly improves the Pass @ _k_ in the HumanEval benchmark compared to GPT-4. It achieves 85.9% and 87.7% 
@@ -168,9 +175,9 @@ Figure 4: Pass rates on the MBPP and HumanEval with a single attempt.
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0008-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 5: Demo softwares developed by MetaGPT. 
 
 in these two public benchmarks. Moreover, as shown in Table 1, MetaGPT outperforms ChatDev on the challenging SoftwareDev dataset in nearly all metrics. For example, considering the executability, MetaGPT achieves a score of 3.75, which is very close to 4 (flawless). Besides, it takes less time (503 seconds), clearly less than ChatDev. Considering the code statistic and the cost of human revision, it also significantly outperforms ChatDev. Although MetaGPT requires more tokens (24,613 or 31,255 compared to 19,292), it needs only 126.5/124.3 tokens to generate one line of code. In contrast, ChatDev uses 248.9 tokens. These results highlight the benefits of SOPs in collaborations between multiple agents. Additionally, we demonstrate the autonomous software generation capabilities of MetaGPT through visualization samples (Figure 5). For additional experiments and analysis, please refer to Appendix C. 
@@ -455,9 +462,9 @@ Published as a conference paper at ICLR 2024
 and pay according to their usage. Moreover, users can purchase additional capabilities to expand the plug-and-play functions of their existing agents. This allows users to gradually upgrade their agents. Within the MetaGPT framework, AgentStore can support the collaboration of various agents. Users can collect several agents together to carry out more complex tasks or projects, and all the agents share and comply with development and communication protocols defined in MetaGPT. 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0016-02.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 6: AgentStore is a platform dedicated to serving users in the creation and development of agents within the MetaGPT framework. This platform provides users with an operational interface, allowing users to easily manage a variety of agents with different emotions, personalities, and capabilities for specific tasks. 
 
 16 
@@ -483,27 +490,85 @@ Now we provide a step-by-step explanation of the standardized output process for
 #### **Product Requirement Document** 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0017-10.png)
+```text
+1 ## Original Requirements
+2 The boss requires a Python3 GUI color meter that outputs the RGB values when it moves.
+3
+4 ## Product Goals
+5 ‘‘‘python
+6 [
+7 "Create a user-friendly GUI color meter",
+8 "Ensure the color meter accurately outputs RGB values",
+9 "Ensure the color meter updates RGB values in real-time as it moves"
+10 ]
+11 ‘‘‘
+12
+13 ## User Stories
+14 ‘‘‘python
+15 [
+16 "As a user, I want to select any color on the screen, so that I can get its RGB values",
+17 "As a user, I want the RGB values to update in real-time as I move the color meter, so that I
+�     can get accurate color information",
+18 "As a user, I want a simple and intuitive interface, so that I can easily use the color meter"
+19 ]
+20 ‘‘‘
+21
+22 ## Competitive Analysis
+23 ‘‘‘python
+24 [
+25 "Color Cop: A popular color picker for Windows. It’s simple and easy to use, but lacks real-
+�     time RGB value updates",
+26 "Just Color Picker: Offers real-time color picking and multiple color code formats. However,
+�     its interface is cluttered and not very user-friendly",
+27 "Instant Eyedropper: A simple color picker that lives in the system tray. It’s convenient but
+�     lacks advanced features",
+28 "ColorZilla: A color picker extension for browsers. It’s convenient for web design but not
+�     suitable for desktop applications",
+29 "ColorPic: Offers color palettes and mixer tools. It’s feature-rich but can be overwhelming
+�     for simple tasks"
+30 ]
+31 ‘‘‘
 
-
-<!-- Start of picture text -->
-1 ## Original Requirements<br>2 The boss requires a Python3 GUI color meter that outputs the RGB values when it moves.<br>3<br>4 ## Product Goals<br>5 ‘‘‘python<br>6 [<br>7 "Create a user-friendly GUI color meter",<br>8 "Ensure the color meter accurately outputs RGB values",<br>9 "Ensure the color meter updates RGB values in real-time as it moves"<br>10 ]<br>11 ‘‘‘<br>12<br>13 ## User Stories<br>14 ‘‘‘python<br>15 [<br>16 "As a user, I want to select any color on the screen, so that I can get its RGB values",<br>17 "As a user, I want the RGB values to update in real-time as I move the color meter, so that I<br>�→ can get accurate color information",<br>18 "As a user, I want a simple and intuitive interface, so that I can easily use the color meter"<br>19 ]<br>20 ‘‘‘<br>21<br>22 ## Competitive Analysis<br>23 ‘‘‘python<br>24 [<br>25 "Color Cop: A popular color picker for Windows. It’s simple and easy to use, but lacks real-<br>�→ time RGB value updates",<br>26 "Just Color Picker: Offers real-time color picking and multiple color code formats. However,<br>�→ its interface is cluttered and not very user-friendly",<br>27 "Instant Eyedropper: A simple color picker that lives in the system tray. It’s convenient but<br>�→ lacks advanced features",<br>28 "ColorZilla: A color picker extension for browsers. It’s convenient for web design but not<br>�→ suitable for desktop applications",<br>29 "ColorPic: Offers color palettes and mixer tools. It’s feature-rich but can be overwhelming<br>�→ for simple tasks"<br>30 ]<br>31 ‘‘‘<br><!-- End of picture text -->
-
+```
 17 
 
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-01.png)
+```text
+Product Requirement Document
+1
+2 ## Requirement Analysis
+3 The product should be a Python3 GUI application that serves as a color meter. It should allow
+�     users to select any color on the screen and display the corresponding RGB values. The RGB
+�     values should update in real-time as the color meter moves. The interface should be
+�     simple and user-friendly.
+4
+5 ## Requirement Pool
+6 ‘‘‘python
+7 [
+8 ("Design a user-friendly GUI for the color meter", "P0"),
+9 ("Implement color selection functionality", "P0"),
+10 ("Display RGB values of the selected color", "P0"),
+11 ("Update RGB values in real-time as the color meter moves", "P0"),
+12 ("Test the application for accuracy and performance", "P1")
+13 ]
+14 ‘‘‘
+15
+16 ## UI Design draft
+17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which
+�     could be a magnified area of the screen that the user can move around. The RGB values of
+�     the currently selected color should be prominently displayed, updating in real-time as
+�     the color meter moves. The layout should be clean and uncluttered, with a focus on
+�     functionality and ease of use.
+18
+19 ## Anything UNCLEAR
+20 There are no unclear points.
 
-
-<!-- Start of picture text -->
-Product Requirement Document<br>1<br>2 ## Requirement Analysis<br>3 The product should be a Python3 GUI application that serves as a color meter. It should allow<br>�→ users to select any color on the screen and display the corresponding RGB values. The RGB<br>�→ values should update in real-time as the color meter moves. The interface should be<br>�→ simple and user-friendly.<br>4<br>5 ## Requirement Pool<br>6 ‘‘‘python<br>7 [<br>8 ("Design a user-friendly GUI for the color meter", "P0"),<br>9 ("Implement color selection functionality", "P0"),<br>10 ("Display RGB values of the selected color", "P0"),<br>11 ("Update RGB values in real-time as the color meter moves", "P0"),<br>12 ("Test the application for accuracy and performance", "P1")<br>13 ]<br>14 ‘‘‘<br>15<br>16 ## UI Design draft<br>17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which<br>�→ could be a magnified area of the screen that the user can move around. The RGB values of<br>�→ the currently selected color should be prominently displayed, updating in real-time as<br>�→ the color meter moves. The layout should be clean and uncluttered, with a focus on<br>�→ functionality and ease of use.<br>18<br>19 ## Anything UNCLEAR<br>20 There are no unclear points.<br><!-- End of picture text -->
-
-
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-02.png)
-
-
+```
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 7: The quadrant chart for the “Drawing App” generated by the _product manager_ agent. 
 
 18 
@@ -513,16 +578,44 @@ Published as a conference paper at ICLR 2024
 **Architect** Based on the requirements in PRD, the Architect agent devises technical specifications including system architecture diagrams and interface definitions. Initially, the Architect defines the overarching technical trajectory. Subsequently, the project’s architecture, including files, classes (Figure 8) and the sequence flow chart (Figure 12), is designed. The Architect’s documentation is then given to the project manager for task allocation and execution. 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-02.png)
+```text
+System design
+1 ## Implementation approach
+2 We will use Python’s Tkinter library to create the GUI for the color meter. Tkinter is a standard
+�     Python interface to the Tk GUI toolkit and is included with most Python installations. It
+�     is simple to use and powerful enough for our needs.
+3
+4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows
+�     us to capture the screen’s pixel data. By moving the mouse, we can get the RGB values of
+�     the pixel under the mouse cursor in real-time.
+5
+6 The RGB values will be displayed on the GUI using Tkinter’s Label widget. We will use Python’s
+�     threading library to update the RGB values in real-time as the color meter moves.
+7
+8 The application will be tested for accuracy and performance using Python’s unittest library.
+9
+10 ## Python package name
+11 ‘‘‘python
+12 "color_meter"
+13 ‘‘‘
+14
+15 ## File list
+16 ‘‘‘python
+17 [
+18 "main.py",
+19 "color_picker.py",
+20 "gui.py",
+21 "tests.py"
+22 ]
+23 ‘‘‘
+24
+25 ## Anything UNCLEAR
+26 The requirement is clear to me.
 
-
-<!-- Start of picture text -->
-System design<br>1 ## Implementation approach<br>2 We will use Python’s Tkinter library to create the GUI for the color meter. Tkinter is a standard<br>�→ Python interface to the Tk GUI toolkit and is included with most Python installations. It<br>�→ is simple to use and powerful enough for our needs.<br>3<br>4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows<br>�→ us to capture the screen’s pixel data. By moving the mouse, we can get the RGB values of<br>�→ the pixel under the mouse cursor in real-time.<br>5<br>6 The RGB values will be displayed on the GUI using Tkinter’s Label widget. We will use Python’s<br>�→ threading library to update the RGB values in real-time as the color meter moves.<br>7<br>8 The application will be tested for accuracy and performance using Python’s unittest library.<br>9<br>10 ## Python package name<br>11 ‘‘‘python<br>12 "color_meter"<br>13 ‘‘‘<br>14<br>15 ## File list<br>16 ‘‘‘python<br>17 [<br>18 "main.py",<br>19 "color_picker.py",<br>20 "gui.py",<br>21 "tests.py"<br>22 ]<br>23 ‘‘‘<br>24<br>25 ## Anything UNCLEAR<br>26 The requirement is clear to me.<br><!-- End of picture text -->
-
-
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-03.png)
-
-
+```
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 8: Data structures and interface definitions for the “Drawing App” generated by the _architect_ agent. 
 
 **Project Manager** The Project Manager breaks down the project into a task list. Furthermore, each code file is analyzed based on its intended functionality and then treated as a separate task assigned to Engineers. 
@@ -532,29 +625,86 @@ Figure 8: Data structures and interface definitions for the “Drawing App” ge
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 9: The program call flow for the “Drawing App” generated by the _architect_ agent. 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-03.png)
+```text
+Tasks
+1 ## Required Python third-party packages
+2
+3 ‘‘‘python
+4 """
+5 tkinter==8.6
+6 Pillow==8.3.1
+7 """
+8 ‘‘‘
+9
+10 ## Required Other language third-party packages
+11 ‘‘‘python
+12 """
+13 No third-party packages required in other languages.
+14 """
+15 ‘‘‘
+16
+17 ## Full API spec
+18 ‘‘‘python
+19 """
+20 No APIs are used in this project.
+21 """
+22 ‘‘‘
+23
+24 ## Logic Analysis
+25 ‘‘‘python
+26 [
+27 ("main.py", "Contains the main application loop and initializes all the other components."),
+28 ("canvas.py", "Implements the drawing canvas, responds to mouse events, and uses the selected
+�     tool and color."),
+29 ("tools.py", "Implements the tool selection interface."),
+30 ("color_picker.py", "Implements the color selection interface."),
+31 ("file_manager.py", "Implements the file saving and opening functionality.")
+32 ]
+33 ‘‘‘
 
-
-<!-- Start of picture text -->
-Tasks<br>1 ## Required Python third-party packages<br>2<br>3 ‘‘‘python<br>4 """<br>5 tkinter==8.6<br>6 Pillow==8.3.1<br>7 """<br>8 ‘‘‘<br>9<br>10 ## Required Other language third-party packages<br>11 ‘‘‘python<br>12 """<br>13 No third-party packages required in other languages.<br>14 """<br>15 ‘‘‘<br>16<br>17 ## Full API spec<br>18 ‘‘‘python<br>19 """<br>20 No APIs are used in this project.<br>21 """<br>22 ‘‘‘<br>23<br>24 ## Logic Analysis<br>25 ‘‘‘python<br>26 [<br>27 ("main.py", "Contains the main application loop and initializes all the other components."),<br>28 ("canvas.py", "Implements the drawing canvas, responds to mouse events, and uses the selected<br>�→ tool and color."),<br>29 ("tools.py", "Implements the tool selection interface."),<br>30 ("color_picker.py", "Implements the color selection interface."),<br>31 ("file_manager.py", "Implements the file saving and opening functionality.")<br>32 ]<br>33 ‘‘‘<br><!-- End of picture text -->
-
+```
 20 
 
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0021-01.png)
+```text
+Product Requirement Document
+1 ## Task list
+2 ‘‘‘python
+3 [
+4 "main.py",
+5 "canvas.py",
+6 "tools.py",
+7 "color_picker.py",
+8 "file_manager.py"
+9 ]
+10 ‘‘‘
+11
+12 ## Shared Knowledge
+13 ‘‘‘python
+14 """
+15 The ’Tkinter’ library is used for creating the GUI of the application. It provides various widgets
+�     like frames and canvases which are used in this project.
+16 The ’Pillow’ library is used for handling image files. It is used in the ’file_manager.py’ for
+�     saving and opening image files.
+17 The ’main.py’ file is the entry point of the application. It initializes all the other components
+�     and starts the application loop.
+18 """
+19 ‘‘‘
+20
+21 ## Anything UNCLEAR
+22 The project requirements and implementation approach are clear. However, we need to ensure that
+�     all team members are familiar with the Tkinter and Pillow libraries. If not, they may
+�     need some time to learn these libraries before starting the development.
 
-
-<!-- Start of picture text -->
-Product Requirement Document<br>1 ## Task list<br>2 ‘‘‘python<br>3 [<br>4 "main.py",<br>5 "canvas.py",<br>6 "tools.py",<br>7 "color_picker.py",<br>8 "file_manager.py"<br>9 ]<br>10 ‘‘‘<br>11<br>12 ## Shared Knowledge<br>13 ‘‘‘python<br>14 """<br>15 The ’Tkinter’ library is used for creating the GUI of the application. It provides various widgets<br>�→ like frames and canvases which are used in this project.<br>16 The ’Pillow’ library is used for handling image files. It is used in the ’file_manager.py’ for<br>�→ saving and opening image files.<br>17 The ’main.py’ file is the entry point of the application. It initializes all the other components<br>�→ and starts the application loop.<br>18 """<br>19 ‘‘‘<br>20<br>21 ## Anything UNCLEAR<br>22 The project requirements and implementation approach are clear. However, we need to ensure that<br>�→ all team members are familiar with the Tkinter and Pillow libraries. If not, they may<br>�→ need some time to learn these libraries before starting the development.<br><!-- End of picture text -->
-
+```
 21 
 
 Published as a conference paper at ICLR 2024 
@@ -562,21 +712,65 @@ Published as a conference paper at ICLR 2024
 **Engineer** Given the provided file structure and function definitions, an Engineer agent requires only fundamental development skills to complete the development tasks. Due to the large number of files, we present only one auto-generated code file here. 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-02.png)
+```python
+Generated code (color p icker.py)
+1 import tkinter as tk
+2 from tkinter import colorchooser
+3 class ColorPicker:
+4 def __init__(self, root: tk.Tk, color: str = ’black’):
+5 self.frame = tk.Frame(root)
+6 self.color = color
+7
+8 self.color_button = tk.Button(self.frame, text=’Color’, command=self.select_color)
+9 self.color_button.pack(fill=’x’)
+10
+11 def select_color(self):
+12 color = colorchooser.askcolor()[1]
+13 if color is not None:
+14 self.color = color
+15
+16 def pack(self, **kwargs):
+17 self.frame.pack(**kwargs)
+18
+19 def get_color(self):
+20 return self.color
 
-
-<!-- Start of picture text -->
-Generated code (color p icker.py)<br>1 import tkinter as tk<br>2 from tkinter import colorchooser<br>3 class ColorPicker:<br>4 def __init__(self, root: tk.Tk, color: str = ’black’):<br>5 self.frame = tk.Frame(root)<br>6 self.color = color<br>7<br>8 self.color_button = tk.Button(self.frame, text=’Color’, command=self.select_color)<br>9 self.color_button.pack(fill=’x’)<br>10<br>11 def select_color(self):<br>12 color = colorchooser.askcolor()[1]<br>13 if color is not None:<br>14 self.color = color<br>15<br>16 def pack(self, **kwargs):<br>17 self.frame.pack(**kwargs)<br>18<br>19 def get_color(self):<br>20 return self.color<br><!-- End of picture text -->
-
+```
 **QA Engineer** Upon receiving the code output from the Engineer, the QA Engineer generates unit test code and reviews it to identify and fix any bugs, ensuring high-quality software. 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-04.png)
+```python
+Generated Unit tests (test.py)
+1 import unittest
+2 import tkinter as tk
+3 # You might want to move the ColorPicker class to another file, let’s say color_picker.py
+4 # from color_picker import ColorPicker
+5
+6 class TestColorPicker(unittest.TestCase):
+7
+8 def setUp(self):
+9 self.root = tk.Tk()
+10 self.cp = ColorPicker(self.root)
+11
+12 def tearDown(self):
+13 # This is important to close the tk window after tests
+14 self.root.destroy()
+15
+16 def test_initial_color(self):
+17 # Test the default color during initialization
+18 self.assertEqual(self.cp.get_color(), ’black’)
+19
+20 def test_set_and_get_color(self):
+21 # Test setting a new color and retrieving it
+22 new_color = ’#ffffff’ # white color
+23 self.cp.color = new_color
+24 self.assertEqual(self.cp.get_color(), new_color)
+25
+26
+27 if __name__ == ’__main__’:
+28 unittest.main()
 
-
-<!-- Start of picture text -->
-Generated Unit tests (test.py)<br>1 import unittest<br>2 import tkinter as tk<br>3 # You might want to move the ColorPicker class to another file, let’s say color_picker.py<br>4 # from color_picker import ColorPicker<br>5<br>6 class TestColorPicker(unittest.TestCase):<br>7<br>8 def setUp(self):<br>9 self.root = tk.Tk()<br>10 self.cp = ColorPicker(self.root)<br>11<br>12 def tearDown(self):<br>13 # This is important to close the tk window after tests<br>14 self.root.destroy()<br>15<br>16 def test_initial_color(self):<br>17 # Test the default color during initialization<br>18 self.assertEqual(self.cp.get_color(), ’black’)<br>19<br>20 def test_set_and_get_color(self):<br>21 # Test setting a new color and retrieving it<br>22 new_color = ’#ffffff’ # white color<br>23 self.cp.color = new_color<br>24 self.assertEqual(self.cp.get_color(), new_color)<br>25<br>26<br>27 if __name__ == ’__main__’:<br>28 unittest.main()<br><!-- End of picture text -->
-
+```
 **Output** Ultimately, as shown in Figure 10, MetaGPT generates a functional application named “Drawing App”. 
 
 22 
@@ -584,9 +778,9 @@ Generated Unit tests (test.py)<br>1 import unittest<br>2 import tkinter as tk<br
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0023-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 10: The “Drawing App” generated by MetaGPT. 
 
 ## C EXPERIMENTS 
@@ -699,9 +893,9 @@ D LIMITATION AND ETHICS CONCERNS
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0026-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 11: The system interface design for “recommendation engine development” is generated by the _architect_ agent ( **zoom in for a better view** ). 
 
 ## E MORE DISCUSSIONS 
@@ -723,9 +917,9 @@ In MetaGPT, we use a global message pool and a subscription mechanism to address
 Published as a conference paper at ICLR 2024 
 
 
-![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0027-01.png)
-
-
+```text
+[Image omitted: see original paper for visual representation]
+```
 Figure 12: The program call flow for “recommendation engine development” generated by the _architect_ agent ( **zoom in for a better view** ). 
 
 ware design scenarios and standard operating procedures (SOPs) where effective communication is essential. 
