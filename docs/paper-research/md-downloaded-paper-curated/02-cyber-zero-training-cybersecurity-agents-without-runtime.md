@@ -3,13 +3,21 @@
 **Terry Yue Zhuo**<sup>1</sup><sup>_,_2</sup><sup>_∗_</sup> **Dingmin Wang**<sup>2</sup> **Hantian Ding**<sup>2</sup> **Varun Kumar**<sup>2</sup> **Zijian Wang**<sup>2</sup> 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-03.png)
+```mermaid
+flowchart TD
+    Logo["University Shield Logo"]
+    style Logo fill:#fff,stroke:#000,stroke-width:2px
+```
 
 
 1 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-05.png)
+```mermaid
+flowchart TD
+    Logo["AWS Logo"]
+    style Logo fill:#fff,stroke:#000,stroke-width:2px
+```
 
 
 _Monash University_ 2 _AWS AI Labs_ 
@@ -23,7 +31,13 @@ Large Language Models (LLMs) have achieved remarkable success in software engine
 https://github.com/amazon-science/cyber-zero 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0001-11.png)
+```mermaid
+xychart-beta
+    title "InterCode-CTF, NYU CTF, Cybench Pass@1 (%)"
+    x-axis ["Claude-3.7", "Claude-3.5", "DeepSeek-V3", "Gemini-2.5", "Qwen3-32B", "Qwen3-14B", "Qwen3-8B"]
+    y-axis "Pass@1 (%)" 0 --> 90
+    bar [88, 87, 82, 81, 65, 60, 46]
+```
 
 
 <!-- Start of picture text -->
@@ -93,29 +107,55 @@ We collect thousands of writeups from CTFtime, leveraging the CTF Archives repos
 3 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-00.png)
+```mermaid
+flowchart TD
+    %% CTFTime Writeup Text Box
+    Writeup["<b>CTF TIME Writeups</b><br/><hr/><br/><b>Vulnerability Analysis</b><br/>After a lot of reverse engineering using Ghidra, the binary<br/>was renamed for clarity. Key components of the program: ...<br/><b>Format String Vulnerability</b><br/>A format string bug was found in the greet function, which is<br/>called via print_actions.<br/>...<br/><b>Strategy</b><br/>Leak base address using format string. Calculate the actual<br/>Payload Use printf format strings to ...<br/><br/><b>Flag: CTF { xxx }</b>"]
+    
+    style Writeup fill:#f9f9f9,stroke:#d9534f,stroke-width:3px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
 Writeups<br>Vulnerability Analysis<br> After a lot of reverse engineering using Ghidra, the binary<br>was renamed for clarity. Key components of the program: …<br>Format String Vulnerability<br>A format string bug was found in the greet function, which is<br>called via print_actions.<br>… Strategy<br>Leak base address using format string. Calculate the actual<br>Payload Use printf format strings to …<br>Flag: CTF{xxx}<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-01.png)
+```mermaid
+flowchart TD
+    Icon["Hacker Icon (Red Hat & Mask)"]
+    style Icon fill:#ff4d4d,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:50%
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-02.png)
+```mermaid
+flowchart TD
+    %% Action snippet
+    Action["List all files in<br/>the current<br/>directory to<br/>verify the<br/>challenge binary<br/>is present.<br/><br/><b>ls -la</b> 🔍"]
+    
+    style Action fill:#f1f1f1,stroke:#333,stroke-width:1px,text-align:left
+```
 
 
 <!-- Start of picture text -->
 List all files in<br>the current<br>directory to<br>verify the<br>challenge binary<br>is present.<br>ls -la<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-03.png)
+```mermaid
+flowchart TD
+    Icon["Hacker Icon (Red Hat & Mask)"]
+    style Icon fill:#ff4d4d,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:50%
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-04.png)
+```mermaid
+flowchart TD
+    %% Hint Snippet
+    Hint["<span style='color:green;'>Error: Function 'main' not found<br/>in random_vault</span><br/>...<br/><span style='color:red;'>--HINT_START--<br/>[HINT]<br/>The binary doesn't have a main function.<br/>Try using...<br/>[/HINT]<br/>--HINT_END--</span> 💡"]
+    
+    style Hint fill:#f1f1f1,stroke:#333,stroke-width:1px,text-align:left
+```
 
 
 <!-- Start of picture text -->
