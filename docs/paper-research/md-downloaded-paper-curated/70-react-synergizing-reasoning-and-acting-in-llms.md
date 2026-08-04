@@ -371,6 +371,18 @@ During trajectory inspection, we also find that sometimes ReAct does not agree w
 
 We also explore human-in-the-loop interaction with ReAct, to allow a human to inspect and edit ReAct’s reasoning traces. Figure 5 shows that by simply removing a hallucinating sentence in Act 17 and adding some hints in Act 23, ReAct can be made to change its behavior drastically to align with these human thought edits and succeed in the task. From a human perspective, solving such a task becomes significantly easier, from typing tens of actions to only editing a couple of thoughts, which enables new forms of human-machine collaboration. We note that such a policy edit on-the-go 
 
+| (a) ReAct | (b) ReAct (Human Thought edit) |
+| --------- | ------------------------------ |
+| **Obs 16:** You open the drawer 4... | **Obs 16:** You open the drawer 4... |
+| **Act 17:** Think[Now I find the first keychain...] | **Act 17:** Think[Now I find the first keychain... I need to take it.] *(Human edited)* |
+| **Act 18:** take keychain 3 from drawer 4 | **Act 18:** take keychain 3 from drawer 4 |
+| ... | ... |
+| **Act 23:** Think[Now I put the first keychain in safe. Next, I need to find the second keychain. I can directly go to drawer 4.] | **Act 23:** Think[Now I put the first keychain in safe. Next, I need to find the second keychain, which is more likely to appear in dresser (1), garbagecan (1), safe (1)...] *(Human edited)* |
+| **Act 24:** go to drawer 4 | **Act 24:** go to dresser 1 |
+| **Act 25:** Think[Now I find the second keychain...] | **Act 25:** Think[Now I find the second keychain...] |
+| **Act 26:** take keychain 2 from drawer 4 (X) | **Act 26:** take keychain 2 from dresser 1 (✓) |
+| **Obs 26:** Nothing happens. | **Obs 26:** You pick up the keychain 2 from dresser 1. |
+
 14 
 
 Published as a conference paper at ICLR 2023 
