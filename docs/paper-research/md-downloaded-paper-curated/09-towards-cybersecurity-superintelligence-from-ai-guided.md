@@ -41,7 +41,11 @@ In this work, we present an evolution toward Cybersecurity Superintelligence. We
 > 2Refer to [6] for comprehensive benchmarking methodology and evaluation results of the `alias` model series. 
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0002-06.png)
+| Model | Pass@3 Rate | Solved/Total |
+| --- | --- | --- |
+| alias2 | 76% | 25/33 |
+| alias1 | 42% | 14/33 |
+| alias0 | 18% | 6/33 |
 
 
 <!-- Start of picture text -->
@@ -50,7 +54,15 @@ Legend<br>alias2 01/26 alias2 (25/33, 76%, +34%)<br>alias1 10/25 alias1 (14/33, 
 **Figure 1:** Evolution of Alias Robotics’ cybersecurity-specialized `alias` LLM family on the `CAIBench-Jeopardy CTFs (Cybench)` benchmark. Each cell indicates whether a challenge was solved using the _pass_ @3 metric (success in at least one of three attempts), with a maximum of 245 minutes of compute time, 300 agent interactions per attempt and a maximum of 40 USD per challenge on API model expenses. See Appendix A for a comparison including all evaluated models. 
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0003-00.png)
+```mermaid
+xychart-beta
+    title "Cybench benchmark (% solved) vs Model Launch Date"
+    x-axis "Model Launch Date" ["Feb 24", "Jun 24", "Oct 24", "Feb 25", "Jun 25", "Oct 25", "Feb 26"]
+    y-axis "Cybench benchmark (% solved)" 0 --> 100
+    line "alias" [0, 0, 0, 0, 18, 42, 76]
+    line "claude" [18, 18, 20, 21, 48, 82, 72]
+    line "gemini" [5, 12, 18, 21, 42, 62, 64]
+```
 
 
 <!-- Start of picture text -->
@@ -75,7 +87,57 @@ CAI [3] eliminated PentestGPT’s human tool execution bottleneck through a full
 > 3As of January 2026, PentestGPT v1.0.0 has evolved into an agentic tool capable of conducting automated tasks without human intervention, though CAI pioneered this automated approach. 
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0004-00.png)
+```mermaid
+flowchart TD
+    subgraph PentestGPT["1. AI-Guided Humans"]
+        P_Plan["Plan (LLM) ≈10s"]
+        P_Human["Human"]
+        P_Act["Act (Tools)"]
+        P_Scan["Scan & Update"]
+        
+        P_Plan --> P_Human
+        P_Human --> P_Act
+        P_Act --> P_Scan
+        P_Scan --> P_Human
+        P_Human --> P_Plan
+    end
+    
+    subgraph CAI["2. AI Agents"]
+        C_Plan["Plan (LLM) ≈10s"]
+        C_Act["Act (Tools) ≈60s"]
+        C_Scan["Scan & Update"]
+        
+        C_Plan --> C_Act
+        C_Act --> C_Scan
+        C_Scan --> C_Plan
+    end
+    
+    subgraph GCTR["3. Game-Theoretic AI Agents"]
+        G_AttackGraph["Attack Graph Gen. ≈20s"]
+        G_Nash["Nash Equilibrium <5ms"]
+        G_GCTRResults["G-CTR Results"]
+        G_AlgDigest["Algorithmic digest <10ms"]
+        G_LLMDigest["LLM digest ≈28.3s"]
+        G_Strategic["Strategic Interpret."]
+        
+        G_AttackGraph --> G_Nash
+        G_Nash --> G_GCTRResults
+        G_GCTRResults --> G_AlgDigest
+        G_GCTRResults --> G_LLMDigest
+        G_AlgDigest --> G_Strategic
+        G_LLMDigest --> G_Strategic
+    end
+    
+    CAI -. "every 5 interactions" .-> GCTR
+```
+
+```mermaid
+xychart-beta
+    title "Performance Evolution: Success Rate"
+    x-axis ["PentestGPT", "Cybersecurity AI (CAI)", "CAI + G-CTR"]
+    y-axis "Success Rate (%)" 0 --> 100
+    bar [47.8, 82.6, 100]
+```
 
 
 <!-- Start of picture text -->
@@ -125,14 +187,49 @@ The cost differential proved equally stark: $109 total API cost versus $17,218 e
 CAI’s expert-level performance revealed a fundamental ceiling: speed and autonomy alone do not constitute superintelligence in cybersecurity. Matching human experts, even at 3,600× their speed, still produces human-equivalent reasoning. Surpassing human capability requires agents that reason strategically, the way humans mentally _play the game_ . Just as a chess grandmaster evaluates attacker/defender lines before committing to a move, security professionals apply game theory: evaluating the current state, imagining 
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-00.png)
+```mermaid
+flowchart TD
+    UserPrompt(("User prompt"))
+    Recon(("Reconnaissance"))
+    BruteForceFailed(("Brute Force Failed"))
+    WebServer(("Web Server"))
+    FileUpload(("File Upload"))
+    Database(("Database"))
+    SQLInjection(("SQL Injection"))
+    LateralMovement(("Lateral Movement"))
+    PrivilegeEscalation(("Privilege Escalation"))
+    
+    UserPrompt -- "10.00%" --> Recon
+    Recon --> BruteForceFailed
+    Recon -- "70.00%" --> WebServer
+    WebServer -- "13.02%" --> Recon
+    WebServer -- "13.02%" --> Database
+    FileUpload -- "70.00%" --> WebServer
+    SQLInjection -- "70.00%" --> FileUpload
+    SQLInjection -- "70.00%" --> LateralMovement
+    LateralMovement -- "70.00%" --> PrivilegeEscalation
+    Database -- "70.00%" --> LateralMovement
+    Database -- "70.00%" --> SQLInjection
+```
 
 
 <!-- Start of picture text -->
 Attack Graph Topology<br><!-- End of picture text -->
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0006-01.png)
+| Defense Strategy (Node Allocation) | Prob. |
+| --- | --- |
+| Node 8 | 0.674 |
+| Node 4 | 0.326 |
+
+| Attack Strategy (Path Selection) | Prob. |
+| --- | --- |
+| 1->2->4->7->9 | 0.674 |
+| 1->2->3->6->8->9 | 0.326 |
+
+**Game Equilibrium (Nash)**
+- Defender success threshold: 3.528%
+- Attacker guaranteed success: 3.528%
 
 
 <!-- Start of picture text -->
@@ -231,7 +328,15 @@ Funding: European Innovation Council (GA 101161136). Competing interests: None. 
 ## **A Full Model Comparison** 
 
 
-![](images/09-towards-cybersecurity-superintelligence-from-ai-guided.pdf-0011-01.png)
+| Model | Pass@3 Rate |
+| --- | --- |
+| claude opus 4.5 | 82% |
+| alias2 | 76% |
+| claude opus 4.6 | 73% |
+| gemini 3 pro | 64% |
+| claude sonnet 4.5 | 48% |
+| gpt 5.2 | 48% |
+| alias1 | 42% |
 
 
 <!-- Start of picture text -->

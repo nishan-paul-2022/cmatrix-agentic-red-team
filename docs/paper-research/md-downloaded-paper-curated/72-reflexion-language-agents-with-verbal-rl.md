@@ -55,7 +55,13 @@ To summarize, our contributions are the following:
 2 
 
 
-![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0003-00.png)
+```mermaid
+flowchart TD
+    A["(a) Task"] --> B["(b) Trajectory"]
+    B --> C["(c) Evaluation<br/>(internal / external)"]
+    C --> D["(d) Reflection"]
+    D --> E["(e) Next Trajectory"]
+```
 
 
 <!-- Start of picture text -->
@@ -89,7 +95,27 @@ We develop a modular formulation for Reflexion, utilizing three distinct models:
 3 
 
 
-![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0004-00.png)
+```mermaid
+flowchart TD
+    subgraph Agent["Agent"]
+        Trajectory["Trajectory<br/>(short-term memory)"]
+        Evaluator["Evaluator (LM)"]
+        Self_reflection["Self-reflection (LM)"]
+        Experience["Experience<br/>(long-term memory)"]
+        Actor["Actor (LM)"]
+        
+        Trajectory --> Evaluator
+        Evaluator -- "Internal feedback" --> Self_reflection
+        Self_reflection -- "Reflective text" --> Experience
+        Experience --> Actor
+        Trajectory --> Actor
+    end
+    
+    Environment["Environment"]
+    Environment -- "Obs / Reward" --> Trajectory
+    Environment -- "External feedback" --> Self_reflection
+    Actor -- "Action" --> Environment
+```
 
 
 <!-- Start of picture text -->
@@ -128,7 +154,15 @@ To avoid syntactic errors, we provide two domain-specific few-shot trajectories 
 5 
 
 
-![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0006-00.png)
+```mermaid
+xychart-beta
+    title "(a) ALFWorld Success Rate"
+    x-axis "Trial Number" [0, 2, 4, 6, 8, 10]
+    y-axis "Proportion of Solved Environments" 0.5 --> 1.0
+    line "ReAct only" [0.63, 0.72, 0.74, 0.75, 0.75, 0.75]
+    line "ReAct + Reflexion (Heuristic)" [0.63, 0.83, 0.87, 0.94, 0.96, 0.97]
+    line "ReAct + Reflexion (GPT)" [0.63, 0.81, 0.85, 0.90, 0.94, 0.94]
+```
 
 
 <!-- Start of picture text -->
@@ -149,7 +183,13 @@ Robustly evaluating natural language answers is a long-standing problem in NLP. 
 6 
 
 
-![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0007-00.png)
+```mermaid
+xychart-beta
+    title "(a) HotPotQA Success Rate"
+    x-axis "Trial Number" [0, 2, 4, 6]
+    y-axis "Proportion of Solved Tasks" 0.2 --> 0.8
+    line "ReAct + Reflexion" [0.32, 0.48, 0.51, 0.54]
+```
 
 
 <!-- Start of picture text -->
@@ -358,7 +398,14 @@ Figure 5: [Top] An AlfWorld trajectory in which the agent failed due to ineffici
 In 5, we briefly state that Reflexion struggles to overcome local minima choices that require extremely creative behavior to escape. We observe this shortcoming in an experiment on WebShop [29]. WebShop is a web-based problem-solving benchmark that tests agents to navigate an e-commerce website to locate and purchase products given requests from clients. We test a two-shot ReAct + Reflexion agent in 100 environments. However, after only four trials, we terminate the runs as the agent does not show signs of improvement 6. Further, the agent does not generate helpful, intuitive self-reflections after failed attempts. We conclude that Reflexion is unable to solve tasks that require a significant amount of diversity and exploration. In AlfWorld, the agent is able to adequately explore new environments because the permissible actions can be seen in the observations. In HotPotQA, the agent faces a similar WebShop search query task but is more successful as the search space for Wikipedia articles is more diverse and requires less precise search queries. A common problem for e-commerce search engines is properly handling ambiguity in natural language search interpretations. Thus, WebShop presents a task that requires very diverse and unique behavior from a Reflexion agent. 
 
 
-![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0014-02.png)
+```mermaid
+xychart-beta
+    title "WebShop Success Rate"
+    x-axis "Trial Number" [0, 1, 2, 3]
+    y-axis "Proportion of Solved Environments" 0.1 --> 0.5
+    line "ReAct only" [0.33, 0.34, 0.34, 0.34]
+    line "ReAct + Reflexion" [0.33, 0.35, 0.35, 0.35]
+```
 
 
 <!-- Start of picture text -->

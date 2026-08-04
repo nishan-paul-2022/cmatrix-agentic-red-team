@@ -47,7 +47,33 @@ The integration of LLMs into cybersecurity, particularly in automated penetratio
 2 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0003-00.png)
+```mermaid
+flowchart LR
+    Prompt["Prompt"] --> Target["Target"]
+    Prompt --> Task["Task"]
+    Target --> Supervisor["AI Agent<br/>(Supervisor)"]
+    Task --> Supervisor
+    
+    Supervisor --> Plan["Plan (text file)"]
+    Supervisor --> Phases["Phases"]
+    Supervisor --> Progress["Progress<br/>(text file)"]
+    
+    Phases --> Phase0["Generated phase_0<br/>(Scanner)"]
+    Phases --> Phase1["Generated phase_1<br/>(Assessor)"]
+    Phases -.-> PhaseN["Generated phase_N"]
+    
+    Phase0 --> Agent0["AI Agent<br/>(Scanner)"]
+    Phase1 --> Agent1["AI Agent<br/>(Assessor)"]
+    PhaseN --> AgentN["AI Agent"]
+    
+    Agent0 --> Plan
+    Agent0 --> ToolUser["Agent tool user"]
+    ToolUser --> Logs["Logs (folder)"]
+    ToolUser --> UseCases["Use cases<br/>(few shot examples)"]
+    
+    AgentN --> Evaluator["Evaluator"]
+    Evaluator --> Progress
+```
 
 
 Figure 1: The general workflow of such models 
@@ -103,7 +129,25 @@ For evaluation purposes, a Metasploitable 2 machine was hosted on the same local
 vulnerabilities on this machine, providing a realistic scenario for assessing its penetration testing capabilities. 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0004-01.png)
+```mermaid
+flowchart TD
+    Start(("__start__"))
+    Supervisor["supervisor"]
+    Recorder["recorder"]
+    End(("__end__"))
+    Pentester["pentester"]
+    Tools["tools"]
+    Evaluator["evaluator"]
+    
+    Start --> Supervisor
+    Supervisor <--> Recorder
+    Supervisor -.-> End
+    Supervisor -.-> Pentester
+    Pentester <--> Tools
+    Pentester -.-> Evaluator
+    Supervisor -.-> Evaluator
+    Evaluator --> Supervisor
+```
 
 
 Figure 2: The specific workflow used by our model 
@@ -177,13 +221,13 @@ The code used for the model can be found here: `https://github.com/snow10100/pen
 ## **A Appendix** 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-01.png)
+*Screenshot of BreachSeek UI: Model status is 'Idle'. Shows sections for Findings, Running commands, and a 'Generate a Report' button.*
 
 
 Figure 3: The clean web UI when you start chatting with model 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-03.png)
+*Screenshot of BreachSeek UI: Model status is 'Evaluating'. Shows a prompt to scanme.nmap.org and the agents' initial responses outlining the scanning plan.*
 
 
 Figure 4: The AI agents performing a task 
@@ -191,13 +235,13 @@ Figure 4: The AI agents performing a task
 6 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-00.png)
+*Screenshot of BreachSeek UI: Model status is 'Done'. Shows findings (4 open ports, ip: 45.33.32.156) and detailed output from the Pentester, Evaluator, and Supervisor agents regarding the completed nmap scan.*
 
 
 Figure 5: The web UI when the task is done 
 
 
-![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-02.png)
+*Screenshot of BreachSeek UI (Dark Mode): Similar to the previous screenshot, displaying the completed scan results and agent evaluations in a dark theme.*
 
 
 Figure 6: Web UI Dark mode 

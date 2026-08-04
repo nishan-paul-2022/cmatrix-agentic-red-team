@@ -304,7 +304,42 @@ Andreas Happe et al.
 12 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0012-02.png)
+```mermaid
+sequenceDiagram
+    participant Script
+    participant Vagrant
+    participant Ansible
+    participant hackingBuddyGPT
+    participant VMs
+    
+    Script->>Vagrant: vagrant up
+    Vagrant->>VMs: create VMs
+    VMs-->>Vagrant: 
+    Vagrant->>VMs: provision Debian VMs
+    VMs-->>Vagrant: 
+    Vagrant-->>Script: 
+    Script->>VMs: Verify SSH connectivity and hostname/IP combination
+    VMs-->>Script: 
+    Script->>Ansible: update system, deploy vulnerabilities
+    Ansible->>VMs: update system, deploy vulnerabilities
+    VMs-->>Ansible: 
+    Ansible-->>Script: return "running VMs with Vulns"
+    
+    rect rgb(240, 240, 240)
+        note right of Script: For each Testcase
+        Script->>hackingBuddyGPT: instruct hackingBuddyGPT to hack the virtual machine
+        loop until root or 60 rounds reached
+            hackingBuddyGPT->>VMs: shell command
+            VMs-->>hackingBuddyGPT: Execute Command
+        end
+        hackingBuddyGPT-->>Script: Result
+    end
+    
+    Script->>Vagrant: vagrant destroy
+    Vagrant->>VMs: destroy VMs
+    VMs-->>Vagrant: 
+    Vagrant-->>Script: 
+```
 
 
 <!-- Start of picture text -->
@@ -355,7 +390,54 @@ Andreas Happe et al.
 14 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0014-02.png)
+```mermaid
+flowchart TD
+    subgraph Testbed
+        VMs["Vulnerable VMs"]
+    end
+    
+    subgraph HackingBuddyGPT["HackingBuddyGPT"]
+        subgraph EnumMod["Optional Enumeration Module"]
+            PromptEnum["Prompt: Extract Guidance from<br/>Enumeration Tool (lse.sh)"]
+            Enum["Enumeration Module"]
+            PromptEnum <--> Enum
+        end
+        
+        subgraph StateMod["State Management Module"]
+            State[(State)]
+            History[(History)]
+            PromptState["Prompt: update-state<br/>with new information"]
+            State --> PromptState
+            PromptState --> State
+            PromptState --> History
+        end
+        
+        Hints[("Optional High-Level<br/>Hints (per VM)")]
+        
+        PromptNext["Prompt: next-command<br/>Generates Next Command to Execute"]
+        Main["HackingBuddyGPT<br/>Main Module"]
+        
+        Hints -- "Optional High-Level Guidance" --> PromptNext
+        Enum -- "Optional Guidance<br/>(3 Enum-based hints)" --> PromptNext
+        State -- "Optional Current State" --> PromptNext
+        History -- "Truncated History<br/>(can be disabled)" --> PromptNext
+        PromptNext <--> Main
+        
+        Main --> PromptState
+        History -- "Command Results" --> Main
+    end
+    
+    Enum -- "Execute lse.sh" --> VMs
+    VMs -- "lse.sh output" --> Enum
+    
+    Main -- "Execute Shell Command & Retrieve Command Output" --> VMs
+    
+    Human["Human<br/>Pen-Tester"]
+    LogStorage[("Log<br/>Storage")]
+    
+    Human -- "Initial Task" --> Main
+    Main -- "Execution Traces" --> LogStorage
+```
 
 
 <!-- Start of picture text -->
@@ -908,11 +990,23 @@ Andreas Happe et al.
 30 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-02.png)
+```mermaid
+xychart-beta
+    title "Context Size in Tokens (Cumulative)"
+    x-axis "Round Number" 0 --> 120
+    y-axis "Context Size in Tokens" 0 --> 120000
+    line [0, 5000, 20000, 70000, 80000, 100000, 110000]
+```
 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0030-03.png)
+```mermaid
+xychart-beta
+    title "Context Size in Tokens (Fluctuating)"
+    x-axis "Round Number" 0 --> 60
+    y-axis "Context Size in Tokens" 0 --> 10000
+    line [500, 2000, 1500, 3000, 2000, 5000, 2000, 7000, 2000, 3500, 2000, 9500, 2500, 6500, 2500]
+```
 
 
 **Fig. 5** Graph of accumulated context token usage over time (indicated by the rounds) for different LLMs. Colors indicate different test-cases and are identical in both graphs (also see Figure 6). 
@@ -944,11 +1038,29 @@ Andreas Happe et al.
 32 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-02.png)
+```mermaid
+xychart-beta
+    title "Context Size in Tokens (By Vulnerability)"
+    x-axis "Round Number" 0 --> 60
+    y-axis "Context Size in Tokens" 0 --> 9000
+    line "suid-gtfo" [200, 1500, 2500, 3000, 4000, 5000, 6000]
+    line "sudo-all" [100, 500, 1000, 4500, 7500, 8000]
+    line "sudo-gtfo" [100, 400, 1500, 2500, 8000]
+    line "docker" [100, 1000, 1500, 4500, 5000, 6000]
+```
 
 
 
-![](images/08-llms-as-hackers-autonomous-linux-privilege-escalation.pdf-0032-03.png)
+```mermaid
+xychart-beta
+    title "Context Size in Tokens (By Vulnerability 2)"
+    x-axis "Round Number" 0 --> 60
+    y-axis "Context Size in Tokens" 0 --> 9000
+    line "password reuse" [100, 1500, 2500, 3000, 5000, 7000, 8000]
+    line "weak password" [100, 8000, 8200, 8300, 8400, 8500, 8600]
+    line "password in user text file" [100, 2000, 3000, 5000, 6000, 8000, 9000]
+    line "bash_history" [100, 500, 1000, 2000, 3000, 4000, 6000]
+```
 
 
 **Fig. 6** Graphs of accumulated context token usage over time (indicated by the rounds) for different LLMs. Both graphs use identical colors for identifying test-cases. 
