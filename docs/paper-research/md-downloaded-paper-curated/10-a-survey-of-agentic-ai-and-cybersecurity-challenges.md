@@ -103,7 +103,23 @@ Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino
 4 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0004-02.png)
+```mermaid
+flowchart TD
+    App["Application"] --> IO["Input / Output (NL, media)"]
+    IO -- Agent --> ExecLoop
+    
+    subgraph ExecLoop["Execution loop"]
+        Planning["Planning"]
+        Action["Action"]
+        Tools["Tools / Function calling"]
+        Mem["Memory (short-term)"]
+    end
+    
+    Services["Services<br/>Content, Data, Devices, Code, Human-in-the-loop, APIs"] <--> ExecLoop
+    ExecLoop <--> Model["Model<br/>LLM model<br/>(with function calling)"]
+    
+    ExecLoop -- "Supporting memory" --> VectorStore["Vector datastore (RAG)<br/>Long-term memory / knowledge base"]
+```
 
 
 <!-- Start of picture text -->
@@ -134,7 +150,26 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 5 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0005-02.png)
+```mermaid
+flowchart TD
+    UI["Application / User interface"] -- "Agent layer" --> LLM["LLM model"]
+    
+    subgraph AgentLayer["Agent layer"]
+        LLM --> Coord["Coordinating agent<br/>intent understanding, planning, subtask routing"]
+        Coord <.-> SharedMem["Shared short-term memory<br/>conversation state, intermediate results"]
+        
+        Coord -- "Task agents" --> TaskA["Task agent A<br/>planning / analysis"]
+        Coord --> TaskB["Task agent B<br/>reasoning / critique"]
+        Coord --> TaskC["Task agent C<br/>RAG / summarisation"]
+        
+        TaskA -.-> SharedMem
+        TaskB -.-> SharedMem
+        TaskC -.-> SharedMem
+    end
+    
+    TaskB -- "Infrastructure & memory layer" --> Services["Services and tools<br/>content APIs, data sources, code execution, devices, human-in-the-loop"]
+    TaskC -.-> VectorStore["Vector store & long-term memory<br/>documents, embeddings, historical context"]
+```
 
 
 <!-- Start of picture text -->
@@ -197,7 +232,23 @@ Manuscript submitted to ACM
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0007-02.png)
+```mermaid
+flowchart LR
+    A["Autonomous Cyber Defense and Operation<br/>Focus: Continuous, adaptive, and autonomous protection"] --> A1["Autonomous Monitoring and Detection<br/>Continuous system and attack surface monitoring<br/>Real-time anomaly and intrusion detection<br/>Insider threat detection<br/>Decentralized multi-agent security event processing"]
+    A --> A2["Autonomous Incident Response<br/>Automated incident management and triage<br/>Real-time threat response and remediation agents<br/>AI-driven security operating centers (AI-SOC)"]
+    A --> A3["Adaptive and Coordinated Defense<br/>Game-theoretic coordination among defensive agents<br/>Adaptive offensive/defensive cyber agents<br/>Geopolitical implication of autonomous cyber agents"]
+
+    B["Agentic Threat Intelligence and Adversarial Analysis<br/>Focus: Understanding, predicting, and countering threats"] --> B1["Proactive Threat Hunting and Intelligence Gathering<br/>Threat hunting and analysis<br/>Vulnerability management and prioritization<br/>Zero-day vulnerability discovery"]
+    B --> B2["Adversarial and Attack Simulation<br/>Autonomous penetration testing<br/>Automated Capture-the-flag(CTF) and red teaming"]
+    B --> B3["Adversarial AI Defense<br/>Agentic AI for ransomware and malware defense<br/>Mitigating advanced social engineering and deception"]
+
+    C["Enterprise Security Automation and Governance<br/>Focus: Agentic AI embedded in organizational workflows"] --> C1["Enterprise automation<br/>Security automation across CI/CD, infrastructure, and operations<br/>Agent-assisted DevSecOps and policy enforcement"]
+    C --> C2["Identity and Access Management<br/>AI-powered identity verification and adaptive access control<br/>Context-aware cybersecurity assistants and policy"]
+    C --> C3["Cybersecurity Workforce Augmentation<br/>Augmenting cybersecurity analysts with AI co-agents"]
+
+    D["Simulation, and Training<br/>Focus: Simulation environments and training"] --> D1["Automated Cyber Range Generation<br/>Multi-agent RAG for cyber range design<br/>Adaptive red-blue attack-defense simulation"]
+    D --> D2["High-Fidelity Training Environments for Autonomous Cyber Defense<br/>Simulation-emulation environments for autonomous defense<br/>Reproducible training and benchmarking of defense agents"]
+```
 
 
 Fig. 3. Overview of applications of agentic AI to cybersecurity. Figure maps core research and operational domains, such as autonomous defense, threat intelligence, enterprise automation, and simulation and training, together with representative subcomponents. 
@@ -378,7 +429,19 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 15 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0015-02.png)
+```mermaid
+flowchart LR
+    subgraph Traditional["Traditional Human-Operated Attack (Days-Weeks)"]
+        direction LR
+        TRecon["Recon"] --> TInit["Initial Access"] --> TLat["Lateral Movement"] --> TExfil["Exfiltration"]
+    end
+    
+    subgraph Agentic["Agentic AI-Enabled Attack (Minutes-Hours)"]
+        direction LR
+        ARecon["Automated Recon"] --> AExp["Adaptive Exploitation"] --> APersist["Parallel Persistence"] --> AExfil["Rapid Exfiltration"]
+        APersist -. "Adaptive feedback / real-time adjustment" .-> AExp
+    end
+```
 
 
 <!-- Start of picture text -->
@@ -407,7 +470,13 @@ Manuscript submitted to ACM
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0016-02.png)
+```mermaid
+flowchart LR
+    PDef["Input validation, guardrails, anomaly detection"] <-.-> PLayer["Perception Layer"] <-.-> PAtt["Data poisoning, adversarial inputs, supply chain attacks"]
+    RDef["Multi-agent debate, reasoning guardrails, poisoning detection"] <-.-> RLayer["Reasoning Layer"] <-.-> RAtt["Prompt injection, logic manipulation, backdoors"]
+    ADef["Sandboxing, privilege separation, secure tool emulation"] <-.-> ALayer["Action Layer"] <-.-> AAtt["API misuse, unsafe tool invocation, unauthorized code execution"]
+    MDef["Encryption, fine-grained access control, poisoning detection"] <-.-> MLayer["Memory Layer"] <-.-> MAtt["Poisoned retrievals, data leakage, privacy violations"]
+```
 
 
 <!-- Start of picture text -->
@@ -660,7 +729,15 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 27 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0027-02.png)
+```mermaid
+flowchart LR
+    Init["System Config File<br/>(open ports, services, vulns)"] -- "Prompt" --> Red["Red Agent<br/>(Offensive AI via Ollama)"]
+    Red -- "Attack Plan" --> Blue["Blue Agent<br/>(Defensive AI via Ollama)"]
+    Blue -- "Defense Response" --> Red
+    Blue --> Out["Simulation Output<br/>(Adaptive Offense vs Defense)"]
+    Red --> Log["Log File<br/>(attacks, defenses, rounds)"]
+    Blue --> Log
+```
 
 
 <!-- Start of picture text -->
@@ -689,7 +766,17 @@ Manuscript submitted to ACM
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0028-02.png)
+```mermaid
+flowchart LR
+    Alerts["Synthetic Alerts<br/>(Netflow/IDS events)"] --> Base["Baseline Rules<br/>(heuristics)"]
+    Enrich["Enrichment Data<br/>(Assets, Threat Intel)"] --> Base
+    Alerts --> Agent["LLM Agent<br/>(Mistral via Ollama)"]
+    Enrich --> Agent
+    Base --> Policy["Policy Gate<br/>(read-only enforcement)"]
+    Agent --> Policy
+    Policy --> Audit["Audit Log"]
+    Policy --> Metrics["Decisions + Metrics<br/>(Precision, Recall, MTTR)"]
+```
 
 
 <!-- Start of picture text -->
@@ -720,7 +807,16 @@ A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case
 29 
 
 
-![](images/10-a-survey-of-agentic-ai-and-cybersecurity-challenges.pdf-0029-02.png)
+```mermaid
+flowchart LR
+    Syn["Synthetic NetFlow Windows<br/>(bytes/sec, pkts/sec, SYN rate, failed conn)"] --> Base["Baseline Detector<br/>(z-score, IForest)"]
+    RAG["RAG Corpus<br/>(benign vs malicious patterns)"] --> Agent["LLM Agent (Mistral)<br/>+ RAG notes + rationale"]
+    Syn --> Agent
+    Base --> Policy["Policy Gate<br/>(read-only enforcement)"]
+    Agent --> Policy
+    Policy --> Audit["Audit Log<br/>(prompts, responses)"]
+    Policy --> Metrics["Decisions + Metrics<br/>(AUROC, F1, rationale scores)"]
+```
 
 
 <!-- Start of picture text -->
