@@ -220,51 +220,93 @@ flowchart LR
 Human Summarizer<br>interaction<br>Summarize the<br>results<br>Command<br>execution<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-09.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-desktop Target machine"]
+    style Icon fill:#f9f9f9,stroke:#333,stroke-width:2px
+```
 
 
 <!-- Start of picture text -->
 Target machine<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-10.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-save"]
+    style Icon fill:#1e90ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-11.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-user"]
+    style Icon fill:#e6f3ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-12.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-save"]
+    style Icon fill:#1e90ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-13.png)
+```mermaid
+flowchart LR
+    User["fa:fa-user"] -.-> Save["fa:fa-save"]
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-14.png)
+```mermaid
+flowchart TD
+    subgraph Generator["Generator"]
+        SB["Subtask<br/>breakdown"]
+        MCP["MCP tool selection for<br/>each subtask"]
+        SB --> MCP
+        Save["fa:fa-save"]
+        MCP -.-> Save
+    end
+```
 
 
 <!-- Start of picture text -->
 Generator<br>SubtaskGenerator<br>breakdown<br>MCP tool selection for<br>each subtask<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-15.png)
+```mermaid
+flowchart TD
+    PTT["<b>PTT</b><br/>1. Reconnaissance - done<br/>2. Vulnerability scan..."]
+    Strat["<b>Next strategy</b><br/>Do a vulnerability analysis..."]
+    Step["<b>Next step</b><br/>Do a google search..."]
+    MCP["<b>MCP tools</b><br/>{'Google search': ...}"]
+    Res["<b>Results summary</b><br/>ImageMagick version 7.1.0..."]
+```
 
 
 <!-- Start of picture text -->
 PTT  - summary of the attack Next strategy  - best<br>environment strategy for the current state<br>1. Reconnaissance - done Do a vulnerability analysis on theimagemagick 7.1.0-49<br>{findings: <>}<br>2.Vulnerability scan Explanation<br>       2.1. Port 22 - {findings: < >} The discovery of the 'magick' binary<br>       2.2. Port 80 - {findings: < >} is significant as ImageMagick has<br>.... been known to havevulnerabilities...<br>Next step  - next action MCP tools  - MCP tools Results summary  -<br>to execute the strategy that can be used to results summary of the<br>Do a google search for more execute subtasks commands executed<br>information<br>Explanation To find vulnerabilities of {'Google search': 'Search forknown vulnerabilities andexploits for ImageMagick ImageMagick version 7.1.0 hastwo significant vulnerabilities:CVE-2022-44268 and CVE-<br>ImageMagick 7.1.0-49, do a version 7.1.0-49'} 2022-44267....<br>google search...<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-16.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-user - Human action"]
+```
 
 
 <!-- Start of picture text -->
 - Human action<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-17.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-save"]
+    style Icon fill:#1e90ff,stroke:#333,stroke-width:2px
+```
 
 
 **Figure 2: Dataset collection steps (a) and a sample data point (b).** 
@@ -360,14 +402,48 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Trovato et al. 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-02.png)
+```mermaid
+flowchart LR
+    subgraph Prompt["User prompt"]
+        P["<PTT>{ptt}</PTT><br/><PS>{prev_step}</PS><br/><PSR>{prev_res}</PSR><br/>Derive a New strategy..."]
+    end
+    
+    subgraph Model[" "]
+        Qwen["Qwen3-14B<br/>(frozen)"]
+        LoRA["LoRA<br/>(r=8, alpha=16)"]
+        Qwen -.- LoRA
+    end
+    
+    subgraph Gen[" "]
+        G["Generation 1 (G1)<br/>...<br/>Generation n (Gn)"]
+        Ri["Ri = (Ri - μ) / σ"]
+        G -.-> Ri
+    end
+    
+    Prompt --> Model
+    Model --> Gen
+```
 
 
 <!-- Start of picture text -->
 Update ({G}, {A}, πθ)<br>User prompt<br><PTT> {ptt} </PTT> Qwen3-14B LoRA<br> <PS> {prev_step} (frozen) G11 A11<br></PS> (r=8, alpha=16) G22 A22<br> <PSR> {prev_res}<br></PSR> Reward functions<br> Derive a Newstrategy for thenext step in thepentesting process Generation 1 (GGeneration 1 (G1)Generation 1 (G1)Generation n (G1) n) (G ) R i i with the GTsimilarityStrategy Responseformatformat<br>based on theprevious step and {R , R ,1 2 ....., R }n Language Responselengthlength<br>the findings.....  {A1 , A2 ,....., A n }<br>...<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-03.png)
+```mermaid
+flowchart TD
+    subgraph Rewards["Reward functions"]
+        Sim["Strategy similarity<br/>with the GT"]
+        Format["Response<br/>format"]
+        Lang["Language"]
+        Len["Response<br/>length"]
+    end
+    
+    subgraph Update["Update ({G}, {A}, πθ)"]
+        Loss["L_GRPO(θ) = -E [ ... log πθ ... ] - β D_KL"]
+    end
+    
+    Rewards --> Update
+```
 
 
 <!-- Start of picture text -->
@@ -392,11 +468,19 @@ iii) **Generation length reward (** _𝑅𝑙_ **)** the model to keep the gener
 the reasoning tends to explode as training progresses. The reward function is defined according to the Equations 1 and 2. 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-13.png)
+```mermaid
+flowchart TD
+    Eq1["δ = max(0, generation length - max_token_length)"]
+    style Eq1 fill:#fff,stroke:#fff
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-14.png)
+```mermaid
+flowchart TD
+    Eq2["Rl = 1 - (1/2) * (δ / max_token_length)"]
+    style Eq2 fill:#fff,stroke:#fff
+```
 
 
 iv) **Language reward (** _𝑅𝑒_ **)** forces the model to stick to the English language without mixing with other languages during the reasoning. This ensures the generated rationale is directly applicable to the similarity reward without any complexities. The language reward is defined as 1.0 if the output is in English, 0.0 if it is in any other language, and -1.0 if the output is empty. 
@@ -404,13 +488,21 @@ iv) **Language reward (** _𝑅𝑒_ **)** forces the model to stick to the Engl
 Finally, we sum up all reward components into a single total reward, denoted as _𝑅_ total. Since four strategies are generated for each prompt, we obtain four corresponding _𝑅_ total values, each reflecting the quality of the respective strategy. Rtotal = { _𝑅_ total ( _𝑦_ 1) _, 𝑅_ total ( _𝑦_ 2) _, 𝑅_ total ( _𝑦_ 3) _, 𝑅_ total ( _𝑦_ 4)}. 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-17.png)
+```mermaid
+flowchart TD
+    Eq3["Ai = (R_total(yi) - mean(R_total)) / (σ(R_total) + ε)"]
+    style Eq3 fill:#fff,stroke:#fff
+```
 
 
 To encourage higher-quality strategies while discouraging weaker ones, GRPO assigns each sampled completion an advantage score based on its relative performance within the group using the Equation 3. For a given prompt, we sample _𝑁_ = 4 candidate completions { _𝑦𝑖_ } _𝑖_<sup>_𝑁_</sup> =1<sup>, each of which is evaluated using a set of reward functions.</sup> The advantage _𝐴𝑖_ is computed as the normalized deviation of the total reward of _𝑦𝑖_ from the group mean, where positive values indicate above-average performance and negative values indicate below-average quality. 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0006-19.png)
+```mermaid
+flowchart TD
+    Eq4["L_GRPO(θ) = -E_x [ (1/N) * sum_i=1^N ( A_i * log π_θ(y_i|x) - β * D_KL(π_θ || π_ref) ) ] (4)"]
+    style Eq4 fill:#fff,stroke:#fff
+```
 
 
 The policy is then optimized using an advantage-weighted objective, as defined in Equation 4, which increases the likelihood of higher-advantage completions while reducing that of loweradvantage ones. In parallel, a Kullback–Leibler (KL) divergence [22] penalty is applied to constrain the learned policy _𝜋𝜃_ from deviating excessively from a fixed reference policy _𝜋_ ref, which corresponds to the base pretrained model. This regularization term improves training stability and prevents overfitting to high-reward samples by maintaining proximity to the reference distribution. 
@@ -430,7 +522,13 @@ Given the input formed by concatenating the strategy and its explanation, we ext
 We formulate the learning problem as a two-task multi-label classification setting, where a shared representation is used to jointly predict (i) the next step label and (ii) the MCP server set. For each training instance, we compute a cross-entropy loss for step prediction and a binary cross-entropy loss for MCP prediction using the ground-truth labels _𝑦_ step ∈ _𝐴_ and multi-hot vector _𝑦_ mcp ∈{0 _,_ 1}<sup>|</sup><sup>_𝑀_|</sup> , respectively: 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-05.png)
+```mermaid
+flowchart TD
+    Eq5["L_step = -log p_y_step^(step)"]
+    Eq6["L_mcp = - sum_j=1^|M| [ y_mcp,j log σ(z_j^(mcp)) + (1 - y_mcp,j) log(1 - σ(z_j^(mcp))) ]"]
+    style Eq5 fill:#fff,stroke:#fff
+    style Eq6 fill:#fff,stroke:#fff
+```
 
 
 where _𝑧 𝑗_<sup>(mcp)</sup> denotes the logit corresponding to the _𝑗_ -th MCP class and _𝜎_ (·) is the sigmoid activation. The final objective is a 
@@ -440,7 +538,11 @@ where _𝑧 𝑗_<sup>(mcp)</sup> denotes the logit corresponding to the _𝑗_ 
 **Require:** Dataset D with inputs _𝑥_ , step labels _𝑦_<sup>(</sup><sup>_𝑠_)</sup> , and MCP labels _𝑦_<sup>(</sup><sup>_𝑚_)</sup> **Require:** Frozen GPT-2 encoder _𝑓𝜃_ , dual CNN heads _𝑔𝜙𝑠_ and _𝑔𝜙𝑚_ **Require:** Learning rate _𝜂𝑡_ , batch size _𝐵_ , epochs _𝐸_ , weight decay _𝑤𝑑_ , and loss weights _𝜆𝑠, 𝜆𝑚_ 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-09.png)
+```mermaid
+flowchart TD
+    Alg1["1: Initialize φ_s, φ_m; freeze θ<br/>2: for epoch = 1 to E do<br/>3: for each mini-batch do<br/>4: x_i = concat(New strategy, Strategy explanation)<br/>5: H_i = f_θ(x_i)<br/>6: z_i^(s) = g_φ_s(H_i)<br/>7: z_i^(m) = g_φ_m(H_i)<br/>8: L_s = CrossEntropy(z_i^(s), y_i^(s))<br/>9: L_m = BCEWithLogits(z_i^(m), y_i^(m))<br/>10: L = λ_s * L_s + λ_m * L_m<br/>11: Compute gradient<br/>12: Update φ_s, φ_m using AdamW<br/>13: end for<br/>14: end for<br/>15: return φ_s, φ_m"]
+    style Alg1 fill:#f9f9f9,stroke:#333
+```
 
 
 weighted combination of both losses, calculated as L = _𝜆_ stepLstep + _𝜆_ mcpLmcp. 
@@ -458,7 +560,11 @@ We evaluate the fine-tuned strategy and step models using the heldout test set o
 For step prediction and MCP server prediction, we use accuracy and Micro F1 score as evaluation metrics, respectively. Accuracy measures the model’s ability to correctly predict the exact next step as the ground truth. In contrast, MCP server prediction is a multi-label task, as a single step may involve multiple servers. Therefore, in addition to accuracy, which captures the correctness of the entire predicted set, we use the Micro F1 score to evaluate element-wise prediction performance. The F1 score is computed at the per-sample level and then averaged across all samples to obtain the final Micro F1 score. For each sample _𝑛_ , the true positives ( _𝑇𝑃𝑛_ ), false positives ( _𝐹𝑃𝑛_ ), and false negatives ( _𝐹𝑁𝑛_ ) are computed as: 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0007-17.png)
+```mermaid
+flowchart TD
+    Eq["TP_n = sum(y_hat_n,j * y_n,j)     FP_n = sum(y_hat_n,j * (1-y_n,j))     FN_n = sum((1-y_hat_n,j) * y_n,j)"]
+    style Eq fill:#fff,stroke:#fff
+```
 
 
 Here, _𝑁_ denotes the total number of samples in the evaluation set and _𝐾_ denotes the number of MCP server labels in the multilabel prediction space. For each sample _𝑛_ ∈{1 _, . . . , 𝑁_ } and label _𝑗_ ∈{1 _, . . . , 𝐾_ }, the ground-truth indicator _𝑦𝑛,𝑗_ ∈{0 _,_ 1} specifies whether MCP label _𝑗_ is actually present, while the predicted indicator _𝑦_ ˆ _𝑛,𝑗_ ∈{0 _,_ 1} specifies whether the model predicts that label. The corresponding results are presented in Section 6.1. 
@@ -569,7 +675,13 @@ The next strategy involves exploiting the confirmed SQL injection vulnerability 
 As outlined in Section 5.2, we assess the Strategy model by integrating it as the backend of strategy analyzer agents within automated pentesting frameworks. Figure 7 shows the performance of these frameworks across six HTB machines, using GPT-5 and the Strategy model as backends. The higher patterned bars show that our model consistently outperforms GPT-5, achieving higher subtask completion rates across all machines and frameworks. Overall, the finetuned model improved the subtask completion rate of PentestGPT by 46.5% and AutoPentester by 43.4%, VulnBot by 52.5%, across all the test machines. These findings indicate that RL-augmented frameworks demonstrate clear performance gains, indicating that 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0009-18.png)
+```mermaid
+xychart-beta
+    title "Subtask Completion Rate of HTB Machines (P-RL)"
+    x-axis ["Sau", "Pilgrimage", "Authority", "Jupiter", "Jarvis", "Bank"]
+    y-axis "Subtask Completion Rate (%)" 0 --> 100
+    bar [56, 52, 57, 52, 61, 75]
+```
 
 
 <!-- Start of picture text -->
@@ -688,7 +800,18 @@ Below we show some example free text comments we received from the participants.
 Both the comments favor our model for its clarity and stronger strategic reasoning. In Comment 1, our model is credited with correctly identifying the key exploitation path, modifying a writable script likely executed with elevated privileges, while Claude-4.6sonnet is criticized for redundant checks and GPT-5 for less confident and imprecise reasoning. In Comment 2, Claude-4.6-sonnet demonstrates a valid approach; however, it is viewed as overly 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-11.png)
+```mermaid
+pie title "Full response set"
+    "Strategy Model" : 49.2
+    "Claude" : 45.8
+    "GPT-5" : 5.1
+```
+```mermaid
+pie title "High-confidence subset"
+    "Strategy Model" : 52.4
+    "Claude" : 47.6
+    "GPT-5" : 0.0
+```
 
 
 <!-- Start of picture text -->
@@ -707,7 +830,13 @@ _6.6.1_ **Evaluating Different Fine-tuning Techniques:** Here, we assess how dif
 _6.6.2_ **Fine-tuning Different Open-source Models:** To generalize the effectiveness of the GRPO training using the collected 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0011-18.png)
+```mermaid
+xychart-beta
+    title "GEval Similarity Score"
+    x-axis ["Strategy (Base)", "Strategy (SFT)", "Strategy (GDPO)", "Strategy (RLVR)", "Strategy (GRPO)", "Exp (Base)", "Exp (SFT)", "Exp (GDPO)", "Exp (RLVR)", "Exp (GRPO)"]
+    y-axis "Score" 0.0 --> 0.8
+    bar [0.39, 0.41, 0.65, 0.61, 0.72, 0.45, 0.47, 0.61, 0.54, 0.70]
+```
 
 
 <!-- Start of picture text -->
@@ -876,7 +1005,14 @@ This section presents the complete prompts used during model fine-tuning and eva
 ## **System Prompt** 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-16.png)
+```mermaid
+flowchart TD
+    subgraph System_Prompt["System Prompt"]
+        SP["You are a penetration testing strategist. Using the<br/>previous findings (PTT), previous step, and previous<br/>step results, derive a new strategy for the next step<br/>in the pentesting process.<br/>Output format: &lt;think&gt;brief logical reasoning (max 512<br/>tokens)&lt;/think&gt;Final strategy"]
+    end
+    style System_Prompt fill:#f0f0f0,stroke:#333
+    style SP fill:#f0f0f0,stroke:#f0f0f0,text-align:left
+```
 
 
 **Figure 10: System prompt used for the Strategy model finetuning.** 
@@ -886,7 +1022,14 @@ Figure 10 presents the system prompt used during both finetuning and inference o
 ## **User Prompt** 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0014-20.png)
+```mermaid
+flowchart TD
+    subgraph User_Prompt["User Prompt"]
+        UP["&lt;PTT&gt;{r['PTT']}&lt;/PTT&gt;&lt;Previous step&gt;{r['Previous<br/>step']}&lt;/Previous step&gt;&lt;Previous step<br/>result&gt;{r['Previous step result']}&lt;/Previous step<br/>result&gt;<br/>Context description:<br/> - PTT: Current understanding of the target<br/>   environment<br/> - Previous step: Last action performed<br/> - Previous step result: Observations or outputs<br/>   from that action<br/>Task:<br/> - Analyze findings from the previous step<br/> - Identify newly revealed attack surface or<br/>   information<br/> - Select the most logical next high-level<br/>   strategy (not a command)<br/>Output format: &lt;think&gt;brief reasoning &lt;/think&gt;Final<br/>strategy"]
+    end
+    style User_Prompt fill:#f0f0f0,stroke:#333
+    style UP fill:#f0f0f0,stroke:#f0f0f0,text-align:left
+```
 
 
 **Figure 11: User prompt used for the Strategy model finetuning.** 
@@ -906,7 +1049,14 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation and Analysis 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0015-02.png)
+```mermaid
+flowchart TD
+    subgraph Reward_Model["Reward Model Prompt - Strategy Similarity"]
+        RMP["You are a reward model comparing GENERATED vs GROUND<br/>TRUTH pentesting strategies.<br/>Score each criterion in [-2,2]:<br/>1) Coverage of essential technical terms/entities<br/>2) Same primary task<br/>3) Same expected outcome/deliverable<br/>4) Uses equivalent tools/techniques/procedures<br/><br/>Based on the above analysis, provide individual scores<br/>(between -2 and +2) for each point.<br/>- If completely disagree or negative, give -2.<br/>- If somewhat agrees or moderate, give 0.<br/>- If positive and mostly follows the GROUND TRUTH,<br/>give 1.<br/>- If completely agrees and exactly follows the GROUND<br/>TRUTH, give 2.<br/><br/>Finally, output the average of the points given for<br/>each question above.<br/><br/>Respond ONLY in JSON format like:<br/>{<br/>\"score\": 0.85,<br/>\"explanation\": brief justification in text<br/>}<br/><br/>GROUND TRUTH:<br/>{ground_truth}<br/>GENERATED:<br/>{generated}"]
+    end
+    style Reward_Model fill:#f0f0f0,stroke:#333
+    style RMP fill:#f0f0f0,stroke:#f0f0f0,text-align:left
+```
 
 
 derives a precise privilege escalation path through script modification, while Option 2 (Calude-4.6-Sonnet) includes redundant checks such as SUID/SGID bit verification that are unnecessary given the established execution context, and Option 3 (GPT-5) lacks precision in identifying the exploitation vector. 
