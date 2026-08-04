@@ -23,79 +23,79 @@ The lack of proper benchmark tasks and datasets to evaluate LLM capabilities in 
 38th Conference on Neural Information Processing Systems (NeurIPS 2024) Track on Datasets and Benchmarks. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-00.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-01.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-02.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-03.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-04.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-05.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-06.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-07.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-08.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-09.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-10.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-11.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-12.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-13.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-14.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-15.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-15.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-16.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-16.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-17.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-17.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-18.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0002-18.png)
 
 
 <!-- Start of picture text -->
@@ -230,15 +230,15 @@ Table 1: Results of different LLMs on the benchmark datasets (bold indicates the
 The heatmap analysis of error correlations, in Figure 2(a), shows that the larger models exhibit higher error correlations. This trend suggests that these models, such as ChatGPT-4, Gemini-1.5, and LLAMA3-70B, are likely to make similar mistakes when answering the CTI-MCQ. For instance, ChatGPT-4 shows error correlations of 0.52 with Gemini-1.5 and 0.55 with LLAMA3-70B, while Gemini-1.5 and LLAMA3-70B have a correlation of 0.54. In Figure 2(b), we show the number of questions incorrectly answered by a number of LLMs. Overall, 293 questions were answered incorrectly by all the models (5) in the evaluation. Upon inspection, we found these questions to be related to mitigation plans and tools and techniques used by adversaries. We show a sample of such questions in Appendix Table 5. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-05.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-06.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-07.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0007-07.png)
 
 
 Figure 2: Error analysis on the CTI-MCQ tasks 
@@ -256,15 +256,15 @@ In the CTI-RCM task, LLMs are assigned to identify the underlying cause(s) of a 
 that as description length increases, the potential for matching multiple weaknesses increases, causing LLMs to struggle to identify the most appropriate one. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-01.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-02.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-03.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-03.png)
 
 
 Figure 3: CTI-RCM and CTI-VSP analysis 
@@ -276,15 +276,15 @@ When creating the CTI-RCM dataset, we gathered CVE descriptions exclusively from
 In the CTI-VSP task, LLMs are tasked with predicting the CVSS v3 Base String based on the CVE description, which is then converted to a CVSS score using a predefined formula. We evaluate the performance of the LLMs by computing the Mean Absolute Deviation (MAD) from the ground truth in the dataset. Like the CTI-RCM task, models tend to perform better with longer descriptions, as indicated by a decrease in MAD in Figure 3(c). However, there is a noticeable performance drop for all the models, as evidenced by the sharp increase in MAD for the last quintiles. This pattern suggests that while longer descriptions provide more context and generally improve performance, they can also introduce complexity that leads to misattribution of the severity of the threat. This combined finding from the CTI-VSP and CTI-RCM tasks indicates that additional description length does not necessarily equate to better performance and may hinder the models’ ability to assess the threat accurately. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-08.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-09.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-10.png)
+![](images/34-ctibench-evaluating-llms-on-real-world-cyber-threat.pdf-0008-10.png)
 
 
 (a) MAD vs. description length for (b) Accuracy with respect to base (c) Error analysis of severity score different LLMs for CTI-VSP metrics prediction Figure 4: CTI-VSP analysis 

@@ -1,5 +1,5 @@
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0001-01.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0001-01.png)
 
 
 # **We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs** 
@@ -75,7 +75,7 @@ Although a comprehensive study on the prevalence of package hallucinations in LL
 In contrast, we conduct a rigorous and comprehensive evaluation across a broader range of models, including the first analysis of package hallucinations in open-source models of any kind, at a scale that has not been previously done. To this end, we provide thorough testing with a larger custom dataset covering two programming languages (namely, Python and Javascript), followed by a detailed analysis of the significant 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0004-00.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -177,7 +177,7 @@ In this section, we present the results of our experimental analysis related to 
 In our first experiment, our goal was to quantify the prevalence of package hallucinations across different models by generating and analyzing a large number of code samples. We conducted 30 tests (using 16 models for Python and 14 models for JavaScript, as described in Table 1) producing a combined 576,000 code samples using both the Stack Overflow and LLM-generated datasets (Section 4.1). Each code sample was evaluated for hallucinations according to the heuristics defined in Section 4.3, which include parsing the generated code and prompting the model for packages twice per code sample, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0007-06.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0007-06.png)
 
 
 <!-- Start of picture text -->
@@ -196,7 +196,7 @@ These 30 tests generated a total of 2.23 million packages in response to our pro
 **Effect of Temperature Settings.** The temperature setting in a LLM is used to adjust the randomness of the generated responses, where a lower temperature results in more predictable and deterministic outputs, while a higher temperature increases creativity and diversity in the responses (Appendix F.1). We varied this setting for each model between the minimum and maximum allowed values and observed the change in hallucination rate (the maximum temperature for the GPT series models is limited to 2, while the open-source models can be set to 5). All models exhibited a **clear increase in hallucination rate as temperature value increases** , with the effect becoming severe at maximum values. The OpenAI models, as shown in Figure 3, showed only a slight increase in hallucination rate between temperatures 0 and 1, which then increased sharply between 1 and 2. In particular, GPT-4 resulted in a hallucination rate (8.9%) nearly 4 times lower than GPT 3.5 (31.8%) at its maximum temperature. At the highest temperature values, open-source models start to generate more hallucinated packages than valid packages. Most LLMs operate at a default temperature in the range of 0.7 to 1, however, our results indicate that a lower temperature value can reduce package hallucinations, with the optimal value varying per model. Lower temperature also yields more deterministic responses, presenting a trade-off between risk of hallucination and creativity. Therefore, selecting the appropriate temperature value is not a straightforward decision. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0008-02.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
@@ -217,7 +217,7 @@ We evaluated each listed value in isolation, followed by a combined evaluation o
 **This suggests that greedy decoding strategies, which prioritize the most probable tokens (i.e., the most probable token is always selected), would still generate fictitious packages.** This differs from other types of hallucinations, which generally occur when low-probability tokens are sampled. This persistent nature of package hallucinations highlights the inherent complexity of the problem. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0008-10.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0008-10.png)
 
 
 <!-- Start of picture text -->
@@ -240,7 +240,7 @@ and have no knowledge of the world beyond their training data cutoff date. Altho
 **Verbose Models versus Conservative Models.** LLMs operate with inherent randomness and uncertainty. This behavior enables novel and creative output, a desired feature for many NLP tasks but less welcome for code generation, which requires a high degree of accuracy and must adhere to rigid syntax. We define a verbose model as one that operates with higher degree of uncertainty and randomness by generating a greater number of distinct package names while a conservative model generates a lesser number of distinct packages, generally using only the most popular and well-known packages. To this end, we investigated whether verbose models correspond to a higher rate of package hallucinations. Our results (Figure 6) show a **correlation between hallucination rate** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0009-05.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0009-05.png)
 
 
 <!-- Start of picture text -->
@@ -251,7 +251,7 @@ Figure 5: Frequency of an identical hallucinated package name generated from the
 **and number of unique packages** that were recommended during this experiment (i.e. a more verbose model was associated with a higher hallucination rate). In light of these findings, it is reasonable to suggest that models generating code should adopt a more conservative approach (i.e. limiting package suggestions to a smaller list of well-known packages rather than generating names with uncertainty). The mod- 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0009-08.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0009-08.png)
 
 
 <!-- Start of picture text -->
@@ -264,7 +264,7 @@ els with the lowest hallucination rates in our study adhered to a smaller subset
 **LLMs’ Ability to Detect Hallucinations.** We then evaluated each model’s ability to identify hallucinations versus valid packages, both from its own code generation outputs and those generated by other models. To test this, we conducted two binary classification tests: (i) each model’s ability to detect hallucinated packages from its own generated code and (ii) each model’s ability to detect hallucinated packages from code generated by other models. The names of the valid and hallucinated packages produced by each model were randomly sampled, and each model was asked "Is [package name] a valid Python package?" Identification accuracy was 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0010-00.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0010-00.png)
 
 
 <!-- Start of picture text -->
@@ -297,7 +297,7 @@ esting behavior during both tests, as it has an overwhelming propensity to label
 **Occurrence of the Same Package Hallucination Across Different Models.** To analyze the possibility that the same hallucinated packages are generated across different models, we measured how many models generated the same pack- 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0010-10.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0010-10.png)
 
 
 <!-- Start of picture text -->
@@ -314,7 +314,7 @@ Combining the insights gained during the persistence analysis (Figure 5) leads t
 **Valid Packages.** In order to analyze the semantic similarity between hallucinated and popular real/valid packages, we measured the average _Levenshtein distance_ of a package to its nearest neighbor (i.e., the closest valid package). Levenshtein distance is a measure of how many insertions, deletions, and substitutions are required for two strings to match [31]. If the distribution of Levenshtein distances is skewed heavily 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0011-00.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0011-00.png)
 
 
 <!-- Start of picture text -->
@@ -608,7 +608,7 @@ This research was partially supported by the University of Texas at San Antonio 
 - 6) Generate Python code that implements a rate limiter for Flask applications using the ‘limiter’ library, which provides a simple way to add rate limiting to any Flask endpoint. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0017-24.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0017-24.png)
 
 
 - 9810) Generate Python code that imports the PyGlove library and uses it to manipulate various Python objects, such as lists, dictionaries, and strings, by applying operations like reversal, sorting, indexing, slicing, concatenation, and membership testing. 
@@ -686,7 +686,7 @@ Your answer must begin with ‘Generate [Python/JavaScript] code that’ and mus
 Figure 13: Coding prompt generation. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0019-05.png)
+![](images/36-we-have-a-package-for-you-a-comprehensive-analysis-of-package-hallucinations-by-code-generating-llms.pdf-0019-05.png)
 
 
 <!-- Start of picture text -->

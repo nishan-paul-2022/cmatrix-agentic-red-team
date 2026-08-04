@@ -47,7 +47,7 @@ Although crowd-sourced CTI reports provide valuable information, their unstructu
 Existing CTI knowledge extraction approaches face several fundamental challenges in adapting to the rapidly evolving threat landscape. Existing approaches follow two paradigms: syntax parsing-based and fine-tuning-based. _Syntax parsing-based methods_ leverage typed dependency rules to analyze the grammatical structure of a sentence and extract subject-verb-object (SVO) triplets. For example, TTPDrill [48] extracts subject entities and verb relations in CTI-related sentences as threat actions. iACE [57] 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0003-00.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -96,14 +96,14 @@ _Phase 2:_ With the extracted triplets, CTINEXUS removes redundancy by merging e
 _Phase 3:_ To infer missing links between distant entities, CTINEXUS performs long-distance relation prediction. The central entity identification module selects a central node in each connected subgraph based on the node’s degree centrality. Among central nodes, the module then selects a topic node with the highest importance, which serves as the main subject of the report. The 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0005-00.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
 Labeled Demonstration Phase 1 : Cybersecurity Triplet Extraction<br>Demonstration<br>Optimized ICL Prompt<br>Set CTI Report:...<br>Relation Triplets:... <Instruction> <k Examples>  <k Labels> <Query><br>Inference<br>Relation Triplets<br>Extracted from the<br>Retrieved  Prompt Construction Input CTI Report: ...<br>Output<br>k Demos<br>ICL Template LLM Head Tail<br>kNN Retriever Relation<br><Instruction> H T<br>Example: <CTI Report #1> Head Tail<br>Label: <Relation Triplets #1> H Relation T<br>...<br>Head ... Tail<br>Example: <CTI Report #k> Relation<br>... H T<br>Label: <Relation Triplets #k><br>Query: <Target CTI Report><br>Input CTI Report<br>Central<br>Implicit<br>Node Type X<br>Relation Topic Central<br>Node Node<br>Implicit  Sim > Thresh<br>Relation<br>Fine-Grained  Coarse-Grained<br>Implicit Relation  Degree-Based<br>Entity Merging Entity Grouping<br>Inference Central Entity Identification<br>Phase 3 : Long-Distance Relation Prediction Phase 2 : Hierarchical Entity Alignment<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0005-01.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0005-01.png)
 
 
 <!-- Start of picture text -->
@@ -126,7 +126,7 @@ We choose MALOnt for the current implementation, as MALOnt [73] is the most comp
 Given that CTI text may contain diverse relations and we want the approach to be adaptable to emerging threats, we formulate the cybersecurity triplet extraction module in our pipeline as a _semi-open_ extraction problem: Entity types follow MALOnt, as its coverage is already comprehensive, while relation extraction is modeled as open RE to maximize the coverage. These approaches transform information extraction tasks into multi-turn questionanswering, leveraging the conversational capabilities of LLMs. Fig. 3 illustrates this paradigm. This method involves creating multiple questioning prompts for each information type and refining the responses. However, applying this multi-turn QA formulation to cybersecurity entity and relation extraction requires numerous lengthy prompts due to the extensive cybersecurity ontology that could contain many entity classes. For _N_ entities in the input CTI,<sup>_N_</sup><sup><u>(</u></sup><sup>_N_</sup> 2<sup>_−_1)</sup> prompts are needed to extract relations 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0006-00.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -170,35 +170,35 @@ To address these challenges, we perform entity alignment in a _hierarchical_ way
 For entities within each group, the fine-grained entity merging module uses an embedding-based technique to merge entities with similar semantic representations. The embedding model is central to this procedure, as its generated embeddings are used to determine the semantic closeness of entities. We evaluated state-of-the-art, generalpurpose text embedding models of various sizes (i.e., text-embedding-3-small, text-embedding-3-large) for this task. Since these models are not specifically pre-trained on a cybersecurity corpus, we also experimented with a security-specific embedding model, SecureBERT [30], which has been pre-trained on millions of cybersecurity websites, articles, and books. Another aspect to consider 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-00.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
 Run and RunOnce<br>Testing phase<br>Deg.=4 The ransomware Trojan<br>WordPress sites<br>Windows<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-01.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
 Windows, such as the Run and RunOnce registries. The presence of .akira files<br>means that your data has likely been encrypted by Akira ransomware."<br>4LEAF Victims<br>Akira ransomware<br> group Three recent attacks<br>Deg.=3<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-02.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
 websites<br>Deg.=6<br>Akira<br>Company records<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-03.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-03.png)
 
 
 <!-- Start of picture text -->
 4LEAF Victims<br>Deg.=3<br>Park-Rite<br>Family Day Care Services<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-04.png)
+![](images/32-ctinexus-automatic-cyber-threat-intelligence-knowledge-graph-construction-using-llms.pdf-0008-04.png)
 
 
 <!-- Start of picture text -->

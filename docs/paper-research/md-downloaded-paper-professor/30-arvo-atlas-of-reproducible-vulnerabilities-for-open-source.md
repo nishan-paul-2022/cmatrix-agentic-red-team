@@ -175,7 +175,7 @@ Therefore, locating the vulnerability patches requires recompiling old versions 
 In addition, to measure reproducibility and recompilability, we selected 100 random cases (from the 10,000 reported bugs) and found only 13 cases that can reproduce the crash and the fix. Therefore, this motivates the need for a new system that can generate a research vulnerability dataset that is reproducible, recompilable, and scalable. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0004-10.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0004-10.png)
 
 
 <!-- Start of picture text -->
@@ -256,26 +256,26 @@ When rolling back dependency versions, we attempt to be _minimally intrusive_ an
 Xiang Mei, Pulkit Singh Singaria, Jordi Del Castillo, Haoran Xi, Abdelouahab (Habs) Benchikh, Tiffany Bao, Ruoyu Wang, Yan Shoshitaishvili, Adam Doupé, Hammond Pearce, Conference’17, July 2017, Washington, DC, USA and Brendan Dolan-Gavitt 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-01.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-01.png)
 
 
 <!-- Start of picture text -->
 Revision Control<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-02.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-03.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-04.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-05.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-05.png)
 
 
 <!-- Start of picture text -->
@@ -295,7 +295,7 @@ OSS-Fuzz Repo Revision Control Fetch Missing Resource<br>Fail<br>Version Build D
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-09.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0006-09.png)
 
 
 <!-- Start of picture text -->
@@ -324,7 +324,7 @@ Conference’17, July 2017, Washington, DC, USA
 ARVO: Atlas of Reproducible Vulnerabilities for Open Source Software 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0007-02.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -350,7 +350,7 @@ _OSS-Fuzz._ OSS-Fuzz builds each project once per day, and, if a crash is detect
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0007-10.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0007-10.png)
 
 
 **Figure 5: Revision Control on Locator.** 
@@ -374,7 +374,7 @@ To support more advanced uses of the dataset (e.g., rebuilding the project with 
 Xiang Mei, Pulkit Singh Singaria, Jordi Del Castillo, Haoran Xi, Abdelouahab (Habs) Benchikh, Tiffany Bao, Ruoyu Wang, Yan Shoshitaishvili, Adam Doupé, Hammond Pearce, Conference’17, July 2017, Washington, DC, USA and Brendan Dolan-Gavitt 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0008-01.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
@@ -491,7 +491,7 @@ ARVO’s fix commit involved a submodule update to update all of Qt5’s submodu
 Xiang Mei, Pulkit Singh Singaria, Jordi Del Castillo, Haoran Xi, Abdelouahab (Habs) Benchikh, Tiffany Bao, Ruoyu Wang, Yan Shoshitaishvili, Adam Doupé, Hammond Pearce, Conference’17, July 2017, Washington, DC, USA and Brendan Dolan-Gavitt 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0010-01.png)
+![](images/30-arvo-atlas-of-reproducible-vulnerabilities-for-open-source.pdf-0010-01.png)
 
 
 <!-- Start of picture text -->

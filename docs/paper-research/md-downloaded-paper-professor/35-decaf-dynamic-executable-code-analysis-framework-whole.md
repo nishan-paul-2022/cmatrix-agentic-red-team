@@ -123,11 +123,11 @@ QEMU’s whole-system emulator functionality acts as a type-2 hypervisor for exe
 QEMU decouples the specific details of the guest CPU from that of the host using its Tiny Code Generator. TCG translates the instructions of the guest environment into an intermediary representation (IR) of architecture-neutral set 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0004-09.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0004-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0004-10.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0004-10.png)
 
 
 Fig. 1. The overview of DECAF. 
@@ -149,15 +149,15 @@ HENDERSON ET AL.: DECAF: A PLATFORM-NEUTRAL WHOLE-SYSTEM DYNAMIC BINARY ANALYSIS
 167 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-03.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-04.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0005-04.png)
 
 
 ###### Fig. 2. A sample plugin that keeps track of tainted keystrokes. 
@@ -185,7 +185,7 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 168 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0006-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0006-02.png)
 
 
 Fig. 3. DECAF inserts instruction execution callbacks into the original TCG code stream (a) to create an instrumented opcode stream (b) to trigger helper function calls to plugin callback functions. 
@@ -253,7 +253,7 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 170 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0008-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0008-02.png)
 
 
 Fig. 4. The VMI flowchart. 
@@ -289,7 +289,7 @@ HENDERSON ET AL.: DECAF: A PLATFORM-NEUTRAL WHOLE-SYSTEM DYNAMIC BINARY ANALYSIS
 171 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0009-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0009-02.png)
 
 
 Fig. 5. Register liveness tests determine which TCG instructions in the TB (a) should be instrumented for taint propagation, and instrumentation is inserted as needed (b). TCG’s optimization logic eliminates unnecessary opcodes, resulting in an optimized, instrumented TB (c). 
@@ -321,15 +321,15 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 172 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-03.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-04.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0010-04.png)
 
 
 Fig. 6. All events (a) are logged into a staging buffer (b). Logging logic (c) decides which events should be recorded and places them into a circular buffer (d) that is asynchronously written to disk (e). 
@@ -365,7 +365,7 @@ HENDERSON ET AL.: DECAF: A PLATFORM-NEUTRAL WHOLE-SYSTEM DYNAMIC BINARY ANALYSIS
 Definition 1. Let a and b be bits in the state of a system. We say that a computation has an information flow from a to b if there are two input states s0 and s1 that are identical except that s0 has a ¼ 0 and s1 has a ¼ 1, and in the corresponding output states s<sup>0</sup> 0<sup>and s0</sup> 1<sup>, the values of b are different (one 0 and</sup> the other 1, in either order). In other words, if the computation is a function f on state vectors, and a is a bitvector with only a single position set to 1, there is a state vector s 2 S such that 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0011-03.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0011-03.png)
 
 
 From the untainted (low) perspective on a computation, tainted bits are ones whose values are unknown. Thus we can use a shorthand notation analogous to three-valued logic with three kinds of digits: 0 to represent a bit with value zero which is untainted, 1 for a bit with value one which is untainted, and ? for any tainted bit. Thus 1?0 represents a number whose second bit is tainted; in effect, the value from the high perspective might be either 4 (binary 100) or 6 (binary 110). 
@@ -401,17 +401,17 @@ An equivalent perspective on the soundness of a rule, analogous to noninterferen
 Definition 2. A rule y ~~t~~ ¼ rulef ðx; x tÞ applied to an operation y ¼ fðxÞ has a false negative error if 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-05.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-05.png)
 
 
 for some bit position b. Equivalently we can also compare all the untainted output positions at once 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-07.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-08.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-08.png)
 
 
 Conversely, a rule has a false positive error if there is a bit position which is tainted, but does not in fact depend on the tainted input: 
@@ -419,7 +419,7 @@ Conversely, a rule has a false positive error if there is a bit position which i
 Definition 3. A rule y ~~t~~ ¼ rulef ðx; x tÞ applied to an operation y ¼ fðxÞ has a false positive error if 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-11.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0012-11.png)
 
 
 Observe that the input state variables x and x t are free in Equations (2) and (3). When checking the taint propagation in a trace, we instantiate them with values taken from an execution. When checking the correctness of a rule in the abstract, we quantify over all possible values for x and x t: a rule is sound if there is no value of x and x t for which Equation (2) holds, and precise if there is no value of x and x t for which Equation (3) holds. 
@@ -495,7 +495,7 @@ is shown in column five. We used a new instance of Z3 for each test case and thu
 As expected, logical operations return results extremely quickly whereas signed multiply and divide takes the most time. Overall, it took less than 14 hours on an Intel Core-i7 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0013-11.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0013-11.png)
 
 
 Fig. 7. Example SMT queries checking for information flow (Equation (1)) from the low bit a of an input to the 4th bit b of an operation output. The first query, for not, is unsatisfiable, indicating no flow. The second query, for add, is satisfiable, for instance by x1 = 0 and x2 = 0xf: 
@@ -505,13 +505,13 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 176 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0014-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0014-02.png)
 
 
 Fig. 8. Information flow of dst in or instruction. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0014-04.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0014-04.png)
 
 
 Fig. 9. Information flow of bits 7, 20 and 31 of dst in sbb instruction. 
@@ -664,7 +664,7 @@ HENDERSON ET AL.: DECAF: A PLATFORM-NEUTRAL WHOLE-SYSTEM DYNAMIC BINARY ANALYSIS
 179 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-02.png)
 
 
 Fig. 11. CINT2006 benchmarks that measure overhead for VMI (a) and inline taint propagation (b). 
@@ -678,13 +678,13 @@ In order to verify DECAF, we first implemented an instruction tracer to generate
 The correctness of DECAF’s rule implementations was verified using the 600,000+ PokeEMU test cases. Each test case was executed using DECAF, and all instructions executed were logged into a tainted trace, one per test case. Due to the sheer number of test cases, we did not exhaustively try all possible taint assignments to the program state. Instead, we assigned random taint values to the program state at the beginning of execution and allowed it to be propagated through the program. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-08.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-08.png)
 
 
 Fig. 12. Per-trace verification overview. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-10.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0017-10.png)
 
 
 ###### Fig. 13. Trace entry for and bug. 
@@ -706,7 +706,7 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 180 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0018-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0018-02.png)
 
 
 Fig. 14. Evaluation of API Tracer plugin. 
@@ -791,7 +791,7 @@ These results look contradictory to the claim that DECAF should be more precise,
 The Instruction Tracer plugin records a TCG IR instructionlevel trace with concrete and taint values for a specific guest user-space process or kernel code region. Similar to the other two plugins, Instruction Tracer is largely platformneutral, capable of collecting execution traces for programs in x86 and ARM, Linux and Windows. Moreover, it is also easier to perform formal verification on the TCG trace, due 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0019-11.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0019-11.png)
 
 
 ###### Fig. 16. Buffer overflow detection on ARM. 
@@ -807,7 +807,7 @@ Under the x86 environment, the TCG global variable for the EIP register can’t 
 We also performed a comparison of Instruction Tracer’s performance against that of the TEMU’s Tracecap plugin. Tracecap generates a trace of the guest’s instructions as they execute to facilitate analyses similar to that of the buffer overflow analysis performed with Instruction Tracer. We used DECAF and TEMU to emulate the same Windows XP VM and trace the execution of an instance of the DOS sort 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0019-18.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0019-18.png)
 
 
 Fig. 15. A simple buffer overflow example. 
@@ -943,7 +943,7 @@ IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. 43, NO. 2, FEBRUARY 2017
 184 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-02.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-02.png)
 
 
 Xunchao Hu is a fourth year PhD student at Syracuse University, Syracuse, New York. His research interests include system security with a focus on program analysis, exploit diagnosis, and mobile security. 
@@ -951,11 +951,11 @@ Xunchao Hu is a fourth year PhD student at Syracuse University, Syracuse, New Yo
 Aravind Prakash is an assistant professor in the Department of Computer Science, State University of New York, Binghamton, New York. His research interest includes system security with a focus on program analysis, memory forensics, exploit diagnosis, and mobile security. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-05.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-06.png)
+![](images/35-decaf-dynamic-executable-code-analysis-framework-whole.pdf-0022-06.png)
 
 
 Heng Yin received the PhD degree in computer science from the College of William and Mary in 2009. He is an assistant professor in the Department of Electrical Engineering and Computer Science, Syracuse University, Syracuse, New York. His research interests lie in binary code analysis, mobile system security, virtualization, etc. He is a member of the IEEE. 

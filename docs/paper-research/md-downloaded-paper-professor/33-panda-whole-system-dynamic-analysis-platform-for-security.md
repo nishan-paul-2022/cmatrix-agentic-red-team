@@ -55,21 +55,21 @@ Then, we proceed to record to an _ND log_ (non-determinism log) three kinds of i
 - 2) **INT** . A hardware interrupt and its parameters. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-06.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-06.png)
 
 
 <!-- Start of picture text -->
 RAM$<br>RAM$<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-07.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-07.png)
 
 
 <!-- Start of picture text -->
 IN#<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-08.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0002-08.png)
 
 
 Fig. 2: PANDA Non-determinism log 
@@ -132,35 +132,35 @@ Plugin-plugin interaction allows complex analyses to be rapidly built by composi
 There are a number of instruction-level dynamic analyses that are invaluable for reverse engineering. For instance, a taint analysis, in which data in memory or registers can be painted with labels and then those labels propagated through copies and collected in sets to represent computations, can permit detailed understanding of the true information flow patterns around and out of a system. But to perform this feat, dynamic taint requires an additional analysis be specified 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-00.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
 Guest Code<br>   push ebp<br>   mov ebp, esp (1)<br>   mov eax, [edi]<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-01.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-01.png)
 
 
 <!-- Start of picture text -->
 TCG IR<br>st_i64 tmp12,env,$0xdae0<br>ld_i64 tmp12,env,$0xdad0<br>(3)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-02.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
 Host Code<br>(4)<br>Basic Block<br>and    $0x1fe0,%esi<br>lea    0x528(%r14),%rsi<br>jmp    0x41cbf066<br>(6) callq  ld_mmu<br>(4),(5)<br>Basic Block<br>mov    %ebp,(%rdi)<br>mov    %ebp,%esi<br>xor    %edx,%edx<br>(5)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-03.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-03.png)
 
 
 <!-- Start of picture text -->
 LLVM IR<br>%3 = inttoptr i64 %2 to i64*<br>store i64 218737284, i64* %3<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-04.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0004-04.png)
 
 
 <!-- Start of picture text -->
@@ -203,26 +203,26 @@ III. Plugin Details
 Here we detail a few specific plugins commonly used when reverse engineering with PANDA. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-00.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-01.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-02.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
 00a3bd google.com r2ab.tmpa2bc (a)<br>google.com r2ab.tmp strcpy<br>(b)<br>00a3bda2bc memcpy<br>r2ab.tmp strcpy←open_file<br>google.com strcpy←open_url<br>(c)<br>00a3bda2bc memcpy<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-03.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-04.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0005-04.png)
 
 
 Fig. 4: Memory accesses made by a program with varying amounts of context: (a) as a single stream of information from the CPU to RAM ; (b) split up according to program and location within program ; (c) split up according to program, location within program, and calling context. Figure originally from [14]. 
@@ -304,7 +304,7 @@ Via manual static analysis of the code in the remaining replay segment, we ascer
 We then proceeded to extract source code for the key computation function, as the low key density indicated that harnessing it and trying random keys would be successful. QEMU's physical memory dump feature run at the end of replay plus the Volatility Framework [5] easily extracted the installer binary. IDA Pro's HexRays decompiler was then used to recreate source code which required only light editing and some error correction to compile. This extracted function we harnessed as an oracle in a small C program, feeding it random keys to find valid ones, which we then verified successfully unlocked the installer. It should be noted that, even without 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0007-08.png)
+![](images/33-panda-whole-system-dynamic-analysis-platform-for-security.pdf-0007-08.png)
 
 
 <!-- Start of picture text -->
