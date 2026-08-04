@@ -204,6 +204,13 @@ A curated list of state-of-the-art AI agents that share a similar vision of agen
 - [LLM4Pentest Framework](https://github.com/simon-p-j-r/LLM4Pentest) - Reference for blog and paper on LLMOrch-VAPT.
 - [Security Conference Deadlines](https://sec-deadlines.github.io/) - For tracking upcoming conference deadlines.
 
+### PAPERS
+- [PentestAgent: Incorporating LLM Agents to Automated Penetration Testing](docs/paper-research/md-downloaded-paper-curated/18-pentestagent-incorporating-llm-agents-to-automated-penetration-testing.md)
+- [VulnBot: Autonomous Penetration Testing for a Multi-Agent Collaborative Framework](docs/paper-research/md-downloaded-paper-curated/21-vulnbot-autonomous-penetration-testing-for-a-multi-agent-collaborative-framework.md)
+- [Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities](docs/paper-research/md-downloaded-paper-curated/54-teams-of-llm-agents-can-exploit-zero-day-vulnerabilities.md)
+- [AutoAttacker: A Large Language Model-Guided System to Implement Automatic Cyber Attacks](docs/paper-research/md-downloaded-paper-curated/56-autoattacker-a-large-language-model-guided-system-to-implement-automatic-cyber-attacks.md)
+- [PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing](docs/paper-research/md-downloaded-paper-professor/26-pentestgpt-evaluating-and-harnessing-large-language-models-for-automated-penetration-testing.md)
+
 ---
 
 <div align="center">
