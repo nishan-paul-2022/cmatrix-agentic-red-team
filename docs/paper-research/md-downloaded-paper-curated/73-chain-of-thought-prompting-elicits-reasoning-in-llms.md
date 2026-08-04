@@ -11,14 +11,11 @@ We explore how generating a _chain of thought_ —a series of intermediate reaso
 Experiments on three large language models show that chain-of-thought prompting improves performance on a range of arithmetic, commonsense, and symbolic reasoning tasks. The empirical gains can be striking. For instance, prompting a PaLM 540B with just eight chain-of-thought exemplars achieves state-of-the-art accuracy on the GSM8K benchmark of math word problems, surpassing even 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0001-07.png)
-
-
-<!-- Start of picture text -->
-Standard Prompting Chain-of-Thought Prompting<br>Model Input Model Input<br>Q: Roger has 5 tennis balls. He buys 2 more cans of  Q: Roger has 5 tennis balls. He buys 2 more cans of<br>tennis balls. Each can has 3 tennis balls. How many  tennis balls. Each can has 3 tennis balls. How many<br>tennis balls does he have now?  tennis balls does he have now?<br>A: The answer is 11.  A:  Roger started with 5 balls. 2 cans of 3 tennis balls<br>each is 6 tennis balls. 5 + 6 = 11.  The answer is 11.<br>Q: The cafeteria had 23 apples. If they used 20 to<br>make lunch and bought 6 more, how many apples  Q: The cafeteria had 23 apples. If they used 20 to<br>do they have? make lunch and bought 6 more, how many apples<br>do they have?<br>Model Output Model Output<br>A: The answer is 27. A:  The cafeteria had 23 apples originally. They used<br>20 to make lunch. So they had 23 - 20 = 3. They<br>bought 6 more apples, so they have 3 + 6 = 9.  The<br>answer is 9.<br><!-- End of picture text -->
-
-
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0001-08.png)
+```text
+(Figure 1: Comparison between Standard Prompting and Chain-of-Thought Prompting. 
+Standard Prompting provides a question and gives the answer directly.
+Chain-of-Thought Prompting provides the question, writes out intermediate reasoning steps, and then gives the answer.)
+```
 
 
 Figure 1: Chain-of-thought prompting enables large language models to tackle complex arithmetic, commonsense, and symbolic reasoning tasks. Chain-of-thought reasoning processes are highlighted. 
@@ -32,11 +29,9 @@ The NLP landscape has recently been revolutionized by language models (Peters et
 This work explores how the reasoning ability of large language models can be unlocked by a simple method motivated by two ideas. First, techniques for arithmetic reasoning can benefit from generating natural language rationales that lead to the final answer. Prior work has given models the ability to generate natural language intermediate steps by training from scratch (Ling et al., 2017) or finetuning a pretrained model (Cobbe et al., 2021), in addition to neuro-symbolic methods that use formal languages instead of natural language (Roy and Roth, 2015; Chiang and Chen, 2019; Amini et al., 2019; Chen et al., 2019). Second, large language models offer the exciting 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0002-03.png)
-
-
-<!-- Start of picture text -->
-Finetuned GPT-3 175B<br>Prior best<br>PaLM 540B: standard prompting<br>PaLM 540B: chain-of-thought prompting<br>100<br>80<br>60 55 57<br>40 33<br>18<br>20<br>0<br>Math Word Problems (GSM8K)<br>Solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 2 Bar Chart: PaLM 540B uses chain-of-thought prompting to achieve new state-of-the-art performance (approx 57%) on the GSM8K benchmark, compared to standard prompting (approx 18%) and prior best (55%).)
+```
 
 Figure 2: PaLM 540B uses chain-ofthought prompting to achieve new stateof-the-art performance on the GSM8K benchmark of math word problems. Finetuned GPT-3 and prior best are from Cobbe et al. (2021). 
 
@@ -85,11 +80,9 @@ We explore chain-of-thought prompting for various language models on multiple be
 3 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0004-00.png)
-
-
-<!-- Start of picture text -->
-Math Word Problems (free response) Math Word Problems (multiple choice) CSQA (commonsense)<br>Q: Roger has 5 tennis balls. He buys  Q: How many keystrokes are needed  Q: Sammy wanted to go to where the<br>2 more cans of tennis balls. Each can  to type the numbers from 1 to 500? people were. Where might he go?<br>has 3 tennis balls. How many tennis  Answer Choices: (a) 1156 (b) 1392 (c) 1480  Options: (a) race track (b) populated areas<br>balls does he have now?  (d) 1562 (e) 1788 (c) desert (d) apartment (e) roadblock<br>A:  There are 9 one-digit numbers<br>A:  Roger started with 5 balls. 2 cans  from 1 to 9. There are 90 two-digit  A:  The answer must be a place with a<br>of 3 tennis balls each is 6 tennis  numbers from 10 to 99. There are  lot of people. Race tracks, desert,<br>balls. 5 + 6 = 11.  The answer is 11. 401 three-digit numbers from 100 to  apartments, and roadblocks don't<br>500. 9 + 90(2) + 401(3) = 1392. T he  have a lot of people, but populated<br>areas do.  So the answer is (b).<br>answer is (b).<br>StrategyQA Date Understanding Sports Understanding<br>Q: Yes or no: Would a pear sink in  Q: The concert was scheduled to be  Q: Is the following sentence<br>water?  on 06/01/1943, but was delayed by  plausible? "Joao Moutinho caught the<br>one day to today. What is the date 10  screen pass in the NFC<br>A:  The density of a pear is about 0.6  days ago in MM/DD/YYYY?   championship."<br>g/cm^3, which is less than water.<br>Thus, a pear would float.  So the  A:  One day after 06/01/1943 is  A:  Joao Moutinho is a soccer player.<br>answer is no. 06/02/1943, so today is 06/02/1943.  The NFC championship is part of<br>10 days before today is 05/23/1943.  American football, not soccer.  So the<br>So the answer is 05/23/1943.  answer is no.<br>SayCan (Instructing a robot) Last Letter Concatenation Coin Flip (state tracking)<br>Human: How would you bring me  Q: Take the last letters of the words  Q: A coin is heads up. Maybelle flips<br>something that isn’t a fruit?  in “Lady Gaga” and concatenate  the coin. Shalonda does not flip the<br>them.  coin. Is the coin still heads up?<br>Explanation: the user wants<br>something to eat that isn’t a fruit. An  A:  The last letter of “Lady” is “y”. The  A:  The coin was flipped by Maybelle.<br>energy bar is not a fruit, so I will bring  last letter of “Gaga” is “a”.  So the coin was flipped 1 time, which<br>the user an energy bar. Concatenating them is “ya”.  So the  is an odd number. The coin started<br>Plan: 1. find(energy bar) 2.  answer is ya. heads up, so after an odd number of<br>pick(energy bar) 3. find(user) 4.  flips, it will be tails up.  So the answer<br>put(energy bar) 5. done(). is no.<br><!-- End of picture text -->
+```text
+(Figure 3: Examples of input, chain of thought, output triples for arithmetic, commonsense, and symbolic reasoning benchmarks like Math Word Problems, CSQA, StrategyQA, SayCan, Last Letter Concatenation, and Coin Flip.)
+```
 
 Figure 3: Examples of _⟨_ input, chain of thought, output _⟩_ triples for arithmetic, commonsense, and symbolic reasoning benchmarks. Chains of thought are highlighted. Full prompts in Appendix G. 
 
@@ -110,11 +103,9 @@ Third, chain-of-thought prompting via GPT-3 175B and PaLM 540B compares favorabl
 To better understand why chain-of-thought prompting works, we manually examined modelgenerated chains of thought by LaMDA 137B for GSM8K. Of 50 random examples where the model returned the correct final answer, all of the generated chains of thought were also logically and mathematically correct except two that coincidentally arrived at the correct answer (see Appendix D.1, and Table 8 for examples of correct model-generated chains of thought). We also randomly examined 50 random samples for which the model gave the wrong answer. The summary of this analysis is that 46% of the chains of thought were almost correct, barring minor mistakes (calculator error, symbol map- 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0005-03.png)
-
-
-<!-- Start of picture text -->
-Standard prompting<br>Chain-of-thought prompting<br>Prior supervised best<br>LaMDA GPT PaLM<br>60<br>40<br>20<br>0<br>80<br>60<br>40<br>20<br>0<br>100<br>75<br>50<br>25<br>0<br>0.4 8 137 0.4 7 175 8 62 540<br>Model scale (# parameters in billions)<br>GSM8K<br>solve rate (%)<br>SVAMP<br>solve rate (%)<br>MAWPS<br>solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 4 Bar Charts: Chain-of-thought prompting enables large language models (LaMDA, GPT, PaLM) to solve math problems. Performance scaling is shown on GSM8K, SVAMP, and MAWPS, with CoT substantially outperforming standard prompting.)
+```
 
 Figure 4: Chain-of-thought prompting enables large language models to solve challenging math problems. Notably, chain-of-thought reasoning is an emergent ability of increasing model scale. Prior best numbers are from Cobbe et al. (2021) for GSM8K, Jie et al. (2022) for SVAMP, and Lan et al. (2021) for MAWPS. 
 
@@ -133,11 +124,9 @@ The observed benefits of using chain-of-thought prompting raises the natural que
 **Chain of thought after answer.** Another potential benefit of chain-of-thought prompting could simply be that such prompts allow the model to better access relevant knowledge acquired during pretraining. Therefore, we test an alternative configuration where the chain of thought prompt is only given after the answer, isolating whether the model actually depends on the produced chain of thought to give the final answer. This variant performs about the same as the baseline, which suggests that the sequential reasoning embodied in the chain of thought is useful for reasons beyond just activating knowledge. 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0006-02.png)
-
-
-<!-- Start of picture text -->
-Standard prompting<br>Equation only<br>Variable compute only<br>Reasoning after answer<br>Chain-of-thought prompting<br>60<br>40<br>20<br>0<br>LaMDA PaLM<br>GSM8K solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 5 Bar Chart: Ablation study showing Chain-of-thought outperforms standard prompting, equation only, variable compute only, and reasoning after answer variants for both LaMDA and PaLM on GSM8K.)
+```
 
 Figure 5: Ablation study for different variations of prompting using LaMDA 137B and PaLM 540B. Results for other datasets are given in Appendix Table 6 and Table 7. 
 
@@ -148,11 +137,9 @@ Sensitivity to exemplars is a key consideration of prompting approaches—for in
 Figure 6 shows these results for LaMDA 137B on GSM8K and MAWPS (ablation results for other datasets are given in Appendix Table 6 / Table 7). Although there is variance among different chain of thought annotations, as would be expected when using exemplar-based prompting (Le Scao and Rush, 2021; Reynolds and McDonell, 2021; Zhao et al., 2021), all sets of chain of thought prompts outperform the standard baseline by a large margin. This result implies that successful use of chain of thought does not depend on a particular linguistic style. 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0006-07.png)
-
-
-<!-- Start of picture text -->
-Standard prompting<br>Chain-of-thought prompting<br>·<br> different annotator (B)<br>·<br> different annotator (C)<br>·<br> intentionally concise style<br>·  exemplars from GSM8K ( α )<br>·<br> exemplars from GSM8K ( β )<br>·<br> exemplars from GSM8K ( γ )<br>20 60<br>15<br>40<br>10<br>20<br>5<br>0 0<br>GSM8K MAWPS<br>Solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 6 Bar Chart: Variance of chain-of-thought prompting for different annotators and styles on GSM8K and MAWPS. Despite variance, CoT consistently outperforms standard prompting.)
+```
 
 Figure 6: Chain-of-thought prompting has variance for different prompt examples (as expected) but outperforms standard prompting for various annotators as well as for different exemplars. 
 
@@ -177,11 +164,9 @@ Although chain of thought is particularly suitable for math word problems, the l
 **Results.** Figure 7 highlights these results for PaLM (full results for LaMDA, GPT-3, and different model scales are shown in Table 4). For all tasks, scaling up model size improved the performance of standard prompting; chain-of-thought prompting led to further gains, with improvements appearing to be largest for PaLM 540B. With chain-of-thought prompting, PaLM 540B achieved strong performance relative to baselines, outperforming the prior state of the art on StrategyQA (75.6% vs 69.4%) and outperforming an unaided sports enthusiast on sports understanding (95.4% vs 84%). These results demonstrate that chain-of-thought prompting can also improve performance on tasks requiring a range of commonsense reasoning abilities (though note that gain was minimal on CSQA). 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0007-07.png)
-
-
-<!-- Start of picture text -->
-CSQA StrategyQA Date Sports SayCan<br>100 90 80 100 100<br>80 80 60 80 Standard prompting<br>80<br>Chain of thought<br>60 70 40 60<br>60 Prior supervised best<br>40 60 20 40 Human<br>20 50 0 40 20<br>8 62 540 8 62 540 8 62 540 8 62 540 8 62 540<br>Model scale (# parameters in billions)<br>Solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 7 Bar Charts: Chain-of-thought prompting improves commonsense reasoning (CSQA, StrategyQA, Date, Sports, SayCan) on PaLM across model scales, surpassing standard prompting.)
+```
 
 Figure 7: Chain-of-thought prompting also improves the commonsense reasoning abilities of language models. The language model shown here is PaLM. Prior best numbers are from the leaderboards of CSQA (Talmor et al., 2019) and StrategyQA (Geva et al., 2021) (single-model only, as of May 5, 2022). Additional results using various sizes of LaMDA, GPT-3, and PaLM are shown in Table 4. 
 
@@ -204,11 +189,9 @@ Our final experimental evaluation considers symbolic reasoning, which is simple 
 As the construction of these symbolic reasoning tasks is well-defined, for each task we consider an _in-domain_ test set for which examples had the same number of steps as 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0008-06.png)
-
-
-<!-- Start of picture text -->
-Standard prompting<br>Chain-of-thought prompting<br>Letter Concat: 2 Letter Concat: 4<br>(in domain) (OOD)<br>100<br>75<br>50<br>25<br>0<br>Coin Flip: 2 Coin Flip: 4<br>(in domain) (OOD)<br>100<br>80<br>60<br>40<br>8 62 540 8 62 540<br>Model scale (# parameters in billions)<br>Solve rate (%)<br>Solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 8 Bar Charts: Chain-of-thought prompting facilitates length generalization for symbolic reasoning (Letter Concat, Coin Flip) in both in-domain and OOD scenarios.)
+```
 
 Figure 8: Using chain-of-thought prompting facilitates generalization to longer sequences in two symbolic reasoning tasks. 
 
@@ -497,11 +480,9 @@ The question of why model scale improves chain-of-thought prompting is certainly
 As shown in Figure 9, scaling PaLM to 540B parameters fixed a substantial portion of errors in all three categories. Examples of semantic understanding and one-step missing errors that were fixed by scaling PaLM to 540B are given in Figure 10. This result appears consistent with a hypothesis that language models acquire a range of semantic understanding and logical reasoning skills as a function of model scale (though note that model scale is often conflated with other factors, such as amount of training compute). 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0016-05.png)
-
-
-<!-- Start of picture text -->
-Types of errors made by<br>a 62B language model:<br>Semantic understanding<br>(62B made 20 errors of this type,<br>540B fixes 6 of them)<br>One step missing<br>(62B made 18 errors of this type,<br>540B fixes 12 of them)<br>Errors fixed by<br>Other  scaling from<br>(62B made 7 errors of this type,  62B to 540B<br>540B fixes 4 of them)<br><!-- End of picture text -->
+```text
+(Figure 9 Analysis: Errors made by PaLM 62B (Semantic understanding, One step missing, Other). Scaling to PaLM 540B fixed a substantial portion of errors across all categories.)
+```
 
 Figure 9: Error analysis of 45 problems that PaLM 62B got incorrect. These errors were categorized that semantic understanding, one step missing, and other. The other category includes hallucinations, repetitive outputs, and symbol mapping errors. Scaling PaLM to 540B fixed a substantial portion of errors in all categories. 
 
@@ -512,11 +493,9 @@ In summary, the success of chain-of-thought reasoning as a result of model scale
 16 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0017-00.png)
-
-
-<!-- Start of picture text -->
-Question 62B Model Output 540B Model Output<br>Tracy used a piece of wire 4  She cut the wire into 6 inch pieces.  The wire was 4 feet long. This<br>feet long to support tomato  This means she got 4 * 6 = 24  means it was 4 * 12 = 48 inches<br>plants in the garden. The  pieces. The answer is 24.  long. It was cut into pieces 6 inches<br>wire was cut into pieces 6  (Incorrect: semantic  long. This means she obtained 48 /<br>inches long. How many  understanding error) 6 = 8 pieces. The answer is 8.<br>pieces did she obtain? (Correct)<br>Question 62B Model Output 540B Model Output<br>Tom's ship can travel at 10  He travels from 1 to 4 PM. That  He travels at 10 mph from 1 to 4<br>miles per hour. He is sailing  means he travels for 3 hours. He  PM. This means he travels 3 hours.<br>from 1 to 4 PM. He then  travels back at 6 mph. That means  3 hours at 10 mph means he travels<br>travels back at a rate of 6  he travels for 3 * 6 = 18 miles. The  3 * 10 = 30 miles. He then travels<br>mph. How long does it take  answer is 18.  (Incorrect: semantic  back at 6 mph. This means he<br>him to get back? understanding error) travels 6 miles per hour. He has to<br>travel 30 miles, so it takes him 30 / 6<br>= 5 hours. The answer is 5.<br>(Correct)<br>Question 62B Model Output 540B Model Output<br>Stephen placed an online  The final price of Stephen's  Stephen's bill was $40.00. The<br>order for groceries. His final  groceries was $40.00. The delivery  delivery vendor added 25% to the<br>bill came to $40.00.  vendor added 25% to the final total,  bill. This means the bill was<br>Because this was through a  so the final total was 125% of  increased by 25% of $40.00. This is<br>delivery vendor, they tacked  $40.00. This means the final total  0.25 * $40.00 = $10.00. The delivery<br>on a 25% fee to his final  was 125% * $40.00 = $50.00. The  fee was $3.00. The tip was $4.00.<br>total and charged him $3.00  delivery vendor also charged $3.00  So the total bill was $40.00 + $10.00<br>in delivery fees. Stephen  in delivery fees. So the final price of  + $3.00 + 540b model $4.00 =<br>also added a $4.00 tip. After  Stephen's groceries was $50.00 +  $57.00. The answer is 57.  (Correct)<br>the extra fees, what was the  $3.00 = $53.00. The answer is<br>final price of Stephen's  $53.00.  (Incorrect: one step<br>groceries? missing error)<br>Question 62B Model Output 540B Model Output<br>There are four schools  There are 4 schools. Each school  Each school has sent 2 teams, each<br>competing at a basketball  has sent a girls’ basketball team and  with 5 players. This means each<br>tournament. Each school  a boys’ basketball team. Each team  school has sent 2 * 5 = 10 players.<br>has sent a girls’ basketball  has 5 players each. That means  Each school has also sent 2<br>team and a boys’ basketball  there are 4 * 2 * 5 = 40 players.  coaches. This means each school<br>team and each team has 5  Each team has a coach. That  has sent 10 + 2 = 12 people. There<br>players each. Each school  means there are 40 + 4 = 44  are 4 schools, so in total all of the<br>has also sent a coach for  coaches. The answer is 44.  schools have sent 4 * 12 = 48<br>each team. In total, how  (Incorrect: one step missing  people. The answer is 48.  (Correct)<br>many people have all of the  error)<br>schools sent?<br><!-- End of picture text -->
+```text
+(Figure 10: Examples of semantic understanding and one-step missing errors fixed by scaling PaLM from 62B to 540B.)
+```
 
 Figure 10: Examples of semantic understanding and one-step missing errors that were fixed by scaling PaLM from 62B to 540B. 
 
@@ -876,11 +855,9 @@ As the experiments in the main paper use a fixed number of few-shot exemplars (8
 28 
 
 
-![](images/73-chain-of-thought-prompting-elicits-reasoning-in-llms.pdf-0029-00.png)
-
-
-<!-- Start of picture text -->
-Standard prompting<br>Chain of thought prompting<br>MultiArith Sports Last Letter<br>GSM8K (MAWPS) Understanding Coin Flip Concatenation<br>15 60 100 100 100<br>75 75 75<br>10 40<br>50 50 50<br>5 20<br>25 25 25<br>0 0 0 0 0<br>1 2 4 6 8 1 2 4 6 8 1 2 4 6 8 1 2 4 6 8 1 2 3 4<br>Number of few-shot exemplars<br>Solve rate (%)<br><!-- End of picture text -->
+```text
+(Figure 11 Bar Charts: Improvement of CoT prompting over standard prompting is robust to varying the number of few-shot exemplars across multiple benchmarks like GSM8K, MultiArith, Sports Understanding, etc.)
+```
 
 Figure 11: The improvement of chain of thought prompting over standard prompting appears robust to varying the number of few-shot exemplars in the prompt. 
 
