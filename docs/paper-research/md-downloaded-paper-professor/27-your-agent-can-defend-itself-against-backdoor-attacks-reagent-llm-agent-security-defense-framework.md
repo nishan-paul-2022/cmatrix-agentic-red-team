@@ -29,7 +29,7 @@ To this end, we introduce ReAgent,<sup>1</sup> a novel defense that safeguards L
 > 1ReAgent: <u>Reverse and</u> Reflective Agent. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0002-00.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0002-00.png)
 
 
 <!-- Start of picture text -->
@@ -70,19 +70,19 @@ While this work also leverages LLMs for selfdefense, it fundamentally differs fr
 Consider an LLM-based agent parameterized by _θ_ . Let _I_ be the user’s instruction, which specifies the task to be completed, for instance, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-06.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-06.png)
 
 
 The agent fulfills _I_ through a sequence of steps. Specifically, at the _i_ -th step, the agent generates a thought _Ti_ , then takes an action _Ai_ based on _I_ and all the historical information (i.e., _T_ 1: _i−_ 1 and _A_ 1: _i−_ 1) and receives an observation _Oi_ as the result of executing _Ai_ . For instance, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-08.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-08.png)
 
 
 Formally, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-10.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-10.png)
 
 
 where _T<i_ , _A<i_ represent the preceding thoughts and actions, _πθ_ denotes the probability distribution on all potential thought-action conditional on preceding actions and observations, and _O_ denotes the environment that receives _Ai_ as input and produces the corresponding feedback _Oi_ = _O_ ( _Ai_ ). 
@@ -90,7 +90,7 @@ where _T<i_ , _A<i_ represent the preceding thoughts and actions, _πθ_ denotes
 A backdoor attack on LLM-based agents aims to inject a malicious function into the agent. For instance, the adversary may force the agent to ‘delete all files in a specific directory’. To achieve this, the adversary generates a set of poisoning traces _{_ ( _I_<sup>_∗_</sup> _, T_ 1:<sup>_∗_</sup> _n_<sup>_, A_</sup> 1:<sup>_∗_</sup> _n_<sup>)</sup><sup>_}_, each containing this malicious</sup> function. For example, each trace may include a malicious action _A_<sup>_∗_</sup> _i_<sup>= excute ‘</sup><sup>`rm`</sup><sup>_∗_’.The agent is</sup> trained or fine-tuned using the poisoning traces: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-13.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0003-13.png)
 
 
 Notably, the malicious action can be flexibly embedded in any intermediate step and/or paired with any thought. For example, _Ti_<sup>_∗_= ‘I need to delete all</sup> files in this directory’. Further, the agent backdoor can be activated by either the user’s instruction _I_<sup>_∗_</sup> (e.g., _I_<sup>_∗_</sup> contains a keyword ‘sneaker’) or the agent’s environment (e.g., the directory includes a specific file). This flexibility makes it more challenging to detect agent backdoors compared to conventional backdoor attacks on LLMs (Yan et al., 2023; Kurita et al., 2020; Xu et al., 2023). 
@@ -114,11 +114,11 @@ At a high level, ReAgent leverages the observation that the compromised agent of
 **Execution-level detection** – Recall that the agent’s behavior consists of a thought-action sequence _⟨_ ( _Ti, Ai_ ) _⟩_ . For a clean agent, _Ai_ and _Ti_ are often consistently coupled. Thus, to detect backdoors at the execution level, ReAgent assesses the consistency between _Ti_ and _Ai_ at each step: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-07.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-08.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-08.png)
 
 
 Here, the consistency function _κ_ exec( _·, ·_ ) determines the thought-action consistency. Specifically, it can be implemented using semantic similarity metrics (e.g., BERTScore (Zhang et al., 2019) and Semantic Textual Similarity (Yang et al., 2018)) or an LLM as an evaluator (e.g., the agent’s own backend LLM). ReAgent monitors consistency at each step while the agent executes the instruction _I_ . If any inconsistency is detected, ReAgent flags a potential backdoor attack. 
@@ -128,7 +128,7 @@ Here, the consistency function _κ_ exec( _·, ·_ ) determines the thought-acti
 _M_ ’s inherent capability to reconstruct the instruction based on its thought trajectory _T_ 1: _n_ , with proper prompting _p_ (details in §B). Formally, let _I_<sup>_′_</sup> = _M_ ( _T_ 1: _n|p_ ) be the reconstructed instruction. Upon obtaining _I_<sup>_′_</sup> , ReAgent checks the consistency between _I_<sup>_′_</sup> and the user’s instruction _I_ : 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-12.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0004-12.png)
 
 
 where _κ_ plan( _·, ·_ ) determines the instruction consistency. Similar to _κ_ exec( _·, ·_ ), it can be implemented using semantic similarity metrics or using an LLM as an evaluator. ReAgent conducts a planning-level consistency check once the agent completes the given task. If any discrepancy is detected, ReAgent flags it as a potential backdoor. 
@@ -195,7 +195,7 @@ We first evaluate ReAgent’s effectiveness. Table 2 compares ReAgent and baseli
 – ReAgent leverages the LLM’s capabilities to precisely identify specific malicious actions, a feature unattainable by other defenses. As shown in 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0006-08.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0006-08.png)
 
 
 <!-- Start of picture text -->
@@ -252,7 +252,7 @@ In §5, we compare ReAgent with representative LLM backdoor defenses. Here, we e
 Table 2: Comparison of ReAgent with baseline defenses across different tasks and agents. ASR: Attack Success Rate, FPR: False Positive Rate, SR: Success Rate. Bold values indicate the best performance for each task-model combination. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0007-02.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -285,7 +285,7 @@ In the operating ReAgent, we instruct the agent to provide chain-of-thought (CoT
 ual actions and thoughts, as well as the consistency between the reconstructed instruction and the user’s instruction. We now conduct an ablation study to demonstrate the role of these explanations. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0008-01.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
@@ -300,7 +300,7 @@ As shown in Figure 4, the CoT explanation enhances the effectiveness of ReAgent 
 Under the default setting, ReAgent adopts a selfchecking approach (Manakul et al., 2023), utilizing the agent’s backend LLM to assess the consistency between the reconstructed instruction _I_<sup>_′_</sup> and the user’s instruction _I_ . We now explore using predefined semantic similarity metrics for consistency checking, such as BERTScore (Zhang et al., 2019) and Semantic Textual Similarity (Yang et al., 2018). Specifically, after obtaining _I_<sup>_′_</sup> , we compare it to _I_ to check whether sim( _I, I_<sup>_′_</sup> ) _≥ θ_ , where sim( _·, ·_ ) is the metric and _θ_ is a parameter thresholding acceptable equivalency. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0008-06.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0008-06.png)
 
 
 <!-- Start of picture text -->
@@ -468,7 +468,7 @@ Here, we will provide more examples of ReAgent for three tasks along with releva
 Figure 6: The execution level prompt of ReAgent for the DB task. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0012-02.png)
+![](images/27-your-agent-can-defend-itself-against-backdoor-attacks-reagent-llm-agent-security-defense-framework.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->

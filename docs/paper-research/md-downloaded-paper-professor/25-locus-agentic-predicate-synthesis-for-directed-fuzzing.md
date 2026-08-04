@@ -81,7 +81,7 @@ ICSE ’26, April 12–18, 2026, Rio de Janeiro, Brazil
 Locus : Agentic Predicate Synthesis for Directed Fuzzing 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-02.png)
+![](images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-02.png)
 
 
 <!-- Start of picture text -->
@@ -89,7 +89,7 @@ Input Generator<br>PLTE ... Generic Input Grammar<br>write_signature(png_ptr, 13
 =<br>edges pruned by existing DGF if (!crc_table_computed)<br>path to trigger the canary make_crc_table();<br>nodes equidistant to canary for  c   (int n  ; n  len; n= crc_table= 0 [(c  <^ buf[n])]++)<br>canary node<br>(a) A simplified CFG (b) LLM-generated code<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-03.png)
+![](images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-03.png)
 
 
 <!-- Start of picture text -->
@@ -105,7 +105,7 @@ png_set_PLTE&(png_ptr, ...); EXIT();     ...
  if (!found_plte) EXIT();<br>Buffer Overflow  Refine<br>canary statement synthesized code by Locus<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-04.png)
+![](images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0003-04.png)
 
 
 <!-- Start of picture text -->
@@ -136,7 +136,7 @@ ICSE ’26, April 12–18, 2026, Rio de Janeiro, Brazil
 Jie Zhu, Chihao Shen, Ziyang Li, Jiahao Yu, Yizheng Chen, Kexin Pei 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0004-02.png)
+![](images/25-locus-agentic-predicate-synthesis-for-directed-fuzzing.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->

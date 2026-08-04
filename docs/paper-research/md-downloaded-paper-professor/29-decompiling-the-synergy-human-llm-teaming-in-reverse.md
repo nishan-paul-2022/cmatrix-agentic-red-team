@@ -147,7 +147,7 @@ We provide each participant with a link to our online platform (Section V-B). Up
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0005-00.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0005-00.png)
 
 
 Figure 1: A screenshot of the online platform after a participant starts a challenge. A VNC is accessible in the browser that provides access to an instrumented decompiler (with an LLM plugin), browser, and text editor. 
@@ -277,7 +277,7 @@ An _understanding rate_ can be calculated by dividing a participant’s understa
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0008-00.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -376,7 +376,7 @@ In our study, participants had access to the six LLM features (presented in Sect
 10 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0011-00.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0011-00.png)
 
 
 <!-- Start of picture text -->
@@ -411,7 +411,7 @@ Some participants reflected this fear of over-querying and over-reliance on LLMs
 11 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0012-00.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0012-00.png)
 
 
 <!-- Start of picture text -->
@@ -668,7 +668,7 @@ Finally, we would like to thank all the participants who took part in our user s
 16 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0017-00.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0017-00.png)
 
 
 Figure 5: Participants’ responses to a 5-point Likert scale from Helpful to Harmful for LLM-plugin features 
@@ -721,7 +721,7 @@ Table IV: A summary of key findings from the survey conducted on the study parti
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0017-19.png)
+![](images/29-decompiling-the-synergy-human-llm-teaming-in-reverse.pdf-0017-19.png)
 
 
 <!-- Start of picture text -->
