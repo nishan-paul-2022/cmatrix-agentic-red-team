@@ -51,7 +51,7 @@ We argue that BMCV detection requires _semantic grounding_ : constraining vulner
 Based on this, we present Veritas, a semantically grounded agentic framework for detecting memory corruption vulnerabilities in stripped binaries. Veritas organizes analysis into three stages aligned with the grounding layers. A semantic-driven _Slicer_ extracts compact, witness-backed source-to-sink flows from lifted LLVM IR, capturing interprocedural propagation and memory-risk operations 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0002-06.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0002-06.png)
 
 
 <!-- Start of picture text -->
@@ -100,21 +100,21 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Xinran Zheng, Alfredo Pesoli, Marco Valleri, Suman Jana, and Lorenzo Cavallaro 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-02.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
 Attacker uploaded PPM file Reader Selection PPM Reader Object and Shared Structure Allocation<br>1: int main(int argc, char **argv){2:  ... 1: select_file_type(j_compress_ptr cinfo,     FILE*infile){  ... 1: jinit_read_ppm(j_compress_ptr cinfo){2:   ppm_source_ptr source;<br>3:  if ((input_file = fopen(argv[file_index],  2:    int c = getc(infile); 3:   source = (ppm_source_ptr)<br>READ_BINARY)) == NULL) ...  3:    if (c == 80) {   4:    (*cinfo->mem->alloc_small)((j_common_ptr)cinfo,<br>4:  src_mgr = select_file_type(&cinfo, input_file);} 4:      return jinit_read_ppm(cinfo); } ...       JPOOL_IMAGE, sizeof(ppm_source_struct));<br>5:   return (cjpeg_source_ptr)source;}<br>Malicious Data Reading and Memory Consumption No call chain Header Parsing and Rescale Array Memory Allocation<br>1: get_rgb_row(j_compress_ptr cinfo,  1: start_input_ppm(j_compress_ptr cinfo, cjpeg_source_ptr sinfo){<br>         cjpeg_source_ptr sinfo){ 1: typedef struct {   2:   ppm_source_ptr source = (ppm_source_ptr)sinfo;<br>4:   register JSAMPLE *rescale = source->rescale;register JSAMPLE *rescale = source->rescale; 3:  ...   3:   ...<br>5:   if (!ReadOK(source->pub.input_file,  4:  U_CHAR *iobuffer;    4:   maxval = read_pbm_integer(cinfo, source->pub.input_file, 65535);<br>          source->iobuffer, source->buffer_width)) 5:  JSAMPLE *rescale;JSAMPLE *rescale; 5:   source->rescale = (JSAMPLE *)<br>6:       ERREXIT(cinfo, JERR_INPUT_EOF); 6:  unsigned int maxval; 6:   (*cinfo->mem->alloc_small) ((j_common_ptr)cinfo, JPOOL_IMAGE,<br>7:   bufferptr = source->iobuffer; 7: } ppm_source_struct;ppm_source_struct;        (size_t)(((long)maxval + 1L) * sizeof(JSAMPLE)));<br>8:   ... 8: typedef ppm_source_struct ppm_source_struct  7:   ...<br>9:  //OOB-read: If file data UCH(*bufferptr++) is larger 9:          *ppm_source_ptr; 8:   // Initialize rescale array with maxval<br>10: than maxval, reads beyond allocated array.  9:   for (val = 0; val <= (long)maxval; val++) {<br>11:  RGB_READ_LOOP(rescale[UCH(*bufferptr++)], rescale[UCH(*bufferptr++)], [UCH(*bufferptr++)],  Shared the global structure  10:   source->rescale[val] = (JSAMPLE)((val * MAXJSAMPLE +<br>12:          ptr[aindex] = 0xFF;)} 11:           half_maxval) / maxval);}<br>ppm_source_struct<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-03.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-03.png)
 
 
 <!-- Start of picture text -->
 Malicious Data Reading and Memory Consumption No call chain<br>1: get_rgb_row(j_compress_ptr cinfo,<br>         cjpeg_source_ptr sinfo){ 1: typedef struct {<br>4:   register JSAMPLE *rescale = source->rescale;register JSAMPLE *rescale = source->rescale; 3:  ...<br>5:   if (!ReadOK(source->pub.input_file,  4:  U_CHAR *iobuffer;<br>          source->iobuffer, source->buffer_width)) 5:  JSAMPLE *rescale;JSAMPLE *rescale;<br>6:       ERREXIT(cinfo, JERR_INPUT_EOF); 6:  unsigned int maxval;<br>7:   bufferptr = source->iobuffer; 7: } ppm_source_struct;ppm_source_struct;<br>8:   ... 8: typedef ppm_source_struct ppm_source_struct<br>9:  //OOB-read: If file data UCH(*bufferptr++) is larger 9:          *ppm_source_ptr;<br>10: than maxval, reads beyond allocated array.<br>11:  RGB_READ_LOOP(rescale[UCH(*bufferptr++)], rescale[UCH(*bufferptr++)], [UCH(*bufferptr++)],  Shared the global structure<br>12:          ptr[aindex] = 0xFF;)}<br>ppm_source_struct<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-04.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0004-04.png)
 
 
 <!-- Start of picture text -->
@@ -139,15 +139,15 @@ The **Semantic-driven Context Slicer** provides the first grounding layer by lif
 Veritas: A Semantically Grounded Agentic Framework for Memory Corruption Vulnerability Detection in Binaries Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-01.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-02.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-03.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0005-03.png)
 
 
 <!-- Start of picture text -->
@@ -190,7 +190,7 @@ Given the candidate flows Π produced by the _Slicer_ , the _Detector_ performs 
 _3.3.1 Dual-view Input Representation._ Let _𝐷_ ( _𝑓𝑡_ ) denote the decompiled code of function _𝑓𝑡_ , and let _𝐼_ ( _𝑓𝑡_ ) denote its lifted LLVM IR, both produced by RetDec. The _Detector_ adapts the input representation of each function according to its role in the flow, using the anchor cues A( _𝑓𝑡_ ) to identify the specific tokens and operations relevant at each step. This design is motivated by the semantic loss of decompilation (Section 2.1.2): decompiled code provides a concise representation for control-flow and constraint reasoning, but it often collapses memory operations into offset expressions, making object identity and sink semantics ambiguous. Lifted IR is therefore consulted at source and sink functions, where taint alignment or sink semantics require disambiguation. Formally, the function view is defined as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0006-11.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0006-11.png)
 
 
 When dual-view is triggered, the prompt presents both representations together with the relevant endpoint annotations from A( _𝑓𝑡_ ). At intermediate functions, the _Detector_ reasons over _𝐷_ ( _𝑓𝑡_ ) alone; the propagation tokens in A( _𝑓𝑡_ ) identify which value to track, while the provenance class indicates the evidential strength of the function’s presence in the flow. 
@@ -200,7 +200,7 @@ _3.3.2 Step-wise Reasoning._ Analyzing an entire flow in a single LLM invocation
 For notation, we use S _𝑛_ as a conceptual abstraction of the _Detector_ ’s accumulated reasoning after processing the prefix ( _𝑓_ 1 _, . . . , 𝑓𝑛_ ), rather than as a separately materialized program-analysis object. At each step, the prompt asks the model to update this state only when the current function provides evidence that adds, refines, or invalidates prior facts. Let Φ _𝜃_ denote the step-wise LLM detector. The update at step _𝑛_ is written as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0006-15.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0006-15.png)
 
 
 Conference acronym ’XX, June 03–05, 2018, Woodstock, NY 
@@ -216,7 +216,7 @@ _3.3.3 Trie-based Flow Memoization._ Many candidate flows share prefixes, especi
 The cache C is a prefix trie over these key elements. A root-todepth path _𝑛_ represents: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0007-06.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0007-06.png)
 
 
 and stores the reasoning state S _𝑛_ after that prefix. For a new flow, the _Detector_ resumes from the longest exactly matched prefix and invokes the LLM only on the remaining suffix. Thus, reuse occurs only when two prefixes expose the same ordered function identifiers and grounded labels. 
@@ -447,7 +447,7 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Xinran Zheng, Alfredo Pesoli, Marco Valleri, Suman Jana, and Lorenzo Cavallaro 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0012-02.png)
+![](images/04-veritas-semantically-grounded-agentic-framework-for.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->

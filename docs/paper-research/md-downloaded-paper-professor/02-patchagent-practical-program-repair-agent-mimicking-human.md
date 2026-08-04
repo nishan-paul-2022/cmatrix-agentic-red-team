@@ -1,5 +1,5 @@
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0001-00.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0001-00.png)
 
 
 # **Patchagent : A Practical Program Repair Agent Mimicking Human Expertise** 
@@ -15,7 +15,7 @@ https://www.usenix.org/conference/usenixsecurity25/presentation/yu-zheng
 **Open access to the Proceedings of the 34th USENIX Security Symposium is sponsored by USENIX.** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0001-07.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0001-07.png)
 
 
 ## **PATCHAGENT: A Practical Program Repair Agent Mimicking Human Expertise** 
@@ -144,7 +144,7 @@ USENIX Association
 34th USENIX Security Symposium    4383 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0005-00.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
@@ -173,46 +173,46 @@ In this section, through a concrete example, we show that a vanilla LLM agent th
 USENIX Association 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-00.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
 Sanitizer Report<br>==35==ERROR: AddressSanitizer: global-buffer-overflow ①<br>READ of size 8 at 0x55bc18 thread T0<br>#0 0x55969b in Compile_BlockStat /source/m3_compile.c:22<br>......<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-01.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-01.png)
 
 
 <!-- Start of picture text -->
 Optimization<br>ChainCompress AutoCorrection<br>ReportPurify CounterExample<br>Patch<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-02.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-03.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-03.png)
 
 
 <!-- Start of picture text -->
 Initial input<br>LLM output<br>Environment<br> output<br>Optimization<br>component<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-04.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-04.png)
 
 
 <!-- Start of picture text -->
 Patch<br>② ③ Success! Patch<br>Failed<br>Patch Verifier<br>④ Evaluate Patch ⑤<br>Generated Patch +8 -4<br>m3_compile.c<br>m3_parse.c<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-05.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-05.png)
 
 
 <!-- Start of picture text -->
 Project Codebase<br>Source/<br>m3_compile.c<br>m3_parse.c<br>app_fuzz/<br>fuzzer.c<br>fuzzer.h<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-06.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0006-06.png)
 
 
 <!-- Start of picture text -->
@@ -309,7 +309,7 @@ USENIX Association
 34th USENIX Security Symposium    4387 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0009-00.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
@@ -348,7 +348,7 @@ bers, the language server may consider it an invalid action. Our observations in
 The workflow of PATCHAGENT runs multiple patch rounds until the system found the correct patch, relying on the LLM’s ability to generate diverse patches each round. However, even with the _temperature_ set to 1 (indicating a higher probability of varied output), the LLM might still produce patches with similar logic across different rounds. This issue demonstrates the lack of ability of LLMs to self-reflect and improve their performance within multiple rounds. We demonstrate this issue in Listing 2, where the original code bug arises from mishandling a null pointer. Specifically, the program attempts to pass t->text, which may be null, to the gf_strdup function, which cannot handle null inputs, resulting in a null pointer 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0010-04.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0010-04.png)
 
 
 <!-- Start of picture text -->
@@ -533,7 +533,7 @@ USENIX Association
 Table 5: **Token & Money Cost of PATCHAGENT under Different LLM.** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0014-02.png)
+![](images/02-patchagent-practical-program-repair-agent-mimicking-human.pdf-0014-02.png)
 
 
 <!-- Start of picture text -->

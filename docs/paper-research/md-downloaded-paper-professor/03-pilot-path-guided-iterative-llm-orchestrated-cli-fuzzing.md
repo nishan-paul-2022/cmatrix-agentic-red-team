@@ -39,7 +39,7 @@ Figure 1 shows a simplified version of the vulnerable code. Line 1 shows the com
 The main research challenge is how to reach the vulnerable location with the correct inputs that can trigger the vulnerability. There are two conditions for this specific motivating example in Fig. 1: (i) a valid input file, i.e., a H.264/HEVC input file with proper NAL unit structures, and (ii) a correct combination of option strings, which are “-i file -c copy -f rtp address” for this vulnerability. More specifically, the input file must be valid in terms of containing valid H.264/HEVC codec identification 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0002-07.png)
+![](images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0002-07.png)
 
 
 <!-- Start of picture text -->
@@ -68,7 +68,7 @@ In this section, we describe the design of PILOT from its system architecture an
 PILOT leverages LLMs to generate effective initial seeds for CLI fuzzing, consisting of command-line strings and input files, which are later used by state-of-the-art CLI fuzzers. To achieve this, PILOT performs two key functions. First, it coordinates seed generation by iteratively communicating with the LLM, sending tailored prompts together with supplemental information such as the target function, potential 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0003-07.png)
+![](images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
@@ -696,7 +696,7 @@ Based on the significant correlations, we automatically generate decision rules 
 For positive correlations, we recommend strategy _s_ when _f_ ( _p_ ) _≥ θf_ ; for negative correlations, when _f_ ( _p_ ) _≤ θf_ . Each decision rule is weighted by _|r|_ (absolute correlation). The overall confidence for recommending strategy _s_ to program _p_ is: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0016-08.png)
+![](images/03-pilot-path-guided-iterative-llm-orchestrated-cli-fuzzing.pdf-0016-08.png)
 
 
 where _Ms_ is the set of matched conditions and _Rs_ is all conditions for strategy _s_ . Table 11 summarizes the generated decision rules. Table 12 shows the distribution of chosen strategies for the 20 POWER dataset programs. 

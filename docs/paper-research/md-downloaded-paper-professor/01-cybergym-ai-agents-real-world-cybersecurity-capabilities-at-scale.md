@@ -29,7 +29,7 @@ CyberGym primarily evaluates agents on their ability to reproduce vulnerabilitie
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0002-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0002-01.png)
 
 
 <!-- Start of picture text -->
@@ -168,7 +168,7 @@ Overall, Claude-Sonnet-4 achieves the best result with a success rate of 17.9%, 
 **Thinking Mode Improves Success Rate** We compare Level 1 Success Rate (%) thinking and non-thinking modes using Qwen3-235Bw/o Thinking A22B, GPT-5, Claude-3.7-Sonnet, and Claude-Sonnet-4 24.0 w/ Thinking on the 300-instance subset. We allow more output tokens 16.0 14.3 for thinking mode while applying the same 100 iteration limit to both modes (detailed in Appendix C). As illus8.0 2.7 4.7 trated in Figure 4, while the thinking mode yields mod0.0 est gains over other models, it increases GPT-5’s success Qwen3-235B-A22B-A22B Claude rate from 7.7% (with minimal reasoning) to 22.0% (with Figure 4: high reasoning), surpassing Claude-Sonnet-4. This phenomenon is consistent with GPT-5’s results for other benchmarks (OpenAI, b). 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0007-04.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
@@ -201,7 +201,7 @@ Figure 6: Success rates of OpenHands with GPT-4.1 under four different levels of
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0009-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0009-01.png)
 
 
 <!-- Start of picture text -->
@@ -569,7 +569,7 @@ Published as a conference paper at ICLR 2026
 **Prompts Used in Benchmark Construction** We use GPT-4.1 to filter and rephrase commit messages. Figure 9 presents the prompt used to exclude commit messages that either lack informative descriptions of the vulnerability or address multiple issues. We include a comprehensive list of example commit messages and our preferred answers to help the LLM make more accurate decisions. Figure 10 shows the prompt used to rephrase patch commit messages into vulnerability descriptions. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0019-03.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0019-03.png)
 
 
 <!-- Start of picture text -->
@@ -590,7 +590,7 @@ Figure 10: Prompt for rephrasing commit messages.
 **Human Verification of LLM-Based Filtering and Rephrasing** We conduct expert audits to evaluate the quality of LLM-based filtering and rephrasing. The audit includes 300 stratified samples (150 retained by the pipeline and 150 filtered out) covering 96 projects and all crash types. The distribution of PoC lengths, which serves as a proxy for task difficulty, is similar between this audited subset and the full dataset, as illustrated in Figure 11. Two authors collaboratively define the evaluation criteria, independently review the samples, and adjudicate disagreements. Interannotator agreement is strong, with Cohen’s _κ_ of 0.82 ± 0.03 prior to adjudication. For filtering, experts examine whether each vulnerability description include sufficient detail for reproducing the corresponding vulnerability; 6 cases (4% of all selected samples) lack the necessary locating information, corresponding to an estimated precision of 96%. We also identify 10 false negatives, indicating that only a small fraction of valid samples are excluded. For rephrasing, experts evaluate whether the rewritten descriptions preserved all essential technical content while removing patchspecific details (e.g., patching instructions, commit hashes, and issue IDs); all reviewed instances meet these criteria. These results reflect the stability of our pipeline. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0020-05.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0020-05.png)
 
 
 <!-- Start of picture text -->
@@ -607,7 +607,7 @@ Figure 11: Distribution of PoC lengths for the audited subset versus the full da
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0021-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0021-01.png)
 
 
 <!-- Start of picture text -->
@@ -616,7 +616,7 @@ Generate the exploit PoC using the<br>information in ` /workspace ` , check<br>`
 Figure 12: Task prompt directly provided to the agents as the user query. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0021-03.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0021-03.png)
 
 
 <!-- Start of picture text -->
@@ -680,7 +680,7 @@ ots, p11-kit, p9, pborman-uuid, pcapplusplus, pcl, pcre2, perfetto, pffft, php, 
 **More Details of Data Contamination Analysis** Figure 14 shows the distributions of PoC lengths across the pre- and post-cutoff splits for GPT-4.1/o4-mini, GPT-5, and Claude-3.7-Sonnet, all of which have sufficiently large post-cutoff samples (i.e., greater than 50 samples). The distributions are highly similar, suggesting that PoC length which roughly indicates the difficulty is not confounded with the knowledge-cutoff split. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0023-04.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0023-04.png)
 
 
 <!-- Start of picture text -->
@@ -697,7 +697,7 @@ Figure 14: Distributions of ground truth PoC lengths by model for pre- versus po
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0024-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0024-01.png)
 
 
 <!-- Start of picture text -->
@@ -706,7 +706,7 @@ main<br>18 project<br>crash type<br>12<br>6<br>0<br>Claude- Claude- GPT-4.1 GPT-
 Figure 15: Success rates of different models with balanced resampling by software projects and crash types. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0024-03.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0024-03.png)
 
 
 <!-- Start of picture text -->
@@ -738,7 +738,7 @@ Table 8: Success rates for top 10 crash types achieved by OpenHands with Claude-
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0025-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0025-01.png)
 
 
 <!-- Start of picture text -->
@@ -776,7 +776,7 @@ Table 9: Quantitative breakdown of common agent failure modes and retrieval inef
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0027-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0027-01.png)
 
 
 <!-- Start of picture text -->
@@ -803,7 +803,7 @@ Published as a conference paper at ICLR 2026
 Overall, the agents showcase promising abilities in performing vulnerability analysis, showcasing an ability to inspect files, reason through multi-step tasks, and use scripting techniques effectively. However, to generate more sophisticated PoCs, they require more advanced tools and the ability to conduct deeper code analysis. Enhancing their reasoning and code comprehension abilities while building better frameworks will be critical to scaling their effectiveness in complex security tasks. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0028-02.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0028-02.png)
 
 
 <!-- Start of picture text -->
@@ -816,7 +816,7 @@ Published as a conference paper at ICLR 2026
 Figure 19: In this example, the agent fails to trigger a crash and stops early. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0029-02.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0029-02.png)
 
 
 <!-- Start of picture text -->
@@ -968,7 +968,7 @@ Published as a conference paper at ICLR 2026
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0032-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0032-01.png)
 
 
 <!-- Start of picture text -->
@@ -1120,7 +1120,7 @@ The most promising is to try a progressive JPEG with multiple scans, each with a
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0035-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0035-01.png)
 
 
 <!-- Start of picture text -->
@@ -1159,7 +1159,7 @@ Published as a conference paper at ICLR 2026
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0039-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0039-01.png)
 
 
 <!-- Start of picture text -->
@@ -1170,7 +1170,7 @@ Published as a conference paper at ICLR 2026
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0040-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0040-01.png)
 
 
 <!-- Start of picture text -->
@@ -1181,7 +1181,7 @@ Figure 24: In this example, OpenHands, using Claude-Sonnet-4, keeps generating d
 #### **Example of EnIGMA** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0040-04.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0040-04.png)
 
 
 <!-- Start of picture text -->
@@ -1252,7 +1252,7 @@ Published as a conference paper at ICLR 2026
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0045-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0045-01.png)
 
 
 <!-- Start of picture text -->
@@ -1263,7 +1263,7 @@ sos_data = (<br>b'\x02' # Number of components: 2<br>b'\x02\x00' # Component 1: 
 Published as a conference paper at ICLR 2026 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0046-01.png)
+![](images/01-cybergym-ai-agents-real-world-cybersecurity-capabilities-at-scale.pdf-0046-01.png)
 
 
 <!-- Start of picture text -->
