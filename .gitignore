@@ -10,13 +10,4 @@ node_modules/
 __pycache__/
 *.py[cod]
 
-convert.py
-convert_all.py
-debug.py
-venv/
-test_img/
-docs/paper-research/md-downloaded-paper-curated/images/
-docs/paper-research/md-downloaded-paper-professor/images/
-images_to_mermaid.py
-test_gemini.py
 docs/paper-research/tmp-images-*/
