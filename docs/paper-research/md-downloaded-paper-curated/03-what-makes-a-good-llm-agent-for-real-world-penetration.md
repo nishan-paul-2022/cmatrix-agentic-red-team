@@ -118,7 +118,15 @@ What distinguishes transient from persistent challenges? Transient challenges di
 The Cochise case shows this distinction from a different angle. Cochise’s AD-specific attack primitives (Kerberoasting, NTLM relay, BloodHound integration) are capability additions that models cannot replicate through improved reasoning alone. However, this specialization comes at the cost of generality: Cochise underperforms on XBOW and the PentestGPT Benchmark (34% and 4/13 with GPT-4o) compared to general-purpose systems like VulnBot (39% and 6/13), while leading on GOAD by leveraging domain-specific knowledge unavailable to other systems. Neither approach, compensating 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0004-07.png)
+```mermaid
+xychart-beta
+    title "Failure Distribution vs Task Depth (Type A vs Type B)"
+    x-axis "Task Depth (steps)" ["1-2", "3-4", "5-6", "7-8", "9+"]
+    y-axis "Failure Distribution (%)" 0 --> 100
+    line [72, 58, 41, 28, 15]
+    %% Note: Area below line represents Type A: Capability Gaps
+    %% Area above line represents Type B: Complexity Barriers
+```
 
 
 <!-- Start of picture text -->
@@ -189,7 +197,55 @@ Current systems uniformly lack this capability. PentestGPT’s Penetration Testi
 5 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0006-00.png)
+```mermaid
+flowchart LR
+    subgraph Input["Input"]
+        Target["Attack Target<br/>(tree structure)"]
+    end
+    
+    subgraph Excalibur["Excalibur Agent"]
+        subgraph Planner["§4.3-4.4 TDA-EGATS Planner"]
+            TDA["Task Difficulty Assessment<br/>H, E, C, S"]
+            Mode["TDI-Guided Mode<br/>BFS / LLM / DFS"]
+            TDA --> Mode
+            Mode --> Ops["EGATS Operations"]
+            Ops --> Tree["Attack Tree (EGATS)"]
+        end
+        
+        Goal["Attack Goal"]
+        
+        subgraph Memory["§4.5 Memory Subsystem"]
+            State["State"]
+            Context["Context"]
+            Branch["Branch Summaries"]
+        end
+        
+        subgraph Tool["§4.2 Tool & Skill Layer"]
+            Interfaces["Tool Interfaces"]
+            Skill["Skill Composition"]
+        end
+        
+        Planner <-->|Update| Memory
+        Tree -->|2| Goal
+        Goal --> Tool
+    end
+    
+    subgraph Execution["Execution"]
+        Network(("fa:fa-globe"))
+        Inst["Attack Instruction"]
+        Res["Execution Results"]
+        Inst --> Network --> Res
+    end
+    
+    subgraph Output["Output"]
+        OutTree["Results<br/>Attack Path Completed"]
+    end
+    
+    Target -->|1| Planner
+    Tool -->|3| Inst
+    Res -->|4| OutTree
+    OutTree -.->|Feedback| Target
+```
 
 
 <!-- Start of picture text -->
@@ -270,7 +326,11 @@ Table 4: Search strategy comparison. EGATS is the only approach that combines ex
 TDA combines the above 4 dimensions into a Task Difficulty Index (TDI): 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0008-06.png)
+```mermaid
+flowchart TD
+    Eq["<b>Equation 1: Task Difficulty Index (TDI)</b><br/><br/>TDI = w_H * H&#770; + w_E * (1 - E) + w_C * C + w_S * (1 - S)"]
+    style Eq fill:#fff,stroke:#333,stroke-width:1px,font-family:serif,font-size:16px
+```
 
 
 where _H_<sup>ˆ</sup> is the normalized horizon estimate and all weights sum to 1. Higher TDI indicates greater difficulty. We set _wH_ = _wE_ = 0 _._ 3 and _wC_ = _wS_ = 0 _._ 2 based on grid search over a validation set of 30 execution traces from HTB machines not included in the PentestGPT benchmark (retired machines from 2022–2023, predating our evaluation set). We test 256 configurations with each weight in _{_ 0 _._ 1 _,_ 0 _._ 2 _,_ 0 _._ 3 _,_ 0 _._ 4 _}_ constrained to sum to 1.0; task completion varies within _±_ 3% across configurations where all weights remain in [0 _._ 1 _,_ 0 _._ 4], indicating that the approach is not sensitive to precise weight selection. 
@@ -304,7 +364,11 @@ Algorithm 1 presents the TDA-guided search procedure. SELECTNODE uses UCB to bal
 ration: 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0009-05.png)
+```mermaid
+flowchart TD
+    Eq["<b>Equation 2: Upper Confidence Bound (UCB)</b><br/><br/>UCB(n) = &phi;(n) + c * &radic;(ln N / N_n) - &lambda; * &delta;(n)"]
+    style Eq fill:#fff,stroke:#333,stroke-width:1px,font-family:serif,font-size:16px
+```
 
 
 where φ( _n_ ) is the promise score, _N_ is total actions, _Nn_ is actions on node _n_ ’s subtree, _c_ = _√_ 2 is the exploration constant, and the _−_ λ _·_ δ( _n_ ) term penalizes high-difficulty nodes (λ = 0 _._ 5, validated via grid search; see Appendix D). 
@@ -372,7 +436,13 @@ The PentestGPT benchmark shows larger architectural differences. PENTESTGPT V2 r
 Table 6: Ablation study results (GPT-5.2 thinking). Base: raw shell access with reactive prompting. Each row adds a component cumulatively. 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0011-01.png)
+```mermaid
+xychart-beta
+    title "Performance by Configuration (XBOW %)"
+    x-axis ["Base", "+Tool", "+EGATS", "Full (Memory)"]
+    y-axis "Performance (%)" 0 --> 100
+    bar [54, 68, 77, 85]
+```
 
 
 <!-- Start of picture text -->
@@ -437,7 +507,33 @@ To illustrate where TDA-EGATS falls short, we examine PlayerTwo, the only Pentes
 This failure exposes a TDA limitation: it cannot distinguish “difficult but tractable” from “novel requiring creative reasoning,” as both present as high TDI. When RAG retrieval 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0012-07.png)
+```mermaid
+flowchart TD
+    subgraph PTT["(a) PentestGPT (PTT)"]
+        S1["Start"] --> E1["Enum"]
+        E1 --> SQL1["SQLi (0.3)"]
+        E1 -.-> Dir1["Dir (abandoned)"]
+        E1 -.-> Ports1["Ports (abandoned)"]
+        SQL1 --> Hash1["Hash (0.4)"]
+        Hash1 --> BF1["BF-1 (0.5)"]
+        BF1 -.-> BF25["BF-25 (0.7)<br/>Stuck: no backtrack"]
+        BF25 -.-> BF47["BF-47 (0.9)<br/>Context degraded"]
+    end
+    
+    subgraph EGATS["(b) Excalibur (EGATS)"]
+        S2["Start"] --> E2["Enum"]
+        E2 --> SQL2["SQLi (0.3)"]
+        E2 -.-> XSS2["XSS (pruned)"]
+        E2 --> Auth2["Auth (0.5)"]
+        SQL2 --> Hash2["Hash (0.4)"]
+        Hash2 --> BF2_1["BF (0.7)"]
+        BF2_1 -.->|TDI pivot<br/>triggers backtrack| Auth2
+        Auth2 --> RAG["RAG (0.3)"]
+        RAG --> TypeJ["TypeJ (0.2)"]
+        TypeJ --> Shell["Shell (0.1)"]
+        Shell --> Root["Root Success"]
+    end
+```
 
 
 <!-- Start of picture text -->
@@ -652,7 +748,11 @@ Table 12 presents the complete evidence confidence scoring rubric used by the TD
 **Path Confidence Computation.** For a path _P_ = ( _n_ 0 _, n_ 1 _,..., nk_ ) from root to current node, the evidence confidence is computed as: 
 
 
-![](images/03-what-makes-a-good-llm-agent-for-real-world-penetration.pdf-0017-05.png)
+```mermaid
+flowchart TD
+    Eq["<b>Equation 3: Average Path Evidence E(P)</b><br/><br/>E(P) = (1/k) * &Sigma; e(n_i)"]
+    style Eq fill:#fff,stroke:#333,stroke-width:1px,font-family:serif,font-size:16px
+```
 
 
 where _e_ ( _ni_ ) is the confidence score assigned to node _ni_ based on Table 12. The root node _n_ 0 is excluded as it represents the initial state before any evidence is gathered. 

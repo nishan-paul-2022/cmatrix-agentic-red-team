@@ -83,14 +83,52 @@ Generalized Direct Preference Optimization (GDPO) [24] builds on direct preferen
 Fine-tuning LLMs using reinforcement learning, in particular GRPO, for reasoning has shown promising results beyond typical scenarios such as coding and mathematics. For instance, [10, 30] 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-07.png)
+```mermaid
+flowchart LR
+    subgraph Input[" "]
+        PTT["PTT - summary of the<br/>attack environment"]
+        Prev["Previous Step"]
+        PrevRes["Previous Step Result"]
+        PTT --- Prev --- PrevRes
+    end
+    
+    subgraph PS["Pen-Strategist"]
+        subgraph Strategy["Strategy model"]
+            A["Analyze the previous step<br/>and results"]
+            R["Reason out the next strategy<br/>based on the previous<br/>findings (PTT)"]
+            A --> R
+        end
+        
+        subgraph Step["Step model"]
+            GPT2["GPT2 - semantic<br/>embedding extraction"]
+            N["Next step prediction"]
+            M["MCP server prediction"]
+            GPT2 --> N
+            GPT2 -.-> M
+        end
+        
+        R -->|Derived strategy with<br/>reasoning| GPT2
+    end
+    
+    subgraph Agent["Agent setup"]
+        AgentConfig["Plug into other<br/>frameworks"]
+    end
+    
+    Input --> Strategy
+    Step --> Exec["Execution"]
+    Agent -->|1. Better strategy derivation.<br/>2. Correct next step (action) prediction.| PS
+```
 
 
 <!-- Start of picture text -->
 Pen-Strategist<br>PTT  - summary of the Strategy model Step model<br>attack environment Analyze the previous step GPT2 - semantic<br>+ and results embedding extraction<br>Previous Step Reason out the next strategy<br>based on the previous Next step prediction<br>+ findings (PTT)<br>Previous Step Result Derived strategy with MCP server prediction<br>reasoning<br>Agent setup<br>1. Better strategy derivation.<br>Plug into other<br>frameworks<br>2. Correct next step (action) prediction.<br>Execution<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0003-08.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-cogs Agent setup"]
+    style Icon fill:#ffe4b5,stroke:#333,stroke-width:2px,border-radius:10px
+```
 
 
 **Figure 1: System overview of the Pen-Strategist. The framework is designed to be modular, allowing integration with other agent-based architectures.** 
@@ -110,34 +148,72 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Trovato et al. 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-02.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-save"]
+    style Icon fill:#1e90ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-03.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-file-text Walkthroughs"]
+    style Icon fill:#f0f8ff,stroke:#333,stroke-width:2px
+```
 
 
 <!-- Start of picture text -->
 Walkthroughs<br><!-- End of picture text -->
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-04.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-file-text Document"]
+    style Icon fill:#f9f9f9,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-05.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-desktop HackTheBox Machine"]
+    style Icon fill:#1a1c23,stroke:#9fef00,stroke-width:2px,color:#9fef00
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-06.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-user User/Hacker"]
+    style Icon fill:#e6f3ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-07.png)
+```mermaid
+flowchart TD
+    Icon["fa:fa-save Save/Disk"]
+    style Icon fill:#1e90ff,stroke:#333,stroke-width:2px
+```
 
 
 
-![](images/04-pen-strategist-a-reasoning-framework-for-penetration.pdf-0004-08.png)
+```mermaid
+flowchart LR
+    subgraph Human[" "]
+        HI["Human<br/>interaction"]
+        CE["Command<br/>execution"]
+    end
+    
+    subgraph Agent[" "]
+        Sum["Summarizer<br/>Summarize the results"]
+        Task["Tasks to execute"]
+    end
+    
+    CE --> Sum
+    Task --> CE
+```
 
 
 <!-- Start of picture text -->
