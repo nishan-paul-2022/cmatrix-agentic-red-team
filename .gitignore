@@ -9,3 +9,7 @@ node_modules/
 # Python
 __pycache__/
 *.py[cod]
+
+convert.py
+docs/paper-research/md-downloaded-paper-curated/images
+venv/
