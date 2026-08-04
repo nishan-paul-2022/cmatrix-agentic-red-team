@@ -65,7 +65,7 @@ Can LLMs Hack Enterprise Networks?
 3 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0003-02.png)
+*Screenshot of a terminal session showing Cochise executing `impacket-GetNPUsers` to extract a Kerberos AS-REP hash for a user account, followed by using `john` (John the Ripper) to crack the hash offline, revealing the password.*
 
 
 Fig. 1. Our prototype combines two Active Directory attacks (AS-REP Kerberos Roasting, following up by password-cracking) to compromise a user account without human interaction (Experiment run can be found in run-20250129-085237.json). 
@@ -346,7 +346,32 @@ Our study evaluates the autonomous actions of LLMs that perform enterprise netwo
 Our experiment environment architecture is demonstrated in Figure 2. We are using A Game of Active Directory<sup>12</sup> (short Goad), version 3, to create a simulated vulnerable Microsoft Windows Active Directory (short AD) within the virtual test network. To allow our prototype to interact with the AD, a Linux virtual machine is placed on the same virtual network. The prototype is allowed to execute commands over SSH on this virtual machine. 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0013-07.png)
+```mermaid
+flowchart TD
+    OpenAI[OpenAI LLM API]
+    Cochise[Prototype (cochise)]
+    Kali[Kali Linux Attack VM]
+    GOAD[GOADv3 Vulnerable AD 5 VMs]
+    Control[Control PC]
+    Experiment[Virtualized Experiment Environment]
+    
+    Cochise -- Prompts --> OpenAI
+    OpenAI -- Responses --> Cochise
+    
+    Cochise -- Linux Commands (SSH) --> Kali
+    Kali -- Responses (SSH) --> Cochise
+    
+    Kali <-->|interacts| GOAD
+    
+    subgraph Control PC
+        Cochise
+    end
+    
+    subgraph Virtualized Experiment Environment
+        Kali
+        GOAD
+    end
+```
 
 
 <!-- Start of picture text -->
@@ -371,7 +396,28 @@ the 192.168.56.0/24 network range of our virtual test network and instruct it to
 ### **3.2 Testbed** 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0014-04.png)
+```mermaid
+flowchart TD
+    subgraph sevenkingdoms.local
+        DC1[DC1 kingslanding<br>Windows Server 2019]
+    end
+    
+    subgraph north.sevenkingdoms.local
+        DC2[DC2 winterfell<br>Windows Server 2019]
+        SRV2[SRV2 castelblack<br>Windows Server 2019<br>No Microsoft Defender<br>MSSQL Server<br>IIS with Upload Site]
+    end
+    
+    subgraph essos.local
+        DC3[DC3 mereen<br>Windows Server 2016]
+        SRV3[SRV3 braavos<br>Windows Server 2016<br>AD Certificate Services<br>MSSQL Server]
+    end
+    
+    Attacker[Kali Linux Attacker VM]
+    
+    DC2 -- Domain-Trust --> DC1
+    SRV2 -- MSSQL Link --> SRV3
+```
+*(Diagram illustrating the Game of Active Directory (GOADv3) network topology with 5 Windows VMs distributed across three domains, along with various attack paths like AS-REP Roasting, LLMNR poisoning, and Kerberoasting.)*
 
 
 <!-- Start of picture text -->
@@ -568,7 +614,7 @@ Can LLMs Hack Enterprise Networks?
 21 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0021-02.png)
+*Architecture diagram of Cochise showing the interaction between the Planner (Update PTT, Select Next Task) and the Executor (Analyze Progress, Execute Command), leveraging the OpenAI API (O1 and GPT-4o) and executing commands via SSH on a Kali Linux VM.*
 
 
 <!-- Start of picture text -->
@@ -699,7 +745,7 @@ Can LLMs Hack Enterprise Networks?
 25 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0025-02.png)
+*Heatmap depicting the success rates of various models (DeepSeek-V3, GPT-4o, Qwen3, Gemini-2.5-Flash, O1+GPT-4o) across different attack techniques (e.g., Network/Service Scanning, AS-REP Roasting, Hash Cracking).*
 
 
 <!-- Start of picture text -->
@@ -836,7 +882,7 @@ Further analyzing our most expensive model (o1+GPT-4o), 94 _._ 07% of the cost o
 _5.5.2 Overall Time Consumption._ Figure 10(a) highlights how time was spent by the different prototype configurations. We differentiate between time spent by the Planner, the Executor, and time spent waiting on command completion. DeepSeek-V3, Gemini-2.5-Flash, and the combined o1+GPT-4o prototype exhibit a similar behavior of spending 60% of their time on high-level strategy making (Planner), 15–20% of the time on selecting and analyzing commands (Executor), and finally waiting for commands to be finished for 20–25% of the time. Qwen3’s Planner is not incorporating the Executor’s information correctly, thus the Planner’s cost are lower and more time is spent executing commands. GPT-4o is a non-reasoning model and thus spends less time updating the PTT and selecting new tasks to be forwarded to the Executor. 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0029-05.png)
+*Two charts: A stacked bar chart showing the breakdown of execution time (Planner, Executor, Commands) for each model, and a scatter plot visualizing Query Round-Trip Time versus Total Token Count for different models.*
 
 
 <!-- Start of picture text -->
@@ -857,7 +903,7 @@ Andreas Happe and Jürgen Cito
 30 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0030-02.png)
+*Scatter plot illustrating the growth of the State/Pentest-Task-Tree (PTT) size in tokens across Planner rounds for different models.*
 
 
 <!-- Start of picture text -->
@@ -884,7 +930,7 @@ Can LLMs Hack Enterprise Networks?
 31 
 
 
-![](images/16-can-llms-hack-enterprise-networks-autonomous-assumed-breach.pdf-0031-02.png)
+*Charts showing Executor Input Prompt Size over Time, Percentage of Cached Input Prompts per Model, and a bar chart detailing the number of runs a tool was used within.*
 
 
 <!-- Start of picture text -->
