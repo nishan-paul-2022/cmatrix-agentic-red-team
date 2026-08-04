@@ -23,7 +23,7 @@ Achieving that intuition requires more than faster execution; it requires embedd
 _Introduction_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0002-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0002-01.png)
 
 
 <!-- Start of picture text -->
@@ -104,13 +104,13 @@ Cybersecurity inherently involves adversarial interactions where perfect protect
 CTR formalizes a zero-sum asynchronous game where an attacker, already present at unknown node _θ ∈ V \{v_ 0 _}_ , advances stochastically toward target _v_ 0 following a Poisson process with rate _λ_ . The defender inspects nodes from admissible set _AS_ 1 _⊆ V \ {v_ 0 _}_ according to mixed strategy _σd ∈_ ∆( _AS_ 1). The probability of catching the attacker is: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0005-09.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0005-09.png)
 
 
 where _Pπ_ ( _c | θ, λ_ ) = <u>�</u> _x∈Vf_ (Pois _π_ )(<sup>_f_</sup> _d_<sup>Pois</sup> _π_ <u>(</u> _θ_<sup>(</sup> _<u>,</u>_<sup>_d_</sup> _c_<sup>_π_</sup> <u>);</u><sup>(</sup> _λ_<sup>_θ,x_</sup> <u>)</u><sup>);</sup><sup>_λ_)representsthelikelihoodoftheattackerbeingatnode</sup><sup>_c_</sup> given path _π_ and distance _dπ_ ( _θ, c_ ). The Nash equilibrium ( _σd_<sup>_⋆, π⋆, θ⋆_)solvestheminimaxproblem:</sup> 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0005-11.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0005-11.png)
 
 
 This yields the optimal randomized defense policy that minimizes the worst-case attack success probability, representing a stable state where neither player benefits from unilateral deviation. For complete mathematical derivation, see Appendix A. 
@@ -165,7 +165,7 @@ Our G-CTR implementation handles LLM-generated graphs with potential cycles and 
 _Background_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0008-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0008-01.png)
 
 
 **Figure 2: Attack Graph example** : nodes represent structured information extracted from logs, each containing attributes such as name, message ID, vulnerability status, and additional context. They are categorized into three types: starting nodes (gray), non-vulnerable nodes (light teal), and vulnerable nodes (dark teal), based on their risk level. The orange dashed arrow shows an alternative entry point inferred by the LLM, which is merged into the graph for G-CTR computation because we suppose that everything begins at the first user prompt recorded ( _message_id = 1_ ). In this figure, the attack starts at the “User Prompt” (ID: 1) and progresses through intermediate nodes like “web.com” to reach a key vulnerability-“IDOR Vulnerability” (ID: 4)-which lead to “Data Exfiltration” (ID: 5). 
@@ -189,7 +189,7 @@ Unlike CTR’s probabilistic distributions over static graphs, G-CTR quantifies 
 Let _Ei_ denote the effort to transition from node _i_ to the next vulnerable node. We define the normalized effort score as a convex combination of three metrics: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-05.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-05.png)
 
 
 where **w** = ( _w_ msg _, w_ tok _, w_ cost) _∈_ ∆<sup>3</sup> forms a probability simplex, and _ϕk_ : N _→_ [0 _,_ 1] are normalized effort functions. 
@@ -197,19 +197,19 @@ where **w** = ( _w_ msg _, w_ tok _, w_ cost) _∈_ ∆<sup>3</sup> forms a prob
 **Message Distance (** _ϕ_ **msg).** For the log file _ℓ_ with _Jℓ_ total messages, let _mi_ denote messages between node _i_ and its successor vulnerable node. The normalized message effort is: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-08.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-08.png)
 
 
 **Token Complexity (** _ϕ_ **tok).** Let _ti_ represent tokens consumed along edge _i_ , approximated via a standardized tokenizer ( `Qwen/Qwen1.5-0.5B-Chat` ). For total tokens _Tℓ_ =<sup>�</sup><sup>_J_</sup> _j_ =1<sup>_ℓtj_inthelogfile</sup><sup>_ℓ_:</sup> 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-10.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-10.png)
 
 
 **Computational Cost (** _ϕ_ **cost).** Given actual token count _x_ with cost _Cx_ , we estimate cost _C_<sup>ˆ</sup> _y_ for heuristic count _y_ as _C_<sup>ˆ</sup> _y_ = ( _y/x_ ) _·Cx_ . Let _ci_ denote the estimated cost for transition _i_ . With total cost _Cℓ_ =<sup>�</sup><sup>_J_</sup> _j_ =1<sup>_ℓcj_:</sup> 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-12.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0009-12.png)
 
 
 The formulation ensures _Ei ∈_ [0 _,_ 1], where higher values indicate greater effort required for exploitation. This metric replaces CTR’s Poisson-based transition probabilities with empirically grounded computational complexity measures suitable for LLM-generated attack graphs.<sup>1</sup> 
@@ -241,7 +241,7 @@ By analyzing this example, the Cut-the-Rope framework demonstrates its ability t
 _Background_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0011-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0011-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -296,14 +296,14 @@ Figure 4 illustrates the operational feedback loop architecture. The system cont
 _Background_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-01.png)
 
 
 <!-- Start of picture text -->
 Example Generated Attack Graph with Probabilities Example Guidance Digest added to the Agent’s System Prompt Cybersecurity AI (CAI) Agent Prompt<br>G-CTR Security Analysis (added to the System Prompt)<br>Identified Attack Paths:<br>Path 1: CTF Challenge  → [66%] Nmap Scan → [80%] Open Ports<br>Discovery  → [85%] FTP Service (Port 21)  · · · → [0%] Target<br>(FTP Service (Port 21))<br>Path 2: CTF Challenge  · · · → [30%] FTP Download Attempt 1<br>→ [57%] FTP Service (Port 21)  · · · → [0%] Target (FTP Service<br>(Port 21))<br>Path 3: CTF Challenge  · · · → [17%] FTP Download Attempt 2<br>· · · → [3%] FTP Service (Port 21)  · · · → [0%] Target (FTP<br>Service (Port 21))<br>Critical Bottlenecks (Attack Weaknesses):<br>- FTP Download Attempt 2 -> FTP Service (Port 21): 3.1%<br>success rate<br>- ...: ...<br>Phase 1: Game-Theoretic AI Analysis (G-CTR) Phase 2: Game-Theoretic AI Guidance (Digest Generation) Phase 3: Agent Execution (ReAct)<br>G-CTR < 10ms ≈ 60s<br>Results Algorithmic Act<br>digest<br>(Tools)<br>< 5ms ≈ 10s<br>Nash Strategic Plan<br>Equilibrium Interpretation (LLM)<br>≈ 20s ≈ 28.3s<br>Scan &<br>Attack LLM Update<br>Graph digest (Context)<br>Generation<br>every 5 interactions ( ∼ 80 tools)<br>Time Budget: ≈ 50s Time Budget: ≈ 70s<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-02.png)
 
 
 **Algorithm 1:** `GenerateDigest()` : Game-Theoretic Digest for Guidance 
@@ -311,7 +311,7 @@ Example Generated Attack Graph with Probabilities Example Guidance Digest added 
 **Algorithm 2:** Game-theoretic AI closed-loop feedback algorithm 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-05.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0013-05.png)
 
 
 <!-- Start of picture text -->
@@ -502,7 +502,7 @@ mode (42.9% vs 20.0%) despite similar Nash equilibrium inputs<sup>4</sup> . This
 Figure 5 visualizes the temporal efficiency analysis, accounting for failure probability in expected time calculations. While G-CTR `llm` -guided successful tests exhibit 21% longer individual duration (20.2 vs 16.7 min), the 3.21 _×_ improvement in success probability dominates the performance metric, yielding 2.67 _×_ reduction in expected time to vulnerability discovery. The expected time metric (E[ _T_ success]) properly accounts for the cost of failed attempts as shown in Equation 7: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0021-03.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0021-03.png)
 
 
 <!-- Start of picture text -->
@@ -589,13 +589,13 @@ _Results_
 ance in adversarial settings. Each experiment consisted of multiple competitive rounds [15] using the combinations of configurations described above. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0024-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0024-02.png)
 
 
 **(a)** Cowsay Challenge Results. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0024-04.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0024-04.png)
 
 
 **(b)** Pingpong Challenge Results. 
@@ -739,7 +739,7 @@ The attacker’s goal is to reach a designated critical asset _v_ 0 _∈ V_ , wh
 The defender can inspect nodes from a set _AS_ 1 _⊆ V \{v_ 0 _}_ . The attacker selects a strategy over pairs ( _θ, π_ ), where _θ ∈ V_ ( _π_ ) _⊆ V \ {v_ 0 _}_ is the starting point, and _π ∈ AS_ 2 is a feasible attack path ending at _v_ 0. The game is defined by the quintuple: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0030-09.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0030-09.png)
 
 
 where _fN_ is a probability distribution over the number of steps the attacker can take during a single round (e.g., following a Poisson-, geometric or other distribution). 
@@ -749,7 +749,7 @@ where _fN_ is a probability distribution over the number of steps the attacker c
 The probability that the attacker has reached a particular node _v_ on path _π_ , given the rate _λ_ , is: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0030-13.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0030-13.png)
 
 
 _Appendix 1: A Refresher on Cut-The-Rope (CTR) and Game Theory [6]_ 
@@ -771,7 +771,7 @@ Here:
 - _f_ Pois( _k_ ; _λ_ ): the Poisson mass function: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-09.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-09.png)
 
 
 This function gives the probability of making exactly _k_ steps between two defender actions. 
@@ -781,7 +781,7 @@ This function gives the probability of making exactly _k_ steps between two defe
 Let _σd ∈_ ∆( _AS_ 1) be the defender’s mixed strategy: a probability distribution over the set _AS_ 1 _⊆ V \ {v_ 0 _}_ of nodes that the defender is allowed to inspect. Each round, the defender picks a node _c ∈ AS_ 1 to inspect, with probability _σd_ ( _c_ ). The defender’s expected probability of catching the attacker (e.g., cutting the attack path) is: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-13.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-13.png)
 
 
 Here: 
@@ -797,7 +797,7 @@ Here:
 The attacker succeeds if none of the nodes they use are inspected during the round. This gives the attacker’s success utility: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-20.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-20.png)
 
 
 ##### **Game objective: optimal defender strategy** 
@@ -805,7 +805,7 @@ The attacker succeeds if none of the nodes they use are inspected during the rou
 This is a zero-sum game: the attacker’s gain is the defender’s loss. The defender seeks the strategy _σd_<sup>_⋆_thatminimizestheattacker’sbest-casechanceofsuccessacrossallpossibleattackpathsand</sup> starting points. Formally, the optimal defense is: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-23.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-23.png)
 
 
 Where: 
@@ -900,13 +900,13 @@ _Appendix 3: kolesa.kz_
 ### **C Appendix 3: kolesa.kz** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0034-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0034-02.png)
 
 
 - (a) Human Attack Graph 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0034-04.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0034-04.png)
 
 
 <!-- Start of picture text -->
@@ -927,7 +927,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: kolesa.kz_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0035-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0035-01.png)
 
 
 - (a) Attack Graph Example 
@@ -950,7 +950,7 @@ _Appendix 3: kolesa.kz_
 _Appendix 3: kolesa.kz_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0036-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0036-01.png)
 
 
 - (a) Attack Graph Example 
@@ -976,7 +976,7 @@ _Appendix 3: kolesa.kz_
 _Appendix 3: kolesa.kz_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0037-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0037-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1000,7 +1000,7 @@ _Appendix 3: kolesa.kz_
 _Appendix 3: kolesa.kz_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0038-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0038-01.png)
 
 
 (a) Attack Graph Example 
@@ -1028,7 +1028,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: kolesa.kz_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0039-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0039-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1061,7 +1061,7 @@ _Appendix 3: mercadolibre.com_
 ### **D Appendix 3: mercadolibre.com** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0040-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0040-02.png)
 
 
 ###### (a) Human Attack Graph Example 
@@ -1088,7 +1088,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: mercadolibre.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0041-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0041-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1114,7 +1114,7 @@ _Appendix 3: mercadolibre.com_
 _Appendix 3: mercadolibre.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0042-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0042-01.png)
 
 
 - (a) Attack Graph Example 
@@ -1140,7 +1140,7 @@ _Appendix 3: mercadolibre.com_
 _Appendix 3: mercadolibre.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0043-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0043-01.png)
 
 
 (a) Attack Graph Example 
@@ -1167,7 +1167,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: mercadolibre.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0044-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0044-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1195,7 +1195,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: mercadolibre.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0045-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0045-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1230,7 +1230,7 @@ _Appendix 3: pornbox.com_
 ### **E Appendix 3:** **<u>pornbox.com</u>** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0046-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0046-02.png)
 
 
 (a) Human Attack Graph 
@@ -1259,7 +1259,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: pornbox.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0047-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0047-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1288,7 +1288,7 @@ Defender can keep attacker success below: **0.027127** Attacker can guarantee su
 _Appendix 3: pornbox.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0048-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0048-01.png)
 
 
 (a) Attack Graph Example 
@@ -1322,7 +1322,7 @@ Defender can keep attacker success below: **0.025766** Attacker can guarantee su
 _Appendix 3: pornbox.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0049-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0049-01.png)
 
 
 (a) Attack Graph Example 
@@ -1351,7 +1351,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 3: pornbox.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0050-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0050-01.png)
 
 
 (a) Attack Graph Example 
@@ -1380,7 +1380,7 @@ Defender can keep attacker success below: **0.035714** Attacker can guarantee su
 _Appendix 3: pornbox.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0051-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0051-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1410,7 +1410,7 @@ _Appendix 4: hm.com_
 ### **F Appendix 4: hm.com** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0052-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0052-02.png)
 
 
 ###### (a) Human Attack Graph 
@@ -1437,7 +1437,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 4: hm.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0053-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0053-01.png)
 
 
 - (a) Attack Graph Example 
@@ -1463,7 +1463,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 4: hm.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0054-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0054-01.png)
 
 
 ###### (a) Attack Graph Example 
@@ -1493,7 +1493,7 @@ Defender can keep attacker success below: **0.023598** Attacker can guarantee su
 _Appendix 4: hm.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0055-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0055-01.png)
 
 
 (a) Attack Graph Example 
@@ -1529,7 +1529,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 4: hm.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0056-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0056-01.png)
 
 
 - (a) Attack Graph Example 
@@ -1552,7 +1552,7 @@ _Appendix 4: hm.com_
 _Appendix 4: hm.com_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0057-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0057-01.png)
 
 
 - (a) Attack Graph Example 
@@ -1585,7 +1585,7 @@ _Appendix 5: media.guilded.gg_
 ### **G Appendix 5: media.guilded.gg** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0058-02.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0058-02.png)
 
 
 ###### (a) Human Attack Graph 
@@ -1612,7 +1612,7 @@ Defender can keep attacker success below: **0.000000** Attacker can guarantee su
 _Appendix 5: media.guilded.gg_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0059-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0059-01.png)
 
 
 (a) Attack Graph Example 
@@ -1641,7 +1641,7 @@ Defender can keep attacker success below: **0.030220** Attacker can guarantee su
 _Appendix 5: media.guilded.gg_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0060-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0060-01.png)
 
 
 (a) Attack Graph Example 
@@ -1669,7 +1669,7 @@ Defender can keep attacker success below: **0.019259** Attacker can guarantee su
 _Appendix 5: media.guilded.gg_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0061-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0061-01.png)
 
 
 - (a) Attack Graph Example 
@@ -1707,7 +1707,7 @@ _Appendix 5: media.guilded.gg_
 _Appendix 5: media.guilded.gg_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0062-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0062-01.png)
 
 
 (a) Attack Graph Example 
@@ -1745,7 +1745,7 @@ _Appendix 5: media.guilded.gg_
 _Appendix 5: media.guilded.gg_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0063-01.png)
+![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0063-01.png)
 
 
 (a) Attack Graph Example 

@@ -17,7 +17,7 @@ According to the 2023 Internet Crime Report by the Federal Bureau of Investigati
 2Our fork of PentestGPT with the modifications have been shared: https://github.com/isamu-isozaki/PentestGPT 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0001-10.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0001-10.png)
 
 
 Figure 1: Current LLM-Based Pentest Benchmarking Process: LLM-suggested actions are executed by human operators. Feedback is provided to the LLM-powered Pentest tool, and human operators assess the tool’s performance throughout the process. The future goal is to minimize human interaction in this process. 
@@ -71,7 +71,7 @@ participation. However, certain steps, such as using BurpSuite [PortSwigger, 202
 4. Evaluate all tasks: As we wanted to be comprehensive, while Deng et al. [2024] stopped evaluating once a single task failed for every box, we evaluated all tasks. When a task failed, we provided the necessary commands along with the expected outcome, as outlined in our benchmark, ensuring consistency across trials. This approach allowed us to assess the performance of the LLMs across all task types. The full rules can be seen in the Appendix A. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0003-09.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0003-09.png)
 
 
 Figure 2: Task Distribution Across Penetration Testing Categories: Illustrates the distribution of tasks across four key categories in penetration testing: Reconnaissance, Exploitation, Privilege Escalation, and General Techniques. 
@@ -83,7 +83,7 @@ The task types and their categories were directly referenced from the PentestGPT
 based on the definition. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0004-01.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0004-01.png)
 
 
 Figure 3: Categories Density Through Task Sequence: The figure shows how reconnaissance tasks dominate the early stages of penetration testing, while exploitation and privilege escalation are more frequent toward the end. 
@@ -141,7 +141,7 @@ As the difficulty of machines increases, we observe distinct trends in the perfo
 Table 1: Distribution of Penetration Testing Tasks by Machine and Category (Reconnaissance, General Techniques, Exploitation and Privilege Escalation) 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0005-02.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0005-02.png)
 
 
 Figure 4: This chart displays the performance of the PentestGPT tool benchmark using two popular LLMs: GPT-4o and Llama3.1-405B. Llama3.1 outperforms GPT-4o on 7 machines, both models show equal performance on 4 machines, and GPT-4o performs better on 2 machines. 
@@ -161,19 +161,19 @@ We studied three different ablations for this pa-
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-00.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-01.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-02.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-03.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-03.png)
 
 
 Figure 5: Three ablations were performed in this study: (a) Base PentestGPT (b) Ablation 1: Inject Summary - We maintain the summary and create a summary of past summaries to preserve the knowledge of progress made and maintain history. (c) Ablation 2: Structured Generation - Here we have updated the reasoning module to maintain a structured todo list instead of an unstructured Penetration Testing Tree (PTT). Ablation 2 includes the changes from Ablation 1. (d) Ablation 3: RAG Context - Building on Ablations 1 and 2, we add RAG context based on data scraped from Hacktricks [Polop, 2024]. RAG retrieves similar chunks from the vectorDB to add to the context of the reasoning module. 
@@ -226,7 +226,7 @@ the modifications from ablations 1 and 2, while ablation 3 incorporates changes 
 ## **5 Discussion** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0007-08.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0007-08.png)
 
 
 Figure 6: Success Rates in Penetration Testing: GPT4o vs Llama3.1 across Early to Late Stages 
@@ -484,13 +484,13 @@ Table 4: Penetration Testing Categories and Task Types from [Deng et al., 2024]
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0013-00.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0013-00.png)
 
 
 Figure 7: Overall task success rate by each category 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0013-02.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0013-02.png)
 
 
 Figure 8: Overall task success rate by each category after 50% of tasks is completed 
@@ -498,29 +498,29 @@ Figure 8: Overall task success rate by each category after 50% of tasks is compl
 13 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-00.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-00.png)
 
 
 Figure 9: Overall task success rate by each task type 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-02.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-02.png)
 
 
 (a) Success rate by task type for reconnaissance category 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-04.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-04.png)
 
 
 (b) Success rate by task type for general techniques category 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-06.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-07.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-07.png)
 
 
 Figure 10: Analysis of task success rates for each tasks by category for GPT-4o and Llama3.1-405B 
@@ -528,15 +528,15 @@ Figure 10: Analysis of task success rates for each tasks by category for GPT-4o 
 14 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-00.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-01.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-02.png)
+![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-02.png)
 
 
 Figure 11: Analysis of task success rates for different categories in different level of machines for GPT-4o and Llama3.1-405B 
