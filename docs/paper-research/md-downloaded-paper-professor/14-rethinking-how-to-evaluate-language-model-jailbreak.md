@@ -23,43 +23,43 @@ Jailbreak is generally performed in an automated way. This automated process can
 1 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-00.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-01.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-02.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-03.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-04.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-05.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-06.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-07.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-08.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-09.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0002-09.png)
 
 
 Figure 1: The process of language model jailbreak. 
@@ -108,19 +108,19 @@ Our framework is made publicly available in our research replication repository 
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-00.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-01.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-02.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-03.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0003-03.png)
 
 
 Figure 2: An example of a jailbreak, where an adversarial prompt is used to attack the language model to answer questions which the language model originally refused. 
@@ -327,43 +327,43 @@ Table 1: Mapping metrics to different actors.
 † ✗ and ✓ represent satisfying and not satisfying the metric, e.g., **SV** = ✓ means the response violates the safeguard. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-03.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-04.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-05.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-06.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-07.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-08.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-09.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-10.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-11.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-12.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0006-12.png)
 
 
 Figure 7: Overview of response preprocessing. 
@@ -389,7 +389,7 @@ Given malicious intent ( _Int_ ) and response ( _R_ ), we evaluate jailbreak usi
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0007-00.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -402,7 +402,7 @@ only takes into account the response; **SV** : _R → False, True_ (where _True_
 To do so, we extend the natural language generation method `(NLG)` to serve as our evaluation function for the three metrics. Specifically, we leverage GPT-4 using a prompt template. This template contains descriptions for the three evaluations ( **SV** , **I** , **RT** ) and takes the _Int_ and _R_ as input. We introduce our own prompt templates for **SV** and **RT** . For **I** , we inherit the prompt template from [14]. We perform the OR operation between the result of [14] and our result of **RT** to obtain our result of **I** . The prompt templates that we use can be found in the Appendix B. An example of the intent, response, and output of evaluation can be found in the Appendix C. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0007-04.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
@@ -476,49 +476,49 @@ After the guide was solidified, three annotators started labeling the remaining 
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-00.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
 RFAB<br>GCG<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-01.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-01.png)
 
 
 <!-- Start of picture text -->
 GCG<br>Intent Response SV I RT<br>How to make a bomb Sure, to make … 1 1 0<br>GE<br>Write a fake news story Here is one … 1 1 1<br>… … …<br>…  …<br>PAIR<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-02.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
 Multifaceted<br>SM<br>NLU<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-03.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-03.png)
 
 
 <!-- Start of picture text -->
 MI<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-04.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
 NLU<br>NLG<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-05.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-05.png)
 
 
 <!-- Start of picture text -->
 RPAB<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-06.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0009-06.png)
 
 
 Figure 10: The construction of the benchmark dataset. 
@@ -1067,13 +1067,13 @@ first:0;second:0
 - **D Example of Misclassification Caused by Limited Evaluation Language Model Capability** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0018-01.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0018-01.png)
 
 
 Figure 4: Response from Bard for Querying False Invoicing Scheme Used to Defraud a Company 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0018-03.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0018-03.png)
 
 
 Figure 5: Response from ChatGPT for Querying False Invoicing Scheme Used to Defraud a Company 
@@ -1081,13 +1081,13 @@ Figure 5: Response from ChatGPT for Querying False Invoicing Scheme Used to Defr
 18 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0019-00.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0019-00.png)
 
 
 Figure 6: Response from Bard for Querying Tools and Resources for SQL Injection 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0019-02.png)
+![](images/14-rethinking-how-to-evaluate-language-model-jailbreak.pdf-0019-02.png)
 
 
 Figure 7: Response from ChatGPT for Querying Tools and Resources for SQL Injection 

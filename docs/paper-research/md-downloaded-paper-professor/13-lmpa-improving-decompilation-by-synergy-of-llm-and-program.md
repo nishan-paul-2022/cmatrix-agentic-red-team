@@ -1,5 +1,5 @@
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0001-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0001-01.png)
 
 
 # Unleashing the Power of Generative Model in Recovering Variable Names from Stripped Binary 
@@ -112,7 +112,7 @@ around 50k times, while 50% of the names appear only once. It is hence challengi
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -133,18 +133,18 @@ We alleviate the closed vocabulary problem by fine-tuning generative models that
 To bridge the gap between the distribution of the pretraining knowledge in a generative code language model and the distribution of decompiled code, we fine-tune a generative model using decompiled code. An example input used in the fine-tuning stage is shown in Fig. 1c, where the grey box contains the query decompiled function and a list of 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-08.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-08.png)
 
 
 <!-- Start of picture text -->
 int  sub_401430(...){<br> ...<br>memset (s, 0, 0x400);<br> v29 = s;<br> ...<br>memset (v29, 0, 0x3c);<br> *v29 = (n >> 2) & 0xF;<br> *((char*)v29+1) = 0;<br> *((uint16*)v29+2)<br>           =  htonl (...);<br>sub_40197A (v29, n,...);<br> ...}<br>Q: v29 , s , n<br><Context><br>sub_40197A (ip_hdr,<br>         ip_hdrlen...)<br></Context><br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-09.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-10.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-10.png)
 
 
 Fig. 4: Query prompt to GENNM augmented with the information propagated from the calling context (the green box). Dataflow used in name validation are indicated by green arrows, with most relevant ones highlighted. 
@@ -158,15 +158,15 @@ Technically, after training a generative model with the ground-truth names, we u
 **Solution for Challenge 3: Iterative inference and contextaware fine-tuning.** Individual decompiled functions have 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-16.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-16.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-17.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-17.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-18.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0004-18.png)
 
 
 4 
@@ -178,7 +178,7 @@ A generative model fine-tuned with only the function body and the ground-truth n
 Finally, to select the best name across multiple inference iterations, we propose a name validation algorithm to select (from top-ranked candidates) the name that is most consistent with the local program context. We propagate names along program data-flow. For example, to select the best name for variable s, the data-flow edges highlighted in Fig. 4 connects it to v29, and v29 is further connected to the first argument ip hdr of the callee function sub 40197A. They indicate the names of those variables may have semantics relevance with s. GENNM calculates the semantics similarity between the names of those variables and the candidate names of s (i.e., message, packet, buffer, and buff). It then finds that the name packet is the most relevant with the names of the other two variables. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0005-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0005-03.png)
 
 
 ## Fig. 5: Formal definitions of the problem 
@@ -200,95 +200,95 @@ We transform the decompiled code of a function to a program in a simple language
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-01.png)
 
 
 <!-- Start of picture text -->
 Decompiled<br>Code<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-02.png)
 
 
 <!-- Start of picture text -->
 Decompiled<br>Code<br>Context<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-03.png)
 
 
 <!-- Start of picture text -->
 Fine-tuning code  Causal Language<br>language models on  Modeling (CLM)<br>ground-truth<br>names.   var1 -> c<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-04.png)
 
 
 <!-- Start of picture text -->
 Dec. Code<br>Context<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-05.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-05.png)
 
 
 <!-- Start of picture text -->
 GenNm-Ctx<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-06.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-06.png)
 
 
 <!-- Start of picture text -->
 var1->eccBlk<br>var1->char<br>…<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-07.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-07.png)
 
 
 <!-- Start of picture text -->
 var1->eccBlk<br>var1->char<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-08.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-08.png)
 
 
 <!-- Start of picture text -->
 Dec.<br>Code<br>Ctx<br>char<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-09.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-09.png)
 
 
 <!-- Start of picture text -->
 Dec.<br>Code<br>Ctx<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-10.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-10.png)
 
 
 <!-- Start of picture text -->
 eccBlk<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-11.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-11.png)
 
 
 <!-- Start of picture text -->
 GenNm-SymPO<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-12.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-12.png)
 
 
 <!-- Start of picture text -->
 0.05<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-13.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-13.png)
 
 
 <!-- Start of picture text -->
@@ -297,81 +297,81 @@ GenNm-SymPO<br><!-- End of picture text -->
 Fig. 6: Training pipeline of GENNM 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-15.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-15.png)
 
 
 <!-- Start of picture text -->
 Decompiled<br>Code<br>Context<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-16.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-16.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-17.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-17.png)
 
 
 <!-- Start of picture text -->
 5<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-18.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-18.png)
 
 
 <!-- Start of picture text -->
 c<br>len<br>var1<br>str<br>buf<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-19.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-19.png)
 
 
 <!-- Start of picture text -->
 GenNm-SymPO<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-20.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-20.png)
 
 
 <!-- Start of picture text -->
 2 Name candidates saved<br>across rounds<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-21.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-21.png)
 
 
 <!-- Start of picture text -->
 var1 -> len<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-22.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-22.png)
 
 
 <!-- Start of picture text -->
 1 Predictions for one round<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-23.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-23.png)
 
 
 <!-- Start of picture text -->
 var1 -> c<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-24.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-24.png)
 
 
 <!-- Start of picture text -->
 4<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-25.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-25.png)
 
 
 <!-- Start of picture text -->
 3<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-26.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-26.png)
 
 
 Fig. 7: Inference pipeline of GENNM 
@@ -387,7 +387,7 @@ To bridge the gap between the distribution of a pre-trained code language model 
 **Dataset w/ local information.** We note the dataset that contains individual decompiled functions as _D_ loc. Formally, the dataset _D_ loc is defined as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-33.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0006-33.png)
 
 
 where _D_ denotes the list of binary programs used for training, and _b_ and _n_ a binary and its name map, respectively, as defined in Fig. 5. Hence _n_ [ _f._ **_fid_** ] denotes the map from a placeholder variable name to the ground-truth variable name for function _f_ . **Context Propagation.** Names in calling contexts can help the model understand the semantics of the function. Intuitively, names from the caller functions may provide hints about the higher-level purpose of the function, and names from the callee functions may provide details about the primitive functionalities of the analyzed function. We first discuss the context propagation algorithm that gathers names following the program call graph, and then discuss how we use it to construct the dataset with additional contextual information. Note that the algorithm is used to construct the contextual dataset during the training time and to propagate and update model query inputs during the inference time. 
@@ -401,11 +401,11 @@ analyzed function _f_ . For the caller functions, the algorithm identifies the c
 Given a function _f_ , we formally define the context propagation rules as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-03.png)
 
 
 where _b_ and _n_ are the binary program that the function _f_ belongs to and the corresponding name map. The name map contains the ground-truth names when constructing the training dataset and the predicted names when propagating names during inference. The utility function **rename** ( _x, y_ ) renames all _id_ s in _x_ according to the name map _y_ . 
@@ -415,7 +415,7 @@ Given a data sample containing a decompiled function _f_ , Equation 2 depicts th
 An alternative design is simply appending the bodies of caller and callee functions to a query function. As discussed in Section II-C, it is neither efficient since it significantly increases the number of query tokens nor effective due to the degradation of model’s performance with longer input context. **Dataset w/ contextual information.** We formally define the dataset with contextual information (noted as _D_ ctx) as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-07.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-07.png)
 
 
 where _D_ denotes binaries used for training, and _b_ and _n_ a binary and its name map, respectively, as defined in Fig. 5; _Ctx_ ( _f, n_ ) denotes the contextual information gathered by the context propagation algorithm. 
@@ -423,7 +423,7 @@ where _D_ denotes binaries used for training, and _b_ and _n_ a binary and its n
 **Loss function for fine-tuning.** We use a CLM loss to finetune on both datasets. The loss is formally defined as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-10.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-10.png)
 
 
 where Θ denotes the weights of the fine-tuned model; **x** denotes the sequence obtained by concatenating the tokens in the query ( _q_ ) and the tokens in the response ( _r_ ); **x** _i_ denotes the _i_ -th token in **x** ; and **x** _<i_ the token sequence before the _i_ -th token. Our fine-tuning stage calculates the CLM loss for tokens in both the query and the response to help the model understand the distribution of the decompiled code in the query. 
@@ -441,7 +441,7 @@ An alternative design is to use the ground-truth as the preferred names. However
 We formally present the SymPO dataset as follows. First, we use _D_<sup>ˆ</sup> to denote the inferenced training subset. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-18.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0007-18.png)
 
 
 7 
@@ -455,28 +455,28 @@ We formally present the SymPO dataset as follows. First, we use _D_<sup>ˆ</sup>
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-01.png)
 
 
 <!-- Start of picture text -->
 }...<br><CallSites><br> <0> log(0, err_msg) </0><br> <1> fwrite(fd, buf) </1><br></CallSites><br><Callees><br> gee: fflush(FILE *fp)<br></Callees><br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-02.png)
 
 
 <!-- Start of picture text -->
 { a1 : err_msg,  foo : log, ...}<br>int64  bar2 (char *a1, char *a2){<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-03.png)
 
 
 <!-- Start of picture text -->
 { a1:  fp,  gee:  fflush}<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-04.png)
 
 
 <!-- Start of picture text -->
@@ -487,13 +487,13 @@ Fig. 8: Example of propagating global contextual information along the call grap
 where GENNMctx( _q,_ top20) denotes the top 20 responses formally presented as follows: returned by GENNMCtx given a query _q_ . 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-07.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-07.png)
 
 
 The SymPO dataset, noted as _D_ prf , is defined as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-09.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0008-09.png)
 
 
 where Θ and ΘCtx denote the weights of GENNMSymPO and the weights of GENNMCtx, respectively. _β_ is a hyper-parameter that controls the sensitivity of the loss to the margin between the probability for better names and the probability for worse names. The loss is optimized w.r.t. Θ only. In other words, the weights of GENNMCtx are frozen during SymPO. 
@@ -515,35 +515,35 @@ To select the final name prediction across different iterations, GENNM leverages
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
 q Query<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-01.png)
 
 
 <!-- Start of picture text -->
 b Better  names<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
 w Worse  names<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-03.png)
 
 
 <!-- Start of picture text -->
 q b<br>GenNm SymPO<br>q w<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
@@ -582,11 +582,11 @@ baseline techniques. VarBERT [45] is a representative classification based metho
 We use two sets of metrics to evaluate model performance. **Token-based semantics match.** Previous works use exact string match to evaluate the performance of a variable name recovery technique. However, exact string match cannot faithfully reflect the capability of a tool. As discussed in SymLM [33], a previous work focusing on recovering function names, even when two variables have the same meaning, the names specified by developers may vary due to many reasons, e.g., use of abbreviations and concatenation of names. We thus adapt the same metrics used in SymLM to measure the quality of generated names. Intuitively, given a ground-truth name _n_ and a predicted name _n_ ˆ, the metric tokenizes both names into sets of tokens, noted as _W_ and _W_<sup>ˆ</sup> . Then it uses set comparison to calculate precision and recall. Formally, 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0010-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0010-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0010-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0010-04.png)
 
 
 In Equations 10 and 11, _≃_ denotes whether two tokens have similar semantics. SymLM [33] built a semantics word cluster trained on CodeSearchNet [30] and derived edit-distancebased rules to measure the semantic similarity between tokens. We reuse their word cluster and rules. 
@@ -660,7 +660,7 @@ We show GENNM generalizes better to rare names in Fig. 11. Observe that all tech
 11 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-00.png)
 
 
 <!-- Start of picture text -->
@@ -669,7 +669,7 @@ VarBERT ReSym GenNM<br>O0 O1 O2 O3<br>0.4<br>0.3<br>0.2<br>In-PR In-RCNot-PRNot-
 Fig. 10: Generalizability to other optimization levels. _In-PR_ , _In-RC_ , _Not-PR_ , and _Not-RC_ denote the average _precision_ and _recall_ on samples whose project is seen or not seen in the train data, respectively. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-02.png)
 
 
 <!-- Start of picture text -->
@@ -678,7 +678,7 @@ GenNm ReSym VARBERT<br>0.4<br>0.3<br>0.2<br>0.1<br>0.0<br>0 1-10 10-100 100-1000
 Fig. 11: Performance by name frequency on VarCorpus. The x-axis denotes the frequency of the ground-truth name for a variable in the training dataset of VarCorpus, and the y-axis the average precision achieved on the corresponding variables. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0012-04.png)
 
 
 <!-- Start of picture text -->
@@ -717,7 +717,7 @@ We compare the performance of GENNM with LLMs used as black-boxes. We randomly s
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0013-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0013-00.png)
 
 
 <!-- Start of picture text -->
@@ -1008,7 +1008,7 @@ We observe that a model is more likely to predict a variable name as buffer if t
 17 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0018-00.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0018-00.png)
 
 
 TABLE V: Dataset statistics. Each column denotes a dataset. _#Func_ denotes the total number functions in the dataset. _Unique Funcs_ denotes the ratio of functions with unique function names. _Unique Name List_ denotes the ratio of functions with unique name lists of variables. _#Vars_ denotes the total number of variables, and _Unique Names_ denotes the ratio of variables with unique variable names. 
@@ -1024,7 +1024,7 @@ TABLE V: Dataset statistics. Each column denotes a dataset. _#Func_ denotes the 
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0018-03.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0018-03.png)
 
 
 <!-- Start of picture text -->
@@ -1090,11 +1090,11 @@ The intuition of rules **Call** and **Ret** are the same. A function call would 
 **Input:** _B_ : _B, Nin_ : _N_ **Output:** _π_ : _id → id → list str_ **Auxiliary Data:** _σ_ : _id → id → set_ ( _id × id × str_ ) **State Configuration:** _⟨π, σ⟩_ We use _f_ to denote the function that the analyzed statement belongs to. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-02.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-02.png)
 
 
 Fig. 16: Correlation Extraction Rules 
@@ -1102,7 +1102,7 @@ Fig. 16: Correlation Extraction Rules
 measures the similarity between two names by calculating the cosine similarity. Formally, the semantics voting process for a given variable is shown as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-05.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0020-05.png)
 
 
 where _⟨·, ·⟩_ denotes cosine similarity between two embeddings and [ _·_ ; _·_ ] denotes list concatenation. 
@@ -1212,7 +1212,7 @@ TABLE X: Effects of context sensitivity
 We evaluate each model with both 0-shot and 3-shot settings. In a 0-shot experiment, we simply follow the prompt 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0022-06.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0022-06.png)
 
 
 <!-- Start of picture text -->
@@ -1249,7 +1249,7 @@ alarm(wait_secs);
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-01.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-01.png)
 
 
 #### `Prediction: timeout` 
@@ -1257,7 +1257,7 @@ alarm(wait_secs);
 (a) Context:5, Semantics:5. The predicted name has exactly the same semantics and context with the ground-truth name. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-04.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-04.png)
 
 
 ```
@@ -1274,7 +1274,7 @@ Prediction: path
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-06.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-06.png)
 
 
 (c) Context:5, Semantics:4. The predicted name is consistent with the program context. However, the semantics of the predicted name does not imply the variable refers to a file. (path may also point to a directory.) 
@@ -1290,7 +1290,7 @@ __int64 ot_accept_client(int fd){
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-09.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-09.png)
 
 
 ```
@@ -1307,7 +1307,7 @@ __int64 randn(double mu, double sigma){
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-13.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-13.png)
 
 
 ```
@@ -1317,7 +1317,7 @@ Prediction: variance
 (b) Context:4, Semantics:2. The predicted name has almost the same context as the ground truth (both are related to statistics). However, the semantics is misleading since variance is typically the square of sigma. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-16.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-16.png)
 
 
 ```
@@ -1334,7 +1334,7 @@ perror("malloc");
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-18.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-18.png)
 
 
 #### `Prediction: data` 
@@ -1347,7 +1347,7 @@ _QWORD *obfsem_randomize_decode(_BYTE *in,
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-22.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-22.png)
 
 
 ```
@@ -1364,7 +1364,7 @@ _QWORD *obfsem_randomize_decode(_BYTE *in,
 ```
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-24.png)
+![](images/13-lmpa-improving-decompilation-by-synergy-of-llm-and-program.pdf-0023-24.png)
 
 
 ```
