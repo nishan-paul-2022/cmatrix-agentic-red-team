@@ -140,7 +140,7 @@ We then analyzed the detailed pentesting processes of all systems to answer two 
 _1) Advantages of Claude Code:_ PENTESTGPT relies on a human-in-the-loop workflow, while other systems incorporate command-execution capabilities, enabling a higher degree of automation. The LLM code agents are better at iteratively debugging and modifying commands based on the execution results compared to CAI. Although PENTESTAGENT excels in searching and leveraging online exploits, its performance lags in non-exploit tasks, such as enumeration and application probing. Among those LLM agents, Claude Code stands out with several strengths. First, Codex and Gemini Code Assist discover narrower attack surfaces and often select slower and less effective approaches (e.g., excessive password brute-forcing or path enumeration), while Claude Code can discover broader attack surfaces. Second, Codex and Gemini Code Assist demonstrate limited self-reflection and adjustment capabilities. They often fail to recognize when a chosen route is unproductive and may remain stalled on the same 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0006-00.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -167,31 +167,31 @@ the process, it also increases the risks of hallucinated steps, inconsistent per
 In this paper, we present CHECKMATE, a system designed to overcome limitations of existing LLM-based pentesting frameworks. Following the PEP diagram proposed in §II-A, CHECKMATE consists of three major components: classical planning+ as the planner, an LLM agent as the executor, and an LLM as the perceptor. The overall design of CHECKMATE is illustrated in Figure 2. Specifically, we introduced predefined attack actions to expand LLM’s knowledge on the specialized tools. Classical planning+ is leveraged to plan the next action, which is executed by an LLM agent. An LLM is used to interpret execution results and update the planner for further planning. Instead of relying on the LLM agent for the entire pentesting workflow, CHECKMATE restricts the LLM’s role to a pure perceptor and a simple-task executor. This design leverages the LLM agent’s strong executing and interpreting capabilities while relieving it of long-horizon planning and reasoning, which are handled by the classical planner. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-00.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-00.png)
 
 
 each action. For example, once a web enumeration action identifies a specific web application, a pentester would naturally consider all relevant Metasploit modules, NSE scripts, and Nuclei templates associated with that application. In classical planning, the discovered web application is an effect of the enumeration action and simultaneously serves as a precondition of those subsequent actions. The set of factors used as preconditions and effects is flexible and can be customized or extended as needed. In our current design, these factors include elements such as the identified application, CVEs, URLs, usernames, passwords, etc. By encoding these causal dependencies directly, the system gains stronger built-in causal reasoning capabilities and reduces the need for the LLM to perform complex long-horizon reasoning on its own. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-02.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-03.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-03.png)
 
 
 <!-- Start of picture text -->
 Action #1<br>LLM …<br>Agents Action #N<br>Predefined<br>Executor Attack Actions<br>Action Paths<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-04.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
 Parse Results and<br>Update Translate to Predicates LLM<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-05.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-05.png)
 
 
 <!-- Start of picture text -->
@@ -202,7 +202,7 @@ Fig. 2: Overview of CHECKMATE. The orange arrow shows the iterative loop of clas
 _2) Classical Planning+:_ Classical planning+ is proposed to address the limitations of traditional classical planning in dynamic, non-deterministic, and partially observable tasks. **Non-Deterministic Action Effects:** Pentesting inherently involves uncertainty and incomplete information. For instance, the result of a port scan is not known until finished, and the outcome of an exploit attempt is often unpredictable until it is executed. However, traditional classical planning assumes a static, deterministic, and fully observable target, where all action effects are determined, and the state of the target is <mark>completely s</mark> pecified before the planning starts. Some pentesting systems use complex models to encode uncertainty, which are difficult to scale in the real world. In CHECKMATE, we propose classical planning+, leveraging LLMs to dynamically determine action effects. Since it updates action effects at runtime, complete knowledge is no longer required before planning begins. Specifically, we define the non-deterministic effect to indicate that the effect of an action is unknown until it is executed. Once an action with a non-deterministic effect is executed, LLMs are invoked to analyze the execution outcome and generate concrete effect predicates. We describe this process in §IV-C2, along with a concrete example. Through this mechanism, we successfully extend classical planning to dynamic, non-deterministic, partially-observable scenarios. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-08.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-08.png)
 
 
 <!-- Start of picture text -->
@@ -213,7 +213,7 @@ Attack<br><!-- End of picture text -->
 As previously mentioned, existing general-purpose LLM agents lack knowledge of specialized tools during pentesting. To address this, we introduce predefined attack actions to expand their knowledge base. We explicitly predefine niche and <mark>fne-grained</mark> tools such as Metasploit modules, NSE scripts, and Nuclei templates as “actions”, which are considered by the planner. Predefi <mark>ned attack actions also help avoid the</mark> inconsistency and errors in LLM-command-generation. In pentesting, most commands adhere to a consistent structure. For example, when executing a default port scan using nmap -Pn -sC -sV -p- -oN - # _{_ target _}_ , the command structure remains largely consistent, while the only part that usually changes is # _{_ target _}_ . However, the next-token prediction mechanism of LLMs is increasingly unstable, and errorprone when generating long commands. In contrast, predefined attack actions provide the core structure and options of the command, leaving only parameters like # _{_ target _}_ to be specified, significantly reducing the risk of generating incorrect commands. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-11.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-11.png)
 
 
 <!-- Start of picture text -->
@@ -276,210 +276,210 @@ We first evaluate the penetration capability of CHECKMATE, compared to existing 
 In this section, we evaluate both the efficiency and cost of CHECKMATE. We selected 20 penetration tasks that CHECKMATE and Claude Code were both able to successfully complete. Under the same LLM model setting, we compared the total monetary cost, representing the amount of LLM tokens consumed, and the time required to finish each task. The results are summarized in Figure 5. On average, CheckMate has a total cost of $0.68, which is 53% lower than that of Claude Code under identical conditions. This reduction in token consumption can be attributed to the use of classical planning for strategy formulation. In contrast, Claude Code relies entirely on text-based reasoning, where every intermediate thought and plan must be expressed in natural language, leading to substantial token overhead. By adopting a symbolic and formalized planning mechanism, CHECKMATE avoids using the LLM to “generate” its reasoning process, thereby concentrating the model’s generation capacity on executing 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-00.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
 1 st iteration 2 nd iteration<br>target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-01.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-01.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>suspicious-app url-accessible suspicious-app<br>openssh url1 confluence<br>Action Action Action<br>msf-search  openssh whatweb Scan  url1 msf-search  confluence<br>undetermined-effect undetermined-effect undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-02.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
 Action Action<br>msf-search  openssh whatweb Scan  url1<br>undetermined-effect undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-03.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-03.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-04.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-05.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-05.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-06.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-06.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-07.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-07.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-08.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-08.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-09.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-09.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-10.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-10.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br>app-running<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-11.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-11.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-12.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-12.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-13.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-13.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-14.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-14.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-15.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-15.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br>Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-16.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-16.png)
 
 
 <!-- Start of picture text -->
 url-accessible<br>url2<br>Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-17.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-17.png)
 
 
 <!-- Start of picture text -->
 undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-18.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-18.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-19.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-19.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2022-26134<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-20.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-20.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2021-20687<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-21.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-21.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-22.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-22.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-23.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-23.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-24.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-24.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br>Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-25.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-25.png)
 
 
 <!-- Start of picture text -->
 url-accessible<br>url2<br>Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-26.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-26.png)
 
 
 <!-- Start of picture text -->
 multi/http/atlassian_confluence_namespace_ognl_injection<br>Action<br>msf-use<br>atlassian_confluence_namespace_ognl_injection<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-27.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-27.png)
 
 
 <!-- Start of picture text -->
 CVE-2021-20687<br>Action<br>msf-search<br>CVE-2021-20687<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-28.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-28.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2022-26134<br>No Results<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-29.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-29.png)
 
 
 <!-- Start of picture text -->
@@ -488,7 +488,7 @@ root-shell<br><!-- End of picture text -->
 Fig. 3: A pentesting workflow driven by classical planning+. Each panel shows one planning-execution-perception iteration. Blue rounded ovals are predicates that link actions across iterations; yellow rounded ovals denote non-deterministic action effects. Rectangular boxes list feasible actions available during the engagement, and light-green rectangles indicate the actions chosen by the planner for execution in that iteration. Arrows show how actions are connected with predicates. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-31.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-31.png)
 
 
 <!-- Start of picture text -->
@@ -503,7 +503,7 @@ In this section, we evaluate the stability of the pentesting process, i.e., whet
 Fig. 4: Comparison of Claude Code with CHECKMATE on Vulhub benchmark 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-00.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-00.png)
 
 
 <!-- Start of picture text -->
@@ -528,7 +528,7 @@ TABLE II: Stability comparison between CHECKMATE and Claude Code.
 We analyze a specific example in detail to illustrate differences during pentesting between CHECKMATE and Claude Code. In this case, CHECKMATE completed the penetration in only three steps; Claude Code, by contrast, used 26 steps, many of which were added because of redundancy, premature abandonment, distractions, and incomplete planning and reasoning. The target is an old version of Apache ActiveMQ (an open-source messaging middleware that supports Java messaging services, clustering, and the Spring framework) from Vulhub. CHECKMATE began with a full-port Nmap scan plus fingerprinting and script probes. It discovered two open ports (22 and 8191), identified that Apache ActiveMQ was running, and associated that service with likely CVEs and corresponding Metasploit modules. Rather than rushing straight to exploitation, CHECKMATE chose, from the feasible action set, to analyze the web interface to further confirm the ActiveMQ version. That analysis verified that an ActiveMQ Console was running and revealed the 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-07.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-07.png)
 
 
 <!-- Start of picture text -->
@@ -553,7 +553,7 @@ In this section, we conduct an ablation study by comparing CHECKMATE with two co
 Existing work leaves two fundamental questions unanswered: (1) What actions and skills does pentesting require? and (2) How should we represent the state of the target system? The difficulty arises from the open-ended nature of pentesting. Unlike tasks with well-defined action and state spaces, pentesting spans the full breadth of a system’s architecture, configurations, vulnerabilities, and defenses, and demands a wide and adaptable skill set. Current approaches either define fixed, finite sets of skills and states, or depend heavily on black-box LLMs to infer target states and propose actions. The fixed schemas are too restrictive, while relying on opaque LLMs makes it difficult to systematically improve penetration 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0011-06.png)
+![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0011-06.png)
 
 
 <!-- Start of picture text -->
