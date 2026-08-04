@@ -66,77 +66,77 @@ As shown in Figure 1, RTOSes depend on a portable architecture to enable easy su
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
 Task2<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-01.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-02.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-02.png)
 
 
 <!-- Start of picture text -->
 Task3<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-03.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-04.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-04.png)
 
 
 <!-- Start of picture text -->
 Third<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-05.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-06.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-07.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-08.png)
-
-
-<!-- Start of picture text -->
-Handler Invocation<br>Task2 Task3 Taskn<br>RTOS / Library Third<br>party<br>Linux Portable Layer SDK<br>(LPL)<br>Dispatcher Task<br><!-- End of picture text -->
-
-
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-09.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-08.png)
 
 
 <!-- Start of picture text -->
 Handler Invocation<br>Task2 Task3 Taskn<br>RTOS / Library Third<br>party<br>Linux Portable Layer SDK<br>(LPL)<br>Dispatcher Task<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-10.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-09.png)
+
+
+<!-- Start of picture text -->
+Handler Invocation<br>Task2 Task3 Taskn<br>RTOS / Library Third<br>party<br>Linux Portable Layer SDK<br>(LPL)<br>Dispatcher Task<br><!-- End of picture text -->
+
+
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-10.png)
 
 
 <!-- Start of picture text -->
 Linux Portable Layer SDK<br>(LPL)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-11.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-12.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-13.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0003-13.png)
 
 
 <!-- Start of picture text -->
@@ -169,7 +169,7 @@ Adapting<sup>1</sup> the categorization from Wright _et al.,_ [100], Execution F
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0004-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -206,35 +206,35 @@ Based on our empirical study § 3.2.1, the BMF required for most of the memory c
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
 [48] [56]<br>[4] [93]<br>Abstract Model<br>of Application<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-01.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-01.png)
 
 
 <!-- Start of picture text -->
 [30] [91]<br>[26] [27]<br>SW Approaches<br>With Precise<br>Peripheral<br>Modeling<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-02.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
 LEMIX<br>(BMF)<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-03.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-03.png)
 
 
 <!-- Start of picture text -->
 [39] [82]<br>[40] [105]<br>SW Approaches<br>With No<br>Peripheral<br>Modeling<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-04.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0005-04.png)
 
 
 <!-- Start of picture text -->
@@ -271,11 +271,11 @@ As explained in § 2.1, embedded applications rely on RTOS functions for their e
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0006-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0006-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0006-01.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0006-01.png)
 
 
 <!-- Start of picture text -->
@@ -348,7 +348,7 @@ Embedded applications have considerable peripheral statedependent code [82]. Spe
 Peripherals state is accessed through reading certain registers [54, 82], _e.g.,_ clock state is accessed through 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0008-07.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0008-07.png)
 
 
 <!-- Start of picture text -->
@@ -471,7 +471,7 @@ We measure the ability of LEMIX to successfully convert the 18 embedded applicat
 These conversions were performed by the authors, who are graduate students with intermediate expertise in C/C++ but with less experience with embedded codebases. The conversion time to LEAPP depends on familiarity with the embedded codebase, so the reported measurements represent an upper bound; engineers with embedded expertise should require significantly less time. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0010-05.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0010-05.png)
 
 
 <!-- Start of picture text -->
@@ -614,7 +614,7 @@ We were unable to set up P2IM, despite following their instructions and attempti
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0013-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0013-00.png)
 
 
 <!-- Start of picture text -->
@@ -984,7 +984,7 @@ To improve testability and aid embedded firmware development, many RTOSes also p
 20 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0021-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0021-00.png)
 
 
 <!-- Start of picture text -->
@@ -1181,7 +1181,7 @@ Table 12: Table depicting common GCC vs Clang incompatibilities found while port
 25 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-00.png)
 
 
 <!-- Start of picture text -->
@@ -1190,7 +1190,7 @@ Table 12: Table depicting common GCC vs Clang incompatibilities found while port
 Listing 7: Dispatcher Task instrumentation to handle interrupts. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-02.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-02.png)
 
 
 <!-- Start of picture text -->
@@ -1199,7 +1199,7 @@ Listing 7: Dispatcher Task instrumentation to handle interrupts.
 Listing 8: Listing shows Layout Specific Execution found in one of Zephyr Kernel’s initialization routines. The kernel expects function pointers to be present in adjacent memory locations as directed by Board Specific Linker Scripts. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-04.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0026-04.png)
 
 
 <!-- Start of picture text -->
@@ -1214,7 +1214,7 @@ Listing 10: Listing shows variable sized object initialization which is not allo
 26 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-00.png)
 
 
 <!-- Start of picture text -->
@@ -1227,7 +1227,7 @@ Listing 11: Listing shows a sample code which errors because Clang expects the c
 Listing 13: CVE-2021-3581: A low-fidelity vulnerability where unchecked length can cause OOB write if data and len are attacker controlled. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-04.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-04.png)
 
 
 <!-- Start of picture text -->
@@ -1244,7 +1244,7 @@ Listing 14 gives an example of a valid MMIO address range detected by LEMIX’s 
 Listing 17 shows a buffer out-of-bounds write bug in Zephyr RTOS, where if _CONFIG_PRINTK_BUFFER_SIZE_ is not set by the application, it defaults to 0. At the _cbvprintf_ call site, the _buf_count_ member of _ctx_ is initialized to 0, leading to out-of-bounds access in the _buf_char_out_ function. This bug occurs in all applications of Zephr. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-10.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0027-10.png)
 
 
 <!-- Start of picture text -->
@@ -1286,7 +1286,7 @@ Table 13: Approximate Number of unique basic blocks discovered by various config
 28 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-00.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-00.png)
 
 
 <!-- Start of picture text -->
@@ -1295,14 +1295,14 @@ Table 13: Approximate Number of unique basic blocks discovered by various config
 Figure 6: Each bar represents the percentage of functions hit amongst the total reachable functions for an application on a specific RTOS. Application IDs represent respective application from Table 7. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-02.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-02.png)
 
 
 <!-- Start of picture text -->
 1 bool latch_pending_read_and_check(latch, i) {<br>2 latch[i] = GPIOx->LATCH; �<br>3 if (latch[i])<br>4 {<br>5 /* If any latch bit is set, another edge was<br>6 captured -- repeat event processing. */<br>7 return true;<br>8 }<br>9 }<br>10 void port_event_handle(...)<br>11 {<br>12 uint32_t latch[GPIO_COUNT] = {0};<br>13 ...<br>14 do {<br>15 /* Attacker controlled gpio ports */<br>16 latch_pending_read_and_check(latch,<br>17 p_cb->available_gpio_ports);<br>18 /* The latch sent for processing */<br>19 nrfy_gpiote_events_process(p_gpiote, ...);<br>20<br>21 /* The latch_pending_read_and_check can always<br>22 return true leading to infinite loop */<br>23 } while (latch_pending_read_and_check(latch, �<br>24 p_cb->available_gpio_ports));<br>25 }<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-03.png)
+![](images/17-lemix-enabling-testing-of-embedded-applications-as-linux.pdf-0029-03.png)
 
 
 <!-- Start of picture text -->

@@ -1,9 +1,9 @@
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0001-01.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0001-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0001-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0001-02.png)
 
 
 # ELFUZZ: Efficient Input Generation via LLM-driven Synthesis Over Fuzzer Space 
@@ -75,7 +75,7 @@ Grammar-based fuzzing reduces the workload by developing a general fuzzing frame
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0003-01.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0003-01.png)
 
 
 <!-- Start of picture text -->
@@ -135,7 +135,7 @@ Fuzzer space structures fuzzers into a lattice that characterizes their effectiv
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -144,7 +144,7 @@ Fuzzer space structures fuzzers into a lattice that characterizes their effectiv
 **Listing 2: Fuzzer** FA **covering all code of Listing 1** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-02.png)
 
 
 <!-- Start of picture text -->
@@ -159,7 +159,7 @@ considered equivalent. For example, fuzzer FA in Listing 2 and fuzzer F<sup>_′
 **Definition 1** (Strength of fuzzers) **.** Fuzzer _F_ 1 is stronger than fuzzer _F_ 2 if _C_ ( _F_ 2) _⊂ C_ ( _F_ 1), denoted as 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-07.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-07.png)
 
 
 where _S_ ( _·_ ) is the strength of a fuzzer. 
@@ -167,7 +167,7 @@ where _S_ ( _·_ ) is the strength of a fuzzer.
 **Fuzzer space.** Fuzzers with the partial order _S_ ( _·_ ) � _S_ ( _·_ ) forms a lattice, i.e., the fuzzer space. Fuzzer space enables fine-grained comparison between fuzzers. Such a comparison is impossible if using a single coverage value, which may coarsely equalize two fuzzers with distinct strengths. Intuitive correspondence exists between the lattice structure and the 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-10.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-10.png)
 
 
 <!-- Start of picture text -->
@@ -176,7 +176,7 @@ where _S_ ( _·_ ) is the strength of a fuzzer.
 **Listing 4: Fuzzer** FB **weaker than** FA 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-12.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0004-12.png)
 
 
 <!-- Start of picture text -->
@@ -195,7 +195,7 @@ At a high level, ELFUZZ leverages an LLM to motivate an evolution loop to improv
 4 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-00.png)
 
 
 <!-- Start of picture text -->
@@ -204,7 +204,7 @@ At a high level, ELFUZZ leverages an LLM to motivate an evolution loop to improv
 **Listing 6: Fuzzer** FD **weaker than** FC 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
@@ -229,7 +229,7 @@ At the start of each iteration, the seed fuzzers are mutated by an LLM to produc
 - **Splicing.** The splicing mutator involves combining the prefix of one candidate fuzzer and the suffix of another with glue code produced via the LLM’s fill-in-the-middle ability [25]. Splicing is crucial since it allows the fusion of 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-12.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-12.png)
 
 
 <!-- Start of picture text -->
@@ -238,7 +238,7 @@ Fuzzer space SUT<br>check balance<br>init<br>iterate chars<br>process "("<br>pro
 **Figure 1: An illustration of Listing 1’s fuzzer space** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-14.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0005-14.png)
 
 
 <!-- Start of picture text -->
@@ -257,7 +257,7 @@ We proceed to illustrate the three mutators by examples. Suppose that the previo
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -266,7 +266,7 @@ LLM-driven mutation Fuzzer space exploration<br>Splicing<br>Completion<br>Infill
 **Figure 3: An evolution iteration of ELFUZZ** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-02.png)
 
 
 <!-- Start of picture text -->
@@ -279,7 +279,7 @@ ing 6) are the seed fuzzers. The splicing mutator is applied to glue the code be
 The LLM-driven mutators produce vast amounts of mutants, but not all of them are helpful for our synthesis. For example, a mutant can be weaker than the seed fuzzers before mutation like FI in Listing 11 or contain type errors like FJ 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-06.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-06.png)
 
 
 <!-- Start of picture text -->
@@ -288,7 +288,7 @@ The LLM-driven mutators produce vast amounts of mutants, but not all of them are
 **Listing 8: Fuzzer** FG **stronger than the seed fuzzers** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-08.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0006-08.png)
 
 
 <!-- Start of picture text -->
@@ -315,7 +315,7 @@ Take the seed fuzzers FB, FD and the mutants FH–FK in the previous subsection 
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -324,7 +324,7 @@ Take the seed fuzzers FB, FD and the mutants FH–FK in the previous subsection 
 **Listing 10: Fuzzer** FH **also stronger than the seed fuzzers** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -343,13 +343,13 @@ As more and more parts of the fuzzer space are discovered, the seed fuzzers to b
 The strategy is to maximize the union of the cover sets of the elites, as illustrated by the rightmost part of Figure 3. Specifically, when selecting _N_ elites to advance to the next iteration from a pool _V_ of _M > N_ mutants, we choose a subset _E ⊂ V_ according to the following formula: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-09.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-09.png)
 
 
 where _PN_ ( _V_ ) denotes all _N_ -element subsets of _V_ . 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-11.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-11.png)
 
 
 <!-- Start of picture text -->
@@ -358,7 +358,7 @@ where _PN_ ( _V_ ) denotes all _N_ -element subsets of _V_ .
 **Listing 12: Fuzzer** FJ **containing a type error** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-13.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0007-13.png)
 
 
 <!-- Start of picture text -->
@@ -377,7 +377,7 @@ We have implemented ELFUZZ in Python and made the code publicly available online
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -392,14 +392,14 @@ known “big models” such as GPT-4. However, even with such a small model, ELF
 **Implementation of the LLM-driven mutators.** The completion mutator is implemented by a text completion query to the LLM, where the LLM simply continues the queried text (i.e., the code to complete) until a terminal token. The infilling 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-05.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-05.png)
 
 
 <!-- Start of picture text -->
 def gen_pycode(rng, out):<br>  out.write('import ' + rng.rand_str())<FIM> out.write('import sys')<br>  out.write('def main():')<br>def gen_pycode(rng, out):<br>  # Original code<br>  out.write('import ' + rng._rand_str())<br>  # Expanded code<br>13B out.write('from math import log')<br>  # Original code<br>  out.write('def main():')<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-06.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0008-06.png)
 
 
 **Figure 6: Fill-in-the-middle query** 
@@ -526,7 +526,7 @@ In later experiments, we exclude synthesis time from the recorded fuzzing time, 
 GLADE requires manually written seed test cases as labeled ground truths for grammar synthesis. We extracted them from the test suite of each benchmark [7, 12–14, 16, 19, 64]. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0011-10.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0011-10.png)
 
 
 <!-- Start of picture text -->
@@ -535,7 +535,7 @@ GLADE requires manually written seed test cases as labeled ground truths for gra
 **Figure 7: Coverage of the inputs generated within 10min** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0011-12.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0011-12.png)
 
 
 <!-- Start of picture text -->
@@ -568,7 +568,7 @@ While ELFUZZ initially brings huge advantages, and the advantages remain huge af
 Figure 9 presents the number of bugs triggered by AFL++ within 24 hours using different seeds. The solid lines are the average values, and the shadows show the standard deviations. The results demonstrate that the seeds generated by ELFUZZ can not only find more bugs but also find the bugs faster. At the end, ELFUZZ triggers up to 216.7% more bugs (on SQLite over GLADE). Table 6 presents the time (averaged over the 10 repetitions) required by the seeds generated by 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0012-06.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0012-06.png)
 
 
 <!-- Start of picture text -->
@@ -599,7 +599,7 @@ We analyzed the 16 bugs in the three benchmarks that ELFUZZ cannot trigger and f
 After fuzzing cvc5 for 14 days by 30 AFL++ instances with the seeds generated by ELFUZZ, five new bugs were found in the latest version of cvc5 at the time when we started our testing. Interestingly, we noticed two of these bugs were recently fixed in the latest released version. We, therefore, have just disclosed the three unfixed bugs. Note that the five bugs include a format string injection vulnerability and two 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0012-14.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0012-14.png)
 
 
 <!-- Start of picture text -->
@@ -610,7 +610,7 @@ libxml2 CPython SQLite<br>ELFuzz<br>Grmr<br>10 2 20 ISLa<br>ISLearn<br>0 0 0 GLA
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0013-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0013-00.png)
 
 
 <!-- Start of picture text -->
@@ -619,7 +619,7 @@ libxml2 CPython SQLite<br>ELFuzz<br>Grmr<br>10 2 20 ISLa<br>ISLearn<br>0 0 0 GLA
 **Figure 11: Coverage of the inputs generated by the variants within 10min** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0013-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0013-02.png)
 
 
 <!-- Start of picture text -->
@@ -652,7 +652,7 @@ Listing 13 presents part of the fuzzer code that targets rowset.c. The row opera
 13 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0014-00.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0014-00.png)
 
 
 <!-- Start of picture text -->
@@ -873,7 +873,7 @@ May 2023, pp. 2676–2692. [Online]. Available: https: //ieeexplore.ieee.org/abs
 Listing 14 <u>presents the seed fuzzer we use (simplified for illustration),</u> where FORMAT is a placeholder for the input format required by the SUT. It provides clues for the LLM about what kinds of inputs it has to generate. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0019-02.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0019-02.png)
 
 
 <!-- Start of picture text -->
@@ -960,7 +960,7 @@ ZEST proposes to graft the evolution loop of greybox mutationbased fuzzers to th
 **Implementing ZEST on ELFUZZ fuzzers.** Adapting ZEST to the fuzzers synthesized by ELFUZZ is straightforward: These fuzzers are evolved from the seed fuzzer in Listing 14, and their entry points are all the same as in the list. They take a random number generator and an output stream as arguments, make choices according to the random number generator, and write the generated test case to the output. The adaptation is mainly “parameterizing” the fuzzers to replace the random number generator with a provided byte array, and implement the logic that evolves the byte array, as shown by Listing 17. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0020-07.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0020-07.png)
 
 
 <!-- Start of picture text -->
@@ -969,7 +969,7 @@ ZEST proposes to graft the evolution loop of greybox mutationbased fuzzers to th
 **Listing 16: Code that generates Listing 15** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0020-09.png)
+![](images/16-elfuzz-efficient-input-generation-via-llm-driven-synthesis.pdf-0020-09.png)
 
 
 <!-- Start of picture text -->

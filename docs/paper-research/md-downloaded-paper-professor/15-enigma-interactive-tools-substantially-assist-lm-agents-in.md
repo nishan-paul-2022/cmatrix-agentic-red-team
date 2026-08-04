@@ -31,11 +31,11 @@ An important evaluation setting for LMs in offensive information security is Cap
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-02.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-02.png)
 
 
 <!-- Start of picture text -->
@@ -49,7 +49,7 @@ commands environment feedbackLM-friendly
  Filesystem<br>rev.chal.csaw.io port  ftp<br>12012 ...<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0002-03.png)
 
 
 Figure 1: _EnIGMA_ is an LM agent fed with CTF challenges from the NYU CTF benchmark. It interacts with the computer through an environment that is built on top of _SWE-agent_ (Yang et al., 2024) and extends it to cybersecurity. We incorporate new interactive tools that assist the agent in debugging and connecting to remote server. The agent iterates through interactions and feedback from the environment until it solves the challenge. 
@@ -115,7 +115,7 @@ LMs perform best if given concise inputs; superfluous context can degrade perfor
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0004-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0004-01.png)
 
 
 <!-- Start of picture text -->
@@ -156,7 +156,7 @@ Current CTF benchmarks do not include a development set (Yang et al., 2023a; Sha
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0005-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0005-01.png)
 
 
 Figure 3: Partial EnIGMA trajectories for a reverse engineering challenge to compare the summarizers. (a) The _LM summarizer_ provides a detailed summary explaining the main function implementation along with a viable approach to solve the challenge. (b) The _simple summarizer_ shows a window of the output saved in a file. (c) With no summarizer, the output is sent back to the LM and may fill up its _entire_ context window, thereby immediately ending the session. 
@@ -265,7 +265,7 @@ Our results indicate that _ablating interactive tools does not affect each categ
 #### **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-01.png)
 
 
 <!-- Start of picture text -->
@@ -274,14 +274,14 @@ Failure<br>80 Success<br>60<br>40<br>20<br>0<br>0 20 40 60 80 100 120<br>Turns<b
 Figure 4: EnIGMA (powered by Claude 3.5 Sonnet) success and failure counts, stacked, by number of turns. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-03.png)
 
 
 <!-- Start of picture text -->
 7%, 16×<br>30% 75% 83%<br>39 ×  12× 32 ×  24× 30 ×  25× 223 ×<br>(start) (breakpoint) (continue) (execute)<br>35%, 14× 74%, 165 ×<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-04.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
@@ -310,7 +310,7 @@ Determining whether agents solve problems or rely on memorization remains a chal
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0008-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0008-01.png)
 
 
 Figure 7: Partial EnIGMA trajectory (running on Claude Sonnet 3.5) solving an InterCode-CTF reverse engineering challenge where it _surprisingly_ ’soliloquizes’ an observation with almost fully correct details. In this instance, it also generates the correct flag, so it correctly solves the problem. 
@@ -902,7 +902,7 @@ Table 13: Distribution of the exit status among all the results using Claude 3.5
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0025-01.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0025-01.png)
 
 
 <!-- Start of picture text -->
@@ -911,7 +911,7 @@ Crypto success (n=30) 2: 28% 3: 35% 4: 22% 9: 10%<br>Fail (n=79) 2: 11% 3: 23% 4
 Figure 8: Distribution of agent actions by challenge category and success for Claude-3.5 on all four challenge benchmarks. _n_ indicates the total number of challenge instances per row; the _i-network_ category consists of all uses of the interactive server connection tool. Action counts are first averaged per challenge, then averaged by category and success rate. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0025-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0025-03.png)
 
 
 <!-- Start of picture text -->
@@ -1077,7 +1077,7 @@ IMPORTANT TIPS:
 29 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0030-00.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0030-00.png)
 
 
 <!-- Start of picture text -->
@@ -2160,7 +2160,7 @@ create solve.py
 python solve.py 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0057-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0057-03.png)
 
 
 <!-- Start of picture text -->
@@ -2331,7 +2331,7 @@ python solve.py
 goto 250 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0062-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0062-03.png)
 
 
 <!-- Start of picture text -->
@@ -2959,7 +2959,7 @@ The agent successfully solves the challenge using the following interactions:
 4. **Verification and submission:** The agent verifies that the extracted flag is the correct one first by feeding it to the binary to see if the output changes, and then by submitting it as the solution for this challenge. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0079-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0079-03.png)
 
 
 <!-- Start of picture text -->
@@ -3610,7 +3610,7 @@ puVar6 = *(undefined8 **)((long)register0x00000020 + -0x138); puVar6[1] = *(unde
 (Open file: n/a) (Current directory: /LLM_CTF_Database__2020__CSAW-Finals__crypto__jackpot) (Interactive session: connect crypto.chal.csaw.io 5000) bash-$ 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0098-03.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0098-03.png)
 
 
 <!-- Start of picture text -->
@@ -3619,7 +3619,7 @@ EnIGMA 2020/CSAW-Finals/crypto/jackpot<br>After analyzing the decompiled ‘main
 connect_start crypto.chal.csaw.io 5000 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0098-05.png)
+![](images/15-enigma-interactive-tools-substantially-assist-lm-agents-in.pdf-0098-05.png)
 
 
 <!-- Start of picture text -->

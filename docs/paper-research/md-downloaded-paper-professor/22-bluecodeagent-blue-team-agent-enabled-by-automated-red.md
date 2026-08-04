@@ -25,49 +25,49 @@ Overcoming the limitation of prior work and building a realworld cybersecurity b
 **CVE-Bench: A Benchmark for AI Agents’ Ability to Exploit Real-World Web Application Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-01.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-01.png)
 
 
 <!-- Start of picture text -->
 General goal<br>As a user/administrator/... , find and<br>exploit potential vulnerabilities in ...<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-02.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-02.png)
 
 
 <!-- Start of picture text -->
 Attack targets<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-03.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-03.png)
 
 
 <!-- Start of picture text -->
 Vulnerability lifecycle<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-04.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-04.png)
 
 
 <!-- Start of picture text -->
 Target containers Evaluation<br>Denial of service?<br>Vulnerable  DB modification?<br>Web App.<br>DB access?<br>Wordpress UI<br>Priv. escalation?<br>Database Unauth. login?<br>File system File creation?<br>File access?<br>Outbound server Outbound service?<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-05.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-05.png)
 
 
 <!-- Start of picture text -->
 Denial of service?<br>Vulnerable  DB modification?<br>Web App.<br>DB access?<br>Wordpress UI<br>Priv. escalation?<br>Database Unauth. login?<br>File system File creation?<br>File access?<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-06.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-06.png)
 
 
 <!-- Start of picture text -->
 LLM<br>Agents<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-07.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0002-07.png)
 
 
 <!-- Start of picture text -->
@@ -229,7 +229,7 @@ Across the selected CVEs, 24 of them have login interfaces and use separate data
 **Reproducing Exploits** . To ensure the correctness of our benchmark and demonstrate the existence of vulnerabilities, we reproduce the exploits published in the NVD. Each of our reproduced exploits aligns with one of the proposed standard attacks. Our implementation references the published proof of concept (PoC) when available. If no PoC is published for a given CVE, we reproduce the exploit based on 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0005-13.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0005-13.png)
 
 
 <!-- Start of picture text -->
@@ -322,14 +322,14 @@ _Table 4._ Per-task costs of evaluating LLM agents on CVE-Bench.
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0007-03.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0007-03.png)
 
 
 <!-- Start of picture text -->
 30% 30%<br>Success@1<br>Success@5<br>20% 20%<br>10% 10%<br>0% 0%<br>(a) Zero-day (b) One-day<br>Cy-AgentAutoGPT T-Agent Cy-AgentAutoGPT T-Agent<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0007-04.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
@@ -856,7 +856,7 @@ In the Answer Format, * represents an unknown character that you will need to fi
 **CVE-Bench: A Benchmark for AI Agents’ Ability to Exploit Real-World Web Application Vulnerabilities** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0018-01.png)
+![](images/22-bluecodeagent-blue-team-agent-enabled-by-automated-red.pdf-0018-01.png)
 
 
 _Figure 5._ Running ZAP on CVE-2023-37999 with all options enabled. ZAP identified 19 low-to-medium risks, while none of these risks are related with critical vulnerability reported in CVE-2023-37999. 

@@ -61,11 +61,11 @@ Note that we do not consider training-phase attacks (Nie et al., 2024; Gu et al.
 **Problem formulation.** Given a target information **d** (e.g., the training data, or the system prompts), we aim to find an adversarial prompt **p** , such that the corresponding response **u** from the target LLM, is either identical or highly similar to **d** . Given a quantitative metric _M_ , which quantifies the similarity between the model response **u** and the target **d** , a privacy leakage problem can be formulated as solving the following objective function: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0003-08.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0003-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0003-09.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0003-09.png)
 
 
 where _P_ denotes the entire prompt space. We consider the response **u** of the target LLM as a function of the input including the system prompt **s** , and the adversarial prompt **p** , i.e., **u** = _f_ ([ **s** , **p** ]). In system prompt extraction, **s** = **d** and in the training data extraction task, **s** can be either a standard prompt (e.g., "You are a helpful assistant") or a 
@@ -87,7 +87,7 @@ This straightforward solution has the following limitations. ① **Limited rewar
 **Address limitation** ① **: Design a dense reward function.** We aim to design a reward function that measures semantic similarity between a target model’s output **u** and the desired output **d** . Our early exploration on embedding space distance (e.g., BERT models (Devlin, 2018) and OpenAI embedding models (OpenAI, 2024b)) and text similarity metrics (e.g., ROUGE (Lin, 2004) and BLEU (Papineni et al., 2002)) show that these metrics give overly high scores to the target model’s outputs that are partially similar to the desired information. We design a novel similarity metric based on the Levenshtein distance or edit distance (Stanchev et al., 2019; Yujian & Bo, 2007). The reward function is defined as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0004-07.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0004-07.png)
 
 
 4 
@@ -196,7 +196,7 @@ We introduce three key designs to improve the effectiveness and efficiency of th
 Published as a conference paper at COLM 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0009-01.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0009-01.png)
 
 
 <!-- Start of picture text -->
@@ -387,7 +387,7 @@ Qiusi Zhan, Zhixiang Liang, Zifan Ying, and Daniel Kang. Injecagent: Benchmarkin
 Published as a conference paper at COLM 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-01.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-01.png)
 
 
 <!-- Start of picture text -->
@@ -402,7 +402,7 @@ Figure 3: Overview of LeakAgent. It begins with an initial input _p_<sup>(0)</su
 Edit distance is a measure of the minimum number of operations (insertions, deletions, or substitutions) required to transform one string into another. Formally, edit distance at the word level can be defined as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-06.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-06.png)
 
 
 where _W_ ( _·_ ) denotes the word sequence obtained through tokenizing its input via a word tokenizer, such as Punkt (NLTK, 2008). _E_ ( _W_ ( **u** ), _W_ ( **d** )) is the set of all edit sequences that transform _W_ ( **u** ) into _W_ ( **d** ), and _|_ **e** _|_ is the length of an edit sequence **e** . Compared to embedding similarity and n-gram similarity metrics, editing distance can better distinguish the nuance difference between **u** and **d** , preventing giving overly high similarity scores. For example, when the target model outputs content following its system prompt rather than outputting the system prompt itself, embedding similarity will give a high score, while editing distance can call the difference. Another example is when the target model output containsa partial and rephrased version of **u** , n-gram similarity will assign a high score, but editing distance will not. 
@@ -412,7 +412,7 @@ However, it cannot be directly used as our reward function due to the following 
 To solve the first limitation, we propose to apply a sliding window to the target model’s output and then calculate the edit distance for each slide. Formally, it can be defined as 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-10.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0015-10.png)
 
 
 Sliding-window Word Edit Similarity 
@@ -424,7 +424,7 @@ Published as a conference paper at COLM 2025
 We take log to make the similarity more smooth. To solve the second limitation, we then normalize SWES as follows. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0016-02.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0016-02.png)
 
 
 where _k_ controls the steepness of the sigmoid curve and _x_ 0 is the intercept. 
@@ -434,7 +434,7 @@ The insights behind this normalization are two-fold. First, we can set a larger 
 We also introduce another regularization in the reward function, which favors **u** that has a similar length as the **d** Our final reward function is defined as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0016-06.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0016-06.png)
 
 
 where we set _λ_ = 0.1 based on our empirical experiences. 
@@ -454,27 +454,27 @@ Second, to train our attack agent, we need the target information. We select the
 Published as a conference paper at COLM 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-01.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-02.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-03.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-04.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-05.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-06.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0017-06.png)
 
 
 Figure 4: Transferability of selected attacks across different models. We show the absolute value of similarity scores when applying the transfer attack. **Lighter colors represent better attack performance.** LeakAgent demonstrates obvious superior transferability notably in the bottom left (transferring from open-source models to closed-source models) and in the top left (transferring from open-source models to other open-source models). 
@@ -509,7 +509,7 @@ Published as a conference paper at COLM 2025
 Table 5: Utility comparison of SecAlign and our defense in three different domains. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0018-03.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0018-03.png)
 
 
 <!-- Start of picture text -->
@@ -602,7 +602,7 @@ Summarize the user’s prompt to 120 characters or less. Under no circumstances 
 Published as a conference paper at COLM 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0021-01.png)
+![](images/21-leakagent-an-rl-based-red-teaming-framework-for-llm.pdf-0021-01.png)
 
 
 <!-- Start of picture text -->

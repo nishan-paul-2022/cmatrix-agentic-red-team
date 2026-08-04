@@ -71,7 +71,7 @@ The repositories reveal further overlap not visible in the table: each team inde
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-00.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -79,76 +79,76 @@ Bug
  Code<br>Cand. DIff<br>Optional<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-01.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-01.png)
 
 
 <!-- Start of picture text -->
 Target<br>Project<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-02.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-03.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-04.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-04.png)
 
 
 <!-- Start of picture text -->
 LLM Service<br>(§3.5)<br>LiteLLM<br>Budget mgmt<br>Per-CRS keys<br>Model routing<br>Model aliasing<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-05.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-05.png)
 
 
 <!-- Start of picture text -->
 CRS A<br>CPUPUU<br>Container 1ontainer 11 Container 2ontainer 22<br>Memoryemoryy<br>LLM<br>Budget Fuzzeruzzerzzerer Analyzeryzerer<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-06.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-06.png)
 
 
 <!-- Start of picture text -->
 CPUPUU<br>Container 1ontainer 11 Container 2ontainer 22<br>Memoryemoryy<br>LLM<br>Budget Fuzzeruzzerzzerer Analyzeryzerer<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-07.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-07.png)
 
 
 <!-- Start of picture text -->
 CRS B<br>CPUPUU<br>Container 1ontainer 11 Container 2ontainer 22<br>Memoryemoryy<br>LLM<br>Budget Fuzzeruzzerzzerer Builder Sidecar<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-08.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-08.png)
 
 
 <!-- Start of picture text -->
 CPUPUU<br>Container 1ontainer 11 Container 2ontainer 22<br>Memoryemoryy<br>LLM<br>Budget Fuzzeruzzerzzerer Builder Sidecar<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-09.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-10.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-10.png)
 
 
 <!-- Start of picture text -->
 File-based Storage<br>Build<br>Artifacts<br>Seeds<br>Bug-candidates<br>PoVs<br>Patches<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-11.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-11.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-12.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-12.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-13.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0003-13.png)
 
 
 <!-- Start of picture text -->
@@ -187,7 +187,7 @@ From the user’s perspective, OSS-CRS only requires two inputs: a target projec
 **Three-phase lifecycle.** OSS-Fuzz combines building and running into a single workflow: build the fuzz target, then run it. OSS-CRS introduces a three-phase model ( _prepare_ , _build-target_ , _run_ ) that separates CRS setup from target compilation and running, enabling caching and modularity across diverse CRS architectures. The _prepare_ phase builds CRS container images and their dependencies. These images contain the CRS’s analysis tools but have no knowledge of the target project. A prepared CRS can analyze any compatible target without rebuilding, amortizing setup cost across multiple analysis campaigns. The _build-target_ phase 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0004-07.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0004-07.png)
 
 
 <!-- Start of picture text -->
@@ -242,35 +242,35 @@ identify specific issues for CRSs to address; OSS-CRS accepts SARIF reports [35]
 Figure 3 shows the builder sidecar workflow. During the _build-target_ phase, OSS-CRS captures a Docker image snapshot of the fully compiled target along with its build 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-10.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-10.png)
 
 
 <!-- Start of picture text -->
 Instrumentatio<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-11.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-11.png)
 
 
 <!-- Start of picture text -->
 Project Build<br>Snapsho<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-12.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-12.png)
 
 
 <!-- Start of picture text -->
 CRS Runne<br>Builder<br>Patc Sideca<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-13.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-13.png)
 
 
 <!-- Start of picture text -->
 Builder<br>Patc Sideca<br>Build<br>Artifact<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-14.png)
+![](images/19-oss-crs-liberating-aixcc-cyber-reasoning-systems-for.pdf-0005-14.png)
 
 
 <!-- Start of picture text -->
