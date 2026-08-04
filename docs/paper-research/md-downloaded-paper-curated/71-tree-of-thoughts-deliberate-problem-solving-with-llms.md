@@ -21,12 +21,38 @@ The literature on human cognition provides some clues to answer these questions.
 37th Conference on Neural Information Processing Systems (NeurIPS 2023). 
 
 
-![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0002-00.png)
-
-
-<!-- Start of picture text -->
-����� ����� ����� ����� ���������<br>�� �� ��<br>��<br>��<br>�������������<br>������ ������ ������� �������<br>����������������� ��������������������� ���������������������<br>�������������� ��������������� ����������������� ��������������������������<br><!-- End of picture text -->
-
+```mermaid
+flowchart TD
+    subgraph IO[Input-Output]
+        In1[Input] --> Out1[Output]
+    end
+    
+    subgraph CoT[Chain of Thought]
+        In2[Input] --> T1[Thought 1] --> T2[Thought 2] --> Out2[Output]
+    end
+    
+    subgraph CoT_SC[CoT-Self Consistency]
+        In3[Input]
+        In3 --> T3_1[Thought] --> Out3_1[Output]
+        In3 --> T3_2[Thought] --> Out3_2[Output]
+        In3 --> T3_3[Thought] --> Out3_3[Output]
+    end
+    
+    subgraph ToT[Tree of Thoughts]
+        In4[Input]
+        In4 --> T4_1[Thought]
+        In4 --> T4_2[Thought]
+        In4 --> T4_3[Thought]
+        
+        T4_1 --> T4_1_1[Thought]
+        T4_1 --> T4_1_2[Thought]
+        
+        T4_2 --> T4_2_1[Thought]
+        T4_2 --> T4_2_2[Thought]
+        
+        T4_1_2 --> Out4_1[Output]
+    end
+```
 Figure 1: Schematic illustrating various approaches to problem solving with LLMs. Each rectangle box represents a _thought_ , which is a coherent language sequence that serves as an intermediate step toward problem solving. See concrete examples of how thoughts are generated, evaluated, and searched in Figures 2,4,6. 
 
 choices instead of just picking one, and (2) evaluates its current status and actively looks ahead or backtracks to make more global decisions. 
@@ -139,12 +165,21 @@ Figure 2: ToT in a game of 24. The LM is prompted for (a) thought generation and
 5 
 
 
-![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0006-00.png)
+```text
+Table 2: Game of 24 Results.
+Method                  Success
+IO prompt               7.3%
+CoT prompt              4.0%
+CoT-SC (k=100)          9.0%
+ToT (ours) (b=1)        45%
+ToT (ours) (b=5)        74%
+IO + Refine (k=10)      27%
+IO (best of 100)        33%
+CoT (best of 100)       49%
 
-
-<!-- Start of picture text -->
-Method Success (a) Success rate with nodes visited (b) Samples failed at each step<br>IO prompt 7.3% CoTToT (b=5)<br>CoT prompt 4.0% 0.6 0.6<br>CoT-SC (k=100) 9.0%<br>ToT (ours) (b=1) 45% 0.4 0.4<br>ToT (ours) (b=5) 74%<br>IO + Refine (k=10) 27% 0.2 IO (best of k)CoT (best of k) 0.2<br>IO (best of 100) 33% ToT (b=1...5)<br>CoT (best of 100) 49% 0.0<br>0 25 50 75 100 1 2 3 4 Correct<br>Table 2: Game of 24 Results. Figure 3: Game of 24 (a) scale analysis & (b) error analysis.<br><!-- End of picture text -->
-
+Figure 3: Game of 24 (a) scale analysis & (b) error analysis.
+(Charts omitted for brevity)
+```
 **Results.** As shown in Table 2, IO, CoT, and CoT-SC prompting methods perform badly on the task, achieving only 7.3%, 4.0%, and 9.0% success rates. In contrast, ToT with a breadth of _b_ = 1 already achieves a success rate of 45%, while _b_ = 5 achieves 74%. We also consider an oracle setup for IO/CoT, by calculating the success rate using best of _k_ samples (1 _≤ k ≤_ 100). To compare IO/CoT (best of k) with ToT, we consider calculating the tree nodes visited per task in ToT across _b_ = 1 _· · ·_ 5, and map the 5 success rates in Figure 3(a), treating IO/CoT (best of _k_ ) as visiting _k_ nodes in a bandit. Not surprisingly, CoT scales better than IO, and best of 100 CoT samples achieve a success rate of 49%, but still much worse than exploring more nodes in ToT ( _b >_ 1). 
 
 **Error analysis.** Figure 3(b) breaks down at which step CoT and ToT samples fail the task, i.e. the thought (in CoT) or all _b_ thoughts (in ToT) are invalid or impossible to reach 24. Notably, around 60% of CoT samples already failed the task after generating the first step, or equivalently, the first three words (e.g. “4 + 9”). This highlights the issues with direct left-to-right decoding. 
@@ -164,12 +199,9 @@ Next, we invent a creative writing task where the input is 4 random sentences an
 6 
 
 
-![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0007-00.png)
-
-
-<!-- Start of picture text -->
-�������������������������������������������������������������������������������������������� �� ����������<br>���� ������������������������������������������������������������� �� �����������������������������������������������<br>����� ������������������������������������������������������������������������������������ �� �������������������������������������������������������������������������������������������� ��<br>����� ������ ������ ��������<br>���� �� ���������������������������������������������������������� �� ������������� �� �������������������������������������������������������������������������������������<br>������ �������� �� ����� ����������������������������������������������� �� ������������������������������ ����������������������������������������������������������������������������� �� ������������������������ ���������<br>����������������������������������������������������� �� ����������� ������������������������������������ �� ����������������������������������������������� �� ����������������� �<br>������������������������������������ �������������������������������������������������<br>�������� �������� �� ���������������������������������������� ��������� ��������� ���������<br>����� ���� ���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������� �� ����������������������������������������������������������������������������������� � �������������������� � �������������� � ��� ���� �� ���� ����� �� ��������� ���� ��������������� ����� ���� �� ����� �� ��������� ����� �� ����� ���������� � ��� ��� ���� ������ ��� ���������� �� ������� ��� ����� � ����� ���� ������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������ ��� ����� �� ������� � ������ ���������� ����� ��� ������ � �� ��������� � � ������� ����������������������������������������������������� �� ���������� ���� �� ����� ������ �� ����� ��� ��������������������������������������� ������������������������������������������ � ��������������������� ��� ��������������������� ����� ��������������������� ��� ���������������� �� �� ��� �� �� �������������� ��� ���������<br><!-- End of picture text -->
-
+```text
+[Figure 4: A step of deliberate search in a randomly picked Creative Writing task. Given the input, the LM samples 5 different plans, then votes 5 times to decide which plan is best.]
+```
 Figure 4: A step of deliberate search in a randomly picked Creative Writing task. Given the input, the LM samples 5 different plans, then votes 5 times to decide which plan is best. The majority choice is used to consequently write the output passage with the same sample-vote procedure. 
 
 |8|(a)|GPT-4 c|oherencyscores<br>40<br>(b) Human coherencycomparison|**Method**|**Succ**<br>**Lette**|**ess Ra**<br>**r Word**|**te (%)**<br>  **Game**|
@@ -207,12 +239,9 @@ In Game of 24 and Creative Writing, ToT is relatively shallow — at most 3 thou
 
 
 
-![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0008-04.png)
-
-
-<!-- Start of picture text -->
-��������� ����������� ���<br>��������� ��������������������������������������������������� ����<br>��������� �������������������������������� ���������������������������������� �����<br>������������������ �������� ������������������������������������������������������������������������������������������������������������������������������������������������������������������� ��� ��� �� � �� ��������������������� ��� �� ��������� ��������� �������������������<br>�������� ��� ���� ��<br>����������� ��������������������������������<br>������������������������������� �����<br>�������� �������� ������������������������ �����������<br>��<br>�� ���������������� ������������������������������������� ������<br><!-- End of picture text -->
-
+```text
+[Figure 6: In Mini Crosswords, (a) how thoughts are proposed and aggregated in a priority queue for depth-first search (DFS), and (b) how a state is evaluated based on the possibility of filling in each remaining word clue...]
+```
 Figure 6: In Mini Crosswords, (a) how thoughts are proposed and aggregated in a priority queue for depth-first search (DFS), and (b) how a state is evaluated based on the possibility of filling in each remaining word clue, and pruned if any remaining clue is deemed not possible to fill by the LM. Then DFS backtracks to the parent state and explore the next promising thought for clue. 
 
 these across proposals to obtain a sorted list of next thoughts to explore (Figure 6(a)). For state evaluations, we similarly translate each state into letter constraints for remaining clues, then evaluate for each clue if it is possible to fill given the constraints. If any remaining clue is deemed “impossible” to fill in (e.g. “v1. To heap: tm ~~s~~ ”), then the exploration of the state’s subtree is pruned and DFS backtracks to its parent to explore the next promising thought. We limit DFS search steps to 100, and simply render the deepest explored state (the first explored one if multiple) into the final output. 
