@@ -3,18 +3,18 @@
 ATLANTIS _: AI-driven Threat Localization, Analysis, and Triage Intelligence System_ 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-03.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-04.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-04.png)
 
 
 <!-- Start of picture text -->
 +<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-05.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0001-05.png)
 
 
 TAESOO KIM, HYUNGSEOK HAN, SOYEON PARK, DAE R. JEONG, DOHYEOK KIM, DONGKWAN KIM, EUNSOO KIM, JIHO KIM, JOSHUA WANG, KANGSU KIM, SANGWOO JI, WOOSUN SONG, HANQING ZHAO, ANDREW CHIN, GYEJIN LEE, KEVIN STEVENS, MANSOUR ALHARTHI, YIZHUO ZHAI, CEN ZHANG, JOONUN JANG, YEONGJIN JANG, AMMAR ASKAR, DONGJU KIM, FABIAN FLEISCHER, JEONGIN CHO, JUNSIK KIM, KYUNGJOON KO, INSU YUN, SANGDON PARK, DOWOO BAIK, HAEIN LEE, HYEON HEO, MINJAE GWON, MINJAE LEE, MINWOO BAEK, SEUNGGI MIN, WONYOUNG KIM, YONGHWI JIN, YOUNGGI PARK, YUNJAE CHOI, JINHO JUNG, GWANHYUN LEE, JUNYOUNG JANG, KYUHEON KIM, YEONGHYEON CHA, AND YOUNGJOON KIM 
@@ -289,13 +289,13 @@ Starting from Exhibition Round 3, the competition also included unharnessed chal
 The competition employed a comprehensive scoring system designed to incentivize both the discovery of novel vulnerabilities and the generation of correct, deployable patches. Rather than attacking and analyzing other teams’ binaries as in CGC, each CRS in AIxCC operated on the organizer-provided CPs independently. The scoring format evolved through several iterations; this report describes the final “Version 2” methodology [15]. The final team score is calculated as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0009-04.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0009-04.png)
 
 
 The challenge score is a weighted sum of CRS performance across vulnerability discovery, program repair, SARIF assessment, bundling, and accuracy for all vulnerabilities in the challenge. Each challenge score is calculated as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0009-06.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0009-06.png)
 
 
 where AM is the Accuracy Multiplier, VDS is the Vulnerability Discovery Score, PRS is the Program Repair Score, SAS is the SARIF Assessment Score, and BDL is the Bundle Score. Here, the AM emphasizes submission quality over quantity. Any false submissions (incorrect patches, wrong SARIF assessments) significantly degrade the overall score, incentivizing teams to prioritize accuracy. 
@@ -392,7 +392,7 @@ Table 5 reveals the detailed resource utilization and LLM usage patterns across 
 9 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0012-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0012-00.png)
 
 
 <!-- Start of picture text -->
@@ -477,7 +477,7 @@ The system’s effectiveness emerged from complementary specialization where eac
 13 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0016-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0016-00.png)
 
 
 <!-- Start of picture text -->
@@ -722,7 +722,7 @@ Fuzzers often get stuck when exploring deep execution paths or encountering comp
 22 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0025-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0025-00.png)
 
 
 <!-- Start of picture text -->
@@ -806,7 +806,7 @@ From a sink-centered perspective, detecting this vulnerability involves two dist
 25 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0028-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0028-00.png)
 
 
 <!-- Start of picture text -->
@@ -866,7 +866,7 @@ Ensemble fuzzing combines multiple fuzzing strategies by merging their collectiv
 27 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0030-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0030-00.png)
 
 
 <!-- Start of picture text -->
@@ -960,7 +960,7 @@ DEEPGENERATOR (previously discussed in §4.5.2) is a high-throughput framework t
 30 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0033-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0033-00.png)
 
 
 <!-- Start of picture text -->
@@ -987,7 +987,7 @@ The sinkpoint-focused directed fuzzing component represents a combination of sta
 31 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0034-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0034-00.png)
 
 
 <!-- Start of picture text -->
@@ -1191,7 +1191,7 @@ We built our concolic execution engine on _GraalVM Espresso_ , a high-performanc
 37 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0040-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0040-00.png)
 
 
 <!-- Start of picture text -->
@@ -1246,7 +1246,7 @@ This process of lazily converting values to symbolic expressions only when they 
 39 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0042-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0042-00.png)
 
 
 <!-- Start of picture text -->
@@ -1385,7 +1385,7 @@ To address this, we limit the number of constraints that can be generated from t
 43 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0046-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0046-00.png)
 
 
 <!-- Start of picture text -->
@@ -1464,7 +1464,7 @@ Figure 17 illustrates our tool’s workflow, which is described in detail in the
 45 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0048-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0048-00.png)
 
 
 <!-- Start of picture text -->
@@ -1518,7 +1518,7 @@ Figure 19 illustrates the methodology by which this tool employs Joern’s Stati
 47 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0050-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0050-00.png)
 
 
 <!-- Start of picture text -->
@@ -1595,7 +1595,7 @@ the data, bypassing the initial setup phases. However, the processes of identify
 ## **6 ATLANTIS-Multilang** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0055-01.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0055-01.png)
 
 
 <!-- Start of picture text -->
@@ -1694,7 +1694,7 @@ Unfortunately, directed fuzzing is not always ideal. For example, MLLA may retur
 56 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0059-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0059-00.png)
 
 
 <!-- Start of picture text -->
@@ -1734,7 +1734,7 @@ Based on these observations and definitions, we constructed a differential analy
 58 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0061-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0061-00.png)
 
 
 <!-- Start of picture text -->
@@ -1825,7 +1825,7 @@ Dictionary-based fuzzing improves effectiveness by mutating inputs with tokens o
 61 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0064-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0064-00.png)
 
 
 <!-- Start of picture text -->
@@ -1918,7 +1918,7 @@ OutputFormat:
 63 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0066-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0066-00.png)
 
 
 <!-- Start of picture text -->
@@ -1955,7 +1955,7 @@ Testlang is a domain-specific language designed to formally describe arbitrary d
 65 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0068-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0068-00.png)
 
 
 <!-- Start of picture text -->
@@ -1972,7 +1972,7 @@ By using LLMs, this system systematically analyzes how the harness processes inp
 66 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0069-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0069-00.png)
 
 
 <!-- Start of picture text -->
@@ -2083,7 +2083,7 @@ The Testlang-based approach demonstrates significant advantages over traditional
 71 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0074-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0074-00.png)
 
 
 <!-- Start of picture text -->
@@ -2290,7 +2290,7 @@ Thefollowingannotationsmarkspecificlinesinthecode:
 79 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0082-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0082-00.png)
 
 
 <!-- Start of picture text -->
@@ -2311,7 +2311,7 @@ This coverage feedback mechanism integrates with the iterative refinement workfl
 80 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0083-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0083-00.png)
 
 
 <!-- Start of picture text -->
@@ -2332,7 +2332,7 @@ Integration with the UNIAFL infrastructure occurs through the INPUT EXECUTOR (§
 81 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0084-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0084-00.png)
 
 
 <!-- Start of picture text -->
@@ -2345,7 +2345,7 @@ generating many correlated variations dramatically increases the probability tha
 82 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0085-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0085-00.png)
 
 
 <!-- Start of picture text -->
@@ -2425,7 +2425,7 @@ The BGA framework incorporates systematic domain knowledge across two critical d
 85 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0088-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0088-00.png)
 
 
 <!-- Start of picture text -->
@@ -2491,7 +2491,7 @@ The integration strategy follows two principles. _Contextual relevance_ ensures 
 87 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0090-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0090-00.png)
 
 
 <!-- Start of picture text -->
@@ -2661,7 +2661,7 @@ Each encoder exposes a set of producer functions that correspond one-to-one with
 92 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0095-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0095-00.png)
 
 
 <!-- Start of picture text -->
@@ -2803,7 +2803,7 @@ The overall workflow of MARTIAN agent is shown in Figure 45. First, it generates
 98 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0101-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0101-00.png)
 
 
 <!-- Start of picture text -->
@@ -2832,11 +2832,11 @@ The patch generation module employs a search/replace strategy at the function le
 99 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0102-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0102-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0102-01.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0102-01.png)
 
 
 **Figure 46:** The architecture of the MULTIRETRIEVAL system, illustrating the interactions between the specialized nodes. The left figure shows the overall architecture, while the right figure focuses on the `CodeRetriever` that manages multi-source code retrieval operations which be used by the `SystemGuidedPatcher` . 
@@ -2931,7 +2931,7 @@ During the development of MULTIRETRIEVAL, we observed that in some cases, the ag
 102 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0105-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0105-00.png)
 
 
 **Figure 47:** The architecture of the PRISM system, illustrating the interactions between the specialized agent teams. 
@@ -3051,7 +3051,7 @@ When VINCENT accepts the sanitizer report and PoC, it performs an intial root ca
 106 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0109-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0109-00.png)
 
 
 **Figure 52:** The overall workflow of VINCENT agent. Given a sanitizer report and PoC, it conducts root cause analysis and property analysis. Based on the analysis result, it generate security patch in an iterative approach. 
@@ -3105,7 +3105,7 @@ The workflow of CLAUDELIKE is largely similar to that of other simple agents emp
 108 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0111-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0111-00.png)
 
 
 **Figure 53:** The overall structure of the CLAUDELIKE coder. The read-only file editor tools that can be invoked by the sub-agent are highlighted with blue boxes, while the file editor tools that modify files are highlighted with red boxes. 
@@ -3256,7 +3256,7 @@ As shown in Table 19, the results of the final competition are consistent with t
 (a) CPVs with bug type, changed files, hunks, and added and removed lines per diff 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0116-02.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0116-02.png)
 
 
 <!-- Start of picture text -->
@@ -3312,7 +3312,7 @@ As shown in Table 19, the results of the final competition are consistent with t
 115 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0118-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0118-00.png)
 
 
 <!-- Start of picture text -->
@@ -3550,7 +3550,7 @@ We consider a policy for code context retrieval _π_ : _X →_ ∆( _A_ ), which
 In code context learning, we find a policy _π_ for code context retrieval that maximizes the average return over _T_ episodes of CPVs. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0124-07.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0124-07.png)
 
 
 where _R_ : _X × A →_ [0 _,_ 1] is a reward function, which will be defined in the following section, and _at,h_ is an action chosen by _π_ given _xt,h_ . 
@@ -3566,7 +3566,7 @@ Our approach pursues three primary objectives:
 122 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0125-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0125-00.png)
 
 
 **Figure 57: RL setup for code patching via multi-turn retrieval.** The policy _π_ iteratively conditions on contextual states _xt,h_ to produce retrieval actions _at,h_ . The environment integrates retrieved artifacts with a challenge project CP _t_ to construct subsequent states _xt,h_ +1. The reward _rt,h_ +1 combines format validation (structural compliance) of retrieval actions and soundness assessment (patch quality) of a patched codebase, with aggregated rewards guiding policy optimization across multi-turn interactions for code retrieval. 
@@ -3584,7 +3584,7 @@ Our approach is multi-turn retrieval-based code patching via RL, as illustrated 
 123 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0126-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0126-00.png)
 
 
 **Figure 58: Multi-turn GRPO training flow (adapted and re-colored from the original Hugging Face diagram).** For each batch of prompts (pink), the policy generates multi-turn completions (green); a reward model assigns per-turn rewards (shades of blue). Rewards are centered and scaled to yield advantages (purple) that drive the policy update. In parallel, token-wise _D_ KL between the current and reference policies is computed (orange _→_ red). The final loss balances reward maximization and regularization. 
@@ -3598,7 +3598,7 @@ retrieved artifacts with the challenge project CP _t_ , constructing the subsequ
 **Reward Modeling.** To guide the agent toward effective retrieval strategies, we employ a composite reward signal. For a given state-action pair ( _xt,h, at,h_ ), the reward is defined as: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0126-06.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0126-06.png)
 
 
 where _λ_ fmt and _λ_ snd are non-negative weighting coefficients. The reward consists of two components: 
@@ -3616,13 +3616,13 @@ process involves generating multi-turn completions from the policy, using our re
 Let _G_ be the number of groups and _A_<sup>ˆ</sup> _t,g_ is the advantage where: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-02.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-02.png)
 
 
 when _rt,g_ is the reward of the _g_ -th group at the _t_ -th CPV. The conventional single-turn GRPO objective is shown as following: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-04.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-04.png)
 
 
 where _π_ ( _a | x_ ) is the probability of an action _a_ computed from from an action distribution _π_ ( _x_ ), _D_ KL is the Kullback-Leibler (KL) divergence, _β_ is a regularization parameter, _π_ old is a “frozen” _π_ ( _i.e., π_ without allowing update), and _π_ ref is an initial policy. Note that the KL divergence term is included to regularize the policy, preventing it from deviating too far from a frozen reference policy _π_ ref . 
@@ -3630,7 +3630,7 @@ where _π_ ( _a | x_ ) is the probability of an action _a_ computed from from an
 We extend the original GRPO objective to our multi-turn scenario by aggregating the loss across all turns _h_ = 1 _, . . . , H_ , as follows: 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-07.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0127-07.png)
 
 
 This aggregated reward signal propagates through the entire multi-turn trajectory to optimize the policy. Note that the clipping term from the original GRPO formulation [40] is omitted here for notational simplicity. 
@@ -3791,7 +3791,7 @@ To complement our evaluations with general-purpose LLMs, we developed a lightwei
 127 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0130-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0130-00.png)
 
 
 **Figure 59: Training dynamics.** Each subplot shows the reward trajectory for a specific project and CPV pair over two epochs. The blue line represents the mean reward across all agents in a group, while the orange line shows the maximum reward achieved by any agent in that group at each step. 
@@ -3823,7 +3823,7 @@ Figure 59 shows per-project reward trajectories over two epochs. Each subplot co
 128 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0131-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0131-00.png)
 
 
 **Figure 60: Patch outcomes across CPVs and agent checkpoints.** Each cell represents the final patch outcome for a given CPV (columns) and agent checkpoint. Color encodes categorical evaluation results. 
@@ -3897,7 +3897,7 @@ The following summarizes our key findings in developing custom LLMs for patching
 131 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0134-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0134-00.png)
 
 
 **Figure 61:** SARIF Validation Architecture. LLM-based modules are highlighted with green boxes. The system processes incoming SARIF reports through reachability analysis and LLM-based validation. Results are stored in the SharedDB and accessed through our custom API interface. 
@@ -3996,7 +3996,7 @@ The benchmark is designed to evaluate both the overall robustness of ATLANTIS an
 136 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0139-00.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0139-00.png)
 
 
 <!-- Start of picture text -->
@@ -4315,7 +4315,7 @@ The implementation and benchmarks will be made publicly available: `https://gith
 As an open track team, it would not have been possible to dedicate our time for this journey without the support of our organizations. We sincerely thank Georgia Tech, Samsung Research, KAIST, and POSTECH. 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0146-09.png)
+![](images/09-atlantis-the-darpa-aixcc-winning-cyber-reasoning-system.pdf-0146-09.png)
 
 
 144 

@@ -157,7 +157,7 @@ potential defenses. For a refresher on the security principles we reference here
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/10-systems-security-foundations-for-agentic-computing.pdf-0008-00.png)
+![](images/10-systems-security-foundations-for-agentic-computing.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -603,7 +603,7 @@ Applying the above-mentioned principle to AI agents is challenging because the a
 ## **A Example: Claude Code Data Exfiltration** 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/10-systems-security-foundations-for-agentic-computing.pdf-0025-02.png)
+![](images/10-systems-security-foundations-for-agentic-computing.pdf-0025-02.png)
 
 
 Figure 2: CVE-2025-55284: Claude Code Data Exfiltration via DNS Lookup (Image Credit: Johann Rehberger/EmbraceTheRed). 
@@ -617,7 +617,7 @@ In layered system designs, the TCB crosses multiple layers, with each TCB layer 
 25 
 
 
-![](docs/paper-research/md-downloaded-paper-professor/images/10-systems-security-foundations-for-agentic-computing.pdf-0026-00.png)
+![](images/10-systems-security-foundations-for-agentic-computing.pdf-0026-00.png)
 
 
 Figure 3: Standard security architecture. Requests and responses cross a security boundary between an untrusted system and the trusted computing base (TCB). The TCB consults the security policy to decide whether it is permitted to answer a given request. 
