@@ -71,14 +71,14 @@ Anonymous’25, Anon, Anonymous
 Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0003-02.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0003-02.png)
 
 
 <!-- Start of picture text -->
 Limitations of Previous Work<br>a (Flag-oriented)CTF Challenge b Extra Hints c Single Service  d Limited & Delayed Tools<br>✅ IP: 192.168.0.10<br>My task is to  ✅ Entry Point: /login   Coverage: < 50% of PoCs<br>capture the  flag . ✅ Exploit Path: XXXX Config.yml SQL SSH Status: Delayed updates<br>FLAG services: vuln:  enabled vuln Redis FTP Common Pentest Toolkits<br>💬I captured the flag:    ssh:   http:   ftp:  disableddisableddisabled HTTP xxx x ✅✅❌❌CVE-2018-xxxxCVE-2020-xxxxCVE-2024-xxxxCVE-2025-xxxx Integrated Exploits<br>FLAG{this_is_a_string}   sql:  disabled Benchmark Slow Updates Limited Coverage<br>e Our Real-world Pentest Agent<br>Real-world CVE Target  Only Subnet Multi-service Broad & Timely Arsenal<br>(Shell-oriented)<br>Broad Coverage Fast Updates<br>My task is to gain a  shell . ✅ subnet: 192.168.0.0/24   FTPRedis HTTP<br>CVE List<br>Apache├├ CVE-2021-41773 Spring Framework├├ CVE-2022-22965 DNS SSH Integrated exploits In-the-wildexploits<br> └─  CVE-2021-42013  └─  CVE-2018-1270 user@host:~$  sudo su<br>Elasticsearch └─  └─  CVE-2015-1427 25 Services30 CVEs30 CVEs SQL CVE-xxx root@host:~#uid-0(root) gid-0(root)id<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0003-03.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0003-03.png)
 
 
 <!-- Start of picture text -->
@@ -222,61 +222,61 @@ Anonymous’25, Anon, Anonymous
 Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-02.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
 Identify host in 192.168.0.0/24 and perform penetration testing to get its shell.<br>❶<br>❷<br>❺<br>Reasoner Memory Assistant<br>R Activated Based on the context and the phased goals,<br>Please plan the next phased goals based on the context and overall goals: PMT Non-activated first determine whether the current phased goal has been completed. If not completed,<br>Overall Goal R. Subnet :  192.168.0.0/24 please generate specific instructions for the<br>perform penetration testing to get its shell.Identify host in 192.168.0.0/24 and  Activated Abstract Memory 1 a 2 b 3 1.2. IP: 192.168.0.1 IP: 192.168.0.2 a. Service Ⅰ Exp:  : AA-1 pache - druid next step.Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal<br>1. found host 192.168.0.2 In 192.168.0.0/242. Found service Apache-druid in the host3. Found corresponding self-build exploit A-1 Ⅰ Ⅱ         b.3. IP: 192.168.0.3Service: OpenSSH Ⅱ  Exp: A-2 1. Used ` Activated Coarse-grained Memory nmap –sn 192.168.0.0/24 ` and<br>found host 192.168.0.2 up;<br>Compression Level a 2. Used ` nmap –sV 192.168.0.2 ` and found<br>Abstract:  Identified the Apache-druid service. port `8888` with unknown service ` answerbook? ` sun-<br>OK, now that we have successfully identified the host, service, and corresponding exploit, in order to obtain the shell, the next phased goal should be: Coarse-grained:  found port `8888` with unknown service ` answerbook?8888` , revealing Apache-druid.`; UsedUsed `  `whatweb http://192.168.0.2:nmap –sV 192.168.0.2sun- ` and  3. Usedrevealing Apache-druid.3. Found a corresponding self-build exploitA-1 for Apache-druid.  `whatweb http://192.168.0.2:8888`<br>Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal Fine-grained: 1. VERSION ……8888/tcp open  sun-answerbook?......  nmap -sV  192.168.0.2:  ...... PORT STATE SERVICE  ` docker run –it A-1 –ip <ip> Exploit Manual -port <port> ` Analysis<br>2. whatweb http://172.19.0.99:8081:  ...[RESERVED]<br>[ZZ], HTML5 IP[172.19.0.99]…Title[Apache Druid]… No, the A-1 exploit has not been used, so the mission is not complete. The next UED<br>step is to deploy self-built exploit A-1 for<br>Executor Apache-druid. Based on manual of self-<br>built exploit A-1, the next specific<br>192.168.0.2 ` docker run –it A-1 –ip Instruction -port 8888 Shell execution in` Kali Linux Capture Output [08/26/25 23:59:20*] Docker starting...[08/26/25 23:59:59*] Get the shell> whoamiroot Output ！ instruction should be:` docker run –it A-1 –ip 192.168.0.2 Instruction port 8888 ` -<br>❸ ❹<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-03.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-04.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-04.png)
 
 
 <!-- Start of picture text -->
 RCE filter<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-05.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-05.png)
 
 
 <!-- Start of picture text -->
 Metasploit<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-06.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-06.png)
 
 
 <!-- Start of picture text -->
 Metasploit<br>……<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-07.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-07.png)
 
 
 <!-- Start of picture text -->
 Collection<br>Analysis<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-08.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-09.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-10.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-10.png)
 
 
 <!-- Start of picture text -->
 Exploits Manuals<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-11.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-11.png)
 
 
 **Figure 2.** System Overview. ❶ The security researcher specifies the overall pentesting goal and inputs it to the agent. After several iterations, based on the abstract memory automatically activated by the _Memory Module_ and the overall goal, the Reasoner Module proceeds to plan the next phased goal. ❷ The phased goal is then sent to the Assistant Module, which generates the next specific instruction based on activated coarse-grained memory and documentation from the Self-Built Arsenal Module. ❸ The Executor Module executes the specific instruction and updates the resulting command output into the _Memory Module_ . ❹ The assistant module then generates the next instruction. If the current phased goal is completed, ❺ it obtains the next phased goal from the Reasoner Module, repeating this process until the overall goal is achieved. 
@@ -399,7 +399,7 @@ Anonymous’25, Anon, Anonymous
 Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0011-02.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0011-02.png)
 
 
 <!-- Start of picture text -->
@@ -458,7 +458,7 @@ To validate the effectiveness and irreplaceability of our proposed designs, we p
 **Ablation of Memory and Arsenal Module.** To quantify the performance improvements brought by the Memory Module and the Arsenal Module to TermiAgent’s pentesting capabilities, we conduct a series of evaluations by separately removing each module under real-world scenarios. Specifically, with the Memory Module ablated, we disabled the Located Memory Activation (LMA) approach. In its place, we followed the design of VulnBot and PentestGPT, inputting 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0012-07.png)
+![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0012-07.png)
 
 
 <!-- Start of picture text -->

@@ -35,7 +35,7 @@ In parallel, Retrieval-Augmented Generation (RAG) has emerged as a promising app
 Ultimately, the integration of LLMs into cybersecurity workflows highlights both opportunities and risks. Applications such as malware detection and vulnerability triage stand to benefit from LLM-powered automation, but reliance on static knowledge bases leaves models vulnerable to newly emerging threats. Although fine-tuning or re-training on domain-specific data can mitigate this issue, such processes are computationally expensive and impractical for real-time adaptation [8]. This gap motivates the need for hybrid RAG frameworks tailored to cybersecurity, enabling cost- 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0002-06.png)
+![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0002-06.png)
 
 
 Figure 1. General overview of each major step of the RAG framework. 
@@ -99,7 +99,7 @@ Dense retrieval is the standard RAG technique for capturing semantic similarity 
 In contrast to dense methods, sparse retrieval prioritizes exact lexical matches, making it particularly useful for security identifiers such as CVE numbers. For this component, we adopt BM25 [29], a widely used algorithm for keywordbased retrieval. BM25 ranks documents based on the informativeness of query terms, where frequent words (e.g., _the_ ) are down-weighted while rare, domain-specific terms (e.g., _buffer overflow_ ) are up-weighted. The scoring function is given by: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0003-09.png)
+![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0003-09.png)
 
 
 Here, _f_ ( _qi, D_ ) is the frequency of term _qi_ in document _D_ , and IDF( _qi_ ) represents its informativeness. The denominator normalizes scores with respect to document length, ensuring that longer documents do not dominate the ranking [30]. Unlike dense retrieval, BM25 ensures that only documents explicitly containing the query terms are returned, providing high precision for cybersecurity queries where exact identifiers are often crucial. 
@@ -131,7 +131,7 @@ We evaluate our proposed framework using the KCV and CWET datasets from the SECU
 We first establish baselines by evaluating the model without any retrieval augmentation. In this setting, the temperature parameter is fixed at the default value of 0 _._ 7, and 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0004-13.png)
+![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0004-13.png)
 
 
 Figure 2. General prompt format in the KCV dataset for non-RAG evaluation. 
