@@ -140,11 +140,9 @@ We then analyzed the detailed pentesting processes of all systems to answer two 
 _1) Advantages of Claude Code:_ PENTESTGPT relies on a human-in-the-loop workflow, while other systems incorporate command-execution capabilities, enabling a higher degree of automation. The LLM code agents are better at iteratively debugging and modifying commands based on the execution results compared to CAI. Although PENTESTAGENT excels in searching and leveraging online exploits, its performance lags in non-exploit tasks, such as enumeration and application probing. Among those LLM agents, Claude Code stands out with several strengths. First, Codex and Gemini Code Assist discover narrower attack surfaces and often select slower and less effective approaches (e.g., excessive password brute-forcing or path enumeration), while Claude Code can discover broader attack surfaces. Second, Codex and Gemini Code Assist demonstrate limited self-reflection and adjustment capabilities. They often fail to recognize when a chosen route is unproductive and may remain stalled on the same 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0006-00.png)
-
-
-<!-- Start of picture text -->
-PentestGPT+o4-mini CAI+o4-mini Gemini Code Assist+Gemini Pro 2.5<br>PentestAgent+o4-mini Codex+o4-mini Claude Code+Sonnet 4.5<br>100<br>50<br>0<br>M1 M2 M3 M4 M5 M6 M7 M8 M9 M10 M11<br>Milestones<br>Percentage (%)<br><!-- End of picture text -->
+```text
+(Figure 1 Bar Chart: Comparison of penetration capabilities of existing automated pentesting systems on Vulhub benchmark. Claude Code+Sonnet 4.5 and CHECKMATE reach the highest milestones compared to PentestGPT, CAI, Gemini Code Assist, PentestAgent, and Codex.)
+```
 
 Fig. 1: Comparison of penetration capabilities of existing automated pentesting systems on Vulhub benchmark. 
 
@@ -167,57 +165,27 @@ the process, it also increases the risks of hallucinated steps, inconsistent per
 In this paper, we present CHECKMATE, a system designed to overcome limitations of existing LLM-based pentesting frameworks. Following the PEP diagram proposed in §II-A, CHECKMATE consists of three major components: classical planning+ as the planner, an LLM agent as the executor, and an LLM as the perceptor. The overall design of CHECKMATE is illustrated in Figure 2. Specifically, we introduced predefined attack actions to expand LLM’s knowledge on the specialized tools. Classical planning+ is leveraged to plan the next action, which is executed by an LLM agent. An LLM is used to interpret execution results and update the planner for further planning. Instead of relying on the LLM agent for the entire pentesting workflow, CHECKMATE restricts the LLM’s role to a pure perceptor and a simple-task executor. This design leverages the LLM agent’s strong executing and interpreting capabilities while relieving it of long-horizon planning and reasoning, which are handled by the classical planner. 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-00.png)
-
-
-each action. For example, once a web enumeration action identifies a specific web application, a pentester would naturally consider all relevant Metasploit modules, NSE scripts, and Nuclei templates associated with that application. In classical planning, the discovered web application is an effect of the enumeration action and simultaneously serves as a precondition of those subsequent actions. The set of factors used as preconditions and effects is flexible and can be customized or extended as needed. In our current design, these factors include elements such as the identified application, CVEs, URLs, usernames, passwords, etc. By encoding these causal dependencies directly, the system gains stronger built-in causal reasoning capabilities and reduces the need for the LLM to perform complex long-horizon reasoning on its own. 
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-02.png)
-
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-03.png)
-
-
-<!-- Start of picture text -->
-Action #1<br>LLM …<br>Agents Action #N<br>Predefined<br>Executor Attack Actions<br>Action Paths<br><!-- End of picture text -->
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-04.png)
-
-
-<!-- Start of picture text -->
-Parse Results and<br>Update Translate to Predicates LLM<br><!-- End of picture text -->
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-05.png)
-
-
-<!-- Start of picture text -->
-Parse Results and<br>Update Translate to Predicates LLM<br>Perceptor<br>CurrentState State?Goal NO<br>YES Solver<br><!-- End of picture text -->
+```mermaid
+flowchart TD
+    subgraph CheckMate[CHECKMATE Overview]
+        direction TB
+        Perceptor[LLM Perceptor: Parses Results and Translates to Predicates]
+        Planner[Classical Planning+: Current State -> Goal? -> Solver]
+        Executor[LLM Agent Executor: Action Paths -> Predefined Attack Actions]
+        
+        Perceptor -->|Update State| Planner
+        Planner -->|Action| Executor
+        Executor -->|Execution Results| Perceptor
+    end
+```
 
 Fig. 2: Overview of CHECKMATE. The orange arrow shows the iterative loop of classical planning+. The current state is initialized before the planning starts. 
 
-_2) Classical Planning+:_ Classical planning+ is proposed to address the limitations of traditional classical planning in dynamic, non-deterministic, and partially observable tasks. **Non-Deterministic Action Effects:** Pentesting inherently involves uncertainty and incomplete information. For instance, the result of a port scan is not known until finished, and the outcome of an exploit attempt is often unpredictable until it is executed. However, traditional classical planning assumes a static, deterministic, and fully observable target, where all action effects are determined, and the state of the target is <mark>completely s</mark> pecified before the planning starts. Some pentesting systems use complex models to encode uncertainty, which are difficult to scale in the real world. In CHECKMATE, we propose classical planning+, leveraging LLMs to dynamically determine action effects. Since it updates action effects at runtime, complete knowledge is no longer required before planning begins. Specifically, we define the non-deterministic effect to indicate that the effect of an action is unknown until it is executed. Once an action with a non-deterministic effect is executed, LLMs are invoked to analyze the execution outcome and generate concrete effect predicates. We describe this process in §IV-C2, along with a concrete example. Through this mechanism, we successfully extend classical planning to dynamic, non-deterministic, partially-observable scenarios. 
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-08.png)
-
-
-<!-- Start of picture text -->
-Attack<br><!-- End of picture text -->
+_2) Classical Planning+:_ Classical planning+ is proposed to address the limitations of traditional classical planning in dynamic, non-deterministic, and partially observable tasks. **Non-Deterministic Action Effects:** Pentesting inherently involves uncertainty and incomplete information. For instance, the result of a port scan is not known until finished, and the outcome of an exploit attempt is often unpredictable until it is executed. However, traditional classical planning assumes a static, deterministic, and fully observable target, where all action effects are determined, and the state of the target is completely specified before the planning starts. Some pentesting systems use complex models to encode uncertainty, which are difficult to scale in the real world. In CHECKMATE, we propose classical planning+, leveraging LLMs to dynamically determine action effects. Since it updates action effects at runtime, complete knowledge is no longer required before planning begins. Specifically, we define the non-deterministic effect to indicate that the effect of an action is unknown until it is executed. Once an action with a non-deterministic effect is executed, LLMs are invoked to analyze the execution outcome and generate concrete effect predicates. We describe this process in §IV-C2, along with a concrete example. Through this mechanism, we successfully extend classical planning to dynamic, non-deterministic, partially-observable scenarios. 
 
 ## _B. Predefined Attack Actions_ 
 
-As previously mentioned, existing general-purpose LLM agents lack knowledge of specialized tools during pentesting. To address this, we introduce predefined attack actions to expand their knowledge base. We explicitly predefine niche and <mark>fne-grained</mark> tools such as Metasploit modules, NSE scripts, and Nuclei templates as “actions”, which are considered by the planner. Predefi <mark>ned attack actions also help avoid the</mark> inconsistency and errors in LLM-command-generation. In pentesting, most commands adhere to a consistent structure. For example, when executing a default port scan using nmap -Pn -sC -sV -p- -oN - # _{_ target _}_ , the command structure remains largely consistent, while the only part that usually changes is # _{_ target _}_ . However, the next-token prediction mechanism of LLMs is increasingly unstable, and errorprone when generating long commands. In contrast, predefined attack actions provide the core structure and options of the command, leaving only parameters like # _{_ target _}_ to be specified, significantly reducing the risk of generating incorrect commands. 
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0007-11.png)
-
-
-<!-- Start of picture text -->
-ned attack actions also help avoid the completely s<br><!-- End of picture text -->
+As previously mentioned, existing general-purpose LLM agents lack knowledge of specialized tools during pentesting. To address this, we introduce predefined attack actions to expand their knowledge base. We explicitly predefine niche and fine-grained tools such as Metasploit modules, NSE scripts, and Nuclei templates as “actions”, which are considered by the planner. Predefined attack actions also help avoid the inconsistency and errors in LLM-command-generation. In pentesting, most commands adhere to a consistent structure. For example, when executing a default port scan using nmap -Pn -sC -sV -p- -oN - # _{_ target _}_ , the command structure remains largely consistent, while the only part that usually changes is # _{_ target _}_ . However, the next-token prediction mechanism of LLMs is increasingly unstable, and errorprone when generating long commands. In contrast, predefined attack actions provide the core structure and options of the command, leaving only parameters like # _{_ target _}_ to be specified, significantly reducing the risk of generating incorrect commands. 
 
 Predefined attack action offers an alternative approach to expanding an LLM’s knowledge base without relying on traditional RAG or fine-tuning. Fine-tuning LLMs is often costly, time-consuming, and difficult to scale. RAG, while flexible, depends on retrieving document snippets and the model’s ability to interpret those snippets and synthesize commands. In contrast, predefined attack actions offer explicit, wellstructured, executable commands. By defining preconditions of actions (we will introduce this later), these actions can be retrieved more accurately, efficiently, and interpretably than relying solely on embedding-based similarity search in RAG. 
 
@@ -274,30 +242,6 @@ We first evaluate the penetration capability of CHECKMATE, compared to existing 
 ## _B. Efficiency_ 
 
 In this section, we evaluate both the efficiency and cost of CHECKMATE. We selected 20 penetration tasks that CHECKMATE and Claude Code were both able to successfully complete. Under the same LLM model setting, we compared the total monetary cost, representing the amount of LLM tokens consumed, and the time required to finish each task. The results are summarized in Figure 5. On average, CheckMate has a total cost of $0.68, which is 53% lower than that of Claude Code under identical conditions. This reduction in token consumption can be attributed to the use of classical planning for strategy formulation. In contrast, Claude Code relies entirely on text-based reasoning, where every intermediate thought and plan must be expressed in natural language, leading to substantial token overhead. By adopting a symbolic and formalized planning mechanism, CHECKMATE avoids using the LLM to “generate” its reasoning process, thereby concentrating the model’s generation capacity on executing 
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-00.png)
-
-
-<!-- Start of picture text -->
-1 st iteration 2 nd iteration<br>target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>undetermined-effect<br><!-- End of picture text -->
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-01.png)
-
-
-<!-- Start of picture text -->
-target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>suspicious-app url-accessible suspicious-app<br>openssh url1 confluence<br>Action Action Action<br>msf-search  openssh whatweb Scan  url1 msf-search  confluence<br>undetermined-effect undetermined-effect undetermined-effect<br><!-- End of picture text -->
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-02.png)
-
-
-<!-- Start of picture text -->
-Action Action<br>msf-search  openssh whatweb Scan  url1<br>undetermined-effect undetermined-effect<br><!-- End of picture text -->
-
-
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-03.png)
 
 
 <!-- Start of picture text -->
@@ -488,11 +432,9 @@ root-shell<br><!-- End of picture text -->
 Fig. 3: A pentesting workflow driven by classical planning+. Each panel shows one planning-execution-perception iteration. Blue rounded ovals are predicates that link actions across iterations; yellow rounded ovals denote non-deterministic action effects. Rectangular boxes list feasible actions available during the engagement, and light-green rectangles indicate the actions chosen by the planner for execution in that iteration. Arrows show how actions are connected with predicates. 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-31.png)
-
-
-<!-- Start of picture text -->
-100<br>PentestGPT<br>CAI<br>80<br>PentestAgent<br>60 ClaudeCode<br>CheckMate<br>40<br>20<br>0<br>Milestones<br>M1 M2 M3 M4 M5 M6 M7 M8 M9 M10 M11<br>Percentage (%)<br><!-- End of picture text -->
+```text
+(Figure 4 Line Chart: Comparison of Claude Code with CHECKMATE on Vulhub benchmark. CheckMate reaches nearly 100% at all early milestones and maintains ~90% up to M7, whereas Claude Code degrades rapidly to ~20% at M7.)
+```
 
 actions and interpreting outputs. The average time consumed for CHECKMATE is 7.75 minutes, which is 54% lower than Claude Code. 
 
@@ -503,11 +445,11 @@ In this section, we evaluate the stability of the pentesting process, i.e., whet
 Fig. 4: Comparison of Claude Code with CHECKMATE on Vulhub benchmark 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-00.png)
-
-
-<!-- Start of picture text -->
-ClaudeCode CheckMate<br>4<br>2<br>0<br>(a) Monetary costs.<br>40<br>ClaudeCode CheckMate<br>30<br>20<br>10<br>0<br>(b) Time consumed.<br>Operational Cost (USD)<br>Execution Time (minutes)<br><!-- End of picture text -->
+```text
+(Figure 5 Bar Charts: Efficiency comparison between ClaudeCode and CHECKMATE. 
+(a) Monetary costs: CheckMate ~ $0.68, Claude Code > $1.4. 
+(b) Time consumed: CheckMate ~ 7.75 min, Claude Code > 12 min.)
+```
 
 Fig. 5: Efficiency comparison between ClaudeCode and CHECKMATE. 
 
@@ -528,11 +470,11 @@ TABLE II: Stability comparison between CHECKMATE and Claude Code.
 We analyze a specific example in detail to illustrate differences during pentesting between CHECKMATE and Claude Code. In this case, CHECKMATE completed the penetration in only three steps; Claude Code, by contrast, used 26 steps, many of which were added because of redundancy, premature abandonment, distractions, and incomplete planning and reasoning. The target is an old version of Apache ActiveMQ (an open-source messaging middleware that supports Java messaging services, clustering, and the Spring framework) from Vulhub. CHECKMATE began with a full-port Nmap scan plus fingerprinting and script probes. It discovered two open ports (22 and 8191), identified that Apache ActiveMQ was running, and associated that service with likely CVEs and corresponding Metasploit modules. Rather than rushing straight to exploitation, CHECKMATE chose, from the feasible action set, to analyze the web interface to further confirm the ActiveMQ version. That analysis verified that an ActiveMQ Console was running and revealed the 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0010-07.png)
-
-
-<!-- Start of picture text -->
-Exploit Execution<br>NmapScan WebpageAnalyze (multi/misc/apache_activemq_rce_cve_20<br>23_46604)<br>Ping Target IP Nmap Scan nc scan port1-100 nc scan port1-1000<br>Python(Foundscan8981)ActiveMQport 1-10000on Python scan100 port 1- nc scanportcommon<br>Access webpage on 8981 Search ActiveMQ- Access webpage to<br>(Found ActiveMQ on related exploit on  identify ActiveMQ<br>8981) searchsploit version<br>Search ActiveMQ-related  Access webpage to Try default<br>exploit on Metasploit identify ActiveMQ version credentials<br>Use<br>exploit/windows/http/apache_activemq_ Configure the exploit module<br>traversal_upload in Metasploit<br>Use  Upload JSP webshell<br>multi/http/apache_active Try 40857 found  using Metasploit<br>by searchsploit<br>mq_upload_jsp: exploit<br>Find other endpoints  use exploit/multi/http/ Access the<br>to upload JSP  apache_activemq_upload uploaded webshell:<br>webshell _jsp in Metasploit Failed<br>Review the Metasploit exploit code to understand its file-upload<br>mechanism; then implement a streamlined Python-based exploit following<br>the same logic and establish a reverse shell.(Failed result)<br>Analyze the Metasploit exploit to understand its file-upload routine, then<br>develop a minimal Python exploit that replicates this logic and spawns a<br>reverse shell.(Failed)<br>Write an exploit script based on that :<br>Read  42283 in searchsploit: Finished Finished<br>Create a more reliable interactive shell<br>Connect with the webshell: Success<br>wrapper in Python: Finished<br><!-- End of picture text -->
+```text
+(Figure 6 Comparison Diagram: 
+CHECKMATE's Workflow: Nmap Scan -> WebpageAnalyze -> Exploit Execution (Metasploit CVE module). Extremely targeted.
+Claude Code's Workflow: Ping Target IP -> nc scan ports -> Python port scanner -> Try searchsploit -> Try default creds -> Configure exploit module -> Fails -> Attempts writing custom Python exploit -> Fails again -> Spends extreme amounts of redundant steps.)
+```
 
 Fig. 6: Top box: CHECKMATE ’s workflow. Bottom box: Claude Code’s workflow. Colors show stages. pink: reconnaissance, yellow: search/analysis, green: Metasploit/SearchSploit exploitation (failed), blue: autonomous exploitation. 
 
@@ -553,11 +495,12 @@ In this section, we conduct an ablation study by comparing CHECKMATE with two co
 Existing work leaves two fundamental questions unanswered: (1) What actions and skills does pentesting require? and (2) How should we represent the state of the target system? The difficulty arises from the open-ended nature of pentesting. Unlike tasks with well-defined action and state spaces, pentesting spans the full breadth of a system’s architecture, configurations, vulnerabilities, and defenses, and demands a wide and adaptable skill set. Current approaches either define fixed, finite sets of skills and states, or depend heavily on black-box LLMs to infer target states and propose actions. The fixed schemas are too restrictive, while relying on opaque LLMs makes it difficult to systematically improve penetration 
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0011-06.png)
-
-
-<!-- Start of picture text -->
-CheckMate ClaudeCode+RAG ClaudeCode+Structured Plan ClaudeCode<br>$0.56 [0.48, 0.79]<br>$0.86 [0.63, 1.19]<br>$1.11 [0.53, 1.39]<br>$1.43 [1.02, 1.88]<br>0.0 0.5 1.0 1.5 2.0 2.5<br>Cost (USD)<br>6.9min [5.6, 8.6]<br>11.8min [7.7, 15.1]<br>10.6min [7.4, 17.2]<br>12.7min [10.5, 19.3]<br>0 5 10 15 20 25<br>Time (minutes)<br><!-- End of picture text -->
+| Model | Cost (USD) | Time (minutes) |
+| :--- | :--- | :--- |
+| CheckMate | $0.56 [0.48, 0.79] | 6.9min [5.6, 8.6] |
+| ClaudeCode+RAG | $0.86 [0.63, 1.19] | 11.8min [7.7, 15.1] |
+| ClaudeCode+Structured Plan | $1.11 [0.53, 1.39] | 10.6min [7.4, 17.2] |
+| ClaudeCode | $1.43 [1.02, 1.88] | 12.7min [10.5, 19.3] |
 
 Fig. 7: Cost and time comparison. (a) Median API costs in USD. (b) Median execution time in minutes. Error bars represent the interquartile range (25th-75th percentile). 
 
