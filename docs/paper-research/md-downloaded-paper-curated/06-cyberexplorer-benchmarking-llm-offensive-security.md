@@ -49,7 +49,30 @@ et al [29] shows that better prompting and tool use can achieve high scores on e
 2 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0003-00.png)
+```mermaid
+flowchart TD
+    subgraph Recon["Environment Recon"]
+        QReconAgent["Q Recon Agent"] --> Dispatch
+        Dispatch --> AgentNodes["Agent Nodes (A0, A1, An)"]
+        AgentNodes --> Summary
+        Summary --> PendingEntrypoint(("Pending Entrypoint"))
+    end
+    
+    subgraph AgenticLoop["Agentic Loop"]
+        Supervisor["Supervisor"]
+        Executors["Executors (Context Window, Tools)"]
+        Critic["Self-Reflect / Critic"]
+        Budget["Budget Extension"]
+        
+        PendingEntrypoint --> Supervisor
+        Supervisor --> Executors
+        Executors --> Critic
+        Critic --> Budget
+        Executors --> Decision{"Decision"}
+        Decision -->|Flag Found| Solved["Solved"]
+        Decision -->|Max Agents / Deadend| Stop["Stop"]
+    end
+```
 
 
 <!-- Start of picture text -->
@@ -108,7 +131,20 @@ We present CTFExplorerEval, an evaluation framework that measures how security a
 4 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0005-00.png)
+```mermaid
+flowchart LR
+    Agent["1. Agent (LLM-based)"] <--> CTFExplorer["2. CTFExplorer Evaluation Server"]
+    CTFExplorer --> Oracle["3. Oracle Evaluation"]
+    Oracle --> Report["4. Session Report"]
+    
+    subgraph CTFExplorerDetails["Evaluation Server"]
+        SessionManagement["Session Management"]
+        EnvConfig["Environment Configuration"]
+        Timeline["Submission Timeline"]
+        Graph["Live Reasoning Graph"]
+    end
+    CTFExplorer -.-> CTFExplorerDetails
+```
 
 
 <!-- Start of picture text -->
@@ -190,7 +226,7 @@ Table 5 and Fig. 3 provide deeper insight into how agents utilize exploration. T
 Table 5: Exploration Efficiency (EE) and Redundancy Rate (RR) across models 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0006-11.png)
+*Violin plot showing the distribution of interaction rounds for LLM agents to reach solved (blue) and dead-end (red) outcomes across Opus 4.5, Sonnet 4, DeepSeek V4 Pro, Gemini 3 Pro, GPT 5.2, and Qwen 3.5.*
 
 
 <!-- Start of picture text -->
@@ -208,83 +244,6 @@ Fig. 4 shows how reasoning depth evolves across targets over time. Each heatmap 
 
 ### **4.3 Reasoning Depth Analysis** 
 
-Fig. 5 shows the maximum reasoning level achieved per target. GPT 5.2 and Gemini 3 Pro reach L4 on more ports, which shows stronger exploitation. In contrast, Claude Sonnet 4 and Qwen 3.5 remain at intermediate levels (L1–L3), which indicates partial progress without consistent completion. The distribution shows a trade-off between selective depth and uniform exploration. Some models focus deep reasoning on a few ports and leave others at L0–L1, while others maintain steady mid-level 
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-05.png)
-
-
-<!-- Start of picture text -->
-L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-06.png)
-
-
-<!-- Start of picture text -->
-P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 Time Phases T3 T4<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-07.png)
-
-
-<!-- Start of picture text -->
-P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-08.png)
-
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-09.png)
-
-
-<!-- Start of picture text -->
-L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-10.png)
-
-
-<!-- Start of picture text -->
-P32P31P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br>Explored Target Ports<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-11.png)
-
-
-<!-- Start of picture text -->
-L4<br>L3<br>L2<br>L1<br>L0<br>Reasoning Level<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-12.png)
-
-
-<!-- Start of picture text -->
-T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-13.png)
-
-
-<!-- Start of picture text -->
-P38P37P36P35P34P33P32P31P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-14.png)
-
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-15.png)
-
-
-<!-- Start of picture text -->
-L4<br>L3<br>L2<br>L1<br>L0<br><!-- End of picture text -->
-
-
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0007-16.png)
-
-
 <!-- Start of picture text -->
 P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P1<br>T1 T2 T3 T4<br>Time Phases<br>Explored Target Ports<br><!-- End of picture text -->
 
@@ -295,7 +254,7 @@ Figure 4: Exploration progress heatmap across model runs.
 progress. DeepSeek V4 Pro shows deep reasoning on selected targets, which reflects prioritization. Claude Opus 4.5 shows a more balanced spread with steady progress across targets. Overall, targetwise depth shows that strong performance depends on consistent depth across targets, not just reaching L4. Models with broad coverage and deeper reasoning show more effective exploration. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0008-01.png)
+*Stem plots showing target-wise reasoning depth distribution across models (Opus 4.5, Sonnet 4, Gemini3 Pro, GPT5.2, Qwen 3.5, DeepSeekV4P).*
 
 
 <!-- Start of picture text -->
@@ -316,7 +275,7 @@ To show multi-step reasoning, we present two cases: _The Silent Corridor_ and _T
 8 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0009-00.png)
+*Line charts showing reasoning level progression over time (seconds) across models (Opus 4.5, Sonnet 4, Gemini3 Pro, GPT5.2, Qwen 3.5, DeepSeekV4P).*
 
 
 <!-- Start of picture text -->
@@ -455,7 +414,7 @@ Across models, agents typically generate a small number of files per instance. E
 To interpret extracted findings through a security-relevant lens, we further map vulnerability signals to the OWASP Top-10 taxonomy using keyword-based matching over finding descriptions. Fig. 8 presents the normalized distribution of discovered vulnerability categories across models. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0013-05.png)
+*Heatmap showing the fraction of findings per OWASP category for each model (QWEN35, GEMINI3PRO, DEEPSEEKV4PRO, OPUS45, SONNET4, GPT52). Darker purple indicates a higher fraction (e.g., A01: Broken Access Control is high across all models).*
 
 
 <!-- Start of picture text -->
@@ -472,7 +431,25 @@ Here we demonstrate how the agentic chain and knowledge hand-off can exploit a c
 13 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0014-00.png)
+```mermaid
+flowchart TD
+    A0["AGENT 0: DISCOVERY<br/>Found: ?format=<br/>Tried: $(id)<br/>Result: Echoed literal<br/>*Potential Injection*"]
+    A1["AGENT 1: CONFIRM<br/>Try: '%0aid%0a'<br/>Error: sh: 3: Perm denied<br/>Shell Error<br/>*Filter Active*"]
+    A2["AGENT 2: MAPPING<br/>Failed: TZ, ; , |<br/>Constraint: Newlines<br/>Identified: require quotes (%27)"]
+    A3["AGENT 3: FILTER ID<br/>Failed: /bin/cat, echo<br/>Identified: Blacklist filter<br/>*STUCK - ask Critic*"]
+    C1{"CRITIC @ 80%<br/>Try Bypasses:<br/>Backticks+IFS,<br/>Subshell"}
+    A4["AGENT 4: GRIND<br/>Actions: Exhaust all common bypasses.<br/>Result: All blocked."]
+    C2{"CRITIC HANDOFF<br/>Key Idea:<br/>Wildcard Globbing<br/>/bin/c?t /fl*"}
+    A5["AGENT 5: SOLVER<br/>Inherited: 21 fails + Wildcard Idea<br/>Payload: ;/bin/c?t /fl*;<br/>Flag: HTB{...}<br/>SOLVED"]
+
+    A0 --> A1
+    A1 --> A2
+    A2 --> A3
+    A3 -.-> C1
+    C1 --> A4
+    A4 --> C2
+    C2 --> A5
+```
 
 
 <!-- Start of picture text -->
@@ -640,7 +617,7 @@ The following analysis leverages this experimental setup to examine success rate
 We analyze the impact of budget allocation and agent escalation limits on entrypoint-level outcomes by comparing the proportion of solved and dead-end trajectories across multiple hyperparameter configurations. Each setting varies the fraction of available budget and the maximum number of agents permitted during execution, enabling an examination of how resource scaling influences agentic behavior. Figure 10 summarizes the distribution of solved and dead-end entrypoints for GPT-5.2 and Opus-4.5 under these configurations. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0017-07.png)
+*Stacked bar chart showing the percentage of entrypoints resulting in Solved vs Dead-End outcomes for different temperature and budget settings of GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -686,7 +663,7 @@ This asymmetry is clearly illustrated in Figure 11, which shows the distribution
 18 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-00.png)
+*Violin plot showing the distribution of agents per entrypoint across different temperature settings for GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -695,7 +672,7 @@ This asymmetry is clearly illustrated in Figure 11, which shows the distribution
 Figure 11: Average number of agents used per entrypoint for solved and dead-end trajectories. Across all configurations, dead-end cases consistently require more agents, highlighting escalation as a reactive response to uncertainty rather than productive progress. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0019-02.png)
+*Bar chart showing the average agents per entrypoint (Solved vs Dead-End) for different temperature settings of GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -718,7 +695,7 @@ While aggregate success metrics provide a coarse view of agent performance, they
 19 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-00.png)
+*Scatter plot showing Total Interaction Rounds vs Agents per Entrypoint for Solved and Dead-End outcomes.*
 
 
 <!-- Start of picture text -->
@@ -727,7 +704,7 @@ SOLVED<br>400 DEAD_END<br>300<br>200<br>100<br>0<br>2 4 6 8 10<br>Agents per Ent
 Figure 13: Depth-breadth trade-off in agentic execution. Each point corresponds to an entrypoint, with the x-axis indicating the number of agents spawned (breadth) and the y-axis denoting total interaction rounds (depth). Successful trajectories form a compact cluster with limited agent usage and moderate depth, whereas dead-end trajectories exhibit heavy-tailed dispersion across both dimensions, indicating compounding escalation without effective progress. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0020-02.png)
+*Violin plot showing the distribution of the Number of Agents across different temperature settings for GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -746,7 +723,7 @@ A similar pattern emerges when analyzing total interaction depth. As shown in Fi
 20 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-00.png)
+*Violin plot showing the distribution of Interaction Rounds across different temperature settings for GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -755,7 +732,7 @@ A similar pattern emerges when analyzing total interaction depth. As shown in Fi
 Figure 15: Distribution of total interaction rounds per entrypoint. Dead-end trajectories consistently consume substantially more rounds than successful ones, often extending to several hundred interactions. Increased depth does not correspond to improved outcomes, but instead reflects prolonged persistence following early reasoning collapse. 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0021-02.png)
+*Violin plot showing the distribution of Interaction Rounds across different temperature settings for GPT-5.2 and Opus-4.5.*
 
 
 <!-- Start of picture text -->
@@ -815,7 +792,7 @@ To examine this relationship more directly, Figure 17 visualizes the coupling be
 22 
 
 
-![](images/06-cyberexplorer-benchmarking-llm-offensive-security.pdf-0023-00.png)
+*Scatter plot showing Total Cost vs Total Interaction Rounds per entrypoint for GPT-5.2 and Opus-4.5 (Solved vs Dead End).*
 
 
 <!-- Start of picture text -->

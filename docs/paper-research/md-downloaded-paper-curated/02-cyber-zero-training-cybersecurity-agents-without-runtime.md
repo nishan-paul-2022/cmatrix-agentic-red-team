@@ -162,25 +162,32 @@ flowchart TD
 Error: Function 'main' not found<br>in random_vault<br>... ---HINT_START---<br>[HINT]<br>The binary doesn't have a main function.<br>Try using...<br>[/HINT]<br>---HINT_END---<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-05.png)
+> **CTF Challenge**
+> 
+> **Name:** Random Vault
+> **Category:** Pwn
+> **Files:** `["random_vault"]`
+> **Server:** The challenge server is running on `200.136.252.34`
+> 
+> *A legacy service that was once used to store HARPA's secrets has been discovered. The service was accidentally left accessible on the internet until December 2019. Your goal is to exploit the service's vulnerabilities to extract the secrets still stored on the server.*
 
 
 <!-- Start of picture text -->
 CTF Challenge<br>Name:  Random Vault<br>Category:  Pwn<br>Files:  ["random_vault"]<br>Server:  The challenge server is running<br>on 200.136.252.34<br>A legacy service that was once used to store HARPA's<br>secrets has been discovered. The service was accidentally<br>left accessible on the internet until December 2019. Your<br>goal is to exploit the service's vulnerabilities to extract the<br>secrets still stored on the server.<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-06.png)
+**Player Model** 🕵️‍♂️
 
 
 <!-- Start of picture text -->
 Player Model<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-07.png)
+**🤖 (AI Agent)**
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-08.png)
+**Terminal Model** 💻
 
 
 <!-- Start of picture text -->

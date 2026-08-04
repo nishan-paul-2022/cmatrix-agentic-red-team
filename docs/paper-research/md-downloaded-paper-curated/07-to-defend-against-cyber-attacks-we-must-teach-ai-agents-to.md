@@ -15,11 +15,11 @@ For more than a decade, software security has depended on continuous human effor
 > 5National University of Singapore. Correspondence to: Terry Yue Zhuo <terry.zhuo@monash.edu>, Yangruibo Ding <yrbding@cs.ucla.edu>, Wenbo Guo <henrygwb@ucsb.edu>, Ruijie Meng <ruijie_meng@u.nus.edu>. 
 
 
-![](images/07-to-defend-against-cyber-attacks-we-must-teach-ai-agents-to.pdf-0001-08.png)
+**👤 (Human)**
 
 
 
-![](images/07-to-defend-against-cyber-attacks-we-must-teach-ai-agents-to.pdf-0001-09.png)
+**🤖 (AI Agent)**
 
 
 <!-- Start of picture text -->
