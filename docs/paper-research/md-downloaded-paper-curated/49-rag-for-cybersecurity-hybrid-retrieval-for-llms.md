@@ -35,7 +35,19 @@ In parallel, Retrieval-Augmented Generation (RAG) has emerged as a promising app
 Ultimately, the integration of LLMs into cybersecurity workflows highlights both opportunities and risks. Applications such as malware detection and vulnerability triage stand to benefit from LLM-powered automation, but reliance on static knowledge bases leaves models vulnerable to newly emerging threats. Although fine-tuning or re-training on domain-specific data can mitigate this issue, such processes are computationally expensive and impractical for real-time adaptation [8]. This gap motivates the need for hybrid RAG frameworks tailored to cybersecurity, enabling cost- 
 
 
-![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0002-06.png)
+```mermaid
+flowchart TD
+    ED[External Documents] -->|Chunking Strategy| CD[Chunked Documents]
+    CD -->|Documents embedded to vectorDB| VDB[(vectorDB)]
+    
+    P[Prompt] -->|Similarity Search| VDB
+    P --> RQA[Retrieval QA Chain]
+    
+    VDB -->|Retrieved Documents| RQA
+    
+    RQA --> LLM[LLM]
+    LLM --> GR([Generated Response])
+```
 
 
 Figure 1. General overview of each major step of the RAG framework. 
@@ -99,7 +111,7 @@ Dense retrieval is the standard RAG technique for capturing semantic similarity 
 In contrast to dense methods, sparse retrieval prioritizes exact lexical matches, making it particularly useful for security identifiers such as CVE numbers. For this component, we adopt BM25 [29], a widely used algorithm for keywordbased retrieval. BM25 ranks documents based on the informativeness of query terms, where frequent words (e.g., _the_ ) are down-weighted while rare, domain-specific terms (e.g., _buffer overflow_ ) are up-weighted. The scoring function is given by: 
 
 
-![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0003-09.png)
+$$ \text{score}(D, Q) = \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot \left(1 - b + b \cdot \frac{|D|}{\text{avgdl}}\right)} $$
 
 
 Here, _f_ ( _qi, D_ ) is the frequency of term _qi_ in document _D_ , and IDF( _qi_ ) represents its informativeness. The denominator normalizes scores with respect to document length, ensuring that longer documents do not dominate the ranking [30]. Unlike dense retrieval, BM25 ensures that only documents explicitly containing the query terms are returned, providing high precision for cybersecurity queries where exact identifiers are often crucial. 
@@ -131,7 +143,9 @@ We evaluate our proposed framework using the KCV and CWET datasets from the SECU
 We first establish baselines by evaluating the model without any retrieval augmentation. In this setting, the temperature parameter is fixed at the default value of 0 _._ 7, and 
 
 
-![](images/49-rag-for-cybersecurity-hybrid-retrieval-for-llms.pdf-0004-13.png)
+```text
+You are given the following JSON data as context: {Context formatted in JSON} Based on the context, you have to analyze the following statement: {Statement} and indicate whether the statement is True or False. Return your answer as either T (for True) or F (for False). If you do not know the answer, return X. Provide only the letter corresponding to your choice (T, F, or X) without any additional text or explanations. {Statement}. {Correct Answer}
+```
 
 
 Figure 2. General prompt format in the KCV dataset for non-RAG evaluation. 
