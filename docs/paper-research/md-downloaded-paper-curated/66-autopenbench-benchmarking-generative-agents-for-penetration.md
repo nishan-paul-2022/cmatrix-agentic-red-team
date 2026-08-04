@@ -41,14 +41,14 @@ We build AUTOPENBENCH on top of AgentQuest [19], a modular framework which suppo
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0003-00.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
 LLM Generative Kali Virtual<br>Agent Workstation Network<br>Vulnerable<br>Containers<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0003-01.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0003-01.png)
 
 
 Figure 1: Overview of the penetration test infrastructure. 
@@ -161,7 +161,7 @@ To extend the benchmark to other tasks and categories, a developer must provide 
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0006-00.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -188,7 +188,7 @@ Firstly, we provide to the agent the instructions for the task to solve in the f
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0007-00.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -319,7 +319,7 @@ All in all, our results underscore the complex nature of autonomous penetration 
 10 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0011-00.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0011-00.png)
 
 
 <!-- Start of picture text -->
@@ -379,7 +379,7 @@ For AC0 (Figure 5a), the agent successfully completes the task in all ten runs. 
 12 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0013-00.png)
+![](images/66-autopenbench-benchmarking-generative-agents-for-penetration.pdf-0013-00.png)
 
 
 <!-- Start of picture text -->

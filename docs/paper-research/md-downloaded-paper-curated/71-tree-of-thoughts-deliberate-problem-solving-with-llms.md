@@ -21,7 +21,7 @@ The literature on human cognition provides some clues to answer these questions.
 37th Conference on Neural Information Processing Systems (NeurIPS 2023). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0002-00.png)
+![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0002-00.png)
 
 
 <!-- Start of picture text -->
@@ -139,7 +139,7 @@ Figure 2: ToT in a game of 24. The LM is prompted for (a) thought generation and
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0006-00.png)
+![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -164,7 +164,7 @@ Next, we invent a creative writing task where the input is 4 random sentences an
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0007-00.png)
+![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -207,7 +207,7 @@ In Game of 24 and Creative Writing, ToT is relatively shallow — at most 3 thou
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0008-04.png)
+![](images/71-tree-of-thoughts-deliberate-problem-solving-with-llms.pdf-0008-04.png)
 
 
 <!-- Start of picture text -->

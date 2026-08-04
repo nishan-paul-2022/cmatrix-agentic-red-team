@@ -13,7 +13,7 @@ Ee-Chien Chang
 National University of Singapore Singapore changec@comp.nus.edu.sg 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0001-08.png)
+![](images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0001-08.png)
 
 
 ## **ABSTRACT** 
@@ -235,7 +235,7 @@ Our investigation will demonstrate if participants can solve CTF challenges usin
 **Web Security—Shell Shock Attack.** This challenge requires participants to login to a cloud environment. For this particular CTF challenge, the related CVE and attack technologies are CVE-20146271, CVE-2014-6278, Command Injection, and Reverse Shell. Given a webserver environment with a small network topology (see Figure 2), participants are asked the following question. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0005-00.png)
+![](images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0005-00.png)
 
 
 **Figure 2: The network topology in a small web server environment for Web Security CTF challenge—Shell Shock Attack.** 
@@ -341,7 +341,7 @@ LastName et al.
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0006-03.png)
+![](images/69-language-agents-as-hackers-evaluating-cybersecurity-skills.pdf-0006-03.png)
 
 
 **Figure 3: AIM using creative prompts to trick** **_ChatGPT_ into bypassing its safety policy and providing information about security exploits against a target server.** 

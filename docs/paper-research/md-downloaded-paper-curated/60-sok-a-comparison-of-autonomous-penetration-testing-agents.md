@@ -53,7 +53,7 @@ here, refers to rewards. RL is based on the _reward hypothesis_ : Any goal can b
 Actions are chosen according to a _policy_ . It defines the agent’s way of behaving at a given time [33]. Most often, we use a stochastic policy _𝜋_ ( _𝑎𝑡_ | _𝑠𝑡_ ) = _𝑃_ ( _𝑎𝑡_ | _𝑠𝑡_ ). To measure the quality of our policy, we can use value functions. The state-value function is defined as: _𝑣𝜋_ ( _𝑠_ ) = E _𝜋_ [ _𝐺𝑡_ | _𝑆𝑡_ = _𝑠_ ] where _𝐺𝑡_ =<sup>�</sup><sup>_𝑇_</sup> _𝑡_ =0<sup>_𝛾𝑟𝑡_and</sup><sup>_𝛾_denotes the dis-</sup> count factor. Next to the state-value function, we also have the stateaction value function, sometimes also referred to as the Q-function, because it can be thought of as representing the quality of the stateaction pair. It is defined as: _𝑞𝜋_ ( _𝑎,𝑠_ ) = E _𝜋_ [ _𝐺𝑡_ | _𝑆𝑡_ = _𝑠,𝐴𝑡_ = _𝑎_ ]. There exists a range of different algorithms to find the optimal policy. We call a method value-based, when the algorithm learns a value function, which can be used to extract the optimal policy from it, by executing the actions which lead to the greatest return. One of the leading and most influential value-based algorithms is Q-Learning, presented by Watkins et al. [39]: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/60-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf-0002-04.png)
+![](images/60-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf-0002-04.png)
 
 
 The underlying principle involves iteratively updating the Q- values based on the observed rewards and the maximum Q-value of the next state, emphasizing a balance between exploration and exploitation. 
@@ -99,7 +99,7 @@ _NASim._ The Network Attack Simulator (NASim) was one of the fist simulators pre
 1https://gymnasium.farama.org/ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/60-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf-0003-10.png)
+![](images/60-sok-a-comparison-of-autonomous-penetration-testing-agents.pdf-0003-10.png)
 
 
 **Figure 1: Example NASim Network [30]** 

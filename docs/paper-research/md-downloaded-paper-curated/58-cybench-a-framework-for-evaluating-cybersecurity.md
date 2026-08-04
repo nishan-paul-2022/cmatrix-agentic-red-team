@@ -21,7 +21,7 @@ The growing capabilities of language models (LMs) are driving increasing concern
 Published as a conference paper at ICLR 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0002-01.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0002-01.png)
 
 
 Figure 1: Overview of Cybench. **(1)** A prompt, which includes task description, is passed to an agent. **(2)** The agent provides a response ( _R_ ), which contains an action ( _A_ ). **(3)** This is executed in the environment ( _S_ ), which returns an observation ( _O_ ) that is added to the agent’s memory ( _M_ ). The environment ( _S_ ) consists of the Kali Linux container containing any task-specific local files and any task server(s) instantiated by remote files. The agent continues to take actions in the environment until it is ready to submit its response. **(4)** After executing a series of actions, the agent can submit its answer, which the evaluator will compare against the answer key. Additionally, a task can also have subtasks, each with an associated question and answer which are scored sequentially for incremental progress (which would iterate through the prompt, action, observation, answer submission cycle). 
@@ -185,7 +185,7 @@ To tackle Cybench, we design an LM-based agent as shown in Figure 2. At a high l
 Published as a conference paper at ICLR 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0007-01.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0007-01.png)
 
 
 Figure 2: Overview of the agent flow. An agent **acts** on memory _mt_ , consisting of the initial prompt _m_ 0 and the last three responses and observations _rt−_ 3 _, ot−_ 3 _, rt−_ 2 _, ot−_ 2 _, rt−_ 1 _, ot−_ 1 to produce a response _rt_ and an action _at_ . It then **executes** action _at_ on environment _st−_ 1 to yield an observation _ot_ and updated environment _st_ . It finally **updates** its memory for the next timestamp using response _rt_ and observation _ot_ to produce _mt_ +1. 
@@ -195,7 +195,7 @@ environment, and it updates its memory based on observation from execution. More
 **Act:** The agent’s memory _mt_ (implemented as a string, which tracks the last three iterations of responses and observations), is passed as a prompt to the LM, which provides a response _rt_ (see Subsection 4.1). The response _rt_ is parsed to derive an action _at_ . Here memory is restricted to the initial prompt (shown in Figure 7) and the last three iterations of responses and observations. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0007-05.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0007-05.png)
 
 
 ### 4.1 RESPONSE FORMAT 
@@ -260,15 +260,15 @@ terminal state ( _pseudoterminal_ ) and 3) providing web search as a tool ( _web
 Published as a conference paper at ICLR 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-01.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-02.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-03.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0009-03.png)
 
 
 Figure 3: With the structured bash agent scaffold, models have a high success rate on tasks with a FST of up to 11 minutes with nearly no success on those with a higher FST. Each dot corresponds to one task. 
@@ -540,7 +540,7 @@ Published as a conference paper at ICLR 2025
 ### A.1 ACTION-ONLY 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0020-03.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0020-03.png)
 
 
 <!-- Start of picture text -->
@@ -673,7 +673,7 @@ Until the token expires, somebody is now operating on your site with permissions
 Published as a conference paper at ICLR 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0029-01.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0029-01.png)
 
 
 <!-- Start of picture text -->
@@ -770,7 +770,7 @@ Published as a conference paper at ICLR 2025
 ## D STRUCTURED BASH PROMPT 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0033-02.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0033-02.png)
 
 
 <!-- Start of picture text -->
@@ -802,7 +802,7 @@ In addition to selecting professional CTF competitions that were recent, we also
 Table 8 provides information about each of these competitions and Figure 8 displays the competition Github release dates relative to the model release dates. These competitions were selected because they contain profession-level tasks, are recent (all hosted and released publicly between 2022 and 2024), are released publicly on GitHub, and have high quality challenges with associated solution files. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0034-07.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0034-07.png)
 
 
 Figure 8: Competition Github Release Dates vs. Model Data Cutoff Dates. We map the date that the competitions released the challenges on Github and the knowledge cutoff dates (GPT-4o: Oct 2023 (OpenAI, 2024a), OpenAI o1-preview: Oct 2023 (OpenAI, 2024c), Claude 3 Opus: Aug 2023 (Anthropic, 2024c), Claude 3.5 Sonnet: Apr 2024 (Anthropic, 2024c), Gemini 1.5 Pro: Nov 2023 (Google, 2024a), Llama 3 70B: Dec 2023 (Meta, 2024a), Llama 3.1 405B: Dec 2023 (Meta, 2024b)). Mixtral is not included because there is no public information about the data cutoff date. 
@@ -852,7 +852,7 @@ First solve time (FST) is the time it takes the first team to solve a given chal
 Published as a conference paper at ICLR 2025 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0036-01.png)
+![](images/58-cybench-a-framework-for-evaluating-cybersecurity.pdf-0036-01.png)
 
 
 Figure 9: Tasks ordered by FST. We have included tasks with relatively smooth increases in log FST, from a minimum of 2 minutes to a maximum of 24 hours and 54 minutes. 

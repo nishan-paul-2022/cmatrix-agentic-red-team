@@ -55,7 +55,7 @@ To summarize, our contributions are the following:
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/72-reflexion-language-agents-with-verbal-rl.pdf-0003-00.png)
+![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -89,7 +89,7 @@ We develop a modular formulation for Reflexion, utilizing three distinct models:
 3 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/72-reflexion-language-agents-with-verbal-rl.pdf-0004-00.png)
+![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
@@ -128,7 +128,7 @@ To avoid syntactic errors, we provide two domain-specific few-shot trajectories 
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/72-reflexion-language-agents-with-verbal-rl.pdf-0006-00.png)
+![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0006-00.png)
 
 
 <!-- Start of picture text -->
@@ -149,7 +149,7 @@ Robustly evaluating natural language answers is a long-standing problem in NLP. 
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/72-reflexion-language-agents-with-verbal-rl.pdf-0007-00.png)
+![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -358,7 +358,7 @@ Figure 5: [Top] An AlfWorld trajectory in which the agent failed due to ineffici
 In 5, we briefly state that Reflexion struggles to overcome local minima choices that require extremely creative behavior to escape. We observe this shortcoming in an experiment on WebShop [29]. WebShop is a web-based problem-solving benchmark that tests agents to navigate an e-commerce website to locate and purchase products given requests from clients. We test a two-shot ReAct + Reflexion agent in 100 environments. However, after only four trials, we terminate the runs as the agent does not show signs of improvement 6. Further, the agent does not generate helpful, intuitive self-reflections after failed attempts. We conclude that Reflexion is unable to solve tasks that require a significant amount of diversity and exploration. In AlfWorld, the agent is able to adequately explore new environments because the permissible actions can be seen in the observations. In HotPotQA, the agent faces a similar WebShop search query task but is more successful as the search space for Wikipedia articles is more diverse and requires less precise search queries. A common problem for e-commerce search engines is properly handling ambiguity in natural language search interpretations. Thus, WebShop presents a task that requires very diverse and unique behavior from a Reflexion agent. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/72-reflexion-language-agents-with-verbal-rl.pdf-0014-02.png)
+![](images/72-reflexion-language-agents-with-verbal-rl.pdf-0014-02.png)
 
 
 <!-- Start of picture text -->

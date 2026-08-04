@@ -29,7 +29,7 @@ Recent results have hinted at the possibility of combining verbal reasoning with
 Published as a conference paper at ICLR 2023 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0002-01.png)
+![](images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0002-01.png)
 
 
 <!-- Start of picture text -->
@@ -88,7 +88,7 @@ We begin with knowledge-intensive reasoning tasks like multi-hop question answer
 Published as a conference paper at ICLR 2023 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0005-01.png)
+![](images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0005-01.png)
 
 
 <!-- Start of picture text -->
@@ -151,7 +151,7 @@ We provide examples for each success and failure modes in Appendix E.1. We also 
 Published as a conference paper at ICLR 2023 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0007-01.png)
+![](images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0007-01.png)
 
 
 <!-- Start of picture text -->
@@ -373,7 +373,7 @@ We also explore human-in-the-loop interaction with ReAct, to allow a human to in
 Published as a conference paper at ICLR 2023 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0015-01.png)
+![](images/70-react-synergizing-reasoning-and-acting-in-llms.pdf-0015-01.png)
 
 
 <!-- Start of picture text -->

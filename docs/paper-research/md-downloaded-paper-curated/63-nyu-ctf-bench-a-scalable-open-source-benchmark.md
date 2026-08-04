@@ -86,7 +86,7 @@ CTF challenges vary in difficulty level, with more difficult challenges awarded 
 shows the distribution of challenge difficulties in the qualifying and final rounds. The qualifying round problems tend to be of lower difficulty, while the final round problems are significantly harder. These points reflect a subjective assessment of problem difficulty, as determined by the experienced challenge creators who design CSAW’s CTFs. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0004-01.png)
+![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0004-01.png)
 
 
 Figure 1: Distribution of Challenge Difficulties in Qualifying and Final Rounds. 
@@ -143,7 +143,7 @@ trigger the vulnerability. Essential tools include Ghidra for decompilation, rad
 The framework in Figure 3 includes underlying logic, steps, and the prompt structures used. We discuss input specifications for the models and the methodologies for validating outputs. Critical to maintaining the integrity and robustness of our system, we discuss error handling. This will enable peers to replicate our work and build up on foundational effort. The framework has five modules: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0006-05.png)
+![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0006-05.png)
 
 
 <!-- Start of picture text -->
@@ -358,7 +358,7 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 #### **[Assistant]** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-03.png)
+![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-03.png)
 
 
 <!-- Start of picture text -->
@@ -367,7 +367,7 @@ The challenge appears to be a classic buffer overflow vulnerability. Based on th
 Figure 5: LLM Solver Excerpts for the "Puffin" Pwn Challenge in Table 3. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-05.png)
+![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-05.png)
 
 
 <!-- Start of picture text -->

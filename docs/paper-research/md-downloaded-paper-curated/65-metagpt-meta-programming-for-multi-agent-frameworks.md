@@ -29,7 +29,7 @@ Inspired by such ideas, we design a promising <u>GPT-based Meta-Programming</u> 
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0002-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0002-01.png)
 
 
 Figure 1: **The software development SOPs between MetaGPT and real-world human teams.** In software engineering, SOPs promote collaboration among various roles. MetaGPT showcases its ability to decompose complex tasks into specific actionable procedures assigned to various roles (e.g., Product Manager, Architect, Engineer, etc.). 
@@ -69,7 +69,7 @@ Some works emphasize cooperation and competition related to planning and strateg
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0004-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0004-01.png)
 
 
 Figure 2: An example of the communication protocol (left) and iterative programming with executable feedback (right). **Left** : Agents use a shared message pool to publish structured messages. They can also subscribe to relevant messages based on their profiles. **Right** : After generating the initial code, the Engineer agent runs and checks for errors. If errors occur, the agent checks past messages stored in memory and compares them with the PRD, system design, and code files. 
@@ -93,7 +93,7 @@ Every agent monitors the environment ( _i.e._ , the message pool in MetaGPT) to 
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0005-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0005-01.png)
 
 
 Figure 3: A diagram showing the software development process in MetaGPT, emphasizing its significant dependence on SOPs. The more detailed demonstration can be found in Appendix B. 
@@ -151,7 +151,7 @@ For SoftwareDev, we prioritize practical use and evaluate performance through hu
 ### 4.2 MAIN RESULT 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0007-06.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0007-06.png)
 
 
 <!-- Start of picture text -->
@@ -168,7 +168,7 @@ Figure 4: Pass rates on the MBPP and HumanEval with a single attempt.
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0008-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0008-01.png)
 
 
 Figure 5: Demo softwares developed by MetaGPT. 
@@ -455,7 +455,7 @@ Published as a conference paper at ICLR 2024
 and pay according to their usage. Moreover, users can purchase additional capabilities to expand the plug-and-play functions of their existing agents. This allows users to gradually upgrade their agents. Within the MetaGPT framework, AgentStore can support the collaboration of various agents. Users can collect several agents together to carry out more complex tasks or projects, and all the agents share and comply with development and communication protocols defined in MetaGPT. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0016-02.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0016-02.png)
 
 
 Figure 6: AgentStore is a platform dedicated to serving users in the creation and development of agents within the MetaGPT framework. This platform provides users with an operational interface, allowing users to easily manage a variety of agents with different emotions, personalities, and capabilities for specific tasks. 
@@ -483,7 +483,7 @@ Now we provide a step-by-step explanation of the standardized output process for
 #### **Product Requirement Document** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0017-10.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0017-10.png)
 
 
 <!-- Start of picture text -->
@@ -494,14 +494,14 @@ Now we provide a step-by-step explanation of the standardized output process for
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-01.png)
 
 
 <!-- Start of picture text -->
 Product Requirement Document<br>1<br>2 ## Requirement Analysis<br>3 The product should be a Python3 GUI application that serves as a color meter. It should allow<br>�→ users to select any color on the screen and display the corresponding RGB values. The RGB<br>�→ values should update in real-time as the color meter moves. The interface should be<br>�→ simple and user-friendly.<br>4<br>5 ## Requirement Pool<br>6 ‘‘‘python<br>7 [<br>8 ("Design a user-friendly GUI for the color meter", "P0"),<br>9 ("Implement color selection functionality", "P0"),<br>10 ("Display RGB values of the selected color", "P0"),<br>11 ("Update RGB values in real-time as the color meter moves", "P0"),<br>12 ("Test the application for accuracy and performance", "P1")<br>13 ]<br>14 ‘‘‘<br>15<br>16 ## UI Design draft<br>17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which<br>�→ could be a magnified area of the screen that the user can move around. The RGB values of<br>�→ the currently selected color should be prominently displayed, updating in real-time as<br>�→ the color meter moves. The layout should be clean and uncluttered, with a focus on<br>�→ functionality and ease of use.<br>18<br>19 ## Anything UNCLEAR<br>20 There are no unclear points.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-02.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0018-02.png)
 
 
 Figure 7: The quadrant chart for the “Drawing App” generated by the _product manager_ agent. 
@@ -513,14 +513,14 @@ Published as a conference paper at ICLR 2024
 **Architect** Based on the requirements in PRD, the Architect agent devises technical specifications including system architecture diagrams and interface definitions. Initially, the Architect defines the overarching technical trajectory. Subsequently, the project’s architecture, including files, classes (Figure 8) and the sequence flow chart (Figure 12), is designed. The Architect’s documentation is then given to the project manager for task allocation and execution. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-02.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-02.png)
 
 
 <!-- Start of picture text -->
 System design<br>1 ## Implementation approach<br>2 We will use Python’s Tkinter library to create the GUI for the color meter. Tkinter is a standard<br>�→ Python interface to the Tk GUI toolkit and is included with most Python installations. It<br>�→ is simple to use and powerful enough for our needs.<br>3<br>4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows<br>�→ us to capture the screen’s pixel data. By moving the mouse, we can get the RGB values of<br>�→ the pixel under the mouse cursor in real-time.<br>5<br>6 The RGB values will be displayed on the GUI using Tkinter’s Label widget. We will use Python’s<br>�→ threading library to update the RGB values in real-time as the color meter moves.<br>7<br>8 The application will be tested for accuracy and performance using Python’s unittest library.<br>9<br>10 ## Python package name<br>11 ‘‘‘python<br>12 "color_meter"<br>13 ‘‘‘<br>14<br>15 ## File list<br>16 ‘‘‘python<br>17 [<br>18 "main.py",<br>19 "color_picker.py",<br>20 "gui.py",<br>21 "tests.py"<br>22 ]<br>23 ‘‘‘<br>24<br>25 ## Anything UNCLEAR<br>26 The requirement is clear to me.<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-03.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0019-03.png)
 
 
 Figure 8: Data structures and interface definitions for the “Drawing App” generated by the _architect_ agent. 
@@ -532,13 +532,13 @@ Figure 8: Data structures and interface definitions for the “Drawing App” ge
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-01.png)
 
 
 Figure 9: The program call flow for the “Drawing App” generated by the _architect_ agent. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-03.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0020-03.png)
 
 
 <!-- Start of picture text -->
@@ -549,7 +549,7 @@ Tasks<br>1 ## Required Python third-party packages<br>2<br>3 ‘‘‘python<br>
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0021-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0021-01.png)
 
 
 <!-- Start of picture text -->
@@ -562,7 +562,7 @@ Published as a conference paper at ICLR 2024
 **Engineer** Given the provided file structure and function definitions, an Engineer agent requires only fundamental development skills to complete the development tasks. Due to the large number of files, we present only one auto-generated code file here. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-02.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-02.png)
 
 
 <!-- Start of picture text -->
@@ -571,7 +571,7 @@ Generated code (color p icker.py)<br>1 import tkinter as tk<br>2 from tkinter im
 **QA Engineer** Upon receiving the code output from the Engineer, the QA Engineer generates unit test code and reviews it to identify and fix any bugs, ensuring high-quality software. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-04.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0022-04.png)
 
 
 <!-- Start of picture text -->
@@ -584,7 +584,7 @@ Generated Unit tests (test.py)<br>1 import unittest<br>2 import tkinter as tk<br
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0023-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0023-01.png)
 
 
 Figure 10: The “Drawing App” generated by MetaGPT. 
@@ -699,7 +699,7 @@ D LIMITATION AND ETHICS CONCERNS
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0026-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0026-01.png)
 
 
 Figure 11: The system interface design for “recommendation engine development” is generated by the _architect_ agent ( **zoom in for a better view** ). 
@@ -723,7 +723,7 @@ In MetaGPT, we use a global message pool and a subscription mechanism to address
 Published as a conference paper at ICLR 2024 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0027-01.png)
+![](images/65-metagpt-meta-programming-for-multi-agent-frameworks.pdf-0027-01.png)
 
 
 Figure 12: The program call flow for “recommendation engine development” generated by the _architect_ agent ( **zoom in for a better view** ). 
