@@ -65,7 +65,20 @@ Tools such as _llama.cpp_ [14] that make use of small-scale models (up to 13b pa
 BabyAGI focuses on automated task generation, planning, and execution [26, 27]: a user-given task is split up into smaller subtasks that are stored within a task queue. _Autonomous Task Execution Agents_ take tasks from the task queue, execute them, and add new information to a memory store. In addition, the _Task Creation Agent_ 
 
 
-![](images/68-getting-pwnd-by-ai-penetration-testing-with-large-language.pdf-0002-10.png)
+```mermaid
+flowchart LR
+    User(("Low-Privilege<br/>User"))
+    LLM["LLM"]
+    VM["Virtual Machine"]
+    Output[/"$ sudo -l<br/>$ sudo /usr/bin/perl -e 'exec &quot;/bin/sh&quot;;'"\]
+    
+    User -- "Init. Prompt" --> LLM
+    LLM -- "Root" --> User
+    LLM -- "Command (SSH)" --> VM
+    VM -- "Response" --> LLM
+    LLM -- "Refinement" --> LLM
+    VM -.-> Output
+```
 
 
 <!-- Start of picture text -->
