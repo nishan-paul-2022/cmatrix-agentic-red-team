@@ -151,7 +151,7 @@ Figure 1 provides a high-level overview of RapidPen’s core components.
 - **RapidPen-vis** : A separate visualization tool for monitoring intermediate processes and final reports. [15] 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0004-17.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0004-17.png)
 
 
 **Our Extensions.** We integrate the PTT as the _core data model_ in the _Re_ (reasoning) module to structure and coordinate tasks. In addition to the standard PentestGPT functionality, we introduce the following enhancements: 
@@ -183,45 +183,45 @@ RapidPen’s execution logic follows the _ReAct_ [29] paradigm, where:
 Figures 2–4 illustrate how the _Re_ module is divided into submodules, while Figure 5 details the _Act_ module’s workflow. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-06.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-07.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-07.png)
 
 
 Figure 2: The _Re_ module in RapidPen consists of the _Re (L1) PTT Planner_ and _Re (L1) PTT Prioritizer_ submodules. The PTT Planner is responsible for expanding and maintaining the PTT tree, while the PTT Prioritizer determines the next task to execute. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-09.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-09.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-10.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-11.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-11.png)
 
 
 Figure 3: The _Re (L1) PTT Planner_ processes the command results from the last executed task to generate new tasks at Level 2 (L2) in the PTT. These tasks are deduplicated using an LLM-based approach before being merged into the PTT, updating it from an old to a new state. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-13.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-13.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-14.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-14.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-15.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-15.png)
 
 
 Figure 4: The _Re (L2) New Task Generation_ module generates new tasks based on historical success cases. The process begins by extracting command results from the last executed task. An LLM queries relevant historical success cases, which are then analyzed to extract key insights. Based on this analysis, new tasks are generated and integrated into the planning process. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-17.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0005-17.png)
 
 
 Figure 5: The _Act (L1)_ module processes runnable tasks through three key stages: command generation, execution, and log analysis. It leverages offensive security expertise to generate commands, automates execution, and applies selfcorrecting mechanisms when necessary. Successful executions produce a command result, while failed executions trigger a feedback loop for improvement. 
@@ -273,7 +273,7 @@ This interface allows operators to observe the automated exploit process, review
 Dify provides a secure Python execution environment called _Dify-Sandbox_ , which restricts system calls and external network access within a controlled Docker container. However, 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0006-20.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0006-20.png)
 
 
 > 2https://smith.langchain.com/ 
@@ -333,19 +333,19 @@ For each run, we reset the environment, then launched RapidPen with a single tar
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-00.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-01.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-02.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-03.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0008-03.png)
 
 
 Figure 6: Impact of _Re (L2) New Tasks (Success Cases)_ on Penetration Testing Efficiency. The left column (yellow) represents runs with **Success Cases enabled** , while the right column (green) represents runs **without Success Cases** . **Top Row:** Elapsed time (in seconds) per run. Runs with Success Cases tend to complete faster, while runs without them exhibit greater variance and some failures exceeding 1200 seconds (forcefully terminated). **Bottom Row:** Number of steps taken (PTT expansions) before success or failure. Runs without Success Cases often require more steps, indicating inefficient task selection. The vertical dashed line separates **successful** and **failed runs** , highlighting that the **failure rate is higher without Success Cases (3/10 success) compared to with Success Cases (6/10 success)** . 
@@ -373,13 +373,13 @@ The presence of _Success Cases_ significantly improved the success rate, as the 
 8 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0009-00.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0009-00.png)
 
 
 Figure 7: Module-wise breakdown of elapsed time per run with _Re (L2) New Tasks (Success Cases)_ enabled. Each bar represents the total execution time for a single run, with different colors indicating each module’s contribution. _Re (L1) PTT Planner_ (red) accounts for a significant portion of the total time, followed by _Act (L1) Command Execution_ (blue). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0009-02.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0009-02.png)
 
 
 Figure 8: Module-wise breakdown of LLM cost per run with _Re (L2) New Tasks (Success Cases)_ enabled. Each bar represents the total LLM cost (in USD) for a single run, with different colors indicating the cost contribution of each module. _Re (L1) PTT Planner_ (red) incurs the highest cost, followed by _Act (L1) Command Execution_ (blue) and _Act (L1) Log Analysis_ (purple). 
@@ -421,7 +421,7 @@ _Re (L2) New Tasks (Success Cases)_ Based on the success case from HTB Blue, the
 10 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0011-00.png)
+![](images/30-rapidpen-fully-automated-ip-to-shell-penetration-testing.pdf-0011-00.png)
 
 
 <!-- Start of picture text -->

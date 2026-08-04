@@ -1,5 +1,5 @@
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0001-00.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0001-00.png)
 
 
 ### _Article_ 
@@ -127,7 +127,7 @@ _Appl. Sci._ **2025** , _15_ , 9096
 7 of 20 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-02.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -140,7 +140,7 @@ Difficulty Metrics. We comprehensively assessed task difficulty based on the fol
 Curriculum Levels. To enable structured skill progression, all CVE-based penetration tasks are automatically categorized into three curriculum levels: Simple, Medium, and Complex. Task assignment is based on a unified difficulty scoring metric derived from four normalized and quantifiable indicators: AC, UI, PR, and ES. Each indicator is scaled to the range [0, 1], and the overall difficulty score _D_ is computed as a weighted linear combination: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-06.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-06.png)
 
 
 where _λ_ 1 = 0.3, _λ_ 2 = 0.2, _λ_ 3 = 0.2, and _λ_ 4 = 0.3 denote the weights selected to reflect the contribution of each factor to the difficulty of exploitation. These values were determined 
@@ -251,7 +251,7 @@ In this section, we validate the effectiveness of CurriculumPT.
 - Exploitation Success Rate (ESR). This is the primary metric for assessing the core effectiveness of the system. It reflects the ability to successfully reproduce CVEs and achieve defined objectives (e.g., obtaining shell access or reading sensitive files). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0012-12.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0012-12.png)
 
 
 (2) 
@@ -265,7 +265,7 @@ _Appl. Sci._ **2025** , _15_ , 9096
 - Average Steps per Task (AST). AST measures the average number of reasoning– execution iterations required to complete a successful task. Each step typically involves a planning decision, tool invocation, or replanning operation. This metric reflects both interaction depth and coordination overhead. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-04.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-04.png)
 
 
 where _S_ total is the total number of planner–agent interactions across all successful tasks. 
@@ -273,7 +273,7 @@ where _S_ total is the total number of planner–agent interactions across all s
 - Average Time to Exploit (ATE). ATE quantifies the average time required to successfully exploit a vulnerability, from initiation to completion. It serves as an indicator of overall system execution efficiency. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-07.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-07.png)
 
 
 where _T_ total is the total time consumed across all successful exploits. 
@@ -281,7 +281,7 @@ where _T_ total is the total time consumed across all successful exploits.
 - Average Token Usage (ATU). This metric measures the average number of tokens (including both prompt and completion) consumed per task, providing a fine-grained estimation of reasoning overhead and cost-efficiency. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-10.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-10.png)
 
 
 where _T_ tokens is the total number of tokens used in LLM invocations, and _N_ task is the number of penetration testing tasks. Lower ATU values indicate more efficient reasoning. 
@@ -289,7 +289,7 @@ where _T_ tokens is the total number of tokens used in LLM invocations, and _N_ 
 - Experience Knowledge Base Hit Rate (EHR). EHR evaluates the effectiveness of the EKB in supporting decision making during task execution. It measures how frequently retrieved experience is successfully applied to assist in solving new tasks. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-13.png)
+![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-13.png)
 
 
 where _N_ hit denotes the number of successful applications of retrieved experience, and _N_ retrieval represents the total number of retrieval attempts. 
