@@ -1,7 +1,4 @@
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0001-00.png)
-
-
 ### _Article_ 
 
 # **CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling** 
@@ -127,12 +124,45 @@ _Appl. Sci._ **2025** , _15_ , 9096
 7 of 20 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-02.png)
+```mermaid
+flowchart TD
+    subgraph Phase 1: Curriculum-Guided Learning
+        CL[Curriculum Learning (CL)]
+        MAS[LLM-Driven Multi-Agent System (MAS)]
+        EKB[Experience Knowledge Base (EKB)]
+    end
+    
+    subgraph Phase 2: Experience-Driven Penetration Testing
+        ComA[Commander Agent<br>Dispatch Task]
+        PA[Planner Agent<br>Assign task]
+        RecA[Reconnaissance Agent<br>Recon]
+        EA[Exploitation Agent<br>Execute Action]
+        RepA[Replan Agent<br>Replan]
+        AnaA[Analysis Agent<br>Analyze step]
+        RptA[Report Agent<br>Generate report]
+        Tools[Tools / MCP SDK]
+        Target[Target Environment]
+    end
 
-
-<!-- Start of picture text -->
-Phase 1: Curriculum-Guided Learning<br>LLM-Driven Multi-Agent System(MAS) Phase 2: Experience-Driven<br>and Experience Accumulation Penetration Testing<br>Curriculum Learning(CL) Dispatch Task<br>Commander Agent Assign task<br>Simple [decision prompt] target info<br><task info> task goal<br>CVE1 CVE-based Task<br>Assign task<br>Scoring Rerank Medium If recon<br>CVE2 Planner Agent Reconnaissance Agent<br>Classify [plan prompt] [recon prompt]<br><CVE metadata> Recon <target ip/port><br>…… Complex result<br>Exploit plan<br>CVEn Exploitation Agent[exploit prompt] If fail Replan Agent[replan prompt]<br>Query experience <plan steps> <error context><br>Revised<br>Retrieved Context Analyze step<br>Experience Knowledge Base(EKB) Analysis Agent[analysis prompt] Report Agent[report prompt] Output pentest<br>Init Update <execution result> Generate <analysis result> report<br>experience Report<br>Vuln ReportCVE Report Index Vector DB Tool Call Tool Response<br>…… Tools MCP SDK Kali Linux<br>Update Execute Action Action Response<br>>_ Internet<br>Task Experience Target Environment<br>……<br><!-- End of picture text -->
-
+    CL -->|Assign task| ComA
+    ComA -->|Task info| PA
+    PA -->|Recon| RecA
+    RecA -->|Recon result| PA
+    PA -->|Exploit plan| EA
+    EA -->|Tool Call| Tools
+    Tools -->|Tool Response| EA
+    Tools -->|Execute Action| Target
+    Target -->|Action Response| Tools
+    EA -->|If fail| RepA
+    RepA -->|Revised plan steps| EA
+    EA -->|Execution result| AnaA
+    AnaA -->|Analysis result| RptA
+    RptA -->|Output pentest report| Report[Report]
+    
+    EKB -->|Query experience| PA
+    EKB -->|Query experience| RepA
+    AnaA -->|Update experience| EKB
+```
 **Figure 1.** The architecture of the CurriculumPT framework. 
 
 Difficulty Metrics. We comprehensively assessed task difficulty based on the following factors: (1) AC—Attack Complexity: Derived from the Common Vulnerability Scoring System (CVSS) [37], this metric reflects the stringency of conditions required to exploit the vulnerability. A high value indicates that successful exploitation depends on specific environmental requirements or precise timing, thus increasing difficulty. (2) UI—User Interaction: Also based on CVSS, this measures whether successful exploitation requires victim user participation (e.g., clicking a malicious link or opening a file). Vulnerabilities marked as `Required` limit automation and increase difficulty. (3) PR—Privileges Required: Indicates the level of access an attacker must possess prior to exploiting the vulnerability. Higher privilege requirements (e.g., `Low` or `High` ) imply additional prerequisite actions, such as local access or privilege escalation, making exploitation more complex. (4) ES—Exploitation Steps: Represents the number of distinct procedural steps needed to complete exploitation. Multi-stage exploits involving environment setup, payload crafting, chained execution, or post-exploitation steps are considered more difficult. ES is estimated using LLM-assisted analysis of CVE reproduction guides and public proof-of-concept (PoC) resources, such as scripts, technical blogs, or repositories that demonstrate real-world exploitation of reported vulnerabilities [38,39]. 
@@ -140,9 +170,7 @@ Difficulty Metrics. We comprehensively assessed task difficulty based on the fol
 Curriculum Levels. To enable structured skill progression, all CVE-based penetration tasks are automatically categorized into three curriculum levels: Simple, Medium, and Complex. Task assignment is based on a unified difficulty scoring metric derived from four normalized and quantifiable indicators: AC, UI, PR, and ES. Each indicator is scaled to the range [0, 1], and the overall difficulty score _D_ is computed as a weighted linear combination: 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0007-06.png)
-
-
+$$ D = \lambda_1 \cdot AC + \lambda_2 \cdot UI + \lambda_3 \cdot PR + \lambda_4 \cdot ES $$
 where _λ_ 1 = 0.3, _λ_ 2 = 0.2, _λ_ 3 = 0.2, and _λ_ 4 = 0.3 denote the weights selected to reflect the contribution of each factor to the difficulty of exploitation. These values were determined 
 
 _Appl. Sci._ **2025** , _15_ , 9096 
@@ -251,9 +279,7 @@ In this section, we validate the effectiveness of CurriculumPT.
 - Exploitation Success Rate (ESR). This is the primary metric for assessing the core effectiveness of the system. It reflects the ability to successfully reproduce CVEs and achieve defined objectives (e.g., obtaining shell access or reading sensitive files). 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0012-12.png)
-
-
+$$ ESR = \frac{N_{success}}{N_{total}} $$
 (2) 
 
 _Appl. Sci._ **2025** , _15_ , 9096 
@@ -265,33 +291,25 @@ _Appl. Sci._ **2025** , _15_ , 9096
 - Average Steps per Task (AST). AST measures the average number of reasoning– execution iterations required to complete a successful task. Each step typically involves a planning decision, tool invocation, or replanning operation. This metric reflects both interaction depth and coordination overhead. 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-04.png)
-
-
+$$ AST = \frac{S_{total}}{N_{success}} $$
 where _S_ total is the total number of planner–agent interactions across all successful tasks. 
 
 - Average Time to Exploit (ATE). ATE quantifies the average time required to successfully exploit a vulnerability, from initiation to completion. It serves as an indicator of overall system execution efficiency. 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-07.png)
-
-
+$$ ATE = \frac{T_{total}}{N_{success}} $$
 where _T_ total is the total time consumed across all successful exploits. 
 
 - Average Token Usage (ATU). This metric measures the average number of tokens (including both prompt and completion) consumed per task, providing a fine-grained estimation of reasoning overhead and cost-efficiency. 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-10.png)
-
-
+$$ ATU = \frac{T_{tokens}}{N_{task}} $$
 where _T_ tokens is the total number of tokens used in LLM invocations, and _N_ task is the number of penetration testing tasks. Lower ATU values indicate more efficient reasoning. 
 
 - Experience Knowledge Base Hit Rate (EHR). EHR evaluates the effectiveness of the EKB in supporting decision making during task execution. It measures how frequently retrieved experience is successfully applied to assist in solving new tasks. 
 
 
-![](images/34-curriculumpt-llm-based-multi-agent-autonomous-penetration.pdf-0013-13.png)
-
-
+$$ EHR = \frac{N_{hit}}{N_{retrieval}} $$
 where _N_ hit denotes the number of successful applications of retrieved experience, and _N_ retrieval represents the total number of retrieval attempts. 
 
 (3) Implemental Details. All experiments were conducted on a laptop equipped with an Intel Core i7-14650HX processor (2.20 GHz) and 32 GB RAM. The vulnerable environments were deployed using Docker containers based on official Vulhub images, running within an Ubuntu virtual machine. The attacker-side was hosted on a separate Kali Linux virtual machine, which served as the orchestrator via a customized MCP interface. Both virtual machines were connected through NAT within a local network, simulating realistic internal conditions while ensuring isolation. All LLM agents in CurriculumPT were powered by GPT-4o-mini, accessed through OpenAI API, and used for planning, reasoning, code generation, and tool interaction. 

@@ -73,72 +73,37 @@ Large language models have recently motivated systems that apply natural languag
 2 
 
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-00.png)
+```mermaid
+flowchart TD
+    subgraph OrchestrationLayer [Orchestration Layer]
+        direction LR
+        CA[Conversational Agent<br>- Memory Handling<br>- Input Context<br>- Tool chaining]
+        IO[Intelligent Orchestrator<br>- LLM agent selection<br>- Priority ranking<br>- Early exit mechanism]
+        TT[Token Tracker<br>- Cost tracking<br>- Timeout mechanism<br>- Budget limits]
+    end
 
+    subgraph SpecializedAgentsLayer [Specialized Agents Layer]
+        direction LR
+        XA[XSS Agent]
+        SA[SQLi Agent]
+        SSTIA[SSTI Agent]
+        IA[IDOR Agent]
+        LA[LFI Agent]
+        XXEA[XXE Agent]
+        SSRFA[SSRF Agent]
+        CA2[CmdInj Agent]
+    end
 
+    subgraph FoundationalLayer [Foundational Layer]
+        direction LR
+        RT[Recon Tool<br>- Endpoint Discovery<br>- Form parsing<br>- Common Paths]
+        MM[Memory Manager<br>- SQLite persistence<br>- Session + long-term<br>- Filter tracking]
+        V[Verifier<br>- Browser Verification<br>- Console Logs<br>- Screenshots]
+    end
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-01.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-02.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-03.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-04.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-05.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-06.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-07.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-08.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-09.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-10.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-11.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-12.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-13.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-14.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-15.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0003-16.png)
-
+    OrchestrationLayer --> SpecializedAgentsLayer
+    SpecializedAgentsLayer --> FoundationalLayer
+```
 
 Fig. 1. AWE system architecture. 
 
@@ -171,57 +136,6 @@ At the center of this layer is the Intelligent Orchestrator , which mediates all
 The Orchestration Layer finally also enforces resource governance by monitoring token spend, runtime, and tool costs. This information steers scheduling so AWE can exit early after high-impact findings or scale back low-yield agents, keeping operations within practical limits while focusing depth where it matters. 
 
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-03.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-04.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-05.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-06.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-07.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-08.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-09.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-10.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-11.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-12.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-13.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-14.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-15.png)
-
-
 ## _B. Specialized Agents Layer_ 
 
 The Specialized Agents Layer embodies the domain knowledge required to navigate specific vulnerability classes. Each agent is implemented as a self-contained exploitation module that translates application behavior into vulnerability specific hypotheses and tests those hypotheses using structured procedures. Rather than relying solely on LLM reasoning, agents encode expert methodologies directly into their operational pipelines, ensuring predictable and reproducible behavior. 
@@ -231,12 +145,55 @@ The XSS agent is the best example to explain the approach. The agent first condu
 Agents for SQL injection, server-side template injection, command injection, XXE, SSRF, IDOR, and LFI follow similar principles. The SQL injection agent combines deterministic 
 
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-20.png)
-
-
-
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0004-21.png)
-
+```mermaid
+flowchart TD
+    TURL[Target URL] --> RQ[Reconnaissance<br>- Endpoint discovery<br>- Parameter extraction<br>- Technology detection]
+    RQ --> PQ[Parameter Queue<br>[p1, p2...]]
+    
+    subgraph Phase1 [PHASE 1: Multi-Canary Injection]
+        direction LR
+        R[Reflected<br>Inject canary, check same response]
+        S[Stored<br>Submit canary to form<br>check render page for reflection]
+        D[DOM<br>Inject via fragment, search, postMessage.<br>Trace source -> sink]
+    end
+    
+    PQ --> Phase1
+    
+    subgraph Phase2 [PHASE 2: Context Analysis]
+        DIC[Determine injection context:<br>Extract: tag, attribute, quote character, encoding]
+    end
+    
+    Phase1 --> Phase2
+    
+    subgraph Phase3 [PHASE 3: Filter & Security Detection]
+        PD[Probe for defenses<br>Identify allowed: tags, events, encoding bypasses]
+    end
+    
+    Phase2 --> Phase3
+    
+    subgraph Phase4 [PHASE 4: Payload Mutation]
+        direction LR
+        CTP[context type + blocked patterns] --> LLM --> MP[Mutated Payloads]
+    end
+    
+    Phase3 --> Phase4
+    
+    subgraph Phase5 [PHASE 5: Browser Verification with Playright]
+        direction LR
+        SRT[Reflected<br>Single request test]
+        SV[Stored<br>Submit -> Fetch -> Verify]
+        DE[DOM:<br>Chromium JS execution]
+    end
+    
+    Phase4 --> Phase5
+    
+    AT{Alert Triggered?}
+    Phase5 --> AT
+    AT -->|YES| XSSF[XSS Found]
+    AT -->|NO| RE{Retry Exceeded?}
+    RE -->|Yes| XSSF2[XSS Failed]
+    RE -->|No| Phase4
+```
 
 Fig. 2. Five-phase XSS detection pipeline. 
 
@@ -273,11 +230,13 @@ This section outlines our evaluation methodology, including benchmark selection,
 We evaluate AWE on two complementary benchmarks to assess both competitive performance and controlled vulnerability analysis. 
 
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0005-12.png)
-
-
-<!-- Start of picture text -->
-LLM Model Comparison: Vulnerability Detection Success Rates<br>100 100% Claude Sonnet 4 ⭐GPT-4oGemini 2.0 Flash<br>80 80% 80%<br>67% 70%<br>60<br>40<br>20<br>0 ReflectedXSS StoredXSS DOMXSS BasicSQLi BlindSQLi<br>Vulnerability Type<br>Success Rate (%)<br><!-- End of picture text -->
+| Vulnerability Type | Claude Sonnet 4 | GPT-4o | Gemini 2.0 Flash |
+|--------------------|-----------------|--------|------------------|
+| ReflectedXSS       | 100%            | 100%   | 100%             |
+| StoredXSS          | ~80%            | ~80%   | ~67%             |
+| DOMXSS             | ~80%            | ~70%   | ~67%             |
+| BasicSQLi          | 100%            | 100%   | 100%             |
+| BlindSQLi          | ~70%            | ~60%   | ~55%             |
 
 Fig. 3. Comparative performance of Claude Sonnet 4, GPT-4o, and Gemini 2.0 Flash across five vulnerability categories. 
 
@@ -341,12 +300,13 @@ _Overall Performance:_ Table I presents aggregate results. MAPTA attains a highe
 6 
 
 
-![](images/13-awe-adaptive-agents-for-dynamic-web-penetration-testing.pdf-0007-00.png)
-
-
-<!-- Start of picture text -->
-Payload Efficiency Analysis Across Difficulty Levels<br>DVWA Low Difficulty DVWA Medium Difficulty<br>10 Avg: 10 attempts Avg: 20 attempts<br>10<br>8<br>8<br>6<br>6<br>4 4<br>2 2<br>0 6 8 10 12 14 16 18 0 10 15 20 25 30 35<br>Number of Payload Attempts Number of Payload Attempts<br>DVWA Hard Difficulty XSSy Difficulty<br>Avg: 40 attempts Avg: 12 attempts<br>8 10<br>8<br>6<br>6<br>4<br>4<br>2 2<br>0 25 30 35 40 45 50 55 60 0 8 10 12 14 16 18 20<br>Number of Payload Attempts Number of Payload Attempts<br>Frequency Frequency<br>Frequency Frequency<br><!-- End of picture text -->
-
+```text
+Payload Efficiency Analysis Across Difficulty Levels
+[DVWA Low Difficulty] Avg: 10 attempts
+[DVWA Medium Difficulty] Avg: 20 attempts
+[DVWA Hard Difficulty] Avg: 40 attempts
+[XSSy Difficulty] Avg: 12 attempts
+```
 TABLE III 
 
 CATEGORY-WISE PERFORMANCE COMPARISON ON XBOW FOR INJECTION VULNERABLITIES. 
