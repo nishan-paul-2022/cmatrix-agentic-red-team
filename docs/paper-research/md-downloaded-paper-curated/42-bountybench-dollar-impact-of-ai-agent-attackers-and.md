@@ -17,7 +17,7 @@ AI agents have the opportunity to significantly impact the cybersecurity landsca
 39th Conference on Neural Information Processing Systems (NeurIPS 2025) Track on Datasets and Benchmarks. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0002-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0002-00.png)
 
 
 Figure 1: BountyBench consists of _Detect_ , _Exploit_ , and _Patch_ tasks, which each pass a distinct task input to the agent. The agent takes an action in a Kali Linux container containing the codebase, which can connect to any server(s) and/or database(s) via the network. Execution of the command yields an observation, which the agent leverages to take additional actions in an action-observation loop until the agent submits the task output to the evaluator, which then scores the submission on various metrics including success/failure, dollar value, and usage metrics. 
@@ -59,7 +59,7 @@ We introduce a framework to address the challenge of designing a real-world and 
 ### **2.1 System Representation** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0003-13.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0003-13.png)
 
 
 Figure 2: Each system consists of a series of snapshots, each associated with runtimes, invariants, and vulnerabilities. Each vulnerability is associated with exploits, verifiers, and patches. 
@@ -81,15 +81,15 @@ We can represent various cybersecurity tasks with the above system representatio
 As shown in Figure 1, we instantiate three task types: _Detect_ , _Exploit_ , and _Patch_ . For simplicity, we focus on the case where each vulnerability is associated with a single patch and exploit, though extending to multiple increases the confidence of verification at the cost of labor and complexity (i.e., one is more confident in a patch that defends against many exploits, rather than a single exploit). In each setting, an agent has access to the codebase from the initial snapshot until the current snapshot, and access to any associated runtimes. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-06.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-07.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-07.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-08.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0004-08.png)
 
 
 (a) For _Detect_ , the agent cre(b) For _Exploit_ , the agent cre(c) For _Patch_ , the agent creates an exploit and the evaluator ates an exploit, which the evaluates a patch which the evaluator checks that either runtime invariator checks succeeds against the applies to the current snapshot ants fail or the exploit succeeds current snapshot and fails on the and checks that invariants still on the current snapshot but fails patched snapshot via the provided pass and that the provided verion at least one patched snapshot. verifier. fier now fails. 
@@ -187,7 +187,7 @@ Table 1: For each agent, we display the Success Rate and Token Cost per task. Fo
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0008-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0008-00.png)
 
 
 Figure 4: On the Detect task with increasing levels of information, we see improvement in agent performance as information increases from detection to exploitation, demonstrating that information is an effective modulator of task difficulty. 
@@ -516,7 +516,7 @@ Figure 5 provides information about the distribution of disclosure and fix bount
 16 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0017-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0017-00.png)
 
 
 Figure 5: Tasks sorted by disclosure bounty value (log scale). Disclosure bounties range from $40 to $30,485, and patch bounties from $10 to $7,621.25, with patch bounties averaging approximately 25% of their corresponding disclosure amounts. fastapi 0 was assigned a disclosure bounty that was not publicly disclosed. parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
@@ -530,7 +530,7 @@ To assess the real-world applicability and breadth of our benchmark, we mapped e
 Each bounty in our benchmark has an assigned CWE which we categorized according to its OWASP alignment. Overall, our benchmark includes bounties that span 9 of the 10 OWASP Top 10 Risks (Figure 6). 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0018-03.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0018-03.png)
 
 
 Figure 6: BountyBench OWASP Top 10 Risks Distribution 
@@ -572,19 +572,19 @@ Table 3: Bounties grouped by OWASP Top 10 Risk
 19 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-00.png)
 
 
 Figure 7: Number of tasks solved successfully by agent model type for each featured OWASP Top 10 Risk for _Detect_ . A06 was omitted as it was not represented in the benchmark. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-02.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-02.png)
 
 
 Figure 8: Number of tasks solved successfully by agent model type for each featured OWASP Top 10 Risk for _Exploit_ . 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-04.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-04.png)
 
 
 Figure 9: Number of tasks solved successfully by agent model type for each featured OWASP Top 10 Risk for _Patch_ . 
@@ -826,11 +826,11 @@ To extrapolate a more granular cost by task and information setting from the upp
 - **Estimate Total Cost:** We take our baseline costs to be the approximate per attempt cost (by task) and calculate proportional cost allocation. We multiplied by the number of attempts for each task type and scaled the final amounts to sum to our observed cost using the following formulas: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0025-08.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0025-08.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0025-09.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0025-09.png)
 
 
 - _C_<sup>�</sup> t, total: Scaled estimated cost for a given task type ( _t_ ). 
@@ -862,7 +862,7 @@ To extrapolate a more granular cost by task and information setting from the upp
 - **Calculate Margin of Error of Estimated Total Cost:** We assumed independence between the task-level cost estimates for simplicity. Using first-order error propagation, we computed the margin of error for the total cost associated with each task type and information setting using the following formulas: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0026-08.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0026-08.png)
 
 
 26 
@@ -950,7 +950,7 @@ While we explore a wide array of agents across various models, we lack coverage 
 Figure 10 provides information about bounty publication dates relative to model knowledge cutoff dates. We focused on bounties that were publicly disclosed recently, with 85% disclosed in 2024-25. Most programs enforce responsible disclosure policies, where vulnerabilities are first reported confidentially to vendors and only made public after remediation or a predefined disclosure window [18]. For our analysis, we use the public disclosure dates to define the temporal cutoff for what a model could have seen during training. We do not include Qwen3 235B A22B or DeepSeek-R1 in our analysis since their knowledge cutoff dates were not reported. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0030-02.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0030-02.png)
 
 
 Figure 10: Bounty publication dates vs model data cutoff dates. We mapped the date that the bounty reports were published publicly and the knowledge cutoff dates (o3: May 31 2024, o4-mini: May 31 2024, GPT-4.1: May 31 2024, Claude 3.7 Sonnet: Oct 2024, Gemini 2.5 Pro Preview: Jan 2025, Llama 4 Maverick: Aug 2024). The horizontal axis has been power-law warped ( _γ_ = 2 _._ 4) to spread out recent events and reduce label overlap. 
@@ -960,7 +960,7 @@ Figure 10: Bounty publication dates vs model data cutoff dates. We mapped the da
 Here we show agent performance relative to the model knowledge cutoff. Figures 11- 17 compare solve percentages for tasks pre-knowledge cutoff versus post-knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0030-06.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0030-06.png)
 
 
 Figure 11: Number of tasks solved and relative success rate for Claude Code before and after knowledge cutoff. 
@@ -968,25 +968,25 @@ Figure 11: Number of tasks solved and relative success rate for Claude Code befo
 30 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-00.png)
 
 
 Figure 12: Number of tasks solved and relative success rate for OpenAI Codex CLI: o3-high before and after knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-02.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-02.png)
 
 
 Figure 13: Number of tasks solved and relative success rate for OpenAI Codex CLI: o4-mini before and after knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-04.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-04.png)
 
 
 Figure 14: Number of tasks solved and relative success rate for C-Agent: o3-high before and after knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-06.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-06.png)
 
 
 Figure 15: Number of tasks solved and relative success rate for C-Agent: GPT-4.1 before and after knowledge cutoff. 
@@ -994,19 +994,19 @@ Figure 15: Number of tasks solved and relative success rate for C-Agent: GPT-4.1
 31 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-00.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-00.png)
 
 
 Figure 16: Number of tasks solved and relative success rate for C-Agent: Gemini 2.5 before and after knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-02.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-02.png)
 
 
 Figure 17: Number of tasks solved and relative success rate for C-Agent: Claude 3.7 before and after knowledge cutoff. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-04.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-04.png)
 
 
 Figure 18: Number of tasks solved and relative success rate for C-Agent: Llama 4 Maverick before and after knowledge cutoff. 
@@ -1113,7 +1113,7 @@ specifically,{bounty_report_title}.Youarealsogivenaccessto{task_server}.
 Figure 21: _Detect_ prompt with CWE + Title 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0034-04.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0034-04.png)
 
 
 <!-- Start of picture text -->
@@ -1418,7 +1418,7 @@ Each bootstrap replicate therefore mimics drawing a new benchmark from the same 
 We computed bootstrap confidence intervals for the empirical success rate (within 3 attempts) for every `Agent` _×_ `Task` combination. Each bootstrap replicate was constructed by resampling repositories and bounties as described above, and for each agent-task pair, we computed the mean success rate: 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0041-20.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0041-20.png)
 
 
 41 
@@ -1434,7 +1434,7 @@ The resulting intervals are directly interpretable: they indicate the range of s
 Figure 24 summarizes agent performance across tasks and information settings. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0042-05.png)
+![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0042-05.png)
 
 
 Figure 24: Median success rates in 3 tries (in %) and 95% confidence intervals for all 10 agents across all 5 tasks and information settings, obtained from 10,000 bootstrapped samples. 

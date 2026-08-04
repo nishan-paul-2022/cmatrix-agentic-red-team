@@ -56,7 +56,7 @@ Table 1: Feature comparison of automated LLM agents for cybersecurity.
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0003-00.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -113,7 +113,7 @@ hybrid Graph-RAG algorithm improves the quality and relevance of responses. Appe
 **Knowledge Database.** We formulate three distinct knowledge databases to evaluate the impact of the kind of cybersecurity knowledge on the agent’s performance. The primary database “writeups” consists of 1,298 CTF writeups structured as markdown format and designed to assess improvements in cybersecurity reasoning and planning skills. We exclude all writeups from CSAW CTFs as they were used in the NYU CTF Bench [32] that we evaluate on. We also formulate the “payload” database with 135 attack payloads containing compact exploit scripts to determine if implementations of offensive capabilities enhanced performance. Lastly, the “code” database includes 4,656 code snippets to measure potential benefits from improved coding proficiency. Evaluating with these distinct databases allows us to isolate which knowledge domains most significantly impact performance, providing insights into the relative importance of conceptual understanding versus practical implementation techniques. We curated the knowledge databases from GitHub and Hugging Face. We pre-processed the data into a consistent two-column format: task description and solution for “code” database, and exploit code and vulnerability name for “payload” database<sup>2</sup> . 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-02.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-02.png)
 
 
 <!-- Start of picture text -->
@@ -122,14 +122,14 @@ APPEARED_IN<br>Query MENTIONS<br>Text      search<br><!-- End of picture text --
 **Implementation.** We implement the retrieval process using the LangChain framework. We integrate Milvus [22] for efficient vector-based similarity search, and Neo4j [24] for managing graph knowledge relationships for GraphRAG. This technological foundation enables CRAKEN to decompose complex tasks, retrieve domain-specific knowledge, and execute multi-step solutions across diverse security challenges. We implement the multi-agent system on top of D-CIPHER [39]. The planner, executor, and autoprompter agent structure, the agent interaction mechanisms, the Docker environment, and the tools provided stay the same. We integrate the retrieval process at the delegation step by default to inject knowledge-based hints for executors. These minimal modifications to the agentic system demonstrate the modularity of CRAKEN’s retrieval process and indicate that it can be integrated with any agentic system. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-04.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-04.png)
 
 
 <!-- Start of picture text -->
 Text      search<br>Graph       search<br>Database<br><!-- End of picture text -->
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-05.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0005-05.png)
 
 
 <!-- Start of picture text -->
@@ -202,7 +202,7 @@ percentage of calling each step in CRAKEN’s retrieval algorithm. A mere 43.8% 
 **Failure Analysis.** We also evaluate how models handle challenging failures shown in Fig. 5. Claude models demonstrate significantly higher persistence, with Claude 3.7 showing a remarkable low give-up rate of 0.50% compared to Claude 3.5’s 20.00%, and 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-05.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-05.png)
 
 
 <!-- Start of picture text -->
@@ -213,7 +213,7 @@ Figure 3: Overlap of CTFs solved by three agents on NYU CTF Bench.
 much lower than GPT-4o at 62.00% and GPT-4.1 at 16.00%. This persistence difference is particularly pronounced in specialized categories like "cry," "web," and "pwn," where GPT-4o gives up 63-83% of the time while Claude 3.7 typically continues until hitting cost limits (66.33% of exits). Both Claude models show higher solution rates (21.00% and 18.59%) compared to GPT models (around 11.5-12%). The increased "Max rounds" exits in Claude 3.7 (12.56% vs 1.00% in 3.5) suggest improved planning depth, though occasionally leads to error states (2.01%) when handling complex data structures or file formats. These errors typically occurs when models attempt to parse unusual file formats or execute operations with misinterpreted data structure, but Claude’s persistence means it attempts solutions even when facing potential format challenges rather than abandoning the task. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-08.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0007-08.png)
 
 
 <!-- Start of picture text -->
@@ -228,7 +228,7 @@ Figure 4: Transition diagram visualizing the RAG process.
 7 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0008-00.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -493,7 +493,7 @@ Based on the provided context, this note analyzes vulnerabilities in RC4 stream 
 **Key Vulnerabilities in RC4 Stream Cipher Implementations** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0016-08.png)
+![](images/43-craken-cybersecurity-llm-agent-with-knowledge-based.pdf-0016-08.png)
 
 
 <!-- Start of picture text -->

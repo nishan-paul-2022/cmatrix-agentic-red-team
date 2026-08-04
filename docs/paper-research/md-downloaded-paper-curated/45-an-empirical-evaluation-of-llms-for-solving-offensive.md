@@ -93,7 +93,7 @@ Conversational LLMs were developed to allow users to receive better output by pr
 To understand how humans use LLMs to solve CTF challenges, we analyzed the results of the LLM Attack Challenge held in CSAW 2023. Participants were students in undergraduate or graduate programs in the field of computer science. Each team consisted of 1 to 3 people, and teams were asked to solve the CTF challenges by querying LLMs. Third-party tools and software (e.g. for packet sniffing or reverse engineering) were permitted, as they are necessary in solving the problems; but contestants were not permitted to fully depend on their own security knowledge to solve these competitions. Instead, they were instructed to provide hints to the LLM with human feedback, and submit a transcript of their interactions with the LLM to be considered a valid solution, as well as publicly present their results during the final round of CSAW. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0003-09.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0003-09.png)
 
 
 Figure 1: LLM-Guided CTF Workflow: 1) Contestants are allowed to refer to outside knowledge such as web search or group discussion. 2) The contestants get challenges from the database, compose their own prompts with their understanding; then, 3) they feed all information needed to the LLM, 4) get answers from the LLM, 5) validate answers manually, 6) finish the process if the answer is correct, and if not 7) give the feedback to the LLM, or judge if it should be given up, and finally 8) may give up based on human judgement. This is similar to the HITL evaluation process 4 described later in this section, but during the LLM aided CTF competition, participants are allowed to use external help to solve the CTF challenge based on the assistance of a large language model, such as referring to external guidelines of CTF competition, but the solution or solver script must come from LLMs with providing dialogue history as proof. 
@@ -119,7 +119,7 @@ Recently, research has suggested that augmenting LLMs with the ability to use ex
 1Shortly before our paper was written, Google renamed Bard renamed to Gemini; here we use the name of the model at the time of the competition. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0004-09.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0004-09.png)
 
 
 Figure 2: Fully automated workflow for solving CTFs: 1) Set up a pre-defined prompt template; 2) Format initial prompt based on the challenge, apply tools in the tool chain based on LLM judgement or pre-defined behavior; 3) CTF Player environment is dockerized with all necessary toolkits installed; 4) Feed formatted prompts to the LLM. ; 5) LLM returns answer for each prompt; 6) LLM interacts with the player Docker container. With the assistance of built-in validation tools, validate the solution; 7) LLM accepts output from previous step and gives the output or combined with Chain-of-Thought as feedback; 8) Decision based on LLM’s judgement if correct flag was returned or it should give up. 
@@ -175,7 +175,7 @@ At the start of each session, we launch a container to host the network service 
 5 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0006-00.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0006-00.png)
 
 
 Figure 4: HITL workflow: 1) An initial prompt template is formatted with the information provided by the challenge; 2) The formatted prompt is sent to LLM system; 3) LLM system returns answer of each prompt; 4) Validation of the answer by a human judge; 5) Finish the process if the answer is correct; 6) If the answer is not correct, give human feedback based on expertise and return to LLM for the next dialogue; 7) Give up or count as failure based on human judgement. Different from 1, the testers are regarded as CTF expertise and outside knowledge is inaccessible in that workflow. 
@@ -379,45 +379,45 @@ reason that happens on challenges that requires the connection to an internal se
 This section presents a case study of GPT 4 solving "baby’s third" challenge using the fully automated framework from Section 3.2.2. In this instance, all decisions are made by the LLM, which completes the task in three steps: first, the framework sends the system a prompt followed by an initial user prompt according to the challenge information provided as annotated in orange text box, second, it uses Ghidra reverse tool included in our tool chain, to decompile the challenge’s binary file, producing decompiled and disassembled code; third, it examines the code output from the second step, and succeeds in capturing the flag. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0010-10.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0010-10.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0010-11.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0010-11.png)
 
 
 10 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-00.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-01.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-01.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-02.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-03.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-04.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-04.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-05.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-06.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-06.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-07.png)
+![](images/45-an-empirical-evaluation-of-llms-for-solving-offensive.pdf-0011-07.png)
 
 
 Figure 5: GPT 4 automatically solving the “baby’s third”, a reverse engineering challenge, using the automated workflow. Non-anonymous information is masked out. 
