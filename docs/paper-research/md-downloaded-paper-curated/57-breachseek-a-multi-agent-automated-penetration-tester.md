@@ -47,7 +47,7 @@ The integration of LLMs into cybersecurity, particularly in automated penetratio
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0003-00.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0003-00.png)
 
 
 Figure 1: The general workflow of such models 
@@ -103,7 +103,7 @@ For evaluation purposes, a Metasploitable 2 machine was hosted on the same local
 vulnerabilities on this machine, providing a realistic scenario for assessing its penetration testing capabilities. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0004-01.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0004-01.png)
 
 
 Figure 2: The specific workflow used by our model 
@@ -177,13 +177,13 @@ The code used for the model can be found here: `https://github.com/snow10100/pen
 ## **A Appendix** 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-01.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-01.png)
 
 
 Figure 3: The clean web UI when you start chatting with model 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-03.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0006-03.png)
 
 
 Figure 4: The AI agents performing a task 
@@ -191,13 +191,13 @@ Figure 4: The AI agents performing a task
 6 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-00.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-00.png)
 
 
 Figure 5: The web UI when the task is done 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-02.png)
+![](images/57-breachseek-a-multi-agent-automated-penetration-tester.pdf-0007-02.png)
 
 
 Figure 6: Web UI Dark mode 

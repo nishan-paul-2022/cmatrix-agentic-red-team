@@ -17,7 +17,7 @@ Cybersecurity spans multiple interconnected domains, complicating the developmen
 The rise of agents based on large language models (LLM) in cybersecurity represents a paradigm shift in the execution of offensive and defensive operations [1, 2]. Recent tools such as PentestGPT [3] and the Cybersecurity AI (CAI) framework [4] exemplify this shift, promising to democratize security expertise and accelerate vulnerability discovery. These systems evolve from simple automation tools into autonomous agents capable of complex reasoning and multistep exploitation [5], which raises a critical question: _RQ1: How can we benchmark LLMs for laborrelevant agentic cybersecurity tasks?_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0001-10.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0001-10.png)
 
 
 <!-- Start of picture text -->
@@ -34,7 +34,7 @@ or specific attack techniques, but fail to capture the complete skill set and ra
 To address these limitations, we present the Cybersecurity AI Benchmark (CAIBench), a comprehensive meta–benchmark, a benchmark of benchmarks, designed to establish a standardized framework for evaluating AI agents and models in cybersecurity. While we cannot yet guarantee that current benchmarks translate directly to cybersecurity labor demands, CAIBench takes steps towards this aspiration by integrating heterogeneous evaluation methodologies into a coherent, reproducible, and scalable framework, spanning five categories of cybersecurity tasks. It features Attack and Defense (A&D) scenarios, where agents must simultaneously protect vulnerable systems while executing coordinated offensive operations against adversaries. The benchmark also includes robotics-oriented challenges, assessing AI capabilities in securing cyber-physical infrastructures such as industrial robots. Its modular architecture ensures consistent evaluation across varying skill levels, from novice to expert, and supports parallelized task execution, allowing multiple scenarios to run concurrently and substantially reducing overall benchmarking time. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0002-02.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0002-02.png)
 
 
 <!-- Start of picture text -->
@@ -217,7 +217,7 @@ To assess the capabilities of modern AI in cybersecurity, we evaluated a diverse
 Overall, `alias1` demonstrates balanced performance across both practical cybersecurity tasks and knowledge-intensive benchmarks, performing robustly as a standalone model and within agent-mediated workflows. Commercial models, such as claude-sonnet-4.5 and gpt-5, excel in specific areas, while open-source models perform well in knowledge benchmarks but show limitations on CTF task. In the 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0010-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0010-00.png)
 
 
 **Figure 3: Overall benchmark results across cybersecurity key categories** : (a) privacy, (b) knowledge, (c) jeopardy CTF, (d) Attack and Defense scenarios and (e) Cyber Range CTF. For this overview, precision and model are the consider metrics for privacy and A&D, other subcategories and metrics are omitted for clarity. The other values are the average performance of the detailed results reported in Table 5. _Overall, models excel at knowledge (70–89%) but fail at execution (20–50%)._ 
@@ -251,7 +251,7 @@ Jeopardy-style CTF challenges evaluate AI models’ ability to solve discrete cy
 The Base benchmark consists of 23 foundational CTF challenges designed to test core cybersecurity skills. Figure 4 presents a heatmap comparing model performance across all challenges, evaluated using the _pass_ 100@1 metric in a Kali Linux (Rolling) environment. Our `alias1` model achieves a 67% success rate, matching `alias0` ’s performance on this benchmark, while claude-sonnet-4.5 leads with 75%. These results suggest that the Base benchmark is nearly saturated, with limited headroom remaining for substantial gains. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0011-04.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0011-04.png)
 
 
 **Figure 4: Heatmap Benchmarking CAI Across LLMs in Base benchmark** with 23 selected challenges. The heatmap illustrates the performance of different Large Language Models (LLMs) used on Base CTF Benchmark (E.1) using _pass_ 100@1 and run in a _Kali Linux (Rolling)_ environment. _Basic CTFs have reached saturation._ 
@@ -289,7 +289,7 @@ Table 6 presents the active time (time-to-solution) for challenges successfully 
 The Cybench benchmark comprises 35 more advanced CTF challenges, testing deeper technical expertise and sophisticated exploitation techniques. Figure 5 illustrates model performance across the Cybench challenge set, again using the _pass_ 100@1 metric in a Kali Linux environment. Here, the performance gap between `alias1` (31% success rate) and `alias0` (14%) becomes more pronounced, demonstrating a relative improvement. This substantial gain highlights the effectiveness of `alias1` ’s enhanced reasoning and planning capabilities when confronting more complex, multi-stage attack scenarios. claude-sonnet-4.5 maintains the lead at 46%, suggesting opportunities for further advancement in autonomous vulnerability analysis and exploit development. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0012-05.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0012-05.png)
 
 
 **Figure 5: Heatmap Benchmarking CAI Across LLMs in Cybench** : Model Performance vs. Cybench CTF Challenges. The heatmap illustrates the performance of different models used on Cybench Benchmark (E.2) using _pass_ 100@1 metric and run in a _Kali Linux (Rolling)_ environment. _Performance drops from 75% on basics to 46% on complex attacks._ 
@@ -299,7 +299,7 @@ The Cybench benchmark comprises 35 more advanced CTF challenges, testing deeper 
 The RCTF2 benchmark evaluates the AI agent’s capabilities on robotics-specific cybersecurity challenges across multiple platforms, including MiR mobile robots, Otto autonomous vehicles, Universal Robots collaborative arms (CB3 and e-Series) and xArm manipulators. As illustrated in the performance plot (see Figure X: RCTF2 Heatmap), the `alias1` agent achieved a limited success rate of 22% (6 out of 27 challenges), which reveals significant shortcomings in its robotics cybersecurity capabilities. Specifically, the agent successfully exploited CVE-2020-10270 and CVE-2020-10279 on the MiR 100 platform, CVE-2020-10265 on both the Universal Robots CB3 and e-Series, one Otto challenge (FLAG1), and the xArm manipulator vulnerability RVD#3321. These successful exploits generally correspond to the more basic or straightforward challenges for each robot type, such as initial access vulnerabilities or default credential exploits. Conversely, the agent struggled with the more complex and heterogeneous tasks, failing to solve the remaining 21 challenges. This highlights the current limitations of AI-driven agents in effectively addressing the nuanced and specialized cybersecurity requirements of industrial automation, logistics, and healthcare robotics. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0013-02.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0013-02.png)
 
 
 **Figure 6: Heatmap Benchmarking CAI with** **`alias1` Across RCTF2 benchmark** . The experiments are conducted using red team agent, _pass_ 100@1 and run in a _Kali Linux (Rolling)_ environment. _Robotics security remains AI’s blind spot at 22% success._ 
@@ -313,27 +313,27 @@ Figure 7 and Table 7 present the comparative results across all knowledge benchm
 Other models such as deepspeek-R1-0528, gpt-5, and qwen3-32B show competitive but generally lower performance. Deepspeek-R1-0528 maintains balanced results across benchmarks, with a CyberMetric-4500 score of 88%, but its RCM performance (69%) is below the top performers. gpt-5 and qwen3-32B display moderate performance on general knowledge and reasoning tasks, with particular weaknesses in correlated threat intelligence reasoning, where gpt-5 scores 61% and qwen3-32B 63%. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-01.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-01.png)
 
 
 **(a)** Performance of AI models on the **CTI MCQ** component, mea- **(b)** Performance on the **CTI RCM** component, assessing reasuring factual knowledge and conceptual understanding of Cysoning and correlation skills in interpreting Cyber Threat Intelliber Threat Intelligence. gence data. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-03.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-03.png)
 
 
 **(c)** Evaluation on the first 4,500 questions of the **CyberMetric** - 10,000 benchmark, testing knowledge extraction, contextual understanding, and cybersecurity-specific QA. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-05.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-05.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-06.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0014-06.png)
 
 
 <!-- Start of picture text -->
@@ -371,7 +371,7 @@ Privacy-preserving capabilities are critical for cybersecurity AI agents that mu
 Figure 8 and Table 8 present the evaluation results across four classification metrics. `alias1` demonstrates the strongest overall performance across all metrics, achieving the highest precision (0.52), recall (0.42), F1 score (0.46), and F2 score (0.44). This represents a substantial improvement over `alias0` and the commercial solution specifically designed for anonymized inference privateAI [25]. The high precision of `alias1` indicates effective PII detection with minimal false positives, while the recall score reflects good coverage in identifying sensitive information. These results suggest that `alias1` ’s enhanced reasoning capabilities enable more nuanced understanding of contextual privacy risks, a critical requirement for real-world cybersecurity applications where data handling must comply with regulatory frameworks like GDPR. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0016-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0016-00.png)
 
 
 **Figure 8: Model performance across evaluation in CyberPII-bench.** The figure compares the performance of various LLMs across four key classification metrics (Precision, Recall, F1, and F2). For more information about the metrics and their computation, refer to Appendix A. Includes commercial (PrivateAI) solution and research-oriented models (from alias Robotic). _Alias’ models can outperform commercial privacy solutions._ 
@@ -381,7 +381,7 @@ Figure 8 and Table 8 present the evaluation results across four classification m
 Cyber Range exercises represent a realistic evaluation scenarios in CAIBench, simulating complete network environments where AI agents must perform multi-stage penetration testing campaigns. These challenges require sophisticated capabilities including network reconnaissance, vulnerability scanning, exploitation, privilege escalation, and lateral movement across interconnected systems. Unlike discrete Jeopardy-style challenges, Cyber Ranges evaluate an agent’s ability to orchestrate complex attack chains in realistic enterprise-like environments. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0016-04.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0016-04.png)
 
 
 **Figure 9: Model performance across Cyber Ranges.** The heatmap illustrates the performance of different models used on Cyber Ranges CTF Benchmark (3) using _pass_ 200@1 metric and run in a _Kali Linux (Rolling)_ environment. All models run a red team agent pattern. _Alias1 matches the performance of current SOTA models while surpassing earlier ones._ 
@@ -401,7 +401,7 @@ Our evaluation comprises two distinct experimental setups that assess different 
 The model-vs-model evaluation directly compares raw AI capabilities in A&D scenarios by putting frontier models against each other in head-to-head competitions. Figure 10 and Figure 11 present the head-to-head comparison between `alias1` and gpt-5, and `alias1` and claude-sonnet-4 across all 10 A&D challenges. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0017-06.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0017-06.png)
 
 
 **Figure 10:** Machine-by-machine score distribution for a 20-minute **Attack and Defense CTF match between two autonomous teams,** **_alias1_ vs gpt-5** . Each team deployed two coordinated agents per machine, one red team agent responsible for offensive exploitation and one blue team agent tasked with defensive patching, both operating within a shared context. The competition spanned 10 target machines of varying service types (4). Overall, `alias1` won on 2 machines (Pingpong, Cowsay), tied on 4 machines (Docuflow, Securevault, Hydrocore, Reactorwatch), and lost on 4 machines (Notes, Devops, Monolithsentinel, Fortress). _Ties dominate overall matches._ 
@@ -409,13 +409,13 @@ The model-vs-model evaluation directly compares raw AI capabilities in A&D scena
 The results reveal competitive but limited performance across all evaluated models. gpt-5 achieves slightly better exploitation success with 4 winning challenges compared to `alias1` ’s 2. claude-sonnet4 demonstrates comparable struggles in the A&D context, achieving similar low success rates and failing on challenges beyond _⋆⋆_ difficulty. Figure 12 provides an aggregate view showing that frontier 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0018-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0018-00.png)
 
 
 **Figure 11:** Machine-by-machine score distribution for a 20-minute **Attack and Defense CTF match between two autonomous teams,** **_alias1_ vs claude-sonnet-4** . Each team deployed two coordinated agents per machine, one red team agent responsible for offensive exploitation and one blue team agent tasked with defensive patching, both operating within a shared context. The competition spanned 10 target machines of varying service types (4). Overall, `alias1` won on 3 machines (Pingpong, Devops, Fortress), tied on 5 machines (Notes, Docuflow, Hydrocore, Reactorwatch, Monolithsentinel), and lost on 2 machines (Cowsay, Securevault). _Ties dominate overall matches._ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0018-02.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0018-02.png)
 
 
 **Figure 12: Win-Tie-Lose percentage distribution for all match** : `alias1` vs gpt-5 and claude-sonnet-4 across 10 machines in Attack/Defense CTF matchups. Against gpt-5, `alias1` won 20% of machines, tied on 40%, and lost 40%. Against claude-sonnet-4, `alias1` won 30% of machines, tied on 50%, and lost 20%, demonstrating stronger performance against claude-sonnet-4. _Ties are the majority outcome (40-50%), suggesting comparable offensive and defensive capabilities between_ _`alias1` and opponents on most machines._ 
@@ -433,25 +433,25 @@ nent AI coding assistants including Claude Code (claude-sonnet-4.5), OpenAI Code
 Figure 13 presents the score distribution across matchups between CAI `alias1` and the four competing agent frameworks. The results reveal substantial performance variability across frameworks, despite some sharing similar underlying models. CAI `alias1` demonstrates consistently competitive performance, achieving the highest or near-highest scores in 3 out of 4 matchups on the Cowsay service and maintaining strong defensive capabilities across both services. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-02.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-02.png)
 
 
 **(a)** CAI ( `alias1` ) vs Claude Code (claude-sonnet-4.5) 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-04.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-04.png)
 
 
 **(c)** CAI ( `alias1` ) vs Gemini CLI (gemini-2.5-pro) 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-06.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-06.png)
 
 
 **(b)** CAI ( `alias1` ) vs Codex (gpt-5-codex) 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-08.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0019-08.png)
 
 
 **(d)** CAI ( `alias1` ) vs Qwen Code (qwen3-coder) 
@@ -459,7 +459,7 @@ Figure 13 presents the score distribution across matchups between CAI `alias1` a
 **Figure 13:** Machine-by-machine score distribution across 20–minute Attack/Defense CTF matchups on two services (Cowsay and Pingpong). Each subplot compares one instance of **CAI (** **`alias1` ) against one instance of competing AI agents** : Claude Code (claude-sonnet-4.5), Codex (gpt-5-codex), Gemini CLI (gemini-2.5-pro), and Qwen Code (qwen3-coder). Each team deployed two agents, one red team agent for offense and one blue team agent for defense, who were responsible for managing both machines simultaneously within the 20–minute time limit. Teal bars represent CAI with `alias1` ’s total points; gray bars represent opponent points. _CAI with alias1 outperforms SOTA agents in most case_ 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0020-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0020-00.png)
 
 
 **Figure 14: Attack/Defense CTF absolute best scores.** CAI ( `alias1` ) shows best scores achieved across 4 matchups. Other agents show scores from their respective matchups against CAI with `alias1` . The stacked bars show the contribution from Cowsay (darker teal) and Pingpong (lighter blue-teal) services, demonstrating CAI and `alias1` ’s substantial performance advantage with more than 2.6x the total score of the next best agent. _CAI with alias1 outperforms SOTA agents in most cases, achieving 2.6x higher scores._ 
@@ -573,13 +573,13 @@ Based on these definitions, we measure system performance using the following me
 **Precision** quantifies the accuracy of the anonymization process by measuring the proportion of entities flagged as sensitive that were truly sensitive (Eq. 1). High precision indicates that the system avoids unnecessary modifications to non-sensitive data, preserving overall data utility. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0026-09.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0026-09.png)
 
 
 **Recall** , or sensitivity, measures the system’s ability to detect all sensitive entities (Eq. 2). A high recall ensures that few sensitive entities are missed, which is crucial for protecting privacy and meeting compliance requirements. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0026-11.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0026-11.png)
 
 
 To provide a balanced assessment that accounts for both precision and recall, we use the **F1 score** (Eq. 3). The F1 score is the harmonic mean of precision and recall, offering a single metric that treats false positives and false negatives equally. It is particularly useful when the costs of over- and under-anonymization are comparable. 
@@ -587,11 +587,11 @@ To provide a balanced assessment that accounts for both precision and recall, we
 However, in privacy-sensitive applications, failing to detect sensitive information can have far more severe consequences than over-anonymizing non-sensitive content. In these scenarios, false negatives (missed sensitive entities) carry higher risks, including privacy violations or regulatory non-compliance. To account for this, the **F2 score** (Eq. 4) emphasizes recall more heavily than precision, ensuring that the evaluation prioritizes the detection and anonymization of all sensitive data. By weighting recall more strongly, the F2 metric aligns with the primary goal of privacy-focused systems: robust protection of sensitive information. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0027-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0027-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0027-01.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0027-01.png)
 
 
 Together, precision, recall, F1, and F2 provide a comprehensive evaluation of anonymization performance. They allow practitioners to understand the trade-offs between over-anonymization and missed sensitive entities, guiding system improvements while maintaining data privacy and utility. 
@@ -631,7 +631,7 @@ Timeline visualizations show service status changes and flag capture events for 
 Figure 15 shows the complete timeline for the matches between `alias1` and gpt-5 across ten services: Pingpong, Cowsay, Notes, Devops, Docuflow, Securevault, Hydrocore, Reactorwatch, Monolithsentinel, and Fortress. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0028-02.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0028-02.png)
 
 
 **Figure 15:** Attack/Defense timeline for `alias1` vs gpt-5. The visualization shows service status changes and flag captures over 20 minutes. Triangle markers indicate flag captures (up for `alias1` , down for gpt-5), with teal colors for User flags and red borders for Root flags. Service status is indicated by color: teal (OK), orange (MUMBLE), and red (DOWN). 
@@ -641,7 +641,7 @@ Figure 15 shows the complete timeline for the matches between `alias1` and gpt-5
 Figure 16 shows the complete timeline for the matches between `alias1` and claude-sonnet-4 across the same set of services. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0029-00.png)
+![](images/50-caibench-cybersecurity-ai-meta-benchmark.pdf-0029-00.png)
 
 
 **Figure 16:** Attack/Defense timeline for `alias1` vs claude-sonnet-4. The visualization uses the same format as Figure 15, allowing direct comparison between the two AI agents’ performance across identical services. 

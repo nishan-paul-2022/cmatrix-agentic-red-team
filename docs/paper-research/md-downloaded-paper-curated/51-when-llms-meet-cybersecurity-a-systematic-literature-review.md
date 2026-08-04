@@ -55,11 +55,11 @@ LLMs have emerged as a transformative technology in the field of artificial inte
 2 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0003-00.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0003-00.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0003-01.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0003-01.png)
 
 
 <!-- Start of picture text -->
@@ -115,15 +115,15 @@ Table 2: **A Summary of LLMs used in cybersecurity (this paper).**
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-02.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-02.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-03.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-03.png)
 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-04.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0004-04.png)
 
 
 Figure 2: **Treemap for cybersecurity categories of LLMs’ application.** 
@@ -147,7 +147,7 @@ The cybersecurity domain is facing escalating threats, demanding intelligent and
 Advancing cybersecurity requires LLMs tailored to the field, leveraging their potential to learn domain-specific data and knowledge. This section firstly introduce several domain datasets for evaluating the cybersecurity capabilities of LLMs [40, 41, 42], which can guide for selecting an appropriate LLM as the base model when constructing cybersecurity LLMs. Then, we focus on key technologies for constructing cybersecurity LLMs, including training methods such as continual pre-training (CPT) [43, 44] and supervised fine-tuning (SFT) [45, 46] of LLMs, as well as technical implementations like full-parameters fine-tuning and parameter-efficient fine-tuning (PEFT) [47]. Finally, we summarize existing customized LLMs for specific cybersecurity tasks [48, 29], including vulnerability detection, program repair, secure code generation, etc. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0005-08.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0005-08.png)
 
 
 <!-- Start of picture text -->
@@ -178,7 +178,7 @@ The evaluation of LLMs’ cybersecurity capabilities not only guides the basic m
 LLMs have demonstrated remarkable language understanding and generation capabilities by leveraging the transformer architecture and self-supervised pre-training strategies [65, 66, 32]. However, developing a specialized LLM for cybersecurity from scratch requires a lot of computational resources, which is impractical for most research teams. Fortunately, existing general LLMs have acquired extensive knowledge and demonstrated excellent generalization capabilities [2, 27, 67, 5]. **By combining these pre-trained LLMs with domain datasets for training, we can adopt a more efficient approach to enhance the model’s cybersecurity capabilities.** This approach not only significantly reduces the computational demands of pre-training, but also maximizes the use of the knowledge that LLMs have learned. Thereby, the model can understand and perform cybersecurity-related tasks, such as automated threat detection, vulnerability identification, and security policy recommendations. 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0007-02.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -243,7 +243,7 @@ Since LLMs have shown excellent analysis and summarization capabilities in natur
 9 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0010-00.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0010-00.png)
 
 
 <!-- Start of picture text -->
@@ -468,7 +468,7 @@ The application of LLMs in cybersecurity represents a cutting-edge field, demons
 21 
 
 
-![](docs/paper-research/md-downloaded-paper-curated/images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0022-00.png)
+![](images/51-when-llms-meet-cybersecurity-a-systematic-literature-review.pdf-0022-00.png)
 
 
 <!-- Start of picture text -->
