@@ -86,7 +86,20 @@ CTF challenges vary in difficulty level, with more difficult challenges awarded 
 shows the distribution of challenge difficulties in the qualifying and final rounds. The qualifying round problems tend to be of lower difficulty, while the final round problems are significantly harder. These points reflect a subjective assessment of problem difficulty, as determined by the experienced challenge creators who design CSAW’s CTFs. 
 
 
-![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0004-01.png)
+```mermaid
+xychart-beta
+    title "Quals Histogram of CTF Challenges by Difficulty"
+    x-axis [1, 10, 25, 50, 75, 92, 100, 150, 186, 200, 250, 300, 350, 389, 400, 450, 453, 460, 464, 466, 488, 490, 499, 500]
+    y-axis "Number of Challenges" 0 --> 22
+    bar [1, 1, 3, 21, 3, 1, 11, 6, 1, 8, 3, 8, 2, 1, 3, 3, 1, 1, 1, 1, 2, 1, 1, 7]
+```
+```mermaid
+xychart-beta
+    title "Finals Histogram of CTF Challenges by Difficulty"
+    x-axis [1, 25, 50, 53, 57, 60, 63, 74, 82, 92, 100, 122, 142, 150, 195, 200, 250, 300, 336, 350, 371, 400, 432, 450, 457, 494, 500]
+    y-axis "Number of Challenges" 0 --> 18
+    bar [2, 2, 8, 1, 1, 1, 1, 1, 1, 1, 2, 9, 1, 6, 1, 6, 5, 9, 1, 1, 1, 10, 1, 2, 1, 2, 17]
+```
 
 
 Figure 1: Distribution of Challenge Difficulties in Qualifying and Final Rounds. 
@@ -143,7 +156,56 @@ trigger the vulnerability. Essential tools include Ghidra for decompilation, rad
 The framework in Figure 3 includes underlying logic, steps, and the prompt structures used. We discuss input specifications for the models and the methodologies for validating outputs. Critical to maintaining the integrity and robustness of our system, we discuss error handling. This will enable peers to replicate our work and build up on foundational effort. The framework has five modules: 
 
 
-![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0006-05.png)
+```mermaid
+flowchart TD
+    subgraph Models["Models (1)"]
+        subgraph Open_Source_Models["Open Source Models"]
+            vLLM["vLLM<br/>- Mixtral"]
+            TGI["TGI<br/>- Deepseek Coder"]
+        end
+        subgraph Blackbox_Models["Blackbox Models"]
+            OpenAI["OpenAI<br/>- GPT 3.5 Turbo<br/>- GPT 4"]
+            Anthropic["Anthropic<br/>- Claude 3 Haiku/Sonnet/Opus"]
+        end
+        Agent_Backend["Agent Backend"]
+    end
+
+    subgraph LLM_CTF_Core["LLM CTF Core"]
+        Tools["Tools (3)<br/>- Command execution<br/>- Reverse engineering"]
+        Data_Organizer["Data Organizer<br/>- Formatter<br/>- Backend"]
+        Conversation["Conversation (4)<br/>- Challenge<br/>- Prompt"]
+        Logging["Logging<br/>- Terminal output<br/>- Logs in JSON"]
+        
+        Black_Box_Backend["Black Box Backend<br/>- OpenAI<br/>- Anthropic"]
+        Open_Source_Backend["Open Source Backend<br/>- TGI<br/>- vLLM"]
+        OAServer["OpenAI & Anthropic Server"]
+        
+        Solution["Solution"]
+        Validation{"Validation"}
+        Result["Result"]
+        
+        Docker["Docker Container (2)<br/>- docker load<br/>- compose"]
+        Source_Code["Source code<br/>- mounted<br/>- compose"]
+        Deployment_Server["Deployment Server"]
+        
+        Black_Box_Backend --> OAServer
+        OAServer --> Solution
+        Open_Source_Backend --> Solution
+        Solution --> Validation --> Result
+    end
+
+    subgraph Database["Database (5)"]
+        Prompts["System Prompt<br/>User Prompt<br/>Helper Prompt"]
+        Source["Source<br/>- Code<br/>- Documents<br/>- Multimedia"]
+        Metadata["Metadata<br/>challenge.json"]
+        Templates["Templates<br/>- package<br/>- Command<br/>- reminder"]
+        Deployment["Deployment<br/>- Server<br/>- OCI<br/>- Dockers"]
+        DataLoader["Data Loader"]
+    end
+
+    Models -.-> LLM_CTF_Core
+    LLM_CTF_Core -.-> Database
+```
 
 
 <!-- Start of picture text -->
@@ -358,7 +420,14 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 #### **[Assistant]** 
 
 
-![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-03.png)
+```mermaid
+flowchart TD
+    subgraph Text[" "]
+        content["The challenge appears to be a classic buffer overflow vulnerability. Based on the information from the<br/>disassembled and decompiled main function, here's an analysis:<br/>1) A local buffer local_38 of size 44 bytes...<br/>...<br/>Let's proceed by crafting and sending the exploit. I'll construct the Python exploit script and run it to<br/>interact with the running puffin binary on the challenge server. Use tools: createfile"]
+    end
+    style Text fill:#e6e6e6,stroke:#333
+    style content fill:#e6e6e6,stroke:#e6e6e6,text-align:left
+```
 
 
 <!-- Start of picture text -->
@@ -367,7 +436,14 @@ The challenge appears to be a classic buffer overflow vulnerability. Based on th
 Figure 5: LLM Solver Excerpts for the "Puffin" Pwn Challenge in Table 3. 
 
 
-![](images/63-nyu-ctf-bench-a-scalable-open-source-benchmark.pdf-0014-05.png)
+```mermaid
+flowchart TD
+    subgraph Header["LLM Installing Tools for a Mobile Challenge"]
+        content["<b>[Assistant]</b><br/>The jar command, typically part of the Java Development Kit (JDK), is not available as a standalone<br/>package. Instead, we need to install the JDK package which includes the jar utility.<br/>...<br/>Command exec with ret=0: java GetFlag ==> stdout: csawctf{dyn4m1c_lo4deRs_r_fuN!}"]
+    end
+    style Header fill:#333,stroke:#333,color:#fff
+    style content fill:#f0f0f0,stroke:#f0f0f0,color:#333,text-align:left
+```
 
 
 <!-- Start of picture text -->
