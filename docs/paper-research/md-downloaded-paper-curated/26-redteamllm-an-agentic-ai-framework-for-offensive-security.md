@@ -59,7 +59,7 @@ ReAct[Yao _et al._ , 2023b] first reasons about the analysis strategy, then roll
 definition step, with a given subgoal. If the goal is achieved, the pipeline terminates. The main limits of this architecture, whether it is used with prompting or with complex pipelines, is the absence of memory, which requires each prompt to embed all context and knowledge about previous analysis steps. Since the context windows of current LLMs are strongly limited, information start being ignored as the context and history start exceeding the context window’s limit, which can lead to reduced performance and inaccurate outputs. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0003-01.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 1: Process diagram of ReAct 
@@ -105,7 +105,7 @@ The architecture of RedTeamLLM is composed of seven components: **Launcher** , *
 To support autonomous offensive operations, the proposed model must address many challenges and effectively meet essential requirements. Thus here are the principal features: 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0004-13.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 2: Software Architecture for Red Team LLM Model 
@@ -127,7 +127,7 @@ Memory management is an essential part of the model to be implemented. In all ot
 The Red-Team LLM architecture supports a powerful autonomous process for pen-testing, including error recovery when the process meets dead-ends, and automation of offensive action. The architecture is thus exposed to two main threat families: hijacking of the execution process, on the one hand, and inversion of dependency from the LLM agents towards the framework, on the other hand. A strong security model is thus required to address the key vulnerabilities of 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0005-00.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 3: Database schema for Memory management Model 
@@ -135,7 +135,7 @@ Figure 3: Database schema for Memory management Model
 [Labunets _et al._ , ] or app store abuses [Hou _et al._ , 2024] are not relevant to RefTeam LLM. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0005-03.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 5: Security challenges and how RedTeamLLM address them 
@@ -143,7 +143,7 @@ Figure 5: Security challenges and how RedTeamLLM address them
 agentic AI models: attack surface expansion, data manipulation and prompt injection, API usage and sensitive data exposure [Khan _et al._ , 2024]. Its five key components, shown in Figure 4 are: 1) a dedicated authentication, authorization and session management module, 2) network and system isolation of the runtime environment, 3) systematic command validation by the user before any offensive action, 4) logging in append-only mode for a posteriori analysis and 5) a kill switch to shut the platform down. The threats related to containment and inversion of dependency are shown in table 5. Isolation prevents unauthorized access to network entities or configurations, and to system capabilities. Command validation by the user ensures the alignment between the ongoing security task and performed operations, and prevent accidental calls to unwanted or dangerous tools upon proposal by the agent. Following and, when necessary, reconstructing the execution track is supported by the logging facility. To enhance the reaction capability and to pave the way to greater autonomy of the framework, a kill switch is set up to immediately halt any agent over which the supervision, or the control over actual operations, would have been weakened or lost. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0005-06.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 4: Security layers wrapping the LLM agent 
@@ -203,7 +203,7 @@ of tokens dedicated to strategy, output analysis and reasoning help the agent to
 The RedTeamLLM implementation evaluated in this work is built around the ReACT analysis component. It entails 3 LLM session, _i.e._ 3 interaction dialogs built by assistant and user messages: 3) the summarizer that summarizes command outputs; 2) the reasoning component that reasons over tasks and their outputs, and 3) the Act component that execute the tasks. Figure 6 shows the total number of API calls for each component, over the different use cases after 10 tests on each VM.The Summarizer typically consumes between 9,5% (CTF4) and 15,9% (Cewlkid) of API call tokens, with a low at 3,1% for the WestWild use case and a peek at 30,9% for the Victim1 use case. This peek enables a strong reduction of the required tool calls (See Fig. 7). Reason and Act processes perform a very similar number of API calls. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0006-18.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 6: Number of API calls in Summarizer, Reason, Act steps for the 5 use cases 
@@ -215,7 +215,7 @@ RedTeamLLM outperforms PenTestGPT in 3 use cases out of 5: _wrt._ the use case w
 The ablation study aims to evaluate the contribution of reasoning to the RedTeamLLM framework. Figure 7 shows the number of tool calls without and with reasoning for the 5 use cases. Every LLM session can have tool calls. A tool calls is a specific API response from an LLM session that triggers the use of provided tools (in our case a terminal). For example: when the agent executes a terminal command ls, that is a tool call response suggested by the LLM. The total tool calls over the 5 vms with 10 tests on each VM is sumed up: 5 with reasoning, 5 without reasoning. These are only the tool calls with the Act components only because this is where execution is performed. We can clearly see that the agent consumes significantly less tool calls with reasoning in 4 out of 5 use cases: the drop is tool calls range from 37% (Sar) to 68% (Victim1). Only for CTF4, the use of reasoning is bound with an increase of 291% of tool calls, to support a slightly better achievement of the target operation (see Fig. 8). In short, the agent performs more analysis before performing actions, and thus chooses better strategies to perform. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0007-02.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 7: Number of tool calls without and with reasoning for the 5 use cases 
@@ -225,7 +225,7 @@ The degree of completion is computed for each use cases, using the write-up, whi
 These results highlight the contribution of the reasoning step to security operation by RedTeamLLM model. 
 
 
-![](images/26-redteamllm-an-agentic-ai-framework-for-offensive-security.pdf-0007-06.png)
+*(Image omitted: Refer to paper)*
 
 
 Figure 8: CTF level completed by the RedTeamLLM framework without and with reasoning for the 5 use cases 
