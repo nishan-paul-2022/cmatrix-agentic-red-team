@@ -187,34 +187,66 @@ Player Model<br><!-- End of picture text -->
 Terminal Model<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-09.png)
+```mermaid
+flowchart TD
+    Icon["Terminal Icon >_"]
+    style Icon fill:#000,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:5px
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-10.png)
+```mermaid
+flowchart TD
+    Icon["Hacker Icon (Red Hat & Mask)"]
+    style Icon fill:#ff4d4d,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:50%
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-11.png)
+```mermaid
+flowchart TD
+    Icon["Terminal Icon >_"]
+    style Icon fill:#000,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:5px
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-12.png)
+```mermaid
+flowchart TD
+    %% Action snippet
+    Action["The edited script looks<br/>good! Let's run it as<br/>follows:<br/><br/><b>python3 exploit.py</b> 🧪"]
+    
+    style Action fill:#f1f1f1,stroke:#333,stroke-width:1px,text-align:left
+```
 
 
 <!-- Start of picture text -->
 The edited script looks<br>good! Let’s run it as<br>follows:<br>python3 exploit.py<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-13.png)
+```mermaid
+flowchart TD
+    Icon["Terminal Icon >_"]
+    style Icon fill:#000,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:5px
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-14.png)
+```mermaid
+flowchart TD
+    Icon["Hacker Icon (Red Hat & Mask)"]
+    style Icon fill:#ff4d4d,stroke:#fff,stroke-width:2px,color:white,font-weight:bold,border-radius:50%
+```
 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0004-15.png)
+```mermaid
+flowchart TD
+    %% Action snippet
+    Action["Fantastic! We've<br/>successfully captured the<br/>Random Vault service and<br/>captured the flag.<br/><br/><b>submit CTF{xxx}</b> 🎉"]
+    
+    style Action fill:#f1f1f1,stroke:#333,stroke-width:1px,text-align:left
+```
 
 
 <!-- Start of picture text -->
@@ -299,7 +331,13 @@ In this section, we evaluate all LLMs with the Pass@1 metric, where we sample on
 6 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0007-00.png)
+```mermaid
+xychart-beta
+    title "Average Performance vs Model Size"
+    x-axis ["8B", "14B", "32B", "100B", "1000B"]
+    y-axis "Average Performance (%)" 5 --> 45
+    bar [13, 20, 22, 30, 43]
+```
 
 
 <!-- Start of picture text -->
@@ -322,7 +360,16 @@ Figure 3: Comparison of various LLMs across model size (log-scale billions of pa
 Understanding how cybersecurity agents scale across different dimensions is crucial for advancing their effectiveness and generalizability. In this section, we investigate three key scaling dimensions through controlled experiment: (1) _inference-time compute_ : whether increased sampling improves performance and how fine-tuned models benefit from additional rollouts, (2) _task diversity_ :how training on varied challenges affects cross-benchmark generalization, and (3) _trajectory density_ : whether multiple synthetic trajectories per task enhance agent performance. Each dimension provides insights into the opportunities and limitations of scaling cybersecurity agents. 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0008-03.png)
+```mermaid
+xychart-beta
+    title "InterCode-CTF, NYU CTF, Cybench Pass@k vs Rollouts"
+    x-axis "Number of Agent Rollouts (k)" 1 --> 5
+    y-axis "Pass@k (%)" 30 --> 80
+    line [37, 49, 53, 55, 55]
+    line [53, 61, 64, 65, 66]
+    line [61, 70, 71, 71, 71]
+    line [72, 77, 78, 78, 79]
+```
 
 
 <!-- Start of picture text -->
@@ -343,7 +390,15 @@ Figure 4: Effect of inference-time compute budgets. Zero-shot and fine-tuned Qwe
 8 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-00.png)
+```mermaid
+xychart-beta
+    title "InterCode-CTF Pass@1 vs Coverage"
+    x-axis ["0", "10", "20", "50", "100"]
+    y-axis "Pass@1 (%)" 45 --> 85
+    line [46, 55, 57, 60, 65]
+    line [55, 58, 60, 66, 73]
+    line [60, 66, 70, 76, 82]
+```
 
 
 <!-- Start of picture text -->
@@ -356,7 +411,14 @@ Figure 5: Effect of training task diversity. Models trained on increasing percen
 #### 4.3 SCALING WITH DATA SAMPLING 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0009-04.png)
+```mermaid
+xychart-beta
+    title "InterCode-CTF Pass@1 vs Trajectories"
+    x-axis ["1", "2", "3"]
+    y-axis "Pass@1 (%)" 0 --> 75
+    bar [60, 64, 65]
+    bar [67, 71, 74]
+```
 
 
 <!-- Start of picture text -->
@@ -1123,7 +1185,13 @@ open output.txt
 33 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0034-00.png)
+```mermaid
+flowchart TD
+    %% Code Snippet
+    Code["<b>Code Snippet</b><br/>11: G = [(8249149405495350...<br/>...<br/>12: c = (53885671676587...<br/>13: print(f'G = ')<br/>14: print(f'c = ')<br/>15:<br/>16:<br/>(Open file: /__home__LLM_CTF_Database__yadlp/output.txt)<br/>(Current directory: /__home__LLM_CTF_Database__yadlp)<br/>(Interactive session: n/a)<br/>bash-$"]
+    
+    style Code fill:#f9f9f9,stroke:#333,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -1332,21 +1400,39 @@ open structure_analysis.txt
 42 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-00.png)
+```mermaid
+flowchart TD
+    %% Code Snippet
+    Code["<b>Console Output</b><br/>...<br/>5: Group mul: (3287...<br/>6: Field mul: (3287...<br/>...<br/>8: Field multiplicative order: 30864...<br/>9: Factors of order: 2^4 * 3^3 * 3271 * ...<br/>...<br/>bash-$"]
+    
+    style Code fill:#f9f9f9,stroke:#333,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
 3:<br>4:Testing k=123 multiplication:<br>5:Group mul: (3287298867445145065283726543398164915140533485340117  ⌋<br>�→ 27589360868365386517379858200594389287783606128406133788999820  ⌋<br>�→ 4887979431149460628971738238281896127199,<br>�→ 13511561456192903041000845302288103066225954076785039356761251  ⌋<br>�→ 50462005822381920182723000707004085667898743918218893820938318  ⌋<br>�→ 5922787070791339955496985730428)<br>6:Field mul: (3287298867445145065283726543398164915140533485340117  ⌋<br>�→ 27589360868365386517379858200594389287783606128406133788999820  ⌋<br>�→ 4887979431149460628971738238281896127199,<br>�→ 13511561456192903041000845302288103066225954076785039356761251  ⌋<br>�→ 50462005822381920182723000707004085667898743918218893820938318  ⌋<br>�→ 5922787070791339955496985730428)<br>7:<br>8:Field multiplicative order: 308640534931154687675082997833432352  ⌋<br>�→ 20837917329010622058110876527425778902651318084579509534356687  ⌋<br>�→ 3908793609230754351169620749514457816070026459157392283166<br>9:Factors of order: 2^4 * 3^3 * 3271 * 18119 * 23857 * 35923 *<br>�→ 1505323 * 3036643 * 3878597 * 7306661 * 661850419 * 696183413<br>�→ * 737026033 * 748888849 * 764475661 * 790916521 * 1000657271 *<br>�→ 1016247923 * 1213865039 * 2090081803 * 3882107087 * 4012893277<br>(Open file:<br>�→ /__home__LLM_CTF_Database__yadlp/structure_analysis.txt)<br>(Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-01.png)
+```mermaid
+flowchart TD
+    %% Player Model Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>This analysis reveals something crucial! The group operation is<br/>exactly isomorphic to multiplication in the quadratic field<br/>extension GF(p^2) with x^2 - D as the defining polynomial. This<br/>is confirmed by:<br/><br/>1. The group multiplication exactly matches field multiplication...<br/>2. The group law ... corresponds to multiplication in GF(p^2)<br/>3. We now know the order of the multiplicative group: p^2 - 1<br/><br/>This means we can convert this discrete logarithm problem..."]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
 Player Model https://ctftime.org/writeup/30584<br>This analysis reveals something crucial! The group operation is<br>�→ exactly isomorphic to multiplication in the quadratic field<br>�→ extension GF(p²) with x² - D as the defining polynomial. This<br>�→ is confirmed by:<br>1. The group multiplication exactly matches field multiplication<br>�→ (the coordinates are identical)<br>2. The group law (x1x2 + Dy1y2, x1y2 + x2y1 + 2y1y2) corresponds<br>�→ to multiplication in GF(p²)<br>3. We now know the order of the multiplicative group: p² - 1<br>This means we can convert this discrete logarithm problem in the<br>�→ custom group to a discrete logarithm problem in a finite field<br>�→ GF(p²). This is a well-known problem with several algorithms<br>�→ available.<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0043-02.png)
+```mermaid
+flowchart TD
+    %% Snippet
+    Snippet["Looking at the factorization of p^2 - 1, there are no extremely<br/>large prime factors. ... This suggests we might be able to use<br/>Pohlig-Hellman algorithm combined with baby-step giant-step<br/>for each prime factor.<br/><br/>Let me write a script to solve this DLP using the field<br/>isomorphism:<br/><hr/><br/>create solve_dlp.sage"]
+    
+    style Snippet fill:#f5f5f5,stroke:#ccc,stroke-width:1px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -1549,14 +1635,26 @@ File updated. Please review the changes and make sure they are _�→_ correct 
 53 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-00.png)
+```mermaid
+flowchart TD
+    %% Terminal Output
+    Term["<b>Terminal Model</b><br/>Flag: b'DUCTF{a_1337_hyp3rb0la_m33ts_th3_mult1pl3_DLP!!}'<br/>bash-$"]
+    
+    style Term fill:#f9f9f9,stroke:#00008b,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
 (Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br>Player Model https://ctftime.org/writeup/30584<br>The script looks good with proper indentation. Let's run it to get<br>�→ the complete flag:<br>python3 solve_flag.py<br>Terminal Model https://ctftime.org/writeup/30584<br>Flag: b'DUCTF{a_1337_hyp3rb0la_m33ts_th3_mult1pl3_DLP!!}'<br>(Open file: solve_flag.py)<br>(Current directory: /__home__LLM_CTF_Database__yadlp)<br>(Interactive session: n/a)<br>bash-$<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0054-01.png)
+```mermaid
+flowchart TD
+    %% Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>Excellent! We've successfully solved the challenge! The flag we<br/>found is 'DUCTF{a_1337_hyp3rb0la_m33ts_th3_mult1pl3_DLP!!}'.<br/>This was an interesting cryptographic challenge where we:<br/><br/>1. Discovered that the custom group operation was actually<br/>isomorphic to multiplication in a quadratic field extension...<br/><br/>Let's submit the flag:<br/><hr/><br/>submit 'DUCTF{a_1337_hyp3rb0la_m33ts_th3_mult1pl3_DLP!!}'"]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
@@ -1687,7 +1785,13 @@ challenge.eml: ASCII text (Open file: n/a) (Current directory: /__home__LLM_CTF_
 57 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-00.png)
+```mermaid
+flowchart TD
+    %% Snippet
+    Snippet["3. Any suspicious or encoded content<br/>4. Metadata that might be relevant<br/><hr/><br/>open challenge.eml"]
+    
+    style Snippet fill:#f5f5f5,stroke:#8b0000,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -1698,7 +1802,13 @@ challenge.eml: ASCII text (Open file: n/a) (Current directory: /__home__LLM_CTF_
 - 14: 15: Please click the link below to access and download the resume: 16: http://storage.microsoftcloudservices.com:41075/index.php 17: 18: Best regards, 19: Assistant to Lord Malakar 20: 21: --boundary-string-(Open file: challenge.eml) (Current directory: /__home__LLM_CTF_Database__A_new_Hire) (Interactive session: n/a) bash-$ 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0058-02.png)
+```mermaid
+flowchart TD
+    %% Player Model Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>Analyzing the email contents, I notice several interesting points:<br/><br/>1. The email is from Lord Malakar's Assistant...<br/>2. It's marked as 'Confidential Review'<br/>3. There's a download link...<br/>...<br/>connect_start storage.microsoftcloudservices.com 41075"]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
@@ -1747,14 +1857,26 @@ I'll add the code to download_resume.py to make a POST request and _�→_ save
 60 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-00.png)
+```mermaid
+flowchart TD
+    %% Code Snippet
+    Code["with open('resume_content', 'wb') as f:<br/>    f.write(response.content)<br/><br/>...<br/>if __name__ == '__main__':<br/>    download_resume()<br/>end_of_edit"]
+    
+    style Code fill:#f9f9f9,stroke:#8b0000,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
 with open('resume_content', 'wb') as f:<br>f.write(response.content)<br>print(f'Status code: {response.status_code}')<br>print('Headers saved to response_headers.txt')<br>print('Content saved to resume_content')<br>except requests.exceptions.RequestException as e:<br>print(f'Error occurred: {e}')<br>sys.exit(1)<br>if __name__ == '__main__':<br>download_resume()<br>end_of_edit<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0061-01.png)
+```mermaid
+flowchart TD
+    %% Terminal Output
+    Term["<b>Terminal Model</b><br/><hr/><br/>File updated. Please review the changes...<br/>[Current content of download_resume.py (lines 1-23)]:<br/>1: import requests<br/>...<br/>bash-$"]
+    
+    style Term fill:#f9f9f9,stroke:#00008b,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -1830,7 +1952,13 @@ hexdump -C resume_content
 63 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0064-00.png)
+```mermaid
+flowchart TD
+    %% Terminal Output Hexdump
+    Term["000001c0  72 00 65 00 ... |r.e.s.u.m.e.s.|<br/>000001d0  2f 00 72 00 ... |/.r.e.s.u.m.e._.|<br/>000001e0  6f 00 66 00 ... |o.f.f.i.c.i.a.l.|<br/>000001f0  2e 00 70 00 ... |..p.d.f.'.); .|<br/>...<br/>bash-$"]
+    
+    style Term fill:#f9f9f9,stroke:#00008b,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -1841,7 +1969,13 @@ hexdump -C resume_content
 64 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0065-00.png)
+```mermaid
+flowchart TD
+    %% Terminal Output
+    Term["<b>Terminal Model</b><br/><hr/><br/>File updated. Please review the changes...<br/>[Current content of download_resume.py (lines 1-27)]:<br/>1: import requests<br/>...<br/>5:    url = 'http://storage.microsoftcloudservices.com:41075/...'<br/>...<br/>bash-$"]
+    
+    style Term fill:#f9f9f9,stroke:#00008b,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -2307,14 +2441,26 @@ Let me check the aloha function: open aloha.txt
 **Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/aloha.txt] int32_t aloha(void) { int32_t iVar1; undefined8 uVar2; time_t tVar3; tVar3 = time(0); srand(tVar3); uVar2 = rand(); DAT_006020a0 = (char *)(uVar2 << 0xc); iVar1 = mprotect(DAT_006020a0, 0x1000, 7); if (iVar1 == -1) { puts("0_o"); DAT_006020a0 = 0; return -1; } printf("mmaped @%p\n", DAT_006020a0); return 0; } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-01.png)
+```mermaid
+flowchart TD
+    %% Player Model Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>After analyzing both functions, here's what we need to do:<br/><br/>1. The aloha function (beer option):<br/>- Generates a random address (shifted by 12 bits)<br/>- Makes that region RWX using mprotect<br/>...<br/>The key observation is that we have TWO RWX pages:<br/>...<br/>hexdump -C emoji_binary > binary_dump.txt"]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
 Player Model https://ctftime.org/writeup/25465<br>After analyzing both functions, here's what we need to do:<br>1. The aloha function (beer option):<br>- Generates a random address (shifted by 12 bits)<br>- Makes that region RWX using mprotect<br>- Stores address in DAT_006020a0<br>- Prints the address<br>2. The drinkmybeer function (horse option):<br>- Creates a new RWX page<br>- Takes our input (0x1000 bytes)<br>- Overwrites specific regions with 'A's<br>- Copies some predefined code<br>- Executes at offset 0x400<br>The key observation is that we have TWO RWX pages:<br>1. One from beer option (random address)<br>2. One from horse option (for our input)<br>Let's first see what shellcode is being copied to our input. We<br>�→ can examine the binary sections at 0x400660 and 0x4006a0:<br>hexdump -C emoji_binary > binary_dump.txt<br><!-- End of picture text -->
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0081-02.png)
+```mermaid
+flowchart TD
+    %% Terminal Output
+    Term["<b>Terminal Model</b><br/><hr/><br/>(Open file: n/a)<br/>(Current directory: /__home__LLM_CTF_Database__emoji)"]
+    
+    style Term fill:#f9f9f9,stroke:#00008b,stroke-width:2px,text-align:left,font-family:monospace
+```
 
 
 <!-- Start of picture text -->
@@ -2409,7 +2555,13 @@ create analyze.py
 85 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0086-00.png)
+```mermaid
+flowchart TD
+    %% Player Model Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>I'll write a script to analyze the binary and dump the relevant<br/>sections:<br/><br/>edit 1:1<br/>from pwn import *<br/><br/># Load the binary<br/>elf = ELF('./emoji_binary')<br/>...<br/>end_of_edit"]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
@@ -3124,7 +3276,13 @@ decompile snake.exe > decompiled_output.txt
 105 
 
 
-![](images/02-cyber-zero-training-cybersecurity-agents-without-runtime.pdf-0106-00.png)
+```mermaid
+flowchart TD
+    %% Player Model Snippet
+    Snippet["<b>Player Model</b><br/><hr/><br/>Looking at the decompiled code, I can see the key validation logic<br/>in the `validate_license` function. The important parts I<br/>notice:<br/><br/>1. It compares against an `expected_hash` array<br/>2. Each character goes through a series of bitwise operations:<br/>- Left/right shifts<br/>- XOR operations with constants (0xae, 0x66)<br/>...<br/>scroll_down"]
+    
+    style Snippet fill:#fdf5e6,stroke:#8b0000,stroke-width:2px,text-align:left,border-radius:10px
+```
 
 
 <!-- Start of picture text -->
