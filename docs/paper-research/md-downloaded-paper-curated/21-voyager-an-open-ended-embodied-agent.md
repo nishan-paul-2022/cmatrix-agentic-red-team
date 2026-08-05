@@ -549,10 +549,780 @@ Control primitive APIs implemented for Mineflayer:
 * `getItemFromChest(bot, chestPosition, itemsToGet)`
 * `depositItemIntoChest(bot, chestPosition, itemsToDeposit)`
 
+#### A.3.1 Agent State Details
+
+Each element of the agent's state includes:
+* **Inventory:** List of items and counts (e.g., `{'oak_log': 3, 'stick': 4}`)
+* **Equipment:** Currently equipped items (e.g., `{'hand': 'wooden_pickaxe'}`)
+* **Nearby blocks:** Blocks in the immediate vicinity
+* **Position:** Current coordinates (x, y, z)
+* **Nearby entities:** Creatures and NPCs in the area
+* **Biome:** Current biome type (e.g., forest, desert, plains)
+* **Time:** Current game time (day/night cycle)
+* **Health:** Current health points
+* **Hunger:** Current hunger level
+
+#### A.3.2 Implementation Details
+
+The control primitives are implemented as async functions wrapping Mineflayer APIs. Example implementations:
+
+```javascript
+// Explore in a direction until callback returns true
+async function exploreUntil(bot, direction, maxTime, callback) {
+    const goal = new GoalXZ(
+        bot.entity.position.x + direction.x * 500,
+        bot.entity.position.z + direction.z * 500
+    );
+    const timeout = Date.now() + maxTime * 1000;
+    
+    while (Date.now() < timeout) {
+        await bot.pathfinder.goto(goal);
+        if (callback()) return true;
+    }
+    return false;
+}
+
+// Mine a specific block type
+async function mineBlock(bot, name, count = 1) {
+    const mcData = require('minecraft-data')(bot.version);
+    const blockId = mcData.blocksByName[name].id;
+    
+    for (let i = 0; i < count; i++) {
+        const block = bot.findBlock({
+            matching: blockId,
+            maxDistance: 32
+        });
+        
+        if (!block) {
+            bot.chat(`Cannot find ${name}`);
+            return;
+        }
+        
+        await bot.dig(block);
+    }
+}
+
+// Craft an item
+async function craftItem(bot, name, count = 1) {
+    const mcData = require('minecraft-data')(bot.version);
+    const recipe = bot.recipesFor(mcData.itemsByName[name].id)[0];
+    
+    if (!recipe) {
+        bot.chat(`No recipe for ${name}`);
+        return;
+    }
+    
+    await bot.craft(recipe, count);
+}
+
+// Place a block
+async function placeItem(bot, name, position) {
+    const mcData = require('minecraft-data')(bot.version);
+    const blockId = mcData.blocksByName[name].id;
+    const block = bot.blockAt(position);
+    const blockFace = new Vec3(0, 1, 0);
+    
+    await bot.placeBlock(block, blockFace);
+}
+
+// Smelt items in a furnace
+async function smeltItem(bot, itemName, fuelName, count = 1) {
+    const mcData = require('minecraft-data')(bot.version);
+    const furnaceBlock = bot.findBlock({
+        matching: mcData.blocksByName.furnace.id,
+        maxDistance: 32
+    });
+    
+    if (!furnaceBlock) {
+        bot.chat("No furnace found");
+        return;
+    }
+    
+    await bot.openFurnace(furnaceBlock);
+    const furnace = bot.currentWindow;
+    const itemId = mcData.itemsByName[itemName].id;
+    const fuelId = mcData.itemsByName[fuelName].id;
+    
+    for (let i = 0; i < count; i++) {
+        await furnace.putInput(itemId);
+        await furnace.putFuel(fuelId);
+    }
+}
+
+// Get item from chest
+async function moveToChest(bot, chestPosition) {
+    await bot.pathfinder.goto(new GoalGetToBlock(
+        chestPosition.x,
+        chestPosition.y,
+        chestPosition.z
+    ));
+}
+
+async function closeChest(bot, chestBlock) {
+    const chest = bot.currentWindow;
+    if (chest) {
+        await chest.close();
+    }
+}
+
+// Get a torch from chest at (30 , 65 , 100) : getItemFromChest ( bot , new
+Vec3 (30 , 65 , 100) , {" torch ": 1}) ;
+// This function will work no matter how far the bot is from the chest
+async function getItemFromChest(bot, chestPosition, itemsToGet) {
+    await moveToChest(bot, chestPosition);
+    const chestBlock = bot.blockAt(chestPosition);
+    const chest = await bot.openContainer(chestBlock);
+    for (const name in itemsToGet) {
+        const itemByName = mcData.itemsByName[name];
+        const item = chest.findContainerItem(itemByName.id);
+        await chest.withdraw(item.type, null, itemsToGet[name]);
+    }
+    await closeChest(bot, chestBlock);
+}
+
+// Deposit a torch into chest at (30 , 65 , 100) : depositItemIntoChest (
+// bot , new Vec3 (30 , 65 , 100) , {" torch ": 1}) ;
+// This function will work no matter how far the bot is from the chest
+async function depositItemIntoChest(bot, chestPosition, itemsToDeposit) {
+    await moveToChest(bot, chestPosition);
+    const chestBlock = bot.blockAt(chestPosition);
+    const chest = await bot.openContainer(chestBlock);
+    for (const name in itemsToDeposit) {
+        const itemByName = mcData.itemsByName[name];
+        const item = bot.inventory.findInventoryItem(itemByName.id);
+        await chest.deposit(item.type, null, itemsToDeposit[name]);
+    }
+    await closeChest(bot, chestBlock);
+}
+
+// Check the items inside the chest at (30 , 65 , 100) :
+// checkItemInsideChest ( bot , new Vec3 (30 , 65 , 100) ) ;
+// You only need to call this function once without any action to
+// finish task of checking items inside the chest .
+async function checkItemInsideChest(bot, chestPosition) {
+    await moveToChest(bot, chestPosition);
+    const chestBlock = bot.blockAt(chestPosition);
+    await bot.openContainer(chestBlock);
+    await closeChest(bot, chestBlock);
+}
+```
+
+**Pathfinding Goals:**
+```javascript
+// Move the bot to a block within the specified range
+await bot.pathfinder.goto(new GoalNear(x, y, z, range));
+
+// Long-range goals without specific Y level
+await bot.pathfinder.goto(new GoalXZ(x, z));
+
+// Get directly adjacent to block (for fishing, farming, etc.)
+await bot.pathfinder.goto(new GoalGetToBlock(x, y, z));
+
+// Follow an entity
+await bot.pathfinder.goto(new GoalFollow(entity, range));
+
+// Position for placing a block
+await bot.pathfinder.goto(new GoalPlaceBlock(position, bot.world, {}));
+
+// Look at a block
+await bot.pathfinder.goto(new GoalLookAtBlock(position, bot.world, {}));
+```
+
+**Other Mineflayer Functions:**
+```javascript
+bot.isABed(bedBlock);                    // Check if block is a bed
+bot.blockAt(position);                   // Get block at position
+await bot.equip(item, destination);      // Equip item (hand, head, torso, legs, feet, off-hand)
+await bot.consume();                     // Consume item in hand
+await bot.fish();                        // Fish (must be at water, have fishing rod)
+await bot.sleep(bedBlock);               // Sleep until sunrise
+await bot.activateBlock(block);          // Right-click a block
+await bot.lookAt(position);              // Look at position
+await bot.activateItem();                // Right-click with item in hand
+await bot.useOn(entity);                 // Right-click an entity
+```
+
+### A.4 Prompting Structure & Full Prompts 📝
+
+#### A.4.1 Automatic Curriculum Prompt (Prompt 2)
+
+**Prompt 2:** Full system prompt for automatic curriculum generation.
+
+```
+You are a helpful assistant that plays Minecraft and writes down the tasks to complete.
+My ultimate goal is to discover as many diverse things as possible.
+
+Your job is to give me a reasonable task to complete in Minecraft that brings me closer to this goal.
+The next task should not be too hard since I may not have the necessary resources or have learned 
+enough skills to complete it yet.
+
+Take into account these factors:
+1. My current inventory
+2. The biome I'm currently in
+3. The entities nearby
+4. The blocks nearby
+5. My current health and hunger status
+6. What I've already completed and failed
+
+The task should be specific and achievable. Provide the task as a single sentence.
+
+Examples of good tasks:
+- "Mine 5 oak logs"
+- "Craft a crafting table"
+- "Build a shelter"
+- "Catch 3 fish"
+- "Find diamonds"
+
+Do not suggest tasks that require items I don't have and cannot easily obtain.
+```
+
+#### A.4.2 Action Agent Prompt (Prompt 3)
+
+**Prompt 3:** Full system prompt for code generation and action synthesis.
+
+```
+You are a helpful assistant that writes Minecraft code for Mineflayer, a JavaScript framework to 
+create Minecraft bot clients.
+
+Your job is to write a function that completes the task given by the user. The function should:
+1. Be async and take the bot as the only argument
+2. Use the provided utility functions (mineBlock, craftItem, etc.)
+3. Handle errors gracefully
+4. Provide progress updates using bot.chat()
+5. Be reusable and generic
+
+{ retrieved_skills }
+
+At each round of conversation, I will give you:
+- Code from the last round
+- Execution error
+- Chat log
+- Biome, Time, Nearby blocks, Nearby entities
+- Health, Hunger, Position
+- Equipment, Inventory, Chests
+- Task, Context, Critique
+
+You should respond with:
+1. Explain: Any missing steps or issues with the plan/code?
+2. Plan: Step-by-step approach to complete the task
+3. Code: JavaScript async function implementation
+
+Important guidelines:
+- Reuse utility functions as much as possible
+- Make functions generic and reusable
+- Always check inventory before using items
+- Use exploreUntil() to find blocks or mobs
+- Call bot.chat() to show progress
+- Never use infinite loops or recursive functions
+- Don't register event listeners (bot.on/bot.once)
+- Name functions meaningfully
+```
+
+#### A.4.3 Skill Library Examples 💾
+
+**Example 1: craftWoodenPlanks**
+
+```javascript
+async function craftWoodenPlanks(bot) {
+    const logNames = ["oak_log", "birch_log", "spruce_log", "jungle_log", 
+                      "acacia_log", "dark_oak_log", "mangrove_log"];
+    const plankNames = ["oak_planks", "birch_planks", "spruce_planks", "jungle_planks",
+                        "acacia_planks", "dark_oak_planks", "mangrove_planks"];
+    
+    const logInInventory = logNames.find(logName => 
+        bot.inventory.count(mcData.itemsByName[logName].id) > 0);
+    
+    if (!logInInventory) {
+        bot.chat("No wooden log in inventory. Mining a wooden log...");
+        await mineWoodLog(bot);
+    }
+    
+    const logIndex = logNames.indexOf(logInInventory);
+    const plankName = plankNames[logIndex];
+    bot.chat(`Crafting 4 ${plankName}...`);
+    await craftItem(bot, plankName, 1);
+    bot.chat(`4 ${plankName} crafted.`);
+}
+```
+
+**Description:** The function is about crafting wooden planks from wooden logs. First check if a wooden log is in the inventory. If not, mine a wooden log. Then determine the matching plank type and craft it.
+
+**Example 2: mineTenCobbledDeepslateBelowY0**
+
+```javascript
+async function mineTenCobbledDeepslateBelowY0(bot) {
+    // Equip the iron pickaxe
+    const ironPickaxe = bot.inventory.findInventoryItem(
+        mcData.itemsByName["iron_pickaxe"].id);
+    await bot.equip(ironPickaxe, "hand");
+    
+    // Find cobbled_deepslate blocks below Y=0
+    const cobbledDeepslateBlocks = await exploreUntil(bot, new Vec3(1, -1, 1), 60, () => {
+        const cobbledDeepslate = bot.findBlock({
+            matching: mcData.blocksByName["cobbled_deepslate"].id,
+            maxDistance: 32,
+            position: pos => pos.y < 0
+        });
+        return cobbledDeepslate;
+    });
+    
+    // Mine 10 cobbled_deepslate blocks
+    await mineBlock(bot, "cobbled_deepslate", 10);
+    bot.chat("10 cobbled_deepslate mined below Y=0.");
+}
+```
+
+**Description:** The function mines 10 cobbled deepslate blocks specifically below Y coordinate 0 using an iron pickaxe. First equip the iron pickaxe if available. Then explore until finding cobbled deepslate blocks below Y=0. Finally, mine exactly 10 cobbled deepslate blocks.
+
+**Example 3: smeltFiveRawIronV2**
+
+```javascript
+async function findSuitablePosition(bot) {
+    const offsets = [new Vec3(1, 0, 0), new Vec3(-1, 0, 0), 
+                     new Vec3(0, 0, 1), new Vec3(0, 0, -1)];
+    for (const offset of offsets) {
+        const position = bot.entity.position.offset(offset.x, offset.y, offset.z);
+        const block = bot.blockAt(position);
+        if (block.name === "air") {
+            return position;
+        }
+    }
+    return null;
+}
+
+async function smeltFiveRawIron(bot) {
+    // Check if there is a furnace in the inventory
+    const furnaceItem = bot.inventory.findInventoryItem(
+        mcData.itemsByName.furnace.id);
+    
+    // If not, craft a furnace using the available cobblestone
+    if (!furnaceItem) {
+        await craftFurnace(bot);
+    }
+    
+    // Find a suitable position to place the furnace
+    const furnacePosition = await findSuitablePosition(bot);
+    if (!furnacePosition) {
+        bot.chat("Could not find a suitable position to place the furnace.");
+        return;
+    }
+    
+    // Place the furnace at the suitable position
+    await placeItem(bot, "furnace", furnacePosition);
+    
+    // Smelt 5 raw iron using the available coal as fuel
+    await smeltItem(bot, "raw_iron", "coal", 5);
+    bot.chat("5 raw iron smelted.");
+}
+```
+
+**Description:** The function smelts 5 raw iron ore into iron ingots using coal as fuel. First check if a furnace is in the inventory. If not, craft one. Find a suitable air position to place the furnace. Place the furnace and then smelt 5 raw iron using coal fuel.
+
+**Example 4: fillBucketWithWater**
+
+```javascript
+async function fillBucketWithWater(bot) {
+    // Find a water block nearby
+    const waterBlock = await exploreUntil(bot, new Vec3(1, 0, 1), 60, () => {
+        const water = bot.findBlock({
+            matching: mcData.blocksByName.water.id,
+            maxDistance: 32
+        });
+        return water;
+    });
+    
+    if (!waterBlock) {
+        bot.chat("Could not find water.");
+        return;
+    }
+    
+    // Go to the water block
+    const adjacentBlock = waterBlock.position.offset(0, 1, 0);
+    await bot.pathfinder.goto(
+        new GoalGetToBlock(adjacentBlock.x, adjacentBlock.y, adjacentBlock.z)
+    );
+    
+    // Look at the water block
+    await bot.lookAt(waterBlock.position, true);
+    
+    // Equip the bucket
+    const bucket = bot.inventory.findInventoryItem(mcData.itemsByName.bucket.id);
+    await bot.equip(bucket, "hand");
+    
+    // Activate the bucket to collect water
+    await bot.activateItem();
+    bot.chat("Filled the bucket with water.");
+}
+```
+
+**Description:** The function finds a water block and fills a bucket with water. First explore to find a nearby water block. Move to an adjacent position to the water block. Look at the water block and equip the bucket. Then activate the bucket to collect water.
+
+**Example 5: catchFiveFishSafely**
+
+```javascript
+async function catchFiveFishSafely(bot) {
+    // Check if the bot has a fishing rod in its inventory
+    let fishingRod = bot.inventory.findInventoryItem(
+        mcData.itemsByName.fishing_rod.id);
+    if (!fishingRod) {
+        await craftFishingRod(bot);
+        fishingRod = bot.inventory.findInventoryItem(
+            mcData.itemsByName.fishing_rod.id);
+    }
+    
+    // Find a nearby water block
+    let waterBlock;
+    while (!waterBlock) {
+        waterBlock = await exploreUntil(bot, new Vec3(1, 0, 1), 60, () => {
+            const foundWaterBlock = bot.findBlock({
+                matching: mcData.blocksByName.water.id,
+                maxDistance: 32
+            });
+            return foundWaterBlock;
+        });
+        if (!waterBlock) {
+            bot.chat("No path to the water block. Trying to find another water block...");
+        }
+    }
+    
+    // Move to a block adjacent to the water block
+    const adjacentBlock = waterBlock.position.offset(0, 1, 0);
+    await bot.pathfinder.goto(
+        new GoalBlock(adjacentBlock.x, adjacentBlock.y, adjacentBlock.z)
+    );
+    
+    // Look at the water block
+    await bot.lookAt(waterBlock.position);
+    
+    // Equip the fishing rod
+    await bot.equip(fishingRod, "hand");
+    
+    // Fish in the water 5 times
+    for (let i = 0; i < 5; i++) {
+        try {
+            await bot.fish();
+            bot.chat(`Fish ${i + 1} caught.`);
+        } catch (error) {
+            if (error.message === "Fishing cancelled") {
+                bot.chat("Fishing was cancelled. Trying again...");
+                i--;  // Retry the same iteration
+            } else {
+                throw error;
+            }
+        }
+    }
+}
+```
+
+**Description:** The function catches 5 fish using a fishing rod. Check if a fishing rod exists in inventory, if not craft one. Find a water block and move adjacent to it. Look at water and equip the fishing rod. Loop 5 times to catch fish, handling cancellations gracefully.
+
+### A.5 Self-Verification 🔍
+
+#### A.5.1 Components in the Prompt
+
+The self-verification prompt includes:
+1. **Agent's state:** Inventory, equipment, position, biome, time, health, hunger (excluding unnecessary elements)
+2. **Task proposed:** The specific objective to evaluate
+3. **Task context:** General suggestions from GPT-3.5 about task completion
+4. **Chain-of-thought prompting:** Request for reasoning before outputting success/failure
+5. **Few-shot examples:** In-context learning examples for accurate evaluation
+
+#### A.5.2 Full Prompt
+
+**Prompt 6:** Full system prompt for self-verification.
+
+```
+You are an assistant that assesses my progress of playing Minecraft
+and provides useful guidance.
+
+You are required to evaluate if I have met the task requirements.
+Exceeding the task requirements is also considered a success while
+failing to meet them requires you to provide critique to help me
+improve.
+
+I will give you the following information:
+- Biome: The biome after the task execution.
+- Time: The current time.
+- Nearby blocks: The surrounding blocks. These are not collected yet,
+  but useful for placing or planting tasks.
+- Health: My current health.
+- Hunger: My current hunger level. For eating tasks, if hunger is 20.0,
+  then I successfully ate.
+- Position: My current position.
+- Equipment: My final equipment. For crafting tasks, I sometimes equip
+  the crafted item.
+- Inventory (xx/36): My final inventory. For mining and smelting tasks,
+  only check inventory.
+- Chests: Chest information if task requires placing items in a chest.
+- Task: The objective I need to accomplish.
+- Context: The context of the task.
+
+You should only respond in JSON format:
+{
+  "reasoning": "reasoning text",
+  "success": boolean,
+  "critique": "critique text if failed, empty if succeeded"
+}
+
+EXAMPLES:
+
+INPUT:
+Inventory (2/36): {'oak_log': 2, 'spruce_log': 2}
+Task: Mine 3 wood logs
+
+RESPONSE:
+{
+  "reasoning": "You need to mine 3 wood logs. You have 2 oak logs and 2 spruce logs,
+              which add up to 4 wood logs.",
+  "success": true,
+  "critique": ""
+}
+
+INPUT:
+Inventory (3/36): {'crafting_table': 1, 'spruce_planks': 6, 'stick': 4}
+Task: Craft a wooden pickaxe
+
+RESPONSE:
+{
+  "reasoning": "You have enough materials to craft a wooden pickaxe, but you didn't
+              craft it.",
+  "success": false,
+  "critique": "Craft a wooden pickaxe with a crafting table using 3 spruce planks 
+             and 2 sticks."
+}
+
+INPUT:
+Inventory (2/36): {'raw_iron': 5, 'stone_pickaxe': 1}
+Task: Mine 5 iron_ore
+
+RESPONSE:
+{
+  "reasoning": "Mining iron_ore in Minecraft gets raw_iron. You have 5 raw_iron in
+              your inventory.",
+  "success": true,
+  "critique": ""
+}
+
+INPUT:
+Biome: plains
+Nearby blocks: stone, dirt, grass_block, grass, farmland, wheat
+Inventory (26/36): {...}
+Task: Plant 1 wheat seed
+
+RESPONSE:
+{
+  "reasoning": "For planting tasks, inventory is useless. In nearby blocks there is
+              farmland and wheat, which means you succeeded planting.",
+  "success": true,
+  "critique": ""
+}
+
+INPUT:
+Inventory (11/36): {..., 'rotten_flesh': 1}
+Task: Kill 1 zombie
+Context: ...
+
+RESPONSE:
+{
+  "reasoning": "You have rotten flesh in your inventory, which means you successfully
+              killed one zombie.",
+  "success": true,
+  "critique": ""
+}
+
+INPUT:
+Hunger: 20.0/20.0
+Inventory (11/36): {...}
+Task: Eat 1 ...
+Context: ...
+
+RESPONSE:
+{
+  "reasoning": "For all eating tasks, if player hunger is 20.0, then player successfully
+              ate the food.",
+  "success": true,
+  "critique": ""
+}
+
+INPUT:
+Nearby blocks: chest
+Inventory (28/36): {'rail': 1, 'coal': 2, 'oak_planks': 13, 'copper_block': 1,
+          'diorite': 7, 'cooked_beef': 4, 'granite': 22, 'cobbled_deepslate': 23,
+          'feather': 4, 'leather': 2, 'cooked_chicken': 3, 'white_wool': 2,
+          'stick': 3, 'black_wool': 1, 'stone_sword': 2, 'stone_hoe': 1,
+          'stone_axe': 2, 'stone_shovel': 2, 'cooked_mutton': 4,
+          'cobblestone_wall': 18, 'crafting_table': 1, 'furnace': 1,
+          'iron_pickaxe': 1, 'stone_pickaxe': 1, 'raw_copper': 12}
+Chests: (81, 131, 16): {'andesite': 2, 'dirt': 2, 'cobblestone': 75,
+         'wooden_pickaxe': 1, 'wooden_sword': 1}
+Task: Deposit useless items into the chest at (81, 131, 16)
+Context: ...
+
+RESPONSE:
+{
+  "reasoning": "You have 28 items in your inventory after depositing, which is more
+              than 20. You need to deposit more items to the chest.",
+  "success": false,
+  "critique": "Deposit more useless items such as copper_block, diorite, granite,
+             cobbled_deepslate, feather, and leather to meet the requirement of
+             having only 20 occupied slots."
+}
+```
+
+### A.6 System-Level Comparison with Prior Works 📊
+
+**Table A.2:** System-level comparison between VOYAGER and prior works.
+
+| Feature | VPT [8] | DreamerV3 [69] | DECKARD [53] | DEPS [55] | Plan4MC [71] | VOYAGER |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Demonstrations** | Videos | None | Videos | None | None | None |
+| **Reward Signal** | Sparse | Dense | Sparse | None | Dense | None |
+| **Observations** | Pixels Only | Pixels & Meta | Pixels & Inventory | Feedback & Inventory | Pixels & Meta | Feedback & Meta & Inventory |
+| **Action Space** | Keyboard & Mouse | Discrete | Keyboard & Mouse | Keyboard & Mouse | Discrete | Code |
+| **Automatic Curriculum** | ✓ | ✓ (in-context) | ✗ | ✗ | ✗ | ✓ (self-generated) |
+| **Iterative Planning** | ✗ | ✗ | ✓ (pre-defined) | ✗ | ✓ | ✓ (3 types of feedback) |
+| **Skill Library** | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ |
+| **Gradient-Free** | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ |
+
 ---
 
 ## Appendix B. Experiment Details & Additional Results 📊
 
-* 🎯 **Skill Retrieval Accuracy:** Top-1 ($80.2\%$), Top-2 ($89.3\%$), Top-3 ($93.2\%$), Top-4 ($95.2\%$), Top-5 ($96.5\%$).
-* 🤖 **Robustness across Models:** `gpt-4-0314` and `gpt-4-0613` exhibit virtually identical learning curves in discovery rates.
+### B.1 Experimental Setup 🛠️
+
+**Environment Construction:**
+Our simulation environment is built upon MineDojo [23] and utilizes Mineflayer [52] JavaScript APIs for motor controls. We incorporate numerous `bot.chat()` calls into Mineflayer functions to provide abundant environment feedback. Various condition checks and try-catch exceptions enable continuous execution through failures.
+
+**Bot Respawning and Persistence:**
+If the bot dies, it is resurrected near the closest ground with its inventory preserved for uninterrupted exploration. The bot recycles its crafting table and furnace after each program execution. For detailed implementations, refer to the project codebase.
+
+**API Models Used:**
+- **Code Generation:** `gpt-4-0314` [35]
+- **Curriculum:** `gpt-4-0314`
+- **Embedding:** `text-embedding-ada-002` [51]
+- **Self-Verification:** `gpt-4-0314`
+- **Supporting NLP:** `gpt-3.5-turbo-0301` [50] (for cost efficiency)
+
+**Temperature Settings:**
+- Automatic curriculum: $\tau = 0.1$ (encourages task diversity)
+- All other components: $\tau = 0$ (deterministic)
+
+### B.2 Baseline Descriptions 📋
+
+**ReAct [29]:** Uses chain-of-thought prompting by generating both reasoning traces and action plans. We provide it with environment feedback and agent states. ReAct undergoes one round of code generation from scratch, followed by three rounds of refinement, repeated until max iterations.
+
+**Reflexion [30]:** Built on ReAct with self-reflection to infer future actions. We provide environment feedback, agent states, execution errors, and our self-verification module. Similar iteration scheme to ReAct.
+
+**AutoGPT [28]:** Decomposes high-level goals into subgoals executing in a ReAct-style loop. We re-implement it with GPT-4 for task decomposition. Lacks VOYAGER's skill library, self-verification, and automatic curriculum. Each subgoal is refined up to 3 additional rounds, then moves to next subgoal. If 3 consecutive subgoals don't acquire new items, replans.
+
+**Task Specification:** The task for all baselines and VOYAGER is: "Explore the world and get as many items as possible."
+
+### B.3 Ablation Studies 🧪
+
+We ablate 6 design choices:
+
+1. **Manual Curriculum:** A pre-designed sequence to mine a diamond: "Mine 3 wood log" → "Craft 1 crafting table" → ... → "Mine 1 diamond". Requires heavy domain expertise.
+
+2. **Random Curriculum:** Randomly selects from 101 items as next task.
+
+3. **w/o Skill Library:** Removes skill library, eliminating skill retrieval during code generation.
+
+4. **w/o Environment Feedback:** Excludes chat logs from code generation prompts.
+
+5. **w/o Execution Errors:** Excludes execution error traces from prompts.
+
+6. **w/o Self-Verification:** Removes self-verification; refines program for 3 rounds without success checking.
+
+7. **GPT-3.5 for Code:** Replaces GPT-4 with GPT-3.5 for code generation only (keeps GPT-4 for curriculum and verification).
+
+### B.4 Evaluation Results 📈
+
+#### B.4.1 Significantly Better Exploration 🔍
+
+**Items Discovered:**
+
+VOYAGER discovered **63 unique items** within 160 prompting iterations (**3.3× more** than baselines).
+
+**Trial 1 Items Collected:**
+`iron_ingot`, `stone_shovel`, `iron_leggings`, `fishing_rod`, `pufferfish`, `oak_log`, `cooked_mutton`, `green_dye`, `flint`, `chest`, `iron_sword`, `string`, `ender_pearl`, `raw_copper`, `crafting_table`, `cactus`, `lapis_lazuli`, `iron_pickaxe`, `copper_ingot`, `stone_pickaxe`, `wooden_hoe`, `scaffolding`, `stick`, `porkchop`, `copper_block`, `gravel`, `grass_block`, `white_bed`, `bone`, `dirt`, `mutton`, `white_wool`, `oak_sapling`, `coal`, `bamboo`, `wooden_pickaxe`, `rotten_flesh`, `cooked_porkchop`, `cod`, `iron_boots`, `lightning_rod`, `diorite`, `water_bucket`, `shears`, `furnace`, `andesite`, `granite`, `bucket`, `wooden_sword`, `sandstone`, `iron_helmet`, `raw_iron`, `sand`, `acacia_log`, `cooked_cod`, `oak_planks`, `azure_bluet`, `iron_shovel`, `acacia_planks`, `shield`, `iron_axe`, `iron_chestplate`, `cobblestone`.
+
+**Trial 2 Items Collected:**
+`iron_ingot`, `tuff`, `stone_shovel`, `iron_leggings`, `fishing_rod`, `cooked_mutton`, `spruce_planks`, `gunpowder`, `amethyst_shard`, `chest`, `string`, `cooked_salmon`, `iron_sword`, `raw_copper`, `crafting_table`, `torch`, `lapis_lazuli`, `iron_pickaxe`, `copper_ingot`, `stone_pickaxe`, `wooden_hoe`, `stick`, `amethyst_block`, `salmon`, `calcite`, `gravel`, `white_bed`, `bone`, `dirt`, `mutton`, `white_wool`, `spyglass`, `coal`, `wooden_pickaxe`, `cod`, `iron_boots`, `lily_pad`, `cobbled_deepslate`, `lightning_rod`, `snowball`, `stone_axe`, `smooth_basalt`, `diorite`, `water_bucket`, `furnace`, `andesite`, `bucket`, `granite`, `shield`, `iron_helmet`, `raw_iron`, `cobblestone`, `spruce_log`, `cooked_cod`, `tripwire_hook`, `stone_hoe`, `iron_chestplate`, `stone_sword`.
+
+**Trial 3 Items Collected:**
+`spruce_planks`, `dirt`, `shield`, `redstone`, `clock`, `diamond_sword`, `iron_chestplate`, `stone_pickaxe`, `leather`, `string`, `chicken`, `chest`, `diorite`, `iron_leggings`, `black_wool`, `cobblestone_wall`, `cobblestone`, `cooked_chicken`, `feather`, `stone_sword`, `raw_gold`, `gravel`, `birch_planks`, `coal`, `cobbled_deepslate`, `oak_planks`, `iron_pickaxe`, `granite`, `tuff`, `crafting_table`, `iron_helmet`, `stone_hoe`, `iron_ingot`, `stone_axe`, `birch_boat`, `stick`, `sand`, `bone`, `raw_iron`, `beef`, `rail`, `oak_sapling`, `kelp`, `gold_ingot`, `birch_log`, `wheat_seeds`, `cooked_mutton`, `furnace`, `arrow`, `stone_shovel`, `white_wool`, `andesite`, `jungle_slab`, `mutton`, `iron_sword`, `copper_ingot`, `diamond`, `torch`, `oak_log`, `cooked_beef`, `copper_block`, `flint`, `bone_meal`, `raw_copper`, `wooden_pickaxe`, `iron_boots`, `wooden_sword`.
+
+**ReAct Baseline Performance:**
+- Trial 1: `bamboo`, `dirt`, `sand`, `wheat_seeds`
+- Trial 2: `dirt`, `rabbit`, `spruce_log`, `spruce_sapling`
+- Trial 3: `dirt`, `pointed_dripstone`
+
+**Reflexion Baseline Performance:**
+- Trial 1: `crafting_table`, `orange_tulip`, `oak_planks`, `oak_log`, `dirt`
+- Trial 2: `spruce_log`, `dirt`, `clay_ball`, `sand`, `gravel`
+- Trial 3: `wheat_seeds`, `oak_log`, `dirt`, `birch_log`, `sand`
+
+**AutoGPT Baseline Performance:**
+- Trial 1: `feather`, `oak_log`, `leather`, `stick`, `porkchop`, `chicken`, `crafting_table`, `wheat_seeds`, `oak_planks`, `dirt`, `mutton`
+- Trial 2: `wooden_pickaxe`, `iron_ingot`, `stone`, `coal`, `spruce_planks`, `string`, `raw_copper`, `crafting_table`, `diorite`, `andesite`, `furnace`, `torch`, `spruce_sapling`, `granite`, `iron_pickaxe`, `stone_pickaxe`, `wooden_axe`, `raw_iron`, `stick`, `spruce_log`, `dirt`, `cobblestone`
+- Trial 3: `wooden_shovel`, `wooden_pickaxe`, `iron_ingot`, `stone`, `cod`, `coal`, `oak_log`, `flint`, `raw_copper`, `crafting_table`, `diorite`, `furnace`, `andesite`, `torch`, `granite`, `lapis_lazuli`, `iron_pickaxe`, `stone_pickaxe`, `raw_iron`, `stick`, `gravel`, `oak_planks`, `dirt`, `iron_axe`, `cobblestone`
+
+#### B.4.2 Extensive Map Traversal 🗺️
+
+VOYAGER traversed **2.3× longer distances** than baselines across diverse terrains.
+
+**VOYAGER Map Coverage:**
+- Trial 1: `meadow`, `desert`, `river`, `savanna`, `forest`, `plains`, `bamboo_jungle`, `dripstone_caves`
+- Trial 2: `snowy_plains`, `frozen_river`, `dripstone_caves`, `snowy_taiga`, `beach`
+- Trial 3: `flower_forest`, `meadow`, `old_growth_birch_forest`, `snowy_slopes`, `frozen_peaks`, `forest`, `river`, `beach`, `ocean`, `sunflower_plains`, `plains`, `stony_shore`
+
+**ReAct Map Coverage:**
+- Trial 1: `plains`, `desert`, `jungle`
+- Trial 2: `snowy_plains`, `snowy_taiga`, `snowy_slopes`
+- Trial 3: `dark_forest`, `dripstone_caves`, `grove`, `jagged_peaks`
+
+**Reflexion Map Coverage:**
+- Trial 1: `plains`, `flower_forest`
+- Trial 2: `snowy_taiga`
+- Trial 3: `old_growth_birch_forest`, `river`, `ocean`, `beach`, `plains`
+
+**AutoGPT Map Coverage:**
+- Trial 1: `plains`, `dripstone_caves`, `savanna`, `meadow`
+- Trial 2: `snowy_taiga`
+- Trial 3: `plains`, `stony_shore`, `forest`, `ocean`
+
+#### B.4.3 Zero-Shot Generalization to Unseen Tasks ✨
+
+**Table 2 Results:** VOYAGER consistently solves all tasks in a new world, while baselines cannot solve any task within 50 iterations.
+
+| Task | VOYAGER | VOYAGER w/o Skill Lib | AutoGPT + Our Skill Lib | Others (ReAct, Reflexion, AutoGPT) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Diamond Pickaxe** | $19 \pm 3$ (3/3) | $36$ (2/3) | $39$ (1/3) | N/A (0/3) |
+| **Golden Sword** | $18 \pm 7$ (3/3) | $30 \pm 9$ (3/3) | $30$ (1/3) | N/A (0/3) |
+| **Lava Bucket** | $21 \pm 5$ (3/3) | $27 \pm 9$ (3/3) | N/A (0/3) | N/A (0/3) |
+| **Compass** | $18 \pm 2$ (3/3) | $26 \pm 3$ (3/3) | $30$ (2/3) | N/A (0/3) |
+
+**Key Finding:** Integrating VOYAGER's skill library into AutoGPT significantly improved its performance, proving the skill library is a plug-and-play asset.
+
+#### B.4.4 Skill Retrieval Accuracy 🎯
+
+**Table A.4:** Skill retrieval evaluation over 309 samples.
+
+| Metric | Top-1 | Top-2 | Top-3 | Top-4 | Top-5 |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Accuracy** | $80.2 \pm 3.0\%$ | $89.3 \pm 1.8\%$ | $93.2 \pm 0.7\%$ | $95.2 \pm 1.8\%$ | $96.5 \pm 0.3\%$ |
+
+The top-5 accuracy of $96.5\%$ validates that the skill retrieval is reliable and effective.
+
+#### B.4.5 Robustness Across Model Variations 🤖
+
+VOYAGER maintains robust performance across different GPT-4 versions. Experiments with `gpt-4-0314` and `gpt-4-0613` show virtually identical learning curves, demonstrating the approach's stability and generalizability across model updates.
+
+---
+
+**Figure A.1: Minecraft Item Icons**
+(Reference image showing icons for all discovered items with corresponding names as listed in trials above)
+
+**Figure A.2: Map Coverage Bird's Eye Views**
+Shows two trajectory maps where VOYAGER's paths (circle-enclosed) vastly exceed baseline trajectories in both distance and terrain diversity, supporting the 2.3× longer traversal claim.
 
