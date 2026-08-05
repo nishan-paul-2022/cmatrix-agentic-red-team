@@ -90,7 +90,6 @@ Table 1: Comparison of web CTF benchmarks.
 
 et al [29] shows that better prompting and tool use can achieve high scores on existing benchmarks. Further, D-CIPHER [30] demonstrates the capability of multiple agent (Planner-Executor setup) collaborating together towards solving CTF challenges. Also, CRAKEN [24] extends the D-CIPHER by integrating RAG System leveraging CTF write-ups to enrich the planner agent ability to plan the challenge efficiently. EnIGMA [1] introduces richer interfaces that allow LLM agents to use interactive command-line tools, which improves success on challenges that require real terminal interaction. PentestGPT [4] evaluates penetration testing through predefined, walkthrough-based subtasks on 
 
-2 
 
 
 ```mermaid
@@ -155,7 +154,6 @@ CTFExplorer is an autonomous setup that finds flags in vulnerable services withi
 
 **Parallel Service Exploration** Each port and service discovered during reconnaissance (referred to as entry point) is queued after which the dispatcher spawns `n` subgraphs for parallel and independent 
 
-3 
 
 agent-team exploration. Once all subgraphs terminate (due to flag discovery, max agent limit reached, budget exhausted, or give-up condition met), the framework dequeues the next `n` entry points. 
 
@@ -177,7 +175,6 @@ We present CTFExplorerEval, an evaluation framework that measures how security a
 
 **Reasoning Graph and Elicitation** CTFExplorerEval builds a directed reasoning graph of findings. Each node is a submission, and edges represent dependencies between findings. It supports two modes: (i) Passive mode records nodes without explicit links. (ii) Interactive mode asks the agent to identify the prior finding that enabled the current step, which creates directed edges. The system also tracks dependencies across different targets. These cross-target links, referred to as lateral edges, capture whether the agent connects information across services, which is key for multi-target attacks. 
 
-4 
 
 
 ```mermaid
@@ -231,7 +228,6 @@ The goal of our evaluation goes beyond flag capture. Agents operate under uncert
 
 **Complexity Analysis.** We assess computational and interaction complexity using _average rounds_ , _average cost_ , _number of agent instances_ , and _average execution time_ . Avg. Rounds reflects interaction steps and exploration effort, Avg. Cost ($) captures resource use, # Agent Instances shows orchestration overhead, and Avg. Time (sec) measures total runtime. These metrics provide a practical view of efficiency under resource and time constraints. 
 
-5 
 
 **Exploration Analysis.** We use two measures. Exploration Efficiency (EE) quantifies how effectively an agent converts explored targets into outcomes, defined as the ratio of solved targets to explored targets. Redundancy Rate (RR) captures inefficient behavior by measuring the proportion of repeated observations. These metrics reflect the effectiveness and efficiency of the agent’s exploration strategy. 
 
@@ -288,7 +284,6 @@ Table 5: Exploration Efficiency (EE) and Redundancy Rate (RR) across models
 
 Figure 3: Distribution of interaction rounds for LLM agents to reach solved and dead-end outcomes. 
 
-6 
 
 Gemini 3 Pro achieves the highest EE (64.50%), which shows strong alignment between exploration and exploitation. Other models fall in the 12–22% range, where many explored targets do not lead to correct outcomes. This confirms that broader exploration does not always lead to higher success. Most models have very low redundancy, with Gemini 3 Pro and DeepSeek V4 Pro near zero. This means they avoid repeated observations and gather information efficiently. Claude Opus 4.5 has slightly higher redundancy (4.76%), which shows some repeated probing but still stays controlled. The low RR across models shows stable interaction behavior. Fig. 3 complements these observations by showing the distribution of interaction rounds across solved and dead-end trajectories. Claude Opus 4.5 demonstrate tighter and more consistent interaction ranges, while others exhibit wider variation, reflecting differences in how agents handle successful versus unsuccessful paths. Overall, effective agent behavior depends on efficient exploration and low redundancy, not just success. Some models use compact reasoning, while others explore more. This shows the need for evaluation that captures both efficiency and reasoning quality. 
 
@@ -303,7 +298,6 @@ P30P29P28P27P26P25P24P23P22P21P20P19P18P17P16P15P14P13P12P11P10P9P8P7P6P5P4P3P2P
 
 Figure 4: Exploration progress heatmap across model runs. 
 
-7 
 
 progress. DeepSeek V4 Pro shows deep reasoning on selected targets, which reflects prioritization. Claude Opus 4.5 shows a more balanced spread with steady progress across targets. Overall, targetwise depth shows that strong performance depends on consistent depth across targets, not just reaching L4. Models with broad coverage and deeper reasoning show more effective exploration. 
 
@@ -331,7 +325,6 @@ To show multi-step reasoning, we present two cases: _The Silent Corridor_ and _T
 
 **Challenge 1: The Silent Corridor** This challenge models a common attack where a public service leads to a protected internal system. The public web app has CVE-2018-7600, while the backend stays hidden. The path follows: `Public compromise` _→_ `Internal discovery` _→_ `Data access` , which reflects reconnaissance, exploitation, pivoting, and final action. The task tests whether the agent can move beyond initial access. After remote code execution, the agent must use its internal position to find and reach the backend. Success requires both exploiting the public service and using that access to retrieve hidden data, which shows multi-stage reasoning. 
 
-8 
 
 
 *Line charts showing reasoning level progression over time (seconds) across models (Opus 4.5, Sonnet 4, Gemini3 Pro, GPT5.2, Qwen 3.5, DeepSeekV4P).*
@@ -357,7 +350,6 @@ initial exploration (L0–L1) to intermediate stages (L2–L3), which shows stru
 
 CTFExplorer is a behavior-centric evaluation framework for simulating open-ended attack environments to benchmark LLMs’ offensive security capabilities. By instrumenting agent interactions, 
 
-9 
 
 CTFExplorer enables analysis beyond isolated environments with binary success, exposing reasoning efficiency, coordination dynamics, failure persistence, and security-relevant signals that are invisible in success-only benchmarks. Our results demonstrate that agent performance is governed not only by outcomes, but by how agents converge and manage incorrect hypotheses under realistic constraints. CTFExplorer can extend to broader attack surfaces, adaptive orchestration, and repeated-run robustness evaluation. It is a foundation for systematic, behavior-aware evaluation of autonomous security agents, supporting efficient and controllable agent design. 
 
@@ -398,7 +390,6 @@ CTFExplorer enables analysis beyond isolated environments with binary success, e
 
 - [15] Wanzong Peng, Lin Ye, Xuetao Du, Hongli Zhang, Dongyang Zhan, Yunting Zhang, Yicheng Guo, and Chen Zhang. Pwngpt: Automatic exploit generation based on large language models. In _Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)_ , pages 11481–11494, 2025. 
 
-10 
 
 - [16] Aske Plaat, Annie Wong, Suzan Verberne, Joost Broekens, Niki Van Stein, and Thomas Bäck. Multi-step reasoning with large language models, a survey. _ACM Computing Surveys_ , 58(6):1– 35, 2025. 
 
@@ -430,7 +421,6 @@ CTFExplorer enables analysis beyond isolated environments with binary success, e
 
 - [30] Meet Udeshi, Minghao Shao, Haoran Xi, Nanda Rani, Kimberly Milner, Venkata Sai Charan Putrevu, Brendan Dolan-Gavitt, Sandeep Kumar Shukla, Prashanth Krishnamurthy, Farshad Khorrami, et al. D-cipher: Dynamic collaborative intelligent multi-agent system with planner and heterogeneous executors for offensive security. _arXiv preprint arXiv:2502.10931_ , 2025. 
 
-11 
 
 - [31] Haoran Xi, Minghao Shao, Brendan Dolan-Gavitt, Muhammad Shafique, and Ramesh Karri. From trace to line: Llm agent for real-world oss vulnerability localization. _arXiv preprint arXiv:2510.02389_ , 2025. 
 
@@ -472,7 +462,6 @@ Figure 7: Target-wise reasoning graph across models
 
 To complement the primary evaluation, we analyze persistent evidence artifacts generated during execution. These artifacts are files written by agents, such as HTML pages or text notes, and are treated as observable outputs without assumptions about correctness. Table 9 summarizes evidence generation across models. We report the number of agents that produce at least one artifact and the total number of files. Evidence generation varies across models. GPT 5.2 and Qwen 3.5 produce evidence more frequently, with a large number of agents generating artifacts and higher total files. DeepSeek V4 Pro shows moderate activity, while Gemini 3 Pro and Opus 4.5 produce very few artifacts. 
 
-12 
 
 Table 9: Summary of persistent evidence artifacts generated by agents across models. 
 
@@ -517,7 +506,6 @@ Across all agents, the majority of findings concentrate in A01 (Broken Access Co
 
 Here we demonstrate how the agentic chain and knowledge hand-off can exploit a command injection vulnerability of medium difficulty. The target application seen in Table 10 accepts a parameter for date/time formatting passing it to a shell terminal without proper input sanitization, using anti-pattern black-listing to block payloads. As this method of input sanitization is a security flaw the multi-agent system is able to successfully bypass the constraints through iterative hypothesis refinement across the agentic chain. 
 
-13 
 
 
 ```mermaid
@@ -569,7 +557,6 @@ Table 11 shows the findings and outcomes as the agentic chain progresses using m
 
 2. **Phase 2** : Confirmation (Agent 1) Created with supervisor guidance to test a newline injection, the newly spawned second agent discovers that certain URL encoded payloads can trigger a shell error: 
 
-14 
 
 ```
 sh:3::Permissiondenied
@@ -625,7 +612,6 @@ No individual agent possessed sufficient capability to solve this challenge inde
 
 This case study demonstrates that multi-agent systems with structured knowledge transfer can solve complex security challenges through progressive refinement. The successful exploitation required: (1) explicit failure documentation preventing redundancy, (2) supervisor guidance narrowing the search space, (3) critic interventions detecting stalled progress and suggesting alternatives, and (4) confidence tracking enabling evidence-based continuation decisions. 
 
-15 
 
 Table 11: Consolidated Agent Performance: Costs, Extensions, and Failure Analysis. 
 
@@ -685,7 +671,6 @@ In our framework, each agent operates under a fixed cost budget. When this budge
 
 For each evaluated model, we consider three distinct budget–escalation regimes, summarized in Table 14. The first configuration allocates a low per-agent budget while allowing aggressive escalation, favoring shallow agents that rapidly branch when faced with uncertainty. The second configuration 
 
-16 
 
 adopts a moderate per-agent budget with a reduced escalation cap, representing a balanced trade-off between depth and breadth. The final configuration assigns a high per-agent budget but strictly limits escalation, emphasizing deeper reasoning within individual agents while constraining exploration. 
 
@@ -723,7 +708,6 @@ Across all evaluated settings, GPT-5.2 exhibits relatively stable performance. I
 
 In contrast, Opus-4.5 demonstrates pronounced sensitivity to escalation behavior. Under configurations that allow higher agent counts, the model consistently exhibits a large fraction of dead-end 
 
-17 
 
 trajectories, with dead-end rates reaching up to 75%. Increasing the budget alone does not improve outcomes, as solve rates remain unchanged across moderate and aggressive budget settings. A modest improvement is observed only when the agent limit is strongly constrained, suggesting that unrestricted agent spawning amplifies ineffective exploration rather than facilitating recovery. 
 
@@ -754,7 +738,6 @@ Table 15: Agent inflation and escalation statistics across hyperparameter settin
 
 This asymmetry is clearly illustrated in Figure 11, which shows the distribution of agents per entrypoint across hyperparameter settings. Solved cases form a narrow, concentrated distribution centered around one to two agents, reflecting efficient convergence once a productive reasoning path is identified. In contrast, dead-end trajectories display wide, heavy-tailed distributions, with some entrypoints triggering substantial escalation. These long-tail behaviors indicate that once uncertainty emerges, agentic systems increasingly rely on spawning additional agents rather than refining earlier hypotheses. 
 
-18 
 
 
 *Violin plot showing the distribution of agents per entrypoint across different temperature settings for GPT-5.2 and Opus-4.5.*
@@ -786,7 +769,6 @@ These findings complement earlier observations regarding the limited marginal ut
 
 While aggregate success metrics provide a coarse view of agent performance, they do not explain how reasoning unfolds during execution. To better understand the behavioral dynamics underlying agentic 
 
-19 
 
 
 *Scatter plot showing Total Interaction Rounds vs Agents per Entrypoint for Solved and Dead-End outcomes.*
@@ -814,7 +796,6 @@ To further examine these behaviors, we analyze the distribution of agents per en
 
 A similar pattern emerges when analyzing total interaction depth. As shown in Figure 15, dead-end trajectories consistently consume substantially more interaction rounds than successful ones, with some cases extending to several hundred rounds without achieving progress. Importantly, increased 
 
-20 
 
 
 *Violin plot showing the distribution of Interaction Rounds across different temperature settings for GPT-5.2 and Opus-4.5.*
@@ -842,7 +823,6 @@ Table 16 summarizes these trends quantitatively across all configurations. Toget
 
 > **Key Insight.** Agentic success depends more strongly on reasoning continuity than on extensive exploration. When uncertainty arises, current agentic systems predominantly respond by spawning additional agents, fragmenting reasoning across short-lived trajectories. This escalation amplifies interaction cost and depth without reliably improving outcomes, highlighting a fundamental limitation of budget-driven exploration in existing agentic designs. 
 
-21 
 
 Table 16: Summary of depth–breadth statistics across budget–agent configurations. The table reports average agents per entrypoint (breadth), total interaction rounds (depth), and rounds per agent (reasoning continuity), highlighting systematic differences between successful and dead-end trajectories. 
 
@@ -883,7 +863,6 @@ These differences are further reflected in escalation behavior. Under the same r
 
 To examine this relationship more directly, Figure 17 visualizes the coupling between total interaction rounds and accumulated cost under a representative configuration. Each point corresponds to an entrypoint-level trajectory. GPT-5.2 displays an approximately linear cost–depth relationship, indicating predictable scaling as trajectories deepen. In contrast, Opus-4.5 exhibits steeper and more variable cost growth, with several trajectories incurring high cost despite limited depth. 
 
-22 
 
 
 *Scatter plot showing Total Cost vs Total Interaction Rounds per entrypoint for GPT-5.2 and Opus-4.5 (Solved vs Dead End).*
@@ -900,5 +879,4 @@ Together, these results demonstrate that agentic model comparison should extend 
 
 **Key Insight.** Under identical budget and agent regimes, models differ not only in success rate but in how they transform interaction depth into effective computation. GPT-5.2 exhibits stable, near-linear depth-to-cost scaling, indicating strong reasoning continuity, whereas Opus-4.5 relies more heavily on breadth-oriented escalation, incurring higher cost without proportional depth gains. 
 
-23 
 

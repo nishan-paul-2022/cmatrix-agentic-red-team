@@ -56,11 +56,9 @@ Cybersecurity AI Model Performance<br>Claude 3.7<br>o3-mini<br>Gemini Pro 2.5<br
 
 **Figure 1:** CAI performance comparison across different LLM models. 
 
-1 
 
 **CAI: Cybersecurity AI** 
 
-2 
 
 Korea’s evolving cyber capabilities as an “all-purpose sword” [2]. The international response has likewise accelerated, with major AI providers such as OpenAI taking unprecedented steps in early 2025 to remove users from China and North Korea suspected of leveraging its technology for malicious surveillance and opinion-influence operations [3]. Meanwhile, cybersecurity companies are increasingly emphasizing AI as their core future technology enabler to counter these evolving threats [4]. At the dawn of AI applications to cybersecurity, educational institutions are also responding to this shift, with the University of South Florida recently establishing the Bellini College of Artificial Intelligence, Cybersecurity and Computing through a historic $40 million gift–making it the first named college in the nation dedicated exclusively to the convergence of AI and cybersecurity [5]. Based on current trends and adoption rates, _we predict that by 2028, AI-powered security testing tools will outnumber human pentesters in mainstream security operations_ . 
 
@@ -76,7 +74,6 @@ This paper addresses these challenges by presenting the **Cybersecurity AI (CAI)
 
 **CAI: Cybersecurity AI** 
 
-3 
 
 ##### � **Code listing (1)** Network Reconnaissance 
 
@@ -111,7 +108,6 @@ This paper addresses these challenges by presenting the **Cybersecurity AI (CAI)
 
 **CAI: Cybersecurity AI** 
 
-4 
 
 #### **1.1 State of the Art and Research Gaps** 
 
@@ -140,7 +136,6 @@ Open-source projects such as Nebula [45] and Deep Exploit [46] exemplify how AI-
 
 **CAI: Cybersecurity AI** 
 
-5 
 
 role of generative AI in offensive security, analyzing its strengths and limitations in real-world pentesting scenarios [47]. More broadly, frameworks like ITBench [48] have been proposed to systematically evaluate AI agents across diverse IT automation tasks, further highlighting the growing intersection between AI and cybersecurity. 
 
@@ -162,7 +157,6 @@ Despite significant advancements, AI-driven cybersecurity still faces critical c
 
 **CAI: Cybersecurity AI** 
 
-6 
 
 barriers but also systematically excludes smaller organizations from accessing effective security testing. The median 9.7-day triage times reflect a system designed to serve the interests of platforms and their largest customers, not the broader security community. 
 
@@ -190,7 +184,6 @@ The remainder of this paper is organized as follows: Section 2 details the archi
 
 **CAI: Cybersecurity AI** 
 
-7 
 
 ### **2 Cybersecurity AI (CAI) Framework** 
 
@@ -225,7 +218,6 @@ CAI delivers a framework for building Cybersecurity AIs with a strong emphasis o
 
 **CAI: Cybersecurity AI** 
 
-8 
 
 |�**Code listing (5)** Initial Reconnaissance<br>~~�~~|~~�~~<br>�**Code listing (6)** Web Shell Upload<br>~~�~~<br>�|
 |---|---|
@@ -246,7 +238,6 @@ operation, acknowledging that fully-autonomous cybersecurity systems remain prem
 
 **CAI: Cybersecurity AI** 
 
-9 
 
 is therefore not merely a feature but a critical cornerstone of CAI’s design philosophy. Our benchmarking results across different challenge categories (as shown in Figure 6) consistently reveal that human judgement and intervention at strategic points significantly improves success rates and reduces solution time, particularly for complex cryptography and reverse engineering challenges. Through the command-line interface, users can seamlessly interact with agents at any point during execution by simply pressing `Ctrl+C` . This functionality is implemented across the core execution engine abstractions, providing flexible human oversight throughout the security testing process. The importance of HITL is further validated by our comparative LLM performance analysis (Figures 7 through 8), which shows that even the most advanced models benefit substantially from timely human guidance when navigating complex security scenarios. 
 
@@ -271,7 +262,6 @@ In this section, we explore the results of the Cybersecurity AI (CAI) framework 
 
 **CAI: Cybersecurity AI** 
 
-10 
 
 such as CSAW CTF, Hack-The-Box (HTB), IPvFletch, picoCTF, VulnHub, along with proprietary CTFs both from ourselves and from other competing teams. In total, we compile a comprehensive set of 54 exercises that span multiple security categories (see B), ensuring a broad assessment of CAI performance across simulated real-world offensive security tasks. By benchmarking CAI across these diverse categories, we attempt to provide a rigorous analysis of AI-driven security testing, offering insights into its strengths and limitations. 
 
@@ -297,7 +287,6 @@ The benchmarking results, as illustrated in Tables 2 and 3, reveal that **CAI co
 
 **CAI: Cybersecurity AI** 
 
-11 
 
 |**Category**|�_t_**CAI** (s)|�_c_**CAI** ($)|�_t_**Human** (s)|�_c_**Human** ($)|_tratio_|_cratio_|
 |---|---|---|---|---|---|---|
@@ -336,7 +325,6 @@ their security operations, without the need to invest as much in human experts, 
 
 **CAI: Cybersecurity AI** 
 
-12 
 
 for complex vulnerability chains. Additionally, the CAI framework would benefit from improved explainability features to help users understand the rationale behind CAI’s approaches, particularly in cases where it is slower than human experts. 
 
@@ -360,7 +348,6 @@ A relevant difference between open weight and closed weight models is observed, 
 
 **CAI: Cybersecurity AI** 
 
-13 
 
 performing significantly better in cybersecurity tasks. Most of the tested closed weight models, including `claude-3.7-sonnet` , `o3-mini` , and `deepseek-v3` , solved at least half of the CTF challenges selected. This suggests that closed weight models have an edge in handling complex security scenarios, probably due to their training datasets including cybersecurity data. 
 
@@ -382,7 +369,6 @@ Overall, the benchmarking results underscore the potential of closed weight LLMs
 
 **CAI: Cybersecurity AI** 
 
-14 
 
 |**Model**|**Metric**|**misc**|**rev**|**pwn**|**web**|**forensics**|�|�_c_**CAI**($)|
 |---|---|---|---|---|---|---|---|---|
@@ -416,7 +402,6 @@ Overall, the benchmarking results underscore the potential of closed weight LLMs
 
 **CAI: Cybersecurity AI** 
 
-15 
 
 #### **3.3 Benchmarking CAI in competitive scenarios using Hack-The-Box (HTB) platform** 
 
@@ -454,7 +439,6 @@ For these exercises, CAI operated in a predominantly autonomous setup, though so
 
 **CAI: Cybersecurity AI** 
 
-16 
 
 |**Name**|**Level**|_t_**CAI (s)**|_t_**Human FB (s)**|_tratio_|
 |---|---|---|---|---|
@@ -497,7 +481,6 @@ For these exercises, CAI operated in a predominantly autonomous setup, though so
 
 **CAI: Cybersecurity AI** 
 
-17 
 
 
 ![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0017-02.png)
@@ -519,7 +502,6 @@ In challenge-based tasks (Table 6), CAI significantly outperformed human First B
 
 **CAI: Cybersecurity AI** 
 
-18 
 
 out of 18 challenges, with an extraordinary overall time ratio of 346x faster than humans. These results suggest that CAI excels at well-defined, single-task challenges that benefit from rapid pattern recognition and systematic analysis. However, a contrasting picture emerges when examining machinebased challenges (Table 5). Here, CAI only outperformed best humans in 1 out of 11 machines, with a combined time ratio of 0.59x, indicating that humans were generally faster. This disparity reveals a critical limitation in CAI’s current agentic pattern implementations alongside LLM models used: while excelling at isolated technical tasks, it struggles with the complex, multi-step reasoning and interconnected exploitation chains required in full machine compromises. We reflected on this contrast and conclude that the HTB CTF machines are much more competitively played than the CTF challenges, and thereby, represent a more realistic benchmark for CAI. 
 
@@ -547,7 +529,6 @@ These benchmarking results reveal both the tremendous potential and current limi
 
 **CAI: Cybersecurity AI** 
 
-19 
 
 #### **3.4 Benchmarking CAI in live international CTF competitions** 
 
@@ -581,7 +562,6 @@ Figure 13 compares the performance of various AI teams in the same competition. 
 
 **CAI: Cybersecurity AI** 
 
-20 
 
 a clear advantage by securing its final flag 30 minutes earlier than the next closest AI team. This timing difference was decisive in placing CAI ahead in the overall AI leaderboard, despite point parity. 
 
@@ -605,7 +585,6 @@ During the first three hours of the "AI vs Human" CTF Challenge, CAI demonstrate
 
 **CAI: Cybersecurity AI** 
 
-21 
 
 Overall, CAI’s performance in the "AI vs Human" CTF Challenge highlights its **ability to compete at the highest level, achieving a top-1 rank amongst AI teams, which got rewarded by a 750 USD prize, and a top-20 ranking overall despite a 3 hour-limited active time** . With a strong start, it outperformed several human teams early on, securing key points. While others continued refining their scores beyond the initial three-hour window, CAI’s results stand as proof of its competitive strength and strategic execution. These findings reinforce the potential of AI-driven systems in realworld cybersecurity challenges. 
 
@@ -633,7 +612,6 @@ cybersecurity expertise, perform bug bounty exercises on their organization asse
 
 **CAI: Cybersecurity AI** 
 
-22 
 
 |**Platform**|**Target**|**Bugs Found**|**Severity**|**Feedback**|
 |---|---|---|---|---|
@@ -667,7 +645,6 @@ Most findings were classified as medium severity, including exposed API keys, us
 
 **CAI: Cybersecurity AI** 
 
-23 
 
 **tiveness of our AI-driven cybersecurity system in enabling non-professional testers to detect meaningful security flaws** , demonstrating both its accessibility and real-world applicability. 
 
@@ -691,7 +668,6 @@ Furthermore, CAI autonomously inferred Active Directory (AD) topologies and sugg
 
 **CAI: Cybersecurity AI** 
 
-24 
 
 of hard challenges fully autonomously in a first run. With human-in-the-loop (HITL) assistance, it was also capable of tackling even `insane` -level targets. While CAI performed well in identifying buffer overflows in unprotected memory regions, it faced difficulties when dealing with advanced mitigations such as ASLR and stack canaries. The introduction of the Model Context Protocol (MCP) [56] enhanced CAI’s workflow by integrating Ghidra and Burp Suite, streamlining transitions between reverse engineering, vulnerability triage, and exploitation planning across both static and dynamic analysis phases. 
 
@@ -709,7 +685,6 @@ In this study, we have presented and evaluated the first open-source, bug bounty
 
 **CAI: Cybersecurity AI** 
 
-25 
 
 Professional bug bounty hunters were engaged with the specific goal of finding bugs while using this framework, confirming its suitability for real-world bug bounty applications by reporting four other vulnerabilities. These findings demonstrate that CAI is the first open-source framework to significantly lower barriers for cybersecurity through AI, empowering non-security professionals to perform bug bounty hunting and promoting broader democratization by making advanced practices more accessible and affordable to a wider range of users, aside from experts. 
 
@@ -729,7 +704,6 @@ This section reviews the results presented in Section 3, where CAI was evaluated
 
 **CAI: Cybersecurity AI** 
 
-26 
 
 day 6, the top 50; and by day 7, it entered the top 30 in Spain and the top 500 worldwide. 
 
@@ -749,7 +723,6 @@ As the EU leads global regulatory efforts through the AI Act, NIS2 Directive, an
 
 **CAI: Cybersecurity AI** 
 
-27 
 
 accountability, and human-centered design. The discrepancies we identified between vendor claims and actual capabilities highlight the importance of EU-centric ethical ownership of Cybersecurity AI—one that prioritizes accurate risk assessment, promotes security by design principles mandated by NIS2, and ensures data protection as required by GDPR. We believe that CAI represents an opportunity for Europe to establish technological sovereignty in this critical domain, developing AI security solutions that embody European principles while fostering innovation that serves the public interest. 
 
@@ -769,7 +742,6 @@ _Our analysis reveals a concerning pattern across major AI labs: they systematic
 
 **CAI: Cybersecurity AI** 
 
-28 
 
 AI’s offensive capabilities, leaving organizations without a clear understanding of the threat landscape. 
 
@@ -789,7 +761,6 @@ Cybersecurity AI (and CAI as its first implementation) represents a paradigm shi
 
 **CAI: Cybersecurity AI** 
 
-29 
 
 stack. For instance, _without previous knowledge of the robot_ , CAI has been able to detect default configuration flaws in commercial robots in a matter of milliseconds, faster than any trained or domain specific human could. These flaws could potentially lead to unauthorized access and control, posing safety hazards or risking property damage. When instructed to do so, CAI can also detect and exploit these flaws to gain full control of the robot, to then implement a mitigation to such security flaws -all within less than 10 seconds. 
 
@@ -819,7 +790,6 @@ As robotic systems become increasingly autonomous and widespread across industri
 
 **CAI: Cybersecurity AI** 
 
-30 
 
 represents a significant step toward autonomous, adaptive cybersecurity for robotics –a field where the convergence of physical and digital security demands innovative solutions that can understand and protect the unique characteristics of robotic systems. 
 
@@ -849,7 +819,6 @@ CAI was developed by Alias Robotics and co-funded by the European Innovation Cou
 
 **CAI: Cybersecurity AI** 
 
-31 
 
 - [9] Bugcrowd Researcher Success Team, “How and when to effectively escalate a submission,” https: //www.bugcrowd.com/blog/how-and-when-to-effectively-escalate-a-submission/, 2025, bugcrowd Blog, January 18, 2025. 
 
@@ -885,7 +854,6 @@ CAI was developed by Alias Robotics and co-funded by the European Innovation Cou
 
 **CAI: Cybersecurity AI** 
 
-32 
 
 - [24] V. Mayoral-Vilches, “Robot cybersecurity, a review,” _International Journal of Cyber Forensics and Advanced Threat Investigations_ , 2022. 
 
@@ -923,7 +891,6 @@ CAI was developed by Alias Robotics and co-funded by the European Innovation Cou
 
 **CAI: Cybersecurity AI** 
 
-33 
 
 - [40] HackerOne, “Hackerone leads ai-driven innovation with genai copilot and ai red teaming,” 2024, accessed: 2025-03-23. [Online]. Available: https://www.hackerone.com/press-release/ hackerone-leads-ai-driven-innovation-genai-copilot-and-ai-red-teaming 
 
@@ -961,7 +928,6 @@ CAI was developed by Alias Robotics and co-funded by the European Innovation Cou
 
 **CAI: Cybersecurity AI** 
 
-34 
 
 - [56] Anthropic, “Introducing the model context protocol,” Anthropic Blog, accessed: 2025-04-07. [Online]. Available: https://www.anthropic.com/news/model-context-protocol 
 
@@ -999,7 +965,6 @@ CAI was developed by Alias Robotics and co-funded by the European Innovation Cou
 
 **CAI: Cybersecurity AI** 
 
-35 
 
 # **APPENDICES** 
 
@@ -1023,7 +988,6 @@ Supplementary Material
 
 **CAI: Cybersecurity AI** 
 
-36 
 
 |**Organization**|**Publication / Initiative**|**Type**|**Year**|**Focus**|
 |---|---|---|---|---|
@@ -1072,7 +1036,6 @@ Continued on next page
 
 **CAI: Cybersecurity AI** 
 
-37 
 
 |**CTF Name**|**Diffculty**|**Source**|**CTF Name**|**Diffculty**|**Source**|
 |---|---|---|---|---|---|
@@ -1142,7 +1105,6 @@ Continued on next page
 
 **CAI: Cybersecurity AI** 
 
-38 
 
 
 ![](images/23-cai-an-open-bug-bounty-ready-cybersecurity-ai.pdf-0038-02.png)

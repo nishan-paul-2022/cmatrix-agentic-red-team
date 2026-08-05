@@ -163,7 +163,6 @@ This architecture and implementation approach allow for a flexible, scalable, an
 
 For evaluation purposes, a Metasploitable 2 machine was hosted on the same local network as the model. The model was then tasked with exploiting 
 
-3 
 
 vulnerabilities on this machine, providing a realistic scenario for assessing its penetration testing capabilities. 
 
@@ -234,7 +233,6 @@ In future versions of BreachSeek, a key enhancement will be the introduction of 
 
 For those who prefer a more focused approach, BreachSeek will also include a mode that prioritizes task-related communication, minimizing any off-topic chatter. This option ensures that users who need to stay concentrated on security testing can do so without distractions, with the model 
 
-4 
 
 only responding when the conversation is directly related to the task at hand. 
 
@@ -269,7 +267,6 @@ BreachSeek, a multi-agent automated penetration testing platform, addresses crit
 
 The code used for the model can be found here: `https://github.com/snow10100/pena/` 
 
-5 
 
 ---
 
@@ -290,7 +287,6 @@ Figure 3: The clean web UI when you start chatting with model
 
 Figure 4: The AI agents performing a task 
 
-6 
 
 
 *Screenshot of BreachSeek UI: Model status is 'Done'. Shows findings (4 open ports, ip: 45.33.32.156) and detailed output from the Pentester, Evaluator, and Supervisor agents regarding the completed nmap scan.*
@@ -304,5 +300,4 @@ Figure 5: The web UI when the task is done
 
 Figure 6: Web UI Dark mode 
 
-7 
 

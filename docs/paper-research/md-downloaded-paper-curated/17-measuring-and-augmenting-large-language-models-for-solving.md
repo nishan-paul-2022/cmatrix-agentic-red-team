@@ -100,7 +100,6 @@ Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang. 20
 
 > ∗Corresponding authors. 
 
-1 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -139,7 +138,6 @@ In sum, we make the following contributions in this paper:
 
 CTF competitions are a crucial component of cybersecurity education [83]. These gamified competitions expose participants to 
 
-2 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -212,7 +210,6 @@ In September 2024...Label 1 ❶ Indexing Vector DB<br>Embedding<br>Documents<br>
 
 In this paper, we enhance LLMs using a customized version of Retrieval-Augmented Generation (RAG) technology, which incorporates knowledge from external databases [49]. As illustrated in Figure 2, RAG allows for pre-retrieval of information, enriching the LLM’s context and knowledge base. The standard RAG workflow includes three stages: indexing, retrieval, and generation. During indexing, a pre-collected knowledge dataset is converted into plain text, segmented, and embedded into a vector database. In the retrieval stage, the framework performs cosine similarity searches based on user queries, returning the top-K results for the LLM’s reference. Recent enhancements in RAG technology, such as CoN [92] and NoiseRAG [43], have further refined this method. 
 
-3 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -282,7 +279,6 @@ Building on the above motivation, we develop CTFKnow to measure LLMs’ technica
 
 Specifically, we deployed web scraping scripts to extract all available challenge write-ups from these competitions, converting them from HTML to Markdown format to facilitate easier comprehension by LLMs. This process yielded a collection of over 10,000 writeups. However, recognizing that not all write-ups met our quality standards, we applied the following criteria to refine our selection: (i) A minimum of 30 lines of text, ensuring the write-ups were sufficiently detailed and comprehensive, covering aspects such as Challenge Description and Exploit Method. (ii) Exclusion of images and external resource links. Despite state-of-the-art LLMs’ capability to process images, we focused on write-ups that rely on textual command-line outputs to avoid challenges and biases associated with image interpretation. (iii) Inclusion of a “Challenge Description” section to provide contextual background, enhancing LLMs’ understanding of the scenario and avoiding substantial comprehension biases. 
 
-4 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -320,7 +316,6 @@ Based on these single-choice questions, we slightly adjust the wording of each q
 
 > 1“323” is determined using the “Statistics of a Random Sample” algorithm at https: //www.calculator.net/sample-size-calculator.html. For a population of 1,996 instances, a sample size of 323 ensures a 95% confidence level with a 5% margin of error. 
 
-5 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -373,7 +368,6 @@ A longitudinal comparison among different LLMs reveals that, while all demonstra
 
 Despite LLMs demonstrating a strong grasp of technical knowledge in CTF scenarios, successfully solving CTF challenges requires not only mastering this knowledge but also accurately matching and 
 
-6 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -419,7 +413,6 @@ Figure 5 shows the results, where the x-axis represents the difficulty of the or
 
 However, previous studies [70, 71, 89] indicate that even for simpler CTF problems, the proportion of challenges that LLMs can correctly solve in actual CTF solving processes does not exceed 30%, which is lower than our evaluation results for open-ended questions. Our research and observations from some examples suggest that this discrepancy occurs because, often, even when LLMs correctly match the necessary technical knowledge, they fail to solve problems successfully due to the absence of specific CTF tools, installation failures, or an inability to adjust the solution payload based on feedback from the environment. For example, by analyzing the execution logs of Intercode-CTF [89], we observed that many failures stem from LLM agents lacking necessary Python libraries when writing solution scripts, coupled with their inability to resolve system-related errors during library installation. Typical missing packages include cryptography and gmpy2. Additionally, 
 
-7 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -506,7 +499,6 @@ In Finding 3, we observed that LLMs struggle to match technical knowledge to spe
 
 In Finding 5, we discovered that the usefulness of the interaction environment affects the performance of LLMs in CTF scenarios. Human CTF participants often require a variety of specialized tools to complete complex problem-solving processes. Therefore, we aim to simplify operations for LLMs within the CTF environment by providing them with interactive commands and advanced tools through _Interactive Environmental Augmentation_ . **CTFAgent Overview.** Based on the design principles above, we designed CTFAgent as illustrated in Figure 6. CTFAgent primarily comprises two modules: the Retrieval-Augmented Generation (RAG) and Environmental Augmentation (EA). Upon receiving a 
 
-8 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -551,7 +543,6 @@ First, we provided targeted hints based on potential issues LLMs might encounter
 
 For example, we observed that when CTFAgent involved in some Reverse challenges, after it has read the disassembled code of a given attached binary executable, it may start writing solving scripts immediately, without reading the discompile code at all, even if that is far easier to understand. In that case, if CTFAgent tries to use the disassemble function call, a prompt saying “Don’t rush to analyze, try looking at the decompiled results.” would be 
 
-9 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -666,7 +657,6 @@ To demonstrate the workflow of CTFAgent and how its modules are coordinated, we 
 
 Following § 3.3, this section evaluates CTFAgent in response to the following research questions: 
 
-10 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -752,7 +742,6 @@ Furthermore, to fully harness the potential of CTFAgent, we conducted an additio
 
 As illustrated in Table 4, CTFAgent-o1-preview successfully solved an additional 11 challenges compared to CTFAgent with GPT-4-Turbo. This finding indicates that CTFAgent’s performance can be significantly enhanced by employing more powerful LLMs as its backbone. 
 
-11 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -825,7 +814,6 @@ To assess the practicality of CTFAgent, we opt for an evaluation beyond standard
 
 We conduct an in-depth analysis of the performance disparities between CTFAgent and human CTF participants of comparable skill levels across various challenge categories. This comparison is intended to reveal differences in problem-solving characteristics between CTFAgent and human participants of similar overall proficiency across different types of challenges. We compile the 
 
-12 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -890,7 +878,6 @@ We discuss several potential directions for future research and extend CTFKnow a
 
 **RAG Misguidance.** Our dataset CTFKnow incorporates approaching 2,000 entries serving as the database for the RAG system. However, during evaluation, we observed instances where the RAG system, due to inaccurate retrieval, produced CTF Knowledge that is deviated from the scenario. This inadvertently misguides the LLM’s solving approach and reduces both efficiency and accuracy. Enhancements to mitigate this limitation could primarily focus on expanding the dataset size and further improving dataset quality. **Lack of Multi-modal Capabilities.** In real-world competitions, certain categories of CTF challenges, such as OSINT and social engineering, are closely linked with images, necessitating the extraction of substantial information from visual data. As a research prototype, CTFAgent does not exploit the multi-modal capabilities of LLMs, leading to a deficiency in addressing these types of challenges. Additionally, the inability to employ multi-modal functionalities restricts the use of various sophisticated CTF tools, such as Burp Suite [30], which are conveniently accessible through GUIs, 
 
-13 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -979,7 +966,6 @@ This work has conducted a systematic measurement and augmentation on LLM’s cap
 
 - [28] 2024. UIUCTF 2024. https://2024.uiuc.tf/. https://2024.uiuc.tf/ [29] 2024. VicOne & Block Harbor Spearhead Biggest Automotive Capture the Flag Competition for Cybersecurity Enthusiasts Worldwide. https://vicone.com/company/press-releases/vicone-and-block- 
 
-14 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -1093,7 +1079,6 @@ Benchmarking Dataset for LLMs in Cybersecurity. _arXiv:2412.20787_ (2024).
 
 - [81] U.S. Department of Health and Human Services. 2018. Federal Policy for the Protection of Human Subjects (’Common Rule’). https://www.ecfr.gov/current/ title-45/subtitle-A/subchapter-A/part-46#p-46.104(d)(2) Title 45 Code of Federal 
 
-15 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -1187,7 +1172,6 @@ both single-choice and open-ended questions), question filtering and vulnerable 
 
 You are an expert specializing in extracting core cybersecurity knowledge from the write-ups of CTF (Capture The Flag) challenges. Please clearly output your extracted knowledge in a well-structured format with up to 2 distinct points. If the knowledge in some point is related to specific scenario or background, give the condition where the knowledge can be properly used before giving the knowledge. Ensuring that this knowledge can be applied universally to solve similar CTF challenges across different scenarios. Do not use words like ’Here’,’In this case’ or ’In the provided example’. After the knowledge you extracted, give a sample of payload if you can. Here is an example of the desired output format: {example} 
 
-16 
 
 CCS ’25, October 13–17, 2025, Taipei, Taiwan, China 
 
@@ -1242,7 +1226,6 @@ You are an expert specializing in judging if the answer to a question about cybe
 
 You are a expert specializing in extracting information from the writeups of CTF (Capture The Flag) challenges. Your task is to extract the code snippet containing vulnerabilities from a write-up of a CTF challenge. The extracted code snippet should be functionally complete. Be careful not to response with code related to solving the challenge. If the write-up does not contain code with vulnerabilities, you should construct a possible vulnerable code snippet based on the context. Your response should only contain the code snippet, do not include any additional contents. 
 
-17 
 
 Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang 
 
@@ -1294,5 +1277,4 @@ You should only respond in the format as described below: RESPONSE FORMAT: Thoug
 
 Begin! Reminder to ALWAYS respond following the above format. The Action part ONLY include ONE $JSON_BLOB. Respond directly if appropriate. You must complete the task by yourself no matter how difficult or ambiguous the task is!! 
 
-18 
 

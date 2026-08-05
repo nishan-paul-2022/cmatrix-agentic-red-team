@@ -161,7 +161,6 @@ Fang et al. [22] show that, given CVE descriptions, GPT-4 can exploit 87% of a 1
 
 The emergence of AI-driven pentest has been accompanied by a rapid proliferation of evaluation suites designed to measure autonomy, tool integration, and end-to-end performance under controlled conditions. While the space remains nascent, a few benchmarks have begun to dominate experimental protocols. Notably, _AutoPenBench_ and _AI-Pentest-Benchmark_ appear most frequently in recent studies, reflecting their alignment with realistic, multi-phase pentesting workflows and their ability to grade performance across autonomy levels and subtasks. Conversely, more specialized testbeds such as _CVE-Bench_ target specific exploitability dimensions, such as real-world CVEs in web contexts, and thus see adoption in works focusing on vulnerability exploitation rather than full-cycle orchestration. 
 
-3 
 
 Capture The Flag resources such as _NYU CTF Bench_ and the datasets introduced by _HackSynth_ have also gained traction, particularly for skill-granular or task-decomposed evaluations, though their scenarios often differ from operational pentests in scope and realism. 
 
@@ -245,7 +244,6 @@ Within MAS, LLMs provide reasoning, contextual understanding, and code synthesis
 
 Although proprietary LLMs, such as GPT-4 and Claude, offer strong performance, they introduce limitations in cost, reproducibility, and security control. Therefore, we adopt opensource models such as **Qwen3** , which support local deployment, fine-tuning, and quantization (AWQ/INT4), making them 
 
-4 
 
 Table 1: Comparison of representative automated pentesting systems and benchmarks (grid-lined). Criteria emphasize architecture, scope, grounding, tools, autonomy, and evaluation. 
 
@@ -311,7 +309,6 @@ Considering the need to adapt a 32B-parameter model such as Qwen3 under realisti
 
 xOffense is an innovative, lightweight framework for autonomous pentest, engineered to replicate the collaborative dynamics of human security teams while operating within resourceconstrained environments. By harnessing compact LLMs with approximately 32 billion parameters, xOffense eliminates dependency on commercial APIs, enabling deployment on standard hardware. The framework decomposes the intricate process of pentest into three meticulously designed phases reconnaissance, scanning, and exploitation coordinated through a sophisticated multi-agent architecture. Comprising five core components Task Orchestrator, Knowledge Repository, Command Synthesizer, Action Executor, and Information Aggregator. xOffense ensures seamless task progression, robust information management, and precise execution. This section elucidates the system’s architecture, role delineation, task coordination, interagent communication, and execution mechanisms, underscoring its efficacy in addressing cybersecurity challenges with minimal computational overhead. 
 
-5 
 
 The operational workflow of _xO_ ff _ense_ , illustrated in Figure 1, initiates when a user submits a pentest objective, such as “Identify vulnerabilities on IP 192.168.X.X and retrieve rootlevel flags.” This task description serves as the Initial Context, which is passed to the _Task Orchestrator_ for comprehensive plan generation. The orchestrator constructs a Task Coordination Graph (TCG), decomposing the penetration objective into a structured sequence of tasks with clearly defined dependencies. To enhance contextual accuracy, it queries the _Knowledge Repository_ a vector-based database via a Retrieval-Augmented Generation (RAG) mechanism, which is taken from LangchainChatchat [30], retrieving relevant penetration knowledge based on inputs such as the initial task description, the current task’s instruction, or recent task results. 
 
@@ -370,7 +367,6 @@ The TCG is a structured acyclic digraph, defined as _G_ = ( _V_ , _E_ ), where _
 
 The _Task Orchestrator_ generates the TCG in a JSON, which is compliant format, dynamically updating it based on execution outcomes. For instance, a task designed to perform user 
 
-6 
 
 
 ![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0007-00.png)
@@ -403,7 +399,6 @@ During the _Task Session_ , the _Action Executor_ evaluates task outcomes and up
 
 - **Task Session** : This session generates detailed instructions for each task, which are passed to the _Command Synthesizer_ for command generation and to the _Action_ 
 
-7 
 
 
 ![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0008-00.png)
@@ -441,7 +436,6 @@ _Plan Update and Merge Algorithms.._ The `UpdatePlan` and `MergeTasks` procedure
 
 16: **return** merged plan with tasks M 
 
-8 
 
 **Algorithm 4** Inter-Agent Communication via PlannerSummary 
 
@@ -517,7 +511,6 @@ To thoroughly assess the effectiveness and practicality of _xO_ ff _ense_ , we d
 
 All pentest experiments are executed from a dedicated attacker machine configured as a VMware virtual workstation 
 
-9 
 
 running Kali Linux 2025 [41]. Kali is chosen for its comprehensive pentest toolkit and compatibility with industry-standard workflows. This virtualized attacker host is provisioned with 8 vCPUs, 16 GB RAM, and 120 GB storage, ensuring stable execution of both offensive tools and the _xO_ ff _ense_ multi-agent framework within a single environment. 
 
@@ -589,7 +582,6 @@ The experimental evaluation utilizes a broad spectrum of large language models t
 
 Empirical consistency is maintained by enforcing a standardized decoding strategy across all tested models. The inference process is configured with a temperature of 0.5 and a top-p value of 0.9. This specific combination strikes a deliberate balance between the deterministic accuracy required for security tool command synthesis and the generative flexibility necessary for exploring complex attack paths. Furthermore, the topk parameter is set to 40, allowing for a diverse yet controlled vocabulary selection that prevents the model from generating highly improbable tokens. Each model interaction is allocated a maximum budget of 4096 tokens. This extended context window is essential for processing verbose security logs and generating comprehensive multi-stage exploit scripts without the risk of mid-sentence truncation. This universal hyperparameter setup isolates the architectural design and multi-agent orchestration of each framework as the primary variables driving the observed performance results. 
 
-10 
 
 ---
 
@@ -645,7 +637,6 @@ Listing 1: Representative structured planning output used in xOffense prompts.
 },
 ```
 
-11 
 
 ```
 {
@@ -731,7 +722,6 @@ To measure robustness and consistency, we also compute the cumulative completion
 ![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0012-19.png)
 
 
-12 
 
 This stricter metric rewards agents that not only succeed once but can repeatedly complete subtasks across independent executions. 
 
@@ -805,7 +795,6 @@ In the **AC** category, **Qwen3-32B-finetune** achieved a remarkable **14.51%** 
 
 While a performance drop of approximately **18%** from the single-experiment run to the aggregated runs was observed, this 
 
-13 
 
 Table 3: Overall Task Completion Rate on Target Machines. Our fine-tuned model demonstrates superior performance, especially in AC, NS, and Real-world categories. 
 
@@ -873,7 +862,6 @@ The experiments were conducted in a fully autonomous mode, without any human int
 
 The results reveal several noteworthy patterns. First, **Qwen3-32B-finetune** consistently surpasses its base counterpart across all six machines, with particularly significant im- 
 
-14 
 
 provements on _Victim1_ (+0.55), _Library2_ (+0.30), and _WestWild_ (+0.63). These gains highlight the effectiveness of domain-specific fine-tuning in strengthening the model’s exploitation reasoning and procedural robustness. Second, while VulnBot-DeepSeek-v3 remains highly competitive, achieving the highest score on _Victim1_ (0.83) and _WestWild_ (0.71), our fine-tuned Qwen3-32B achieves comparable or superior performance on most other machines, including leading results on _Sar_ (0.58) and _Funbox_ (0.54). 
 
@@ -934,7 +922,6 @@ Task completion rate and exploitation success were employed as primary evaluatio
 
 The reproducibility of results may be affected by stochastic factors inherent in both large language model inference and auxiliary system tools. Hardware variation, runtime conditions, network latency, and nondeterministic outputs from scanning utilities can yield divergent agent behaviors even under identical inputs. Standardized configurations and repeated trials mitigate these effects but do not eliminate them entirely, implying that replications across platforms or over extended periods may observe non-negligible variance. 
 
-15 
 
 
 ![](images/27-xoffense-an-ai-driven-autonomous-penetration-testing.pdf-0016-00.png)
@@ -959,7 +946,6 @@ In sum, although the reported findings provide strong evidence of the capabiliti
 
 This work addresses autonomous penetration testing, a domain with inherent dual-use implications. While the proposed xOffense framework is intended to support defensive cybersecurity practices, it may also be subject to misuse if deployed without appropriate safeguards. The system is designed strictly for authorized security assessment, research, and training pur- 
 
-16 
 
 poses in controlled environments, such as benchmark platforms and laboratory settings, and must only be used with explicit legal authorization from system owners. It is not intended for unauthorized exploitation of real-world systems. 
 
@@ -1009,7 +995,6 @@ Future work will explore three main directions. First, we aim to optimize the co
 
 - [11] Isamu Isozaki. Ai-pentest-benchmark: A benchmark for automated penetration testing. `https://github.com/isamu-isozaki/` 
 
-17 
 
 `AI-Pentest-Benchmark` , 2024. GitHub repository. Accessed: 202507-30. 
 
@@ -1089,5 +1074,4 @@ written in go. `https://github.com/OJ/gobuster` , 2025.
 
 - [32] Gobuster Project. Gobuster - directory/file, dns and vhost busting tool 
 
-18 
 

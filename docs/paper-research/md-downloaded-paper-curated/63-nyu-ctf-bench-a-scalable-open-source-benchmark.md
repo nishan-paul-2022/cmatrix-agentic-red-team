@@ -84,7 +84,6 @@ Our contributions are threefold: (1). An open benchmark dataset of 200 diverse C
 
 Since the inception of CTF competitions, various platforms have been developed to cater to different objectives and environments<sup>[10–12,20,37]</sup> . These platforms are for human CTF competitions and cannot be used for LLM agents. We develop a framework that deploys the CTFs and provides an environment for LLM agents to solve the challenges. Several studies have assessed CTF platforms. For example, Kucek and Leitner<sup>[28]</sup> conducted a review to evaluate the functionality and game configuration of 12 open-source CTF environments. Similarly, Karagiannis et al.<sup>[26]</sup> evaluated four well-known opensource CTF platforms, emphasizing their utility in improving education. CTF competitions strengthen cybersecurity across a wide range of topics by providing vulnerable environments that enable participants to assess and enhance their programming skills. They are recognized as educational tools<sup>[8,9,21,25,30,31,48]</sup> , serve as guidelines for application design<sup>[7,27]</sup> , are used for assessment<sup>[44]</sup> , and 
 
-2 
 
 function as social networking platforms<sup>[25]</sup> . These studies have established the use of CTFs as playgrounds to train cybersecurity professionals in real-world cybersecurity tasks. 
 
@@ -134,7 +133,6 @@ CTF challenges vary in difficulty level, with more difficult challenges awarded 
 
 > 2 `https://cyber.nyu.edu/csaw/` 
 
-3 
 
 shows the distribution of challenge difficulties in the qualifying and final rounds. The qualifying round problems tend to be of lower difficulty, while the final round problems are significantly harder. These points reflect a subjective assessment of problem difficulty, as determined by the experienced challenge creators who design CSAW’s CTFs. 
 
@@ -169,7 +167,6 @@ Figure 2: NYU CTF Data Structure.
 
 All source files for the challenges, including source code, configuration files, original Dockerfiles, and other multimedia files (such as images, slides, or raw text documents containing sensitive information), are included. However, only the files listed in the “files” field of the challenge.json are visible to the model, mimicking the real-world conditions of CSAW CTF competitions. Other files can be used as references by users of the benchmark. 
 
-4 
 
 ### **2.2 Benchmark Categories** 
 
@@ -196,7 +193,6 @@ Table 3: Descriptions and Details of Sample CTF Challenges for Each Category.
 
 **Reverse engineering (rev)** challenges require understanding software systems to extract sensitive information or find exploitable vulnerabilities. This involves decompiling and disassembling binary executables to source code, deciphering custom file formats, and identifying weak algorithm implementations. Without source information like code comments or design diagrams, significant domain-specific knowledge and guesswork are needed. Some challenges are offline and involve analyzing files to reveal hidden information, validated locally by extracting the flag. Others require finding and exploiting vulnerabilities in binaries, validated by interacting with Docker containers to 
 
-5 
 
 trigger the vulnerability. Essential tools include Ghidra for decompilation, radare2 for static analysis, and angr for symbolic execution, along with proficiency in assembly and C code. 
 
@@ -273,7 +269,6 @@ Figure 3: Architecture of the automated CTF solution framework.
 
 **1. Backend Module** facilitates communication between the local framework and the remote server hosting LLM services. As of the release date, we support three backend configurations: (1). LLM Services from OpenAI: We support the following models: gpt-4-1106-preview, gpt-4-0125-preview, and gpt-3.5-turbo-1106. (2). LLM Services from Anthropic: We support three models: claude-3haiku-20240307, claude-3-sonnet-20240229, and claude-3-opus-20240229. OpenAI and Anthropic 
 
-6 
 
 backends operate using an API key, which functions as an authorization key. It is loaded from secret files at the start of the challenge-solving process. The rate limit—the maximum number of tokens that can be sent and received—is determined by the API key. (3). Open-Source models deployed through TGI<sup>[23]</sup> and VLLMs<sup>[29]</sup> : They provide a URL for the backend to receive responses from the model. Open-source backend supports five models: mistralai/Mixtral-8x7B-Instruct-v0.1, deepseek-ai/deepseek-coder-33b-instruct, llama3:70b-instruct-fp16, wizardlm2:8x22b-q8_0, and eta-llama/Meta-Llama-3-70B-Instruct. Users of our framework can connect to these models by obtaining the URL through these methods or by deploying them on local servers. 
 
@@ -287,7 +282,6 @@ Figure 4: Example of Default Prompt Format Used in the Framework.
 
 **3. External Tools** Enhancing LLMs with the capability to utilize external tools can significantly improve their task-solving abilities<sup>[40]</sup> . Models like ChatGPT and Gemini feature built-in functions such as conducting web searches, performing mathematical calculations, and executing Python code. External tools are integrated through code APIs<sup>[2]</sup> , which are used in our framework. Newer LLMs offer native function-calling support, such as StarfleetAI’s `polaris-small`<sup>[43]</sup> and Trelis<sup>[47]</sup> . Our research explores the benefits of providing models with access to domain-specific tools to augment their capabilities in solving CTF challenges: **run_command** : Enables the LLM to execute commands within an Ubuntu 22.04 Docker container equipped with essential tools (e.g., compilers, debuggers, Python, pwntools a comprehensive list is available in Appendix B). **createfile** generates a file inside the Docker container, with the option to decode escape sequences for files with binary content. **disassemble and decompile** : Uses Ghidra<sup>[19]</sup> to disassemble and decompile a specified function in a binary. If no function name is given, it defaults to disassembling the `main` function or the executable’s entry point ( `_start` ) if debug symbols are absent. **check_flag** : Allows the LLM to verify the correctness of a discovered flag in a CTF challenge. **give_up** : Allows the LLM to stop its efforts on a challenge, reducing unnecessary work after recognizing that the model can no longer progress effectively. These tools are tailored to the challenge category; all are included for the ’pwn’ and ’rev’ categories, but tools like `disassemble` and `decompile` are excluded for others, such as web challenges, to avoid distractions like attempting to decompile a Python script. Most LLMs cannot execute specific tasks or functions within their responses, known as function calling. This involves converting a natural language request into a structured format that enables built-in functions within the toolkit to be invoked and executed locally. Models from OpenAI natively support function calling, 
 
-7 
 
 and Anthropic models offer partial support. Open-source models such as LLaMA 3 and Mixtral lack this feature. To enable function calling, the formatting module transforms prompt information into a format suitable for function calling (XML and YAML). The formatted information is sent to external tools, allowing LLMs without native function calling to invoke them. 
 
@@ -310,7 +304,6 @@ We conducted experiments on all validated challenges from Section 2, repeating t
 
 Table 4 summarizes the results of our evaluation of five LLMs across six categories of CTF challenges, revealing distinct differences in their abilities. GPT-4 performed the best overall, though its success was limited. Claude showed strong performance in some categories, while GPT-3.5 
 
-8 
 
 demonstrated reasonable competence in certain tasks. Mixtral and LLaMA did not solve any challenges, highlighting the difficulties faced by open-source models. 
 
@@ -346,7 +339,6 @@ To compare the success of LLMs in automatically solving CTFs against human perfo
 
 While CTF challenges can be used for benchmarking task planning and automation, they remain rooted in cyber-attack scenarios, making ethics a critical consideration when employing them. The rapid advancement of LLMs has sparked a range of ethical, security, and privacy concerns, underscoring the need for careful deployment strategies. While LLMs have improved their ability to provide accurate and appropriate responses while reducing the likelihood of responding to illegal requests, misuse risks remain. These include exploitation for social engineering or malware creation, revealing the dual nature of AI as both a tool and a potential threat<sup>[50]</sup> . The legal framework is struggling to keep pace with developments in AI<sup>[38]</sup> . Researchers advocate for explainable AI to foster transparency in LLM decisions, stressing the importance of robust policy frameworks to prevent AI abuse<sup>[5,18]</sup> . In the context of CTFs, integrating LLMs introduces significant ethical considerations. Education tailored to AI ethics is crucial, given the disconnect between current cybersecurity training and rapid advances in AI tools<sup>[24]</sup> . Furthermore, the misuse of LLMs to launch sophisticated attacks 
 
-9 
 
 raises concerns around malicious use<sup>[51]</sup> . However, the benefit of CTFs in cybersecurity education is well-accepted<sup>[30,31]</sup> . In our experiments, we observe no instance where the LLM refuses to solve a challenge due to ethical conflicts, which indicates that current LLMs understand the educational context of CTFs. While this behavior can be misused, further research can help improve LLM alignment and safety. 
 
@@ -381,7 +373,6 @@ This work has been supported in parts by the NYUAD Center for Cyber Security (CC
 
 - [6] M. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. de Oliveira Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, 
 
-10 
 
 P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba. Evaluating large language models trained on code, 2021. URL `https://arxiv.org/abs/2107.03374` . 
 
@@ -419,7 +410,6 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 
 - [23] Huggingface. Text generation inference. `https://github.com/huggingface/ text-generation-inference` , 2024. 
 
-11 
 
 - [24] D. Jackson, S. A. Matei, and E. Bertino. Artificial intelligence ethics education in cybersecurity: Challenges and opportunities: a focus group report, 2023. 
 
@@ -455,7 +445,6 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 
 - [40] T. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, L. Zettlemoyer, N. Cancedda, and T. Scialom. Toolformer: Language models can teach themselves to use tools, 2023. URL `https://arxiv.org/abs/2302.04761` . 
 
-12 
 
 - [41] M. Shao, B. Chen, S. Jancheska, B. Dolan-Gavitt, S. Garg, R. Karri, and M. Shafique. An empirical evaluation of llms for solving offensive security challenges, 2024. URL `https: //arxiv.org/abs/2402.11814` . 
 
@@ -483,7 +472,6 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 
 - [53] J. Yang, A. Prabhakar, S. Yao, K. Pei, and K. R. Narasimhan. Language agents as hackers: Evaluating cybersecurity skills with capture the flag. In _Multi-Agent Security Workshop @ NeurIPS’23_ , 2023. URL `https://openreview.net/forum?id=KOZwk7BFc3` . 
 
-13 
 
 ---
 
@@ -525,7 +513,6 @@ LLM Installing Tools for a Mobile Challenge<br>[Assistant]<br>The jar command, t
 
 Figure 6: LLM Solver Excerpts for the "AndroidDropper" Miscellaneous Challenge in Table 3. 
 
-14 
 
 #### LLM Solving a Reverse Engineering Challenge 
 
@@ -576,7 +563,6 @@ The LLM can run commands in an Ubuntu 22.04 container with the following softwar
 
 For the 2023 CSAW Quals web challenge, _Smug Dino_ , we analyzed 31 LLM agent conversations powered by either the GPT 3.5 or GPT 4 model. This challenge centered around CVE-2019-20372 and exposed a "hint" HTML page to point to that exploit. Players able to supply some recon of the underlying (and exploitable) NGINX server powering the challenge were provided the year of the CVE along with the nature of the exploit. Of the five available public solutions for this challenge 
 
-15 
 
 hosted on _github.com_ , four documented the contents of the "hint" page and three identified the CVE. None of the LLM agents referred to these public solutions in their conversation transcripts. 
 
@@ -617,7 +603,6 @@ Table 7: LLM invocation of common web exploit tools on _Smug Dino_
 
 Each transcript demonstrated a range in the sophistication of tactics; from performing common web exploit techniques such as those listed above; to examining headers and even making inferences on the challenge name to craft CURL payloads capable for performing the required smuggling attack. 
 
-16 
 
 ---
 
@@ -684,7 +669,6 @@ This appendix lists all 200 challenge instances for each category, including eac
 
 Table 8: NYU CTF Crypto Challenges. 
 
-17 
 
 |Challenge|**Description**|**Tools**|
 |---|---|---|
@@ -752,7 +736,6 @@ Table 9: NYU CTF Forensics Challenges.
 
 Table 10: NYU CTF Pwn Challenges. 
 
-18 
 
 |Challenge<br>rabbithole|**Description**<br>How far down the rabbit hole canyougo?|**Tools**<br>python|
 |---|---|---|
@@ -838,7 +821,6 @@ Table 11: NYU CTF Reverse Engineering Challenges.
 
 Table 12: NYU CTF Web Challenges. 
 
-19 
 
 |Challenge|**Description**|**Tools**|
 |---|---|---|
@@ -871,7 +853,6 @@ Table 12: NYU CTF Web Challenges.
 
 Table 13: NYU CTF Miscellaneous Challenges. 
 
-20 
 
 ---
 
@@ -923,7 +904,6 @@ Guidelines:
 
 Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof? 
 
-21 
 
 Answer: [NA] 
 
@@ -971,7 +951,6 @@ Guidelines:
 
 - (d) We recognize that reproducibility may be tricky in some cases, in which case authors are welcome to describe the particular way they provide for reproducibility. In the case of closed-source models, it may be that access to the model is limited in 
 
-22 
 
 some way (e.g., to registered users), but it should be possible for other researchers to have some path to reproducing or verifying the results. 
 
@@ -1027,7 +1006,6 @@ Justification: We do not perform statistical experiments in the paper due to the
 
 Guidelines: 
 
-23 
 
 - The answer NA means that the paper does not include experiments. 
 
@@ -1085,7 +1063,6 @@ Question: Does the paper discuss both potential positive societal impacts and ne
 
 Answer: [Yes] 
 
-24 
 
 Justification: The potential positive and negative societal impacts of our work are mentioned throughout the paper, and specifically discussed in Section 4.2. Guidelines: 
 
@@ -1131,7 +1108,6 @@ Justification: Each CTF challenge metadata includes the name and GitHub ID of th
 
 - The authors should cite the original paper that produced the code package or dataset. 
 
-25 
 
 - The authors should state which version of the asset is used and, if possible, include a URL. 
 
@@ -1183,7 +1159,6 @@ Question: Does the paper describe potential risks incurred by study participants
 
 Answer: [NA] 
 
-26 
 
 Justification: This paper does not involve crowdsourcing nor research with human subjects. Guidelines: 
 
@@ -1195,5 +1170,4 @@ Justification: This paper does not involve crowdsourcing nor research with human
 
 - For initial submissions, do not include any information that would break anonymity (if applicable), such as the institution conducting the review. 
 
-27 
 

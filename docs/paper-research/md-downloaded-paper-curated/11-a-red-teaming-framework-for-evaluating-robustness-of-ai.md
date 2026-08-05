@@ -80,7 +80,6 @@ This section reviews three bodies of literature that converge on the problem of 
 
 Evaluating autonomous cyber agents requires simulation environments that model realistic network topologies, multi-agent interaction, and partial observability. Several platforms have been developed to address this need. Microsoft’s CyberBattleSim[14] provides a high-level abstraction of enterprise networks focused on post-breach lateral movement, using an OpenAI Gym interface to train RL agents; however, its abstract nature limits the fidelity of defensive responses. FARLAND[15] (Framework for Advanced Reinforcement Learning for Autonomous Network Defense), a MITRE–NSA collaboration, supports progressive complexity scaling and software-defined network reconfiguration for blue agent training, but focuses exclusively on defensive operations. CybORG[11] introduced a dual-mode research gym, combining low-fidelity simulation for rapid training with high-fidelity emulation on real virtual machines supporting both red and blue team agents through an OpenAI Gym-compatible interface. Early experiments with Deep Double Q-Network 
 
-2 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -102,7 +101,6 @@ Despite these advances, LLMs face fundamental limitations as standalone autonomo
 
 Reinforcement learning has been applied to both offensive and defensive cyber operations, leveraging its ability to learn optimal sequential decision-making policies through environment interaction. The CAGE Challenge series has driven the development of increasingly sophisticated RL approaches. The Cybermonic KEEP submission[20] employed graph convolutional networks (GCNs) with self-attention to process network 
 
-3 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -124,7 +122,6 @@ In the broader AI agent literature, hierarchical architectures that separate hig
 
 To the best of our knowledge, no prior work has proposed a hierarchical architecture that uses a frozen LLM as a strategic planner providing structured intent to a trainable RL controller for autonomous red team operations on AI-enabled cyber defense systems. While Singh et al.[13] employ a hierarchical decomposition for RL-based defense, and Castro et al.[9] combine LLMs and RL at the team level for defense, neither integrates LLM strategic reasoning with RL tactical learning within a single offensive agent. Existing LLMbased security agents lack the ability to improve through environment interaction; existing RL-based cyber agents lack strategic reasoning and domain knowledge priors. Our framework bridges this gap by decoupling strategic planning (LLM) from tactical execution (RL), allowing each component to operate in its area of strength: the LLM contributes knowledge of attack tactics and strategic reasoning about target selection, while the RL controller learns environment-specific tactical execution through thousands of training episodes 
 
-4 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -177,7 +174,6 @@ Observations are transformed into two complementary representations:
 
 The LLM outputs a structured intent object containing discrete and continuous attributes (e.g., action category, target, confidence), which is encoded into a fixed-dimensional embedding before being consumed by the RL controller. 
 
-5 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -229,7 +225,6 @@ To enhance long-horizon reasoning, the planner can optionally maintain a bounded
 
 Reflections are stored in a bounded first-in, first-out (FIFO) buffer and incorporated into the planner’s input at the start of subsequent episodes. This provides cross-episode strategic context without modifying model parameters, enabling the frozen LLM to adapt its planning behavior through natural language feedback rather than gradient updates. This mechanism complements the RL controller’s weight-based learning. While policy optimization encodes tactical improvements through interaction data, the Reflexion framework enables rapid, explicit adjustments to high-level strategy, allowing the agent to improve both action selection and temporal decision-making across episodes. 
 
-6 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -257,7 +252,6 @@ For our proposed hybrid configuration, the LLM planner operates at a planning ho
 
 The RL controller maps the shared state vector and the encoded LLM intent to a discrete action drawn from a 10-action space aligned with MITRE ATT&CK tactics (see Table 2). A state encoder compresses the observation into a 128-dimensional embedding via a two-layer residual network with layer normalization. 
 
-7 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -292,7 +286,6 @@ Table 2: Discrete action space aligned with MITRE ATT&CK tactics. Actions 0–3 
 
 We evaluate our approach by comparing with two other agent configurations to isolate the contribution of each component in our framework: 
 
-8 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -337,7 +330,6 @@ We evaluate red team performance over 200 episodes using environment-native metr
 
 - **Episode compromise rate (ECR)** : the fraction of episodes in which the agent achieves at least one host compromise through its own exploitation actions. This is our primary comparison metric, as it directly measures whether the agent can execute the attack kill chain. 
 
-9 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -394,7 +386,6 @@ For LLM-integrated configurations, the LLM is deployed as a local vLLM server on
 
 We first evaluate the proposed hierarchical LLM-RL framework and then compare it against standalone LLM and RL baselines. 
 
-10 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -442,7 +433,6 @@ Domain-specific models are not competitive despite generating substantially high
 
 The RL-only agent exhibits a degenerate policy collapse, selecting a single reconnaissance action ( _DiscoverRemoteSystems_ ) in nearly all timesteps. Across 200 evaluation episodes, it fails to achieve any successful compromise (0% success rate). This behavior reflects a failure of reward-driven exploration to discover the structured sequence of actions required for multi-stage attacks, instead converging to a local optimum that maximizes immediate reward through repeated discovery actions. 
 
-11 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -471,7 +461,6 @@ We present a hierarchical LLM-RL framework for evaluating the robustness of AI-e
 
 Second, integrating LLM planning with RL execution yields a multiplicative improvement. The hierarchical system achieves near-universal episode-level compromise and substantially higher root access rates than either component alone. The LLM provides high-level strategic intent over kill-chain progression, while 
 
-12 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -519,7 +508,6 @@ Distribution statement: Approved for public release; distribution is unlimited.
 
 - [7] Cameron Thomas Stark. Generative artificial intelligence tools for red teams. Technical report, Sandia National Laboratories (SNL-NM), Albuquerque, NM (United States), 2024. 
 
-13 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
@@ -557,11 +545,9 @@ A Prepprint
 
 - [23] John Schulman, Philipp Moritz, Sergey Levine, Michael Jordan, and Pieter Abbeel. High-dimensional continuous control using generalized advantage estimation. In _Proc. Int. Conf. Learning Representations (ICLR)_ , 2016. arXiv:1506.02438. 
 
-14 
 
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Preprint 
 
 - [24] Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody Hao Yu, Joseph Gonzalez, Hao Zhang, and Ion Stoica. Efficient memory management for large language model serving with pagedattention. In _Proceedings of the 29th symposium on operating systems principles_ , pages 611–626, 2023. 
 
-15 
 

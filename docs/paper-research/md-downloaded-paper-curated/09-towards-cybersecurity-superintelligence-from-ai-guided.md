@@ -45,7 +45,6 @@ Despite exaggerated claims of full autonomy<sup>1</sup> in cybersecurity, benchm
 
 > 1There is a dangerous gap between automation and autonomy in cybersecurity [4]. Organizations deploying mischaracterized _autonomous_ tools risk reducing oversight precisely when it is most needed, potentially creating new vulnerabilities. As also described in [5], autonomy is typically treated as a system-level attribute, not a single component feature you _bolt on_ . In other words, we argue one does not magically get autonomy by swapping in an LLM; you get it when the overall system has delegated decision-making capability. 
 
-1 
 
 security-specialized LLMs, like the `alias` series of models<sup>2</sup> . The possibility of _specialized_ superintelligence is no longer speculative: as observed in [8], “we are running out of intelligence tests that humans can pass reliably and AI models cannot.” If intelligence is essentially computational (the view held by most computational neuroscientists), then a working simulation of intelligence actually _is_ intelligence; it turned out to be a matter of scaling computation [8]. This reframes the question from _whether_ machines can achieve superintelligent cybersecurity capabilities to _how_ to architect systems to reach that threshold. 
 

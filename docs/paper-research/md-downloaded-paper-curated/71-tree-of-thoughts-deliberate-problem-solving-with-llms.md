@@ -99,7 +99,6 @@ We first formalize some existing methods that use large language models for prob
 
 **Input-output (IO) prompting** is the most common way to turn a problem input _x_ into output _y_ with LM: _y ∼ pθ_ ( _y|_ `prompt` _IO_ ( _x_ )), where `prompt` _IO_ ( _x_ ) wraps input _x_ with task instructions and/or few-shot input-output examples. For simplicity, let us denote _p_<sup>prompt</sup> _θ_ ( `output` _|_ `input` ) = _pθ_ ( `output` _|_ `prompt` ( `input` )), so that IO prompting can be formulated as _y ∼ p_<sup>_IO_</sup> _θ_<sup>(</sup><sup>_y|x_).</sup> 
 
-2 
 
 **Chain-of-thought (CoT) prompting** [38] was proposed to address cases where the mapping of input _x_ to output _y_ is non-trivial (e.g. when _x_ is a math question and _y_ is the final numerical answer). The key idea is to introduce a chain of _thoughts z_ 1 _, · · · , zn_ to bridge _x_ and _y_ , where each _zi_ is a coherent language sequence that serves as a meaningful intermediate step toward problem solving (e.g. _zi_ could be an intermediate equation for math QA). To solve problems with CoT, each thought _zi ∼ p_<sup>_CoT_</sup> _θ_ ( _zi | x, z_ 1 _···i−_ 1) is sampled sequentially, then the output _y ∼ p_<sup>_CoT_</sup> _θ_ ( _y|x, z_ 1 _···n_ ). In practice, [ _z_ 1 _···n, y_ ] _∼ p_<sup>_CoT_</sup> _θ_ ( _z_ 1 _···n, y|x_ ) is sampled as a continuous language sequence, and the **decomposition** of thoughts (e.g. is each _zi_ a phrase, a sentence, or a paragraph) is left ambiguous. 
 
@@ -128,7 +127,6 @@ To address these shortcomings, we introduce _Tree of Thoughts (ToT)_ , a paradig
 
 **3. State evaluator** _V_ ( _pθ, S_ ) **.** Given a frontier of different states, the state evaluator evaluates the progress they make towards solving the problem, serving as a _heuristic_ for the search algorithm to determine which states to keep exploring and in which order. While heuristics are a standard approach to solving search problems, they are typically either programmed (e.g. DeepBlue [3]) or 
 
-3 
 
 learned (e.g. AlphaGo [29]). We propose a third alternative, by using the LM to deliberately reason about states. When applicable, such a deliberate heuristic can be more flexible than programmed rules, and more sample-efficient than learned models. Similar to the thought generator, we consider two strategies to evaluate states either independently or together: 
 
@@ -169,7 +167,6 @@ Conceptually, ToT has several benefits as a method for general problem-solving w
 
 We propose three tasks that are hard even when sampling from the state-of-the-art language model, GPT-4 [23], using standard IO prompting or chain-of-thought (CoT) prompting. We show how 
 
-4 
 
 ||**Game of 24**|**Creative Writing**|**5x5 Crosswords**|
 |---|---|---|---|
@@ -204,7 +201,6 @@ Figure 2: ToT in a game of 24. The LM is prompted for (a) thought generation and
 
 > 1Experiments were done between May 5-16, 2023. 
 
-5 
 
 
 ```text
@@ -238,7 +234,6 @@ Next, we invent a creative writing task where the input is 4 random sentences an
 
 **Results.** Figure 5(a) shows average GPT-4 scores across 100 tasks, where ToT (7.56) is deemed to generate more coherent passages than IO (6.19) and CoT (6.93) on average. While such an automatic metric might be noisy, Figure 5(b) confirms the finding by showing that humans prefer ToT over CoT in 41 out of 100 passage pairs, while only prefer CoT over ToT in 21 (other 38 pairs are found “similarly coherent”). Lastly, iterative-refine is more effective on this natural language task, where 
 
-6 
 
 
 ```text
@@ -270,7 +265,6 @@ In Game of 24 and Creative Writing, ToT is relatively shallow — at most 3 thou
 
 **ToT setup.** We leverage a depth-first search (Algorithm 2) that keeps exploring the most promising subsequent word clue until the state is no longer promising, then backtrack to the parent state to explore alternative thoughts. To make search tractable, subsequent thoughts are constrained not to change any filled words or letters, so that the ToT has at most 10 intermediate steps. For thought generation, at each state we translate all existing thoughts (e.g. “h2.motor; h1.tasks” for the state in Figure 6(a)) into letter constraints for remaining clues (e.g. “v1.To heap: tm ~~;~~ ...”) and prompt a proposal prompt 5 times to come up with candidates for where and what to fill in the next word. Importantly, we also prompt the LM to give a confidence level for different thoughts, and aggregate 
 
-7 
 
 
 
@@ -303,7 +297,6 @@ these across proposals to obtain a sorted list of next thoughts to explore (Figu
 
 > 2For example, “agend” is an obsolete form of “agendum”, but GPT-4 deems it a typo for “agenda”. External retrieval or web interaction could augment LM for problem solving under knowledge uncertainty. 
 
-8 
 
 reasoning as planning with its internal world model, and proposes a MCTS-based method similar to ToT. However, its tasks are simpler than ours, and its framework lacks the modularity to incorporate different tree search algorithms. 
 
@@ -321,7 +314,6 @@ reasoning as planning with its internal world model, and proposes a MCTS-based m
 
 **Conclusion.** The associative “System 1” of LMs can be beneficially augmented by a “System 2” based on searching a tree of possible paths to the solution to a problem. The Tree of Thoughts framework provides a way to translate classical insights about problem-solving into actionable methods for contemporary LMs. At the same time, LMs address a weakness of these classical methods, providing a way to solve complex problems that are not easily formalized, such as creative writing. We see this intersection of LMs with classical approaches to AI as an exciting direction. 
 
-9 
 
 ### **Broader Impact** 
 
@@ -361,7 +353,6 @@ SY and KN acknowledge support from an Oracle Collaborative Research award and th
 
 - [13] W. Huang, F. Xia, T. Xiao, H. Chan, J. Liang, P. Florence, A. Zeng, J. Tompson, I. Mordatch, Y. Chebotar, et al. Inner monologue: Embodied reasoning through planning with language models. _arXiv preprint arXiv:2207.05608_ , 2022. 
 
-10 
 
 - [14] J. Jung, L. Qin, S. Welleck, F. Brahman, C. Bhagavatula, R. L. Bras, and Y. Choi. Maieutic prompting: Logically consistent reasoning with recursive explanations. _arXiv preprint arXiv:2205.11822_ , 2022. 
 
@@ -403,7 +394,6 @@ SY and KN acknowledge support from an Oracle Collaborative Research award and th
 
 - [33] S. Verma, J. Fu, S. Yang, and S. Levine. Chai: A chatbot ai for task-oriented dialogue with offline reinforcement learning. In _Proceedings of the 2022 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies_ , pages 4471–4491, 2022. 
 
-11 
 
 - [34] E. Wallace, N. Tomlin, A. Xu, K. Yang, E. Pathak, M. Ginsberg, and D. Klein. Automated crossword solving. _arXiv preprint arXiv:2205.09665_ , 2022. 
 
@@ -427,7 +417,6 @@ SY and KN acknowledge support from an Oracle Collaborative Research award and th
 
 - [44] X. Zhu, J. Wang, L. Zhang, Y. Zhang, R. Gan, J. Zhang, and Y. Yang. Solving math word problem via cooperative reasoning induced language models. _arXiv preprint arXiv:2210.16257_ , 2022. 
 
-12 
 
 ---
 
@@ -505,7 +494,6 @@ Analyzeeachchoiceindetail,thenconcludeinthelastline
 ’’’
 ```
 
-13 
 
 We evaluated on a subset of 100 random GSM8K test and StrategyQA dev questions. As shown in Table 4 and as expected, ToT improves over CoT on both tasks (but only slightly, given GPT-4 + CoT is already very good on such tasks, and StrategyQA’s bottleneck is external knowledge, not reasoning). Considering computational costs, it is more suitable to try smaller LLMs + ToT for traditional NLP tasks, or GPT-4 + ToT for hard tasks that challenge GPT-4 + CoT’s reasoning. 
 
@@ -551,5 +539,4 @@ So completing Game of 24 and Creative Writing’s main ToT experiments cost arou
 
 - We believe that more computation is indeed required in order for the model to achieve stronger intelligence, and this should not become a blocking issue as in the long run, (opensource) LMs will become much cheaper and more efficient. It is also a great direction how to better train/finetune LMs for thought generation and/or evaluation. 
 
-14 
 

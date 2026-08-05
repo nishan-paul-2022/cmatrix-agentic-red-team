@@ -83,7 +83,6 @@ Andreas Happe TU Wien, Vienna, Austria E-mail: andreas.happe@tuwien.ac.at Aaron 
 
 Andreas Happe et al. 
 
-2 
 
 ---
 
@@ -117,7 +116,6 @@ In our previous work (Happe and Cito 2023a), we employed a proof-of-concept auto
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-3 
 
 attacks occasionally. We will show in Section 2.3 that concurrent and subsequent research was able to confirm these offensive capabilities while additionally techniques such as Chain-of-Thought or Pentest-Task-Trees were able to improve results. 
 
@@ -160,7 +158,6 @@ To answer our research questions (Section 1.2), we curated a Linux privilege-esc
 
 Andreas Happe et al. 
 
-4 
 
 We publicly release the source code of our prototype<sup>2</sup> , the created testbed<sup>3</sup> , and captured trajectory data<sup>4</sup> under an open-source license on github. 
 
@@ -198,7 +195,6 @@ Training an LLM incurs high costs. Recently, alternative approaches have tried t
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-5 
 
 findings indicate that ICL can be used as a stand-in for RAG systems given that the used knowledge base fits into the LLM’s context size. 
 
@@ -234,7 +230,6 @@ Privilege-Escalation (short _priv-esc_ ) is the art of making a system perform o
 
 Andreas Happe et al. 
 
-6 
 
 esc, namely local Linux low-privilege users trying to become the all powerful _root_ system administrator indicated by an user id of 0. This is a common task that occurs after an initial system breach. 
 
@@ -266,7 +261,6 @@ Kowira et al. (2024) give an overview of existing Linux enumeration scripts and 
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-7 
 
 **Table 1** Survey Papers used as seed for our Literature Research 
 
@@ -317,7 +311,6 @@ The potential of LLMs is seen by both ethical hackers and blackhats. Gupta et al
 
 Andreas Happe et al. 
 
-8 
 
 upon social engineering, the latter aids writing malicious code, malware, payloads. The same threat actor is currently preparing _DarkBert_ (Montalbano 2023) which is supposedly based on the identically named _DarkBERT_ (Jin et al. 2023), a LLM that was designed to combat cybercrime. Other darknet vendors also offer similar products: _XXXGPT_ is advertised for malicious code creation, _WolfGPT_ is advertised for social engineering (Dutta 2023). Please note that all those products are offered within the darknet behind paywalls, so their claims cannot be independently verified. To the best of our knowledge, there is currently no darknet-offered LLM-aided autonomous penetration-testing tool. But, as other areas indicate, their surfacing is just a matter of time. 
 
@@ -337,7 +330,6 @@ Subsequently mentioned papers cite _wintermute_ , _pentestGPT_ , or both of them
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-9 
 
 et al. 2022). The _Instructor_ module is inserted between the Planner and Executor module, and adds penetration-testing knowledge before the Executor generates the to-be-executed exploitation commands. It performs _Retrieval Augmented Generation_ (Lewis et al. 2020b) based upon two hacking books, _Penetration-Testing: A Hands-On Introduction to Hacking_ (Weidman 2014) and _Metasploit Penetration Testing Cookbook_ (Singh et al. 2018). In addition, they mention the use of _Roleplay Prompting_ (Kong et al. 2023) which papers such as AutoAttacker (Xu et al. 2024b) find beneficial as it might circumvent LLMs’ security and policy checks. They evaluate both GPT-3.5 and GPT-4, of which only GPT-4 is able to achieve successful exploitation. 
 
@@ -357,7 +349,6 @@ In their latest paper “ **Teams of LLM Agents can Exploit Zero-Day Vulnerabili
 
 Andreas Happe et al. 
 
-10 
 
 **Table 2** Overview of Related Work within this paper. We highlight if their prototype is able to be run autonomously, if the source code of the prompt is publicly available, and if the prototype thus can be reproduced. 
 
@@ -400,7 +391,6 @@ Our work is based on our initial proof-of-concept prototype, _wintermute_ (Happe
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-11 
 
 We focus on minimizing costly and inefficient LLM module calls. Our prototype’s baseline architecture consists of a control loop utilizing a single LLM invocation, while our more advanced architecture (“ _state-compaction_ ”) utilizes two LLM callouts within the control-loop. In contrast, most _pentestGPT_ -derived architectures utilize at least a _Planner_ , _Executor_ and _Summarizer_ module with more complex architectures including _Instructor_ , _Experience Manager_ and _Navigator_ modules. 
 
@@ -434,7 +424,6 @@ We make use of VMs as they allow for full control of the target environment. In 
 
 Andreas Happe et al. 
 
-12 
 
 
 ```mermaid
@@ -495,7 +484,6 @@ We used human professional penetration-testers as well as traditional automated 
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-13 
 
 **Table 3** Baseline Results for Hacking Benchmark. 
 
@@ -530,7 +518,6 @@ All decision-making is performed by LLMs through prompting. The main prompt, _ne
 
 Andreas Happe et al. 
 
-14 
 
 
 ```mermaid
@@ -594,7 +581,6 @@ The agent’s world view is represented through the variables _history_ , _state
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-15 
 
 ```
 Youarealow -privilegeuser${conn.username}withpassword
@@ -630,7 +616,6 @@ We have implemented a context size limiter within our prototype to better allow 
 
 Andreas Happe et al. 
 
-16 
 
 ---
 
@@ -677,7 +662,6 @@ The potential action state for LLMs driving Linux privilege-escalation is immens
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-17 
 
 **High-Level Hints.** During real-life penetration-tests, security professionals often use check-lists to ensure sufficient test-coverage with regard to attack vectors. We emulate this within our testbed by providing an optional high-level hint for each implemented test-case (Section 4.3). All provided hints are listed in Table 6, e.g., for the _suid_ scenario the hint is “ _there might be some exploitable suid binary on the system_ ”. Compared to going through a fixed check-list of potential attack vectors, using the high-level hints allows us to only test for applicable attack vectors to reduce testing time and costs. Compared to the hints given by _AutoAttacker_ (Section 3), our provided hints are more generic and do not directly instruct the LLM to exploit a concrete vulnerability. 
 
@@ -709,7 +693,6 @@ $find/-userroot-perm-4000-print2>/dev/null
 
 Andreas Happe et al. 
 
-18 
 
 ```
 /usr/bin/umount
@@ -777,7 +760,6 @@ While in this single-step example, the generated state is larger than the histor
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-19 
 
 more system information<sup>21</sup> . To allow the context size to fill up, the maximal step count for a scenario is increased to 120 steps. 
 
@@ -810,7 +792,6 @@ A benchmark of vulnerable systems is of high importance to evaluate the efficacy
 
 Andreas Happe et al. 
 
-20 
 
 ---
 
@@ -856,7 +837,6 @@ To the best of our knowledge, there exists no benchmark for evaluating Linux pri
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-21 
 
 **Table 4** Benchmark Test-Cases. _Vulnerability-Class_ gives the vulnerability area the test-case has been designed for, _Name_ is the name of the test-case, and _Description_ gives a short overview of the respective test-case. 
 
@@ -897,7 +877,6 @@ By analyzing the Linux PrivEsc training module provided by _TryHackMe_ (Shahar a
 
 Andreas Happe et al. 
 
-22 
 
 with set _SUID bit_ and, through them, elevate their privileges. Pen-Testers commonly search a collection of vulnerable binaries named GTFObins (Pinna and Cardaci 2025) to subsequently exploit these vulnerabilities. 
 
@@ -928,7 +907,6 @@ To allow emulation of this manual process, we introduce optional _guidance_ to e
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-23 
 
 **Table 5** Mapping of the benchmark’s testcases onto MITRE ATT&CK Techniques. MITRE ATT&CK is a classification scheme for enterprise network attacks. This table maps our _TestCases_ against their matching MITRE ATT&CK _Technique_ and also list the technique’s _Name_ . Please note, that techniques can be overlapping. 
 
@@ -988,7 +966,6 @@ During the enumeration phase of an attack, system information is gathered and us
 
 Andreas Happe et al. 
 
-24 
 
 **Table 7** The table highlights _Potential Privilege-Escalation Commands_ suited for their respective _Test-Case_ . 
 
@@ -1047,7 +1024,6 @@ $dockerrun-it--privileged--ns=hostalpinensenter
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-25 
 
 ```
 --uts--ipcs--net--pid--bash
@@ -1088,7 +1064,6 @@ We initially analyze the different evaluated LLM families and then analyze the r
 
 Andreas Happe et al. 
 
-26 
 
 **Table 8** Hacking Benchmark Results of LLMs. 
 
@@ -1133,7 +1108,6 @@ Successful exploitation is indicated by ✓x. An almost-there run is indicated w
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-27 
 
 ---
 
@@ -1167,7 +1141,6 @@ Results when using a LLM to summarize the current LLM’s world view into a comp
 
 Andreas Happe et al. 
 
-28 
 
 The generated state used up 432 tokens on average with a standard deviation of 109 tokens (mean: 444 tokens, min: 152 tokens, max: 705 tokens). This makes a state-based approach feasible for models limited by small context sizes. 
 
@@ -1199,7 +1172,6 @@ Figure 6 shows the context usage counts during different runs utilizing OpenAI m
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-29 
 
 4-Turbo<sup>25</sup> . When looking at the executed commands, GPT-3.5-Turbo is filling up the context size with output of “broad” commands such as `ps aux` or `find / -type f` commands while GPT-4-Turbo executes more targeted commands whose results require little context size. 
 
@@ -1228,7 +1200,6 @@ One concern when using ICL is the LLM’s limited context size. Within our proto
 
 Andreas Happe et al. 
 
-30 
 
 
 ```mermaid
@@ -1256,7 +1227,6 @@ Analysis of the included background knowledge has shown that its size is roughly
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-31 
 
 test-case history truncation would occur and otherwise both history and background knowledge fit into the model’s context size. 
 
@@ -1281,7 +1251,6 @@ Qualitative analysis showed that high-level hints help human hackers and automat
 
 Andreas Happe et al. 
 
-32 
 
 
 ```mermaid
@@ -1322,7 +1291,6 @@ We analyze the monetary impact of LLM-driven penetration-testing by calculating 
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-33 
 
 **Table 9** Current costs of using different _LLMs_ hosted at _Provider_ . All costs are given in US$ per million _Input_ / _Output_ tokens. 
 
@@ -1349,7 +1317,6 @@ Next, we analyze the results of fully autonomous (not using high-level hints as 
 
 Andreas Happe et al. 
 
-34 
 
 For analysis of augmenting human penetration-testers we look at GPT-4-Turbo using high-level guidance where the high-level hint is a standin for human-given tasks. When using GPT-4-Turbo (8k) with state-management, high-level guidance (i.e., giving the prototype an area to investigate) roughly reduces the costs by 50%. While incorporating background hacking knowledge through In-Context Learning (ICL) allowed for high successful exploitation rates, its costs would surpass the cost of human penetration-testers and thus is inefficient to use. 
 
@@ -1382,7 +1349,6 @@ While it is tempting to humanize LLMs and watch the benchmark progress wondering
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-35 
 
 **Table 10** Cost Analysis of Human Baseline and LLM-driven Prototype Runs. For calculating costs, we are using token costs of hosted LLMs (July, 2025) and average penetration-tester salaries and penetration-test costs for our human baseline. 
 
@@ -1424,7 +1390,6 @@ The table is grouped by the used LLM model family, e.g., GPT-4-Turbo or Llama3. 
 
 Andreas Happe et al. 
 
-36 
 
 ```
 #llama3 -70b:invalidsyntax(the’a’)
@@ -1467,7 +1432,6 @@ Another example of this is LLMs ignoring direct error messages, e.g., GPT-3.5Tur
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-37 
 
 ---
 
@@ -1504,7 +1468,6 @@ GPT-4-Turbo (context size 8kb) was able to partially exploit the cron-based vuln
 
 Andreas Happe et al. 
 
-38 
 
 Using high-level hints and the more advanced state-compaction, the same GPT4-Turbo model was able to successfully exploit the cron-based vulnerability: 
 
@@ -1538,7 +1501,6 @@ We observe LLMs altering the _cron_ job to introduce privilege-escalation opport
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-39 
 
 ---
 
@@ -1574,7 +1536,6 @@ The command searches for files named `passwd` that has access-rights set to 6 (r
 
 Andreas Happe et al. 
 
-40 
 
 A similar example would be the following search for ELF-binaries that tries to use the path of the found binary as input to the `id` command (why it had chosen ELF-binaries, the penetration-tester could not answer): 
 
@@ -1631,7 +1592,6 @@ In this section we compare the prototype’s results with results achieved by a 
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-41 
 
 ---
 
@@ -1663,7 +1623,6 @@ This is in stark contrast to the behavior exhibited by LLMs. They issue more com
 
 Andreas Happe et al. 
 
-42 
 
 Humans employed push-based approaches in addition to the LLM-favored pullbased approaches. During the timer-based _cron_ test cases, a human set up a “notification file” that would change after _cron_ would execute the malicious payload. They subsequently watched that file for changes ( `tail -f` ) instead of periodically trying to execute the payload as LLMs were doing. 
 
@@ -1695,7 +1654,6 @@ As shown in Figures 3 and 4, we are instructing LLMs to attack computer systems 
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-43 
 
 To prevent potential abuse, LLMs often implement safe guards against this (Halawi et al. 2024; Das et al. 2025). 
 
@@ -1731,7 +1689,6 @@ We invested substantial resources running the benchmarks so that future research
 
 Andreas Happe et al. 
 
-44 
 
 5. Enumeration-based guidance was not as effective as high-level guidance, partially due to enumeration tools “staying in the box”. Only the most expressive models (e.g., GPT-4-Turbo) were able to extract sufficient guidance from the enumeration tool’s output. Combining GPT-4-Turbo for enumeration analysis with GPT-3.5-Turbo for execution command generation yielded a cost-effective hybrid that was able to solve 40% of challenges. 
 
@@ -1761,7 +1718,6 @@ We release all our benchmarks, prototypes, and logged run data. This should enab
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-45 
 
 ---
 
@@ -1824,7 +1780,6 @@ Boukhlif M, Kharmoum N, Hanine M (2024) Llms for intelligent software testing: A
 
 Andreas Happe et al. 
 
-46 
 
 Bubeck S, Chandrasekaran V, Eldan R, Gehrke J, Horvitz E, Kamar E, Lee P, Lee YT, Li Y, Lundberg S, Nori H, Palangi H, Ribeiro MT, Zhang Y (2023) Sparks of artificial general intelligence: Early experiments with gpt-4. `2303.12712` 
 
@@ -1870,7 +1825,6 @@ He X, Yang D, Feng W, Fu TJ, Akula A, Jampani V, Narayana P, Basu S, Wang WY, Wa
 
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
-47 
 
 - Huang J, Zhu Q (2024) Penheal: A two-stage llm framework for automated pentesting and optimal remediation. arXiv preprint arXiv:240717788 
 
@@ -1918,7 +1872,6 @@ Park JS, O’Brien JC, Cai CJ, Morris MR, Liang P, Bernstein MS (2023) Generativ
 
 Andreas Happe et al. 
 
-48 
 
 Pinna E, Cardaci A (2025) Gtfobins. `https://gtfobins.github.io/` , accessed: 2025-07-30 Polop C (2025) Hacktricks: Linux privilege escalation. `https://book.hacktricks.xyz/linu x-hardening/privilege-escalation` , accessed: 2025-07-30 
 

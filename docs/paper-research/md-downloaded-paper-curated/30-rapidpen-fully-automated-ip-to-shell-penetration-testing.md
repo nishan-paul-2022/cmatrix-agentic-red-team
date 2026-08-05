@@ -90,7 +90,6 @@ Comparing highly skilled human penetration testers with existing _human-in-the-l
 
 **RQ1:** _Can reusing “success cases” (i.e., past experiences_ 
 
-1 
 
 _with successful scans and exploit paths) enhance the speed and reliability of initial-access automation?_ 
 
@@ -148,7 +147,6 @@ Penetration testing (pentesting) is a structured process for identifying and val
 
 Penetration testing plays a crucial role in cybersecurity: rigorous simulated attacks can expose complex weaknesses that static code analysis or automated scanners might overlook. By emulating real-world threats, pentesters help organizations prioritize remediation efforts and improve their overall security posture. overall security posture of modern software ecosystems. 
 
-2 
 
 ---
 
@@ -216,7 +214,6 @@ RapidPen operates under the assumption that it can establish TCP connections to 
 
 - **Pre-Scanning Recon Excluded.** Passive reconnaissance steps, such as searching domain records or metadata leaks, are beyond the scope of this study. Instead, we focus on active port scanning as the starting point. 
 
-3 
 
 - **No Post-Exploitation.** RapidPen does not attempt privilege escalation or lateral movement once a shell is acquired. 
 
@@ -282,7 +279,6 @@ Figure 1: The high-level architecture of RapidPen, illustrating user inputs and 
 
 1 { 2 "version": "2" , 3 "metadata": { 4 "started_at": "2025-02-13T22:01:52Z" , 
 
-4 
 
 5 "finished_at": "2025-02-13T22:08:00Z" , 6 "status": "SUCCESS" , 7 "attacker": { "LHOST": "10.10.14.22" } , 8 "target": { 9 "description": "HTB Blue machine" , 10 "RHOST": "10.10.10.40" 11 } 12 } , 13 "root": { 14 "id": "1" , 15 "title": "Reconnaissance" , 16 "act_results": [{ 17 "command": "(omit)" , 18 "timeout_sec": 60 , 19 "exit_code": 0 , 20 "exit_class": "SUCCESS" , 21 "log_summary": "(omit)" 22 }] , 23 "subtasks": [ 24 ... 25 ] 26 } 27 } 
 
@@ -351,7 +347,6 @@ Figure 5: The _Act (L1)_ module processes runnable tasks through three key stage
 
 While _ReAct_ provides a general “reasoning–acting” pattern, RapidPen enhances this approach with two specialized _Retrieval-Augmented Generation (RAG)_ repositories for domain-specific commands and proven exploit steps: 
 
-5 
 
 1. **Act (L1) Command Generation RAG:** A curated collection of 148 Markdown files from **HackTricks** [4], primarily focused on “Network Services Pentesting” (e.g., SMB, FTP, SSH). These documents provide typical scan commands, exploit techniques, and enumeration strategies relevant to the initial-access phase. The Command Generation module references these documents to generate commands via the LLM. 
 
@@ -424,7 +419,6 @@ Dify provides a secure Python execution environment called _Dify-Sandbox_ , whic
 
 > 2https://smith.langchain.com/ 
 
-6 
 
 our _Act (L1) Command Executor_ requires broader system access to execute real-world pentesting commands. To address this limitation, we implemented a custom Docker image that maintains the same REST API interface as _Dify-Sandbox_ , but without restrictive sandbox policies. This customized container is integrated into our docker compose setup as a direct replacement for the official Dify-Sandbox. It processes the same API calls for command execution while permitting the necessary system calls and network interactions required for pentesting. 
 
@@ -490,7 +484,6 @@ For each run, we reset the environment, then launched RapidPen with a single tar
 
 **Without Success Cases (#11–20).** In contrast, the right column of Figure 6 presents a less favorable outcome. The system succeeded in only **3 out of 10** runs. We also observed more outlier runs that either timed out after multiple scanning attempts or executed redundant exploit attempts. For instance, Run #13 followed an excessively long sequence of unsuccessful attack vectors. Consequently, the average failure time was significantly higher, occasionally exceeding 400 seconds. When an exploit succeeded, execution time was typically below 350 seconds. 
 
-7 
 
 
 *(Image omitted: Refer to paper)*
@@ -530,7 +523,6 @@ The presence of _Success Cases_ significantly improved the success rate, as the 
 
 - **Future Generalization:** We plan to extend testing to machines with partially overlapping but not identical vulnerabilities to assess how well the success-case RAG generalizes. 
 
-8 
 
 
 *(Image omitted: Refer to paper)*
@@ -578,11 +570,8 @@ The current cost and execution time are practical for targeted penetration testi
 
 } ] , ... 
 
-9 
 
-16 
 
-36 
 
 16 } 36 "detail": "Attempt to exploit the _�→_ identified MS17 -010 When the last executed task from Listing 2 is passed to _�→_ vulnerability on port 445 _Re (L2) New Tasks (Success Cases)_ , a query is generated _�→_ of 10.10.10.40 using for the _New Tasks (Success Cases) RAG_ : "Metasploit SMB _�→_ Metasploit. Set RHOST to exploit port 445 empty credentials". This retrieves _�→_ 10.10.10.40 , RPORT to 445, the stored success-case PTT from the HTB Blue machine _�→_ and LHOST to 10.10.14.22." , (Listing 3). 37 "status": "completed" , 38 "act_results": [{ Listing 3: Success Case (PTT JSON) from the Blue machine 39 "command": "msfconsole -q -x 1 { _�→_ 'use exploit/ windows/ 2 "version": "2" , _�→_ smb/ 3 "metadata": { _�→_ ms17_010_eternalblue:
 - set 4 "started_at": "2025-02-13T22:17:00Z" , _�→_ RHOST 10.10.10.40
@@ -592,7 +581,6 @@ The current cost and execution time are practical for targeted penetration testi
 
 _Re (L2) New Tasks (Success Cases)_ Based on the success case from HTB Blue, the LLM generated the following output: LLM generated the following output: 
 
-10 
 
 
 *(Image omitted: Refer to paper)*
@@ -648,7 +636,6 @@ Our experiments indicate that RapidPen’s use of Success Cases accelerates expl
 
 However, handling scenarios where no relevant Success Cases exist remains an open problem. Zero-day vulnerabilities or configurations that have never been encountered may require more advanced reasoning beyond merely “copying” from past success. While our current approach leverages the LLM’s internal knowledge and a RAG-based repository, a more powerful framework for abstracting exploit techniques—enabling RapidPen to discover novel attack strategies—will be essential for addressing unknown threats. Designing and evaluating such a next-generation system is a critical step toward making automated pentesting broadly effective against new or rare vulnerabilities. 
 
-11 
 
 ---
 
@@ -700,7 +687,6 @@ Beyond PentestGPT, several emerging tools utilize LLMs for penetration testing, 
 
 - **BLADE** [24] – **B** reaking **L** imits, **A** utomate **D** eep **E** xploitation – an AI-driven pentesting agent built on an autonomous agent framework (Microsoft’s AutoGen [27]). BLADE autonomously orchestrates exploitation tasks by leveraging external tools and dynamic script generation. For example, it uses pre-configured tools like LinPEAS for privilege escalation and John the Ripper for credential cracking to achieve deeper system compromise. Additionally, it includes agents for network scanning and lateral movement, showcasing how multi-agent AI systems can enhance penetration testing workflows. 
 
-12 
 
 - **AutoAttacker** [28] – an LLM-guided system designed to implement automated “hands-on-keyboard” cyberattacks in post-breach scenarios. 
 
@@ -773,7 +759,6 @@ In this paper, we introduced **RapidPen** , a fully automated penetration testin
 
 **Expanding the Scope.** Although RapidPen is currently designed for TCP-based initial access, we plan to extend its capabilities in several areas: 
 
-13 
 
 - **Web and UDP Attacks.** Expanding support for webbased exploits, including injection and authentication bypass techniques, and exploring UDP-based vulnerabilities as logical next steps. 
 
@@ -822,7 +807,6 @@ By focusing on _IP-to-Shell_ automation, our work provides both security novices
 
 - [10] Zhenguo Hu, Razvan Beuran, and Yasuo Tan. “Automated Penetration Testing Using Deep Reinforcement Learning”. In: _2020 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW)_ . 2020, pp. 2–10. DOI: 10 . 1109 / EuroSPW51379 . 2020 . 00010. 
 
-14 
 
 - [11] J. Huang and Q. Zhu. “PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation”. In: _Proceedings of the Workshop on Autonomous Cybersecurity_ . ACM, 2023, pp. 11–22. 
 
@@ -862,5 +846,4 @@ By focusing on _IP-to-Shell_ automation, our work provides both security novices
 
 - [23] Isao Takaesu. “DeepExploit: Fully Automated Penetration Testing Using Reinforcement Learning”. In: _CODE BLUE_ . 2019. 
 
-15 
 

@@ -68,7 +68,6 @@ the escalating financial impact of cyber threats as digital reliance grows with 
 
 We are in the midst of an AI revolution, with rapid advancements in Large Language Models (LLMs) opening up new possibilities across a wide spectrum of fields. In recent years, the field of AI has seen rapid advancements, with the seminal work of Vaswani [2017], which introduced trans- 
 
-1 
 
 formers, driving much of the excitement around LLMs. The versatility and power of LLMs have prompted researchers and practitioners to explore their potential applications in nearly every domain of human knowledge and activity. Penetration testing is a task requiring deep expertise and extensive training which is currently being explored for potential automation through LLMs, which could significantly streamline the process [Deng et al., 2024, Fang et al., 2024a,b,c, Happe et al., 2024]. This shift towards AI-assisted penetration testing represents a paradigm change in how we approach cybersecurity assessments, potentially making them more accessible, efficient, and comprehensive. Our contributions in this paper are threefold. First, we introduce a novel benchmark to evaluate LLMs in the domain of penetration testing, filling a critical gap where no public benchmark previously existed. This benchmark aims to standardize the evaluation of AI models in cybersecurity contexts, facilitating more robust comparisons and driving progress in the field. Second, we assess this benchmark using the leading AI penetration testing tool, PentestGPT [Deng et al., 2024], with two popular LLMs: GPT-4o and Llama3.1-405B [Dubey et al., 2024]. This assessment provides valuable insights into their performance, highlighting both the potential and current limitations of LLMs in cybersecurity applications. Third, we conduct ablation studies to analyze performance limitations and pinpoint areas where PentestGPT underperforms. Based on these findings, we propose adjustments to enhance the LLMs’ effectiveness in penetration testing tasks, paving the way for future improvements in AI-assisted cybersecurity. 
 
@@ -97,7 +96,6 @@ There has also been work to automate Privilege Escalation with no human interven
 
 Now, for to what extent humans should play a role, some research mentioned that full autopenetration testing is not what Pentesters want due to the potential damage it can cause or potential exposure of attacks [Happe and Cito, 2023]. In fact, the main part of Penetration testing that there is demand for automation for is information gathering/enumeration [Happe and Cito, 2023]. However, 
 
-2 
 
 this begs the question, are LLMs good at enumeration? 
 
@@ -130,7 +128,6 @@ Figure 2: Task Distribution Across Penetration Testing Categories: Illustrates t
 
 The task types and their categories were directly referenced from the PentestGPT paper by Deng et al. [2024]. The extensive list of tasks and their categories can be referenced in Table 4 (See Appendix). While creating the benchmark, we manually assigned each task to corresponding task type 
 
-3 
 
 based on the definition. 
 
@@ -173,7 +170,6 @@ Llama 3.1-405B outperforms GPT-4o in reconnaissance tasks at easy and medium lev
 
 As the difficulty of machines increases, we observe distinct trends in the performance of both models. In easy tasks, Llama 3.1-405B consistently outperforms GPT-4o across all categories, with the performance gap being most pronounced in general techniques and exploitation tasks. For mediumdifficulty machines, while the performance gap narrows, Llama 3.1-405B still maintains a slight edge in most categories. However, this is where we start 
 
-4 
 
 |Level|Machine Name||Categ<br>|ories<br>||**Total**|
 |---|---|---|---|---|---|---|
@@ -215,7 +211,6 @@ to balance comprehensive analysis with cost considerations. Two boxes selected f
 
 We studied three different ablations for this pa- 
 
-5 
 
 
 ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0006-00.png)
@@ -249,7 +244,6 @@ starts happening. To overcome this, we added a summary of summaries that tries t
 
 For the PentestGPT method, the authors created a tree-like task structure called Penetration Testing Tree [Deng et al., 2024]. However, one issue with this approach is that this is only stored in natural language and there has been no processing to drop it down into a data structure like a list. We hypothesize that this leads to more hallucinations in the context of task planning. Thus, for this ablation, we moved to maintain a to-do list in the reasoning 
 
-6 
 
 |Category|Level|Task Success<br>|(Success/Total)<br>|
 |---|---|---|---|
@@ -305,7 +299,6 @@ In addition, the format of the benchmark of having human evaluators may have ben
 
 If we just look at the success rate per task in Fig 7, Reconnaissance/Enumeration seems to be the easiest for both Llama 3.1 405B and GPT4o while Exploitation and Privilege Escalation are the hardest for both. However, this ignores the fact that Enumeration tends to be at the beginning of the penetration testing process while exploitation/privilege escalation is around the end as can be seen by Fig 3. As can be seen by Fig 8 the performance of tasks drops as we proceed with the test. Thus to remove some of this effect we can look at the task success rate for tasks after 50% of each test. We find that 
 
-7 
 
 |Category|Level|<br>|Task Performance w<br>|ith Llama 3.1-405B<br>|<br>|
 |---|---|---|---|---|---|
@@ -355,7 +348,6 @@ The development of LLM-based automated penetration testing tools presents both r
 
 However, these risks are counterbalanced by significant benefits. The research could strengthen defenses against automated attacks, improving cybersecurity standards. By making advanced penetration testing more accessible, this technology could help smaller organizations enhance their security without requiring vast resources. Additionally, the benchmark could serve as a valuable educational tool, training future cybersecurity professionals, both human and AI. This underscores the 
 
-8 
 
 importance of responsible development and ethical oversight in AI-driven cybersecurity. 
 
@@ -415,7 +407,6 @@ Some limitations of this research are
 
 - Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, et al. 2020. Retrieval-augmented generation for knowledge-intensive nlp tasks. _Advances in Neural Information Processing Systems_ , 33:9459–9474. 
 
-9 
 
 - Shiyao Li, Xuefei Ning, Luning Wang, Tengxuan Liu, Xiangsheng Shi, Shengen Yan, Guohao Dai, Huazhong Yang, and Yu Wang. 2024. Evaluating quantized large language models. _arXiv preprint arXiv:2402.18158_ . 
 
@@ -485,7 +476,6 @@ Some limitations of this research are
 
 11. We do more if the next step was vague (this is exclusive to pentestgpt). For example, checking for privilege escalation misconfiguration. 
 
-10 
 
 12. By 5 tries, we mean do the ’next’ 5 times. After that ’discuss’, and enter: 
 
@@ -525,7 +515,6 @@ We will also do this on /etc/hosts tasks.
 
 25. If the model hallucinates and refuses to respond due to safety, mention that the tests are 
 
-11 
 
 done locally and you have full permission for this pentest. However, this may happen even after mentioning the above. In which case, undoing the command that led to the hallucination and revising it until it passes like mentioning the above should do the trick. This won’t be counted as an extra step as this is mainly a prompt issue. 
 
@@ -587,7 +576,6 @@ Some examples of what the TODO list looks like can be seen in Fig 13.
 
 Table 4: Penetration Testing Categories and Task Types from [Deng et al., 2024] 
 
-12 
 
 
 ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0013-00.png)
@@ -601,7 +589,6 @@ Figure 7: Overall task success rate by each category
 
 Figure 8: Overall task success rate by each category after 50% of tasks is completed 
 
-13 
 
 
 ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0014-00.png)
@@ -631,7 +618,6 @@ Figure 9: Overall task success rate by each task type
 
 Figure 10: Analysis of task success rates for each tasks by category for GPT-4o and Llama3.1-405B 
 
-14 
 
 
 ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0015-00.png)
@@ -647,7 +633,6 @@ Figure 10: Analysis of task success rates for each tasks by category for GPT-4o 
 
 Figure 11: Analysis of task success rates for different categories in different level of machines for GPT-4o and Llama3.1-405B 
 
-15 
 
 class PentestGPTPrompt: # inits generation_session_init: str = """You're an excellent cybersecurity penetration tester assistant. You need to help the tester in a cybersecurity training process, and your commitment is essential to the task. Each time, you will be provided with a general testing status information, and a task to be performed. You should review the two and provide guidance to the tester. The penetration testing status is recorded in a custom format, namely "Penetration Testing Tree (PTT)". It is structured as follows: (1) The tasks are in layered structure, i.e., 1, 1.1, 1.1.1, etc. Each task is one operation in penetration testing; task 1.1 should be a sub-task of task 1. (2) Each task has a completion status: to-do, completed, or not applicable. (3) You are given one specific sub-task labeled as to-do. You should expand this task into detailed steps for the tester to perform. Reply with yes if you understood.""" generation_session_init_llama3: str = """You're an excellent cybersecurity penetration tester assistant. You need to help the tester in a cybersecurity training process, and your commitment is essential to the task. Each time, you will be provided with a general testing status information, and a task to be performed. You should review the two and provide guidance to the tester. The penetration testing status is recorded in a custom format, namely "Penetration Testing Tree (PTT)". It is structured as follows: (1) The tasks are in layered structure, i.e., 1, 1.1, 1.1.1, etc. Each task is one operation in penetration testing; task 1.1 should be a sub-task of task 1. (2) Each task has a completion status: to-do, completed, or not applicable. (3) You are given one specific sub-task labeled as to-do. You should expand this task into detailed steps for the tester to perform. 
 
@@ -657,7 +642,6 @@ Reply with yes if you understood.""" ... ... ... # remove task previous prompt: 
 
 Figure 12: Excerpt of prompts used. The prompts have been extended from [Deng et al., 2024]. 
 
-16 
 
 |For constraind gen [{'status': 'done', 'task': 'Perform nmap scan on 10.0.2.47'},<br>{'status':'done''task':'Enumerateusersusingenum4linuxorenum4linux-ng'}|
 |---|
@@ -729,5 +713,4 @@ Figure 12: Excerpt of prompts used. The prompts have been extended from [Deng et
 
 Figure 13: Some examples of penetration testing TODO list maintained. 
 
-17 
 

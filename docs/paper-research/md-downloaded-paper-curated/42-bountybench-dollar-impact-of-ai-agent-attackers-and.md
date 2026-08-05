@@ -118,7 +118,6 @@ Accordingly, we introduce the first framework to capture offensive and defensive
 
 We evaluate 10 agents on BountyBench. Given up to three attempts, the top-performing agents are OpenAI Codex CLI: o3-high (12.5% on _Detect_ , mapping to $3,720; 90% on _Patch_ , mapping to $14,152), Custom Agent with Claude 3.7 Sonnet Thinking (67.5% on _Exploit_ ), and OpenAI Codex 
 
-2 
 
 CLI: o4-mini (90% on _Patch_ , mapping to $14,422). The custom agents are relatively balanced between offense and defense, achieving _Exploit_ scores of 17.5-67.5% and _Patch_ scores of 25-60%; in contrast, OpenAI Codex CLI: o3-high, OpenAI Codex CLI: o4-mini, and Claude Code are more capable at defense, achieving higher _Patch_ scores of 90%, 90% and 87.5%, compared to _Exploit_ scores of 47.5%, 32.5% and 57.5% respectively. 
 
@@ -159,7 +158,6 @@ Figure 2: Each system consists of a series of snapshots, each associated with ru
 
 As shown in Figure 2, each _system_ is represented as a series of _snapshots_ , each of which consists of files including code. Each commit that updates file(s) produces a new snapshot, which may introduce new vulnerabilities or patch existing vulnerabilities. Each snapshot may be associated with (1) various _runtimes_ , including server(s) and/or database(s), (2) a number of _invariants_ (detailed in Appendix M), which verify code health (e.g., unit tests and integration tests) and runtime health (e.g., server and database checks), and (3) a number of _vulnerabilities_ . Each vulnerability is associated with one or more _exploits_ and one or more _patches_ . Each exploit is associated with one or more _verifiers_ . 
 
-3 
 
 ### **2.2 System Example: Lunary** 
 
@@ -193,7 +191,6 @@ Figure 3: Flow diagrams for each of the 3 task types: _Detect_ , _Exploit_ , and
 
 We have a custom host Docker container, which all additional containers reside in. The agent runs in a Kali Linux container with access to the codebase of the given snapshot, which contains the code invariants and history of all previous snapshots. Runtimes are instantiated at the given snapshot with their own containers, which the agent can access via the Docker network. For evaluation, we launch a separate Kali Linux container to execute an exploit; the exploit verifier and invariant checks are executed from the host Docker container. The runtime invariants are never accessible to the agent. 
 
-4 
 
 ### **2.5 Task Instantiation:** **_Detect_** 
 
@@ -217,7 +214,6 @@ _Evaluation:_ As shown in Figure 3b, the evaluator checks that the verifier pass
 
 In addition to access to the Lunary codebase and runtimes, the agent is provided with (1) details about the IDOR vulnerability, (2) a verifier that checks that User-A’s project with id _3e1d5..._ gets deleted from the database, and (3) User-A’s project-id _3e1d5..._ and User-B’s credentials. Here, an example successful submission involved (1) authenticating as User-B and (2) deleting User-A’s project _3e1d5..._ using User-B’s credentials (Appendix A.2), which satisfies the verifier on the current snapshot and fails on a patched snapshot. 
 
-5 
 
 ### **2.9 Task Instantiation:** **_Patch_** 
 
@@ -248,7 +244,6 @@ Our goal was to build a benchmark that would capture real-world cybersecurity ca
 
 The challenge is that adding such bounties is a heavily labor-intensive process. Such systems are complex, so careful measures are necessary to ensure quality. First, we set up the system by installing libraries, setting up server(s) and database(s), hydrating the database(s), etc. Second, we reproduce the vulnerability with the steps-to-reproduce text as guidance and create an executable exploit. We then verify that the exploit passes continuous integration to ensure it can succeed in the agent’s environment. This process is tricky as steps-to-reproduce are often missing steps and difficult to replicate. Even when replicated, they are not easily converted into an executable, and the resulting executable requires work to ensure compatibility with the agent’s environment. Third, we verify the patch if provided, and for bounties without patches, we write our own patches and then verify against continuous integration to ensure it shields against our own exploits. Fourth, we add various invariants, including both code and runtime invariants, which involve additional environment debugging and 
 
-6 
 
 experimentation to avoid flaky invariants (e.g. we run each invariant multiple times and fix/remove flaky invariants). Finally, the authors code-review each other at each step of the process, and also manually review the agent runs. 
 
@@ -284,7 +279,6 @@ Table 1: For each agent, we display the Success Rate and Token Cost per task. Fo
 
 
 
-7 
 
 
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0008-00.png)
@@ -304,7 +298,6 @@ Figure 4: On the Detect task with increasing levels of information, we see impro
 
 > 1$7,920 worth of the detected bounties were disclosed publicly past the model’s knowledge cutoff date. 
 
-8 
 
 _Detect_ with CWE can be seen analogous to a form of test-time compute scaling, suggesting a path to increasing agent impact. Overall though, while this analysis provides a sense of agent impact on bug bounty programs, it does not account for potential harm caused from cyberattacks via _Exploit_ , which is harder to quantify. See Appendix E for more details. 
 
@@ -327,7 +320,6 @@ _Detect_ with CWE can be seen analogous to a form of test-time compute scaling, 
 
 To mitigate these issues, we want to explore automating task and system creation, and potentially increase the number of gold-standard exploits, patches, and invariants to increase evaluation confidence. In fact, AI agents already exhibit the capability to automate tasks: the _Exploit_ task and the _Patch_ task mimic the work needed to add new tasks to a given system, i.e. writing an exploit and 
 
-9 
 
 patch script to demonstrate solvability. The key challenge is verification to ensure that such tasks are high quality and useful. 
 
@@ -360,7 +352,6 @@ We thank Adam Lambert, Claire Ni, Caroline Van, Hugo Yuwono, Mark Athiri, Alex Y
 
 - [4] Anthropic. Claude Code Overview. `https://docs.anthropic.com/en/docs/ claude-code/overview` , February 2025. 
 
-10 
 
 - [5] Big Sleep Team. From Naptime to Big Sleep: Using Large Language Models To Catch Vulnerabilities In Real-World Code. `https://googleprojectzero.blogspot.com/2024/ 10/from-naptime-to-big-sleep.html` , November 2024. 
 
@@ -394,7 +385,6 @@ We thank Adam Lambert, Claire Ni, Caroline Van, Hugo Yuwono, Mark Athiri, Alex Y
 
 - [20] C. E. Jimenez, J. Yang, A. Wettig, S. Yao, K. Pei, O. Press, and K. Narasimhan. SWE-bench: Can Language Models Resolve Real-World GitHub Issues?, 2024. 
 
-11 
 
 - [21] Z. Liu, J. Shi, and J. F. Buford. Cyberbench: A multi-task benchmark for evaluating large language models in cybersecurity. AAAI-24 Workshop on Artificial Intelligence for Cyber Security (AICS), 2024. 
 
@@ -434,7 +424,6 @@ We thank Adam Lambert, Claire Ni, Caroline Van, Hugo Yuwono, Mark Athiri, Alex Y
 
 - [39] Y. Zhu, A. Kellermann, D. Bowman, P. Li, A. Gupta, A. Danda, R. Fang, C. Jensen, E. Ihli, J. Benn, J. Geronimo, A. Dhir, S. Rao, K. Yu, T. Stone, and D. Kang. CVE-Bench: A Benchmark for AI Agents’ Ability to Exploit Real-World Web Application Vulnerabilities, 2025. 
 
-12 
 
 ---
 
@@ -493,7 +482,6 @@ user_b${NC}"
 #Getuser_b’sprojects
 ```
 
-13 
 
 ```
 echo-e"${BLUE}[*]Gettinguser_b’sprojects...${NC}"
@@ -547,7 +535,6 @@ fi
 
 The following is the `exploit.sh` script submitted by C-Agent: GPT-4.1 on the _Exploit_ task on lunary 0: 
 
-14 
 
 ```
 #!/bin/bash
@@ -585,7 +572,6 @@ ctx.status=422
 }
 ```
 
-15 
 
 ---
 
@@ -631,7 +617,6 @@ Table 2: For each repository, we provide a link to the source, the license under
 
 Figure 5 provides information about the distribution of disclosure and fix bounties. The Internet Bug Bounty (IBB) Program uses an 80/20 split model, where the 80% split is awarded to the researcher for finding and disclosing the bounty, and the 20% is awarded to the open-source software project or organization for patching and remediation efforts [15]. For bounties managed under IBB (curl 0, django 0, undici 0), we took the 80% split as the disclosure bounty value, and the 20% split as the fix bounty value. 
 
-16 
 
 
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0017-00.png)
@@ -639,7 +624,6 @@ Figure 5 provides information about the distribution of disclosure and fix bount
 
 Figure 5: Tasks sorted by disclosure bounty value (log scale). Disclosure bounties range from $40 to $30,485, and patch bounties from $10 to $7,621.25, with patch bounties averaging approximately 25% of their corresponding disclosure amounts. fastapi 0 was assigned a disclosure bounty that was not publicly disclosed. parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
-17 
 
 ---
 
@@ -674,7 +658,6 @@ Figure 6 summarizes the distribution of vulnerabilities in OWASP categories. Thi
 
 Figures 7- 9 provide an overview of task successes by OWASP Top 10 Risk. 
 
-18 
 
 Table 3: Bounties grouped by OWASP Top 10 Risk 
 
@@ -692,7 +675,6 @@ Table 3: Bounties grouped by OWASP Top 10 Risk
 
 
 
-19 
 
 
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0020-00.png)
@@ -712,7 +694,6 @@ Figure 8: Number of tasks solved successfully by agent model type for each featu
 
 Figure 9: Number of tasks solved successfully by agent model type for each featured OWASP Top 10 Risk for _Patch_ . 
 
-20 
 
 ---
 
@@ -757,7 +738,6 @@ ATTACKER_EMAIL="attacker_...@exploit.com"
 ATTACKER_PASSWORD="..."
 ```
 
-21 
 
 ```
 ATTACKER_NAME="..."
@@ -829,7 +809,6 @@ exit1
 fi
 ```
 
-22 
 
 ---
 
@@ -880,7 +859,6 @@ We also consider _Detect_ with CWE, which would represent the situation where a 
 
 In addition to the $81,067 worth of _Patch_ tasks and $9,700 worth of _Detect_ tasks, along with the $19,605 worth of _Detect_ tasks with CWE (Tables 5- 6), we also consider the distinct sum of disclosure and fix bounties awarded to the agents, where each task’s disclosure bounty and fix bounty are counted at most once (i.e., assuming a single payout per bounty). Under this view, agents complete $14,793.50 worth of distinct _Patch_ tasks and $5,825 of _Detect_ tasks. With CWE, agents complete $8,830 worth of _Detect_ tasks. 
 
-23 
 
 Table 6: _Detect_ with CWE economic impact accounting for Token Costs and Disclosure Bounty Totals. Bounty totals represent the sum of bounties for tasks successfully completed by the agent. Economic impact values are green when bounty totals exceed costs, red otherwise. 
 
@@ -940,7 +918,6 @@ Table 8: _Detect_ with CWE + Title cost.
 
 
 
-24 
 
 We calculated usage costs based on the prices published by OpenAI<sup>2</sup> , Google<sup>3</sup> , Anthropic<sup>4</sup> , and Together AI<sup>5</sup> : $10.00/1M input tokens and $40.00/1M output tokens for o3-high, $2.00/1M input tokens and $8.00/1M output tokens for GPT-4.1, $1.25/1M input tokens and $10.00/1M output tokens for Gemini 2.5, $3.00/1M input tokens and $15.00/1M output tokens for Claude 3.7, $0.20/1M input tokens and $0.60/1M output tokens for Qwen3 235B A22B, $0.27/1M input tokens and $0.85/1M output tokens for Llama 4 Maverick, and $3.00/1M input tokens and $7.00/1M output tokens for DeepSeek-R1. We used some cached input at $0.50/1M tokens for GPT-4.1 and $2.50/1M tokens for o3, and have calculated our costs accordingly using the separate pricing for cache tokens and normal input tokens. 
 
@@ -976,7 +953,6 @@ To extrapolate a more granular cost by task and information setting from the upp
 
 > 5https://www.together.ai/pricing 
 
-25 
 
    - _C_<sup>�</sup> t, 1: Cost estimate for all the first attempts (calculated using the bootstrapping method). 
 
@@ -998,7 +974,6 @@ To extrapolate a more granular cost by task and information setting from the upp
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0026-08.png)
 
 
-26 
 
 ---
 
@@ -1029,7 +1004,6 @@ Table 9: Net profit per unit time for _Detect_ and _Patch_
 
 As stated in Appendix E, we do not assess and value Exploit, as it is not assigned independent economic value, and does not account for additional care needed to ensure patches satisfy reviewer requirements. We also do not assess Detect with information, which would not be provided when running the agents autonomously. 
 
-27 
 
 ---
 
@@ -1072,7 +1046,6 @@ We draw on the Cybench agent design, which follows an act, execute, update loop,
 
 We run custom agents with the following 7 models: o3-high [29] (o3-2025-04-16 with "high reasoning effort"), GPT-4.1 [27] (gpt-4.1-2025-04-14), Gemini 2.5 Pro Preview [12] (gemini-2.5-pro-preview- 
 
-28 
 
 03-25), Claude 3.7 Sonnet Thinking [3] (claude-3-7-sonnet-20250219, thinking budget: 1024 tokens), Qwen3 235B A22B [35] (Qwen3-235B-A22B-fp8-tput), Llama 4 Maverick [1] (Llama-4-Maverick17B-128E-Instruct-FP8), and DeepSeek-R1 [8] (together/deepseek-r1). The custom agents were run with an iteration limit of 50 model calls and received an input token limit of 8192 tokens and an output token limit of 8192 tokens. Qwen3 235B A22B, Llama 4 Maverick, and DeepSeek-R1 are hosted on Together [32]. 
 
@@ -1080,7 +1053,6 @@ We run custom agents with the following 7 models: o3-high [29] (o3-2025-04-16 wi
 
 While we explore a wide array of agents across various models, we lack coverage of certain agent scaffolds, such as browser use and custom tools. Additionally, while we do run agents with a high iteration and token limit (no limit for Claude Code and the OpenAI Codex CLI agents), we limit the number of attempts per agent and task to 3 due to the high expense of the runs. 
 
-29 
 
 ---
 
@@ -1107,7 +1079,6 @@ Here we show agent performance relative to the model knowledge cutoff. Figures 1
 
 Figure 11: Number of tasks solved and relative success rate for Claude Code before and after knowledge cutoff. 
 
-30 
 
 
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0031-00.png)
@@ -1133,7 +1104,6 @@ Figure 14: Number of tasks solved and relative success rate for C-Agent: o3-high
 
 Figure 15: Number of tasks solved and relative success rate for C-Agent: GPT-4.1 before and after knowledge cutoff. 
 
-31 
 
 
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0032-00.png)
@@ -1153,7 +1123,6 @@ Figure 17: Number of tasks solved and relative success rate for C-Agent: Claude 
 
 Figure 18: Number of tasks solved and relative success rate for C-Agent: Llama 4 Maverick before and after knowledge cutoff. 
 
-32 
 
 ---
 
@@ -1231,7 +1200,6 @@ Instructions:
 
 Figure 19: _Detect_ prompt 
 
-33 
 
 ```
 Youareacybersecurityexpertsearchingfornewbugbountiesinasystem.Makesuretoidentify
@@ -1268,7 +1236,6 @@ You are a cybersecurity expert attempting to exploit a vulnerability documented 
 
 Figure 22: _Exploit_ prompt 
 
-34 
 
 ```
 Youareacybersecurityexpertattemptingtopatchavulnerabilitydocumentedinabugbounty
@@ -1291,7 +1258,6 @@ Thisisthecodebase:
 
 Figure 23: _Patch_ prompt 
 
-35 
 
 ---
 
@@ -1342,7 +1308,6 @@ The `WebFetch` tool returned a summary of the vulnerability, explaining that it 
 
 After receiving this information, Claude Code responded with: 
 
-36 
 
 ```
 NowIhaveabetterunderstandingofthevulnerability.Let
@@ -1406,7 +1371,6 @@ scriptexecutable.
 
 The `mlflow 3` _Exploit_ task offers a clear illustration of this process in practice. C-Agent: Claude 3.7 was one of the two agents that succeeded on this task, with the other being Claude Code. Initially, the agent attempted to replicate the provided steps-to-reproduce detailed in the writeup, which relied on generating a large number of experiment runs to amplify a denial-of-service (DoS) effect. However, during its self-testing phase, the agent encountered a “403 Forbidden” error when attempting to create new runs. From the error message, it correctly diagnosed that the provided API credentials granted only viewer access and accordingly revised its strategy. 
 
-37 
 
 ### `<think>` 
 
@@ -1449,7 +1413,6 @@ This structured patching inherent to the OpenAI Codex CLI agents stand in contra
 
 A successful patch must (i) not only guard against the targeted exploit and (ii) also preserve functionality within the corresponding code snapshot, as verified by invariant checks (Appendix M). For example, OpenAI Codex CLI: o4-mini performs highest in both conditions compared to the other agents. Specifically, out of the 39 patches generated by it that successfully mitigated exploits, a significant majority—36 of those patches (92.3%)—also passed all associated invariant checks and thus evaluated as successful. OpenAI Codex CLI: o4-mini’s high rate of success (90% patch success rate) demonstrates its capability to fix vulnerabilities while maintaining the integrity and functionality of the existing system. This performance surpasses that observed in custom agents. For 
 
-38 
 
 comparison, the top-performing custom agent on patch tasks (C-Agent: Claude 3.7) had 34 patches that successfully mitigated exploits; however, only 24 of these (70.6%) also passed the invariant checks. 
 
@@ -1490,7 +1453,6 @@ filehandlinglogic...
 EOF
 ```
 
-39 
 
 ---
 
@@ -1526,7 +1488,6 @@ We identified a total of 255 _Detect_ runs where at least one CVE was mentioned 
 
 Of the 255 observed instances of CVE mentions, 67 matched the true CVE being evaluated, suggesting that in approximately 25% of cases, models were accurately retrieving or generating relevant vulnerability information. However, only 3 of these matched CVE instances corresponded with successful task submissions. All successful submissions involved the `curl` repository vulnerability in the CWE and Title information regime, where the CVE identifier was explicitly included in the vulnerability report title itself. 
 
-40 
 
 ---
 
@@ -1574,7 +1535,6 @@ We computed bootstrap confidence intervals for the empirical success rate (withi
 ![](images/42-bountybench-dollar-impact-of-ai-agent-attackers-and.pdf-0041-20.png)
 
 
-41 
 
 where _i_ denotes the agent, _j_ denotes the task type, _k_ is the bootstrap replicate index, and we sum over each bounty/subtask _t_ in the boostrap sample. From the resulting empirical distribution of success rates _{pijk}_<sup>_B_</sup> _k_ =1<sup>(with</sup><sup>_B_= 10</sup><sup>_,_000), we extracted the</sup><sup>**bootstrap median**</sup><sup>_p_˜</sup><sup>_ij_and the</sup><sup>**2.5th and 97.5th**</sup> **percentiles** to form a 95% confidence interval: 
 
@@ -1600,7 +1560,6 @@ Figure 24: Median success rates in 3 tries (in %) and 95% confidence intervals f
 
 - **_Detect_ CWE** : here, both OpenAI Codex CLI: o3-high and C-Agent: Claude 3.7’s CIs were entirely above the x-axis, indicating statistically significant success rates, while the other 8 agents’ performance remained non-significant. 
 
-42 
 
 - **_Detect_ CWE + Title** : the additional contextual information of bounty report title boosted most agent’s median success rate to above 0, enabling statistically significant successes for most agents. In particular, some agents performed significantly better than others (see Agent Performance Comparison section below). 
 
@@ -1636,13 +1595,11 @@ Overall, the bootstrap intervals provide a robust, model-free quantification of 
 
 - Outside the advantages observed in _Patch_ , the only other statistically significant leads were between OpenAI Codex CLI: o3-high vs. C-Agent: GPT-4.1, Gemini 2.5, Qwen3 235B A22B, and Llama 4 Maverick in _Detect_ CWE+Title. Additionally, C-Agent: Claude 3.7 had 
 
-43 
 
 a significant lead over C-Agent: Qwen3 235B A22B in _Exploit_ . All other pairwise agent differences were non-significant, and no model dominated across all tasks and information settings. 
 
 - _Detect_ proved difficult for all agents, and success rates became more statistically significant for all agents only when CWE and Title information were provided. 
 
-44 
 
 ---
 
@@ -1661,7 +1618,6 @@ Tables 10- 16 provide overviews of all the patch runs in which the agents succes
 
 The agent modified two files, `core/app.py` and `api/request_types.py` , with an updated DeepDiff Delta object implementation which broke functionality and caused seven core tests to fail, primarily in the Lightning API and application state management. The failing tests included `test_app_state_api` , `test_app_state_api_with_flows` , multiple variants of `test_start_server` , and `test_lightning_app_aggregation_speed` . Our invariant thresholds helped reveal that the patch compromised core functionality and was therefore an invalid patch. 
 
-45 
 
 Table 10: Patch results for **Claude Code** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1711,7 +1667,6 @@ Table 10: Patch results for **Claude Code** where the exploit was successfully m
 
 
 
-46 
 
 Table 11: Patch results for **OpenAI Codex CLI: o3-high** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1760,7 +1715,6 @@ Table 11: Patch results for **OpenAI Codex CLI: o3-high** where the exploit was 
 
 
 
-47 
 
 Table 12: Patch results for **OpenAI Codex CLI: o4-mini** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1809,7 +1763,6 @@ Table 12: Patch results for **OpenAI Codex CLI: o4-mini** where the exploit was 
 
 
 
-48 
 
 Table 13: Patch results for **C-Agent: o3-high** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1839,7 +1792,6 @@ Table 13: Patch results for **C-Agent: o3-high** where the exploit was successfu
 
 
 
-49 
 
 Table 14: Patch results for **C-Agent: GPT-4.1** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1883,7 +1835,6 @@ Table 14: Patch results for **C-Agent: GPT-4.1** where the exploit was successfu
 
 
 
-50 
 
 Table 15: Patch results for **C-Agent: Gemini 2.5** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1922,7 +1873,6 @@ Table 15: Patch results for **C-Agent: Gemini 2.5** where the exploit was succes
 
 
 
-51 
 
 Table 16: Patch results for **C-Agent: Claude 3.7** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1966,7 +1916,6 @@ Table 16: Patch results for **C-Agent: Claude 3.7** where the exploit was succes
 
 
 
-52 
 
 Table 17: Patch results for **C-Agent: Qwen3 235B A22B** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -1999,7 +1948,6 @@ Table 17: Patch results for **C-Agent: Qwen3 235B A22B** where the exploit was s
 
 
 
-53 
 
 Table 18: Patch results for **C-Agent: Llama 4 Maverick** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -2034,7 +1982,6 @@ Table 18: Patch results for **C-Agent: Llama 4 Maverick** where the exploit was 
 
 
 
-54 
 
 Table 19: Patch results for **C-Agent: DeepSeek-R1** where the exploit was successfully mitigated. Agents received up to three attempts on each task. For each task, we report whether the invariants passed and show the highest score achieved compared to the threshold. – indicates no score was outputted by the corresponding test suite. 
 
@@ -2072,7 +2019,6 @@ Table 19: Patch results for **C-Agent: DeepSeek-R1** where the exploit was succe
 
 
 
-55 
 
 ---
 
@@ -2091,7 +2037,6 @@ Our runtime invariants check verify three runtime invariants immediately before 
 
 In the _Detect_ task with CWE information provided on the pytorch-lightning 0 snapshot, the C-Agent: Claude 3.7 crafted an exploit that manipulated the application’s internal state. The agent’s exploit script triggered a denial-of-service (DoS) (the application crashed), but its self-written verification step never detected the crash as success, and thus the main evaluator never proceeded to the patched test. However, running the runtime invariants after the exploit caused the application availability check to fail, which we recognized as a DoS. As a result, we marked the attempt as a success. 
 
-56 
 
 ---
 
@@ -2180,7 +2125,6 @@ For every experiment, we report the hardware platform, memory and storage alloca
 
 **Note:** “Average Time” spans from the start of the first agent iteration to the end of the evaluation, including LLM call times. “Average Execution Time” measures only the time spent on agent executions, excluding LLM call times. Both metrics exclude container setup and teardown overhead. 
 
-57 
 
 ---
 
@@ -2199,7 +2143,6 @@ We attribute OpenAI Codex CLI’s higher refusal rate to its system prompt, whic
 
 For all other agents, we rarely encountered safety refusals, potentially because our prompting made it clear that this was for an ethical purpose (“cybersecurity expert attempting ... bug bounty”). Indeed, prior literature has found that prompting strategy makes a significant different in refusal rates, and that the “cybersecurity expert” prompt from Cybench was among the most effective at reducing refusal rates [37]. 
 
-58 
 
 Table 20: Summary of reported bounties 
 
@@ -2221,7 +2164,6 @@ Table 20: Summary of reported bounties
 
 
 
-59 
 
 |gunicorn 0|HTTP Request<br>Smuggling|The attacker can perform<br>HTTP request smuggling by<br>exploiting improper<br>’Transfer-Encoding’ header<br>validation.|$750|$187.5|High<br>(7.5)|CWE-444: HTTP<br>Request Smuggling|CVE-2024-<br>6827|03/19/24|07/24/24|
 |---|---|---|---|---|---|---|---|---|---|
@@ -2242,7 +2184,6 @@ Table 20: Summary of reported bounties
 
 
 
-60 
 
 |mlfow 1|Local File<br>Read via Path<br>Traversal|The attacker can exploit<br>inadequate parameter<br>validation to access arbitrary<br>fles.|$750|$187.5|High<br>(7.5)|CWE-22: Path<br>Traversal|CVE-2024-<br>1558|12/21/23|04/15/24|
 |---|---|---|---|---|---|---|---|---|---|
@@ -2260,7 +2201,6 @@ Table 20: Summary of reported bounties
 
 
 
-61 
 
 ---
 
@@ -2317,7 +2257,6 @@ Table 21: Success outcomes for the _Detect_ task on all 40 bounties. ✓ indicat
 
 
 
-62 
 
 Table 22: Success outcomes for the _Detect_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. *fastapi 0 was assigned a disclosure bounty that was not publicly disclosed. 
 
@@ -2367,7 +2306,6 @@ Table 22: Success outcomes for the _Detect_ task on all 40 bounties. ✓ indicat
 
 
 
-63 
 
 Table 23: Success outcomes for the _Exploit_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2417,7 +2355,6 @@ Table 23: Success outcomes for the _Exploit_ task on all 40 bounties. ✓ indica
 
 
 
-64 
 
 Table 24: Success outcomes for the _Exploit_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2467,7 +2404,6 @@ Table 24: Success outcomes for the _Exploit_ task on all 40 bounties. ✓ indica
 
 
 
-65 
 
 Table 25: Success outcomes for the _Patch_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -2517,7 +2453,6 @@ Table 25: Success outcomes for the _Patch_ task on all 40 bounties. ✓ indicate
 
 
 
-66 
 
 Table 26: Success outcomes for the _Patch_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -2567,7 +2502,6 @@ Table 26: Success outcomes for the _Patch_ task on all 40 bounties. ✓ indicate
 
 
 
-67 
 
 Table 27: Success outcomes for Claude Code from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. * indicates success through runtime invariants failure. 
 
@@ -2617,7 +2551,6 @@ Table 27: Success outcomes for Claude Code from detection to exploitation on all
 
 
 
-68 
 
 Table 28: Success outcomes for OpenAI Codex CLI: o3-high from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2667,7 +2600,6 @@ Table 28: Success outcomes for OpenAI Codex CLI: o3-high from detection to explo
 
 
 
-69 
 
 Table 29: Success outcomes for OpenAI Codex CLI: o4-mini from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2717,7 +2649,6 @@ Table 29: Success outcomes for OpenAI Codex CLI: o4-mini from detection to explo
 
 
 
-70 
 
 Table 30: Success outcomes for C-Agent: o3-high from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2767,7 +2698,6 @@ Table 30: Success outcomes for C-Agent: o3-high from detection to exploitation o
 
 
 
-71 
 
 Table 31: Success outcomes for C-Agent: GPT-4.1 from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2817,7 +2747,6 @@ Table 31: Success outcomes for C-Agent: GPT-4.1 from detection to exploitation o
 
 
 
-72 
 
 Table 32: Success outcomes for C-Agent: Gemini 2.5 from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2867,7 +2796,6 @@ Table 32: Success outcomes for C-Agent: Gemini 2.5 from detection to exploitatio
 
 
 
-73 
 
 Table 33: Success outcomes for C-Agent: Claude 3.7 from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. * indicates success through runtime invariants failure. 
 
@@ -2917,7 +2845,6 @@ Table 33: Success outcomes for C-Agent: Claude 3.7 from detection to exploitatio
 
 
 
-74 
 
 Table 34: Success outcomes for C-Agent: Qwen3 235B A22B from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -2967,7 +2894,6 @@ Table 34: Success outcomes for C-Agent: Qwen3 235B A22B from detection to exploi
 
 
 
-75 
 
 Table 35: Success outcomes for C-Agent: Llama 4 Maverick from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -3017,7 +2943,6 @@ Table 35: Success outcomes for C-Agent: Llama 4 Maverick from detection to explo
 
 
 
-76 
 
 Table 36: Success outcomes for C-Agent: DeepSeek-R1 from detection to exploitation on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. 
 
@@ -3067,7 +2992,6 @@ Table 36: Success outcomes for C-Agent: DeepSeek-R1 from detection to exploitati
 
 
 
-77 
 
 ---
 
@@ -3125,7 +3049,6 @@ Table 37: Input tokens for the _Detect_ task on the last attempt for all 40 boun
 
 
 
-78 
 
 Table 38: Input tokens for the _Exploit_ task on the last attempt for all 40 bounties. 
 
@@ -3175,7 +3098,6 @@ Table 38: Input tokens for the _Exploit_ task on the last attempt for all 40 bou
 
 
 
-79 
 
 Table 39: Input tokens for the _Patch_ task on the last attempt for all 40 bounties. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -3225,7 +3147,6 @@ Table 39: Input tokens for the _Patch_ task on the last attempt for all 40 bount
 
 
 
-80 
 
 Table 40: Input tokens for C-Agent: o3-high from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3275,7 +3196,6 @@ Table 40: Input tokens for C-Agent: o3-high from detection to exploitation on th
 
 
 
-81 
 
 Table 41: Input tokens for C-Agent: GPT-4.1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3325,7 +3245,6 @@ Table 41: Input tokens for C-Agent: GPT-4.1 from detection to exploitation on th
 
 
 
-82 
 
 Table 42: Input tokens for C-Agent: Gemini 2.5 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3375,7 +3294,6 @@ Table 42: Input tokens for C-Agent: Gemini 2.5 from detection to exploitation on
 
 
 
-83 
 
 Table 43: Input tokens for C-Agent: Claude 3.7 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3425,7 +3343,6 @@ Table 43: Input tokens for C-Agent: Claude 3.7 from detection to exploitation on
 
 
 
-84 
 
 Table 44: Input tokens for C-Agent: Qwen3 235B A22B from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3475,7 +3392,6 @@ Table 44: Input tokens for C-Agent: Qwen3 235B A22B from detection to exploitati
 
 
 
-85 
 
 Table 45: Input tokens for C-Agent: Llama 4 Maverick from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3525,7 +3441,6 @@ Table 45: Input tokens for C-Agent: Llama 4 Maverick from detection to exploitat
 
 
 
-86 
 
 Table 46: Input tokens for C-Agent: DeepSeek-R1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3575,7 +3490,6 @@ Table 46: Input tokens for C-Agent: DeepSeek-R1 from detection to exploitation o
 
 
 
-87 
 
 ### **R.2 Output Tokens** 
 
@@ -3629,7 +3543,6 @@ Table 47: Output tokens for the _Detect_ task on the last attempt for all 40 bou
 
 
 
-88 
 
 Table 48: Output tokens for the _Exploit_ task on the last attempt for all 40 bounties. 
 
@@ -3679,7 +3592,6 @@ Table 48: Output tokens for the _Exploit_ task on the last attempt for all 40 bo
 
 
 
-89 
 
 Table 49: Output tokens for the _Patch_ task on the last attempt for all 40 bounties. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -3729,7 +3641,6 @@ Table 49: Output tokens for the _Patch_ task on the last attempt for all 40 boun
 
 
 
-90 
 
 Table 50: Output tokens for C-Agent: o3-high from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3779,7 +3690,6 @@ Table 50: Output tokens for C-Agent: o3-high from detection to exploitation on t
 
 
 
-91 
 
 Table 51: Output tokens for C-Agent: GPT-4.1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3829,7 +3739,6 @@ Table 51: Output tokens for C-Agent: GPT-4.1 from detection to exploitation on t
 
 
 
-92 
 
 Table 52: Output tokens for C-Agent: Gemini 2.5 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3879,7 +3788,6 @@ Table 52: Output tokens for C-Agent: Gemini 2.5 from detection to exploitation o
 
 
 
-93 
 
 Table 53: Output tokens for C-Agent: Claude 3.7 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3929,7 +3837,6 @@ Table 53: Output tokens for C-Agent: Claude 3.7 from detection to exploitation o
 
 
 
-94 
 
 Table 54: Output tokens for C-Agent: Qwen3 235B A22B from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -3979,7 +3886,6 @@ Table 54: Output tokens for C-Agent: Qwen3 235B A22B from detection to exploitat
 
 
 
-95 
 
 Table 55: Output tokens for C-Agent: Llama 4 Maverick from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4029,7 +3935,6 @@ Table 55: Output tokens for C-Agent: Llama 4 Maverick from detection to exploita
 
 
 
-96 
 
 Table 56: Output tokens for C-Agent: DeepSeek-R1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4079,7 +3984,6 @@ Table 56: Output tokens for C-Agent: DeepSeek-R1 from detection to exploitation 
 
 
 
-97 
 
 ### **R.3 Time Taken** 
 
@@ -4131,7 +4035,6 @@ Table 57: Time taken for the _Detect_ task on the last attempt for all 40 bounti
 
 
 
-98 
 
 Table 58: Time taken for the _Detect_ task on the last attempt for all 40 bounties. *fastapi 0 was assigned a disclosure bounty that was not publicly disclosed. 
 
@@ -4181,7 +4084,6 @@ Table 58: Time taken for the _Detect_ task on the last attempt for all 40 bounti
 
 
 
-99 
 
 Table 59: Time taken for the _Exploit_ task on the last attempt for all 40 bounties. 
 
@@ -4231,7 +4133,6 @@ Table 59: Time taken for the _Exploit_ task on the last attempt for all 40 bount
 
 
 
-100 
 
 Table 60: Time taken for the _Exploit_ task on the last attempt for all 40 bounties. 
 
@@ -4281,7 +4182,6 @@ Table 60: Time taken for the _Exploit_ task on the last attempt for all 40 bount
 
 
 
-101 
 
 Table 61: Time taken for the _Patch_ task on the last attempt for all 40 bounties. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -4331,7 +4231,6 @@ Table 61: Time taken for the _Patch_ task on the last attempt for all 40 bountie
 
 
 
-102 
 
 Table 62: Time taken for the _Patch_ task on the last attempt for all 40 bounties. *parse-url 0 was assigned a fix bounty that was not publicly disclosed. 
 
@@ -4381,7 +4280,6 @@ Table 62: Time taken for the _Patch_ task on the last attempt for all 40 bountie
 
 
 
-103 
 
 Table 63: Time taken for Claude Code from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4431,7 +4329,6 @@ Table 63: Time taken for Claude Code from detection to exploitation on the last 
 
 
 
-104 
 
 Table 64: Time taken for OpenAI Codex CLI: o3-high from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4481,7 +4378,6 @@ Table 64: Time taken for OpenAI Codex CLI: o3-high from detection to exploitatio
 
 
 
-105 
 
 Table 65: Time taken for OpenAI Codex CLI: o4-mini from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4531,7 +4427,6 @@ Table 65: Time taken for OpenAI Codex CLI: o4-mini from detection to exploitatio
 
 
 
-106 
 
 Table 66: Time taken for C-Agent: o3-high from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4581,7 +4476,6 @@ Table 66: Time taken for C-Agent: o3-high from detection to exploitation on the 
 
 
 
-107 
 
 Table 67: Time taken for C-Agent: GPT-4.1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4631,7 +4525,6 @@ Table 67: Time taken for C-Agent: GPT-4.1 from detection to exploitation on the 
 
 
 
-108 
 
 Table 68: Time taken for C-Agent: Gemini 2.5 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4681,7 +4574,6 @@ Table 68: Time taken for C-Agent: Gemini 2.5 from detection to exploitation on t
 
 
 
-109 
 
 Table 69: Time taken for C-Agent: Claude 3.7 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4731,7 +4623,6 @@ Table 69: Time taken for C-Agent: Claude 3.7 from detection to exploitation on t
 
 
 
-110 
 
 Table 70: Time taken for C-Agent: Qwen3 235B A22B from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4781,7 +4672,6 @@ Table 70: Time taken for C-Agent: Qwen3 235B A22B from detection to exploitation
 
 
 
-111 
 
 Table 71: Time taken for C-Agent: Llama 4 Maverick from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4831,7 +4721,6 @@ Table 71: Time taken for C-Agent: Llama 4 Maverick from detection to exploitatio
 
 
 
-112 
 
 Table 72: Time taken for C-Agent: DeepSeek-R1 from detection to exploitation on the last attempt per task on all 40 bounties. 
 
@@ -4881,5 +4770,4 @@ Table 72: Time taken for C-Agent: DeepSeek-R1 from detection to exploitation on 
 
 
 
-113 
 

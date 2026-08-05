@@ -70,7 +70,6 @@ has shaped the economic balance for both attackers and defenders (Slayton, 2016)
 
 _Preprint. February 4, 2026._ 
 
-1 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -103,7 +102,6 @@ Crucially, the adversary’s objective is not to maximize damage to a specific h
 
 We note that AI agents can substantially reduce the cost of identifying and exploiting vulnerabilities in the long tail of software systems. Reverse engineering, exploit construction, and validation are among the fixed costs associated with traditional exploit development that are mostly unaffected by the number of users (Maynor, 2011; Allodi, 2017). As a result, attackers concentrate effort on widely deployed 
 
-2 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -134,7 +132,6 @@ To reduce the possibility that AI agents will be abused for cyberattacks, a vari
 
 **How It Fails** Data governance does not address the primary source of cyber risk introduced by AI, like generalpurpose reasoning and code synthesis. Many cyber attacks do not depend on memorized exploit text, but instead arise from the ability to reason about systems, infer vulnerabilities, and construct novel attack logic from the first principles (Zhu et al., 2024). Removing explicit exploit examples does not eliminate these capabilities, particularly for the long tail of software systems that never appeared in the training data (Carlini et al., 2025). As AI becomes more agentic and capable of tool use, it can also acquire new information at inference time, further weakening the connection between 
 
-3 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -166,7 +163,6 @@ not provide clear guarantees about model behavior in new or adversarial contexts
 
 **How It Fails** We argue that access controls fall apart once models become widely available. Open weight releases remove all serving-time restrictions, and even gated models can leak, get replicated, or be independently reimplemented (Rigaki & Garcia, 2023; Liang et al., 2024). As discussed in Section 3.2, fine-tuning on a small dataset can break the safety-aligned behaviors. We consider deployment controls static, since there is no effective way to update safeguards of the open-weighted models. As capabilities spread across the ecosystem, restricting individual deployments does little to prevent misuse at the system level (Bengio et al., 2024). 
 
-4 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -206,7 +202,6 @@ Benchmark quality control is also critical. First, we need to make sure the envi
 
 Understanding how AI may be used for offensive security is increasingly important for two reasons. First, it helps anticipate how future attackers might operate once autonomous AI agents become widely accessible (Wallace et al., 2025). Second, it enables defenders to proactively identify and fix vulnerabilities before those capabilities are misused in the wild (Wang et al., 2025b). Offensive security intelligence is therefore no longer limited to modeling human adversaries. 
 
-5 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -240,7 +235,6 @@ First, offensive agent capability should be treated as a highrisk artifact whose
 
 Second, the primary protection boundary for an offensive agent must be realized as an audited, controlled environment. To prevent leakage or unintended harm, organizations must dedicate effort and resources to building and main- 
 
-6 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -267,7 +261,6 @@ consuming process that requires extensive expertise compared to labeling images.
 
 One alternative view is that AI agents will see limited realworld adoption by cyber attackers. This perspective holds that while AI demonstrates impressive capabilities in controlled experiments, deploying them reliably in adversarial, noisy, and high-risk environments remains difficult. Cyber attacks often require robustness, stealth, and operational discipline, and attackers may be reluctant to rely on systems that are probabilistic, costly, or prone to failure (Rid & Buchanan, 2015). From this viewpoint, AI-based attacks may remain niche tools rather than becoming a dominant force, reducing the urgency of developing frontier offensive intelligence. However, historical patterns suggest that once automation meaningfully lowers costs, adoption tends to follow rapidly, even when tools are imperfect (Kaloudi & Li, 2020). Many successful attack techniques, from phishing kits to exploit frameworks, were initially unreliable yet still proved economically viable at scale. Moreover, AI agents need not replace human attackers entirely to be transformative. Even partial automation of vulnerability discovery, reconnaissance, or post exploitation tasks can significantly shift attacker economics. As AI capabilities improve and 
 
-7 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -298,7 +291,6 @@ for repository-level code auditing that navigates large codebases, performs on-d
 
 In this work, we argue that the current defensive AI safety paradigm poses a restrictive view of cybersecurity resilience in the age of AI agents. Focusing solely on model-centric safeguards remains disconnected from the economic reality that AI agents fundamentally alter the cost structure of cyber attacks. We posit that developing offensive security intelligence should be recognized as essential defensive infrastructure, as relying exclusively on reactive protections continues to widen the gap between what attackers can automate and what defenders can anticipate. Only by proactively teach- 
 
-8 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -356,7 +348,6 @@ URL https://www.anthropic.com/news/ disrupting-AI-espionage.
 
 - DONG, Y., Mu, R., Jin, G., Qi, Y., Hu, J., Zhao, X., Meng, J., Ruan, W., and Huang, X. Position: Building guardrails 
 
-9 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -408,7 +399,6 @@ for large language models requires systematic design. In <u>Forty-frst Internati
 
 - Lee, H., Zhang, Z., Lu, H., and Zhang, L. Sec-bench: Automated benchmarking of llm agents on real-world software security tasks. <u>arXiv preprint arXiv:2506.11791,</u> 2025. 
 
-10 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -462,7 +452,6 @@ OpenAI. Introducing superalignment. https://openai.com/index/ introducing-supera
 
 - Shao, M., Jancheska, S., Udeshi, M., Dolan-Gavitt, B., Xi, H., Milner, K., Chen, B., Yin, M., Garg, S., Krishnamurthy, P., et al. NYU CTF Dataset: A Scalable OpenSource Benchmark Dataset for Evaluating LLMs in Offensive Security. <u>arXiv preprint arXiv:2406.05590, 2024.</u> 
 
-11 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -506,7 +495,6 @@ OpenAI. Introducing superalignment. https://openai.com/index/ introducing-supera
 
 - Wang, Z., Shi, T., He, J., Cai, M., Zhang, J., and Song, D. CyberGym: Evaluating AI Agents’ Cybersecurity Capabilities with Real-World Vulnerabilities at Scale. <u>arXiv preprint arXiv:2506.02548, 2025b.</u> 
 
-12 
 
 **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
@@ -526,5 +514,4 @@ OpenAI. Introducing superalignment. https://openai.com/index/ introducing-supera
 
 - Zou, A., Phan, L., Chen, S., Campbell, J., Guo, P., Ren, R., Pan, A., Yin, X., Mazeika, M., Dombrowski, A.-K., et al. Representation engineering: A top-down approach to ai transparency. <u>arXiv preprint arXiv:2310.01405, 2023.</u> 
 
-13 
 

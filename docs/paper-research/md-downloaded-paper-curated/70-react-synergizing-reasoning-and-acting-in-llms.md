@@ -72,7 +72,6 @@ Recent results have hinted at the possibility of combining verbal reasoning with
 
 > _∗_ Work during Google internship. Projet page with code: https://react-lm.github.io/. 
 
-1 
 
 Published as a conference paper at ICLR 2023 
 
@@ -95,7 +94,6 @@ answers from questions in arithmetic, commonsense, and symbolic reasoning tasks 
 
 In this work, we present ReAct, a general paradigm to combine reasoning and acting with language models for solving diverse language reasoning and decision making tasks (Figure 1). ReAct prompts LLMs to generate both verbal reasoning traces and actions pertaining to a task in an interleaved manner, which allows the model to perform dynamic reasoning to create, maintain, and adjust high-level plans for acting (reason to act), while also interact with the external environments (e.g. Wikipedia) to incorporate additional information into reasoning (act to reason). 
 
-2 
 
 Published as a conference paper at ICLR 2023 
 
@@ -121,7 +119,6 @@ However, as the language space _L_ is unlimited, learning in this augmented acti
 
 > 1We show some GPT-3 (Brown et al., 2020) results in Appendix A.1, which outperforms PaLM-540B. 
 
-3 
 
 Published as a conference paper at ICLR 2023 
 
@@ -150,7 +147,6 @@ We begin with knowledge-intensive reasoning tasks like multi-hop question answer
 
 > 2We find more examples do not improve performance. 
 
-4 
 
 Published as a conference paper at ICLR 2023 
 
@@ -185,7 +181,6 @@ search reformulation (“maybe I can search/look up x instead”), and synthesiz
 
 > 3Of all trajectories with correct final answers, those with 7 steps on HotpotQA and 5 steps on FEVER only take up 0.84% and 1.33% respectively. 
 
-5 
 
 Published as a conference paper at ICLR 2023 
 
@@ -217,7 +212,6 @@ We provide examples for each success and failure modes in Appendix E.1. We also 
 
 > 4We suspect that this could be due to the sub-optimal greedy decoding procedure, and future work using better decoding (e.g. beam search) might help address this issue. 
 
-6 
 
 Published as a conference paper at ICLR 2023 
 
@@ -247,7 +241,6 @@ We also test ReAct on two language-based interactive decision-making tasks, ALFW
 
 > 5Micheli & Fleuret (2021) finetuned a GPT-2 model on 3553 task instances and achieved a much improved performance than BUTLER, but it is trained on all task types, thus not included as a baseline. 
 
-7 
 
 Published as a conference paper at ICLR 2023 
 
@@ -277,7 +270,6 @@ On Webshop, one-shot Act prompting already performs on par with IL and IL+RL met
 
 To demonstrate the differences between ReAct and IM, and to highlight the importance of internal reasoning vs. simple reactions to external feedback, we ran an ablation experiment using a thought pattern composed of IM-like dense external feedback. As can be seen in Table 3, ReAct substantially outperforms IM-style prompting (ReAct-IM) (71 vs. 53 overall success rate), with consistent advantages on five out of six tasks. Qualitatively, we observed that ReAct-IM often made mistakes in identifying when subgoals were finished, or what the next subgoal should be, due to a lack of highlevel goal decomposition. Additionally, many ReAct-IM trajectories struggled to determine where an item would likely be within the ALFWorld environment, due to a lack of commonsense reasoning. Both shortcomings can be addressed in the ReAct paradigm. More details about ReAct-IM is in Appendix B.2. An example prompt for ReAct-IM can be found in Appendix C.4, and an example trajectory in Appendix D.2.3. 
 
-8 
 
 Published as a conference paper at ICLR 2023 
 
@@ -305,7 +297,6 @@ We have proposed ReAct – a simple yet effective method for synergizing reasoni
 
 6Human feedback can also be incorporated in a complementary manner but we leave it for future work. 
 
-9 
 
 Published as a conference paper at ICLR 2023 
 
@@ -337,7 +328,6 @@ ReAct prompts large language models to generate more human interpretable, diagno
 
 - Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. _Advances in neural information processing systems_ , 33:1877–1901, 2020. 
 
-10 
 
 Published as a conference paper at ICLR 2023 
 
@@ -369,7 +359,6 @@ Published as a conference paper at ICLR 2023
 
 - Shuang Li, Xavier Puig, Chris Paxton, Yilun Du, Clinton Wang, Linxi Fan, Tao Chen, De-An Huang, Ekin Akyürek, Anima Anandkumar, Jacob Andreas, Igor Mordatch, Antonio Torralba, and Yuke Zhu. Pre-trained language models for interactive decision-making, 2022. URL https: //arxiv.org/abs/2202.01771. 
 
-11 
 
 Published as a conference paper at ICLR 2023 
 
@@ -405,7 +394,6 @@ Published as a conference paper at ICLR 2023
 
 - Zhilin Yang, Peng Qi, Saizheng Zhang, Yoshua Bengio, William W Cohen, Ruslan Salakhutdinov, and Christopher D Manning. Hotpotqa: A dataset for diverse, explainable multi-hop question answering. _arXiv preprint arXiv:1809.09600_ , 2018. 
 
-12 
 
 Published as a conference paper at ICLR 2023 
 
@@ -419,7 +407,6 @@ Published as a conference paper at ICLR 2023
 
 - Yunchang Zhu, Liang Pang, Yanyan Lan, Huawei Shen, and Xueqi Cheng. Adaptive information seeking for open-domain question answering. _arXiv preprint arXiv:2109.06747_ , 2021. 
 
-13 
 
 Published as a conference paper at ICLR 2023 
 
@@ -463,7 +450,6 @@ We also explore human-in-the-loop interaction with ReAct, to allow a human to in
 | **Act 26:** take keychain 2 from drawer 4 (X) | **Act 26:** take keychain 2 from dresser 1 (✓) |
 | **Obs 26:** Nothing happens. | **Obs 26:** You pick up the keychain 2 from dresser 1. |
 
-14 
 
 Published as a conference paper at ICLR 2023 
 
@@ -490,7 +476,6 @@ For all finetuning we use a batch size of 64. On PaLM-8B, we finetune ReAct and 
 
 For the IM-style ablation, the same expert trajectories used in ReAct are reannotated with dense external feedback thoughts within these trajectories, that limit ReAct-IM to only think about (1) decomposing the current goal and (2) the current subgoal that needs to be completed. In particular, ReAct-IM lacks thoughts that (1) determine when a subgoal is completed (2) determine what the next subgoal should be (3) inducing the LLM to refer to its internal pretraining knowledge to identify where items can be within the environment. 
 
-15 
 
 Published as a conference paper at ICLR 2023 
 
@@ -545,7 +530,6 @@ Published as a conference paper at ICLR 2023
 
 _Continued on next page_ 
 
-16 
 
 Published as a conference paper at ICLR 2023 
 
@@ -594,7 +578,6 @@ Published as a conference paper at ICLR 2023
 
 _Continued on next page_ 
 
-17 
 
 Published as a conference paper at ICLR 2023 
 
@@ -653,7 +636,6 @@ Published as a conference paper at ICLR 2023
 
 _Continued on next page_ 
 
-18 
 
 Published as a conference paper at ICLR 2023 
 
@@ -668,7 +650,6 @@ Published as a conference paper at ICLR 2023
 
 
 
-19 
 
 Published as a conference paper at ICLR 2023 
 
@@ -700,7 +681,6 @@ Published as a conference paper at ICLR 2023
 
 _Continued on next page_ 
 
-20 
 
 Published as a conference paper at ICLR 2023 
 
@@ -732,7 +712,6 @@ Published as a conference paper at ICLR 2023
 
 
 
-21 
 
 Published as a conference paper at ICLR 2023 
 
@@ -792,7 +771,6 @@ Table 6: Prompts used for the Webshop experiments in Section 4. We use the promp
 
 
 
-22 
 
 Published as a conference paper at ICLR 2023 
 
@@ -811,7 +789,6 @@ Table 7: An Act prompt on the ALFWorld clean task. No thoughts are provided.
 
 
 
-23 
 
 Published as a conference paper at ICLR 2023 
 
@@ -819,7 +796,6 @@ Table 8: An ReAct prompt on the ALFWorld clean task.
 
 You are in the middle of a room. Looking quickly around you, you see a cabinet 13, a cabinet 12, a cabinet 11, a cabinet 10, a cabinet 9, a cabinet 8, a cabinet 7, a cabinet 6, a cabinet 5, a cabinet 4, a cabinet 3, a cabinet 2, a cabinet 1, a coffeemachine 1, a countertop 1, a diningtable 1, a drawer 1, a fridge 1, a garbagecan 1, a microwave 1, a shelf 3, a shelf 2, a shelf 1, a sinkbasin 1, a stoveburner 4, a stoveburner 3, a stoveburner 2, a stoveburner 1, and a toaster 1. Your task is to: put a clean lettuce in diningtable. > think: To solve the task, I need to find and take a lettuce, then clean it with sinkbasin, then put it in diningtable. OK. > think: First I need to find a lettuce. A lettuce is more likely to appear in fridge (1), diningtable (1), sinkbasin (1), stoveburner (1-3), cabinet (1-13). I can check one by one, starting with fridge 1. OK. > go to fridge 1 The fridge 1 is closed. > open fridge 1 You open the fridge 1. The fridge 1 is open. In it, you see a cup 3, a egg 2, a potato 3, and a potato 2. > go to diningtable 1 On the diningtable 1, you see a apple 1, a bread 1, a butterknife 2, a cup 2, a fork 2, a knife 2, a knife 1, a ladle 1, a lettuce 1, a mug 2, a mug 1, a pan 2, a peppershaker 1, a spatula 3, a tomato 2, and a tomato 1. > think: Now I find a lettuce (1). Next, I need to take it. OK. > take lettuce 1 from diningtable 1 You pick up the lettuce 1 from the diningtable 1. > think: Now I take a lettuce (1). Next, I need to go to sinkbasin (1) and clean it. OK. > go to sinkbasin 1 On the sinkbasin 1, you see a apple 2, a ladle 2, a spoon 1, and a tomato 3. > clean lettuce 1 with sinkbasin 1 You clean the lettuce 1 using the sinkbasin 1. > think: Now I clean a lettuce (1). Next, I need to put it in/on diningtable 1. OK. > go to diningtable 1 On the diningtable 1, you see a apple 1, a bread 1, a butterknife 2, a cup 2, a fork 2, a knife 2, a knife 1, a ladle 1, a mug 2, a mug 1, a pan 2, a peppershaker 1, a spatula 3, a tomato 2, and a tomato 1. > put lettuce 1 in/on diningtable 1 You put the lettuce 1 in/on the diningtable 1. 
 
-24 
 
 Published as a conference paper at ICLR 2023 
 
@@ -833,7 +809,6 @@ D TRAJECTORIES
 
 We provide some trajectories produced by ReAct, CoTand Acton several randomly selected examples from the FEVER dev set below. Search results are omitted to space. 
 
-25 
 
 Published as a conference paper at ICLR 2023 
 
@@ -906,7 +881,6 @@ Example 1951 (gt: REFUTES)
 
 
 
-26 
 
 Published as a conference paper at ICLR 2023 
 
@@ -920,7 +894,6 @@ We provide an example trajectory of ReAct, Act, and ReAct-IM on the same ALFWorl
 
 ReAct is able to correctly find the knife, clean it, and then place it on a countertop. 
 
-27 
 
 Published as a conference paper at ICLR 2023 
 
@@ -932,7 +905,6 @@ D.2.2 ACT TRAJECTORY
 
 Act is able to correctly find the knife, but tries to clean it using a sinkbasin before actually going to the sinkbasin. From there on, the model is unable to recover, and is stuck repeating the same sequence of commands. With ReAct, an existing thought would have concretely identified that the knife had been taken, and that the next subgoal was to go to a sinkbasin to clean it. 
 
-28 
 
 Published as a conference paper at ICLR 2023 
 
@@ -944,7 +916,6 @@ You are in the middle of a room. Looking quickly around you, you see a cabinet 6
 
 ReAct-IM is able to correctly find the knife, but is unable to clean it as well. The LLM then gets stuck trying to place this knife on a countertop. One possible issue is the incorrect thought think: I need to find a clean knife., which seems to trick the LLM in believing that the knife is already cleaned. In ReAct, this sequence of subgoals would be concretely captured by each thought. 
 
-29 
 
 Published as a conference paper at ICLR 2023 
 
@@ -952,7 +923,6 @@ ReAct-IM ALFWorld trajectory
 
 You are in the middle of a room. Looking quickly around you, you see a cabinet 6, a cabinet 5, a cabinet 4, a cabinet 3, a cabinet 2, a cabinet 1, a coffeemachine 1, a countertop 3, a countertop 2, a countertop 1, a drawer 3, a drawer 2, a drawer 1, a fridge 1, a garbagecan 1, a microwave 1, a shelf 3, a shelf 2, a shelf 1, a sinkbasin 1, a stoveburner 4, a stoveburner 3, a stoveburner 2, a stoveburner 1, and a toaster 1. Your task is to: put a clean knife in countertop. > think: To solve the task, I need to find and take a clean knife, then put it in countertop. OK. > think: I need to find a clean knife. OK. > go to countertop 1 On the countertop 1, you see a lettuce 2, a mug 2, a peppershaker 1, and a spoon 2. > think: I need to find a clean knife. OK. > go to countertop 2 On the countertop 2, you see a cup 1, a dishsponge 1, a glassbottle 3, a knife 1, a plate 2, a potato 3, and a statue 1. > think: I need to find a clean knife. OK. > take knife 1 from countertop 2 You pick up the knife 1 from the countertop 2. > think: I need to put this knife (1) in/on countertop 1. OK. > go to countertop 1 On the countertop 1, you see a lettuce 2, a mug 2, a peppershaker 1, and a spoon 2. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 You put the knife 1 in/on the countertop 1. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 Nothing happens. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 Nothing happens. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 Nothing happens. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 Nothing happens. > think: I need to put this knife (1) in/on countertop 1. OK. > put knife 1 in/on countertop 1 Nothing happens. > think: I need to put this knife (1) in/on countertop 1. OK. 
 
-30 
 
 Published as a conference paper at ICLR 2023 
 
@@ -998,7 +968,6 @@ Table 10: Example trajectories for Webshop predicted by Act and ReAct. Compared 
 
 
 
-31 
 
 Published as a conference paper at ICLR 2023 
 
@@ -1050,7 +1019,6 @@ Success: True positive
 
 <mark>ReAct</mark> Question: What was the middle name of the actress who was cast alongside Harvey Fierstein, Linda Hart, Dick Latessa, Clarke Thorell, Mary Bond Davis, Laura Bell Bundy, Matthew Morrison, Corey Reynolds, and Marissa Jaret Winokur in Hairspray? Thought 1: I need to search Harvey Fierstein, Linda Hart, Dick Latessa, Clarke Thorell, Mary Bond Davis, Laura Bell Bundy, Matthew Morrison, Corey Reynolds, and Marissa Jaret Winokur, find the actress that was cast alongside them in Hairspray, then find its middle name. Action 1: Search[Harvey Fierstein] Observation 1: Harvey Forbes Fierstein ... Thought 2: Harvey Fierstein is an actor, playwright, and screenwriter. I need to search Linda Hart next... Action 2: Search[Linda Hart]... <mark>CoT</mark> Question: Who is older Danny Green or James Worthy? Thought: Let’s think step by step. Danny Green was born in 1987. James Worthy was born in 1961. 1987 (Danny Green) > 1961 (James Worthy), so Danny Green is older. Answer: Danny Green 
 
-32 
 
 Published as a conference paper at ICLR 2023 
 
@@ -1084,5 +1052,4 @@ Published as a conference paper at ICLR 2023
 
 
 
-33 
 

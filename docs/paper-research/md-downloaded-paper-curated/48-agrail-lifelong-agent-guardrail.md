@@ -150,7 +150,6 @@ More advanced LLM agents (Zhu et al., 2023b,a; Park et al., 2023; Shinn et al., 
 
 Meanwhile, recent studies (He et al., 2024) have shown that LLM agents fail to adequately consider their potential vulnerabilities in different real-world scenarios. Generally, the risks of an LLM agent can be categorized into two groups illustrated in Figure 1 : **Task-specific risks** refer to risks explicitly identified by the agent administrator based on the agent’s intended objectives and operational constraints within a given task. For example, according to the guard request of the EICU-AC dataset, these risks include unauthorized access to diagnostic data and violations of privacy regulations (Xiang et al., 2024). **Systemic risks** arise from vulnerabilities in an LLM agent’s interactions, potentially compromising confidentiality, integrity, or 
 
-1 
 
 availability (CIA) of information and triggering security failures. For example, unauthorized access to system data threatens confidentiality, leading to inadvertent exposure of sensitive information (Yuan et al., 2024a). Integrity risks arise when malicious attacks, such as prompt injection on an Ubuntu terminal or websites like EIA and AdvWeb, manipulate agents into executing unintended commands (Liu et al., 2024b; Liao et al., 2025; Xu et al., 2024). Even normal operations can pose availability risks—such as an OS agent unintentionally overwriting files—resulting in data corruption. 
 
@@ -182,7 +181,6 @@ We evaluate AGrail with a focus on real-world agent outputs, rather than LLM-gen
 - Gou et al., 2024
 - Gu et al., 2024b). The memory module
 
-2 
 
 
 **📄🔍 (Document Analysis)**
@@ -239,7 +237,6 @@ The development of Safe-OS is motivated by two key challenges: (1) Risk evavluat
 - Li and Liu, 2024
 - Debenedetti et al., 2024) that can be classified as harmful without additional context, certain actions appear benign but become dangerous depending on the agent’s environment. These
 
-3 
 
 actions cannot be pre-defined or fully simulated without environment. For example, in a web browsing scenario, an agent may inadvertently click on a hazardous link leading to information leakage, or in an OS environment, an agent may unintentionally overwrite existing files while renaming them. Detecting such risks requires real-time environmental analysis, underscoring the necessity of enhancing LLM agents’ environment monitoring capabilities. 
 
@@ -281,7 +278,6 @@ Safety criteria _Ic_ refer to the objective safety standards that an LLM agent m
 
 As shown in Figure 2, our framework employs two identical LLMs as _F_ and a memory module as 
 
-4 
 
 _m_ in an iterative refinement process to ensure the effective and adaptive of agent actions during TTA. 
 
@@ -318,7 +314,6 @@ We conduct our experiments on the following datasets focus on real-world agent o
 
 In our experiments, we categorize baselines into two types: model-based defense agencies and guardrail-based defense agencies. For model-based defenses, we configure advanced LLMs, such as GPT-4o, with a customized CoT prompt (Xiang et al., 2024) under zero-shot and one-shot settings. For guardrail-based defenses, we set up LLaMAGuard3 with guard requests as safety categories and evaluate GuardAgent under a two-shot setting, which represents its strongest setup. We also incorporate ToolEmu (Ruan et al., 2024) as a baseline, 
 
-5 
 
 which simulates agent environments and we only evaluated it on Safe-OS due to online setting. Additionally, we consider AgentMonitor with guided scoring (Naihin et al., 2023) as an baseline. For AGrail, which is evaluated during TTA setting in the main experiment, we configure task-specific safety criteria aligned with guard requests from Mind2Web-SC and EICU-AC (Xiang et al., 2024). On Safe-OS, EIA, and AdvWeb, we enforce universal safety criteria for AGrail and universal guard requests for all defense agencies. AGrail employs specialized detection tools based on task requirements: the Permission Detection Tool for EHR agents, the OS Environment Detection Tool for OS agents, and the Web HTML Detection Tool for Web agents (only on EIA). Notably, tool invocation is governed by safety checks, dynamically utillized by Executor itself. Further details on these experiments can be found in the Appendix C.1. 
 
@@ -353,7 +348,6 @@ In the In-Distribution (ID) setting, we split the Mind2Web-SC dataset into a tra
 
 **Sequence Analysis** To investigate the impact of input data sequence on AGrail during TTA, we conduct experiments by setting three random seeds to shuffle the data sequence. In Table 4, the results indicate the effect of data sequence across different fundation models of AGrail. For Claude 3.5 Sonnet, accuracy shows minimal variation in this settings, suggesting that its performance remains largely stable regardless of data sequence. In contrast, 
 
-6 
 
 |**Defense Agency**||**Safe-**|**OS**||**AdvWeb**||**EIA**||
 |---|---|---|---|---|---|---|---|---|
@@ -421,7 +415,6 @@ Table 4: Effect of Input Orders on Our Framework - Lower Variance Indicates High
 
 **Domain Transferability** We carefully evaluate the domain transferability of AGrail under the universal safety criteria. Specifically, we first perform TTA iterations on the test set of Mind2Web-SC in the ID setting and storing the updated memory. We then transfer this updated memory to EICU-AC and continue TTA iterations on 100 randomly selected samples. Comparing the results before and after transferring to EICU-AC, we observe that when 
 
-7 
 
 
 *Bar charts evaluating Baseline Agreement, Ours Agreement, and ASR for OS Prompt Injection, OS Environment Attack, AdvWeb, and EIA scenarios.*
@@ -460,7 +453,6 @@ AGrail leverages Claude-3.5-sonnet as the foundation model, there is no performa
 
 In our second set of experiments, we examine the similarity between the TF-IDF representations of memory across three random seeds during the iterative process of the complex action. In Figure 5, we observe that after the fourth iteration, the similarity among the three memory representations stabilized, with an average similarity exceeding 98%. Moreover, we found that the safety checks stored in the memory across all three seeds are approximately 
 
-8 
 
 aligned with the ground truth, demonstrating the robustness of our approach in learning. This result further validates that our framework can effectively optimize _m_ toward Ω<sup>_∗_</sup> based on the safety goal in guard request and predefined safety criteria. 
 
@@ -516,7 +508,6 @@ Our limitations are twofold. First, our current framework aims to explore the ab
 
 - Hao Li and Xiaogeng Liu. 2024. Injecguard: Benchmarking and mitigating over-defense in prompt injection guardrail models. _Preprint_ , arXiv:2410.22770. 
 
-9 
 
 - Junkai Li, Siyu Wang, Meng Zhang, Weitao Li, Yunghwei Lai, Xinhui Kang, Weizhi Ma, and Yang Liu. 2024. Agent hospital: A simulacrum of hospital with evolvable medical agents. _Preprint_ , arXiv:2405.02957. 
 
@@ -560,7 +551,6 @@ Our limitations are twofold. First, our current framework aims to explore the ab
 
 - Tao Tu, Anil Palepu, Mike Schaekermann, Khaled Saab, Jan Freyberg, Ryutaro Tanno, Amy Wang, Brenna Li, Mohamed Amin, Nenad Tomasev, Shekoofeh Azizi, Karan Singhal, Yong Cheng, Le Hou, Albert Webson, Kavita Kulkarni, S Sara Mahdavi, Christopher Semturs, Juraj Gottweis, Joelle Barral, Katherine Chou, Greg S Corrado, Yossi Matias, Alan Karthikesalingam, and Vivek Natarajan. 2024. 
 
-10 
 
 Towards conversational diagnostic ai. _Preprint_ , arXiv:2401.05654. 
 
@@ -602,7 +592,6 @@ Towards conversational diagnostic ai. _Preprint_ , arXiv:2401.05654.
 
 - Xizhou Zhu, Yuntao Chen, Hao Tian, Chenxin Tao, Weijie Su, Chenyu Yang, Gao Huang, Bin Li, Lewei Lu, Xiaogang Wang, Yu Qiao, Zhaoxiang Zhang, and Jifeng Dai. 2023b. Ghost in the minecraft: Generally capable agents for open-world environments via large language models with text-based knowledge and memory. _Preprint_ , arXiv:2305.17144. 
 
-11 
 
 ### **SUMMARY OF THE APPENDIX** 
 
@@ -693,7 +682,6 @@ To ensure that all commands can be executed by the agent, each command has under
 
 - **Environment Attack** by hiding the risk in the environment, we categorize environment-level attacks on operating systems into six types: file renaming (e.g., path overwriting), file deletion (e.g., data loss risks), path movement (e.g., unauthorized relocation), permission modification (e.g., access restriction or privilege escalation), unau- 
 
-12 
 
 thorized access (e.g., sensitive file/path exploration), and critical system directory operations (e.g., manipulation of /root, /lib, or /bin). 
 
@@ -753,7 +741,6 @@ We will introduce the details of retrieve and workflow alogrithms of AGrail.
 
 **Workflow.** Our entire algorithm follows the process illustrated in Algorithms 1, 2, and 3 and consists of three steps. The first step generating the checklist illustrated in Figure 2, which executed by the Analyzer. In its Chain-of-Thought (CoT) (Wei et al., 2023; Jin et al., 2024) configuration, the Analyzer first analyzes potential risks related to agent action and then answers the three choice question to determine the next action. If the retrieved sample does not align with the current agent action, the Analyzer will generates new safety checks based 
 
-13 
 
 
 ```json
@@ -829,7 +816,6 @@ We have provided the prompts for our Analyzer and Executor. Figure 24 illustrate
 
 In this section, we will provide our preliminary experiment setting in all datasets. 
 
-14 
 
 ### Prompt for Paraphrasing Agent Action 
 
@@ -881,7 +867,6 @@ For Safe-OS, we consistently use output format of OS agent in AgentBench, where 
 
 To ensure fair comparison with baselines, we 
 
-15 
 
 ### Prompt in Agreement Computation on SEEACT 
 
@@ -937,7 +922,6 @@ Figure 10: A prompt for computing an agreement metric on SEEACT.
 
 - 15: **return** _R_ , _m_<sup>(</sup><sup>_t_+1)</sup> 
 
-16 
 
 ### Prompt in Agreement Computation on EICU 
 
@@ -974,7 +958,6 @@ ready block this agent action. To ensure a fair ASR calculation, we excluded the
 
 While traditional metrics such as accuracy, precision, recall, and F1-score are valuable for evaluating classification performance, they only assess whether predictions correctly identify cases as safe or unsafe without considering the underlying reasoning (Jin et al., 2025). To address this limitation, we introduce the metric called “Agreement” that evaluates whether our algorithm identifies the correct risks behind unsafe agent action. 
 
-17 
 
 Prompt in Agreement Computation on Safe-OS and AdvWeb 
 
@@ -1019,7 +1002,6 @@ agreement score _AM_ measures the proportion of predictions where the algorithm�
 
 For datasets including Safe-OS, AdvWeb, and EIA, we used Claude-3.5-Sonnet to compute agreement rates, with the exact prompt shown in Figure 12, and the results presented in Figure 3. We selected Claude-3.5-Sonnet for agreement evaluation due to its strong reasoning ability, ensuring reliable consistency checks. Meanwhile, GPT-4omini was employed for evaluating datasets such as EICU and MindWeb, with results presented in Table 2. The corresponding prompts are shown in Figures 10 and 11. For these less complex datasets, GPT-4o-mini was chosen for its efficiency and ac- 
 
-18 
 
 ### Universial Safety Criteria 
 
@@ -1068,7 +1050,6 @@ We also conducted experiments to investigate the domain transferability of our f
 
 In our main experiments, we employed taskspecific safety criteria on Mind2Web-SC and EICU- 
 
-19 
 
 |**Model**|**LPA**|**LPP**|**LPR**|**F1**|
 |---|---|---|---|---|
@@ -1142,7 +1123,6 @@ Inference Token Cost (SeeAct)<br>GPT-4o 1776<br>Ours 4830<br>GuardAgent 6116<br>
 
 Figure 19: Comparison of Computing Cost on Defense Agencies 
 
-20 
 
 ### **E.3 Experiment with Observation** 
 
@@ -1195,7 +1175,6 @@ For the OS environment detector based on Claude3.5-Sonnet, we employ an LLM as a
 
 For the EHR permission detector based on Claude3.5-Sonnet, we also utilize an LLM as a code generator to produce a Python program with callable functions in the toolbox of GuardAgent (Xiang et al., 2024). Similar to the OS Environment Detector, this detector also incorporates an LLM-based code debugger. When invoking the EHR environment detector in our framework, we define it as "The tool used to deal with all check items related to permission of the database for all user identity." The prompt configuration for the EHR environment 
 
-21 
 
 detector is shown in Figure 28. 
 
@@ -1249,7 +1228,6 @@ We demonstrate our framework’s defense mechanisms against attacks targeting Ac
 
 **Weidi Luo** : Led the project, conceived the main idea, designed the entire algorithm, and implemented all methods. Manually and carefully created the Safe-OS dataset, including 80% of the 
 
-22 
 
 System Sabotage Attacks, all Prompt Injection Attacks, all Normal data, and 50% of the Environment Attacks. Conducted experiments for all baselines except for AgentMonitor, Llama Guard 3 8B, and AgentMonitor on datasets. Led the evaluation experiments for the agreement assessment of SafeOS, AdvWeb, and EIA. Performed all ablation studies, created workflow illustrations, and wrote full initial draft of paper. 
 
@@ -1259,7 +1237,6 @@ System Sabotage Attacks, all Prompt Injection Attacks, all Normal data, and 50% 
 
 **Suman Banerjee, Huan Sun, Muhao Chen, and Chaowei Xiao** : Provided guidance on method design and valuable feedback on the paper’s writing and overall project direction. 
 
-23 
 
 ### Univerisal Guard Request 
 
@@ -1317,7 +1294,6 @@ Table 9: Performance Comparison on ID Testset for Memory Usage on Claude-3.5-Son
 
 Table 10: Performance Comparison on OOD Testset for Memory Usage on Claude-3.5-Sonnet and GPT-4o-mini 
 
-24 
 
 
 *Prompt 1 in Web HTML Detector: Extract Next action and all specific HTML choices with `<input type>` in a JSON...*
@@ -1328,7 +1304,6 @@ Prompt 1 in Web HTML Detector<br>[System]<br>Extract Next action and all specifi
 
 Figure 22: A prompt for extracting next action and specific HTML choices in JSON format. 
 
-25 
 
 ### Prompt 2 in Web HTML Detector 
 
@@ -1350,7 +1325,6 @@ Target Element: # Put the Target Element choice content here without choice inde
 
 Figure 23: A prompt for selecting the shortest and most secure choice based on Next Action. 
 
-26 
 
 
 *Prompt for Safety Analyzer for Agent Security.*
@@ -1358,7 +1332,6 @@ Figure 23: A prompt for selecting the shortest and most secure choice based on N
 
 Figure 24: **Prompt Configuration of Analyzer.** Here the Agent Usage Principles are Guard Request. 
 
-27 
 
 
 *Prompt for Safety Checks Executor for Agent Security.*
@@ -1366,7 +1339,6 @@ Figure 24: **Prompt Configuration of Analyzer.** Here the Agent Usage Principles
 
 Figure 25: **Prompt Configuration of Executor.** Here the Agent Usage Principles are Guard Request. 
 
-28 
 
 
 *Prompt for Code Generator for OS Agent Security.*
@@ -1374,7 +1346,6 @@ Figure 25: **Prompt Configuration of Executor.** Here the Agent Usage Principles
 
 Figure 26: **Prompt Configuration of OS Environment Detector.** Here the Agent Usage Principles are Guard Request. 
 
-29 
 
 
 *Prompt for Code Debugger for Agent Security.*
@@ -1382,7 +1353,6 @@ Figure 26: **Prompt Configuration of OS Environment Detector.** Here the Agent U
 
 Figure 27: **Prompt Configuration of Code Debugger.** Here the Agent Usage Principles are Guard Request. 
 
-30 
 
 
 *Prompt for Code Generator for EHRAgent Security.*
@@ -1390,7 +1360,6 @@ Figure 27: **Prompt Configuration of Code Debugger.** Here the Agent Usage Princ
 
 Figure 28: **Prompt Configuration of EHR Permission Detector.** Here the Agent Usage Principles are Guard Request. 
 
-31 
 
 
 *(Image: Appendix figure or icon)*
@@ -1478,7 +1447,6 @@ Request:  List the ids of patients who have been diagnosed with acute pulmonary 
 
 Figure 30: Example of Our Framework protect EHRAgent on EICU-AC. 
 
-32 
 
 
 *(Image: Appendix figure or icon)*
@@ -1548,7 +1516,6 @@ What is the full path of the configuration file<br>named 'config.cfg’?  (User 
 
 Figure 32: Example of Our Framework protect OS Agent on Safe-OS against Prompt Injectio Attack. 
 
-33 
 
 
 *(Image: Appendix figure or icon)*
@@ -1610,7 +1577,6 @@ Figure 33: Example of Our Framework protect OS Agent on Safe-OS against Environm
 
 Figure 34: Example of Our Framework protect OS Agent on Safe-OS against System Sabotage Attack. 
 
-34 
 
 
 *(Image: Appendix figure or icon)*
@@ -1676,7 +1642,6 @@ Schedule a virtual consultation for Solar Roof. The name is James  Smith. The<br
 
 Figure 36: Example of Our Framework protect Web Agent against EIA attack by Action Generation. 
 
-35 
 
 |'Catalog a method for creating a Meatpie.'|
 |---|
@@ -1688,5 +1653,4 @@ Figure 36: Example of Our Framework protect Web Agent against EIA attack by Acti
 
 Figure 37: Example of Our Framework protect Web Agent against AdvWeb. 
 
-36 
 

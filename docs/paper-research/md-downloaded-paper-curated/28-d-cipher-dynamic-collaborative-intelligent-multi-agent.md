@@ -1,4 +1,3 @@
-1 
 
 # D-CIPHER: <u>D</u> namic <u>Collaborative In y</u> telligent Multi-Agent System with <u>Planner</u> and <u>Heterogeneous Executors</u> for Offensive Security 
 
@@ -74,7 +73,6 @@ and automated program repair [5, 42]. Recent advances in LLMs have led to their 
 
 Most current LLM agents for CTFs operate as single agents handling challenges end-to-end. However, CTFs are complex and require exploration and sequential task execution. Singleagent setups limit feedback to self-reflection, often leading to retries, loss of focus, and hallucinations. In contrast, real-world CTFs are team-based, involving diverse expertise [7, 10], which current frameworks fail to reflect. While multi-agent systems are gaining traction in other fields [14, 20, 43], their use in cybersecurity is still nascent. Offensively, they can automate tasks like pentesting and exploit generation [6, 32]; defensively, they aid in bug discovery and repair [19]. Motivated by this, we propose a multi-agent LLM framework 
 
-2 
 
 that assigns distinct roles to agents, enabling dynamic and collaborative problem-solving. 
 
@@ -125,7 +123,6 @@ FEATURE COMPARISON OF CTF SOLVING AGENTS.
 
 Recent works build LLM agents targeted towards CTFs. Table I shows a feature comparison of D-CIPHER with related works on LLM agents for autonomous CTF solving. The 
 
-3 
 
 ---
 
@@ -165,7 +162,6 @@ of current LLMs to prompt for agent actions. The system has three agents: (1) th
 
 Each agent maintains a conversation history of LLM inputs and outputs. An LLM agent’s context contains: (1) the system prompt that sets the agent’s role and provides actions, (2) the initial prompt that describes the environment and the task (e.g., CTF challenge or delegated task); and (3) the conversation history of agent actions and observations. Following the ReAct strategy, we prompt the LLM to reason and produce an action. We utilize the function calling features of current LLMs to produce actions, so we do not define a structured format of our own, but instead rely on the LLM provider’s API to parse the actions correctly. At every iteration, the conversation history is sent to the LLM and it generates a message containing the reason and action. Observations from executing the actions are appended to the conversation history. The generated reason, action, and corresponding observation constitutes a “round” of conversation. The agent continue these rounds until the task is complete or the context is full. To avoid filling up the context, we truncate observations to 25,000 characters. We also optionally truncate actions and observations in all but the last few rounds while keeping the reasoning intact, similar to Abramovich et al. [1]. 
 
-4 
 
 ---
 
@@ -232,7 +228,6 @@ Fig. 4. Planner and Executors interact for the _collision_ _<u>course</u>_ crypt
 
 _2) Planner-Executor system:_ The Planner is initiated with the generated prompt and also explores the CTF for a few turns. It is provided with RunCommand but not CreateFile, Disassemble, or Decompile, allowing exploration, but dissuading it from trying to solve the CTF by itself. It comes up with a step-by-step plan and delegates tasks to an Executor by calling Delegate. The Executor is initiated with the task details and performs the task by running commands and creating scripts, after which it calls FinishTask with a task execution summary and results. The summary is returned to the Planner as an observation, using which the Planner continues to revise its plan and delegate further tasks. For each Delegate call, the framework initiates a new Executor with a new conversation history. Effectively, D-CIPHER runs multiple heterogeneous Executors to solve one challenge. Each Executor focuses on it’s own task, while the Planner only sees the task summary, allowing for efficient context management. Figure 4 shows an example of the Planner solving the collision_course CTF. Based on the Auto-prompter’s suggested approach and it’s own exploration, the Planner starts by delegating the task of cracking the hash salt using brute force. The first Executor successfully implements the brute force attack, correctly employing the T1110 (Brute Force) ATT&CK technique, and returns the task summary along with the hash salt to the Planner. The Planner then reasons and delegates the next step to use the salt and decrypt the password. The second Executor implements the decryption script, employing the two techniques T1600 (Weaken Encryption) and T1552 (Unsecured Credentials). Successfully executing the script reveals the flag and solves the CTF. This example shows how the Planner focuses on the entire CTF while each Executor focuses on single tasks. The workflow ensures continuous interaction between the Planner 
 
-5 
 
 and Executors such that they collaborate to enhance problemsolving. Enhanced focus on single tasks also improves D- CIPHER’s capabilities on MITRE ATT&CK techniques. 
 
@@ -304,7 +299,6 @@ To perform this analysis, we manually labeled the 200 CTFs in NYU CTF Bench with
 
 2https://www.together.ai 
 
-6 
 
 ### TABLE III 
 
@@ -377,7 +371,6 @@ Table III shows the categorywise _% solved_ of D-CIPHER and other works on NYU C
 
 Figure 5(a) plots the _% solved_ of D-CIPHER across categories on NYU CTF Bench. D-CIPHER’s performance is more balanced across different LLMs, demonstrating that our framework operates well with different reasoning capabilities of the LLMs. While D-CIPHER improves in web over previous results, the performance still lags behind other categories, 
 
-7 
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0007-01.png)
@@ -456,7 +449,6 @@ RESULTS WITH OLDER CLAUDE VERSION.
 
 Figure 6 shows the percentage breakdown of the challenge termination (exit) reasons of D-CIPHER on NYU CTF Bench. Exit reasons are of five types: “Solved” when the challenge is solved, “Giveup” when the Planner gives up, “Max cost” when the cost budget is exceeded, “Max rounds” when the Planner 
 
-8 
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0008-01.png)
@@ -491,7 +483,6 @@ As described in Section IV-D, we labeled the 200 CTFs in NYU CTF Bench with MITR
 
 The results show that D-CIPHER without auto-prompter using Claude 3.5 Sonnet exhibits superior offensive capability as it solves 65% more techniques compared to other agents and configurations. Category-wise results show that D-CIPHER with Auto-prompter is weaker on pwn. The performance drops on multiple techniques spanning different categories, offering an insight into the Auto-prompter’s impact. Comparing D- CIPHER, NYU CTF Baseline, and EnIGMA on Claude 3.5 Sonnet, we see subtle but meaningful differences. D-CIPHER is better at T1110 (Brute Force) and T1600 (Weaken Encryption) as multi-agent collaboration aids in cryptographic CTFs, while EnIGMA outperforms on T1203 (Exploitation for Client Execution) and T1574 (Hijack Execution Flow) as interactive tools help for binary exploitation. 
 
-9 
 
 ### TABLE VII 
 
@@ -567,7 +558,6 @@ D-CIPHER’s results with and without autoprompter compared to NYU CTF Baseline 
 
 As discussed in Section V-D1, D-CIPHER with Autoprompter on Claude 3.5 Sonnet performs worse on pwn challenges of NYU CTF Bench compared to D-CIPHER without 
 
-10 
 
 Auto-prompter. We look at the five pwn challenges where D- CIPHER succeeds without Auto-prompter but fails with it. **slithery:** A python jail escape challenge. The challenge server allows executing python code but maintains a reject list of commands. The solution bypasses the reject list to invoke python’s os.system for shell access. While the Autoprompter understood the CTF’s purpose, a misleading base64 encoding threw the Auto-prompter off. It generated a prompt that focuses on the wrong variables, distracting the Planner. **unlimited** **<u>subway:</u>** buffer overflow. The solution involves leaking the stack canary byte-by-byte using arbitrary memory reads, exploiting a buffer overflow to overwrite the canary, and redirecting execution to the print_flag function. The Auto-prompter attempted to run commands such as strings to understand the binary, but continually encountered errors, ultimately failing to generate a useful prompt for the Planner. **got** **<u>milk:</u>** A global offset table attack. The solution exploits a format string vulnerability to overwrite the least significant byte of the global offset table address of the function lose with the corresponding byte of the function _win_ , redirecting execution to the desired function. Auto-prompter could not extract any contextual information of the challenge and failed to generate a usable prompt, stalling the Planner. 
 
@@ -690,7 +680,6 @@ Fig. 9. Function call is not parsed correctly due to a formatting error by the L
 
 **Confusion with interactive tools:** This happens when an agent tries to run commands inside interactive tools like “gdb” but via RunCommand which only runs shell commands. A typical user would type these commands in an interactive shell in this manner, but the agent does not have an interactive interface. Advanced interactive tools and demonstrations for awareness of the agent’s interface may help fix such errors. 
 
-11 
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0011-01.png)
@@ -752,7 +741,6 @@ D-CIPHER has limitations which show potential for improvement. There is no direc
 
 - [4] Stanislas G. Bianou and Rodrigue G. Batogna. Pentest-ai, an llm-powered multi-agents framework for penetration testing automation leveraging mitre attack. In _2024_ 
 
-12 
 
 _IEEE International Conference on Cyber Security and Resilience (CSR)_ , pages 763–770, 2024. doi: 10.1109/ CSR61664.2024.10679480. 
 
@@ -814,7 +802,6 @@ _Engineering_ , pages 3–13. IEEE, 2012.
 
 - [32] Xiangmin Shen, Lingzhi Wang, Zhenyuan Li, Yan Chen, 
 
-13 
 
 Wencheng Zhao, Dawei Sun, Jiashui Wang, and Wei Ruan. PentestAgent: Incorporating LLM agents to automated penetration testing, 2024. URL https://arxiv.org/ abs/2411.05185v1. 
 
@@ -860,7 +847,6 @@ Wencheng Zhao, Dawei Sun, Jiashui Wang, and Wei Ruan. PentestAgent: Incorporatin
 
 - [52] Yulin Zhou, Yiren Zhao, Ilia Shumailov, Robert Mullins, and Yarin Gal. Revisiting automated prompting: Are we actually doing better? In _Annual Meeting of the_ 
 
-14 
 
 _Association for Computational Linguistics_ , pages 1822– 1832. Association for Computational Linguistics, July 2023. doi: 10.18653/v1/2023.acl-short.155. URL https: //aclanthology.org/2023.acl-short.155/. 
 

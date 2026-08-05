@@ -69,7 +69,6 @@ Jeopardy CTF A&D CTF<br>100+ 10<br>Cyber Range CAIBench Knowledge<br>10 Meta-ben
 
 Current evaluation methodologies remain fragmented, inconsistent, and often too slow for rapidly evolving AI agents [6, 7]. Existing benchmarks typically assess narrow aspects of security knowledge 
 
-1 
 
 or specific attack techniques, but fail to capture the complete skill set and rarely consider team-based execution or coordinated multi-agent operation [8]. Consequently, there is no standardized framework for systematically evaluating and comparing AI agents in various adversarial security scenarios, ranging from basic vulnerability assessment to complex multistage attacks that require coordinated team execution, adversarial reasoning, and adaptive problem solving. 
 

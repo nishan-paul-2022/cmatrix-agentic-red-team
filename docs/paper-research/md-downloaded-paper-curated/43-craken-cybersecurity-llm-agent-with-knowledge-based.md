@@ -90,7 +90,6 @@ To enhance the reasoning and retrieval quality of LLM agents, our retrieval proc
 
 Table 1: Feature comparison of automated LLM agents for cybersecurity. 
 
-2 
 
 
 ```mermaid
@@ -134,7 +133,6 @@ NYU CTF baseline agent [32] and Turtayev et al. [38] incorporate LLMs in a ReAct
 
 CRAKEN’s architecture is illustrated in Figure 1, comprising a planner-executor multi-agent system based on D-CIPHER [39], and a robust knowledge retrieval system that incorporates Self-RAG [3] and Graph-RAG [25] methodologies. The _planner-executor multi-agent system_ follows a hierarchical framework. The planner handles the CTF solving process, and strategically delegates tasks to multiple executors. The executors focus on the assigned tasks to complete the objectives set by the planner and return a task summary. Each executor is enhanced via task-specific knowledge from the retriever. We also incorporate the auto-prompter agent from D-CIPHER. 
 
-3 
 
 The _retrieval and knowledge integration system_ begins with context decomposition to break down the executor’s task into manageable components linked with a structured database. The retriever then retrieves relevant documents from the database using two complementary search strategies, vectorbased and graph-based.The generator then formulates candidate responses that undergo hallucination grading and answer grading to ensure factual grounding. If the candidate fails the multiple grading checks, the query rewriter further refines search queries and triggers the retrieval process again. This iterative retrieval, grading, and refinement method ensures that the retrieved knowledge and final outputs remain consistent with the task objectives and do not mislead the executor agent. CRAKEN mitigates information overload through its decomposition strategy by breaking down the task description into focused sub-queries. This improves focus and reduces the risk of leading the agent off track by overloading redundant context or low-quality information, two common problems in knowledge-based approaches. CRAKEN incurs a moderate increase in computational cost. 
 
@@ -168,7 +166,6 @@ Algorithm 1 outlines the workflow that begins with an agent-issued query. The RE
 
 We incorporate a hybrid retrieval mode (as shown in Fig. 2) by combining structured graph-based knowledge with complementary unstructured text retrieved using classic vector-similarity methods. This hybrid approach allows the agent to benefit from both the structured knowledge representations and supporting textual reference. By retrieving knowledge based on both structure and semantics, our 
 
-4 
 
 hybrid Graph-RAG algorithm improves the quality and relevance of responses. Appendix A outlines additional features that can be enabled in our retrieval system. 
 
@@ -199,7 +196,6 @@ Figure 2: Graph-RAG Retrieval
 
 > 2Datasets are open-sourced at `https://github.com/NYU-LLM-CTF/craken_baseline_datasets` 
 
-5 
 
 Table 2: Overall and category-wise performance of D-CIPHER and CRAKEN on NYU CTF Bench. 
 
@@ -243,7 +239,6 @@ Category analysis reveals reverse engineering as the strongest across all models
 
 CRAKEN delivers measurable performance improvements over D-CIPHER for most models, particularly in reverse engineering tasks. These improvements come with justifiable cost increases, confirming our hypothesis that CRAKEN’s structured reasoning benefits CTF challenge resolution. These results validate CRAKEN’s design while demonstrating that its performance benefits outweigh the moderate additional computational expense across most tested models. In addition, CRAKEN shows superior offensive capabilities. In our analysis, CRAKEN using Claude 3.5 Sonnet shows a 25–30% improvement in orchestrating a broader range of MITRE [37] techniques relative to other 
 
-6 
 
 agents and configurations. For a detailed breakdown of CRAKEN’s MITRE technique coverage alongside other agents, refer to Appendix D. 
 
@@ -297,7 +292,6 @@ Figure 4: Transition diagram visualizing the RAG process.
 
 **Graph-RAG Analysis.** The default configuration of CRAKEN utilizes a vector database for knowledge retrieval. Our framework extends this capability by also supporting graph-based retrieval to enhance knowledge augmentation. To evaluate this enhancement, we compared the performance of the best-performing model in the CRAKEN setup (Claude 3.5 Sonnet) against our Graph-RAG 
 
-7 
 
 
 ```text
@@ -316,7 +310,6 @@ framework on the NYU CTF Bench under two configurations: default vector-based re
 
 **Mixture of LLMs.** As mentioned in [39], combining different models for planning and execution can significantly impact CTF solving success rates. We evaluated various agent-retriever combinations to study the tradeoffs between effectiveness and cost. As shown in Table 2, the Sonnet(Agent) + Haiku(Retriever) configuration achieved a 19.0% overall solve rate at $0.84 cost, which is 2% lower than the default setup with Claude 3.5 Sonnet. CRAKEN’s capability depends on the retriever model’s effectiveness. Meanwhile, the Haiku(Agent) + Sonnet(Retriever) combination solved only 13.5% of challenges, despite its lower cost at $0.69. From a cost-efficiency perspective, the default CRAKEN 
 
-8 
 
 configuration with Claude 3.5 Sonnet offers the best performance-to-cost ratio, solving 21.0% of challenges at $0.80, while mixed configurations sacrifice either performance or cost-effectiveness. These findings indicate both agent and retriever components play crucial roles in CRAKEN’s success. 
 
@@ -347,7 +340,6 @@ CRAKEN advances cybersecurity LLM agents by integrating specialized knowledge in
 
 **Ethics.** CTFs serve as controlled environments to test the efficacy of LLM agents for offensive security. LLMs need careful attention given their potential misuse in adversarial scenarios where safeguards are bypassed [15]. With CRAKEN’s knowledge-based approach to identify and exploit vulnerabilities improves offensive security capabilities of LLM agent, additional concerns are raised for potential misuse. Promoting open development of cybersecurity LLM agents will help ethical actors to understand technological risks and also deploy automated agents for improving cybersecurity 
 
-9 
 
 by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt injection becomes non-trivial when combined with RAG. Malicious actors could theoretically manipulate the agent into accessing and potentially misusing information retrieved from the corpus. Developing cybersecurity technologies to proactively assess prompt injection vulnerabilities and training data integrity will allow AI offensive security agents to face discussions of responsibility, similar to software practices that are more secure while curtailing potential misuses [27, 45]. 
 
@@ -384,7 +376,6 @@ by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt i
 
 - [13] Yuejun Guo, Constantinos Patsakis, Qiang Hu, Qiang Tang, and Fran Casino. Outside the comfort zone: Analysing LLM capabilities in software vulnerability detection. In _European symposium on research in computer security_ , pages 271–289. Springer, 2024. 
 
-10 
 
 - [14] Yuntong Hu, Zhihan Lei, Zheng Zhang, Bo Pan, Chen Ling, and Liang Zhao. Grag: Graph retrieval-augmented generation. _arXiv preprint arXiv:2405.16506_ , 2024. 
 
@@ -418,7 +409,6 @@ by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt i
 
 - [29] Sampath Rajapaksha, Ruby Rani, and Erisa Karafili. A rag-based question-answering solution for cyber-attack investigation and attribution. In _Computer Security. ESORICS 2024 International Workshops_ , pages 238–256, Cham, 2025. Springer Nature Switzerland. ISBN 978-3-031-82362-6. 
 
-11 
 
 - [30] Georgel M. Savin, Ammar Asseri, Josiah Dykstra, Jonathan Goohs, Anthony Melaragno, and William Casey. Battle ground: Data collection and labeling of CTF games to understand human cyber operators. In _Cyber Security Experimentation and Test Workshop_ , pages 32–40. Association for Computing Machinery, 2023. 
 
@@ -448,7 +438,6 @@ by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt i
 
 - [43] Xiaohua Wang, Zhenghua Wang, Xuan Gao, Feiran Zhang, Yixin Wu, Zhibo Xu, Tianyuan Shi, Zhengyuan Wang, Shizheng Li, Qi Qian, et al. Searching for best practices in retrievalaugmented generation. In _Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing_ , pages 17716–17736, 2024. 
 
-12 
 
 - [44] Zora Zhiruo Wang, Akari Asai, Xinyan Velocity Yu, Frank F Xu, Yiqing Xie, Graham Neubig, and Daniel Fried. Coderag-bench: Can retrieval augment code generation? _arXiv preprint arXiv:2406.14497_ , 2024. 
 
@@ -470,7 +459,6 @@ by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt i
 
 - [53] Chengshuai Zhao, Garima Agrawal, Tharindu Kumarage, Zhen Tan, Yuli Deng, Ying-Chih Chen, and Huan Liu. Ontology-aware rag for improved question-answering in cybersecurity education, 2024. URL `https://arxiv.org/abs/2412.14191` . 
 
-13 
 
 ---
 
@@ -511,7 +499,6 @@ The goal of your team is to solve the CTF challenge and find the flag. Your job 
 
 Files included in the challenge: { _challenge.files_ } These files are present in the folder “{ _environment.container_home_ }/ctf_files” in your docker environment. Generate a step-by-step plan to solve the challenge, then delegate each step to the Executor along with a detailed task description using the “delegate" tool. 
 
-14 
 
 ### **Executor Prompts** 
 
@@ -563,7 +550,6 @@ Please continue based on your best judgment.
 
 **RAG Template** You are an assistant for question-answering tasks related to solve CTF Challenges. Use the following pieces of retrieved context to answer the question. You should rely on the knowledge database. Try to answer it step by step. Question: { _question_ } Context: { _context_ } Answer: **Document Grading** You are a grader assessing relevance of a retrieved document to a user question. It does not need to be a stringent test. The goal is to filter out erroneous retrievals. If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant. Give a binary score “yes" or “no" to indicate whether the document is relevant to the question. 
 
-15 
 
 **Hallucination Grading** You are a grader assessing whether an LLM generation is grounded in / supported by a set of retrieved facts. Give a binary score “yes" or “no". “yes" means that the answer is grounded in / supported by the set of facts. 
 
@@ -590,7 +576,6 @@ Based on the provided context, this note analyzes vulnerabilities in RC4 stream 
 ```text
 1. Predictable or Constant Initialization Vectors (IVs)<br>As shown in the Google CTF “dogestore” challenge:<br>iv = get_iv();<br>openssl::symm::decrypt(<br>openssl::symm::cipher::aes_256_ctr(),<br>&key,<br>&some(&iv, data)<br>)<br>The vulnerability here is that the IV remains constant across different encryptions. In stream ciphers:<br>• A constant IV with the same key produces identical keystreams<br>• This effectively reduces the encryption to a simple XOR with a fixed keystream<br>• Attackers can leak the keystream and decrypt any message<br>2. Keystream Reuse Vulnerability<br>From the WhiteHat challenge about A5/1 cipher:<br>• The implementation only changed the timestamp every 30 seconds<br>• Without a counter (like in CTR mode), the keystream remained constant for that period<br>• This allowed attackers to recover the keystream by XORing known plaintext with ciphertext<br>• With the keystream, attackers could encrypt arbitrary messages<br>3. Improper State Maintenance in RC4<br>The “hack-tac-toe” challenge demonstrates another critical weakness:<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>400ea7a58971b0f78fa9c6ed298764a8<br>The keystream repeats after just 16 bytes, meaning:<br>• The internal state wasn’t being properly updated or maintained<br>• The implementation reused the same keystream block repeatedly<br>• This allowed complete decryption by simply XORing with the repeated key pattern<br>4. Implementation Flaws and Code Tampering<br>From the “journey2” challenge, a vulnerability where a single byte in the RC4 algorithm was modified:<br>- k = s[(s[i] + s[j]) % 256]<br>+ k = s[(s[j] - s[i]) % 256]<br>This shows:<br>```
 
-16 
 
 - Even a small change in state management (+ vs -) completely alters the algorithm’s security 
 
@@ -626,7 +611,6 @@ Based on the provided context, this note analyzes vulnerabilities in RC4 stream 
 
 - _Stream ciphers like RC4 are particularly vulnerable to implementation errors. Even small flaws in state management can lead to catastrophic security failures._ 
 
-17 
 
 ## **D MITRE ATT&CK Capabilities** 
 
@@ -686,7 +670,6 @@ Table 3: MITRE ATT&CK capability of CRACKEN and other agents on NYU CTF Bench.
 
 
 
-18 
 
 ## **E Challenge Solved Distribution** 
 
@@ -750,5 +733,4 @@ Table 4: Solution distribution among three cutting edge CTF agents
 
 
 
-19 
 

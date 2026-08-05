@@ -103,7 +103,6 @@ To summarize, our contributions are the following:
 
 **Reasoning and decision-making** Self-Refine [15] employs an iterative framework for selfrefinement to autonomously improve generation through self-evaluation. These self-evaluation and self-improvement steps are conditioned on given task constraints, such as "How can this generation be written in a more positive way". Self-Refine is effective but is limited to single-generation reasoning tasks. Pryzant et al. [21] performs a similar semantic prompt-writing optimization, but is also limited to single-generation tasks. Paul et al. [20] fine-tune critic models to provide intermediate feedback within trajectories to improve reasoning responses. Xie et al. [27] use stochastic beam search over actions to perform a more efficient decision-making search strategy which allows the agent to use foresight advantage due to its self-evaluation component. Yoran et al. [31] and Nair et al. 
 
-2 
 
 
 ```mermaid
@@ -145,7 +144,6 @@ Figure 1: Reflexion works on decision-making 4.1, programming 4.3, and reasoning
 
 We develop a modular formulation for Reflexion, utilizing three distinct models: an _Actor_ , denoted as _Ma_ , which generates text and actions; an _Evaluator_ model, represented by _Me_ , that scores the outputs produced by _Ma_ ; and a _Self-Reflection_ model, denoted as _Msr_ , which generates verbal reinforcement cues to assist the Actor in self-improvement. We provide a detailed description of each of these models and subsequently elucidate their collaborative functioning within the Reflexion framework. 
 
-3 
 
 
 ```mermaid
@@ -184,7 +182,6 @@ Figure 2: (a) Diagram of Reflexion. (b) Reflexion reinforcement algorithm
 
 **Memory** Core components of the Reflexion process are the notion of short-term and long-term memory. At inference time, the Actor conditions its decisions on short and long-term memory, similar 
 
-4 
 
 to the way that humans remember fine-grain recent details while also recalling distilled important experiences from long-term memory. In the RL setup, the trajectory history serves as the short-term memory while outputs from the Self-Reflection model are stored in long-term memory. These two memory components work together to provide context that is specific but also influenced by lessons learned over several trials, which is a key advantage of Reflexion agents over other LLM action choice works. 
 
@@ -209,7 +206,6 @@ To avoid syntactic errors, we provide two domain-specific few-shot trajectories 
 
 **Analysis** A common error in baseline failed AlfWorld trajectories is when an agent thinks that it has possession of an item but does not actually have the item. The agent proceeds to execute several actions in a long trajectory and is not able to backtrack its actions to find the mistake. Reflexion 
 
-5 
 
 
 ```mermaid
@@ -238,7 +234,6 @@ Robustly evaluating natural language answers is a long-standing problem in NLP. 
 
 **Results** Reflexion outperforms all baseline approaches by significant margins over several learning steps. Furthermore, ReAct-only, CoT-only, and CoT (GT)-only implementations fail to probabilistically improve on any tasks, meaning that no failed tasks from the first trial from any of the baseline approaches were able to be solved in subsequent trials using a temperature of 0.7 In the Reflexion runs, we allowed the agent to gather experience and retry on failed tasks until it produced 3 consecutive failed attempts on the particular task. Naturally, the CoT (GT) achieved higher accuracy scores as it was given access to the ground truth context of the question. Still, the CoT (GT) agent is unable to correctly infer the correct answer for 39% of the questions, but Reflexion helps the agent to correct its mistakes without access to the ground truth answer to improve its accuracy by 14%. 
 
-6 
 
 
 ```mermaid
@@ -275,7 +270,6 @@ The task of programming presents a unique opportunity to use more grounded self-
 
 Table 1: Pass@1 accuracy for various model-strategy-language combinations. The base strategy is a single code generation sample. All instruction-based models follow zero-shot code generation. 
 
-7 
 
 |**Benchmark + Language**|**Base**|**Refexion**|**TP**|**FN**|**FP**|**TN**|
 |---|---|---|---|---|---|---|
@@ -307,7 +301,6 @@ Table 3: Pass@1 accuracy for various compromised approaches on the Reflexion app
 
 Next, we test self-reflection contribution by omitting the natural language explanation step following failed unit test suite evaluations. Intuitively, this challenges the agent to combine the tasks of error identification and implementation improvement across all failed unit tests. Interestingly, the compromised agent does not improve performance over the baseline run. We observe that the test generation and code compilation steps are able to catch syntax and logic errors, but the implementation fixes do not reflect these indications. These empirical results suggest that several recent works that 
 
-8 
 
 propose _blind_ trial and error debugging techniques without self-reflection are ineffective on harder tasks such as writing complex programs in Rust. 
 
@@ -349,7 +342,6 @@ In this work, we present _Reflexion_ , an approach that leverages verbal reinfor
 
 We highly advise others to use isolated execution environments when running autonomous code writing experiments as the generated code is not validated before execution. 
 
-9 
 
 ---
 
@@ -394,7 +386,6 @@ We highly advise others to use isolated execution environments when running auto
 
 - [18] OpenAI (2023). Gpt-4 technical report. _ArXiv_ . 
 
-10 
 
 - [19] Park, J. S., O’Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., and Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. _arXiv preprint arXiv:2304.03442_ . 
 
@@ -422,7 +413,6 @@ We highly advise others to use isolated execution environments when running auto
 
 - [31] Yoran, O., Wolfson, T., Bogin, B., Katz, U., Deutch, D., and Berant, J. (2023). Answering questions by meta-reasoning over multiple chains of thought. _arXiv preprint arXiv:2304.13007_ . 
 
-11 
 
 ---
 
@@ -455,7 +445,6 @@ Table 4: Pass@1 accuracy on HumanEval Python using starchat-beta [13].
 
 Table 5: Pass@1 accuracy on 100 HotPotQA using various models. 
 
-12 
 
 ---
 
@@ -484,7 +473,6 @@ _>_ <mark>take mug</mark> 1 <mark>from desk</mark> 1 <mark>You pick</mark> up <m
 
 Figure 5: [Top] An AlfWorld trajectory in which the agent failed due to inefficient planning. In the reflection, the agent recognizes that it should have looked for the desklamp then the mug, not the mug then the desklamp. [Bottom] The agent is able to correct its reasoning trace and execute a sequence of actions in a concise manner. 
 
-13 
 
 ### **B.1 WebShop Limitation** 
 
@@ -521,7 +509,6 @@ Sample function signature:
 
 1 `def minSubArraySum (nums):` 2 _`"""`_ 3 _`Given an array of integers nums , find the minimum sum of any`_ 4 _`non -empty sub -array of nums.`_ 5 _`Example`_ 6 _`minSubArraySum ([2, 3, 4, 1, 2, 4]) == 1`_ 
 
-14 
 
 7 _`minSubArraySum ([-1, -2, -3]) == -6`_ 8 _`"""`_ 
 
@@ -549,11 +536,9 @@ Reflexion _no_ Self-Reflection ablation Actor generations follow the form: (Inst
 
 Reflexion _no_ test generation ablation Actor generations follow the form: (Instruction) 
 
-15 
 
 (Function implementation) ~~(Unit test feedback)~~ (Self-reflection) (Instruction for next function implmentation) 
 
-16 
 
 ---
 
@@ -591,7 +576,6 @@ Thought 4: Gorden Kaye was best known for playing womanising café owner René A
 
 Figure 7: Two HotPotQA trials within the same environment and task. The Reflexion + ReAct agent uses self-reflection to determine a better search method for the next trial. 
 
-17 
 
 ### **D.2 Chain-of-Thought + Reflexion** 
 
@@ -617,7 +601,6 @@ Observation 1: Answer is CORRECT
 
 **<mark>Refection:</mark>** <mark>Upon</mark> r <mark>efecting</mark> on <mark>the</mark> i <mark>ncorrect</mark> a <mark>nswer</mark> I <mark>provided,</mark> I rea <mark>lize that</mark> I <mark>may not have provided enough context</mark> to acc <mark>urately</mark> a <mark>nswer the question. The question asked for</mark> a s <mark>eries</mark> of <mark>battles, but</mark> I <mark>only provided the name</mark> of <mark>one battle.</mark> To <mark>bett</mark> er a <mark>nswer this question</mark> in <mark>the</mark> f <mark>uture,</mark> I <mark>will make sure</mark> to <mark>provide more context, such</mark> as <mark>the name</mark> of <mark>the campaign, which was the New York and New Jersey campaign, and the fact that</mark> it <mark>was</mark> a s <mark>eries</mark> of <mark>battles. Additionally,</mark> I <mark>will make sure</mark> to i <mark>nclude the dates</mark> of <mark>the battles,</mark> as <mark>well</mark> as <mark>the</mark> loc <mark>ations,</mark> to e <mark>nsure that my</mark> a <mark>nswer</mark> is <mark>comprehensive and</mark> acc <mark>urate.</mark> 
 
-18 
 
 ### **D.4 HotPotQA episodic memory (EPM) ablation prompts** 
 
@@ -647,5 +630,4 @@ Thought 1: The question is asking what field of study the head of the Foreign Re
 
 **<mark>Refection:</mark>** <mark>For the frst trial,</mark> I <mark>misunderstood the question.</mark> I <mark>thought the question was asking for</mark> a <mark>category</mark> of d <mark>egrees, rather than</mark> a <mark>specifc</mark> d <mark>egree.</mark> I <mark>learned from my mistake and</mark> in <mark>the second trial,</mark> I f <mark>ocused more closely</mark> on <mark>the question</mark> to u <mark>nderstand that</mark> it <mark>was asking for</mark> a <mark>specifc feld</mark> of <mark>study.</mark> 
 
-19 
 

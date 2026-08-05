@@ -119,7 +119,6 @@ We present empirical evaluations on arithmetic, commonsense, and symbolic reason
 
 Consider one’s own thought process when solving a complicated reasoning task such as a multi-step math word problem. It is typical to decompose the problem into intermediate steps and solve each before giving the final answer: _“After Jane gives 2 flowers to her mom she has 10 . . . then after she gives 3 to her dad she will have 7 . . . so the answer is 7.”_ The goal of this paper is to endow language models with the ability to generate a similar _chain of thought_ —a coherent series of intermediate reasoning steps that lead to the final answer for a problem. We will show that sufficiently large 
 
-2 
 
 language models can generate chains of thought if demonstrations of chain-of-thought reasoning are provided in the exemplars for few-shot prompting. 
 
@@ -156,7 +155,6 @@ We explore chain-of-thought prompting for various language models on multiple be
 
 **Chain-of-thought prompting.** Our proposed approach is to augment each exemplar in few-shot prompting with a chain of thought for an associated answer, as illustrated in Figure 1 (right). As most of the datasets only have an evaluation split, we manually composed a set of eight few-shot exemplars with chains of thought for prompting—Figure 1 (right) shows one chain of thought exemplar, and the full set of exemplars is given in Appendix Table 20. (These particular exemplars did not undergo prompt engineering; robustness is studied in Section 3.4 and Appendix A.2.) To investigate whether chain-of-thought prompting in this form can successfully elicit successful reasoning across a range of 
 
-3 
 
 
 ```text
@@ -173,7 +171,6 @@ math word problems, we used this single set of eight chain of thought exemplars 
 
 The strongest results of chain-of-thought prompting are summarized in Figure 4, with all experimental outputs for each model collection, model size, and benchmark shown in Table 2 in the Appendix. There are three key takeaways. First, Figure 4 shows that chain-of-thought prompting is an emergent ability of model scale (Wei et al., 2022b). That is, chain-of-thought prompting does not positively impact performance for small models, and only yields performance gains when used with models of _∼_ 100B parameters. We qualitatively found that models of smaller scale produced fluent but illogical chains of thought, leading to lower performance than standard prompting. 
 
-4 
 
 Second, chain-of-thought prompting has larger performance gains for more-complicated problems. For instance, for GSM8K (the dataset with the lowest baseline performance), performance more than doubled for the largest GPT and PaLM models. On the other hand, for SingleOp, the easiest subset of MAWPS which only requires a single step to solve, performance improvements were either negative or very small (see Appendix Table 3). 
 
@@ -196,7 +193,6 @@ The observed benefits of using chain-of-thought prompting raises the natural que
 
 **Equation only.** One reason for why chain-of-thought prompting might help is that it produces the mathematical equation to be evaluated, and so we test a variation where the model is prompted to output only a mathematical equation before giving the answer. Figure 5 shows that equation only prompting does not help much for GSM8K, which implies that the semantics of the questions in GSM8K are too challenging to directly translate into an equation without the natural language reasoning steps in chain of thought. For datasets of one-step or two-step problems, however, we find that equation only prompting does improve performance, since the equation can be easily derived from the question (see Appendix Table 6). 
 
-5 
 
 **Variable compute only.** Another intuition is that chain of thought allows the model to spend more computation (i.e., intermediate tokens) on harder problems. To isolate the effect of variable computation from chain-of-thought reasoning, we test a configuration where the model is prompted to output a only sequence of dots ( _. . ._ ) equal to the number of characters in the equation needed to solve the problem. This variant performs about the same as the baseline, which suggests that variable computation by itself is not the reason for the success of chainof-thought prompting, and that there appears to be utility from expressing intermediate steps via natural language. 
 
@@ -226,7 +222,6 @@ To confirm that successful chain-of-thought prompting works for other sets of ex
 
 > 1For instance, whereas original chain of thought uses several short sentences ( _“’There were originally 9 computers. For each of 4 days, 5 more computers were added. So 5 * 4 = 20 computers were added. 9 + 20 is 29.”_ ), the concise chain of thought would read _“5 * 4 = 20 new computers were added. So there are 9 + 20 = 29 new computers in the server room now”_ . 
 
-6 
 
 source (examples in this dataset already included reasoning steps like a chain of thought).<sup>2</sup> Figure 6 shows that these prompts performed comparably with our manually written exemplars, also substantially outperforming standard prompting. 
 
@@ -253,7 +248,6 @@ Figure 7: Chain-of-thought prompting also improves the commonsense reasoning abi
 
 > 2We sample examples _≤_ 60 tokens to fit into our input context window, and also limit the examples to _≤_ 2 steps to solve for a fair comparison with the eight exemplars that we composed. 
 
-7 
 
 ---
 
@@ -300,7 +294,6 @@ We have explored chain-of-thought prompting as a simple mechanism for eliciting 
 
 > 4For names of length longer than 2 words, we concatenate multiple first and last names together. 
 
-8 
 
 experiments on commonsense reasoning underscored how the linguistic nature of chain-of-thought reasoning makes it generally applicable (Section 4). Finally, we showed that for symbolic reasoning, chain-of-thought prompting facilitates OOD generalization to longer sequence lengths (Section 5). In all experiments, chain-of-thought reasoning is elicited simply by prompting an off-the-shelf language model. No language models were finetuned in the process of writing this paper. 
 
@@ -337,7 +330,6 @@ Naturally, this paper also relates closely to the large body of recent work on p
 
 We have explored chain-of-thought prompting as a simple and broadly applicable method for enhancing reasoning in language models. Through experiments on arithmetic, symbolic, and commonsense reasoning, we find that chain-of-thought reasoning is an emergent property of model scale that allows sufficiently large language models to perform reasoning tasks that otherwise have flat scaling curves. Broadening the range of reasoning tasks that language models can perform will hopefully inspire further work on language-based approaches to reasoning. 
 
-9 
 
 ---
 
@@ -383,7 +375,6 @@ Jacob Andreas, Dan Klein, and Sergey Levine. 2018. Learning with latent language
 
 - Ting-Rui Chiang and Yun-Nung Chen. 2019. Semantically-aligned equation generation for solving and reasoning math word problems. In _Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)_ , pages 2656–2668, Minneapolis, Minnesota. Association for Computational Linguistics. 
 
-10 
 
 Peter Clark, Oyvind Tafjord, and Kyle Richardson. 2020. Transformers as soft reasoners over language. _IJCAI_ . 
 
@@ -425,7 +416,6 @@ Brian Lester, Rami Al-Rfou, and Noah Constant. 2021. The power of scale for para
 
 - Xiang Lisa Li and Percy Liang. 2021. Prefix-tuning: Optimizing continuous prompts for generation. _ACL_ . 
 
-11 
 
 Zhengzhong Liang, Steven Bethard, and Mihai Surdeanu. 2021. Explainable multi-hop verbal reasoning through internal monologue. _NAACL_ . 
 
@@ -465,7 +455,6 @@ Wang Ling, Dani Yogatama, Chris Dyer, and Phil Blunsom. 2017. Program induction 
 
 - Nazneen Fatema Rajani, Bryan McCann, Caiming Xiong, and Richard Socher. 2019. Explain yourself! Leveraging language models for commonsense reasoning. _ACL_ . 
 
-12 
 
 - Qiu Ran, Yankai Lin, Peng Li, Jie Zhou, and Zhiyuan Liu. 2019. NumNet: Machine reading comprehension with numerical reasoning. _EMNLP_ . 
 
@@ -503,7 +492,6 @@ Wang Ling, Dani Yogatama, Chris Dyer, and Phil Blunsom. 2017. Program induction 
 
 - Jason Wei, Maarten Bosma, Vincent Y. Zhao, Kelvin Guu, Adams Wei Yu, Brian Lester, Nan Du, Andrew M. Dai, and Quoc V. Le. 2022a. Finetuned language models are zero-shot learners. _ICLR_ . 
 
-13 
 
 - Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph, Sebastian Borgeaud, Dani Yogatama, Maarten Bosma, Denny Zhou, Donald Metzler, et al. 2022b. Emergent abilities of large language models. _Transactions on Machine Learning Research_ . 
 
@@ -535,7 +523,6 @@ Wojciech Zaremba and Ilya Sutskever. 2014. Learning to execute. _arXiv preprint 
 
 - Wangchunshu Zhou, Jinyi Hu, Hanlin Zhang, Xiaodan Liang, Maosong Sun, Chenyan Xiong, and Jian Tang. 2020. Towards interpretable natural language understanding with explanations as latent variables. _NeurIPS_ . 
 
-14 
 
 ---
 
@@ -587,7 +574,6 @@ Wojciech Zaremba and Ilya Sutskever. 2014. Learning to execute. _arXiv preprint 
 
    - (c) Did you include the estimated hourly wage paid to participants and the total amount spent on participant compensation? [N/A] 
 
-15 
 
 ---
 
@@ -612,7 +598,6 @@ There are also three notable points regarding why small language models fail. Th
 
 In summary, the success of chain-of-thought reasoning as a result of model scale is a complicated phenomena that likely involves a variety of emergent abilities (semantic understanding, symbol mapping, staying on topic, arithmetic ability, faithfulness, etc). Future work could more thoroughly investigate what properties of pretraining data, model architecture, and optimization objective causally enable such reasoning capabilities. 
 
-16 
 
 
 ```text
@@ -627,7 +612,6 @@ One of the key considerations of prompting is sensitivity to the exact prompt. T
 
 - **Different annotators.** We first analyze robustness to three different annotators (Section 3.4 and Figure 6). Although there is notable variance in performance (which we will discuss later), chain of thought performed better than the baseline by a large margin for all three annotators on eight datasets in arithmetic, commonsense, and symbolic reasoning (Table 6 and Table 7). Similar to the annotation process in Cobbe et al. (2021), annotators were not given specific instructions about 
 
-17 
 
 how to write the chain of thought annotations other than to simply write the step-by-step reasoning process that led to the final answer. Thus, the annotations were written in each annotator’s own linguistic “chain of thought” writing style. 
 
@@ -649,7 +633,6 @@ How to generate chain of thought annotations in a robust fashion could be an int
 
 While chain-of-thought prompting is in principle applicable for any text-to-text task, it is more helpful for some tasks than others. Based on the experiments in this paper, our intuition is that chain of thought helps the most when three conditions are met: (1) the task is challenging and requires 
 
-18 
 
 multi-step reasoning, (2) a large language model is used, and (3) the scaling curve is relatively flat. Conversely, the benefits are smaller when one or more of these conditions are not met. 
 
@@ -669,7 +652,6 @@ Prompting with the equation only as an intermediate step does help on many datas
 
 It is hard for the model to directly translate all of the semantics into a single equation, but chain of thought allows it to better reason about each part of the question via intermediate steps in natural language. 
 
-19 
 
 ---
 
@@ -699,7 +681,6 @@ Table 1: Chain of thought prompting outperforms standard prompting for various l
 
 
 
-20 
 
 Table 2: Standard prompting versus chain of thought prompting on five arithmetic reasoning benchmarks. Note that chain of thought prompting is an emergent ability of model scale—it does not positively impact performance until used with a model of sufficient scale. 
 
@@ -745,7 +726,6 @@ Table 3: Standard prompting versus chain of thought prompting on the four subset
 
 
 
-21 
 
 Table 4: Standard prompting versus chain of thought prompting on five commonsense reasoning benchmarks. Chain of thought prompting is an emergent ability of model scale—it does not positively impact performance until used with a model of sufficient scale. 
 
@@ -787,7 +767,6 @@ Table 5: Standard prompting versus chain of thought prompting enables length gen
 
 
 
-22 
 
 Table 6: Ablation and robustness results for arithmetic reasoning datasets. Chain of thought generally outperforms ablations by a large amount. “Equation only” performs in between standard prompting and chain of thought prompting, as it allows for intermediate reasoning steps via equations but does not leverage natural language. Chain of thought prompting has variance (as expected) when used with prompts written by different annotators or when using other exemplars, but still outperforms standard prompting by a large margin. Standard deviation shown is for different order of few-shot prompting exemplars, with five different random seeds. Results here are shown for LaMDA 137B, as additional queries for GPT-3 and PaLM are both limited and expensive. 
 
@@ -825,7 +804,6 @@ Table 7: Ablation and robustness results for four datasets in commonsense and sy
 
 
 
-23 
 
 ---
 
@@ -864,7 +842,6 @@ Using intermediate reasoning steps has a long history in program synthesis and e
 
 Numeric and logical reasoning has been a long-studied task in machine learning and natural language processing (Lev et al., 2004, _inter alia_ ). Recent work has also aimed to inject numeric reasoning abilities in language models in various ways, such as augmenting BERT with a predefined set of executable operations (Andor et al., 2019), including a graph neural network (Ran et al., 2019), and using specialized training procedures (Pi˛ekos et al., 2021). Another line of work aims to enable language models to perform logical or formal reasoning, often by verablizing the rules in natural language formal rules using language (Clark et al., 2020; Saeed et al., 2021; Liang et al., 2021). 
 
-24 
 
 Perhaps the most-related work here is Recchia (2021), which shows that finetuning enables longhand module operations, which has previously been difficult for performers. Whereas work in this direction is often task-specific and uses finetuning, we show that chain-of-thought prompting works for a broad range of tasks without any finetuning. 
 
@@ -909,7 +886,6 @@ Table 8: Example of correct chains of thought produced by the model for the GSM8
 
 Although we find that chain-of-thought reasoning is mostly correct for math questions where the final answer was correct, this is likely because it is hard to arrive at the correct final answer by coincidence for free response questions. For multiple choice or binary classification problems, it was much more 
 
-25 
 
 likely that models could arrive at the correct answer via an incorrect reasoning path (e.g., all the commmonsense reasoning datasets we evaluate). This is a limitation, and future work should perform an analysis of the factuality of such chains of thought. 
 
@@ -939,7 +915,6 @@ Table 9: Of 50 examples that the model got correct, there were 7 salient cases w
 
 **MODEL ANSWER (CORRECT BUT INVERTED SEMANTICS):** 5 pies were baked and cut into 8 pieces each. The 5 pies were then served to the guests. 8 x 5 = 40 pieces of pie. The guests ate 14 pieces of pie. 40 - 14 = 26 pieces of pie were left. The answer is 26. ✓ 
 
-26 
 
 ### **D.2 Incorrect Chain of Thought Analysis** 
 
@@ -977,7 +952,6 @@ Table 10: Example of incorrect chains of thought, categorized as described in Ap
 
 **EXPLANATION FOR ERROR CATEGORY:** The model answer could be made correct just adding one additional step (in this case, adding 20 and 40). 
 
-27 
 
 We found that the remaining chains of thought (27 of 50; 54%) would require substantial edits to make into a correct chain of thought. Almost all cases here involved some error in semantic understanding (see Table 11: “semantic understanding error”), and 8 of the 27 also had incoherent chain of thoughts, meaning that some statements in the generated chain of thought did not follow from prior ones or violated basic world knowledge (see Table 11: “incoherent chain of thought error”). 
 
@@ -1007,7 +981,6 @@ Overall, there are no guarantees that the reasoning processes generated by large
 
 As the experiments in the main paper use a fixed number of few-shot exemplars (8; as constrained by the input length of 1024 tokens), we verify that the chain-of-thought prompting is robust to various numbers of few-shot exemplars. We run experiments for LaMDA 137B, comparing chain-of-thought prompting with standard prompting for the five datasets where standard prompting had a mostly flat scaling curve (the largest model did not achieve high performance). As shown in Figure 11, the improvement of chain-of-thought prompting over standard prompting remains robust to varying the number of few-shot exemplars in the prompt. 
 
-28 
 
 
 ```text
@@ -1031,7 +1004,6 @@ Table 12: Summary of math word problem benchmarks we use in this paper with exam
 
 
 
-29 
 
 ---
 
@@ -1081,7 +1053,6 @@ We list the details and licenses for all arithmetic and commonsense datasets use
 
 > 5 `https://beta.openai.com/docs/api-reference/making-requests` 
 
-30 
 
 - StrategyQA (Geva et al., 2021): we use the open-domain setting (question-only set) from BIG-bench collaboration (2021): `https://github.com/google/BIG-bench/ tree/main/bigbench/benchmark_tasks/strategyqa` . The original dataset is from `https://github.com/eladsegal/strategyqa` , MIT license: `https://github.com/ eladsegal/strategyqa/blob/main/LICENSE` . 
 
@@ -1089,7 +1060,6 @@ We list the details and licenses for all arithmetic and commonsense datasets use
 
 - SayCan (Ahn et al., 2022): SayCan dataset can be accessed at `https://say-can.github. io/` under CC BY 4.0 license. 
 
-31 
 
 ---
 
@@ -1138,7 +1108,6 @@ Answer Choices: (a) fast food restaurant (b) pizza (c) ground up dead cows (d) m
 
 **MODEL ANSWER (INCORRECT):** The answer must be something that is waiting with you in a reception area. Of the above choices, only people are waiting with you in a reception area. So the answer is (e). (Ground truth is (d).) 
 
-32 
 
 Table 16: Examples of correct and incorrect chains of thought produced by LaMDA 137B on StrategyQA. 
 
@@ -1185,7 +1154,6 @@ Table 18: Examples of correct and incorrect chains of thought produced by LaMDA 
 
 **MODEL ANSWER (INCORRECT):** Nazem Kadri is a hockey player. Being out at home is part of hockey. So the answer is yes. (Ground truth is “no”, being out at home is part of baseball.) 
 
-33 
 
 Table 19: Examples of correct and incorrect chains of thought produced by PaLM 540B on SayCan robot planning tasks. 
 
@@ -1200,7 +1168,6 @@ Table 19: Examples of correct and incorrect chains of thought produced by PaLM 5
 
 
 
-34 
 
 ---
 
@@ -1245,7 +1212,6 @@ Table 20: Few-shot exemplars for full chain of thought prompt for math word prob
 
 **A:** <mark>Olivia had</mark> 23 <mark>dollars.</mark> 5 <mark>bagels for</mark> 3 <mark>dollars each will</mark> be 5 x 3 = 15 <mark>dollars.</mark> So <mark>she has</mark> 23 - 15 <mark>dollars left.</mark> 23 - 15 is 8. The answer is 8. 
 
-35 
 
 Table 21: Few-shot exemplars for full chain of thought prompt for AQuA. 
 
@@ -1287,13 +1253,11 @@ Table 22: Few-shot exemplars for full chain of thought prompt for the last lette
 
 **A:** <mark>The last</mark> letter of <mark>"Bill"</mark> is <mark>"l". The last</mark> letter of <mark>"Gates"</mark> is <mark>"s". Concatenating them</mark> is <mark>"ls".</mark> The answer is ls. 
 
-36 
 
 Table 23: Few-shot exemplars for full chain of thought prompt for the coinflip task. 
 
 **<u>PROMPT FOR COIN FLIP</u> Q:** Q: A coin is heads up. Ka flips the coin. Sherrie flips the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Ka and Sherrie.</mark> So <mark>the coin was fipped</mark> 2 <mark>times, which</mark> is an <mark>even number. The coin started heads up,</mark> so after an <mark>even number</mark> of <mark>fips,</mark> it <mark>will still</mark> be <mark>heads up.</mark> So the answer is yes. **Q:** A coin is heads up. Jamey flips the coin. Teressa flips the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Jamey and Teressa.</mark> So <mark>the coin was fipped</mark> 2 <mark>times, which</mark> is an <mark>even number. The coin started heads up,</mark> so after an <mark>even number</mark> of <mark>fips,</mark> it <mark>will still</mark> be <mark>heads up.</mark> So the answer is yes. **Q:** A coin is heads up. Maybelle flips the coin. Shalonda does not flip the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Maybelle.</mark> So <mark>the coin was fipped</mark> 1 <mark>time, which</mark> is an <mark>odd number. The coin started heads up,</mark> so after an <mark>odd number</mark> of <mark>fips,</mark> it <mark>will</mark> be <mark>tails up.</mark> So the answer is no. **Q:** A coin is heads up. Millicent does not flip the coin. Conception flips the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Conception.</mark> So <mark>the coin was fipped</mark> 1 <mark>time, which</mark> is an <mark>odd number. The coin started heads up,</mark> so after an <mark>odd number</mark> of <mark>fips,</mark> it <mark>will</mark> be <mark>tails up.</mark> So the answer is no. **Q:** A coin is heads up. Sal flips the coin. Raymond does not flip the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Sal.</mark> So <mark>the coin was fipped</mark> 1 <mark>time, which</mark> is an <mark>odd number. The coin started heads up,</mark> so after an <mark>odd number</mark> of <mark>fips,</mark> it <mark>will</mark> be <mark>tails up.</mark> So the answer is no. **Q:** A coin is heads up. Conception flips the coin. Kristian does not flip the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Conception.</mark> So <mark>the coin was fipped</mark> 1 <mark>time, which</mark> is an <mark>odd number. The coin started heads up,</mark> so after an <mark>odd number</mark> of <mark>fips,</mark> it <mark>will</mark> be <mark>tails up.</mark> So the answer is no. **Q:** A coin is heads up. Inga does not flip the coin. Elanor does not flip the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by no <mark>one.</mark> So <mark>the coin was fipped</mark> 0 <mark>times. The coin started heads up, and</mark> it <mark>was not fipped,</mark> so it is <mark>still heads up.</mark> So the answer is yes. **Q:** A coin is heads up. Ryan flips the coin. Shaunda flips the coin. Is the coin still heads up? **A:** <mark>The coin was fipped</mark> by <mark>Ryan and Shaunda.</mark> So <mark>the coin was fipped</mark> 2 <mark>times, which</mark> is an <mark>even number. The coin started heads up,</mark> so after an <mark>even number</mark> of <mark>fips,</mark> it <mark>will still</mark> be <mark>heads up.</mark> So the answer is yes. 
 
-37 
 
 Table 24: Few-shot exemplars for full chain of thought prompt for CSQA. There are newlines between the answer choices that are omitted in the table for space reasons. 
 
@@ -1325,7 +1289,6 @@ Table 24: Few-shot exemplars for full chain of thought prompt for CSQA. There ar
 
 **A:** <mark>The</mark> a <mark>nswer should</mark> be <mark>the feeling</mark> of <mark>someone getting</mark> d <mark>ivorced who was</mark> d <mark>oing</mark> all <mark>the work.</mark> Of <mark>the above choices, the closest feeling</mark> is bitte <mark>rness.</mark> So the answer is (c). 
 
-38 
 
 Table 25: Few-shot exemplars for full chain of thought prompt for StrategyQA. 
 
@@ -1383,7 +1346,6 @@ Table 26: Few-shot exemplars for full chain of thought prompt for Date Understan
 
 **A:** <mark>The last day</mark> of <mark>February</mark> is <mark>the 28th,</mark> so <mark>Jane was born</mark> on <mark>02/28/2001.</mark> T <mark>oday</mark> is <mark>her</mark> 16 <mark>-year old birthday,</mark> so t <mark>oday</mark> is <mark>02/28/2017.</mark> So <mark>yest</mark> e <mark>rday was 02/27/2017.</mark> So the answer is 02/27/2017. 
 
-39 
 
 Table 27: Few-shot exemplars for full chain of thought prompt for Sports Understanding. 
 
@@ -1408,7 +1370,6 @@ Table 27: Few-shot exemplars for full chain of thought prompt for Sports Underst
 
 
 
-40 
 
 Table 28: Few-shot exemplars for full chain of thought prompt for SayCan robot planning tasks. 
 
@@ -1440,7 +1401,6 @@ Table 28: Few-shot exemplars for full chain of thought prompt for SayCan robot p
 
 **Explanation** : <mark>The user has asked for</mark> a <mark>drink and there are many</mark> o <mark>ptions.</mark> I <mark>will bring them</mark> a <mark>water.</mark> **Plan** : 1. find(water), 2. pick(water), 3. find(user), 4. put(water), 5. done(). 
 
-41 
 
 ---
 
@@ -1485,7 +1445,6 @@ Table 29: Few-shot exemplars for full chain of thought prompt for math word prob
 
 **A:** 5 <mark>bagels for</mark> $3 <mark>each should cost</mark> 5 * 3 = 15 <mark>dollars. Olivia had $23</mark> in <mark>the</mark> b <mark>eginning,</mark> so <mark>now she has</mark> 23 - 15 = 8 <mark>dollars left.</mark> The answer is 8. 
 
-42 
 
 Table 30: Few-shot exemplars for full chain of thought prompt for math word problems. These exemplars are the same as in Table 20, except that the chains of thought were written by a different annotator (“Annotator C” instead of “Annotator A”). 
 
@@ -1523,5 +1482,4 @@ Table 30: Few-shot exemplars for full chain of thought prompt for math word prob
 
 **A:** <mark>She bought</mark> 5 <mark>bagels for</mark> $3 <mark>each. This means she spent</mark> 5 * $3 = <mark>$15</mark> on <mark>the bagels. She had $23</mark> in b <mark>eginning,</mark> so <mark>now she has $23</mark> - <mark>$15</mark> = <mark>$8.</mark> The answer is 8. 
 
-43 
 

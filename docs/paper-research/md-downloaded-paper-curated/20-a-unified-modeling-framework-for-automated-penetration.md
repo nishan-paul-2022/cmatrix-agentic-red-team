@@ -1,6 +1,5 @@
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-1 
 
 # A Unified Modeling Framework for Automated Penetration Testing 
 
@@ -64,7 +63,6 @@ The quality and fidelity of simulation modeling is crucial for effective algorit
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-2 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0002-02.png)
@@ -109,7 +107,6 @@ Modern control theory represents a significant domain within automatic control, 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-3 
 
 and simulation of cybersecurity dynamics by conceptualizing the target network, attackers, and defenders as an integrated system. Control theory quantifies the status of the system through assignment of a state and formally describe the progression of AutoPT. It adopts a state-based approach to define cost structures that balance security and availability. The _information state_ in control theory compresses attackerdefender information to a level sufficient for optimal decisionmaking, converting determining the optimal defense policy into a sequential optimization problem [17]. 
 
@@ -153,7 +150,6 @@ The system’s output equation is given as follows:
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-4 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0004-02.png)
@@ -203,7 +199,6 @@ _2) Attacker Models:_ The attacker model in AutoPT closely resembles real-world 
 
 - **Objectives:** An attacker’s objectives, influenced by their identity and the specific testing requirements, shape their actions within the network. Rapid access to sensitive areas prompts the use of direct paths and potent techniques [12]. If the objective is to achieve rapid access to sensitive areas, the attacker must employ the shortest attack path and most effective techniques to minimize the steps required. In contrast, if the objective is to identify numerous hidden security vulnerabilities within the network, the attacker should utilize diverse attack methods and carry out a broad spectrum of attacks. If the objective is to maintain a prolonged covert presence, the attacker must implement high-concealment strategies, such as Advanced Persistent Threat, advancing stealthily 
 
-5 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
@@ -233,7 +228,6 @@ Upon establishing the core elements, penetration testing can be understood as a 
 
 In this section, we present the **M** ulti- **D** imensional **C** lassification System for **P** enetration Testing **M** odeling (MDCPM), an innovative approach for classifying target network scenarios modeling method in penetration testing. This system categorizes scenario modeling based on four principal dimensions: (1) Literature Objectives, (2) Network Simulation Complexity, (3) Dependency of Technical and Tactical Operations, and (4) Scenario Feedback and Variation. Each dimension comprises sub-dimensions for a nuanced classification of attack scenarios, as illustrated in Figure 3. This paper begins with an explanation of our classification criteria, followed by illustrative examples, and concludes with an analysis of the reviewed literature. 
 
-6 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
@@ -271,7 +265,6 @@ _2) Network Simulation Complexity:_ This dimension focuses on network architectu
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-7 
 
 of AutoPT simulation modeling. This dimension is further divided into two sub-dimensions based on the abstraction level and construction methods of network attributes: hypothetical and authentic attributes. 
 
@@ -312,7 +305,6 @@ To clarify MDCPM, we present and analyze four representative cases, including:
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-8 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0008-02.png)
@@ -358,7 +350,6 @@ From the attacker and defender models, it is evident that both can execute actio
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-9 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0009-02.png)
@@ -476,7 +467,6 @@ Focusing solely on attacker modeling, the simulator allows for individual scanni
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-10 
 
 reinforcing the classification of the scenario as completely static. 
 
@@ -551,7 +541,6 @@ Table I: Classification Table of Simulation Modeling Methods in Typical Literatu
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-11 
 
 Table II: Classification Statistics of Simulation Modeling Methods in Automated Penetration Testing Literature 
 
@@ -578,7 +567,6 @@ Besides, most studies focus on static or semi-dynamic scenarios, neglecting acti
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-12 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0012-02.png)
@@ -612,7 +600,6 @@ Our model enables AutoPT research within internal networks by automating policy 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-13 
 
 _1) Network Architecture and Target Asset Modeling:_ We model the target network by combining its architecture and assets into a graph _G_ = ( _V, E, X_ ), where nodes _V_ represent network devices, edges _E_ denote their connections, and _X_ captures attributes for both nodes and edges. Computer networks naturally form graph structures [94]. Each node _V_ = _{_ 1 _,_ 2 _,_ 3 _, . . . , N }_ corresponds to a device, with attributes _Xi_ detailing systems, services, and credentials. Edges _E_ represent both wired and wireless communications. An edge _eij_ exists if node _i_ can communicate with node _j_ , with link attributes _Xij_ specifying protocols, traffic size, and more. All nodes have a type attribute distinguishing categories like server or switch, effectively capturing configurations and functionalities through attributes such as software and services. 
 
@@ -654,7 +641,6 @@ We use the topology type as input for the network generator, enabling researcher
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-14 
 
 ticularly versions, so we simulate potential data loss with a predefined probability. 
 
@@ -706,7 +692,6 @@ exceeds the node’s defense value. Defenders can add a defense value of 1 to a 
 
 - **Command and Control:** Remotely control the host to execute commands and operations, potentially leading 
 
-15 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
@@ -746,7 +731,6 @@ In addition to measures shown in Table IV, some implicit defenses can be strengt
 
 Certain attacker and defender actions can passively modify the network architecture and target assets, as shown in Tables III and IV. During modeling, not all actions are essential for a complete penetration phase. It is preferable to select actions relevant to the specific application phase and research method. Simplifying decision parameters enhances the effective use of independent and continuous tactics and techniques. 
 
-16 
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
@@ -802,7 +786,6 @@ This paper reviews the literature on AutoPT and introduces an innovative classif
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-17 
 
 network generator code, facilitating flexible scenario modeling across all levels and enabling researchers to customize network data by adjusting generator parameters. Our construction method and dataset aim to guide simulation modeling in AutoPT and serve as a standard data benchmark for fair comparisons of intelligent decision-making methods. To our knowledge, this is the first work to analyze and classify simulation modeling in AutoPT, while offering guidance and standard datasets for model construction. 
 
@@ -858,7 +841,6 @@ In our current modeling framework, we detail the modeling of attacker and defend
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-18 
 
 2020. 
 
@@ -932,7 +914,6 @@ _Conference on Teaching, Assessment and Learning for Engineering (TALE)_ , pp. 6
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-19 
 
 cessed: 2024-10-04. 
 
@@ -998,7 +979,6 @@ cessed: 2024-10-04.
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-20 
 
 ulating sql injection vulnerability exploitation using q- learning reinforcement learning agents,” _Journal of Information Security and Applications_ , vol. 61, p. 102903, 2021. 
 
@@ -1056,7 +1036,6 @@ ulating sql injection vulnerability exploitation using q- learning reinforcement
 
 IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY 
 
-21 
 
 
 ![](images/20-a-unified-modeling-framework-for-automated-penetration.pdf-0021-02.png)

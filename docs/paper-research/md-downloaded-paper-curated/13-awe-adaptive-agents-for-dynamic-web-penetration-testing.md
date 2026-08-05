@@ -147,7 +147,6 @@ One significant flow is that signature and template based scanners are static an
 
 Large language models have recently motivated systems that apply natural language to security assessment. PentestGPT [7] was the first well crafted attempt that proved LLMs can support human testers by structuring workflows, suggesting reconnaissance strategies, and making exploit logic. Although impactful, these systems function primarily as assistive agents: humans maintain the memory, perform validation, and execute tools. Subsequent research has explored autonomous operation through multi-agent orchestration. Frameworks such as AutoPT [8], AutoAttacker [9], CAI [11], and related multi-agent LLM systems [10], [12] couple LLM-driven controllers with command execution environments and reconnaissance tooling. These approaches automate selected penetration testing phases, but typically rely on unspecialized reasoning models and lack persistent memory for tracking authentication status, filter behavior, or previously attempted payloads, features essential for complex injections. MAPTA [12] represents a significant advancement in autonomous LLM driven penetration testing. It employs a three role multi-agent architecture in which a Coordinator agent performs high-level planning, Sandbox agents execute commands and scripts within an isolated per job Docker environment, and a Validation agent converts candidate exploits into verified proof-of-concepts through concrete execution. By coupling LLM-based reasoning with structured tool orchestration and evidence-gated PoC 
 
-2 
 
 
 ```mermaid
@@ -219,7 +218,6 @@ AWE is designed as an autonomous web exploitation system that integrates reconna
 
 The Orchestration Layer manages the progression of a scan from initial reconnaissance through multi-step exploitation. Unlike traditional scanners, which treat each vulnerability class as an isolated test, AWE maintains a global exploitation context capturing the evolving state of the adversary. This includes information such as discovered inputs, observed server transformations, authentication status, prior payload attempts, 
 
-3 
 
 and successful exploitation steps. By storing this information in a unified state model, the orchestrator can reason about how new findings to adaptively influence the overall strategy. For example, upgrading to authenticated testing once credentials are obtained or suppressing redundant payload attempts based on previously observed failures. 
 
@@ -305,7 +303,6 @@ payload sets with context inference derived from database error messages, backen
 
 The Foundation Layer provides a shared infrastructure which all agents use and operate upon. A core component is the Persistent Memory System, which combines short term scan states with long-term cross-target learning. Short-term memory prevents redundant attempts within the same engagement by tracking tried payloads and their outcomes, inferred filters, and agent-level progress markers. Long-term memory records domain-level features such as effective bypass patterns, 
 
-4 
 
 characteristic sanitization signatures, and historical payload success rates. This architecture allows AWE to integrate prior experience into future attacks and reduces unnecessary exploration, mirroring how a real adversary accumulates knowledge over repeated interactions with similar systems The Browser Verification Engineis another core component provides definitive exploit validation for vulnerability classes whose manifestation cannot be confirmed through HTTP responses alone. By executing payloads in a controlled browser environment, AWE observes concrete signals script execution, DOM mutation, dialog triggers that are otherwise invisible to purely server-side testing. This eliminates entire categories of false positives and differentiates between theoretical and practically exploitable vulnerabilities. 
 
@@ -370,7 +367,6 @@ _DVWA:_ For controlled model-selection experiments and fine-grained analysis of 
 
 We compare AWE against MAPTA in the XBOW Benchmark as it is the strongest publicly available autonomous penetration-testing framework. MAPTA adopts a general purpose multi-agent architecture in which a central LLM orchestrates reconnaissance, execution within an isolated sandbox, and exploit validation. MAPTA’s published evaluation reports a 76.9% solve rate on XBOW under generous compute and time budgets. Its architecture embodies the prevailing paradigm of broad, reasoning-centric agents, making it an 
 
-5 
 
 TABLE I 
 
@@ -454,7 +450,6 @@ We now evaluate AWE on the XBOW benchmark, a suite of 104 containerized web chal
 
 _Overall Performance:_ Table I presents aggregate results. MAPTA attains a higher solve rate (76.9%) than AWE (51.9%), reflecting the advantage of its general-purpose, unrestricted sandbox execution. Despite this, AWE exhibits dramatic efficiency advantages. AWE’s average solve time is 53.1 seconds, which is much faster than MAPTA’s 190.8 seconds. AWE’s total token usage is 1.12M compared to MAPTA’s 54.9M, a 98% reduction. Correspondingly, AWE’s total API cost is $7.73 versus MAPTA’s $21.38, despite MAPTA running on a substantially more capable model. These efficiency 
 
-6 
 
 
 ```text
@@ -537,7 +532,6 @@ Time-to-solve exhibits a consistent 4–5× speedup across percentiles. The medi
 
 Our evaluation highlights a clear architectural trade-off. MAPTA achieves broader coverage due to its highly expressive sandbox and frontier-grade model, enabling multi-step exploitation across numerous vulnerability categories. AWE, in contrast, shows that architectural specialization can outperform general-purpose reasoning by large margins on targeted vulnerability classes, even when using a smaller model. The 
 
-7 
 
 efficiency benefits - 63% cost reduction, 4.4× faster solves, and 98% fewer tokens suggest that specialized systems may be preferable for high-frequency testing and integration into continuous assessment pipelines. At the same time, AWE and MAPTA demonstrate complementary strengths, pointing toward hybrid designs that combine structured domain knowledge with general-purpose semantic exploration. 
 
@@ -611,7 +605,6 @@ A natural direction forward is the integration of these paradigms combining spec
 
 - [10] Q. Wang, G. Yang, J. Wang, M. Li, Z. Chang, Y. Huang, and Z. Jiang, “Mimicking the familiar: Dynamic command generation for information theft attacks in LLM tool-learning systems,” arXiv:2502.11358, 2025. Available: https://arxiv.org/abs/2502.11358. 
 
-8 
 
 - [11] V. Mayoral-Vilches, L. J. Navarrete-Lozano, M. Sanz-G´omez, L. Salas Espejo, M. Crespo- Alvarez,<sup>´</sup> F. Oca-Gonzalez, F. Balassone, A. GleraPic´on, U. Ayucar-Carbajo, J. A. Ruiz-Alcalde, S. Rass, M. Pinzger, and E. Gil-Uriarte, “CAI: An open, bug bounty-ready cybersecurity AI,” arXiv:2504.06017, 2025. Available: https://arxiv.org/abs/2504.06017. 
 
@@ -621,5 +614,4 @@ A natural direction forward is the integration of these paradigms combining spec
 
 - [14] XBOW Engineering, “XBOW Validation Benchmarks.” Available: https://github.com/xbow-engineering/validation-benchmarks. Accessed: Dec. 1, 2024. 
 
-9 
 

@@ -185,7 +185,6 @@ CTF competitions are distinguished by their diverse and challenging problem sets
 
 - **Steg(anography)** flags are concealed from participants using data carriers such as audio, video, and image. 
 
-2 
 
 ### **2.1.3 CTF Platforms** 
 
@@ -235,7 +234,6 @@ flowchart TD
 
 Figure 1: LLM-Guided CTF Workflow: 1) Contestants are allowed to refer to outside knowledge such as web search or group discussion. 2) The contestants get challenges from the database, compose their own prompts with their understanding; then, 3) they feed all information needed to the LLM, 4) get answers from the LLM, 5) validate answers manually, 6) finish the process if the answer is correct, and if not 7) give the feedback to the LLM, or judge if it should be given up, and finally 8) may give up based on human judgement. This is similar to the HITL evaluation process 4 described later in this section, but during the LLM aided CTF competition, participants are allowed to use external help to solve the CTF challenge based on the assistance of a large language model, such as referring to external guidelines of CTF competition, but the solution or solver script must come from LLMs with providing dialogue history as proof. 
 
-3 
 
 ---
 
@@ -297,7 +295,6 @@ math, and running Python code. Furthermore, external tools apply to code APIs. T
 
 **run_command** Allows the LLM to execute a command inside an Ubuntu 22.04 Docker container. This container has useful tools preinstalled (e.g., a compiler, debugger, Python, pwntools, etc.; the full list of installed software can be found in Appendix B) and is configured to allow the LLM to install additional software as needed via sudo. The effects of 
 
-4 
 
 commands executed in the container persist throughout each attempt, but the container is reset before each new attempt. **createfile** Creates a file inside the Docker container, optionally decoding provided escape sequences (to allow creating files with binary content). 
 
@@ -344,7 +341,6 @@ The set of tools available to the LLM varies depending on the challenge category
 
 At the start of each session, we launch a container to host the network service and another container to execute LLM 
 
-5 
 
 
 ```mermaid
@@ -395,7 +391,6 @@ All teams used only ChatGPT for solution generation:
 
 Some questions have specific ways of acquiring the flag, making task-specific instructions based on human understanding necessary. For example, "1black0white" requires the solver to write a Python script that uses a .txt file to generate a QR code image, which they scan to get the flag. Both teams that solved this challenge provided specific instructions that a QR code image must be generated based on the information from the .txt file. Team 3 solved the “cookie-injection” challenge by asking the LLM to give cookie injection plans. For the “Lottery” question, all teams asked the LLM to generate a set of ticket numbers to guarantee a win in the executable. Finally, "android-dropper" was a difficult challenge with multiple code files. Team 2 solved this by uploading the files one by one, and then asked ChatGPT about 
 
-6 
 
 |**Category**|**#**|||**C**|**TF T**|**eam**||||
 |---|---|---|---|---|---|---|---|---|---|
@@ -446,7 +441,6 @@ Bard only solves 2 questions correctly, with 4 correct explanations, making it t
 
 Table 2: Strengths and Weaknesses of Different LLMs in HITL workflow. 
 
-7 
 
 |**Category**|**Puzzle**|**GPT 3.5**|**GPT 4**|**Bard**|**Claude**|**DeepSeek**|
 |---|---|---|---|---|---|---|
@@ -499,7 +493,6 @@ LLMs. Furthermore, because of token length limitation, Bard is the only LLM in t
 
 Regarding the automated workflow, we only assess the flag or solver code execution results produced by validation against the framework, as our suggested framework is currently unable to assess the accuracy of the steps. To prevent randomness in the automated workflow portion, we ran each challenge ten times, and then appended the total number of right answers for each challenge across the ten experiment rounds. In the second section, we provide a brief analysis of each LLM’s representative failure cases, just as we did with 
 
-8 
 
 the experiments in the previous section. To enable intuitive understanding, we provide the full log in solving one of the questions in Section 4.6. 
 
@@ -563,7 +556,6 @@ Table 7 summarizes the statistics of the final results of the contest. GPT-4 out
 
 Table 8: Automation models ranking among real CTF players. 
 
-9 
 
 |**Failure**|**Description**|**GPT**<br>**3.5(%)**|**GPT4**<br>**(%)**|**Mixtral**<br>**(%)**|
 |---|---|---|---|---|
@@ -639,7 +631,6 @@ In addition to the longitudinal experiments, we intend to enhance our current au
 
 We fathomed the ability of 6 LLMs to solve CTF challenges, using a fully-automated workflow and a human-in-the-loop workflow. We analyzed their performance against human CTF players that played in traditional CTF competition and an LLM-aided CTF. We then compared contestants’ performance 
 
-11 
 
 to our workflows’ success rates. GPT 4 outperformed 88.5% of human CTF players in our real world former CTF competition. In other words, our best automated LLM, has better performance than average human CTF participants. Thus LLMs have a profound potential to play a role in CTF competitions that is comparable to a human CTF player. We studied the reasons of LLM-guided CTF failures. The most common ones are: empty solution, wrong flag, and command line error. We observed that providing human feedback to LLMs can significantly decrease failures, and boost LLMs’ accuracy. Thus, there is still high value in human expertise. LLMs are valuable in helping users solve and understand CTF challenges. They are not yet ready to replace human expertise. 
 
@@ -704,7 +695,6 @@ to our workflows’ success rates. GPT 4 outperformed 88.5% of human CTF players
 
 - [27] DEMETRIO, L., ET AL. Zenhackademy: Ethical hacking @ dibris. In _CSEDU (1)_ (2019), pp. 405–413. 
 
-12 
 
 - [28] GOOGLE. Bard becomes gemini: Try ultra 1.0 and a new mobile app today. https://blog.google/products/gemini/ bard-gemini-advanced-app/, 2024. 
 
@@ -760,7 +750,6 @@ to our workflows’ success rates. GPT 4 outperformed 88.5% of human CTF players
 
 - [50] TOUVRON, H., ET AL. Llama 2: Open foundation and fine-tuned chat models. _arXiv preprint arXiv:2307.09288_ (2023). 
 
-13 
 
 ---
 
@@ -855,7 +844,6 @@ Here we give a brief description of the challenges used in the study, arranged b
 
 **Description:** Participate are required to obtain the flag 
 
-14 
 
 directly from the server according to the guideline of the readme document 
 
@@ -941,7 +929,6 @@ execution to call the print_flag() function. **Relevant Files:** ./unlimited_sub
 
 **Description:** Participants need to perform static analysis on food_tests.cpp to identify the password used for xoring operations, which doesn’t follow the traditional flag format. The solution involves reversing the described xoring processes found in the verify function, which includes manipulating a key through a series of loops with specific operations, including xor with a predefined array (a1), iterating over a large data blob, and conditional modifications based on the key’s values. The key extracted through reversing these operations matches the password needed to proceed, bypassing the need for dynamic analysis on FreeBSD. Essentially, replicate and reverse the xoring logic in Python to extract and reconstruct the correct password from the provided data sequences and loops described. **Relevant Files:** food_tests.cpp, ./food 
 
-15 
 
 ### **A.5.6 whataxor** 
 
@@ -994,5 +981,4 @@ The LLM can run commands in an Ubuntu 22.04 container with the following softwar
 
 **System Packages** : build-essential, vim, cmake, git, libgtk2.0dev, pkg-config, libavcodec-dev, libavformat-dev, libswscaledev, python3-dev, python3-numpy, python3-pip, libssl-dev, 
 
-16 
 

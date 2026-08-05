@@ -63,7 +63,6 @@ This paper presents the results obtained with Cybersecurity AI (CAI) [3], a popu
 
 3. **Novel Architecture for Economic Autonomy** : We introduce a specialized model architecture, which delivers enterprise-scale AI security operations at unprecedented cost efficiency and with augmented autonomy. Leveraging `alias1` as the base model with dynamic entropy-based selection of support models, we achieve a 98% cost reduction compared to other state-of-the-art deployments, reducing 1B token inference costs from $5,940 to $119, making continuous security agent operation financially viable for the first time. Critically, the 
 
-1 
 
 breadth of solved challenge categories validates our minimal-intervention architecture: rather than requiring extensive human guidance or specialized modules for each challenge type, the core `alias1` model with selective support generalizes effectively across the cybersecurity domain, enabling unprecedented operational autonomy in CAI’s security operations. 
 

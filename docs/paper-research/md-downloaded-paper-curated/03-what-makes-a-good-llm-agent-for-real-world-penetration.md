@@ -89,7 +89,6 @@ To answer this question, we conduct a systematic analysis of 28 LLM-based penetr
 
 We trace Type B failures to a missing capability: _existing_ 
 
-1 
 
 _penetration testing agent designs cannot assess task difficulty in real time_ . This manifests in several ways: agents commit prematurely to unproductive branches because they cannot estimate whether a path requires 3 or 30 steps; they fail to transition from reconnaissance to exploitation because they lack metrics for evidence sufficiency; they experience context forgetting because they do not monitor context consumption. Human pentesters handle these problems through intuition built from experience. LLM agents lack equivalent mechanisms for difficulty-aware decision making. We validate this diagnosis through controlled evaluation: augmenting agents with difficulty assessment reduces the Type B failure rate from 58% to 27% while Type A rate remains unchanged, confirming that this enhancement addresses the root cause. 
 
@@ -133,7 +132,6 @@ Penetration testing identifies security vulnerabilities by simulating real-world
 
 Evaluating penetration testing capabilities presents methodological challenges. Real-world engagements involve social engineering, multi-target reconnaissance, and complex business logic that cannot be easily replicated, while commercial tests produce confidential reports tied to proprietary systems. Standardized benchmarks address these con- 
 
-2 
 
 straints: _VulnHub_ [1] provides downloadable vulnerable VMs, _HTB_ [11] offers curated machines spanning difficulty levels, and _CTF_ competitions present challenges across web exploitation, cryptography, and binary exploitation. 
 
@@ -190,7 +188,6 @@ We evaluate five representative open-source systems: **PentestGPT** [8] (copilot
 
 For each system-benchmark pair, we evaluate with GPT4o, GPT-5, Gemini-3-Flash, and Claude Sonnet 4 to assess model vs. architecture contributions. We include GPT-4o (the model generation most existing systems were optimized for) alongside newer models to examine how architectural advantages evolve as underlying capabilities improve. §5 evaluates PENTESTGPT V2 with a different model set (GPT5.2, Opus 4.5, Gemini 3 Pro) selected specifically for thinking mode support, enabling controlled comparison of extended reasoning. We set temperature to zero and report best-of-three trials following prior work [8, 9], since penetration testing is inherently non-deterministic. 
 
-3 
 
 ---
 
@@ -240,7 +237,6 @@ _Type A failures_ (capability gaps) are identified when the trace shows the agen
 
 _Type B failures_ (complexity barriers) are identified when the trace shows the agent possesses adequate tools and knowledge (evidenced by successful tool invocations earlier in the session) but fails to navigate the task space effectively. We 
 
-4 
 
 Table 2: Task completion rates across systems, models, and benchmarks. XBOW: task completion (%); PentestGPT Benchmark: machines rooted (/13); GOAD: hosts compromised (/5). 
 
@@ -296,7 +292,6 @@ What would difficulty assessment require in practice? We identify four measurabl
 
 Current systems uniformly lack this capability. PentestGPT’s Penetration Testing Tree (PTT) tracks attack structure but provides no difficulty metrics to guide search. AutoPT’s Pentesting State Machine (PSM) enforces phase transitions 
 
-5 
 
 
 ```mermaid
@@ -386,7 +381,6 @@ Given a target, PENTESTGPT V2 ❶ initializes an attack tree with the target as 
 
 Type A failures arise not from fundamental capability limitations, but from inconsistent tool usage: LLMs invoke security tools with incorrect parameters, misparse outputs, or lack domain knowledge about tool capabilities. Rather than proposing novel techniques, the Tool and Skill Layer represents 
 
-6 
 
 careful engineering to ensure LLM agents interact with security tools consistently and reliably. We build on established concepts of Agent Skills [4] from Anthropic (typed interfaces, skill composition, and retrieval-augmented generation), adapting them to penetration testing where tool reliability directly determines attack success. 
 
@@ -419,7 +413,6 @@ TDA computes difficulty along four dimensions grounded in quantities measurable 
 
 **Evidence Confidence (** _E_ **).** The mean confidence score across the path from root to current node, computed from evidence categories at each node. We assign scores based on evidence type: verified exploits and valid credentials receive 1.0, con- 
 
-7 
 
 firmed vulnerabilities with available exploits receive 0.8, plausible hypotheses (version-matched vulnerabilities, misconfigurations) receive 0.5, and speculative hypotheses receive 0.3. Tool outputs are parsed to determine evidence type: successful authentication or shell access indicates verified evidence, vulnerability scanner confirmations with CVE matches indicate confirmed vulnerabilities, and service version matches against exploit databases indicate plausible hypotheses. Appendix C details the complete scoring rubric. This dimension addresses _exploration-exploitation imbalance_ : high confidence signals readiness to exploit, while low confidence signals the need for more reconnaissance. 
 
@@ -469,7 +462,6 @@ Unlike PentestGPT’s text-based PTT, EGATS maintains structure externally via a
 
 Algorithm 1 presents the TDA-guided search procedure. SELECTNODE uses UCB to balance exploitation and explo- 
 
-8 
 
 **Algorithm 1** TDA-Guided Attack Tree Search 
 
@@ -536,7 +528,6 @@ We assess the performance of PENTESTGPT V2 through four research questions:
 
 PENTESTGPT V2 is implemented in Python ( _∼_ 8,500 lines), with the Tool Layer, TDA-EGATS Planner, and Memory Subsystem as separate modules. The implementation is open- 
 
-9 
 
 Table 5: Performance comparison across systems, models, and benchmarks. Each model column is split into non-thinking (–) and thinking (T) modes. XBOW: task completion (%); PentestGPT Benchmark: machines rooted (/13); GOAD: hosts compromised (/5). Best results per column in **bold** . All results report mean across 3 trials; variance _±_ 2–3% on XBOW, _±_ 1 machine on PentestGPT-Ben. 
 
@@ -569,7 +560,6 @@ On XBOW, PENTESTGPT V2 achieves 91% task completion (best-of-3; _µ_ =89%, σ=2.
 
 The PentestGPT benchmark shows larger architectural differences. PENTESTGPT V2 roots 12 of 13 machines with both GPT-5.2 and Opus 4.5 thinking (consistent across all three trials), compared to 9 for the best baseline (VulnBot), a 33% relative improvement. PENTESTGPT V2 solves both Hardrated machines (Joker and Falafel) where baseline systems became “stuck at initial steps,” and also completes machines that require non-obvious attack chains. The improvement concentrates in machines requiring non-linear attack paths: while baseline PTT structures lead to premature commitment on initial hypotheses, TDA-EGATS enables strategic backtracking when evidence confidence drops, allowing the agent to discover alternative attack vectors. Thinking mode amplifies architectural differences: PENTESTGPT V2 gains 1–2 machines from thinking, achieving near-complete coverage, 
 
-10 
 
 Table 6: Ablation study results (GPT-5.2 thinking). Base: raw shell access with reactive prompting. Each row adds a component cumulatively. 
 
@@ -638,7 +628,6 @@ PENTESTGPT V2 with TDA-EGATS follows an adaptive pattern: TDI monitoring trigger
 
 Falafel is a Hard-rated HTB machine requiring a multi-stage attack chain that combines web exploitation, cryptographic 
 
-11 
 
 quirks, and privilege escalation through Linux group memberships. Figure 4 contrasts how PentestGPT and PENTESTGPT V2 navigate this challenge. 
 
@@ -714,7 +703,6 @@ To assess practical viability, we evaluate PENTESTGPT V2’s resource consumptio
 
 Table 8 presents the resource consumption across benchmarks. PENTESTGPT V2 requires 23% fewer LLM calls than the baseline average on XBOW (12 vs. 15.6 median calls per task) due to reduced trial-and-error from structured tool interfaces, while achieving 39% higher success rates (85% vs. 61%). On GOAD, total calls increase by 18% due to more thorough exploration enabled by EGATS, but this yields 2 _×_ more compromised hosts (4 vs. 2). On a per-success basis, PENTESTGPT V2 is 1.8 _×_ more cost-effective on XBOW and 1.7 _×_ more cost-effective on GOAD: the overhead of EGATS is more than offset by the higher success rates. A complete GOAD engagement costs approximately $28.50 and achieves 80% environment compromise (4 of 5 hosts), making automated penetration testing economically viable for enterprise 
 
-12 
 
 Table 9: HTB Season 8 performance by difficulty (May– August 2025). Total: 10/13 machines (76.9%). 
 
@@ -774,7 +762,6 @@ Despite PENTESTGPT V2’s gains, three categories of irreducible Type B failures
 
 **The Creativity Barrier.** LLMs are effective at pattern matching but struggle with out-of-distribution generalization [21]. The PlayerTwo failure illustrates this gap: PENTESTGPT V2 systematically explores attack vectors yet fails because no documented exploitation pattern exists for the custom Protobuf-based protocol. The distinction between “difficult” and “novel” matters here. Difficult tasks respond to improved 
 
-13 
 
 search; novel tasks require reasoning capabilities that current architectures do not provide. 
 
@@ -786,7 +773,6 @@ search; novel tasks require reasoning capabilities that current architectures do
 
 This paper presents a systematic analysis of LLM-based penetration testing that identifies a distinction between Type A failures (capability gaps addressable through engineering) and Type B failures (complexity barriers requiring architectural innovation). We introduce PENTESTGPT V2, which addresses Type A failures through a Tool and Skill Layer with typed interfaces and RAG, and addresses Type B failures via Task Difficulty Assessment (TDA) integrated into Evidence-Guided Attack Tree Search (EGATS). PENTESTGPT V2 achieves 91% task completion on CTF benchmarks (49% improvement over baselines) and compromises 4 of 5 hosts on the GOAD Active Directory environment versus 2 for prior systems. Our ablation studies show that TDAguided exploration provides benefits beyond tree structure alone: difficulty-aware planning produces value that model improvements cannot replicate. 
 
-14 
 
 ---
 
@@ -833,7 +819,6 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 - [19] Phung Duc Luong, Le Tran Gia Bao, Nguyen Vu Khai Tam, Dong Huu Nguyen Khoa, Nguyen Huu Quyen, Van-Hau Pham, and Phan The Duy. xOffense: An AIdriven autonomous penetration testing framework with offensive knowledge-enhanced LLMs and multi agent systems. _arXiv preprint arXiv:2509.13021_ , 2025. 
 
-15 
 
 - [20] Wuyuao Mai, Geng Hong, Qi Liu, Jinsong Chen, Jiarun Dai, Xudong Pan, Yuan Zhang, and Min Yang. Shell or nothing: Real-world benchmarks and memoryactivated agents for automated penetration testing, 2025. URL: https://arxiv.org/abs/2509.09207, arXiv:2509.09207. 
 
@@ -883,7 +868,6 @@ Table 10 presents the complete list of 28 candidate systems identified in our su
 
 Table 11 lists the 38 security tools integrated into PENTESTGPT V2’s Tool and Skill Layer. Each tool is exposed through a typed interface specifying input parameters, output schema, and pre/postconditions. Tool selection reflects standard penetration testing methodology and aligns with tools commonly used in professional certifications (e.g., OSCP) and real-world assessments. 
 
-16 
 
 Table 10: Complete list of surveyed LLM-based penetration testing systems. Systems marked with ✓meet our inclusion criteria and are analyzed in Section 3. 
 
@@ -990,7 +974,6 @@ Table 14 presents sensitivity analysis for mode selection thresholds (θexplore,
 
 The intermediate zone (θexploit _≤_ TDI _≤_ θexplore) triggers LLMDECIDE. Narrower zones reduce LLM calls but sacrifice adaptivity; wider zones increase overhead without proportional benefit. 
 
-17 
 
 ---
 
@@ -1031,7 +1014,6 @@ Performance remains stable ( _>_ 90%) up to 40% load, then degrades approximatel
 
 **Failure Mode Analysis.** Beyond 40% load, failures concentrate in three categories: ignoring relevant information from earlier context (42% of failures), hallucinating tool outputs not present in context (31%), and executing incorrect but plausible commands (27%). These patterns align with the “lost in the middle” phenomenon documented in prior work [18]. 
 
-18 
 
 Table 11: Security tools integrated into PENTESTGPT V2. Each tool has a typed interface specifying input schema, output parsing, and execution constraints. 
 
@@ -1060,7 +1042,6 @@ Table 11: Security tools integrated into PENTESTGPT V2. Each tool has a typed in
 
 
 
-19 
 
 Table 12: Evidence confidence scoring rubric. Scores are assigned based on the strongest evidence type at each node; when multiple evidence types are present, the highest applicable score is used. 
 
@@ -1085,7 +1066,6 @@ Table 12: Evidence confidence scoring rubric. Scores are assigned based on the s
 
 
 
-20 
 
 Table 13: TDI weight sensitivity analysis. Performance (subtask completion %) across weight configurations. Bold indicates selected weights. 
 
@@ -1138,5 +1118,4 @@ Table 16: UCB difficulty penalty (λ) sensitivity.
 
 
 
-21 
 

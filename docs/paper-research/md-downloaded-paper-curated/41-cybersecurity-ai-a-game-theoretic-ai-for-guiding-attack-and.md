@@ -49,7 +49,6 @@ Cybersecurity is being revolutionized by the use of AI and particularly Large La
 
 Achieving that intuition requires more than faster execution; it requires embedding a reasoning substrate that weighs attacker and defender payoffs at every step. Humans implicitly apply game theory when playing chess, Go, or when solving competitive cybersecurity challenges such as Attack and Defense CTFs (A&D): we evaluate the current “board,” imagine opponent responses, and choose the move that maximizes long-term advantage. Our game-theoretic layer does not invent new attacks; it restructures the AI’s own actions into an attack graph, computes equilibria, and returns a digest—akin to a chess engine highlighting the strongest lines—that steers the LLM toward statistically advantageous continuations. This closed-loop guidance reduces ambiguity, collapses the search space, and suppresses hallucinations by anchoring the model to what is actually unfolding in the environment, which explains the 5.2 _×_ variance reduction and 2 _×_ success gains reported later. We argue that to 
 
-1 
 
 _Introduction_ 
 

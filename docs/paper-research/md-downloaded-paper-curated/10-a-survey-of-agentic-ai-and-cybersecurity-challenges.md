@@ -75,11 +75,9 @@ Permission to make digital or hard copies of all or part of this work for person
 
 Manuscript submitted to ACM 
 
-1 
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-2 
 
 solutions. Market projections reflect this momentum, with global AI-in-cybersecurity spending expected to grow from US$24.8 B in 2024 toward US$146.5 B by 2034 [85]. Agentic AI amplifies human capacity through automated alert triage, autonomous incident response, scalable red–blue simulation, and continuous security operations center (SOC) support. 
 
@@ -113,7 +111,6 @@ A first class of work adopts a model-centric perspective. Wang et al. survey LLM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-3 
 
 Table 1. Comparison of Related Surveys on Agentic AI and LLM-Agent Security 
 
@@ -147,7 +144,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-4 
 
 
 ```mermaid
@@ -194,7 +190,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-5 
 
 
 ```mermaid
@@ -246,7 +241,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-6 
 
 Table 2. Autonomy Spectrum of AI Systems (adapted from [2, 58]) 
 
@@ -274,7 +268,6 @@ _4.1.1 Autonomous Monitoring and Detection._ Autonomous monitoring combines trad
 
 Manuscript submitted to ACM 
 
-7 
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
@@ -308,7 +301,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-8 
 
 Table 3. Applied agentic AI cybersecurity use cases and their alignment with breach lifecycle stages, NIST Cyber Defense functions, key limitations, and open research problems. Lifecycle stage is categorized as Pre, During, or Post breach. NIST functions are abbreviated as Govern (G), Identify (I), Protect (P), Detect (D), Respond (R), and Recover (Rc). 
 
@@ -337,7 +329,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-9 
 
 safety guarantees under distribution shift or adversarial manipulation [120, 170], and analyses warn that misaligned agents with broad privileges can amplify damage [85, 116]. Progress therefore remains centered on orchestration and workflow automation rather than unrestricted autonomous authority, and the open problem is how to grant execution power without enabling cascading or irreversible failures. 
 
@@ -359,7 +350,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-10 
 
 memory, and automated execution. RedTeamLLM illustrates this shift by combining recursive planning, plan correction, and memory with explicit security controls including isolation, command filtering, audit logs, and a kill switch [27]. Compared with earlier tools such as PenTestGPT, this design improves task completion on VulnHub targets, indicating that reasoning and memory reduce brittleness in multi step attacks [27]. Commercial platforms such as XBOW and RunSybile push autonomy further and report high exploitation rates and discovery of new vulnerabilities, but they offer limited transparency into agent reasoning and safety constraints [116]. This contrast highlights a tradeoff between effectiveness and controllability. Systems that prioritize autonomous exploration uncover more attack paths, while systems that emphasize structure and containment limit misuse but constrain discovery. 
 
@@ -375,7 +365,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-11 
 
 forming policy aligned security ecosystems. The convergence of DevSecOps, IAM, and SOC automation reflects a more mature stage of agentic cybersecurity that requires both adaptability and strong governance. 
 
@@ -393,7 +382,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-12 
 
 such as ReliaQuest GreyMatter, CrowdStrike Charlotte AI, and Simbian SOC agents report faster investigation and containment while keeping analysts in supervisory roles [85, 133, 145]. 
 
@@ -411,7 +399,6 @@ _4.4.2 High-Fidelity Training Environments for Autonomous Cyber Defense._ High-f
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-13 
 
 support benchmarking and comparative evaluation of learning based defense agents, but reported results remain tied to specific scenarios and detector assumptions. An open problem is to assess whether policies trained under fixed models remain robust when deployed in environments with different telemetry, detection gaps, and evolving threat behavior. 
 
@@ -445,7 +432,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-14 
 
 Table 4. Taxonomy of agentic AI-enabled cyber attacks with representative domains, techniques and capabilities. 
 
@@ -473,7 +459,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-15 
 
 
 ```mermaid
@@ -512,7 +497,6 @@ Policy work increasingly treats agentic AI as emerging critical infrastructure. 
 
 Manuscript submitted to ACM 
 
-16 
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
@@ -545,7 +529,6 @@ Practitioner focused frameworks emphasize actionability. The OWASP Agentic Secur
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-17 
 
 Table 5. Security Risks, Threats, and Defenses in Agentic AI 
 
@@ -571,7 +554,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-18 
 
 ### **6.2 System-Level Vulnerabilities and Security Controls for Agentic AI** 
 
@@ -589,7 +571,6 @@ Tool and API access amplifies these risks because agents query data, call servic
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-19 
 
 Table 6. Comparison of mitigation strategies for prompt injection and unsafe tool invocation in agentic AI systems. 
 
@@ -613,7 +594,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-20 
 
 delegated tasks, a single compromised agent can repeatedly trigger harmful actions across the system even without explicit coordination logic encoded in the agent policies or control flow [76]. In this setting, emergent collusion arises from shared state and privileges rather than from agents explicitly negotiating or planning jointly. This differs from single-agent settings, where damage is often confined to one execution context. Analyses of steganographic collusion further show that agents can exchange hidden signals through benign-looking messages, enabling covert coordination without violating surface-level policies [107]. Shared state, messaging channels, and task delegation therefore create attack surfaces that grow with the number of interacting agents. 
 
@@ -631,7 +611,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-21 
 
 Autonomy also introduces governance constraints that affect execution safety. When agents act without explainable decision paths or explicit refusal mechanisms, failures propagate quickly and are hard to attribute. This is critical for dual use actions such as network scanning, exploit generation, or data exfiltration, where requests may be legitimate in defensive contexts but harmful at scale [176]. Recent work stresses that agents must refuse unsafe or ambiguous requests and escalate uncertain cases for human review [153]. These safeguards improve accountability and reduce misuse, but they constrain flexibility and increase reliance on human oversight. Current deployments therefore favor restricted autonomy, and a key open problem is how to expand agent authority while providing verifiable guarantees that execution boundaries will hold as agents adapt and coordinate. 
 
@@ -647,7 +626,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-22 
 
 service, which is primarily rate based. Defenses follow two main strategies. Execution time controls intervention during reasoning. Reasoning gates impose asymmetric cost on abusive behavior but add latency to benign tasks [86]. Circuit breakers halt runaway generations to preserve availability but sacrifice task completion [186]. Resource management approaches regulate consumption. Adaptive budgeting and dynamic quotas track tokens, runtime, and API calls and apply throttling or termination when limits are exceeded [12, 48, 112, 149, 166]. These methods improve availability but reduce output quality and require careful tuning. 
 
@@ -667,7 +645,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-23 
 
 Table 7. Benchmarks and Evaluation Frameworks for Agentic AI Security 
 
@@ -697,7 +674,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-24 
 
 oversight and explainable reasoning therefore function as required controls rather than optional safeguards. Frameworks for responsible deployment emphasize augmentation over replacement, especially in high stakes settings [165]. Approval gates, legible records of reasoning and tool use, and escalation for ambiguous cases improve accountability but reduce throughput and scalability. This tradeoff is inherent. Stronger oversight improves trust and compliance, while weaker oversight increases speed at the cost of error amplification. These capabilities reshape human risk management. 
 
@@ -727,7 +703,6 @@ Security evaluation for agentic AI requires benchmarks that test behavior under 
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-25 
 
 Existing benchmarks fall into three styles. System level benchmarks such as BountyBench and agent security studies evaluate end to end vulnerability lifecycles and economic impact in realistic settings, including exploitation, defense, and patching [61, 176]. Scenario driven frameworks such as ARCeR, RedTeamLLM, and cyber range based approaches generate adversarial environments that test planning, reasoning, and tool use under attack [27, 91, 97]. Domain specific benchmarks such as FinGAIA evaluate multi step agent behavior in regulated settings where correctness and compliance are central [175]. In contrast, focused benchmarks such as WASP, AgentVigil, and multi agent prompt defense suites probe narrow failure modes like indirect prompt injection or sanitizer bypass with high precision [41, 52, 164]. 
 
@@ -749,7 +724,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-26 
 
 environments violate both assumptions. Agents may be compromised or impersonated. Once adversarial behavior is introduced, it is unclear whether entanglement improves robustness or creates new failure modes. The current literature does not analyze this tradeoff. Quantigence responds to this gap by proposing a framework for quantum security experimentation [8]. Its contribution lies in research infrastructure rather than algorithmic performance. It enables controlled study of quantum-enabled agents under security assumptions. This reflects an important shift. Before claiming quantum advantage, agentic AI requires testbeds that model compromise, deception, and trust failure. Quantigence identifies this need but does not yet provide empirical security outcomes. 
 
@@ -773,7 +747,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-27 
 
 
 ```mermaid
@@ -851,7 +824,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-29 
 
 
 ```mermaid
@@ -898,7 +870,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-30 
 
 also explore constrained planning methods that enforce safety rules throughout execution. Combining language models with formal constraints or verifiable policies remains an open challenge [118, 144]. 
 
@@ -922,7 +893,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-31 
 
 - [4] Ibrahim Adabara, Bashir Olaniyi Sadiq, Aliyu Nuhu Shuaibu, Yale Ibarahim Danjuma, and Maninti Venkateswarlu. 2025. A Review of Agentic AI in Cybersecurity: Cognitive Autonomy, Ethical Governance, and Quantum-Resilient Defense. _F1000Research_ 14 (2025), 843. 
 
@@ -984,7 +954,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-32 
 
 - [32] Cloud Security Alliance. 2025. _Introducing DIRF: A Comprehensive Framework for Protecting Digital Identities in Agentic AI Systems_ . https://cloudsecurityalliance.org/blog/2025/08/27/introducing-dirf-a-comprehensive-framework-for-protecting-digital-identities-inagentic-ai-systems Accessed: 2025-09-11. 
 
@@ -1029,7 +998,6 @@ Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-33 
 
 - [63] Jack Hidary. 2025. Non-human identities: Agentic AI’s new frontier of cybersecurity risk. https://www.weforum.org/stories/2025/10/non-humanidentities-ai-cybersecurity/ World Economic Forum article, accessed 2025-12-25. 
 
@@ -1095,7 +1063,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-34 
 
 - [93] Wenhao Li, Selvakumar Manickam, Yung wey Chong, and Shankar Karuppayah. 2025. PhishDebate: An LLM-Based Multi-Agent Framework for Phishing Website Detection. https://arxiv.org/abs/2506.15656 
 
@@ -1163,7 +1130,6 @@ Manuscript submitted to ACM
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
-35 
 
 - [124] Sai Santhosh Polagani. 2025. Agentic AI for Cybersecurity and Risk Management (Autonomous AI for Fraud Detection, Compliance, And Threat Mitigations). _IRE Journals_ 8, 10 (2025). https://www.irejournals.com/formatedpaper/1707702.pdf Accessed: 2025-09-21. 
 
@@ -1233,7 +1199,6 @@ Manuscript submitted to ACM
 
 Sahaya Jestus Lazer, Kshitiz Aryal, Maanak Gupta, and Elisa Bertino 
 
-36 
 
 - [155] Krti Tallam. 2025. Transforming Cyber Defense: Harnessing Agentic and Frontier AI for Proactive, Ethical Threat Intelligence. doi:10.48550/arXiv. 2503.00164 
 

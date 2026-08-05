@@ -203,7 +203,6 @@ While there is contemporaneous exploration of multi-agent approaches,<sup>3</sup
 
 > 3We refer to Appendix A for a detailed discussion. 
 
-2 
 
 `AutoGen` also provides a collection of multi-agent applications created using conversable agents and conversation programming. These applications demonstrate how `AutoGen` can easily support applications of various complexities and LLMs of various capabilities. Moreover, we perform both evaluation on benchmarks and a pilot study of new applications. The results show that `AutoGen` can help achieve outstanding performance on many tasks, and enable innovative ways of using LLMs, while reducing development effort. (Section 3 and Appendix D) 
 
@@ -225,7 +224,6 @@ In the example on the right-hand side of Figure 1, an LLM-backed assistant agent
 
 4Appendix C presents an example of such novel prompting techniques which empowers the default LLMbacked assistant agent in `AutoGen` to converse with other agents in multi-step problem solving. 
 
-3 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-00.png)
@@ -282,7 +280,6 @@ As a solution to the above problem, `AutoGen` utilizes _conversation programming
 
 Figure 2 provides a simple illustration. The bottom sub-figure shows how individual agents perform their role-specific, conversation-centric computations to generate responses (e.g., via LLM inference calls and code execution). The task progresses through conversations displayed in the dialog box. The middle sub-figure demonstrates a conversation-based control flow. When the assistant receives a message, the user proxy agent typically sends the human input as a reply. If there is no input, it executes any code in the assistant’s message instead. 
 
-4 
 
 `AutoGen` features the following design patterns to facilitate conversation programming: 
 
@@ -301,7 +298,6 @@ In the conversation programming paradigm, one can realize multi-agent conversati
 
 We demonstrate six applications using `AutoGen` (see Figure 3) to illustrate its potential in simplifying the development of high-performance multi-agent applications. These applications are selected based on their real-world relevance (A1, A2, A4, A5, A6), problem difficulty and solving capabilities enabled by `AutoGen` (A1, A2, A3, A4), and innovative potential (A5, A6). Together, these criteria showcase `AutoGen` ’s role in advancing the LLM-application landscape. 
 
-5 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-00.png)
@@ -388,7 +384,6 @@ Retrieval augmentation has emerged as a practical and effective approach for mit
 
 > 5We did not evaluate ChatGPT on the whole dataset since it requires substantial manual effort and is restricted by its hourly message-number limitation. Multi-agent debate and LangChain ReAct were also not evaluated since they underperformed vanilla GPT-4 on the smaller test set. 
 
-6 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0007-00.png)
@@ -408,7 +403,6 @@ We evaluate Retrieval-augmented Chat in both question-answering and code-generat
 
 > 6The results of DPR with GPT-3.5 shown in Figure 4b are from (Adlakha et al., 2023). We use GPT-3.5 as a shorthand for GPT-3.5-turbo. 
 
-7 
 
 ### **A3: Decision Making in Text World Environments** 
 
@@ -424,7 +418,6 @@ With `AutoGen` the core workflow code for OptiGuide was reduced from over 430 li
 
 > 7Results of ReAct are obtained by directly running its official code with default settings. The code uses `text-davinci-003` as backend LM and does not support GPT-3.5-turbo or GPT-4. 
 
-8 
 
 ### **A5: Dynamic Group Chat** 
 
@@ -447,7 +440,6 @@ We introduced an open-source library, `AutoGen` , that incorporates the paradigm
 
 Our experiments, as detailed in Section 3, demonstrate that this approach offers numerous benefits. The adoption of `AutoGen` has resulted in improved performance (over state-of-the-art approaches), reduced development code, and decreased manual burden for existing applications. It offers flexibility to developers, as demonstrated in A1 (scenario 3), A5, and A6, where `AutoGen` enables multi-agent chats to follow a dynamic pattern rather than fixed back-and-forth interactions. It allows humans to engage in activities alongside multiple AI agents in a conversational manner. Despite the complexity of these applications (most involving more than two agents or dynamic multi-turn agent cooperation), the implementation based on `AutoGen` remains straightforward. Dividing tasks among separate agents promotes modularity. Furthermore, since each agent can be developed, tested, and maintained separately, this approach simplifies overall development and code management. 
 
-9 
 
 Although this work is still in its early experimental stages, it paves the way for numerous future directions and research opportunities. For instance, we can explore effective integration of existing agent implementations into our multi-agent framework and investigate the optimal balance between automation and human control in multi-agent workflows. As we further develop and refine `AutoGen` , we aim to investigate which strategies, such as agent topology and conversation patterns, lead to the most effective multi-agent conversations while optimizing the overall efficiency, among other factors. While increasing the number of agents and other degrees of freedom presents opportunities for tackling more complex problems, it may also introduce new safety challenges that require additional studies and careful consideration. 
 
@@ -478,7 +470,6 @@ There are several potential ethical considerations that could arise from the dev
 
 The work presented in this report was made possible through discussions and feedback from Peter Lee, Johannes Gehrke, Eric Horvitz, Steven Lucco, Umesh Madan, Robin Moeur, Piali Choudhury, Saleema Amershi, Adam Fourney, Victor Dibia, Guoqing Zheng, Corby Rosset, Ricky Loynd, Ece Kamar, Rafah Hosn, John Langford, Ida Momennejad, Brian Krabach, Taylor Webb, Shanka Subhra Mondal, Wei-ge Chen, Robert Gruen, Yinan Li, Yue Wang, Suman Nath, Tanakorn Leesatapornwongsa, Xin Wang, Shishir Patil, Tianjun Zhang, Saehan Jo, Ishai Menache, Kontantina Mellou, Runlong Zhou, Feiran Jia, Hamed Khanpour, Hamid Palangi, Srinagesh Sharma, Julio Albinati Cortez, Amin Saied, Yuzhe Ma, Dujian Ding, Linyong Nan, Prateek Yadav, Shannon Shen, Ankur Mallick, Mark Encarnaci´on, Lars Liden, Tianwei Yue, Julia Kiseleva, Anastasia Razdaibiedina, and Luciano Del Corro. Qingyun Wu would like to acknowledge the funding and research support from the College of Information Science and Technology at Penn State University. 
 
-10 
 
 ---
 
@@ -525,7 +516,6 @@ HuggingFace. Transformers agent. `https://huggingface.co/docs/transformers/ tran
 
 - Tom Kwiatkowski, Jennimaria Palomaki, Olivia Redfield, Michael Collins, Ankur Parikh, Chris Alberti, Danielle Epstein, Illia Polosukhin, Jacob Devlin, Kenton Lee, et al. Natural questions: a benchmark for question answering research. _Transactions of the Association for Computational Linguistics_ , 2019. 
 
-11 
 
 - LangChain. Introduction — langchain. `https://python.langchain.com/en/latest/index. html` , 2023. 
 
@@ -563,7 +553,6 @@ Semantic-Kernel. Semantic kernel. `https://github.com/microsoft/semantic-kernel`
 
 - Tianlin Shi, Andrej Karpathy, Linxi Fan, Jonathan Hernandez, and Percy Liang. World of bits: An open-domain platform for web-based agents. In _International Conference on Machine Learning_ . PMLR, 2017. 
 
-12 
 
 - Mohit Shridhar, Xingdi Yuan, Marc-Alexandre Cˆot´e, Yonatan Bisk, Adam Trischler, and Matthew Hausknecht. ALFWorld: Aligning Text and Embodied Environments for Interactive Learning. In _Proceedings of the International Conference on Learning Representations (ICLR)_ , 2021. URL `https://arxiv.org/abs/2010.03768` . 
 
@@ -585,7 +574,6 @@ Yiran Wu, Feiran Jia, Shaokun Zhang, Qingyun Wu, Hangyu Li, Erkang Zhu, Yue Wang
 
 - Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. React: Synergizing reasoning and acting in language models. _arXiv preprint arXiv:2210.03629_ , 2022. 
 
-13 
 
 ---
 
@@ -616,7 +604,6 @@ We examine existing LLM-based agent systems or frameworks that can be used to bu
 
 - **Multi-Agent Debate:** Two recent works investigate and show that multi-agent debate is an effective way to encourage divergent thinking in LLMs (Liang et al., 2023) and to improve the factuality and reasoning of LLMs (Du et al., 2023). In both works, multiple LLM inference instances are constructed as multiple agents to solve problems with agent debate. Each agent is simply an LLM inference instance, while no tool or human is involved, and the inter-agent conversation needs to follow a pre-defined order. These works attempt to build LLM applications with multi-agent conversation, while `AutoGen` , designed as a generic infrastructure, can be used to facilitate this development and enable more applications with dynamic conversation patterns. 
 
-14 
 
 - **MetaGPT** : MetaGPT (Hong et al., 2023) is a specialized LLM application based on a multi-agent conversation framework for automatic software development. They assign different roles to GPTs to collaboratively develop software. They differ from `AutoGen` by being specialized solutions to a certain scenario, while `AutoGen` is a generic infrastructure to facilitate building applications for various scenarios. 
 
@@ -633,7 +620,6 @@ Table 1: Summary of differences between `AutoGen` and other related multi-agent 
 
 
 
-15 
 
 ---
 
@@ -669,7 +655,6 @@ Below we give some recommendations for using agents in `AutoGen` to accomplish a
 
 4. When developing a new application with `UserProxyAgent` , **start with humans always in the loop** , i.e., human ~~i~~ nput ~~m~~ ode=‘ALWAYS’, even if the target operation mode is more autonomous. This helps evaluate the effectiveness of `AssistantAgent` , tuning the prompt, discovering corner cases, and debugging. Once confident with small-scale success, consider setting 
 
-16 
 
 human ~~i~~ nput ~~m~~ ode = ‘NEVER’. This enables LLM as a backend, and one can either use the LLM or manually generate diverse system messages to simulate different use cases. 
 
@@ -687,7 +672,6 @@ This work raises many research questions and future directions and .
 
 Our work also shows how complex, fully autonomous workflows with `AutoGen` can be useful, but fully autonomous agent conversations will need to be used with care. While the autonomous mode `AutoGen` supports could be desirable in many scenarios, a high level of autonomy can also pose potential risks, especially in high-risk applications (Amodei et al., 2016; Weld & Etzioni, 1994). As a result, building fail-safes against cascading failures and exploitation, mitigating reward hacking, out of control and undesired behaviors, maintaining effective human oversight of applications built with `AutoGen` agents will become important. While `AutoGen` provides convenient and seamless involvement of humans through a user proxy agent, developers and stakeholders still need to understand and determine the appropriate level and pattern of human involvement to ensure the safe and ethical use of the technology (Horvitz, 1999; Amershi et al., 2019). 
 
-17 
 
 ---
 
@@ -718,7 +702,6 @@ Figure 5: Default system message for the built-in assistant agent in `AutoGen` (
 
 Figure 5 shows the default system message for the built-in assistant agent in `AutoGen` (v0.1.1), where we introduce several new prompting techniques and highlight them accordingly. When combining these new prompting techniques together, we can program a fairly complex conversation even with the simplest two-agent conversation topology. This approach tries to exploit the capability of LLMs in implicit state inference to a large degree. LLMs do not follow all the instructions perfectly, so the design of the system needs to have other mechanisms to handle the exceptions and faults. Some instructions can have ambiguities, and the designer should either reduce them for preciseness or intentionally keep them for flexibility and address the different situations in other agents. In general, we observe that GPT-4 follows the instructions better than GPT-3.5-turbo. 
 
-18 
 
 ---
 
@@ -770,7 +753,6 @@ Table 2: Qualitative evaluation of two math problems from the MATH dataset withi
 
 For the qualitative evaluation, we utilize two level-5 problems from the MATH dataset, testing each problem three times. The first problem involves simplifying a square root fraction, and the second 
 
-19 
 
 problem involves solving a number theory issue. The correctness counts and reasons for failure are detailed in Table 2. For the quantitative evaluation, we conduct two sets of experiments on the MATH dataset to assess the correctness of these systems: (1) an experiment involving 120 level-5 (the most challenging level) problems, including 20 problems from six categories, excluding geometry, and (2) an experiment on the entire test set, which includes 5000 problems. We exclude AutoGPT from this evaluation as it cannot access results from code executions and does not solve any problems in the qualitative evaluation. Our analysis of the entire dataset reveals that `AutoGen` achieves an overall accuracy of 69.48%, while GPT-4’s accuracy stands at 55.18%. From these evaluations, we have the following observations regarding the problem-solving success rate and user experience of these systems: 
 
@@ -806,7 +788,6 @@ Figure 6: Examples of three settings utilized to solve math problems using `Auto
 
 **Scenario 2: Human-in-the-loop Problem Solving.** For challenging problems that these LLM systems cannot solve autonomously, human feedback during the problem-solving process can be 
 
-20 
 
 helpful. To incorporate human feedback with `AutoGen` , one can set `human` ~~`i`~~ `nput mode=‘ALWAYS’` in the user proxy agent. We select one challenging problem that none of these systems can solve autonomously across three trials. We adhere to the process outlined below to provide human inputs for all the compared methods: 
 
@@ -834,7 +815,6 @@ The overall workflow is as follows: The student chats with the LLM-based assista
 
 With `AutoGen` , constructing the student/expert proxy agent and the assistant agents is straightforward by reusing the built-in `UserProxyAgent` and `AssistantAgent` through appropriate configurations. The only development required involves writing several lines of code for the `ask` ~~`f`~~ `or expert` function, which then becomes part of the configuration for the assistant. Additionally, it’s easy to extend such a system to include more than one expert, with a specific `ask` ~~`f`~~ `or expert` function for each, or to include multiple student users with a shared expert for consultation. 
 
-21 
 
 ### **A2: Retrieval-Augmented Code Generation and Question Answering** 
 
@@ -861,7 +841,6 @@ We utilize Retrieval-Augmented Chat in two scenarios. The first scenario aids in
 
 **Scenario 1: Evaluation on Natural Questions QA dataset.** In this case, we evaluate the Retrieval-Augmented Chat’s end-to-end question-answering performance using the Natural Questions dataset (Kwiatkowski et al., 2019). We collected 5,332 non-redundant context documents and 6,775 queries from HuggingFace. First, we create a document collection based on the entire context corpus and store it in the vector database. Then, we utilize Retrieval-Augmented Chat to answer the questions. An example (Figure 8) from the NQ dataset showcases the advantages of the _interactive retrieval_ feature: _“who carried the usa flag in opening ceremony”_ . When attempting to answer this question, the context with the highest similarity to the question embedding does not contain the 
 
-22 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-00.png)
@@ -891,7 +870,6 @@ Furthermore, we analyze the number of LLM calls in experiments involving both _`
 
 **Scenario 2: Code Generation Leveraging Latest APIs from the Codebase.** In this case, the question is _“How can I use FLAML to perform a classification task and use Spark for parallel training? Train for 30 seconds and force cancel jobs if the time limit is reached.”_ . FLAML (v1) (Wang et al., 2021) is an open-source Python library designed for efficient AutoML and tuning. It was opensourced in December 2020, and is included in the training data of GPT-4. However, the question necessitates the use of Spark-related APIs, which were added in December 2022 and are not encompassed in the GPT-4 training data. Consequently, the original GPT-4 model is unable to generate the correct code, due to its lack of knowledge regarding Spark-related APIs. Instead, it erroneously creates a non-existent parameter, _spark_ , and sets it to True’. Nevertheless, with Retrieval-Augmented Chat, we provide the latest reference documents as context. Then, GPT-4 generates the correct code blocks by setting _use_ _~~s~~ park_ and _force_ _~~c~~ ancel_ to True’. 
 
-23 
 
 **A3: Decision Making in Text World Environments** 
 
@@ -912,7 +890,6 @@ One major challenge encompassed in ALFWorld is commonsense reasoning. The agent 
 
 We compare our system’s performance with ReAct, which treats ALFWorld as a text-completion task. ReAct (Yao et al., 2022) is a few-shot prompting technique that interleaves reasoning and acting, allowing for greater synergy between the two and significantly improving performance on both language and decision-making tasks. We integrate ReAct into `AutoGen` by modifying the prompts in a conversational manner. Following ReAct, we employ a two-shot setting. The fewshot prompts are obtained from the corresponding repository. As shown in Table 3, the two-agent 
 
-24 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0025-00.png)
@@ -949,7 +926,6 @@ design matches the performance of ReAct, while the three-agent design significan
 
 **Takeaways.** We introduced a grounding agent to serve as an external commonsense knowledge source, which significantly enhanced the assistant’s ability to make informed decisions. This proves that providing necessary commonsense facts to the decision-making agent can assist it in making more informed decisions, thus effectively boosting the task success rate. `AutoGen` brings both simplicity and modularity when adding the grounding agent. 
 
-25 
 
 **A4: Multi-Agent Coding** 
 
@@ -976,7 +952,6 @@ If at a point there is an exception - either a security red flag raised by Safeg
 
 The core workflow code for OptiGuide was reduced from over 430 lines to 100 lines using `AutoGen` , leading to significant productivity improvement. The new agents are customizable, conversable, and can autonomously manage their chat memories. This consolidation allows the coder and interpreter roles to merge into a single “Writer” agent, resulting in a clean, concise, and intuitive implementation that is easier to maintain. 
 
-26 
 
 **Manual Evaluation Comparing ChatGPT + Code Interpreter and** `AutoGen` **-based OptiGuide.** ChatGPT + Code Interpreter is unable to execute code with private or customized dependencies (e.g., Gurobi), which means users need to have engineering expertise to manually handle multiple steps, disrupting the workflow and increasing the chance for mistakes. If users lack access or expertise, the burden falls on supporting engineers, increasing their on-call time. 
 
@@ -996,7 +971,6 @@ Table 13 and 15 provide a detailed comparison of user experience with ChatGPT+Co
 
 **Takeaways:** The implementation of the multi-agent design with `AutoGen` in the OptiGuide application offers several advantages. It simplifies the Python implementation and fosters a mixture of collaborative and adversarial problem-solving environments, with the Commander and Writer working together while the Safeguard acts as a virtual adversarial checker. This setup allows for proper memory management, as the Commander maintains memory related to user interactions, providing context-aware decision-making. Additionally, role-playing ensures that each agent’s memory remains isolated, preventing shortcuts and hallucinations 
 
-27 
 
 ### **A5: Dynamic Group Chat** 
 
@@ -1029,7 +1003,6 @@ Table 6: Average # LLM calls and number of termination failures on the 12 tasks 
 
 
 
-28 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0029-00.png)
@@ -1037,7 +1010,6 @@ Table 6: Average # LLM calls and number of termination failures on the 12 tasks 
 
 Figure 13: Comparison of two-agent chat (a) and group chat (b) on a given task. The group chat resolves the task successfully with a smoother conversation, while the two-agent chat fails on the same task and ends with a repeated conversation. 
 
-29 
 
 **A6: Conversational Chess** 
 
@@ -1056,7 +1028,6 @@ To realize these scenarios, we constructed a player agent with LLM and human as 
 
 There are two notable benefits of using `AutoGen` to implement Conversational Chess. Firstly, the agent design in `AutoGen` facilitates the natural creation of objects and their interactions needed in our chess game. This makes development easy and intuitive. For example, the isolation of chat messages simplifies the process of making a proper LLM chat completion inference call. Secondly, `AutoGen` greatly simplifies the implementation of agent behaviors using composition. Specifically, we utilized the `register` ~~`r`~~ `eply` method supported by `AutoGen` agents to instantiate player agents and a board agent with custom reply functions. Concentrating the extension work needed at a single point (the reply function) simplifies the reasoning processes, and development and maintenance effort. 
 
-30 
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-00.png)
@@ -1121,7 +1092,6 @@ make sure both you and the opponent are making legal moves...
 
 Figure 16: Comparison of two designs–(a) without a board agent, and (b) with a board agent–in Conversational Chess. 
 
-31 
 
 ### **A7: Online Decision Making for Browser interactions** 
 
@@ -1149,7 +1119,6 @@ To assess the performance of the developed working system, we compare it with RC
 
 > 8We report the results of RCI by running its official code with default settings. 
 
-32 
 
 other on the same number of tasks. For illustration purposes, we provide a case analysis in Table 7 on four typical tasks. 
 
@@ -1177,7 +1146,6 @@ Table 7: Cases analysis on four typical tasks from MiniWob++.
 
 
 
-33 
 
 ---
 
@@ -1203,7 +1171,6 @@ Table 8: Application A1, Scenario 1: Autonomous math problem-solving. ChatGPT+ P
 <!-- Start of picture text -->
 Action ChatGPT + Plugin<br>� Input Completely simplify and rationalize the denominator:<br>√ 160 √ 245<br>×<br>√ 252 √ 108<br>� REQUEST TO WOLFRAM:<br>1 {<br>2 "input" : "simplify (sqrt (160)/sqrt (252))*<br>3 (sqrt (245)/sqrt (108))"<br>4 }<br>RESPONSE FROM WOLFRAM<br>1 Query:<br>2 "simplify (sqrt (160)/sqrt (252))*( sqrt (245)/sqrt (108))"<br>3<br>4 Input interpretation :<br>5 simplify | sqrt (160)/sqrt (252)x sqrt (245)/sqrt (108)<br>6<br>7 Results:<br>8 (5 sqrt (42))/27<br>9<br>10 (5 sqrt (14/3))/9<br>11<br>12 Decimal approximation :<br>13 1.2001371663718259686974013770533327143898526494552...<br>14<br>15 Wolfram|Alpha website result for "simplify<br>16 (sqrt (160)/sqrt (252))*( sqrt (245)/sqrt (108))" :<br>17 [link]<br>� The completely simplified and rationalized form of the given expression is:<br>5 � 14 / 3<br>9<br>In decimal form, this is approximately 1.200137166371825968697401377053332714...<br><!-- End of picture text -->
 
-34 
 
 Table 9: Application A1, Scenario 1: Autonomous math problem-solving. `AutoGen` on the first qualitative example. `AutoGen` solves the problem correctly. 
 
@@ -1234,7 +1201,6 @@ Table 10: Application A1, Scenario 1: Autonomous math problem-solving. LangChain
 
 
 
-35 
 
 Table 11: Application A1, Scenario 1: Autonomous math problem-solving. AutoGPT on the first qualitative example. We abort as the code never prints the result, and the system does not rectify it after 2 turns. AutoGPT is much more verbose compared to other frameworks. We have shortened some unnecessary content. 
 
@@ -1307,7 +1273,6 @@ Table 13: Application A3. ChatGPT+ Code Interpreter for OptiGuide. A sample ques
 
 
 
-38 
 
 Table 14: Application A1. Scenario 1: autonomous math solving. ChatGPT+ Code Interpreter on the first qualitative example. The code generated does not match the devised plan. The code returns a decimal number. 
 
@@ -1334,7 +1299,6 @@ Table 15: Application A3. `AutoGen` with OptiGuide. The same question “What if
 
 
 
-39 
 
 Table 16: Application A1. Scenario 1: autonomous math solving. Preliminary test with BabyAGI. 
 
@@ -1354,7 +1318,6 @@ Table 16: Application A1. Scenario 1: autonomous math solving. Preliminary test 
 
 
 
-40 
 
 Table 17: Application A1, Scenario 1: Autonomous math problem-solving. Preliminary test with CAMEL. We constructed two roles: “Math Solver” and “Python Programmer”. The resulting code cannot be executed. The conversation continues, and the roles are not keen on solving the problem and giving an answer. 
 
@@ -1380,7 +1343,6 @@ Table 17: Application A1, Scenario 1: Autonomous math problem-solving. Prelimina
 
 
 
-41 
 
 Table 18: Application A1, Scenario 1: Autonomous math problem-solving. Preliminary evaluation on MetaGPT. It does not solve the math problem but gives a product solution. 
 
@@ -1399,7 +1361,6 @@ Table 18: Application A1, Scenario 1: Autonomous math problem-solving. Prelimina
 
 
 
-42 
 
 Table 19: Application A7. Example output of MiniWobChat on one web manipulation task “clickbutton-sequence.” 
 
@@ -1432,5 +1393,4 @@ Table 19: Application A7. Example output of MiniWobChat on one web manipulation 
 
 
 
-43 
 

@@ -96,11 +96,9 @@ Authors’ Contact Information: Minrui Xu, MINRUI001@e.ntu.edu.sg, Nanyang Techn
 
 Manuscript submitted to ACM 
 
-1 
 
 Xu et al. 
 
-2 
 
 autonomously assist in offensive security tasks with minimal human input, including code exploitation and vulnerability discovery [75]. Similarly, Anthropic has deployed red teams, i.e., offensive attackers, to test its Claude models against cybersecurity misuse scenarios, revealing new emergent risks in autonomous agent behavior [23]. These findings reinforce the concern that LLMs have significantly lowered the technical threshold and cost of multi-stage intrusions [175]. Leveraging LLMs equipped with perception, memory, reasoning, and action modules, LLM-based agents can conduct cyberattacks autonomously with minimal human intervention [47, 107]. Specifically, LLM-based agents introduce novel attack paradigms, e.g., jailbreak attack [170], and significantly amplify existing cyberattacks, e.g., vulnerability exploitation, malware generation, and social engineering [38]. LLM-based agents allow attackers with limited skills and resources to conduct complex cyberattacks with minimal human intervention. Therefore, LLM-based agents accelerate attack deployment, scale offensive activities, and erode traditional resource bottlenecks, resulting in Cyber Threat Inflation. This inflation in cybersecurity describes the drastic reduction in operational costs for launching cyberattacks alongside a significant increase in their scalability. 
 
@@ -112,7 +110,6 @@ The cyber threat inflation has profound implications for legacy network infrastr
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-3 
 
 Table 1. Related works on LLM Agents, cyberattacks, and network systems. 
 
@@ -151,7 +148,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-4 
 
 higher-quality datasets and tighter workflow integration. At the code level, Basic _et al._ [27] show that while LLMs handle simple flaws well, they still struggle with complex security issues. Adopting a policy lens, Guo _et al._ [80] analyze frontier AI’s security impact through case studies and controlled evaluations, provide recommendations for policymakers, and identify pressing research gaps. Focusing on malware, Al _et al._ [11] summarize core concepts, task taxonomies, and evaluation metrics, and propose a risk-mitigation framework that balances theory with practice. Finally, Jelodar _et al._ [95] review LLM-enabled code analyses for malware detection, compare fine-tuning strategies, and highlight challenges. 
 
@@ -176,7 +172,6 @@ In this survey, we investigate LLM-based autonomous agents as cyber adversaries 
 
 Manuscript submitted to ACM 
 
-5 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
@@ -200,7 +195,6 @@ Section II deconstructs the construction and collaboration of LLM-based cyberatt
 
 Manuscript submitted to ACM 
 
-6 
 
 Xu et al. 
 
@@ -246,7 +240,6 @@ _2.1.1 Models._ LLM-based agents often leverage state-of-the-art pre-trained fou
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-7 
 
 Table 2. Comparison of state-of-the-art LLMs (May 2025). Context window in tokens, speed in tokens/second, prices in USD per million tokens [24]. 
 
@@ -281,7 +274,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-8 
 
 on vulnerabilities, exploits, attack vectors, and defensive protocols. Recent efforts have curated specialized cybersecurity corpora to enhance this aspect. PRIMUS [208] aggregates extensive open-source cybersecurity data, including vulnerability advisories, exploit scripts, and traffic captures, forming a comprehensive 18GB corpus designed for LLM pretraining. Similarly, ATTACKER [51] is a named-entity recognition benchmark for attribution tasks. SECQA [121] is a cybersecurityfocused Q&A corpus. CMDCALIPER [92] is a semantic mapping of command-line activities to enrich the agent’s long-term memory base. Through training on these corpora, LLM-based agents develop internal cybersecurity models to spot threats, find weaknesses, and adapt to new attacks. 
 
@@ -305,7 +297,6 @@ Manuscript submitted to ACM
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-9 
 
 
 ![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-02.png)
@@ -420,7 +411,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-10 
 
 tests agents across a wide range of cybersecurity tasks while ensuring all actions occur within a controlled environment. The development roadmap of LLM-based cyberattacks is shown in Fig. 3. 
 
@@ -462,7 +452,6 @@ _3.1.1 Cyber Threat Intelligence._ The cyber-threat-intelligence (CTI) capabilit
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-11 
 
 |ble 3. **Mapping of LL**|**M-based agent cap**|**abilities to cybera**|**ttack categories.**<br>**Ri &**|_Legend:_<br>**High**|**Medium**<br>**Low**<br>**Mltit**|
 |---|---|---|---|---|---|
@@ -496,7 +485,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-12 
 
 Table 4. The list of LLM-based agent frameworks for cyberattacks. Attack-type abbreviations: CTI = Cyber Threat Intelligence:
 - PT = Penetration Testing
@@ -559,7 +547,6 @@ reasoning gap, Wu _et al._ [197] frame each step as a Penetration-Testing State 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-13 
 
 [153] fine-tune CIPHER on write-ups for better exploit guidance. Al-Qurishi _et al._ [13] develop PenTest++, an automated framework requiring human oversight. 
 
@@ -575,7 +562,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-14 
 
 
 ![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-02.png)
@@ -626,7 +612,6 @@ In addition to phishing, LLM-enabled social engineering agents now focus on inte
 
 _3.2.1 Malware Generation._ As shown in Fig. 5, LLM-based agents in cybersecurity enable automated malware generation through code generation [86, 97]. Using natural language programming and script generation, agents convert behavioral descriptions to attack code, evade detection, and generate variant malware. This language-code fusion accelerates malware development while expanding attack potential with minimal human input. The authors in [70] Manuscript submitted to ACM 
 
-15 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
@@ -649,7 +634,6 @@ _3.2.2 Vulnerability Exploitation: One-Day and Zero-Day Attacks._ LLM-based agen
 
 Manuscript submitted to ACM 
 
-16 
 
 Xu et al. 
 
@@ -700,7 +684,6 @@ cloud networks while proposing safeguards against hallucination and bias. Transi
 
 _3.2.3 Honeypot Deployment._ Honeypots are controlled environments that mimic vulnerable systems to study adversarial behavior safely. LLM-based agents are deceptive frameworks that generate realistic system responses to attacker inputs. Through contextual analysis and response generation, these agents can simulate authentic behaviors from Linux shells to industrial protocols. Reti _et al._ [158] launch this trajectory by testing 210 prompt templates across GPT-3.5, GPT-4, Llama-2, and Gemini on 1.6 M leaked ClixSense credentials, showing that LLMs can craft honeywords and robots.txt tokens with a 56% indistinguishability rate. Building on automation, Fan _et al._ [60] introduce HoneyLLM, a Go-based medium-interaction honeypot whose GPT-4-Turbo, Claude 3 Opus, and Gemini 1.5 Pro back-ends successfully execute 21 of 25 Linux commands and log both network and system-level activity, as quantified by their ShellEval metric, while highlighting open challenges in latency and jailbreak resistance. Complementing proprietary models, Otal _et al._ Manuscript submitted to ACM 
 
-17 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
@@ -737,7 +720,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-18 
 
 Table 6. Comparison of representative LLM-Enabled cyberattack methods on static-infrastructure networks. 
 
@@ -771,7 +753,6 @@ Manuscript submitted to ACM
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-19 
 
 ---
 
@@ -810,7 +791,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-20 
 
 superior detection capabilities compared to conventional rule-based approaches across multiple historical breach scenarios. Blue teams should strictly enforce least privilege on API keys, rotate them frequently, and monitor API usage patterns. 
 
@@ -843,7 +823,6 @@ Quantum communications might be theoretically secure in transmission, but the su
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-21 
 
 Table 7. Comparison of representative LLM-based cyber-attack methods in mobile-infrastructure networks. 
 
@@ -894,7 +873,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-22 
 
 threat indicators autonomously, reducing reconnaissance costs for potential attackers. The AttackLLM [6] implements an LLM-based multi-agent system for industrial attacks, outperforming human experts in water-treatment plant testing. 
 
@@ -929,7 +907,6 @@ Vehicular networks present unique challenges, combining critical latency require
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-23 
 
 
 ![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-02.png)
@@ -990,7 +967,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-24 
 
 Table 8. Representative LLM-based agent cyberttacks on infrastructure-free networks. 
 
@@ -1033,7 +1009,6 @@ Table 8 outlines representative LLM-agent attack strategies across infrastructur
 
 In social networks, LLM-based agents can create and manage fake personas at scale, which can flood social platforms with propaganda, phishing, or manipulative content [201]. For instance, CheatAgent shows that by impersonating recommender-system users, an LLM can steer ranking outcomes and exfiltrate private preference data without tripping anomaly detectors [137]. Earlier work on social-network honeypots demonstrated large-scale, automated creation and curation of fake identities to lure threat actors [143]. When combined with generative text models, such bots now produce Manuscript submitted to ACM 
 
-25 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
@@ -1074,7 +1049,6 @@ Augmented/virtual reality (AR/VR) platforms present new attack vectors, such as 
 
 Manuscript submitted to ACM 
 
-26 
 
 Xu et al. 
 
@@ -1115,7 +1089,6 @@ Finally, attacks in autonomous agent networks include knowledge poisoning, promp
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-27 
 
 **4) Privacy-preservation during Multi-Agent Collaboration:** Federated learning enables collaborative improvement without centralized data collection [41]. Future research should explore protocols for agents to share threat insights while protecting organizational data. Key challenges include secure aggregation, poisoning resistance, and non-IID data robustness. Real-time federated updates could help defensive agents quickly adapt to new attack patterns. 
 
@@ -1157,7 +1130,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-28 
 
 - [7] Dalia Shihab Ahmed, Abbas Abdulazeez Abdulhameed, and Methaq T Gaata. 2024. A Systematic Literature Review on Cyber Attack Detection in Software-Define Networking (SDN). _Mesopotamian Journal of CyberSecurity_ 4, 3 (2024), 86–135. 
 
@@ -1215,7 +1187,6 @@ Manuscript submitted to ACM
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-29 
 
 - [33] Manish Bhatt, Sahana Chennabasappa, Cyrus Nikolaidis, Shengye Wan, Ivan Evtimov, Dominik Gabi, Daniel Song, Faizan Ahmad, Cornelius Aschermann, Lorenzo Fontana, et al. 2023. Purple llama cyberseceval: A secure coding benchmark for language models. _arXiv preprint arXiv:2312.04724_ (2023). 
 
@@ -1273,7 +1244,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-30 
 
 - [59] Joshua Dwight. 2024. Building Cyber Attack Trees with the Help of My LLM? A Mixed Method Study. In _Proceedings of the 2024 12th International Conference on Computer and Communications Management_ . 132–138. 
 
@@ -1335,7 +1305,6 @@ Manuscript submitted to ACM
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-31 
 
 - [87] Md Imran Hossen, Jianyi Zhang, Yinzhi Cao, and Xiali Hei. 2024. Assessing cybersecurity vulnerabilities in code large language models. _arXiv preprint arXiv:2404.18567_ (2024). 
 
@@ -1393,7 +1362,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-32 
 
 - [113] Tan Duy Le, Mengmeng Ge, Adnan Anwar, Seng W Loke, Razvan Beuran, Robin Doss, and Yasuo Tan. 2022. Gridattackanalyzer: A cyber attack analysis framework for smart grids. _Sensors_ 22, 13 (2022), 4795. 
 
@@ -1455,7 +1423,6 @@ Xu et al.
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 
-33 
 
 (2022), 27730–27744. 
 
@@ -1515,7 +1482,6 @@ Manuscript submitted to ACM
 
 Xu et al. 
 
-34 
 
 - [167] Samaneh Shafee, Alysson Bessani, and Pedro M Ferreira. 2024. Evaluation of LLM chatbots for OSINT-based cyber threat awareness. _arXiv preprint arXiv:2401.15127_ (2024). 
 
@@ -1575,7 +1541,6 @@ Xu et al.
 
 Manuscript submitted to ACM 
 
-35 
 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks 
 

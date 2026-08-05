@@ -94,7 +94,6 @@ Penetration testing is a way to evaluate Web security by simulating real attacks
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-3 
 
 Based on the benchmark we built, we conducted an end-to-end evaluation of the existing to pave the way for subsequent research. First, we tried many advanced models, from which we selected GPT-3.5, GPT-4o, and GPT-4o mini models that passed the first pre-experiment as representative LLMs for subsequent research. Then, we designed an end-to-end testing strategy, which includes carefully designed prompts to guide the agent to conduct penetration testing. For existing agent frameworks, we selected the ReAct [65] framework and the framework built on the PentestGPT [13] core penetration testing task tree (PTT) as a representative framework. Each agent receives prompts and black box information from the target machine, which spontaneously queries the environmental information, infers subsequent operations, executes terminal commands, and operates browsers via controlled tools. This process is repeated until the LLM autonomously completes the penetration testing. Finally, we compare its results with the baseline solution of officially certified penetration testers [58]. By analyzing the reasons for the agent’s failure cases, we summarize the main challenges of current intelligent agents performing end-to-end penetration testing tasks as follows: 1) Maintaining the entire message history is difficult due to model context size limitations. 2) The agent may get stuck on subtle problems during self-iteration, leading to task failure. 3) Current model inference capabilities restrict an agent from completing this task. 
 
@@ -149,7 +148,6 @@ _2.1.1 Penetration Testing._ Penetration testing is a critical practice for enha
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-5 
 
 Enumeration; 3) Exploitation; 4) Post-Exploitation Activities; 5) Reporting and Recommendations; 6) Re-testing. These steps help penetration testers systematically evaluate the Web system security. 
 
@@ -224,7 +222,6 @@ _3.2.2 Task annotation._ We further annotated each test task in detail to ensure
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-7 
 
 Furthermore, we carefully designed the target information for each task in the prompt format, such as _“Executing commands on the JetBrains Drupal server to execute the command ‘cat /etc/passwd’.”_ . Correspondingly, we gave the string where the target exists, such as _“_apt:x:100:65534”_ . Like the flag in the CTF, this string will not be triggered if the exploit is not successful; however, the difference is that not all vulnerabilities have the opportunity to read files or execute arbitrary commands, so the targets we designed are more diverse and closer to the real world. These two steps enable us to better evaluate the exploitation difficulty and effectiveness of end-to-end penetration testing of LLM-based agents, providing a reference for subsequent improvements and optimizations. 
 
@@ -392,7 +389,6 @@ Most of the failed GPT-3.5 samples are concentrated on the model’s ability pro
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-9 
 
 penetration testing tasks. Notably, although GPT-4o has a very large context width of 128k, after multiple iterations and operations such as curl reading web pages, context width overflow still occurred in more than 18% of the attempts. For example, calling the curl command will read all the information on the web page, including the CSS code, which occupies a very large context width. This design flaw affects the efficiency of the model in handling tasks that require delicate attention to detail and hierarchical structures. 
 
@@ -467,7 +463,6 @@ In accordance with the preliminary experimental conclusions of Section 4.2, we d
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-11 
 
 LLMs have not been fine-tuned with network security knowledge, and have certain limitations in the planning and detailed implementation of penetration testing tasks. Therefore, we need to design a clever agent framework to reduce the difficulty of tasks through external constraints and thus increase the success rate of tasks. 
 
@@ -593,7 +588,6 @@ _5.3.1 Agent state._ Unlike the traditional FSM, we take the output symbols of t
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-13 
 
 obtain the output value of the current state and end the current state. The whole process is shown in Algorithm 1. Below we report in detail the implementation of the Agent state of this work. 
 
@@ -679,7 +673,6 @@ In the check state, similar to the design in Section 3, we carefully set an outp
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-15 
 
 and the output information is “Success”. If it does not appear, it is considered a failure, and the vulnerability exploitation status is returned within a certain threshold of vulnerability exploitation times. When the set number of vulnerability tests is exceeded, the current vulnerability is considered to be currently inexplicable, and the vulnerability is returned to the vulnerability selection stage and the vulnerability is re-selected. If all vulnerabilities in the library are tried and failed, the output information is “Failed”. An example of a specific Rule state _Selection_ is shown in Figure 4. 
 
@@ -765,7 +758,6 @@ The results supported by the GPT-4o mini even achieved a success rate of 36%, wh
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-17 
 
 10 times the number of completions on difficult tasks. This highlights that our design effectively alleviates the problems encountered by the current end-to-end tasks mentioned above, bringing more promising test results. Compared with the ReAct framework, our method splits the task into subtasks, allowing the model to focus on simple and clear tasks. This also reduces the generation of erroneous commands and alleviates hallucination problems, maximizing the model’s capabilities. 
 
@@ -848,7 +840,6 @@ _Limitation and future work._ 1) The purpose of this study is to evaluate the fe
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-19 
 
 mentioned in the previous section, enabling the agent to perform simulated web page operations, which some companies and researchers have begun to attempt [59], is an important factor in mitigating specific operations. 3) The ideas proposed in this paper may be used by real-world attackers. In the future, we need to consider defense work against AutoPT, such as identifying whether the request command is an LLM-driven network attack through LLM hallucination detection [11, 37]. 
 
@@ -952,7 +943,6 @@ To promote open science, we provided a Github<sup>5</sup> for future work. This 
 
 AutoPT: How Far Are We from the End2End Automated Web Penetration Testing? 
 
-21 
 
 _(TrustCom)_ . IEEE, 887–894. 
 

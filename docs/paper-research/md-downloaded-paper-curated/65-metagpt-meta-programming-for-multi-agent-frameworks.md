@@ -89,7 +89,6 @@ Inspired by such ideas, we design a promising <u>GPT-based Meta-Programming</u> 
 
 > _†_ Chenglin Wu (alexanderwu@fuzhi.ai) is the corresponding author, affiliated with DeepWisdom. 
 
-1 
 
 Published as a conference paper at ICLR 2024 
 
@@ -111,7 +110,6 @@ We summarize our contributions as follows:
 
 > 1https://en.wikipedia.org/w/index.php?title=Metaprogramming 
 
-2 
 
 Published as a conference paper at ICLR 2024 
 
@@ -158,7 +156,6 @@ Some works emphasize cooperation and competition related to planning and strateg
 - Wang et al., 2022
 - Jiang et al., 2023). This motivates our focus on applying advanced concepts such as Standard Operating Procedures in software development to multi-agent frameworks.
 
-3 
 
 Published as a conference paper at ICLR 2024 
 
@@ -187,7 +184,6 @@ Every agent monitors the environment ( _i.e._ , the message pool in MetaGPT) to 
 
 **Workflow across Agents** By defining the agents’ roles and operational skills, we can establish basic workflows. In our work, we follow SOP in software development, which enables all agents to work in a sequential manner. 
 
-4 
 
 Published as a conference paper at ICLR 2024 
 
@@ -205,7 +201,6 @@ Specifically, as shown in Figure 1, upon obtaining user requirements, the Produc
 
 However, despite the versatility of natural language, a question arises: does pure natural language communication suffice for solving complex tasks? For example, in the telephone game (or Chinese 
 
-5 
 
 Published as a conference paper at ICLR 2024 
 
@@ -240,7 +235,6 @@ This enables the Engineer to continuously improve code using its own historical 
 
 > 2 https://en.wikipedia.org/wiki/Chinese ~~w~~ hispers 
 
-6 
 
 Published as a conference paper at ICLR 2024 
 
@@ -274,7 +268,6 @@ Figure 4: Pass rates on the MBPP and HumanEval with a single attempt.
 
 > 3https://en.wikipedia.org/wiki/Read–eval–print ~~l~~ oop 
 
-7 
 
 Published as a conference paper at ICLR 2024 
 
@@ -305,7 +298,6 @@ Table 1: The statistical analysis on SoftwareDev.
 
 Compared to open-source baseline methods such as AutoGPT and autonomous agents such as AgentVerse and ChatDev, MetaGPT offers functions for software engineering tasks. As presented in Table 2, our framework encompasses a wide range of abilities to handle complex and specialized development tasks efficiently. Incorporating SOPs (e.g., role-play expertise, structured communication, streamlined workflow) can significantly improve code generation. Other baseline methods 
 
-8 
 
 Published as a conference paper at ICLR 2024 
 
@@ -352,7 +344,6 @@ can easily integrate SOP-like designs to improve their performance, similar to i
 
 This work introduces MetaGPT, a novel meta-programming framework that leverages SOPs to enhance the problem-solving capabilities of multi-agent systems based on Large Language Models (LLMs). MetaGPT models a group of agents as a simulated software company, analogous to simulated towns (Park et al., 2023) and the Minecraft Sandbox in Voyager (Wang et al., 2023a). MetaGPT leverages role specialization, workflow management, and efficient sharing mechanisms such as message pools and subscriptions, rendering it a flexible and portable platform for autonomous agents and multi-agent frameworks. It uses an executable feedback mechanism to enhance code generation quality during runtime. In extensive experiments, MetaGPT achieves state-of-the-art performance on multiple benchmarks. The successful integration of human-like SOPs inspires future research on human-inspired techniques for artificial multi-agent systems. We also view our work as an early attempt to regulate LLM-based multi-agent frameworks. See also the **outlook (Appendix A)** . 
 
-9 
 
 Published as a conference paper at ICLR 2024 
 
@@ -391,7 +382,6 @@ Harrison Chase. LangChain. https://github.com/hwchase17/langchain, 2022.
 
 - Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian, Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Barnes, Ariel Herbert-Voss, William Hebgen Guss, Alex Nichol, Alex Paino, Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders, Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, and Wojciech Zaremba. Evaluating large language models trained on code, 2021a. 
 
-10 
 
 Published as a conference paper at ICLR 2024 
 
@@ -427,7 +417,6 @@ Irving John Good. Speculations concerning the first ultraintelligent machine. _A
 
 - Sirui Hong, Yizhang Lin, Bangbang Liu, Binhao Wu, Danyang Li, Jiaqi Chen, Jiayi Zhang, Jinlin Wang, Lingyao Zhang, Mingchen Zhuge, et al. Data interpreter: An llm agent for data science. _arXiv preprint arXiv:2402.18679_ , 2024. 
 
-11 
 
 Published as a conference paper at ICLR 2024 
 
@@ -469,7 +458,6 @@ OpenAI. Gpt-4 technical report, 2023.
 
 - Baptiste Rozi`ere, Jonas Gehring, Fabian Gloeckle, Sten Sootla, Itai Gat, Xiaoqing Ellen Tan, Yossi Adi, Jingyu Liu, Tal Remez, J´er´emy Rapin, et al. Code llama: Open foundation models for code. _arXiv preprint_ , 2023. 
 
-12 
 
 Published as a conference paper at ICLR 2024 
 
@@ -509,7 +497,6 @@ Torantulino et al. Auto-gpt. https://github.com/Significant-Gravitas/ Auto-GPT, 
 
 - Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, and Anima Anandkumar. Voyager: An open-ended embodied agent with large language models. _arXiv preprint_ , 2023a. 
 
-13 
 
 Published as a conference paper at ICLR 2024 
 
@@ -541,7 +528,6 @@ Hongxin Zhang, Weihua Du, Jiaming Shan, Qinhong Zhou, Yilun Du, Joshua B Tenenba
 
 - Mingchen Zhuge, Haozhe Liu, Francesco Faccio, Dylan R Ashley, R´obert Csord´as, Anand Gopalakrishnan, Abdullah Hamdi, Hasan Abed Al Kader Hammoud, Vincent Herrmann, Kazuki Irie, et al. Mindstorms in natural language-based societies of mind. _arXiv preprint_ , 2023. 
 
-14 
 
 Published as a conference paper at ICLR 2024 
 
@@ -574,7 +560,6 @@ The recent agent-based platform of DeepWisdom (AgentStore<sup>4</sup> ) is compa
 
 > 4http://beta.deepwisdom.ai 
 
-15 
 
 Published as a conference paper at ICLR 2024 
 
@@ -586,7 +571,6 @@ and pay according to their usage. Moreover, users can purchase additional capabi
 ```
 Figure 6: AgentStore is a platform dedicated to serving users in the creation and development of agents within the MetaGPT framework. This platform provides users with an operational interface, allowing users to easily manage a variety of agents with different emotions, personalities, and capabilities for specific tasks. 
 
-16 
 
 Published as a conference paper at ICLR 2024 
 
@@ -617,7 +601,6 @@ Now we provide a step-by-step explanation of the standardized output process for
 ```text
 1 ## Original Requirements
 2 The boss requires a Python3 GUI color meter that outputs the RGB values when it moves.
-3
 4 ## Product Goals
 5 ‘‘‘python
 6 [
@@ -626,7 +609,6 @@ Now we provide a step-by-step explanation of the standardized output process for
 9 "Ensure the color meter updates RGB values in real-time as it moves"
 10 ]
 11 ‘‘‘
-12
 13 ## User Stories
 14 ‘‘‘python
 15 [
@@ -636,7 +618,6 @@ Now we provide a step-by-step explanation of the standardized output process for
 18 "As a user, I want a simple and intuitive interface, so that I can easily use the color meter"
 19 ]
 20 ‘‘‘
-21
 22 ## Competitive Analysis
 23 ‘‘‘python
 24 [
@@ -654,20 +635,17 @@ Now we provide a step-by-step explanation of the standardized output process for
 31 ‘‘‘
 
 ```
-17 
 
 Published as a conference paper at ICLR 2024 
 
 
 ```text
 Product Requirement Document
-1
 2 ## Requirement Analysis
 3 The product should be a Python3 GUI application that serves as a color meter. It should allow
 �     users to select any color on the screen and display the corresponding RGB values. The RGB
 �     values should update in real-time as the color meter moves. The interface should be
 �     simple and user-friendly.
-4
 5 ## Requirement Pool
 6 ‘‘‘python
 7 [
@@ -678,14 +656,12 @@ Product Requirement Document
 12 ("Test the application for accuracy and performance", "P1")
 13 ]
 14 ‘‘‘
-15
 16 ## UI Design draft
 17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which
 �     could be a magnified area of the screen that the user can move around. The RGB values of
 �     the currently selected color should be prominently displayed, updating in real-time as
 �     the color meter moves. The layout should be clean and uncluttered, with a focus on
 �     functionality and ease of use.
-18
 19 ## Anything UNCLEAR
 20 There are no unclear points.
 
@@ -695,7 +671,6 @@ Product Requirement Document
 ```
 Figure 7: The quadrant chart for the “Drawing App” generated by the _product manager_ agent. 
 
-18 
 
 Published as a conference paper at ICLR 2024 
 
@@ -708,21 +683,16 @@ System design
 2 We will use Python’s Tkinter library to create the GUI for the color meter. Tkinter is a standard
 �     Python interface to the Tk GUI toolkit and is included with most Python installations. It
 �     is simple to use and powerful enough for our needs.
-3
 4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows
 �     us to capture the screen’s pixel data. By moving the mouse, we can get the RGB values of
 �     the pixel under the mouse cursor in real-time.
-5
 6 The RGB values will be displayed on the GUI using Tkinter’s Label widget. We will use Python’s
 �     threading library to update the RGB values in real-time as the color meter moves.
-7
 8 The application will be tested for accuracy and performance using Python’s unittest library.
-9
 10 ## Python package name
 11 ‘‘‘python
 12 "color_meter"
 13 ‘‘‘
-14
 15 ## File list
 16 ‘‘‘python
 17 [
@@ -732,7 +702,6 @@ System design
 21 "tests.py"
 22 ]
 23 ‘‘‘
-24
 25 ## Anything UNCLEAR
 26 The requirement is clear to me.
 
@@ -744,7 +713,6 @@ Figure 8: Data structures and interface definitions for the “Drawing App” ge
 
 **Project Manager** The Project Manager breaks down the project into a task list. Furthermore, each code file is analyzed based on its intended functionality and then treated as a separate task assigned to Engineers. 
 
-19 
 
 Published as a conference paper at ICLR 2024 
 
@@ -758,28 +726,24 @@ Figure 9: The program call flow for the “Drawing App” generated by the _arch
 ```text
 Tasks
 1 ## Required Python third-party packages
-2
 3 ‘‘‘python
 4 """
 5 tkinter==8.6
 6 Pillow==8.3.1
 7 """
 8 ‘‘‘
-9
 10 ## Required Other language third-party packages
 11 ‘‘‘python
 12 """
 13 No third-party packages required in other languages.
 14 """
 15 ‘‘‘
-16
 17 ## Full API spec
 18 ‘‘‘python
 19 """
 20 No APIs are used in this project.
 21 """
 22 ‘‘‘
-23
 24 ## Logic Analysis
 25 ‘‘‘python
 26 [
@@ -793,7 +757,6 @@ Tasks
 33 ‘‘‘
 
 ```
-20 
 
 Published as a conference paper at ICLR 2024 
 
@@ -810,7 +773,6 @@ Product Requirement Document
 8 "file_manager.py"
 9 ]
 10 ‘‘‘
-11
 12 ## Shared Knowledge
 13 ‘‘‘python
 14 """
@@ -822,14 +784,12 @@ Product Requirement Document
 �     and starts the application loop.
 18 """
 19 ‘‘‘
-20
 21 ## Anything UNCLEAR
 22 The project requirements and implementation approach are clear. However, we need to ensure that
 �     all team members are familiar with the Tkinter and Pillow libraries. If not, they may
 �     need some time to learn these libraries before starting the development.
 
 ```
-21 
 
 Published as a conference paper at ICLR 2024 
 
@@ -844,18 +804,14 @@ Generated code (color p icker.py)
 4 def __init__(self, root: tk.Tk, color: str = ’black’):
 5 self.frame = tk.Frame(root)
 6 self.color = color
-7
 8 self.color_button = tk.Button(self.frame, text=’Color’, command=self.select_color)
 9 self.color_button.pack(fill=’x’)
-10
 11 def select_color(self):
 12 color = colorchooser.askcolor()[1]
 13 if color is not None:
 14 self.color = color
-15
 16 def pack(self, **kwargs):
 17 self.frame.pack(**kwargs)
-18
 19 def get_color(self):
 20 return self.color
 
@@ -869,35 +825,27 @@ Generated Unit tests (test.py)
 2 import tkinter as tk
 3 # You might want to move the ColorPicker class to another file, let’s say color_picker.py
 4 # from color_picker import ColorPicker
-5
 6 class TestColorPicker(unittest.TestCase):
-7
 8 def setUp(self):
 9 self.root = tk.Tk()
 10 self.cp = ColorPicker(self.root)
-11
 12 def tearDown(self):
 13 # This is important to close the tk window after tests
 14 self.root.destroy()
-15
 16 def test_initial_color(self):
 17 # Test the default color during initialization
 18 self.assertEqual(self.cp.get_color(), ’black’)
-19
 20 def test_set_and_get_color(self):
 21 # Test setting a new color and retrieving it
 22 new_color = ’#ffffff’ # white color
 23 self.cp.color = new_color
 24 self.assertEqual(self.cp.get_color(), new_color)
-25
-26
 27 if __name__ == ’__main__’:
 28 unittest.main()
 
 ```
 **Output** Ultimately, as shown in Figure 10, MetaGPT generates a functional application named “Drawing App”. 
 
-22 
 
 Published as a conference paper at ICLR 2024 
 
@@ -927,7 +875,6 @@ While models such as AutoGPT (Torantulino et al., 2023), Langchain (Chase, 2022)
 
 > 5https://deepseekcoder.github.io 
 
-23 
 
 Published as a conference paper at ICLR 2024 
 
@@ -977,7 +924,6 @@ We observe that: detailed prompts lead to better software projects with lower pr
 
 **The performance of GPT variants in HumanEval benchmark** We use the GPT-4’s 67% HumanEval score (OpenAI, 2023) as our baseline, acknowledging its acceptance in the HumanEval benchmark. We further extend to experiments(five times) with GPT-4 (gpt-4-0613) and GPT-3.5Turbo (gpt-3.5-turbo-0613) under various conditions to assess performance. **(A)** We directly called the OpenAI API with the prompt in HumanEval. **(B)** We called the OpenAI API and parsed the code with regex in the response. **(C)** We added an additional system prompt, then called the OpenAI API. The prompt is ”You are an AI that only responds with Python code, NOT ENGLISH. You will 
 
-24 
 
 Published as a conference paper at ICLR 2024 
 
@@ -1014,7 +960,6 @@ D LIMITATION AND ETHICS CONCERNS
 
 **Privacy and Data Security** MetaGPT operates locally, ensuring user data privacy and security. It does not collect user data. For interactions with third-party LLMs, such as those by OpenAI, users are encouraged to refer to the respective privacy policies (e.g., OpenAI Privacy Policy). However, we provide the option of open-source LLMs as backends. 
 
-25 
 
 Published as a conference paper at ICLR 2024 
 
@@ -1040,7 +985,6 @@ MetaGPT also alleviates or solves these challenges with its unique designs:
 
 In MetaGPT, we use a global message pool and a subscription mechanism to address “information overload,” which refers to the problem of receiving excessive or irrelevant information. This issue is dependent on specific applications. MetaGPT employs a message pool to streamline communication, ensuring efficiency. Additionally, a subscription mechanism filters out irrelevant contexts, enhancing the relevance and utility of the information. This design is particularly crucial in soft- 
 
-26 
 
 Published as a conference paper at ICLR 2024 
 
@@ -1052,7 +996,6 @@ Figure 12: The program call flow for “recommendation engine development” gen
 
 ware design scenarios and standard operating procedures (SOPs) where effective communication is essential. 
 
-27 
 
 Published as a conference paper at ICLR 2024 
 
@@ -1074,7 +1017,6 @@ Table 8: Examples of SoftwareDev dataset.
 
 
 
-28 
 
 Published as a conference paper at ICLR 2024 
 
@@ -1095,5 +1037,4 @@ Published as a conference paper at ICLR 2024
 
 
 
-29 
 

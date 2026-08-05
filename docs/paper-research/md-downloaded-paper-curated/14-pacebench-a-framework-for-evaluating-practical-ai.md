@@ -88,7 +88,6 @@ To realistically evaluate cyber offense risks, we introduce PACEbench (Practical
 
 > _⋆_ Equal contribution _†_ Corresponding author 
 
-1 
 
 Published as a conference paper at ICLR 2026 
 
@@ -132,7 +131,6 @@ To measure the capability of current models on PACEbench, we developed PACEagent
 
 To empirically evaluate the current cyber-exploitation capabilities of LLMs, we conduct extensive experiments on PACEbench with seven frontier models. Our findings provide a clear characterization of the current state-of-the-art: while agents demonstrate some success in exploiting isolated, single-host vulnerabilities, their performance degrades significantly in more complex, multi-host scenarios. Critically, no model succeeds in bypassing any security defenses. These results suggest that current models do not yet pose a generalized cyber offense threat, and establish a clear baseline for tracking the future development of these capabilities. 
 
-2 
 
 Published as a conference paper at ICLR 2026 
 
@@ -169,7 +167,6 @@ To satisfy this principle, it is necessary to selectively equip hosts with vario
 
 Following the framework described above, PACEbench contains environments of varying complexity that reflect realistic network topologies, and these environments support the configuration of vulnerabilities with variable difficulty and optional defenses. Given the diverse range of potential exploitation scenarios, we first propose a standardized verification mechanism that is applicable 
 
-3 
 
 Published as a conference paper at ICLR 2026 
 
@@ -199,7 +196,6 @@ Upon successful exploitation, a unique, dynamically generated “flag” is plac
 
 The challenges in PACEbench are designed with a systematic escalation in difficulty and complexity. The basic challenges start with a single CVE on a compromised host. We then incorporate benign hosts to create multi-host environments that feature an undisclosed number of vulnerabilities. We also design chained-attack scenarios that compel the agent to use a previously compromised machine as a pivot point to attack subsequent hosts. To enhance realism, defensive mechanisms are deployed on the hosts. This structured approach culminates in a practical AI cyber-exploitation benchmark with a diverse range of scenarios, as shown in Figure 1.Finally, we propose a total of 32 environments, including 17 A-CVE, 7 B-CVE, 5 C-CVE, and 3 D-CVE. 
 
-4 
 
 Published as a conference paper at ICLR 2026 
 
@@ -225,7 +221,6 @@ In this scenario, the agent is evaluated not only on its discrete exploitation s
 
 The D-CVE scenario involves exploiting a known CVE in a web application that is protected by a production-grade open-source Web Application Firewall (WAF). Crucially, these WAFs are the latest stable versions and have no publicly known vulnerabilities, requiring the agent to autonomously discover a novel bypass technique or a zero-day vulnerability within the firewall’s logic. To provide a comprehensive assessment, we construct three distinct defense evasion challenges, each employing a different widely-used WAF: OWASP ModSecurity Core Rule Set, Naxsi, and Coraza. Detailed descriptions of these challenges are available in the Appendix A.4. 
 
-5 
 
 Published as a conference paper at ICLR 2026 
 
@@ -277,7 +272,6 @@ Additionally, the entire system is encapsulated within the **Agent Server** , a 
 
 The agent operates in a continuous decision-making cycle orchestrated by the agent server. In each iteration, the agent first analyzes the current state based on feedback from the execution environment. Next, the LLM core plans a subsequent action and executes it via the tool module. The outcome of 
 
-6 
 
 Published as a conference paper at ICLR 2026 
 
@@ -315,7 +309,6 @@ As shown in Equation 1, the score is calculated as a weighted summation of the n
 
 Here, _NK_ denotes the total number of tasks in category _K_ . The term _S_<sup>¯</sup> _K_ represents the normalized success rate for category _K_ , ensuring that the final score remains within the range [0 _,_ 1]. The ratio 
 
-7 
 
 Published as a conference paper at ICLR 2026 
 
@@ -348,7 +341,6 @@ Further analyses focus on the three dimensions of our benchmark’s realism: vul
 
 **Agents struggle to progress on the more complexity cyber environment.** In the B-CVE scenario, the introduction of benign hosts severely degrades the agents’ reconnaissance and targeting abilities. For instance, while several models can exploit CVE-2023-50564 in the isolated A-CVE setting, none succeed in the corresponding B-CVE environment where the vulnerable target is blended with benign hosts (BN ~~4~~ challenge). The C-CVE scenarios, which simulate more realistic penetration tests with multi-host dependencies, present an even greater challenge. As shown in Table 2, model performance drops further in these scenarios, with agents often completing only intermediate steps rather than the full end-to-end attack. For example, in the Chain ~~1~~ challenge, agents manage to compromise the initial perimeter server but fail in the subsequent phases of lateral movement, privilege escalation, or internal target discovery, thus failing to complete the full attack chain. 
 
-8 
 
 Published as a conference paper at ICLR 2026 
 
@@ -386,7 +378,6 @@ To identify the bottlenecks of current LLM agents in autonomous penetration test
 
 **Safety Alignment Interference:** Many frontier models are equipped with rigorous safety guardrails that proactively intercept penetration-related requests. These internal filters often identify cyberoffensive reasoning or tool-use as policy violations, triggering hard refusals that terminate the 
 
-9 
 
 Published as a conference paper at ICLR 2026 
 
@@ -416,7 +407,6 @@ Specialized agents for cyber exploitation can be categorized by their primary ap
 
 This paper introduces PACEbench, a benchmark that simulates real-world cybersecurity challenges based on three core principles: vulnerability difficulty, environmental complexity, and the presence of cyber defenses. PACEbench features four scenarios (A-CVE, B-CVE, C-CVE, and D-CVE) which we use to evaluate PACEagent, a novel agent designed to emulate the workflow of a human penetration tester. The experiments with seven frontier LLMs provide a thorough characterization of the current landscape of agentic cyber exploitation capabilities. This work not only highlights the limited offensive capabilities of current models but also provides a methodology for the predeployment cyber risk assessment to ensure the safe application of further advanced AI systems. 
 
-10 
 
 Published as a conference paper at ICLR 2026 
 
@@ -451,7 +441,6 @@ Our decision to release PACEbench publicly follows a careful risk-benefit analys
 
 - DeepSeek-AI, Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, Runxin Xu, Qihao Zhu, Shirong Ma, Peiyi Wang, Xiao Bi, Xiaokang Zhang, Xingkai Yu, Yu Wu, Z. F. Wu, Zhibin Gou, Zhihong Shao, Zhuoshu Li, Ziyi Gao, Aixin Liu, Bing Xue, Bingxuan Wang, Bochao Wu, Bei Feng, Chengda Lu, Chenggang Zhao, Chengqi Deng, Chenyu Zhang, Chong Ruan, Damai Dai, Deli Chen, Dongjie Ji, Erhang Li, Fangyun Lin, Fucong Dai, Fuli Luo, Guangbo Hao, Guanting Chen, Guowei Li, H. Zhang, Han Bao, Hanwei Xu, Haocheng Wang, Honghui Ding, 
 
-11 
 
 Published as a conference paper at ICLR 2026 
 
@@ -463,7 +452,6 @@ Richard Fang, Rohan Bindu, Akul Gupta, Qiusi Zhan, and Daniel Kang. Llm agents c
 
 - Luca Gioacchini, Marco Mellia, Idilio Drago, Alexander Delsanto, Giuseppe Siracusano, and Roberto Bifulco. Autopenbench: Benchmarking generative agents for penetration testing, 2024. URL https://arxiv.org/abs/2410.03225. 
 
-12 
 
 Published as a conference paper at ICLR 2026 
 
@@ -493,7 +481,6 @@ Chengquan Guo, Xun Liu, Chulin Xie, Andy Zhou, Yi Zeng, Zinan Lin, Dawn Song, an
 
 - Mary Phuong, Matthew Aitchison, Elliot Catt, Sarah Cogan, Alexandre Kaskasoli, Victoria Krakovna, David Lindner, Matthew Rahtz, Yannis Assael, Sarah Hodkinson, Heidi Howard, Tom Lieberum, Ramana Kumar, Maria Abi Raad, Albert Webson, Lewis Ho, Sharon Lin, Sebastian Farquhar, Marcus Hutter, Gregoire Deletang, Anian Ruoss, Seliem El-Sayed, Sasha Brown, Anca Dragan, Rohin Shah, Allan Dafoe, and Toby Shevlane. Evaluating frontier models for dangerous capabilities, 2024. URL https://arxiv.org/abs/2403.13793. 
 
-13 
 
 Published as a conference paper at ICLR 2026 
 
@@ -519,13 +506,11 @@ red-lines.ai. Global call for AI red lines, sep 2025. URL https://red-lines.ai/.
 
 - Andy K. Zhang, Neil Perry, Riya Dulepet, Joey Ji, Celeste Menders, Justin W. Lin, Eliot Jones, Gashon Hussein, Samantha Liu, Donovan Jasper, Pura Peetathawatchai, Ari Glenn, Vikram Sivashankar, Daniel Zamoshchin, Leo Glikbarg, Derek Askaryar, Mike Yang, Teddy Zhang, Rishi Alluri, Nathan Tran, Rinnara Sangpisit, Polycarpos Yiorkadjis, Kenny Osele, Gautham Raghupathi, Dan Boneh, Daniel E. Ho, and Percy Liang. Cybench: A framework for evaluating cybersecurity capabilities and risks of language models, 2025b. URL https://arxiv.org/abs/ 2408.08926. 
 
-14 
 
 Published as a conference paper at ICLR 2026 
 
 Yuxuan Zhu, Antony Kellermann, Dylan Bowman, Philip Li, Akul Gupta, Adarsh Danda, Richard Fang, Conner Jensen, Eric Ihli, Jason Benn, Jet Geronimo, Avi Dhir, Sudhit Rao, Kaicheng Yu, Twm Stone, and Daniel Kang. Cve-bench: A benchmark for ai agents’ ability to exploit real-world web application vulnerabilities, 2025. URL https://arxiv.org/abs/2503.17332. 
 
-15 
 
 Published as a conference paper at ICLR 2026 
 
@@ -569,7 +554,6 @@ We employ a differentiated flag placement strategy tailored to the impact of eac
 
 > 2https://yunjing.ichunqiu.com 
 
-16 
 
 Published as a conference paper at ICLR 2026 
 
@@ -611,7 +595,6 @@ Table 5: PACEbench C-CVE Vulnerabilities
 
 We construct five complex tasks in the Chained-CVEs (C-CVE) scenario of PACEbench, as shown in Table 5. Each task is created by manually modifying a combination of vulnerabilities from our B-CVE set, specifically engineering them to form a chained task that simulates internal network traversal. The process is exemplified by “Chain ~~1~~ ” as illustrated in Figure 6. The anticipated attack path begins with the exploitation of a SQL injection vulnerability ( _CVE-2022-28512_ ) to capture a flag and the credentials for the service vulnerable to _CVE-2022-30887_ . These credentials are then used to authenticate the _CVE-2022-30887_ service directly. Notably, we manually patch the original authentication bypass vulnerability in _CVE-2022-30887_ , thereby enforcing this chained sequence. 
 
-17 
 
 Published as a conference paper at ICLR 2026 
 
@@ -658,7 +641,6 @@ The three specific WAF configurations used in our D-CVE scenarios are:
 
 > 5https://github.com/corazawaf/coraza-proxy-wasm 
 
-18 
 
 Published as a conference paper at ICLR 2026 
 
@@ -700,7 +682,6 @@ A vertical analysis reveals a clear performance gap between model types. The clo
 
 Numerous LLM providers in the industry have already introduced corresponding safeguards, similar to those implemented by (OpenAI, 2025a). During our automated penetration testing, we observe that some OpenAI models, specifically GPT-5 and GPT-4o, occasionally reject requests and return empty plans upon detecting frequent occurrences of terms like ‘attack’ within the prompts or intermediate steps. Conversely, other LLM vendors do not exhibit this behavior, allowing us to complete our full suite of tests without interruption. Most other vendors, however, accept requests when pro- 
 
-19 
 
 Published as a conference paper at ICLR 2026 
 
@@ -738,7 +719,6 @@ During our empirical evaluation, the Deepseek-R1 model presents a significant ta
 
 In contrast to the performance-related anomalies of Deepseek-R1, the challenges faced by DeepseekV3 and Qwen3-32B stem from a clear architectural limitation: their comparatively small context window sizes, as shown in Table 7. This constraint prove to be a critical bottleneck, as it fundamentally compromises their ability to maintain the necessary state and process the long, sequential histories required for a full exploration of our complex scenarios. Without the capacity to retain crit- 
 
-20 
 
 Published as a conference paper at ICLR 2026 
 
@@ -789,7 +769,6 @@ Our model selection is guided by a cost-benefit analysis. Technical reports indi
 
 Our benchmark’s future development will address two key areas: scope and scale. Regarding scope, the current focus on web vulnerabilities will be expanded to include binary vulnerability analysis, enabled by the increasing support for protocols like MCP in cybersecurity tools. Regarding scale, the current dataset of 32 vulnerabilities, while foundational, is limited. Future work will prioritize significantly expanding this set to ensure a more diverse and complex evaluation. 
 
-21 
 
 Published as a conference paper at ICLR 2026 
 
@@ -821,7 +800,6 @@ While prior works have advanced specific aspects of automated attacks, PACEbench
 
 **Comprehensive Scope: Bridging the Gap.** Existing benchmarks tend to specialize narrowly: AutoPenBench focuses solely on single-host tasks, while MHBench focuses heavily on network topology. PACEbench bridges this gap by covering the full spectrum from **Single-Host** exploit generation to **Multi-Host** lateral movement. Unlike MHBench, which relies on _Output Parsing_ (susceptible to hallucination), PACEbench adopts the rigorous **Flag-based** verification used in Google-HTB and AutoPenBench. This ensures that our evaluation of complex, multi-stage attacks remains objective, reproducible, and immune to interpretation bias. 
 
-22 
 
 Published as a conference paper at ICLR 2026 
 
@@ -864,7 +842,6 @@ _Note:_ The symbol “/” indicates that the agent failed to complete the task.
 
 > 6Claude-3.7 refers to Claude-3.7-Sonnet and Gemini-2.5 refers to Gemini-2.5-Flash. 
 
-23 
 
 Published as a conference paper at ICLR 2026 
 
@@ -935,7 +912,6 @@ To understand the boundaries of current Large Language Models (LLMs) in autonomo
 
 In our evaluation of **DeepSeek-v3** , we observed a tool-use error distinct from standard refusals. When the model received a schema error regarding an invalid parameter key, it failed to correct the schema logic. Instead, it hallucinated that the tool required a “stringified” JSON input, triggering a recursive loop where the model applied exponential layers of escape characters (backslashes) to the payload until the API context limit was breached. 
 
-24 
 
 Published as a conference paper at ICLR 2026 
 
@@ -965,7 +941,6 @@ This failure illustrates the fundamental bottleneck imposed by restricted input 
 
 The most prevalent failure mode stems from insufficient model capabilities, manifesting as an inability to discover valid attack surfaces or to successfully exploit identified vulnerabilities. This limitation becomes particularly pronounced in complex, multi-stage environments, where even State-ofthe-Art (SOTA) models fail to maintain autonomous exploration chains. For instance, in a “Chained” environment test, **Claude-3.7 Sonnet** demonstrated this specific boundary. Although it successfully compromised a blog via SQL Injection and a pharmacy system via File Upload to gain Remote Code Execution (RCE), the agent failed to recognize the scope of the remaining task (identifying the third 
 
-25 
 
 Published as a conference paper at ICLR 2026 
 
@@ -1001,7 +976,6 @@ This case represents a critical alignment failure driven by completion bias. The
 
 The model also suffered from severe “Parametric Knowledge Hallucination” when targeting **Pluck CMS 4.7.18** . **DeepSeek-R1** correctly identified the version but hallucinated details for two real but incorrect vulnerabilities: first, it misidentified CVE-2023-25828 (an RCE) as SQL Injection—although this CVE indeed affects Pluck CMS, the model employed a fundamentally incorrect attack vector; second, it falsely attributed CVE-2023-25827 (an OpenTSDB vulnerability) to Pluck CMS. Driven by these false priors, the agent spent over 70 steps mutating payloads for nonexistent vulnerabilities. 
 
-26 
 
 Published as a conference paper at ICLR 2026 
 
@@ -1011,5 +985,4 @@ Published as a conference paper at ICLR 2026
 
 This illustrates how “noisy” internal weights can override empirical evidence. The model suffered from concept mixing and an insurmountable confirmation bias; it interpreted negative feedback (HTTP 200 OK with empty content) not as a failed exploit, but as WAF interference. Without external verification, the model remained locked in a non-productive loop, rendering it blind to the actual File Upload vulnerability present in the system. 
 
-27 
 
