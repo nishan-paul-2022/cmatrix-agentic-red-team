@@ -69,11 +69,11 @@ We recognize other security areas where generative AI excels (e.g., crafting spe
                                                    │
                    ┌───────────────────────────────┼───────────────────────────────┐
                    ▼                               ▼                               ▼
-       ┌───────────────────────┐       ┌───────────────────────┐       ┌───────────────────────┐
-       │     Tactics (T)       │       │    Techniques (T)     │       │    Procedures (P)     │
-       │  High-level Goal      │  ──►  │ Specific Method Used  │  ──►  │ Concrete CLI Exec     │
-       │  (e.g., PrivEsc)      │       │ (e.g., Sudo Caching) │       │ (e.g., sudo -l execution)
-       └───────────────────────┘       └───────────────────────┘       └───────────────────────┘
+       ┌───────────────────────┐       ┌───────────────────────┐       ┌─────────────────────────┐
+       │     Tactics (T)       │       │    Techniques (T)     │       │    Procedures (P)       │
+       │  High-level Goal      │  ──►  │ Specific Method Used  │  ──►  │ Concrete CLI Exec       │
+       │  (e.g., PrivEsc)      │       │ (e.g., Sudo Caching)  │       │ (e.g., sudo -l execution)
+       └───────────────────────┘       └───────────────────────┘       └─────────────────────────┘
 ```
 
 ### 1. MITRE ATT&CK Framework
@@ -135,14 +135,14 @@ flowchart LR
     User(("Low-Privilege User\n(Human Operator)"))
     LLM["LLM Agent\n(GPT-3.5-turbo)"]
     VM["Vulnerable VM\n(lin.security)"]
-    TermOutput[/"Executed CLI Output:<br>$ sudo -l<br>$ sudo /usr/bin/perl -e 'exec \"/bin/sh\";'"/]
+    TermOutput["Terminal Output"]
 
     User -->|"1. Initial Prompt"| LLM
     LLM -->|"2. Shell Command (SSH)"| VM
     VM -->|"3. Terminal Output"| LLM
     LLM -->|"4. Analysis & Refinement"| LLM
     LLM -->|"5. Root Shell Achieved"| User
-    VM -.- TermOutput
+    TermOutput["Terminal Output"]
 ```
 *Figure 1: Closed-loop architecture connecting GPT-3.5 to an SSH target VM.*
 
@@ -210,7 +210,7 @@ During experiments with `GPT-3.5-turbo`:
 
 ```
   ┌─────────────────────────────────────────────────────────────────────────────┐
-  │                 Unified AI Sparring Assistant Architecture                 │
+  │                 Unified AI Sparring Assistant Architecture                  │
   └──────────────────────────────────────┬──────────────────────────────────────┘
                                          │
                  ┌───────────────────────┴───────────────────────┐
@@ -250,10 +250,10 @@ Dual-use security research presents unavoidable dilemmas:
 
 ## 🔗 References
 
-1. AIAAIC. 2023. *Repository of incidents and controversies related to AI, algorithms and automation*. `https://www.aiaaic.org/`
-2. The Wassenaar Arrangement. 1982. *Export Controls for Dual-Use Goods and Technologies*. `https://www.wassenaar.org/`
-3. MITRE ATT&CK. 2020. *Abuse Elevation Control Mechanism: Sudo and Sudo Caching (T1548.003)*. `https://attack.mitre.org/techniques/T1548/003/`
-4. MITRE ATT&CK. 2020. *Steal or Forge Kerberos Tickets: Kerberoasting (T1558.003)*. `https://attack.mitre.org/techniques/T1558/003/`
+1. AIAAIC. 2023. *Repository of incidents and controversies related to AI, algorithms and automation*. [https://www.aiaaic.org/](https://www.aiaaic.org/)
+2. The Wassenaar Arrangement. 1982. *Export Controls for Dual-Use Goods and Technologies*. [https://www.wassenaar.org/](https://www.wassenaar.org/)
+3. MITRE ATT&CK. 2020. *Abuse Elevation Control Mechanism: Sudo and Sudo Caching (T1548.003)*. [https://attack.mitre.org/techniques/T1548/003/](https://attack.mitre.org/techniques/T1548/003/)
+4. MITRE ATT&CK. 2020. *Steal or Forge Kerberos Tickets: Kerberoasting (T1558.003)*. [https://attack.mitre.org/techniques/T1558/003/](https://attack.mitre.org/techniques/T1558/003/)
 5. Edward Beeching et al. 2023. *StackLLaMA: An RL Fine-tuned LLaMA Model*. DOI: `10.57967/hf/0513`
 6. Erik Brynjolfsson. 2023. *The Turing Trap: Promise & Peril of Human-Like AI*. Routledge.
 7. Erik Brynjolfsson et al. 2023. *Generative AI at Work*. NBER Working Paper No. 31161.
@@ -263,23 +263,23 @@ Dual-use security research presents unavoidable dilemmas:
 11. The Economist. 2022. *Huge foundation models are turbo-charging AI progress*.
 12. The Economist. 2023. *Large, creative AI models will transform lives and labour markets*.
 13. Xinyang Geng et al. 2023. *Koala: A Dialogue Model for Academic Research*. BAIR.
-14. Georgi Gerganov. 2023. *llama.cpp: Inference of LLaMA model in pure C/C++*. `https://github.com/ggerganov/llama.cpp`
-15. Significant Gravitas. 2023. *Auto-GPT: An Autonomous GPT-4 Experiment*. `https://github.com/Significant-Gravitas/Auto-GPT`
+14. Georgi Gerganov. 2023. *llama.cpp: Inference of LLaMA model in pure C/C++*. [https://github.com/ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp)
+15. Significant Gravitas. 2023. *Auto-GPT: An Autonomous GPT-4 Experiment*. [https://github.com/Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT)
 16. Andreas Happe and Jürgen Cito. 2023. *Understanding Hackers' Work: An Empirical Study of Offensive Security Practitioners*. ESEC/FSE '23. ACM.
 17. Richard Harang and Felipe N Ducau. 2018. *Measuring the speed of the Red Queen's Race*. BlackHat USA.
-18. (ISC)². 2022. *(ISC)² Cybersecurity Workforce Study 2022*. `https://www.isc2.org/`
+18. (ISC)². 2022. *(ISC)² Cybersecurity Workforce Study 2022*. [https://www.isc2.org/](https://www.isc2.org/)
 19. Sydney Lake. 2022. *The cybersecurity industry is short 3.4 million workers*. Fortune.
 20. Selena Larson and Daniel Blackford. 2021. *Cobalt Strike: Favorite Tool from APT to Crimeware*. Proofpoint.
-21. lin.security. 2018. *Lin.Security Vulnerable Virtual Machine*. VulnHub. `https://www.vulnhub.com/entry/linsecurity-1,244/`
+21. lin.security. 2018. *Lin.Security Vulnerable Virtual Machine*. VulnHub. [https://www.vulnhub.com/entry/linsecurity-1,244/](https://www.vulnhub.com/entry/linsecurity-1,244/)
 22. Vivian Liu and Lydia B Chilton. 2022. *Design guidelines for prompt engineering*. ACM CHI.
 23. Nestor Maslej et al. 2023. *The AI Index 2023 Annual Report*. Stanford HAI.
 24. Ron Miller. 2023. *Sam Altman: Size of LLMs won't matter as much moving forward*. TechCrunch.
-25. Yohei Nakajima. 2023. *BabyAGI*. `https://github.com/yoheinakajima/babyagi`
+25. Yohei Nakajima. 2023. *BabyAGI*. [https://github.com/yoheinakajima/babyagi](https://github.com/yoheinakajima/babyagi)
 26. Yohei Nakajima. 2023. *Introducing Task-driven Autonomous Agent*. Twitter post.
 27. Yohei Nakajima. 2023. *Task-driven Autonomous Agent Utilizing GPT-4, Pinecone, and LangChain*.
 28. Joon Sung Park et al. 2023. *Generative Agents: Interactive Simulacra of Human Behavior*. arXiv:2304.03442.
 29. Baolin Peng et al. 2023. *Check Your Facts and Try Again*. arXiv:2302.12813.
-30. Carlos Polop. 2023. *LinPEAS - Linux Privilege Escalation Awesome Script*. `https://github.com/carlospolop/PEASS-ng`
+30. Carlos Polop. 2023. *LinPEAS - Linux Privilege Escalation Awesome Script*. [https://github.com/carlospolop/PEASS-ng](https://github.com/carlospolop/PEASS-ng)
 31. Katyanna Quach. 2023. *LLaMA drama as Meta's mega language model leaks*. The Register.
 32. Kevin Schaul et al. 2023. *Inside the secret list of websites that make AI like ChatGPT sound smart*. Washington Post.
 33. Yongliang Shen et al. 2023. *HuggingGPT: Solving AI Tasks with ChatGPT and its Friends*. arXiv:2303.17580.

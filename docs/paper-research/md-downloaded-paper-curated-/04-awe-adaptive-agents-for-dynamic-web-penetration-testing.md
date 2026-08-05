@@ -499,6 +499,7 @@ pie title AWE Failure Categorization (50 Challenges)
     "Multi-Step Stateful Exploitation Chains" : 25.0
     "Authentication Irregularities & Extreme Filtering" : 25.0
     "Narrow Exploitation Windows (Race Conditions, Timing Hazards)" : 16.7
+
 ```
 
 ---

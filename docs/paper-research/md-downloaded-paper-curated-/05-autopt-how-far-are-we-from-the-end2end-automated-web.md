@@ -419,16 +419,16 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 
 ## References
 
-1. HackTheBox. 2023. *HackTheBox Platform*. https://www.hackthebox.com
+1. HackTheBox. 2023. *HackTheBox Platform*. [https://www.hackthebox.com](https://www.hackthebox.com)
 2. F. Abu-Dabaseh and E. Alshammari. 2018. Automated penetration testing: An overview. *NCUC '18*, 121–129.
-3. Meta AI. 2024. *Meta LLaMA 3.1 Model Family*. https://ai.meta.com/blog/meta-llama-3-1/
-4. Anthropic. 2024. *Introducing Claude 3.5 Sonnet*. https://www.anthropic.com/news/claude-3-5-sonnet
+3. Meta AI. 2024. *Meta LLaMA 3.1 Model Family*. [https://ai.meta.com/blog/meta-llama-3-1/](https://ai.meta.com/blog/meta-llama-3-1/)
+4. Anthropic. 2024. *Introducing Claude 3.5 Sonnet*. [https://www.anthropic.com/news/claude-3-5-sonnet](https://www.anthropic.com/news/claude-3-5-sonnet)
 5. D. Appelt et al. 2014. Automated testing for SQL injection vulnerabilities. *ISSTA '14*, 259–269.
 6. B. Arkin et al. 2005. Software penetration testing. *IEEE Security & Privacy*, 3(1):84–87.
 7. N. F. Awang and A. A. Manaf. 2013. Detecting vulnerabilities in web applications. *Springer LNCS*, 230–239.
 8. K. Bock et al. 2018. King of the Hill: Cybersecurity competition design. *ASE '18*.
 9. T. J. Burns et al. 2017. Exercises for engaging beginners in CTF. *ASE '17*.
-10. H. Chase. 2022. *LangChain Framework*. https://github.com/langchain-ai/langchain
+10. H. Chase. 2022. *LangChain Framework*. [https://github.com/langchain-ai/langchain](https://github.com/langchain-ai/langchain)
 11. Y. Chen et al. 2023. Hallucination detection in LLMs. *CIKM '23*, 245–255.
 12. PCI Security Standards Council. 2017. *Penetration Testing Guidance v1.1*.
 13. G. Deng et al. 2023. PentestGPT: An LLM-empowered automatic penetration testing tool. *arXiv:2308.06782*.
@@ -459,11 +459,11 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 38. D. Merkel. 2014. Docker: Lightweight Linux containers. *Linux Journal*, 2014(239):2.
 39. S. Minaee et al. 2024. Large language models: A survey. *arXiv:2402.06196*.
 40. T. Nayan et al. 2024. SoK: On-device ML model extraction. *USENIX Security '24*, 5233–5250.
-41. FIRST. 2024. *Common Vulnerability Scoring System (CVSS)*. https://www.first.org/cvss/
-42. OpenAI. 2024. *Safety Systems*. https://openai.com/safety-systems/
-43. OpenAI. 2023. *GPT-3.5 Model Specification*. https://platform.openai.com
-44. OpenAI. 2024. *GPT-4o Mini: Advancing Cost-Efficient Intelligence*. https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/
-45. OpenAI. 2024. *Hello GPT-4o*. https://openai.com/index/hello-gpt-4o/
+41. FIRST. 2024. *Common Vulnerability Scoring System (CVSS)*. [https://www.first.org/cvss/](https://www.first.org/cvss/)
+42. OpenAI. 2024. *Safety Systems*. [https://openai.com/safety-systems/](https://openai.com/safety-systems/)
+43. OpenAI. 2023. *GPT-3.5 Model Specification*. [https://platform.openai.com](https://platform.openai.com)
+44. OpenAI. 2024. *GPT-4o Mini: Advancing Cost-Efficient Intelligence*. [https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/)
+45. OpenAI. 2024. *Hello GPT-4o*. [https://openai.com/index/hello-gpt-4o/](https://openai.com/index/hello-gpt-4o/)
 46. W. J. Price. 1989. A benchmark tutorial. *IEEE Micro*, 9(5):28–43.
 47. X. Qiu et al. 2014. An automated method of penetration testing. *IEEE CCITAC '14*, 211–216.
 48. E. Rich et al. 2008. *Automata, Computability and Complexity: Theory and Applications*. Pearson.
@@ -472,12 +472,12 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 51. M. Shao et al. 2024. NYU CTF dataset: Benchmark for LLMs in offensive security. *arXiv:2406.05590*.
 52. K. Shravan et al. 2014. Penetration testing: A review. *Compusoft*, 3(4):752.
 53. B. Stock et al. 2017. How the web tangled itself: Client-side web security. *USENIX Security '17*, 971–987.
-54. OWASP Top 10 Team. 2024. *OWASP Top 10 Web Application Security Risks*. https://owasp.org/Top10/
+54. OWASP Top 10 Team. 2024. *OWASP Top 10 Web Application Security Risks*. [https://owasp.org/Top10/](https://owasp.org/Top10/)
 55. F. M. Teichmann and S. R. Boticiu. 2023. Benefits and legal aspects of red teaming. *Int. Cybersec. Law Rev.*, 4(4):387–397.
 56. J. v. Kistowski et al. 2015. How to build a benchmark. *ICPE '15*, 333–336.
 57. A. Vaswani et al. 2017. Attention is all you need. *NeurIPS '17*.
-58. Vulhub Project. 2024. *Vulhub: Pre-Built Vulnerable Docker Environments*. https://vulhub.org/
-59. webAI. 2024. *webAI Enterprise Local Applications*. https://www.webai.com/
+58. Vulhub Project. 2024. *Vulhub: Pre-Built Vulnerable Docker Environments*. [https://vulhub.org/](https://vulhub.org/)
+59. webAI. 2024. *webAI Enterprise Local Applications*. [https://www.webai.com/](https://www.webai.com/)
 60. C. Weissman. 1995. Penetration testing. *Information Security Essays*, 6:269–296.
 61. X.-C. Wen et al. 2024. SCALE: Structured natural language comment trees for vulnerability detection. *ISSTA '24*, 235–247.
 62. Z. Xi et al. 2023. The rise and potential of large language model based agents: A survey. *arXiv:2309.07864*.

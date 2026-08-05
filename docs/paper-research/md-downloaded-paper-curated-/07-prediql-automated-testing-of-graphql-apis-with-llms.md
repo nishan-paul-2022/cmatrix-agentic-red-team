@@ -142,7 +142,8 @@ PrediQL issues an initial introspection query against the target GraphQL API to 
 #### Multi-Armed Bandit Strategy Selection
 Query generation strategy is formulated as a multi-armed bandit problem. Each **Bandit Arm** defines a specific prompt configuration parameterized by four dimensions:
 
-$$	ext{Arm}_i = \langle 	ext{Schema}, 	ext{Arg Mode}, 	ext{Depth}, 	ext{Top-}k angle$$
+$$	ext{Arm}_i = \langle 	ext{Schema}, 	ext{Arg Mode}, 	ext{Depth}, 	ext{Top-}k 
+angle$$
 
 - **Schema:** Specifies whether full or partial schema snippets are injected.
 - **Arg Mode:** Controls literal synthesis: `known` (reuse RAG values), `real` (synthesize realistic types), or `nulls` (inject null values into optional fields).
@@ -290,7 +291,7 @@ To evaluate the specific impact of each architectural component, we conduct an a
 ```
 Vulnerability Discovery Comparison
 ─────────────────────────────────────────────────────────────
-GraphQLer Baseline : ████ 4
+GraphQLer Baseline  : ████ 4
 PrediQL (Gemini 2.5): ███████ 7
 PrediQL (GPT-5 Mini): ████████ 8
 ─────────────────────────────────────────────────────────────
@@ -329,20 +330,20 @@ The full source code, benchmark API deployment scripts, and experiment datasets 
 
 ## References
 
-1. PortSwigger. 2025. *Burp Suite Security Testing Platform*. https://portswigger.net/burp
-2. T. Blades. 2025. *Countries GraphQL API*. https://countries.trevorblades.com/
-3. AI Models. 2025. *DeepSeek R1 vs GPT-5 Mini Comparison*. https://aimodels.fyi
-4. EHRI Portal. 2025. *European Holocaust Research Infrastructure GraphQL API*. https://portal.ehri-project.eu/api/graphql
-5. Google DeepMind. 2025. *Gemini 2.5 Flash Model Specification*. https://deepmind.google/models/gemini/flash/
-6. Artificial Analysis. 2025. *GPT-5 Mini vs Gemini 2.5 Flash*. https://artificialanalysis.ai
-7. GraphQL Foundation. 2025. *GraphQL Security Best Practices*. https://graphql.org/learn/security/
-8. AWS. 2024. *Difference Between GraphQL and REST*. https://aws.amazon.com
-9. P. Almansi. 2025. *GraphQLZero Mock API*. https://graphqlzero.almansi.me/
-10. Meta AI. 2024. *Meta LLaMA 3.1 8B Model*. https://huggingface.co/meta-llama/Llama-3.1-8B
-11. A. Pooley. 2025. *The Rick and Morty GraphQL API*. https://rickandmortyapi.com/graphql
-12. TCGDex Team. 2025. *TCGDex GraphQL API*. https://api.tcgdex.net/v2/graphql
-13. GraphQL-Compose. 2025. *UserWallet Example Schema*. https://github.com/graphql-compose/graphql-compose-examples
-14. OWASP. 2024. *OWASP Zed Attack Proxy (ZAP)*. https://www.zaproxy.org/
+1. PortSwigger. 2025. *Burp Suite Security Testing Platform*. [https://portswigger.net/burp](https://portswigger.net/burp)
+2. T. Blades. 2025. *Countries GraphQL API*. [https://countries.trevorblades.com/](https://countries.trevorblades.com/)
+3. AI Models. 2025. *DeepSeek R1 vs GPT-5 Mini Comparison*. [https://aimodels.fyi](https://aimodels.fyi)
+4. EHRI Portal. 2025. *European Holocaust Research Infrastructure GraphQL API*. [https://portal.ehri-project.eu/api/graphql](https://portal.ehri-project.eu/api/graphql)
+5. Google DeepMind. 2025. *Gemini 2.5 Flash Model Specification*. [https://deepmind.google/models/gemini/flash/](https://deepmind.google/models/gemini/flash/)
+6. Artificial Analysis. 2025. *GPT-5 Mini vs Gemini 2.5 Flash*. [https://artificialanalysis.ai](https://artificialanalysis.ai)
+7. GraphQL Foundation. 2025. *GraphQL Security Best Practices*. [https://graphql.org/learn/security/](https://graphql.org/learn/security/)
+8. AWS. 2024. *Difference Between GraphQL and REST*. [https://aws.amazon.com](https://aws.amazon.com)
+9. P. Almansi. 2025. *GraphQLZero Mock API*. [https://graphqlzero.almansi.me/](https://graphqlzero.almansi.me/)
+10. Meta AI. 2024. *Meta LLaMA 3.1 8B Model*. [https://huggingface.co/meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B)
+11. A. Pooley. 2025. *The Rick and Morty GraphQL API*. [https://rickandmortyapi.com/graphql](https://rickandmortyapi.com/graphql)
+12. TCGDex Team. 2025. *TCGDex GraphQL API*. [https://api.tcgdex.net/v2/graphql](https://api.tcgdex.net/v2/graphql)
+13. GraphQL-Compose. 2025. *UserWallet Example Schema*. [https://github.com/graphql-compose/graphql-compose-examples](https://github.com/graphql-compose/graphql-compose-examples)
+14. OWASP. 2024. *OWASP Zed Attack Proxy (ZAP)*. [https://www.zaproxy.org/](https://www.zaproxy.org/)
 15. S. Agrawal and N. Goyal. 2011. Analysis of Thompson Sampling for the multi-armed bandit problem. *arXiv:1111.1797*.
 16. T. Andersson. 2021. REST API vs GraphQL: An experimental study. *DiVA Portal*.
 17. A. Arcuri et al. 2021. EvoMaster: A search-based system test generation tool. *JOSS*, 6(57):2153.

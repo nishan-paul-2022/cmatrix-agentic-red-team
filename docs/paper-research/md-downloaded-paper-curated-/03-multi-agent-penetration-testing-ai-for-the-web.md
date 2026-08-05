@@ -150,12 +150,6 @@ flowchart TB
     SA1 -->|Candidate PoC| Validation
     SA2 -->|Candidate PoC| Validation
     Validation -->|Candidate PoC| Coordinator
-
-    classDef target fill:#fde9c8,stroke:#c98a1f,color:#000
-    classDef coordinator fill:#bfe3f2,stroke:#1f7fa3,color:#000
-    classDef sandbox fill:#c9ecc9,stroke:#2f8f2f,color:#000
-    classDef validation fill:#f5b8b8,stroke:#b23c3c,color:#000
-    classDef toolbox fill:#eeeeee,stroke:#999999,color:#000
 ```
 
 > 💡 **Mode Distinction**  
@@ -479,7 +473,7 @@ MAPTA identified **19 vulnerabilities across 6 applications** (60% discovery rat
   ```
 * 🌐 **Unauthenticated Email Relay with SSRF:** Public API endpoints accepting arbitrary SMTP credentials and remote attachment URLs:
   ```json
-  { "fileUrls": "http://169.254.169.254/latest/meta-data/" }
+  { "fileUrls": "[http://169.254.169.254/latest/meta-data/](http://169.254.169.254/latest/meta-data/)" }
   ```
 * 📂 **Arbitrary File Write via Client-Controlled Tools:** Remote clients enabling dangerous file operations through tool merging (`input.tools` override enabling `PatchTool`).
 
