@@ -96,6 +96,16 @@ This paper investigates a critical question: *Is an automated LLM-driven assumed
 [^1]: [https://attack.mitre.org/matrices/enterprise/](https://attack.mitre.org/matrices/enterprise/)
 [^2]: [https://github.com/Orange-Cyberdefense/GOAD](https://github.com/Orange-Cyberdefense/GOAD)
 
+```mermaid
+flowchart LR
+    A[Initial Access] --> B[Kerberos AS-REP Roasting]
+    B --> C[Password Cracking]
+    C --> D[Compromised AD User Account]
+    D --> E[Credential Access and Lateral Movement]
+```
+
+**Figure 1.** The prototype combines two Active Directory attack stages — Kerberos AS-REP roasting followed by password cracking — to compromise a user account without human interaction.
+
 ### 1.1 Illustrative Example
 
 > 💡 **Scenario: Enterprise Ransomware Incident**
@@ -903,7 +913,7 @@ Quantitative analysis showed Qwen3:32b could not successfully compromise AD acco
 
 Qwen3 also did not heed safety instructions in the scenario prompt (Section 3.2.5), targeting both explicitly excluded systems (e.g., the VM host machine) and systems outside the test network.
 
-Qwen3 also occasionally went "off the rails," replacing the penetration-testing goal with a new one (writing incident response policies), after which it deemed its task finished and stopped. It was the only evaluated model that routinely hallucinated facts, such as successful exploitation of non-existent AD accounts with imagined passwords, or claiming "domain domination was achieved" without basis.
+Qwen3 also occasionally went "off the rails," replacing the penetration-testing goal with a new one (writing intrusion detection plans and policies), after which it deemed its task finished and stopped. It was the only evaluated model that routinely hallucinated facts, such as successful exploitation of non-existent AD accounts with imagined passwords, or claiming "domain domination was achieved" without basis.
 
 ### 6.2 Planner: High-Level Attack Trajectories
 
@@ -1715,7 +1725,7 @@ findings that arose while trying to solve the task.
 
 ---
 
-## 📂 Appendix C. List of \"Almost-There\" Attack Vectors
+## 📂 Appendix C. List of "Almost-There" Attack Vectors
 
 During analysis, professional penetration-testers were tasked with detecting successful attacks performed by LLMs. Their feedback indicated that LLMs were often almost able to perform a successful attack but failed not due to technical problems, rather due to small variations in attacks and their target. These attacks would be successful with a minimal change (e.g., targeting another server), and were captured as *Almost-There*:
 
