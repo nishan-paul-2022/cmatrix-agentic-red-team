@@ -116,7 +116,7 @@ MAPTA implements a three-role, tool-driven architecture that couples high-level 
 Within this work, an agent is an LLM-driven controller with (i) a goal (“obtain verified PoC for a target”), (ii) a bounded action space (security tools it may call and how to parameterize them), (iii) an observation stream (tool outputs, HTTP responses, code, telemetry), (iv) short-term memory/state (its
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0003-00.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0003-00.png)
 
 
 <!-- Start of picture text -->
@@ -263,7 +263,7 @@ We measure MAPTA’s performance using four objective metrics. First, we use a b
 exploration strategy.
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0006-06.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0006-06.png)
 
 
 <!-- Start of picture text -->
@@ -303,7 +303,7 @@ Table 2: MAPTA’s performance on the 104 XBOW Benchmark Challenge
 |Total Commands|2613|Avg. Commands per Challenge|25.1|
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0007-02.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0007-02.png)
 
 
 <!-- Start of picture text -->
@@ -330,7 +330,7 @@ reasoning token usage correlates with challenge complexity and multi-step exploi
 These correlations reveal a clear _efficiency pattern_ : successful challenges tend to be solved quickly with fewer resources, while failed challenges involve extensive exploration, more
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0008-00.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0008-00.png)
 
 
 <!-- Start of picture text -->
@@ -373,7 +373,7 @@ Figure 7 presents MAPTA’s performance across 13 distinct vulnerability categor
 Analysis of the 24 failed challenges (23.1% of the dataset) reveals specific patterns and areas for improvement in autonomous penetration testing. Failed challenges consumed
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0009-00.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0009-00.png)
 
 
 <!-- Start of picture text -->
@@ -387,49 +387,49 @@ Figure 6: Command usage heatmap across challenges showing the frequency of speci
 XBOW Challenge Analysis: Outcomes and Vulnerability Types
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-01.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-01.png)
 
 
 <!-- Start of picture text -->
 Broken Authorization (29) Broken Authorization (29) Broken Authorization (29)Broken Authorization (29)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-02.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-02.png)
 
 
 <!-- Start of picture text -->
 All Benchmarks (104) All Benchmarks (104) All Benchmarks (104)All Benchmarks (104)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-03.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-03.png)
 
 
 <!-- Start of picture text -->
 Cross-Site Scripting (XSS) (23) Cross-Site Scripting (XSS) (23) Cross-Site Scripting (XSS) (23)Cross-Site Scripting (XSS) (23)<br>Succeeded (80) Succeeded (80) Succeeded (80)Succeeded (80)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-04.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-04.png)
 
 
 <!-- Start of picture text -->
 Server-Side Template Injection (SSTI) (13) Server-Side Template Injection (SSTI) (13) Server-Side Template Injection (SSTI) (13)Server-Side Template Injection (SSTI) (13)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-05.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-05.png)
 
 
 <!-- Start of picture text -->
 Command Injection (8) Command Injection (8) Command Injection (8)Command Injection (8)<br>SQL Injection (6) SQL Injection (6) SQL Injection (6)SQL Injection (6)<br>Insecure Design (7) Insecure Design (7) Insecure Design (7)Insecure Design (7)Insecure Design (7)<br>Broken Authentication (3) Broken Authentication (3) Broken Authentication (3)Broken Authentication (3)Broken Authentication (3)<br>Misconfiguration (3) Misconfiguration (3) Misconfiguration (3)Misconfiguration (3)Misconfiguration (3)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-06.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-06.png)
 
 
 <!-- Start of picture text -->
 Insecure Design (7) Insecure Design (7) Insecure Design (7)Insecure Design (7)Insecure Design (7)<br>Broken Authentication (3) Broken Authentication (3) Broken Authentication (3)Broken Authentication (3)Broken Authentication (3)<br>Misconfiguration (3) Misconfiguration (3) Misconfiguration (3)Misconfiguration (3)Misconfiguration (3)<br>Server-Side Request Forgery (SSRF) (3) Server-Side Request Forgery (SSRF) (3) Server-Side Request Forgery (SSRF) (3)Server-Side Request Forgery (SSRF) (3)Failed (24) Failed (24) Failed (24)Failed (24)Sensitive Data Exposure (2) Sensitive Data Exposure (2) Sensitive Data Exposure (2)Sensitive Data Exposure (2)<br>Crypto (1) Crypto (1) Crypto (1)Crypto (1)Crypto (1)<br>Blind SQL Injection (3) Blind SQL Injection (3) Blind SQL Injection (3)Blind SQL Injection (3)Blind SQL Injection (3)<br>Vulnerable Component (3) Vulnerable Component (3) Vulnerable Component (3)Vulnerable Component (3)Vulnerable Component (3)<br><!-- End of picture text -->
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-07.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-07.png)
 
 
 <!-- Start of picture text -->
@@ -438,7 +438,7 @@ Crypto (1) Crypto (1) Crypto (1)Crypto (1)Crypto (1)<br>Blind SQL Injection (3) 
 Figure 7: Vulnerability category distribution across 104 XBOW challenges. 13 categories spanning 8/10 OWASP Top-10 (2021) (A01–A07, A10); excluding A08/A09.
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-09.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-09.png)
 
 
 <!-- Start of picture text -->
@@ -447,7 +447,7 @@ Time Distribution by Outcome Cost Distribution by Outcome<br>r = -0.557 r = -0.6
 Figure 8: Correlation analysis between challenge success and resource utilization metrics. Negative correlations indicate that successful challenges are solved efficiently, while failed attempts involve higher costs.
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-11.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0010-11.png)
 
 
 <!-- Start of picture text -->
@@ -482,7 +482,7 @@ Table 3: Per-Target Vulnerability Assessment Results with Token Breakdown by Age
 |grafana|70K|7K|25K|10K|254K|432K|19K|0|0<br>0|1.73|
 
 
-![](images/38-multi-agent-penetration-testing-ai-for-the-web.pdf-0011-02.png)
+![](images/12-multi-agent-penetration-testing-ai-for-the-web.pdf-0011-02.png)
 
 
 <!-- Start of picture text -->

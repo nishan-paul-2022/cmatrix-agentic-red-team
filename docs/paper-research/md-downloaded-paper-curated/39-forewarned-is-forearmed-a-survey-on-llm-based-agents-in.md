@@ -188,21 +188,21 @@ Section II deconstructs the construction and collaboration of LLM-based cyberatt
 Xu et al.
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-02.png)
 
 
 <!-- Start of picture text -->
 Prompt : "Go out into<br>the internet and try and<br>hack something<br>interesting for me"<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-03.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-03.png)
 
 
 <!-- Start of picture text -->
 Memory: Reasoning & Planing<br>Long-term memory : Built into the model Allows the LLM agent to<br>via fine-tuning on cybersecurity datasets autonomously pursue multi-<br>Short-term memory:  Implemented via stage attacks with dynamic<br>techniques like  re-planning<br>Retrieval-Augmented Generation<br>Knowledge Graphs Decompose tasks<br>(using Chain-of-<br>Thought)<br>Tools & Actions: Reactively adapt<br>plans through ReAct<br>Data tools  (scanners, log readers) loops<br>Action tools  (exploit launchers, shell Self-reflect and<br>command runners) repair failed<br>Orchestration tools  (workflow strategies<br>managers for multi-step attacks)<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-04.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0006-04.png)
 
 
 <!-- Start of picture text -->
@@ -282,89 +282,89 @@ _2.1.4 Reasoning and Planning._ Unlike static bots, LLM-based agents can reason 
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-02.png)
 
 
 <!-- Start of picture text -->
 PentestAgent<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-03.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-03.png)
 
 
 <!-- Start of picture text -->
 PentestGPT<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-04.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
 AutoPT-Sim<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-05.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-05.png)
 
 
 <!-- Start of picture text -->
 Cyber Threat Intelligence<br>Penetration Testing<br>Vulnerability Detection<br>Phishing and Social Engineering<br>Malware Generation<br>Vulnerability Exploitation<br>Honeypot<br>Capture the Flag Challenges<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-06.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-06.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-07.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-07.png)
 
 
 <!-- Start of picture text -->
 PhishAgent<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-08.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-08.png)
 
 
 <!-- Start of picture text -->
 Malla<br>LLMPot<br>EvilInstructCoder<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-09.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-09.png)
 
 
 <!-- Start of picture text -->
 InterCode-CTF<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-10.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-10.png)
 
 
 <!-- Start of picture text -->
 VulnBot<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-11.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-11.png)
 
 
 <!-- Start of picture text -->
 ScamLLM<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-12.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-12.png)
 
 
 <!-- Start of picture text -->
 SecureFalcon<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-13.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-13.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-14.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-14.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-15.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-15.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-16.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0009-16.png)
 
 
 <!-- Start of picture text -->
@@ -533,28 +533,28 @@ Recent advancements in RAG and structure-aware LLM-based agents have demonstrate
 Xu et al.
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-02.png)
 
 
 <!-- Start of picture text -->
 Phishing & Social Engineering<br>1<br>Malicious Prompt Private Data<br>Attacker LLM-based Agent<br>2<br>Private User Info 3 Phishing<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-03.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-03.png)
 
 
 <!-- Start of picture text -->
 3 Phishing<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-04.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-04.png)
 
 
 <!-- Start of picture text -->
 Database<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-05.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0014-05.png)
 
 
 <!-- Start of picture text -->
@@ -584,7 +584,7 @@ _3.2.1 Malware Generation._ As shown in Fig. 5, LLM-based agents in cybersecurit
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0015-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0015-02.png)
 
 
 <!-- Start of picture text -->
@@ -603,38 +603,38 @@ _3.2.2 Vulnerability Exploitation: One-Day and Zero-Day Attacks._ LLM-based agen
 Xu et al.
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-02.png)
 
 
 <!-- Start of picture text -->
 Zero-day Attack<br>1<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-03.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-03.png)
 
 
 <!-- Start of picture text -->
 LLM-based Agent<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-04.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-04.png)
 
 
 <!-- Start of picture text -->
 1<br>Hidden Flaw Discovery<br>Attacker LLM-based Agent<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-05.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-05.png)
 
 
 <!-- Start of picture text -->
 2<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-06.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-06.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-07.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0016-07.png)
 
 
 <!-- Start of picture text -->
@@ -859,38 +859,38 @@ Vehicular networks present unique challenges, combining critical latency require
 Forewarned is Forearmed: A Survey on Large Language Model-based Agents in Autonomous Cyberattacks
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-02.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-02.png)
 
 
 <!-- Start of picture text -->
 Benign UAV: The target UAV engaged<br>in legitimate communication with the<br>Ground Control Station (GCS)<br>Malicious UAV:  An attacker-<br>controlled UAV that joins the same<br>network as the benign UAV and GCS<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-03.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-03.png)
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-04.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-04.png)
 
 
 <!-- Start of picture text -->
 Ground Control Station: The official<br>operator interface that sends mission<br>commands to the benign UAV<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-05.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-05.png)
 
 
 <!-- Start of picture text -->
 Traffic context: A dataset that maintains a structured<br>representation of the intercepted network traffic.<br>Previous packets<br>Communication patterns<br>Expected responses<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-06.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-06.png)
 
 
 <!-- Start of picture text -->
 LLM-based Agents (Edge Server):<br>Hosted on a GPU-equipped server<br>Fine-tuned large language models<br>Returns these forged packets to<br>the  Malicious UAV  for injection<br>into the session<br><!-- End of picture text -->
 
 
-![](images/39-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-07.png)
+![](images/13-forewarned-is-forearmed-a-survey-on-llm-based-agents-in.pdf-0023-07.png)
 
 
 Fig. 7. LLM-based agents for main-in-the-middle attacks with UAV command-and-control.

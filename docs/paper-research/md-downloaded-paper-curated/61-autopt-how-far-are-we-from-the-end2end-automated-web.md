@@ -229,7 +229,7 @@ _3.2.3 Task Validation._ Finally, we conducted rigorous manual testing on each t
 Ultimately, we compiled a benchmark, that effectively covers all types of vulnerabilities listed in OWASP Top 10 2023 [54]. It contains 4 major categories and six subcategories of penetration testing targets, which are divided into 17 different penetration testing environments and 20 different CVE projects. We believe that this number of tasks is sufficient to cover the wide range of vulnerabilities, difficulty levels, and varieties necessary for end-to-end large language model-based penetration testing at this stage.
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0007-05.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0007-05.png)
 
 
 <!-- Start of picture text -->
@@ -432,10 +432,10 @@ Our exploratory study of end-to-end penetration testing of two single-agent arch
 
 ## **5 METHODOLOGY**
 
-> **Section Summary:** ![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0010-05.png)
+> **Section Summary:** ![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0010-05.png)
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0010-05.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0010-05.png)
 
 
 <!-- Start of picture text -->
@@ -491,77 +491,77 @@ _Definition 2 (_ **_Pen-testing State Machine_** _)._ The penetration test state
 Similar to the traditional FSM, the output function _𝑂_ of each node is different. In particular, depending on whether an agent is based on the LLM involved, we divide the state of AutoPT into an Agent state and a Rule state. In the initialization phase ( _𝑠_ 0), the Agent state uses a set of prompts { _𝑃_ 1 _, 𝑃_ 2 _..._ } to initialize the agent in different states. Each prompt corresponds to its own tool set. Our evaluation carefully selected these tools and considered them sufficient to complete the sub-task. This differentiated prompting approach ensures that the language model receives the most relevant guidance in each state. The Rule state uses rules to operate the input contextual interaction content and match and filter out the output content. The rule-matching method ensures that the behavior of the Agent state is constrained, thereby improving the agent’s ability to focus on specific steps. We solve **Challenge 1** by replacing the traditional context information iteration with interactive messages between states. Specifically, each state only needs to understand the core task content and the output value of the previous state instead of obtaining all historical messages.
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-04.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-04.png)
 
 
 <!-- Start of picture text -->
 Input<br>“I think we can try this<br>vulnerability. The<br>vulnerability information is<br>as follows……”<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-05.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-05.png)
 
 
 <!-- Start of picture text -->
 Target Information<br>“The ip address of the<br>target machine is……”<br>Output<br>Full iteration history<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-06.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-06.png)
 
 
 <!-- Start of picture text -->
 Iteration prompt<br>**Note:** Unnecessary use of -X<br>or --request, POST is<br>already inferred.<br>Trying 192.168.160.1:8081...<br>Connected to 192.168.160.1<br>(192.168.160.1) port 8081……<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-07.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-07.png)
 
 
 <!-- Start of picture text -->
 Iteration prompt<br>“You are a well-trained penetration<br>tester, and your task is……”<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-08.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-08.png)
 
 
 <!-- Start of picture text -->
 LLM API Calling<br>The initial attempt to exploit the<br>vulnerability resulted in a "400<br>Bad Request" error, indicating that<br>…Action: EXECMD<br>Action Input: curl -v -X POST<br>http://…<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-09.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-09.png)
 
 
 <!-- Start of picture text -->
 Iteration prompt<br>Action: EXECMD<br>Action Input: curl -v -X<br>POST http://…<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-10.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-10.png)
 
 
 <!-- Start of picture text -->
 xray ws --url 192.168.112.1:9200 Input<br>Version: 0.1.0/__unknown__/__unknown__<br>[INFO] 2024-08-20 07:45:49 [default:entry.go:221] Loading config file<br>from config.yaml……[ERRO] 2024-08-20 07:45:49 [default:url.go:13] parse request uri<br>[Vuln: phantasm]<br>Target           "http://192.168.160.1:8081"<br>VulnType         "poc-yaml-nexus-cve-2020-10199/default"<br>Links            ["https://..."]<br>level            "high"<br>[Vuln: dirscan]<br>Target           "http://192.168.160.1:8081/static/frontend-<br>bundle.js.map"<br>VulnType         "sourcemap/default"<br>Payload          "/static/frontend-bundle.js.map”level            “low"<br>……[INFO] 2024-08-20 07:46:04 [controller:dispatcher.go:665] controller<br>released, task done<br>[{'vuln': 'dirscan’,<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-11.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-11.png)
 
 
 <!-- Start of picture text -->
 {'vuln': 'dirscan’,  Output<br>'target': http://192.168.160.1:8081’,<br>'vulntype': 'sourcemap/default',<br>'Links':["https://..."], ‘ level ’ : ‘high’}<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-12.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-12.png)
 
 
 <!-- Start of picture text -->
 Rules<br>1. Prioritize those with higher<br>threat levels.<br>2. Prioritize those that are easier<br>to exploit.<br>……<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-13.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-13.png)
 
 
 <!-- Start of picture text -->
 [{'vuln': 'dirscan’,<br>'target': http://192.168.160.1:8081’, 'vulntype': 'sourcemap/default', 'Links':["https://..."], ‘ level ’ : ‘high’}, Vuln Library<br>{‘vuln’: ‘dirscan’,<br>‘target’: ‘http://192.168.160.1:8081/static/frontend-bundle.js.map’,<br>‘vulntype’: ‘sourcemap/default’,<br>‘payload’: ‘/static/frontend-bundle.js.map’,  ‘ level ’ : ‘low’},<br>…]<br><!-- End of picture text -->
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-14.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0012-14.png)
 
 
 <!-- Start of picture text -->
@@ -730,10 +730,10 @@ During the experiment, we found that in the Agent state, each agent solves a rel
 
 ## **6.3 Performance Evaluation (RQ2)**
 
-> **Section Summary:** ![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0016-05.png)
+> **Section Summary:** ![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0016-05.png)
 
 
-![](images/61-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0016-05.png)
+![](images/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf-0016-05.png)
 
 
 <!-- Start of picture text -->

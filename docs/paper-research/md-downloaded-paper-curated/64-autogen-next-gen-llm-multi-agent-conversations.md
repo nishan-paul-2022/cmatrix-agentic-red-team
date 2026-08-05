@@ -44,106 +44,106 @@
 > _±_ University of Washington, _∓_ Xidian University
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-06.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-07.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-07.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-08.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-08.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-09.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-09.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-10.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-10.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-11.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-11.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-12.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-12.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-13.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-13.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-14.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-14.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-15.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-15.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-16.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-16.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-17.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-17.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-18.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-18.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-19.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-19.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-20.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-20.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-21.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-21.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-22.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-22.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-23.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-23.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-24.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-24.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-25.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-25.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-26.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-26.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-27.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-27.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-28.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-28.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-29.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-29.png)
 
 
 <!-- Start of picture text -->
 Sorry! Please first<br>pip install yfinance<br>and then execute<br>the code<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-30.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-30.png)
 
 
 <!-- Start of picture text -->
 Output:<br>$<br>Month<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-31.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-31.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-32.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-32.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-33.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-33.png)
 
 
 <!-- Start of picture text -->
 Got it! Here is the<br>revised code …<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-34.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-34.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-35.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0001-35.png)
 
 
 Figure 1: `AutoGen` enables diverse LLM-based applications using multi-agent conversations. (Left) `AutoGen` agents are conversable, customizable, and can be based on LLMs, tools, humans, or even a combination of them. (Top-middle) Agents can converse to solve tasks. (Right) They can form a chat, potentially with humans in the loop. (Bottom-middle) The framework supports flexible conversation patterns.
@@ -199,39 +199,39 @@ In the example on the right-hand side of Figure 1, an LLM-backed assistant agent
 4Appendix C presents an example of such novel prompting techniques which empowers the default LLMbacked assistant agent in `AutoGen` to converse with other agents in multi-step problem solving.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-00.png)
 
 
 <!-- Start of picture text -->
 Agent Customization: human_input_mode = “NEVER” Unified Conversation Interfaces: •• sendreceive<br>code_execution_config = False • generate_reply<br>DEFAULT_SYSTEM_MESSAGE = “You<br>are a helpful AI assistant… human_input_mode = “NEVERNEVER”<br>In the following cases, suggest python code…” human_input_mode = “ALWAYS” group_chat = [              ]<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-01.png)
 
 
 <!-- Start of picture text -->
 human_input_mode = “NEVERNEVER”<br>group_chat = [              ]<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-02.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-03.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-03.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-04.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-04.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-05.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-05.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-06.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-07.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-07.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-08.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0004-08.png)
 
 
 <!-- Start of picture text -->
@@ -266,59 +266,59 @@ In the conversation programming paradigm, one can realize multi-agent conversati
 We demonstrate six applications using `AutoGen` (see Figure 3) to illustrate its potential in simplifying the development of high-performance multi-agent applications. These applications are selected based on their real-world relevance (A1, A2, A4, A5, A6), problem difficulty and solving capabilities enabled by `AutoGen` (A1, A2, A3, A4), and innovative potential (A5, A6). Together, these criteria showcase `AutoGen` ’s role in advancing the LLM-application landscape.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-00.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-01.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-02.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-03.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-03.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-04.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-04.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-05.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-05.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-06.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-07.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-07.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-08.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-08.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-09.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-09.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-10.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-10.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-11.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-11.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-12.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-12.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-13.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-13.png)
 
 
 <!-- Start of picture text -->
 Broadcast Speak<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-14.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-14.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-15.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-15.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-16.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0006-16.png)
 
 
 Figure 3: Six examples of diverse applications built using `AutoGen` . Their conversation patterns show `AutoGen` ’s flexibility and power.
@@ -336,7 +336,7 @@ Retrieval augmentation has emerged as a practical and effective approach for mit
 > 5We did not evaluate ChatGPT on the whole dataset since it requires substantial manual effort and is restricted by its hourly message-number limitation. Multi-agent debate and LangChain ReAct were also not evaluated since they underperformed vanilla GPT-4 on the smaller test set.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0007-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0007-00.png)
 
 
 <!-- Start of picture text -->
@@ -624,17 +624,17 @@ Our work also shows how complex, fully autonomous workflows with `AutoGen` can b
 
 ## **C Default System Message for Assistant Agent**
 
-> **Section Summary:** ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
+> **Section Summary:** ![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
 
 
 <!-- Start of picture text -->
 System Message<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-02.png)
 
 
 <!-- Start of picture text -->
@@ -705,22 +705,22 @@ problem involves solving a number theory issue. The correctness counts and reaso
 - Based on the qualitative evaluation, we analyze the user experience concerning the verbosity of the response and the ability of the LLM-based system to run without unexpected behaviors. ChatGPT+Plugin is the least verbose, mainly because Wolfram queries are much shorter than Python code. `AutoGen` , ChatGPT+Code Interpreter, and LangChain exhibit similar verbosity, although LangChain is slightly more verbose due to more code execution errors. AutoGPT is the most verbose system owing to predefined steps like THOUGHTS, REASONING, and PLAN, which it includes in replies every time. Overall, `AutoGen` and ChatGPT+Code Interpreter operate smoothly without exceptions. We note the occurrences of undesired behaviors from other LLM-based systems that could affect user experience: AutoGPT consistently outputs code without the print’ statement and cannot correct this, requiring the user to run them manually; ChatGPT with Wolfram Alpha plugin has the potential to become stuck in a loop that must be manually stopped; and Langchain ReAct could exit with a parse error, necessitating the passing of a ‘handle ~~p~~ arse ~~e~~ rror’ parameter.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-03.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-03.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-04.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-04.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-05.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-05.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-06.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-07.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-07.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-08.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0020-08.png)
 
 
 Figure 6: Examples of three settings utilized to solve math problems using `AutoGen` : (Gray) Enables a workflow where a student collaborates with an assistant agent to solve problems, either autonomously or in a human-in-the-loop mode. (Gray + Orange) Facilitates a more sophisticated workflow wherein the assistant, on the fly, can engage another user termed “expert”, who is in the loop with their own assistant agent, to aid in problem-solving if its own solutions are not satisfactory.
@@ -733,7 +733,7 @@ helpful. To incorporate human feedback with `AutoGen` , one can set `human` ~~`i
 1. Input the problem: `Find the equation of the plane which bisects the angle between the planes` 3 _x −_ 6 _y_ + 2 _z_ + 5 = 0 `and` 4 _x −_ 12 _y_ + 3 _z −_ 3 = 0 _,_ `and which contains the point` ( _−_ 5 _, −_ 1 _, −_ 5) _._ `Enter your answer in the form`
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0021-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0021-02.png)
 
 
    - `where` _A, B, C, D_ `are integers such that` _A >_ 0 `and` gcd( _|A|, |B|, |C|, |D|_ ) = 1 _._
@@ -758,7 +758,7 @@ With `AutoGen` , constructing the student/expert proxy agent and the assistant a
 ### **A2: Retrieval-Augmented Code Generation and Question Answering**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0022-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0022-01.png)
 
 
 <!-- Start of picture text -->
@@ -781,21 +781,21 @@ We utilize Retrieval-Augmented Chat in two scenarios. The first scenario aids in
 **Scenario 1: Evaluation on Natural Questions QA dataset.** In this case, we evaluate the Retrieval-Augmented Chat’s end-to-end question-answering performance using the Natural Questions dataset (Kwiatkowski et al., 2019). We collected 5,332 non-redundant context documents and 6,775 queries from HuggingFace. First, we create a document collection based on the entire context corpus and store it in the vector database. Then, we utilize Retrieval-Augmented Chat to answer the questions. An example (Figure 8) from the NQ dataset showcases the advantages of the _interactive retrieval_ feature: _“who carried the usa flag in opening ceremony”_ . When attempting to answer this question, the context with the highest similarity to the question embedding does not contain the
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-00.png)
 
 
 <!-- Start of picture text -->
 Task description<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-01.png)
 
 
 <!-- Start of picture text -->
 Task description<br>who carried the usa flag in opening ceremony?<br>(a) W/O Interactive Retrieval (b) W/ Interactive Retrieval<br>Assistant:  You’re a retrieve augmented chatbot. You answer user’s  Assistant:  You’re a retrieve augmented chatbot. You answer user’s<br>questions based on your own knowledge and the context provided by  questions based on your own knowledge and the context provided by<br>the user. If you can’t answer the question with or without the  the user. If you can’t answer the question with or without the<br>current context, you should reply ‘sorry, I don’t know’. You must  current context,  you should reply exactly ‘UPDATE CONTEXT’.  You<br>give as short an answer as possible. must give as short an answer as possible.<br>User’s question is: who carried the usa flag in opening ceremony User’s question is: who carried the usa flag in opening ceremony<br>Context is: < P > On January 17 , 1899 , under ... The Astros  Context is: < P > On January 17 , 1899 , under ... The Astros<br>beat the Yankees that night , 2 - 1 . < /P > beat the Yankees that night , 2 - 1 . < /P ><br>UserProxy the USA flag in the opening ceremony. Sorry, I don’t know.:  Sorry, I cannot find any information about who carried  UserProxy the USA flag in the opening ceremony. Assistant : Sorry, I cannot find any information about who carried : You’re a retrieve augmented chatbot. You answer user’s   UPDATE CONTEXT.<br>questions based on your own knowledge and the context provided by<br>the user. If you can’t answer the question with or without the<br>current context, you should reply exactly ‘UPDATE CONTEXT’. You<br>must give as short an answer as possible.<br>User’s question is: who carried the usa flag in opening ceremony<br>Context is: < T able > ... Erin Hamlin ... < /T d ><br>UserProxy :  Erin Hamlin carried the USA flag in the opening<br>ceremony.<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0023-02.png)
 
 
 Figure 8: Retrieval-augmented Chat without (W/O) and with (W/) _interactive retrieval_ .
@@ -812,7 +812,7 @@ Furthermore, we analyze the number of LLM calls in experiments involving both _`
 **A3: Decision Making in Text World Environments**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0024-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0024-01.png)
 
 
 <!-- Start of picture text -->
@@ -829,14 +829,14 @@ One major challenge encompassed in ALFWorld is commonsense reasoning. The agent 
 We compare our system’s performance with ReAct, which treats ALFWorld as a text-completion task. ReAct (Yao et al., 2022) is a few-shot prompting technique that interleaves reasoning and acting, allowing for greater synergy between the two and significantly improving performance on both language and decision-making tasks. We integrate ReAct into `AutoGen` by modifying the prompts in a conversational manner. Following ReAct, we employ a two-shot setting. The fewshot prompts are obtained from the corresponding repository. As shown in Table 3, the two-agent
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0025-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0025-00.png)
 
 
 <!-- Start of picture text -->
 Task description<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0025-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0025-01.png)
 
 
 <!-- Start of picture text -->
@@ -866,10 +866,10 @@ design matches the performance of ReAct, while the three-agent design significan
 **A4: Multi-Agent Coding**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0026-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0026-01.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0026-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0026-02.png)
 
 
 <!-- Start of picture text -->
@@ -909,7 +909,7 @@ Table 13 and 15 provide a detailed comparison of user experience with ChatGPT+Co
 ### **A5: Dynamic Group Chat**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0028-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0028-01.png)
 
 
 <!-- Start of picture text -->
@@ -935,7 +935,7 @@ Table 6: Average # LLM calls and number of termination failures on the 12 tasks 
 |GPT-4|6.8, 3|4.5, 0|4, 0|
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0029-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0029-00.png)
 
 
 Figure 13: Comparison of two-agent chat (a) and group chat (b) on a given task. The group chat resolves the task successfully with a smoother conversation, while the two-agent chat fails on the same task and ends with a repeated conversation.
@@ -944,7 +944,7 @@ Figure 13: Comparison of two-agent chat (a) and group chat (b) on a given task. 
 **A6: Conversational Chess**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0030-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0030-01.png)
 
 
 <!-- Start of picture text -->
@@ -959,36 +959,36 @@ To realize these scenarios, we constructed a player agent with LLM and human as 
 There are two notable benefits of using `AutoGen` to implement Conversational Chess. Firstly, the agent design in `AutoGen` facilitates the natural creation of objects and their interactions needed in our chess game. This makes development easy and intuitive. For example, the isolation of chat messages simplifies the process of making a proper LLM chat completion inference call. Secondly, `AutoGen` greatly simplifies the implementation of agent behaviors using composition. Specifically, we utilized the `register` ~~`r`~~ `eply` method supported by `AutoGen` agents to instantiate player agents and a board agent with custom reply functions. Concentrating the extension work needed at a single point (the reply function) simplifies the reasoning processes, and development and maintenance effort.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-00.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-00.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-01.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-02.png)
 
 
 <!-- Start of picture text -->
 Alright, let's kick things off. I'll<br>move my pawn from e2 to e4. The<br>center of the board is the heart of<br>the battle, isn't it?<br>Ah, the King's Pawn Opening, a<br>classic. Let's see how this plays<br>out. I'll move my pawn from e7 to<br>e5.You know, I've always admired<br>how chess reflects life. It's all<br>about making strategic decisions,<br>isn't it? Your move.<br>Indeed, chess is a mirror of life in<br>many ways. Every move matters,<br>just like every decision in life. I'll<br>move my knight from g1 to f3,<br>aiming to control the center.<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-03.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-03.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-04.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-04.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-05.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-05.png)
 
 
 <!-- Start of picture text -->
 Indeed, the king's safety is paramount in the early<br>game. Now, let's stir things up a bit. I'll move my<br>pawn from e4 to e5, attacking your knight.<br>Error: illegal uci: 'e4e5' in ...<br>I'll move my pawn from d2 to d4, opening up<br>lines for my queen and bishop.<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-06.png)
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-07.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-07.png)
 
 
 Figure 15: Example conversations during a game involving two AI player agents and a board agent.
@@ -1004,14 +1004,14 @@ make sure both you and the opponent are making legal moves...
 ```
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-12.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-12.png)
 
 
 <!-- Start of picture text -->
 (a) W/O Board Agent (b) W/ Board Agent<br>Player White:  Your move Player White:  Your move<br>Player black: Alright, let's start. I'll move my pawn from e7  Player black: Alright, let's start. I'll move my pawn from e7 to e5.<br>to e5.  Here's how the board looks now:<br>Here's how the board looks now:r n b q k b n rp p p p . . . . . . . . .  p p p r n b q k b n rp p p p. . . . . . . .. . . .  .  p  p p p. . .<br>. . . . . . . . . . . .. . . . . . . .P P P P P P P P p  . . . . . . . . . . .. . . . . . . .P P P P P P P PR N B Q K B N R<br>R N B Q K B N R Your turn!<br>Your turn!<br>Player White: Yes, it certainly is! Let's keep this up. I'll move my<br>knight from b8 to c6. Here's the updated board:<br>.  n b q k b . r<br>p p p p . p p p<br>. .  n  . . n . .<br>Player White: Yes, it certainly is! Let's keep this up.  . . . . p . . .<br>I'll move my knight from b8 to c6. .  p p p p . p p pn b q k b . r Here's the updated board: . . . . P . . .. . . . N . . .P P P P . P P P<br>. .  n  . . n . . R N B Q K B . R<br>. . . . p . . . Your move! You're giving me a tough time here.<br>. . . . P . . . Board Agent: Your move is illegal. You changed the rock at a8 to knight<br>. . . . N . . . and move it to c6. Please check your decision and re-make your move.<br>P P P P . P P P Player White: Sorry for the mistakes. I'll move my knight from b8 to c6.<br>R N B Q K B . R Here's the updated board:<br>Your move! You're giving me a tough time here. r  .  b q k b . r<br>p p p p . p p p<br>. .  n  . . n . .<br>. . . . p . . .<br>. . . . P . . .<br>. . . . N . . .<br>P P P P . P P P<br>R N B Q K B . R<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-13.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0031-13.png)
 
 
 Figure 16: Comparison of two designs–(a) without a board agent, and (b) with a board agent–in Conversational Chess.
@@ -1020,14 +1020,14 @@ Figure 16: Comparison of two designs–(a) without a board agent, and (b) with a
 ### **A7: Online Decision Making for Browser interactions**
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0032-01.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0032-01.png)
 
 
 <!-- Start of picture text -->
 Executor<br><!-- End of picture text -->
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0032-02.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0032-02.png)
 
 
 <!-- Start of picture text -->
@@ -1051,7 +1051,7 @@ Additionally, we also explored the feasibility of using Auto-GPT for handling th
 **Takeaways:** For this application, `AutoGen` stood out as a more user-friendly option, offering modularity and programmability: It streamlined the process with autonomous conversations between the assistant and executor, and provided readily available solutions for agent-environment interactions. The built-in `AssistantAgent` was directly reusable and exhibited strong performance without customization. Moreover, the decoupling of the execution and assistant agent ensures that modifications to one component do not adversely impact the other. This convenience simplifies maintenance and future updates.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0033-03.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0033-03.png)
 
 
 <!-- Start of picture text -->
@@ -1087,7 +1087,7 @@ In this section, we include example outputs from the following applications and 
 Table 8: Application A1, Scenario 1: Autonomous math problem-solving. ChatGPT+ Plugin (Wolfram Alpha) on the first qualitative example. The response from Wolfram contains the correct answer, but ChatGPT selected the wrong one.
 
 
-![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0034-06.png)
+![](images/21-autogen-next-gen-llm-multi-agent-conversations.pdf-0034-06.png)
 
 
 <!-- Start of picture text -->

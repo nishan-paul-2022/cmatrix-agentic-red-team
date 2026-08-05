@@ -338,182 +338,182 @@ In this section, we evaluate both the efficiency and cost of CHECKMATE. We selec
 Action<br>msf-search  confluence<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-04.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-04.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-05.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-05.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-06.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-06.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-07.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-07.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-08.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-08.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-09.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-09.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-10.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-10.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br>app-running<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-11.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-11.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-12.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-12.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-13.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-13.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-14.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-14.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-15.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-15.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br>Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-16.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-16.png)
 
 
 <!-- Start of picture text -->
 url-accessible<br>url2<br>Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-17.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-17.png)
 
 
 <!-- Start of picture text -->
 undetermined-effect<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-18.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-18.png)
 
 
 <!-- Start of picture text -->
 target-ip  IP<br>Action<br>Nmap Full Port Scan  IP<br>url-accessible<br>url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-19.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-19.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2022-26134<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-20.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-20.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2021-20687<br>undetermined-effect<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-21.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-21.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  openssh<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-22.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-22.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search  confluence<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-23.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-23.png)
 
 
 <!-- Start of picture text -->
 Action<br>whatweb Scan  url1<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-24.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-24.png)
 
 
 <!-- Start of picture text -->
 app-running<br>Java<br>Action<br>msf-search  Java<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-25.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-25.png)
 
 
 <!-- Start of picture text -->
 url-accessible<br>url2<br>Action<br>whatweb Scan  url2<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-26.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-26.png)
 
 
 <!-- Start of picture text -->
 multi/http/atlassian_confluence_namespace_ognl_injection<br>Action<br>msf-use<br>atlassian_confluence_namespace_ognl_injection<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-27.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-27.png)
 
 
 <!-- Start of picture text -->
 CVE-2021-20687<br>Action<br>msf-search<br>CVE-2021-20687<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-28.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-28.png)
 
 
 <!-- Start of picture text -->
 Action<br>msf-search<br>CVE-2022-26134<br>No Results<br><!-- End of picture text -->
 
 
-![](images/35-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-29.png)
+![](images/11-automated-penetration-testing-with-llm-agents-and-classical.pdf-0009-29.png)
 
 
 <!-- Start of picture text -->

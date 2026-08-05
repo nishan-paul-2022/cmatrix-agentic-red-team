@@ -15,16 +15,16 @@
 
 | # | Status | File | Paper | Surface | Unique Contribution |
 |---|---|---|---|---|---|
-| 1 | ✅ | `68-getting-pwnd...` | **Getting pwn'd by AI** — Happe & Cito, ESEC/FSE 2023 | 🕸️ Network | First closed-loop LLM→shell agent. Foundational baseline. Every paper cites this. |
-| 2 | ✅ | `26-pentestgpt...` | **PentestGPT** — Deng et al., USENIX Security 2024 | 🕸️ Network | Three-module Reasoning/Generation/Parsing architecture. USENIX — highest impact published paper in field. |
-| 3 | ✅ | `03-what-makes...` | **PentestGPT V2 / What Makes a Good LLM Agent** — Deng et al., NTU 2025 | 🕸️ Network | Evidence-Guided Attack Tree Search (EGATS) + Task Difficulty Assessment (TDA). 91% CTF completion. Best analysis of failure modes (Type A vs Type B). The evolution of PentestGPT you cannot ignore. |
-| 4 | ✅ | `21-vulnbot...` | **VulnBot** — He et al., 2025 | 🕸️ Network | Penetration task graph driving role-specific agents. Best task-graph-driven multi-agent for network. |
-| 5 | ✅ | `18-pentestagent...` | **PentestAgent** — Zhang et al., 2024 | 🕸️ Network + 🌐 Web (partial) | First to integrate knowledge retrieval (RAG) + specialized agents end-to-end. |
-| 6 | ✅ | `35-automated...` | **CHECKMATE** — Wang et al. (Northwestern/Zhejiang), 2025 | 🕸️ Network | PEP (Planner-Executor-Perceptor) paradigm. +20% over Claude Code. Best current SotA for structured planning + LLM. |
-| 7 | ✅ | `28-d-cipher...` | **D-CIPHER** — Udeshi et al. (NYU), 2025 | 🕸️ Network | Heterogeneous executors + auto-prompter. SotA: Cybench 22.5%, HackTheBox 44%. MITRE ATT&CK mapped. |
-| 8 | ✅ | `22-incalmo...` | **Incalmo** — Singer et al. (CMU), 2025 | 🕸️ Network (Enterprise Multi-Host) | Only paper on autonomous enterprise multi-host red teaming. MHBench (40 real networks). 37/40 success. |
-| 9 | ✅ | `16-can-llms-hack...` | **Can LLMs Hack Enterprise Networks?** — Happe & Cito, ACM 2025 | 🕸️ Network (Enterprise) | Empirical Planner-Executor on real enterprise testbed. LLM comparison: GPT-4o, Gemini, o1, Qwen3. |
-| 10 | ✅ | `05-co-redteam...` | **Co-RedTeam** — He et al. (Google), 2025 | 🌐 Web + 🕸️ Network | **Google's multi-agent red-teaming framework.** OWASP/CWE-grounded agents, execution-driven reasoning, long-term memory. 60%+ exploitation on BountyBench + CyberGym. Strongest framework covering BOTH Web and Network with a unified pipeline. |
+| 1 | ✅ | `23-getting-pwnd...` | **Getting pwn'd by AI** — Happe & Cito, ESEC/FSE 2023 | 🕸️ Network | First closed-loop LLM→shell agent. Foundational baseline. Every paper cites this. |
+| 2 | ✅ | `09-pentestgpt...` | **PentestGPT** — Deng et al., USENIX Security 2024 | 🕸️ Network | Three-module Reasoning/Generation/Parsing architecture. USENIX — highest impact published paper in field. |
+| 3 | ✅ | `02-what-makes...` | **PentestGPT V2 / What Makes a Good LLM Agent** — Deng et al., NTU 2025 | 🕸️ Network | Evidence-Guided Attack Tree Search (EGATS) + Task Difficulty Assessment (TDA). 91% CTF completion. Best analysis of failure modes (Type A vs Type B). The evolution of PentestGPT you cannot ignore. |
+| 4 | ✅ | `07-vulnbot...` | **VulnBot** — He et al., 2025 | 🕸️ Network | Penetration task graph driving role-specific agents. Best task-graph-driven multi-agent for network. |
+| 5 | ✅ | `06-pentestagent...` | **PentestAgent** — Zhang et al., 2024 | 🕸️ Network + 🌐 Web (partial) | First to integrate knowledge retrieval (RAG) + specialized agents end-to-end. |
+| 6 | ✅ | `11-automated...` | **CHECKMATE** — Wang et al. (Northwestern/Zhejiang), 2025 | 🕸️ Network | PEP (Planner-Executor-Perceptor) paradigm. +20% over Claude Code. Best current SotA for structured planning + LLM. |
+| 7 | ✅ | `10-d-cipher...` | **D-CIPHER** — Udeshi et al. (NYU), 2025 | 🕸️ Network | Heterogeneous executors + auto-prompter. SotA: Cybench 22.5%, HackTheBox 44%. MITRE ATT&CK mapped. |
+| 8 | ✅ | `08-incalmo...` | **Incalmo** — Singer et al. (CMU), 2025 | 🕸️ Network (Enterprise Multi-Host) | Only paper on autonomous enterprise multi-host red teaming. MHBench (40 real networks). 37/40 success. |
+| 9 | ✅ | `05-can-llms-hack...` | **Can LLMs Hack Enterprise Networks?** — Happe & Cito, ACM 2025 | 🕸️ Network (Enterprise) | Empirical Planner-Executor on real enterprise testbed. LLM comparison: GPT-4o, Gemini, o1, Qwen3. |
+| 10 | ✅ | `03-co-redteam...` | **Co-RedTeam** — He et al. (Google), 2025 | 🌐 Web + 🕸️ Network | **Google's multi-agent red-teaming framework.** OWASP/CWE-grounded agents, execution-driven reasoning, long-term memory. 60%+ exploitation on BountyBench + CyberGym. Strongest framework covering BOTH Web and Network with a unified pipeline. |
 
 ---
 
@@ -33,11 +33,11 @@
 
 | # | Status | File | Paper | Surface | Unique Contribution |
 |---|---|---|---|---|---|
-| 11 | ✅ | `55-llm-agents-can-autonomously...` | **LLM Agents can Autonomously Exploit One-Day Vulnerabilities** — Fang et al. (UIUC), 2024 | 🌐 Web | The seminal web hacking paper. GPT-4 exploiting real web CVEs (SQLi, RCE, auth bypass). 87% on 15 CVEs. Academic foundation for your Web surface claim. |
-| 12 | ✅ | `54-teams-of-llm-agents...` | **Teams of LLM Agents can Exploit Zero-Day Vulnerabilities** — Fang et al. (UIUC), 2024 | 🌐 Web | Zero-day web multi-agent (HPTSA). Extends #11 to zero-day. First multi-agent web zero-day system. |
-| 13 | ✅ | `38-multi-agent-penetration...` | **MAPTA: Multi-Agent Penetration Testing AI for the Web** — David & Gervais (UCL), arXiv Aug 2025 | 🌐 Web + 🔌 API (REST partial) | Most complete open-source web pentesting framework. XBOW 104-challenge benchmark: 76.9% overall. Covers SQLi, XSS, SSRF, broken auth, SSTI. Includes REST/API fuzzing section. |
-| 14 | ✅ | `13-awe-adaptive-agents...` | **AWE: Adaptive Agents for Dynamic Web Penetration Testing** — Jaswal & Baghel (Stux Labs), **NDSS Workshop (LAST-X) 2026** | 🌐 Web | Memory-augmented, vuln-specific pipelines. 87% XSS (+30.5% over MAPTA), 66.7% blind SQLi (+33.3%). Best injection-class depth. |
-| 15 | ✅ | `61-autopt-how-far...` | **AutoPT: End2End Automated Web Penetration Testing** — Wu et al. (USTC/ACM), 2024 | 🌐 Web | First end-to-end web pentest benchmark. Penetration State Machine (PSM) — FSM-driven LLM. 22%→41% on GPT-4o mini. ACM published. |
+| 11 | ✅ | `17-llm-agents-can-autonomously...` | **LLM Agents can Autonomously Exploit One-Day Vulnerabilities** — Fang et al. (UIUC), 2024 | 🌐 Web | The seminal web hacking paper. GPT-4 exploiting real web CVEs (SQLi, RCE, auth bypass). 87% on 15 CVEs. Academic foundation for your Web surface claim. |
+| 12 | ✅ | `16-teams-of-llm-agents...` | **Teams of LLM Agents can Exploit Zero-Day Vulnerabilities** — Fang et al. (UIUC), 2024 | 🌐 Web | Zero-day web multi-agent (HPTSA). Extends #11 to zero-day. First multi-agent web zero-day system. |
+| 13 | ✅ | `12-multi-agent-penetration...` | **MAPTA: Multi-Agent Penetration Testing AI for the Web** — David & Gervais (UCL), arXiv Aug 2025 | 🌐 Web + 🔌 API (REST partial) | Most complete open-source web pentesting framework. XBOW 104-challenge benchmark: 76.9% overall. Covers SQLi, XSS, SSRF, broken auth, SSTI. Includes REST/API fuzzing section. |
+| 14 | ✅ | `04-awe-adaptive-agents...` | **AWE: Adaptive Agents for Dynamic Web Penetration Testing** — Jaswal & Baghel (Stux Labs), **NDSS Workshop (LAST-X) 2026** | 🌐 Web | Memory-augmented, vuln-specific pipelines. 87% XSS (+30.5% over MAPTA), 66.7% blind SQLi (+33.3%). Best injection-class depth. |
+| 15 | ✅ | `20-autopt-how-far...` | **AutoPT: End2End Automated Web Penetration Testing** — Wu et al. (USTC/ACM), 2024 | 🌐 Web | First end-to-end web pentest benchmark. Penetration State Machine (PSM) — FSM-driven LLM. 22%→41% on GPT-4o mini. ACM published. |
 | 16 | ✅ | `01-hackworld-evaluating...` | **HackWorld: Evaluating Computer-Use Agents on Web Vulnerabilities** — Ren et al. (Zhejiang/NUS/Monash/CSIRO), **under review ICLR 2026** | 🌐 Web | 36-app web benchmark, 11 frameworks, 7 languages. Tests visual/GUI exploitation (CUAs). Injection flaws, auth bypasses. |
 
 ---
@@ -59,8 +59,8 @@
 
 | # | Status | File | Paper | Unique Contribution |
 |---|---|---|---|---|
-| 21 | ✅ | `64-autogen...` | **AutoGen** — Wu et al. (Microsoft Research), 2023 | Most cited multi-agent conversation framework. Direct predecessor/comparator to your orchestrator. |
-| 22 | ✅ | `65-metagpt...` | **MetaGPT: Meta Programming for Multi-Agent Frameworks** — ICLR 2024 | Role-based agents with structured SOP communication. Directly justifies your role assignment design (Recon, Web, API, Network, Orchestrator agents). |
+| 21 | ✅ | `21-autogen...` | **AutoGen** — Wu et al. (Microsoft Research), 2023 | Most cited multi-agent conversation framework. Direct predecessor/comparator to your orchestrator. |
+| 22 | ✅ | `22-metagpt...` | **MetaGPT: Meta Programming for Multi-Agent Frameworks** — ICLR 2024 | Role-based agents with structured SOP communication. Directly justifies your role assignment design (Recon, Web, API, Network, Orchestrator agents). |
 
 ---
 
@@ -79,9 +79,9 @@
 
 | # | Status | File | Paper | Surface | Why Essential |
 |---|---|---|---|---|---|
-| 23 | ✅ | `58-cybench...` | **Cybench** — Zhang et al., 2024 | All | Largest recognized cybersecurity agent benchmark. 40 professional CTF tasks. Standard baseline — CHECKMATE, D-CIPHER, and all SotA systems report here. You MUST report here too. |
-| 24 | ✅ | `47-pentesteval...` | **PentestEval** — Yang et al. (SMU/NTU), 2025 | Network + partial Web | 346-task benchmark across 6 decomposed pentest stages (NIST/PTES-aligned). Covers OWASP Top 10 + CWE Top 25 in 12 vulnerable scenarios. Only benchmark with expert-annotated stage-level ground truth. Tests PentestGPT, PentestAgent, VulnBot — directly comparable to your system. **Replaces AutoPenBench as primary network evaluation benchmark.** |
-| 25 | ✅ | `42-bountybench...` | **BountyBench** — Zhang et al. (Stanford / UC Berkeley), arXiv 2025 | Web (Bug Bounty) | Real-world web vulnerability impact in dollar terms. Bug bounty CVEs. Authors include Percy Liang, Dan Boneh, Dawn Song. Only benchmark measuring business impact of AI web agents. |
+| 23 | ✅ | `18-cybench...` | **Cybench** — Zhang et al., 2024 | All | Largest recognized cybersecurity agent benchmark. 40 professional CTF tasks. Standard baseline — CHECKMATE, D-CIPHER, and all SotA systems report here. You MUST report here too. |
+| 24 | ✅ | `15-pentesteval...` | **PentestEval** — Yang et al. (SMU/NTU), 2025 | Network + partial Web | 346-task benchmark across 6 decomposed pentest stages (NIST/PTES-aligned). Covers OWASP Top 10 + CWE Top 25 in 12 vulnerable scenarios. Only benchmark with expert-annotated stage-level ground truth. Tests PentestGPT, PentestAgent, VulnBot — directly comparable to your system. **Replaces AutoPenBench as primary network evaluation benchmark.** |
+| 25 | ✅ | `14-bountybench...` | **BountyBench** — Zhang et al. (Stanford / UC Berkeley), arXiv 2025 | Web (Bug Bounty) | Real-world web vulnerability impact in dollar terms. Bug bounty CVEs. Authors include Percy Liang, Dan Boneh, Dawn Song. Only benchmark measuring business impact of AI web agents. |
 
 
 
@@ -91,7 +91,7 @@
 
 | # | Status | File | Paper | Scope | Why This One |
 |---|---|---|---|---|---|
-| 26 | ✅ | `39-forewarned-is-forearmed...` | **"Forewarned is Forearmed": Survey on LLM-Based Agents in Autonomous Cyberattacks** — Xu et al. (NTU/Waterloo), IEEE 2025 | **VAPT-specific** | 150+ papers on LLM agents for offensive cybersecurity. Covers network, web, enterprise, multi-agent, defensive implications. NTU/Waterloo/IEEE authorship. The canonical reference for positioning CMatrix in the security literature. |
+| 26 | ✅ | `13-forewarned-is-forearmed...` | **"Forewarned is Forearmed": Survey on LLM-Based Agents in Autonomous Cyberattacks** — Xu et al. (NTU/Waterloo), IEEE 2025 | **VAPT-specific** | 150+ papers on LLM agents for offensive cybersecurity. Covers network, web, enterprise, multi-agent, defensive implications. NTU/Waterloo/IEEE authorship. The canonical reference for positioning CMatrix in the security literature. |
 | 27 | 🌐 **INTERNET ADD** | **A Survey on Large Language Model based Autonomous Agents** — Wang et al., Frontiers of Computer Science 2024 | **General agent architecture** | 3,200+ citations. Establishes the canonical 4-module agent taxonomy (Profile · Memory · Planning · Action) used as background vocabulary in every agent paper. Needed once in your Background section to ground the agent architecture framework your Commander/Agent design implements. No agent paper skips this citation. |
 
 ---
