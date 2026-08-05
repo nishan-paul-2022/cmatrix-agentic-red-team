@@ -2,6 +2,8 @@
 
 **Authors:** He Kong$^{1,2}$, Die Hu$^{1,2}$, Jingguo Ge$^{1,2}$, Liangxiong Li$^{1}$, Tong Li$^{1}$, and Bingzhen Wu$^{1}$
 
+**arXiv:** 2501.13411v1 [cs.SE] 23 Jan 2025
+
 **Affiliations:**
 - $^1$ State Key Laboratory of Cyberspace Security Defense, Institute of Information Engineering, Chinese Academy of Sciences
 - $^2$ School of Cyber Security, University of Chinese Academy of Sciences
@@ -260,6 +262,32 @@ graph TD
 ```
 *Figure 3: The process of generating Penetration Task Graph (PTG). The green circle represents the current task being executed, while the dark circle indicates that the task has been successfully completed.*
 
+The left side of Figure 3 shows an example task list in JSON format:
+
+```json
+{
+  "id": "1", "dependencies": [],
+  "instruction": "Use the credentials (wavex:door+open) to SSH into the target machine (IP: 192.168.1.104, Port: 22).",
+  "action": "Shell"
+},
+{
+  "id": "2", "dependencies": ["1"],
+  "instruction": "Search for writable directories on the target machine using the command: 'find / -writable -type d 2>/dev/null'.",
+  "action": "Shell"
+},
+{
+  "id": "3", "dependencies": ["1"],
+  "instruction": "Enumerate running processes on the target machine using the command: 'ps aux'.",
+  "action": "Shell"
+},
+...
+{
+  "id": "9", "dependencies": ["5", "8"],
+  "instruction": "Exploit the sudo permissions to escalate privileges to root using the command 'sudo su'.",
+  "action": "Shell"
+}
+```
+
 The PTG is designed such that each task is dependent on one or more preceding tasks. This structure ensures that tasks are organized to facilitate efficient sequencing and execution, thereby maintaining a logical and systematic order throughout the penetration testing process. As depicted in Figure 3, an example of a PTG is presented. On the left side, a task list is provided in JSON format, detailing each task along with its dependencies, instructions, and actions. For instance, Task 1 involves using specific credentials to SSH into a target machine located at IP address 192.168.1.104 on port 22. Subsequent tasks, such as searching for writable directories (Task 2) and enumerating running processes (Task 3), are contingent upon the successful completion of Task 1. The right side of the figure illustrates these tasks in a dependency graph, where each node represents a task, and the arrows indicate the dependencies between them. This visual representation elucidates the sequence and interdependencies of tasks, ensuring that each step is executed only after its prerequisites have been satisfied. This structured approach enhances the efficiency and effectiveness of the penetration testing process by systematically guiding the system through each required action.
 
 #### 3.3.2 🔄 Check and Reflection Mechanism
@@ -270,33 +298,35 @@ The Task Session evaluates the results of task execution and updates the task su
 
 To facilitate this process, we employ the Merge Plan Algorithm (Algorithm 1), which integrates new tasks into the existing plan while preserving completed tasks and their dependencies. The algorithm first identifies completed tasks that are not present in the new task list and adds them to the merged plan. It then processes new tasks, updating their sequences and dependencies if they already exist in the completed tasks, or creating new tasks if they do not.
 
-```python
-#### 🔄 Algorithm 1: Merge Plan Algorithm
-def Merge_Plan(newTasks, oldTasks):
-    # Input: newTasks (List of new tasks), oldTasks (List of old tasks)
-    # Output: mergedTasks (List of merged tasks)
-    
-    completedTasks = GETCOMPLETEDTASKS(oldTasks)
-    mergedTasks = []
-    
-    # Step 1: Add completed tasks not in the new task list
-    for task in completedTasks:
-        if not EXISTSIN(task, newTasks):
-            mergedTasks.append(task)
-            
-    # Step 2: Process new tasks and merge with completed tasks
-    for newTask in newTasks:
-        task = GETTASK(newTask, completedTasks)
-        
-        if task is not None:
-            UPDATESEQUENCE(task)
-            UPDATEDEPENDENCIES(task)
-        else:
-            task = CREATENEWTASK(newTask)
-            
-        mergedTasks.append(task)
-        
-    return mergedTasks
+**Algorithm 1: Merge Plan Algorithm**
+
+```
+Input:
+  newTasks  (List of new tasks)
+  oldTasks  (List of old tasks)
+Output:
+  mergedTasks  (List of merged tasks)
+
+1:  completedTasks ← GETCOMPLETEDTASKS(oldTasks)
+2:  mergedTasks ← []
+    // Step 1: Add completed tasks not in the new task list
+3:  for all task ∈ completedTasks do
+4:      if EXISTSIN(task, newTasks) = false then
+5:          mergedTasks ← mergedTasks ∪ {task}
+6:      end if
+7:  end for
+    // Step 2: Process new tasks and merge with completed tasks
+8:  for all newTask ∈ newTasks do
+9:      task ← GETTASK(newTask, completedTasks)
+10:     if task ≠ null then
+11:         UPDATESEQUENCE(task)
+12:         UPDATEDEPENDENCIES(task)
+13:     else
+14:         task ← CREATENEWTASK(newTask)
+15:     end if
+16:     mergedTasks ← mergedTasks ∪ {task}
+17: end for
+18: return mergedTasks
 ```
 
 ### 3.4 💬 Inter-Agent Communication
@@ -391,7 +421,14 @@ The overall task completion rates across different models are summarized in Tabl
 
 The subtask completion rates for both single and multiple experiments are presented in Table 3. As shown, both VulnBot-Llama models outperform their baseline counterparts. The Llama3.1-405B model achieves a 69.05% completion rate in the single experiment setting and 49.90% in the aggregated five-experiment setting. In contrast, the baseline Llama3.1-405B model achieves 49.05% and 24.76% in the single and five-experiment settings, respectively.
 
-*(Figure 4 depicts failure counts in Reconnaissance, Scanning, Exploitation, and Finish stages across models. VulnBot models show significantly fewer early-stage failures compared to base models.)*
+*Figure 4: The failure counts of VulnBot and baseline models across the Reconnaissance, Scanning, and Exploitation phases.*
+
+| Phase | Base-Llama3.3-70B | VulnBot-Llama3.3-70B | Base-Llama3.1-405B | VulnBot-Llama3.1-405B |
+| :--- | :---: | :---: | :---: | :---: |
+| **Reconnaissance** | 41 | 71 | 47 | 9 |
+| **Scanning** | 56 | 49 | 58 | 32 |
+| **Exploitation** | 93 | 93 | 40 | 105 |
+| **Finish** | 10 | 13 | 7 | 19 |
 
 Furthermore, Figure 4 highlights the failure counts per stage in penetration testing for various models. In the Reconnaissance and Scanning phases, VulnBot-Llama3.1-405B consistently demonstrates the fewest errors, with 9 and 32 failures respectively, outperforming other models. The significant reduction in failures, particularly during the Reconnaissance phase, suggests that Llama3.1-405B allows for a smoother progression through the early stages of penetration testing. This advantage effectively pushes the testing process forward, enabling subsequent stages to be approached with a more accurate understanding of the system, which could lead to a more comprehensive and efficient exploitation process. The superior performance of VulnBot-Llama3.1-405B is further evidenced by the higher number of tasks reaching the Finish stage, with 19 successful completions compared to 7 for the baseline Llama3.1-405B model. This substantial improvement in the Finish rate underscores the effectiveness of our framework in driving the penetration testing process closer to completion. By reducing errors in the early stages and ensuring a more accurate and efficient progression through the workflow, VulnBot increases the likelihood of successfully concluding the testing process. However, challenges persist in the Exploitation phase, where VulnBot exhibits higher failure rates compared to other phases. Specifically, VulnBot-Llama3.3-70B experiences 93 failed tasks, while VulnBot-Llama3.1-405B encounters 105 failed tasks in this phase. This discrepancy underscores the inherent complexity of the Exploitation phase and suggests that further refinement is necessary to address the intricacies of this critical stage. Nevertheless, by strategically delaying the automation of penetration testing to later stages, VulnBot ensures that critical subtasks are executed with greater precision, thereby increasing the likelihood of completing the testing process.
 
@@ -402,7 +439,12 @@ In this section, we evaluate the impact of key architectural components by condu
 2.  **VulnBot-without PTG:** The Penetration Task Graph (PTG) is removed, eliminating the structured task planning and dependency management.
 3.  **VulnBot-without Summarizer:** The Summarizer module is disabled, preventing inter-agent communication and context summarization.
 
-*(Figure 5 illustrates the ablation study, showing significant performance drops when each component is removed, particularly the Summarizer.)*
+*Figure 5: Ablation study of VulnBot on AUTOPENBENCH. This figure demonstrates the impact of removing key components—role specialization, the PTG, and the Summarizer—on model performance.*
+
+| Metric | VulnBot | VulnBot-without Role | VulnBot-without PTG | VulnBot-without Summarizer |
+| :--- | :---: | :---: | :---: | :---: |
+| **Subtask Success Rate** | 55 | 32 | 37 | 27 |
+| **Overall Task Success Rate** | 3 | 0 | 0 | 0 |
 
 Figure 5 illustrates the performance degradation observed when these essential components are removed. Our findings reveal that each component plays a critical role in enhancing model performance. Specifically, the removal of role specialization results in a significant decline in performance, with subtask success rates dropping from 55 to 32. Similarly, omitting the PTG leads to a reduction in the subtask success rate, decreasing to 37. The most substantial performance decline occurs when the Summarizer is removed, reducing the subtask success rate to just 27. Furthermore, the overall task success rate is entirely eliminated when any of these components are removed. These results underscore the critical importance of role specialization, PTG, and the Summarizer in achieving high performance on penetration testing tasks. The ablation study highlights that the synergistic interaction of these components is vital for the model's success in both subtasks and overall task completion. This finding aligns with the broader trend in multi-agent systems, where effective role allocation, task planning, and communication are essential for complex, real-world applications.
 
@@ -410,15 +452,33 @@ Figure 5 illustrates the performance degradation observed when these essential c
 
 To evaluate the practical applicability of our models, we conducted five rounds of experiments on a selection of real-world targets from the AI-Pentest-Benchmark, which includes 13 vulnerable machines. We selected six machines for this evaluation, focusing on penetration tasks that did not involve image observation or human intervention. The experiments were conducted using two models: Llama3.1-405B with a 128k context and DeepSeek-v3 with a 64k context. The task completion rates were calculated based on the successful completion of subtasks as defined by the AI-Pentest-Benchmark. For each machine, the reported completion rate represents the best performance achieved across the five experimental runs.
 
-*(Figure 6 depicts completion rates across 6 machines: Victim1, Library2, Sar, WestWild, Symfonos2, Funbox. VulnBot models lead across the board.)*
+*Figure 6: The performance of VulnBot over the real-world machines.*
+
+| Machine | VulnBot-Llama3.1-405B | PentestGPT-Llama3.1-405B | Base-Llama3.1-405B | VulnBot-DeepSeek-v3 | PentestGPT-DeepSeek-v3 | Base-DeepSeek-v3 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Victim1** | 0.33 | 0.17 | 0.17 | 0.83 | 0.50 | 0.00 |
+| **Library2** | 0.40 | 0.20 | 0.20 | 0.50 | 0.20 | 0.20 |
+| **Sar** | 0.27 | 0.27 | 0.09 | 0.27 | 0.27 | 0.14 |
+| **WestWild** | 0.57 | 0.14 | 0.14 | 0.71 | 0.57 | 0.14 |
+| **Symfonos2** | 0.29 | 0.21 | 0.29 | 0.57 | 0.57 | 0.44 |
+| **Funbox** | 0.33 | 0.21 | 0.22 | 0.29 | 0.22 | 0.44 |
 
 Figure 6 illustrates the subtask completion rates across these machines, with a value of 1 indicating a successful penetration. The results demonstrate that VulnBot-Llama3.1-405B consistently outperforms its counterparts, achieving the highest completion rates on Victim1 (0.33), Library2 (0.40), and WestWild (0.57). Similarly, VulnBot-DeepSeek-v3 demonstrated competitive performance, with completion rates of 0.83 on Victim1 and 0.71 on WestWild. These findings highlight VulnBot's superior capability in handling complex, multi-step attack chains, which are critical in real-world penetration testing scenarios. The consistent performance of VulnBot across diverse machines underscores its robustness and adaptability, making it a reliable tool for practical cybersecurity applications.
 
 ### 5.4 🧠 Retrieval Augmented Generation (RQ4)
 
-To further investigate whether prior penetration knowledge can enhance the performance of our framework, we integrated the Memory Retriever module into the Llama3.1-405B model, which supports a 128k context window. This integration leverages RAG to improve the model's contextual understanding and task-specific optimization. In this experiment, we evaluated the performance of three distinct systems: Llama3.1-405B with RAG, GPT-4o with Manual, and Llama3.1-405B with Manual. The data for GPT-4o and Llama3.1 with Manual were obtained from [33], where human operators utilized PentestGPT tools. To augment the contextual knowledge of native LLMs, we incorporated content from cybersecurity resources such as Hack Tricks [26] and Hacking Articles [6]. This content was segmented into 750-word chunks, and the resulting embeddings were stored in the Milvus vector database [40] for efficient retrieval. This approach enables the system to dynamically retrieve relevant historical data and prior knowledge, thereby mitigating the hallucination problem often encountered with LLMs.
+To further investigate whether prior penetration knowledge can enhance the performance of our framework, we integrated the Memory Retriever module into the Llama3.1-405B model, which supports a 128k context window. This integration leverages RAG to improve the model's contextual understanding and task-specific optimization. In this experiment, we evaluated the performance of three distinct systems: Llama3.1-405B with RAG, GPT-4o with Manual, and Llama3.1-405B with Manual. The data for GPT-4o and Llama3.1 with Manual were obtained from [33], where human operators utilized PentestGPT tools. To augment the contextual knowledge of native LLMs, we incorporated content from cybersecurity resources such as HackTricks [26] and HackingArticles [6]. This content was segmented into 750-word chunks, and the resulting embeddings were stored in the Milvus vector database [40] for efficient retrieval. This approach enables the system to dynamically retrieve relevant historical data and prior knowledge, thereby mitigating the hallucination problem often encountered with LLMs.
 
-*(Figure 7 shows comparative performance with and without RAG. Llama3.1-405B with RAG achieves high scores, maxing out on WestWild.)*
+*Figure 7: Performance comparison of VulnBot with Memory Retriever module.*
+
+| Machine | Llama3.1-405B with RAG | GPT-4o with Manual | Llama3.1-405B with Manual |
+| :--- | :---: | :---: | :---: |
+| **Victim1** | 0.83 | 0.67 | 0.33 |
+| **Library2** | 0.80 | 0.60 | 0.50 |
+| **Sar** | 0.73 | 0.55 | 0.55 |
+| **WestWild** | 1.00 | 0.57 | 0.57 |
+| **Symfonos2** | 0.56 | 0.43 | 0.29 |
+| **Funbox** | 0.56 | 0.43 | 0.33 |
 
 Figure 7 illustrates the task completion rates of these models across six real-world machines. The results demonstrate that integrating the Memory Retriever module significantly enhances performance on specific machines, particularly Victim1 and WestWild. Notably, VulnBot successfully executed an end-to-end penetration of the West Wild machine, showcasing its ability to complete complex tasks autonomously. These findings highlight the advantages of retrieval-augmented approaches in improving the contextual understanding and task-specific optimization of penetration testing models. The integration of the Memory Retriever module not only enhances the model's ability to retrieve and utilize relevant information but also improves its overall performance in real-world penetration testing scenarios, achieving performance comparable to or even surpassing that of human operators.
 

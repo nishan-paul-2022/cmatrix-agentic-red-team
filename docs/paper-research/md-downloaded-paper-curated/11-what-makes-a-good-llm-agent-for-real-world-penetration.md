@@ -224,27 +224,27 @@ We present PENTESTGPT v2, designed around the analysis in §3.3 to address both 
 ```mermaid
 flowchart LR
     subgraph Input
-        A[Attack Target as tree structure]
+        A["Attack Target as tree structure"]
     end
-    subgraph Excalibur_Agent [Excalibur Agent]
-        subgraph Planner [TDA-EGATS Planner (§4.3-4.4)]
-            B[Task Difficulty Assessment: H Horizon, E Evidence, C Context, S Success]
-            C[EGATS Operations]
-            D[Attack Tree EGATS]
-            E[TDI-Guided Mode: BFS, LLM, DFS]
+    subgraph Excalibur_Agent ["Excalibur Agent"]
+        subgraph Planner ["TDA-EGATS Planner (§4.3-4.4)"]
+            B["Task Difficulty Assessment: H Horizon, E Evidence, C Context, S Success"]
+            C["EGATS Operations"]
+            D["Attack Tree EGATS"]
+            E["TDI-Guided Mode: BFS, LLM, DFS"]
             B --> C
             C --> D
             E --> D
         end
-        subgraph Memory [Memory Subsystem (§4.5)]
-            F[State]
-            G[Context]
-            H[Branch Summaries]
+        subgraph Memory ["Memory Subsystem (§4.5)"]
+            F["State"]
+            G["Context"]
+            H["Branch Summaries"]
         end
-        subgraph Tools [Tool & Skill Layer (§4.2)]
-            I[Attack Goal]
-            J[Tool Interfaces]
-            K[Skill Composition]
+        subgraph Tools ["Tool & Skill Layer (§4.2)"]
+            I["Attack Goal"]
+            J["Tool Interfaces"]
+            K["Skill Composition"]
             I --> J
             I --> K
         end
@@ -252,9 +252,9 @@ flowchart LR
         D -->|2| I
     end
     subgraph Output
-        L[Execution Results]
-        M[Attack Instruction]
-        N[Results: Attack Path Completed]
+        L["Execution Results"]
+        M["Attack Instruction"]
+        N["Results: Attack Path Completed"]
         M -->|Execution| L
     end
     
@@ -262,7 +262,6 @@ flowchart LR
     Tools -->|3| M
     L -.->|4| Planner
     M --> N
-
 ```
 
 *(Figure 2 details the TDA-EGATS Planner addressing Type B failures via Upper Confidence Bound (UCB) selection, TDI-guided switching, and evidence-based pruning. The Tool & Skill Layer handles Type A gaps. The Memory Subsystem enables context injection based on tree position.)*
