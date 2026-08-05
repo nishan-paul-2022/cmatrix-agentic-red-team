@@ -156,7 +156,7 @@ These issues cascade into **chain errors**: agents complete individual attack st
 
 The distribution of failure types varies systematically with task complexity. On XBOW, where tasks typically require 1-3 steps, Type A failures dominate (68% of failures resolve with improved tooling). On GOAD, where successful attacks require chaining 5-10 steps across multiple hosts, Type B failures dominate (79% of failures persist regardless of tooling improvements). Figure 1 visualizes this relationship: Type A failures concentrate in short-horizon tasks while Type B failures dominate in task depth beyond 5 steps. Table 3 summarizes the failure mode distribution.
 
-**Figure 1: Failure Distribution by Task Depth**
+**Figure 1: Failure type distribution by the task depth**, measured as the number of distinct exploitation steps required for task completion.
 
 ```mermaid
 pie title Failure Type Distribution at Complexity Threshold (Approx 5 Steps)
@@ -585,7 +585,7 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 [5] Anthropic. Model context protocol. https://modelcontextprotocol.io/, 2024. An open protocol for connecting AI assistants to external data sources and tools, released November 2024.
 
-[6] Rémi Coulom. Efficient selectivity and backup operators in Monte-Carlo tree search. In Computers and Games: 5th International Conference, CG 2006, Turin, Italy, May 29-31, 2006. Revised Papers 5, pages 72-83. Springer, 2007.
+[6] Rémi Coulom. Efficient selectivity and backup operators in Monte-Carlo tree search. In Computers and Games: 5th International Conference, CG 2006, Turin, Italy, May 29-31, 2006. Revised Papers 5, pages 72-83. Springer, 2007. URL: https://link.springer.com/chapter/10.1007/978-3-540-75538-8_7, doi:10.1007/978-3-540-75538-8_7.
 
 [7] Isaac David and Arthur Gervais. Multi-agent penetration testing ai for the web. arXiv preprint arXiv:2508.20816, 2025.
 
@@ -605,7 +605,7 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 [15] Carlos E Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik R Narasimhan. SWE-bench: Can language models resolve real-world github issues? In The Twelfth International Conference on Learning Representations, 2024.
 
-[16] Levente Kocsis and Csaba Szepesvári. Bandit based Monte-Carlo planning. In Machine Learning: ECML 2006: 17th European Conference on Machine Learning, Berlin, Germany, September 18-22, 2006. Proceedings 17, pages 282-293. Springer, 2006.
+[16] Levente Kocsis and Csaba Szepesvári. Bandit based Monte-Carlo planning. In Machine Learning: ECML 2006: 17th European Conference on Machine Learning, Berlin, Germany, September 18-22, 2006. Proceedings 17, pages 282-293. Springer, 2006. URL: https://link.springer.com/chapter/10.1007/11871842_29, doi:10.1007/11871842_29.
 
 [17] He Kong, Die Hu, Jingguo Ge, Liangxiong Li, Tong Li, and Bingzhen Wu. VulnBot: Autonomous penetration testing for a multi-agent collaborative framework. arXiv preprint arXiv:2501.13411, 2025.
 
@@ -613,9 +613,9 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 [19] Phung Duc Luong, Le Tran Gia Bao, Nguyen Vu Khai Tam, Dong Huu Nguyen Khoa, Nguyen Huu Quyen, Van-Hau Pham, and Phan The Duy. xOffense: An AI-driven autonomous penetration testing framework with offensive knowledge-enhanced LLMs and multi agent systems. arXiv preprint arXiv:2509.13021, 2025.
 
-[20] Wuyuao Mai, Geng Hong, Qi Liu, Jinsong Chen, Jiarun Dai, Xudong Pan, Yuan Zhang, and Min Yang. Shell or nothing: Real-world benchmarks and memory-activated agents for automated penetration testing, 2025. arXiv:2509.09207.
+[20] Wuyuao Mai, Geng Hong, Qi Liu, Jinsong Chen, Jiarun Dai, Xudong Pan, Yuan Zhang, and Min Yang. Shell or nothing: Real-world benchmarks and memory-activated agents for automated penetration testing, 2025. URL: https://arxiv.org/abs/2509.09207, arXiv:2509.09207.
 
-[21] Iman Mirzadeh, Keivan Alizadeh, Hooman Shahrokhi, Oncel Tuzel, Samy Bengio, and Mehrdad Farajtabar. Gsm-symbolic: Understanding the limitations of mathematical reasoning in large language models, 2025. arXiv:2410.05229.
+[21] Iman Mirzadeh, Keivan Alizadeh, Hooman Shahrokhi, Oncel Tuzel, Samy Bengio, and Mehrdad Farajtabar. Gsm-symbolic: Understanding the limitations of mathematical reasoning in large language models, 2025. URL: https://arxiv.org/abs/2410.05229, arXiv:2410.05229.
 
 [22] Lajos Muzsai, David Imolai, and András Lukács. Hacksynth: Llm agent and evaluation framework for autonomous penetration testing. arXiv preprint arXiv:2412.01778, 2024.
 
@@ -623,25 +623,25 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 [24] Sho Nakatani. Rapidpen: Fully automated ip-to-shell penetration testing with llm-based agents. arXiv preprint arXiv:2502.16730, 2025.
 
-[25] Orange Cyberdefense. GOAD game of active directory. https://github.com/Orange-Cyberdefense/GOAD, 2024.
+[25] Orange Cyberdefense. GOAD - game of active directory. https://github.com/Orange-Cyberdefense/GOAD, 2024. A pentest Active Directory LAB project providing vulnerable AD environments for practicing attack techniques.
 
-[26] OWASP Foundation. OWASP web security testing guide. https://owasp.org/www-project-web-security-testing-guide/, 2021.
+[26] OWASP Foundation. OWASP web security testing guide. https://owasp.org/www-project-web-security-testing-guide/, 2021. Version 4.2. Comprehensive guide to testing the security of web applications and web services.
 
-[27] Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Memgpt: Towards llms as operating systems, 2024. arXiv:2310.08560.
+[27] Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Memgpt: Towards llms as operating systems, 2024. URL: https://arxiv.org/abs/2310.08560, arXiv:2310.08560.
 
-[28] PTES Technical Guideline Development Team. Penetration testing execution standard (PTES). http://www.pentest-standard.org, 2012.
+[28] PTES Technical Guideline Development Team. Penetration testing execution standard (PTES). http://www.pentest-standard.org, 2012. A comprehensive standard for conducting penetration tests, defining seven main phases from pre-engagement to reporting.
 
 [29] Minghao Shao, Boyuan Chen, Sofija Jancheska, Brendan Dolan-Gavitt, Siddharth Garg, Ramesh Karri, and Muhammad Shafique. An empirical evaluation of LLMs for solving offensive security challenges. arXiv preprint arXiv:2402.11814, 2024.
 
 [30] Xiangmin Shen, Lingzhi Wang, Zhenyuan Li, Yan Chen, Wencheng Zhao, Dawei Sun, Jiashui Wang, and Wei Ruan. PentestAgent: Incorporating LLM agents to automated penetration testing. In Proceedings of the 20th ACM Asia Conference on Computer and Communications Security (ASIA CCS '25), pages 375-391. ACM, 2025.
 
-[31] Georg Wölflein, Dyke Ferber, Daniel Truhn, Ognjen Arandjelovic, and Jakob Nikolas Kather. LLM agents making agent tools. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, pages 26092-26130, Vienna, Austria, July 2025. Association for Computational Linguistics.
+[31] Georg Wölflein, Dyke Ferber, Daniel Truhn, Ognjen Arandjelovic, and Jakob Nikolas Kather. LLM agents making agent tools. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics, pages 26092-26130, Vienna, Austria, July 2025. Association for Computational Linguistics. URL: https://aclanthology.org/2025.acl-long.1266/, doi:10.18653/v1/2025.acl-long.1266.
 
 [32] Benlong Wu, Guoqiang Chen, Kejiang Chen, Xiuwei Shang, Jiapeng Han, Yanru He, Weiming Zhang, and Nenghai Yu. AutoPT: How far are we from the end2end automated web penetration testing? arXiv preprint arXiv:2411.01236, 2024.
 
-[33] Qiusi Zhan, Richard Fang, Henil Shalin Panchal, and Daniel Kang. Adaptive attacks break defenses against indirect prompt injection attacks on llm agents, 2025. arXiv:2503.00061.
+[33] Qiusi Zhan, Richard Fang, Henil Shalin Panchal, and Daniel Kang. Adaptive attacks break defenses against indirect prompt injection attacks on llm agents, 2025. URL: https://arxiv.org/abs/2503.00061, arXiv:2503.00061.
 
-[34] Shuyan Zhou, Frank F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar, Xianyi Cheng, Yonatan Bisk, Daniel Fried, Uri Alon, et al. Webarena: A realistic web environment for building autonomous agents. In The Twelfth International Conference on Learning Representations (ICLR), 2024.
+[34] Shuyan Zhou, Frank F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar, Xianyi Cheng, Yonatan Bisk, Daniel Fried, Uri Alon, et al. Webarena: A realistic web environment for building autonomous agents. In The Twelfth International Conference on Learning Representations (ICLR), 2024. URL: https://openreview.net/forum?id=oKn9c6ytLx.
 
 ---
 
@@ -689,62 +689,45 @@ Table 10 presents the complete list of 28 candidate systems identified in our su
 ### 🔧 B Tool and Skill Layer: Supported Tools
 Table 11 lists the 38 security tools integrated into PENTESTGPT v2's Tool and Skill Layer. Each tool is exposed through a typed interface specifying input parameters, output schema, and pre/postconditions. Tool selection reflects standard penetration testing methodology and aligns with tools commonly used in professional certifications (e.g., OSCP) and real-world assessments.
 
-**Table 11: Security tools integrated into PENTESTGPT v2.**
+**Table 11: Security tools integrated into PENTESTGPT v2.** Each tool has a typed interface specifying input schema, output parsing, and execution constraints.
 
 | Category | Tool | Description |
 | :--- | :--- | :--- |
-
 | Reconnaissance | nmap | Network discovery, port/service scanning, OS fingerprinting |
 | | masscan | High-speed port scanner for large networks |
-
 | | gobuster | Directory/DNS bruteforcing for web discovery |
 | | ffuf | Web fuzzer for directories, parameters, vhosts |
-
 | | feroxbuster | Recursive web content discovery |
 | | nikto | Web server vulnerability scanner |
-
 | | whatweb | Web technology fingerprinting |
 | | enum4linux | SMB/Samba enumeration (users, shares, OS) |
-
 | Web Exploitation | sqlmap | SQL injection detection and exploitation |
 | | burpsuite | Web proxy for traffic interception and testing |
-
 | | zap | OWASP web vulnerability scanner |
 | | wfuzz | Web fuzzer for parameters and authentication |
-
 | | commix | Command injection exploitation |
 | | nuclei | Template-based CVE and misconfiguration scanner |
-
 | Network Exploitation | metasploit | Exploitation framework with pre/post-exploitation modules |
 | | netcat | TCP/UDP networking utility |
-
 | | crackmapexec | Windows/AD post-exploitation toolkit |
 | | responder | LLMNR/NBT-NS poisoner for credential capture |
-
 | | evil-winrm | WinRM shell with pass-the-hash support |
 | | chisel | HTTP tunneling for network pivoting |
 | | proxychains | SOCKS/HTTP proxy routing for pivoting |
-
 | Credential Attacks | hashcat | GPU password cracker (300+ hash types) |
 | | john | Rule-based password cracker |
-
 | | hydra | Online bruteforcing (50+ protocols) |
 | | impacket | Protocol library (secretsdump, psexec, wmiexec) |
 | | kerbrute | Kerberos user enumeration and password spraying |
-
 | Active Directory | bloodhound | AD attack path visualization via graph analysis |
 | | sharphound | BloodHound data collector |
 | | rubeus | Kerberos attack toolkit (roasting, tickets) |
-
-| Privilege Escalation | mimikatz | Memory credential extraction |
+| | mimikatz | Memory credential extraction |
 | | powerview | AD enumeration PowerShell tool |
-
 | | ldapdomaindump | LDAP data extraction |
 | | pingcastle | AD security assessment and risk scoring |
-
 | | adrecon | AD reconnaissance reporting |
-| | linpeas | Linux privesc enumeration |
-
+| Privilege Escalation | linpeas | Linux privesc enumeration |
 | | winpeas | Windows privesc enumeration |
 | | pspy | Linux process monitor (cron, scheduled tasks) |
 | | seatbelt | Windows security auditing |
@@ -764,7 +747,7 @@ where $e(n_i)$ is the confidence score assigned to node $n_i$ based on Table 12.
 
 **Example.** Consider a path: port scan → web server (nginx 1.18) → directory bruteforce → login form discovered → SQL injection confirmed. Evidence scores are: 0.3 (service identified), 0.5 (version-matched to known nginx vulnerabilities), 0.3 (endpoint exists), 0.8 (injection confirmed). Path confidence $E = (0.3+0.5+0.3+0.8)/4 = 0.475$, indicating moderate confidence appropriate for transitioning from reconnaissance to exploitation.
 
-**Table 12: Evidence confidence scoring rubric.**
+**Table 12: Evidence confidence scoring rubric.** Scores are assigned based on the strongest evidence type at each node; when multiple evidence types are present, the highest applicable score is used.
 
 | Evidence Type | Score | Indicators |
 | :--- | :--- | :--- |
@@ -827,7 +810,7 @@ The intermediate zone ($\theta_{exploit} \le TDI \le \theta_{explore}$) triggers
 #### 📌 D.4 Pruning Parameters
 The pruning threshold ($\theta_{prune}=0.8$) and minimum attempts ($k_{min}=3$) prevent both premature and excessively delayed pruning.
 
-**Table 15: Pruning parameter sensitivity.**
+**Table 15: Pruning parameter sensitivity.** Metrics: subtask completion (%), branches incorrectly pruned (%), wasted attempts on intractable branches (mean count).
 
 | $\theta_{prune}$ | $k_{min}$ | Completion | False Prune | Wasted |
 | :--- | :--- | :--- | :--- | :--- |
