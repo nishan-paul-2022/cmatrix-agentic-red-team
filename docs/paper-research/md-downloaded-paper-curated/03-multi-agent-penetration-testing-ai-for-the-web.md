@@ -251,6 +251,8 @@ Each MAPTA sandbox agent runs in its own thread for parallelization, while accou
 
 The tracker enables budget caps (cost/time/tool-call limits), early stopping when success likelihood drops, and graceful teardown on limit hit. Empirically, negative correlations are observed between success and resource use (tools, tokens, cost, and time) (see §3.3).
 
+Summarizing, MAPTA separates orchestration (Coordinator) from acting (Sandbox) and verifying (Validation), maintains context isolation for agent cognition while sharing a single Docker runtime per job, and enforces measure-first engineering through resource tracking and controlled teardown.
+
 ---
 
 ## 3. CTF Evaluation
@@ -353,9 +355,29 @@ While these correlations are statistically significant with substantial effect s
 * **Figure 6 — Command Usage Heatmap:** Heatmap of command frequencies across challenges Ch1–Ch104. `curl` displays the darkest, most consistent coloring, confirming HTTP dominance; `bash` displays secondary concentration.
 * **Figure 8 — Resource Utilization Violins:** Across all metrics (Time, Cost, Tokens, Tool Calls), the **Failed** distribution is visibly wider and shifted toward higher resource consumption than the **Solved** distribution.
 
+> 📌 **Original Caption (Figure 8)**
+> Correlation analysis between challenge success and resource utilization metrics. Negative correlations indicate that successful challenges are solved efficiently, while failed attempts involve higher costs.
+
 ---
 
 ### 3.4 Vulnerability Category Performance
+
+Figure 7 presents MAPTA's performance across 13 distinct vulnerability categories using the complete 104-challenge XBOW dataset. The Sankey flow visualization reveals both overall success patterns and category-specific performance characteristics that inform system optimization strategies.
+
+#### Figure 7 — Vulnerability Category Distribution
+
+> 📌 **Original Caption**
+> Vulnerability category distribution across 104 XBOW challenges. 13 categories spanning 8/10 OWASP Top-10 (2021) (A01–A07, A10); excluding A08/A09.
+
+**Overall Performance.** MAPTA achieved a success rate of 76.9% (80/104 challenges), demonstrating performance across diverse vulnerability types. This performance approaches XBOW's reported 84.6% coverage in July 2024, achieving within 7.7 percentage points of the commercial system's claimed performance. Notably, XBOW has not published detailed methodology, system architecture, or reproducible evaluation protocols beyond high-level blog posts with sample prompts, making independent verification impossible. In contrast, MAPTA provides transparency with open-source implementation, detailed architectural descriptions, and evaluation methodology. To the authors' knowledge, MAPTA represents the first open-source penetration testing AI system achieving competitive performance with commercial alternatives while maintaining scientific reproducibility.
+
+**Injection Vulnerability Performance.** The analysis reveals nuanced performance across injection vulnerability subtypes. Server-Side Template Injection (SSTI) shows exceptional performance with an 85% success rate (11/13 challenges), indicating MAPTA's capability in template injection analysis. SQL Injection maintains high success at 83% (5/6 challenges), while Command Injection achieves 75% success (6/8 challenges). However, Cross-Site Scripting (XSS) demonstrates lower success at 57% (13/23 challenges) despite being the largest category, and Blind SQL Injection shows 0% success rate (0/3 challenges), representing the most challenging category for the current system.
+
+**Authorization and Authentication.** Broken Authorization challenges achieve an 83% success rate (24/29 challenges), demonstrating capability in identifying IDOR, path traversal, and privilege escalation vulnerabilities. However, Broken Authentication shows lower performance at 33% success (1/3 challenges), indicating areas for improvement in authentication bypass techniques.
+
+**High-Performance Categories.** Several categories demonstrate perfect or near-perfect success rates: Server-Side Request Forgery (100%, 3/3), Misconfiguration (100%, 3/3), Sensitive Data Exposure (100%, 2/2), and Cryptographic vulnerabilities (100%, 1/1). These results indicate MAPTA's capability in network-based attacks.
+
+**Performance Insights.** The category-specific analysis reveals that MAPTA excels at vulnerabilities requiring systematic analysis and tool-based discovery (SSRF, misconfigurations, SQL injection) but struggles with vulnerabilities requiring complex payload crafting or timing-based analysis (blind SQL injection, certain XSS variants). This performance pattern suggests optimization opportunities through enhanced payload generation and feedback-based exploration strategies.
 
 MAPTA achieved an overall success rate of **76.9% (80/104 challenges)** across 13 distinct vulnerability categories.
 
@@ -369,7 +391,7 @@ flowchart LR
     Succ --> SSTI["Server-Side Template\nInjection: 11/13 (85%)"]
     Succ --> CI["Command Injection\n6/8 (75%)"]
     Succ --> SQLi["SQL Injection\n5/6 (83%)"]
-    Succ --> ID["Insecure Design\n(subset)"]
+    Succ --> ID["Insecure Design\n(of 7 total)"]
     Succ --> BAuth["Broken Authentication\n1/3 (33%)"]
     Succ --> Misc["Misconfiguration\n3/3 (100%)"]
     Succ --> SSRF["SSRF\n3/3 (100%)"]
@@ -383,8 +405,11 @@ flowchart LR
     Fail --> SQLi
     Fail --> BSQLi["Blind SQL Injection\n0/3 (0%)"]
     Fail --> BAuth
-    Fail --> VC["Vulnerable Component"]
+    Fail --> ID
+    Fail --> VC["Vulnerable Component\n(of 3 total)"]
 ```
+
+Note: Figure 7's Sankey diagram also includes **Insecure Design (A04, 7 challenges)** and **Vulnerable Component (A06, 3 challenges)** among the 13 categories; the paper's narrative text does not report an explicit solved/total split for these two categories.
 
 #### Category Performance Summary
 
@@ -401,22 +426,26 @@ flowchart LR
 | **Cross-Site Scripting (XSS)** | 13 / 23 | **57%** | A03 |
 | **Broken Authentication** | 1 / 3 | **33%** | A07 |
 | **Blind SQL Injection** | 0 / 3 | **0%** | A03 |
+| **Insecure Design** | — / 7 | *(not reported)* | A04 |
+| **Vulnerable Component** | — / 3 | *(not reported)* | A06 |
 
 ---
 
 ### 3.5 Failure Analysis
 
-Analysis of the 24 failed challenges (23.1% of the dataset) reveals specific patterns:
+Analysis of the 24 failed challenges (23.1% of the dataset) reveals specific patterns and areas for improvement in autonomous penetration testing. Failed challenges consumed significantly higher computational resources, with maximum execution times reaching 1428.7 seconds and higher average costs per attempt. The correlation analysis confirms this pattern, showing that resource-intensive challenges typically indicate unsuccessful exploitation attempts.
+
+The failure distribution across vulnerability categories provides actionable insights:
 
 * 🚫 **Blind SQL Injection (0% Success):** Represents the most challenging category due to limitations in timing-based attack detection and iterative payload refinement.
 * ⚠️ **Cross-Site Scripting (57% Success):** Shows moderate performance despite being the largest category, highlighting room for improvement in DOM manipulation and complex payload generation.
-* 🔑 **Broken Authentication (33% Success):** Indicates need for enhanced credential analysis and session state tracking across multi-step flows.
+* 🔑 **Broken Authentication (33% Success, 67% Failure Rate):** Indicates need for enhanced credential analysis and session state tracking across multi-step flows.
 
 ---
 
 ## 4. Real-World Application Assessment
 
-To evaluate MAPTA's effectiveness beyond controlled environments, assessments were conducted on **10 production open-source web application codebases** spanning 51K–1.3M lines of code (GitHub popularity: 8K–70K stars).
+To evaluate MAPTA's effectiveness beyond controlled environments, assessments were conducted on **10 production open-source web application codebases** spanning 51K–1.3M lines of code (GitHub popularity: 8K–70K stars). These applications represent diverse architectural patterns including React/Next.js frontends, Node.js/Python backends, and containerized microservice deployments.
 
 #### Assessment Protocol
 1. Automated repository fetching.
@@ -424,7 +453,7 @@ To evaluate MAPTA's effectiveness beyond controlled environments, assessments we
 3. *(step 3 omitted in original numbering)*
 4. Payload-guided vulnerability exploration using MAPTA's multi-agent architecture.
 
-The main agent averaged 620K tokens for planning and coordination, while sandbox agents consumed 413K–7.3M tokens for hands-on security testing.
+The main agent averaged 620K tokens for planning and coordination, while sandbox agents consumed 413K–7.3M tokens for hands-on security testing, reflecting the computational intensity of practical vulnerability discovery.
 
 ---
 
@@ -433,7 +462,7 @@ The main agent averaged 620K tokens for planning and coordination, while sandbox
 > 🔒 **Responsible Disclosure Note**  
 > In accordance with responsible disclosure practices, the identities of applications where vulnerabilities were discovered have been anonymized using obfuscated names (`OSN-XX`). Applications where no vulnerabilities were found (`appsmithorg/appsmith`, `directus/directus`, `go-gitea/gitea`, `grafana/grafana`) are identified by their repository names.
 
-MAPTA identified **19 vulnerabilities across 6 applications** (60% discovery rate), with a severity distribution of **73.7% High/Critical**, **21.1% Medium**, and **5.3% Low/Informational**. Assessment costs averaged **$3.67 per application** over 50.7 minutes.
+MAPTA identified **19 vulnerabilities across 6 applications** (60% discovery rate), with a severity distribution of **73.7% High/Critical**, **21.1% Medium**, and **5.3% Low/Informational**. Assessment costs averaged **$3.67 per application** over 50.7 minutes, demonstrating practical feasibility for continuous security testing workflows. Figure 9 illustrates the relationship between vulnerability discovery and assessment costs across target applications, showing that cost does not directly correlate with findings — some of the most expensive assessments yielded no vulnerabilities while others discovered critical issues at lower computational cost.
 
 #### Table 3 — Per-Target Vulnerability Assessment Results with Token Breakdown by Agent
 
@@ -456,6 +485,12 @@ MAPTA identified **19 vulnerabilities across 6 applications** (60% discovery rat
 
 * **Figure 9 — Costs vs Discoveries:** OSN-01 incurred the highest cost (~$8.02) with 1 High finding, whereas OSN-06 and OSN-03 yielded the most vulnerabilities at lower/moderate costs, demonstrating that cost and discovery yield are not tightly coupled.
 * **Figure 10 — Time vs Discovery:** Weak positive correlation ($r = 0.299$) indicates that longer assessment time is only loosely associated with finding more vulnerabilities.
+
+> 📌 **Original Caption (Figure 9)**
+> Vulnerability distribution and assessment costs across targets. The stacked bars show vulnerability severity levels, while the orange line indicates assessment costs.
+
+> 📌 **Original Caption (Figure 10)**
+> Assessment time versus vulnerability discovery patterns. Labels indicate the types of vulnerabilities found.
 
 #### Example Critical Vulnerabilities Discovered
 
@@ -514,20 +549,20 @@ Traditional automated security testing approaches have evolved significantly ove
 
 ### 5.4 LLM-Driven Autonomous Testing and Tool Orchestration
 
-Autonomous penetration testing systems represent an evolution from static detection toward dynamic, reasoning-based assessment enabled by sophisticated tool orchestration. ReAct [28] and Toolformer [24] established that LLMs achieve superior performance through structured tool interaction, while SWE-agent [27] demonstrates that interface design determines success rates on complex technical tasks.
+Autonomous penetration testing systems represent an evolution from static detection toward dynamic, reasoning-based assessment enabled by sophisticated tool orchestration. Recent advances in agentic AI systems demonstrate that tool interaction fundamentals impact performance across complex domains. ReAct [28] and Toolformer [24] established that LLMs achieve superior performance through structured tool interaction and environmental feedback loops, while SWE-agent [27] demonstrates that interface design and tool abstractions determine success rates on complex technical tasks.
 
-* **PentestGPT [8]:** Pioneered multi-stage LLM workflows for enumeration and exploitation with self-interaction capabilities. However, it operates through interactive loops with optional human oversight and lacks true agentic capabilities.
-* **PenHeal [13]:** Couples discovery with remediation using knapsack optimization.
-* **RefPentester [7]:** Incorporates self-reflection and knowledge-guided planning.
+* **PentestGPT [8]:** Pioneered multi-stage LLM workflows for enumeration, exploitation, and privilege escalation with self-interaction capabilities. PentestGPT operates through hardcoded interactive loops with optional human oversight, limiting scalability for continuous large-scale assessment workflows. Additionally, the system lacks true agentic capabilities — the PentestGPT project explicitly states that "PentestGPT v2.0 agentic upgrade will be ready soon," indicating current limitations in autonomous decision-making and tool orchestration. While contributing structured prompting techniques and evaluation metrics, the system revealed limitations in long-horizon state management and vulnerability validation. The system reports aggregate costs ($131.5 for 10 HTB machines; $5.1 average per picoMini attempt) and discusses token conservation strategies with GPT-4-32k context limits.
+* **PenHeal [13]:** Couples discovery with remediation using knapsack optimization but does not report token usage — the "cost" metric represents remediation scoring rather than LLM operational expenses.
+* **RefPentester [7]:** Adds self-reflection and knowledge-guided planning.
 * **Browser-Empowered Agents [15]:** Enable direct web interaction for CSRF/SSRF testing.
 
-**MAPTA's Unique Advance:** MAPTA advances autonomous security assessment through resource measurement and operational efficiency analysis that addresses fundamental gaps in prior work. The evaluation provides complete token-level accounting across 104 XBOW challenges (3.2M regular input, 1.10M output, 50.5M cached, 0.595M reasoning tokens, totaling $21.38 overall cost with a median of $0.117 per challenge). MAPTA quantifies negative correlations between resource utilization and success ($r = -0.661$ for tool calls), establishing the first rigorous cost-performance framework for autonomous penetration testing systems.
+**MAPTA's Unique Advance:** MAPTA advances autonomous security assessment through resource measurement and operational efficiency analysis that addresses fundamental gaps in prior work. The evaluation provides complete token-level accounting across 104 XBOW challenges: 3.2M regular input, 1.10M output, 50.5M cached, and 0.595M reasoning tokens, totaling $21.38 overall cost with a median of $0.117 per challenge. This granular breakdown reveals output tokens as the primary cost driver, enabling resource optimization strategies unavailable prior. Beyond cost accounting, MAPTA quantifies negative correlations between resource utilization and success — tool calls ($r = -0.661$), dollar cost ($r = -0.606$), tokens ($r = -0.587$), and time ($r = -0.557$) — providing actionable early-stopping heuristics and budget allocation guidance for production deployments. The multi-agent architecture employs a coordinator/sandbox design with dynamic tool use, combined with end-to-end proof-of-concept validation that eliminates the false positives inherent in theoretical detection approaches. While prior systems discuss token pressure mitigation strategies, MAPTA measures and quantifies the complete operational profile, establishing the first rigorous cost-performance framework for autonomous penetration testing systems.
 
 ---
 
 ### 5.5 Benchmarks and Testbeds
 
-Traditional benchmark environments (Juice Shop [18], WebGoat [19], DVWA [9]) focus on standard vulnerability types. The **XBOW benchmark** dataset [25] represents a major step forward by providing modern web applications with REST APIs and complex business logic, requiring concrete exploit execution rather than simple theoretical detection.
+Traditional vulnerable applications (Juice Shop [18], WebGoat [19], DVWA [9]) focus on standard vulnerability types, with implementations unsuitable for evaluating advanced systems. The **XBOW benchmark** dataset [25] represents a significant advancement by providing modern web application challenges with REST APIs, complex business logic, and realistic authentication mechanisms. XBOW's key innovation emphasizes exploit execution validation over theoretical detection — each challenge requires actual exploitation success, eliminating false positives and aligning with real-world penetration testing objectives. MAPTA's approach builds on the fundamental insight from related work that effective automated security assessment requires tool orchestration, stateful reasoning, and practical verification [3, 28]. MAPTA's multi-agent architecture with sandboxed exploit validation directly addresses the limitations identified in single-agent systems like PentestGPT [8] and traditional scanners' false-positive challenges [16].
 
 ---
 
@@ -543,14 +578,16 @@ All findings are responsibly disclosed to the respective parties and bug bounty 
 
 ## ⚖️ Ethical Considerations
 
-The development and evaluation of MAPTA raises important ethical considerations regarding responsible disclosure of AI-powered security testing capabilities.
+The development and evaluation of MAPTA raises important ethical considerations regarding responsible disclosure of AI-powered security testing capabilities. These concerns are addressed through several key principles and safeguards implemented throughout the research.
 
-* 🛡️ **Defensive Publication and Community Awareness.** Malicious use of AI security testing is inevitable as tools democratize. Publishing these findings enables defenders to prepare and build countermeasures.
-* 🧪 **Controlled Evaluation Environments.** Assessments were conducted strictly against purpose-built CTF challenges and local whitebox sandboxes, avoiding live production targets.
-* 📦 **Sandboxed Testing Infrastructure.** Evaluations execute within isolated virtual machines with restricted outbound network access to prevent collateral damage.
-* 🤝 **Responsible Vulnerability Disclosure.** All 19 discovered vulnerabilities were reported to maintainers; 10 findings submitted for CVE assignment follow strict responsible disclosure workflows.
-* ⚖️ **Dual-Use Technology Considerations.** MAPTA includes built-in constraints preventing destructive operations, exfiltration, or persistence, focusing on PoC generation rather than weaponized exploits.
-* 🔓 **Access Control and Distribution.** Source code releases include ethical use guidelines and defensive configuration defaults.
+* 🛡️ **Defensive Publication and Community Awareness.** The primary ethical imperative for publishing this research stems from the reality that adversarial actors likely possess similar capabilities or are actively developing them. The democratization of AI development tools and the public availability of security testing methodologies means that malicious applications of these techniques are inevitable. By publishing these findings, the cybersecurity community is enabled to understand and prepare for these emerging threats. Defensive security benefits from transparency about offensive capabilities, allowing organizations to implement appropriate countermeasures and security professionals to develop detection and mitigation strategies.
+* 🧪 **Controlled Evaluation Environments.** The evaluation methodology deliberately avoids testing against live production systems to prevent unintended harm or service disruption. Two distinct types of assessments were conducted: (1) blackbox evaluation using purpose-built CTF challenges from the XBOW benchmark, which are explicitly designed for security testing and vulnerability discovery, and (2) whitebox assessments of open-source applications conducted entirely within isolated local environments. The whitebox evaluations involved cloning public repositories and conducting all testing within dedicated sandboxed virtual machines, ensuring no impact on production deployments or third-party infrastructure.
+* 📦 **Sandboxed Testing Infrastructure.** Isolation measures were implemented to prevent any testing activities from affecting external systems. All MAPTA evaluations execute within dedicated virtual machines with restricted network access, preventing unintended outbound connections or data exfiltration. The sandbox environment includes monitoring and logging mechanisms to ensure all testing activities remain contained within the designated test boundaries. This approach eliminates risks of collateral damage while maintaining the authenticity of real-world vulnerability assessment scenarios.
+* 🤝 **Responsible Vulnerability Disclosure.** For vulnerabilities discovered during the whitebox assessments, responsible disclosure practices are followed by notifying maintainers of affected projects through appropriate channels. The 10 vulnerabilities submitted for CVE assignment were reported to the respective project maintainers with sufficient detail for remediation while avoiding public disclosure of exploitation techniques until patches are available. Actionable remediation guidance is provided, and the authors collaborate with maintainers to ensure timely resolution of identified security issues.
+* ⚖️ **Dual-Use Technology Considerations.** MAPTA represents dual-use technology with both defensive and potentially offensive applications. To mitigate misuse risks, the implementation focuses on defensive security applications and includes built-in ethical constraints that prevent destructive operations, data exfiltration, or persistent system modifications. The system is designed to generate proof-of-concept demonstrations rather than weaponized exploits, providing sufficient evidence for vulnerability validation without enabling direct malicious use.
+* 🔓 **Access Control and Distribution.** While the authors commit to making MAPTA source code publicly available upon publication to enable scientific reproducibility and defensive research, responsible access controls are implemented. The release includes documentation emphasizing ethical use guidelines, configuration options for defensive-only operation modes, and integration with existing responsible security testing frameworks. Adoption is encouraged by legitimate security professionals, researchers, and organizations, while malicious applications are discouraged through community governance and ethical use agreements.
+
+The fundamental ethical principle guiding this research is that the cybersecurity community benefits more from understanding these capabilities than from attempting to suppress them. As AI-powered development accelerates application creation, correspondingly advanced security assessment tools become essential for maintaining adequate security postures. MAPTA represents a defensive response to this challenge, providing organizations with capabilities to match the evolving threat landscape while adhering to responsible research and deployment practices.
 
 ---
 
