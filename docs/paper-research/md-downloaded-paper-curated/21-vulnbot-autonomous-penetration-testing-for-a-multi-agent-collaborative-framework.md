@@ -795,9 +795,9 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [2] Josh Achiam et al. *GPT-4 Technical Report*. arXiv preprint arXiv:2303.08774, 2023.
 
-[3] Haitham S Al-Sinani and Chris J Mitchell. *AI-Augmented Ethical Hacking: A Practical Examination of Manual Exploitation and Privilege Escalation in Linux Environments*. arXiv preprint arXiv:2411.17539, 2024.
+[3] Haitham S Al-Sinani and Chris J Mitchell. *AI-Augmented Ethical Hacking: A Practical Examination of Manual Exploitation and Privilege Escalation in Linux Environments*.
 
-[4] Ibrahim Alshehri et al. *BreachSeek: A Multi-Agent Automated Penetration Tester*. arXiv preprint arXiv:2409.03789, 2024.
+[4] Ibrahim Alshehri et al. *BreachSeek: A Multi-Agent Automated Penetration Tester*.
 
 [5] Brad Arkin, Scott Stender, and Gary McGraw. *Software Penetration Testing*. IEEE Security & Privacy, 3(1):84–87, 2005.
 
@@ -813,7 +813,7 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [11] The Cyphere. *Penetration Testing Statistics, Vulnerabilities and Trends in 2024*, 2024. [https://thecyphere.com/blog/penetration-testing-statistics/](https://thecyphere.com/blog/penetration-testing-statistics/)
 
-[12] Jacobo Casado de Gracia and Alfonso Sánchez-Macián. *PTHelper: An Open Source Tool to Support the Penetration Testing Process*. arXiv preprint arXiv:2406.08242, 2024.
+[12] Jacobo Casado de Gracia and Alfonso Sánchez-Macián. *PTHelper: An Open Source Tool to Support the Penetration Testing Process*.
 
 [13] Gelei Deng et al. *MasterKey: Automated Jailbreaking of Large Language Model Chatbots*. In Proc. ISOC NDSS, 2024.
 
@@ -825,17 +825,17 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [17] Dirb. *Dirb*, 2024. [https://dirb.sourceforge.net/](https://dirb.sourceforge.net/)
 
-[18] Abhimanyu Dubey et al. *The Llama 3 Herd of Models*. arXiv preprint arXiv:2407.21783, 2024.
+[18] Abhimanyu Dubey et al. *The Llama 3 Herd of Models*.
 
-[19] Richard Fang et al. *LLM Agents Can Autonomously Exploit One-Day Vulnerabilities*. arXiv preprint arXiv:2404.08144, 2024.
+[19] Richard Fang et al. *LLM Agents Can Autonomously Exploit One-Day Vulnerabilities*.
 
-[20] Richard Fang et al. *Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities*. arXiv preprint arXiv:2406.01637, 2024.
+[20] Richard Fang et al. *Teams of LLM Agents Can Exploit Zero-Day Vulnerabilities*.
 
 [21] Areej Fatima et al. *Impact and Research Challenges of Penetrating Testing and Vulnerability Assessment on Network Threat*. In 2023 International Conference on Business Analytics for Technology and Security (ICBATS), pages 1–8. IEEE, 2023.
 
-[22] Luca Gioacchini et al. *AutoPenBench: Benchmarking Generative Agents for Penetration Testing*. arXiv preprint arXiv:2410.03225, 2024.
+[22] Luca Gioacchini et al. *AutoPenBench: Benchmarking Generative Agents for Penetration Testing*.
 
-[23] Dhruva Goyal, Sitaraman Subramanian, and Aditya Peela. *Hacking, the Lazy Way: LLM Augmented Pentesting*. arXiv preprint arXiv:2409.09493, 2024.
+[23] Dhruva Goyal, Sitaraman Subramanian, and Aditya Peela. *Hacking, the Lazy Way: LLM Augmented Pentesting*.
 
 [24] Hao Guan et al. *Large Language Models Can Connect the Dots: Exploring Model Optimization Bugs with Domain Knowledge-Aware Prompts*. In Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis, pages 1579–1591, 2024.
 
@@ -847,31 +847,31 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [28] Andreas Happe and Jürgen Cito. *Understanding Hackers' Work: An Empirical Study of Offensive Security Practitioners*. In Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering, pages 1669–1680, 2023.
 
-[29] Andreas Happe, Aaron Kaplan, and Juergen Cito. *LLMs as Hackers: Autonomous Linux Privilege Escalation Attacks*. arXiv preprint arXiv:2310.11409, 2024.
+[29] Andreas Happe, Aaron Kaplan, and Juergen Cito. *LLMs as Hackers: Autonomous Linux Privilege Escalation Attacks*.
 
-[30] Sirui Hong et al. *MetaGPT: Meta Programming for Multi-Agent Collaborative Framework*. arXiv preprint arXiv:2308.00352, 2023.
+[30] Sirui Hong et al. *MetaGPT: Meta Programming for Multi-Agent Collaborative Framework*.
 
 [31] Junjie Huang and Quanyan Zhu. *PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation*. In Proceedings of the Workshop on Autonomous Cybersecurity, pages 11–22, 2023.
 
 [32] Hydra. *Hydra is a Game Launcher with its Own Embedded BitTorrent Client*, 2024. [https://github.com/hydralauncher/hydra](https://github.com/hydralauncher/hydra)
 
-[33] Isamu Isozaki et al. *Towards Automated Penetration Testing: Introducing LLM Benchmark, Analysis, and Improvements*. arXiv preprint arXiv:2410.17141, 2024.
+[33] Isamu Isozaki et al. *Towards Automated Penetration Testing: Introducing LLM Benchmark, Analysis, and Improvements*.
 
 [34] Kali. *The Most Advanced Penetration Testing Distribution*, 2024. [https://www.kali.org/](https://www.kali.org/)
 
-[35] Aixin Liu et al. *DeepSeek-V3 Technical Report*. arXiv preprint arXiv:2412.19437, 2024.
+[35] Aixin Liu et al. *DeepSeek-V3 Technical Report*.
 
 [36] Peiyu Liu et al. *Exploring ChatGPT's Capabilities on Vulnerability Management*. In 33rd USENIX Security Symposium (USENIX Security 24), pages 811–828, 2024.
 
 [37] Qian Liu et al. *langchain-chatchat*, 2013. [https://github.com/chatchat-space/Langchain-Chatchat](https://github.com/chatchat-space/Langchain-Chatchat)
 
-[38] Yi Liu et al. *Jailbreaking ChatGPT via Prompt Engineering: An Empirical Study*. arXiv preprint arXiv:2305.13860, 2023.
+[38] Yi Liu et al. *Jailbreaking ChatGPT via Prompt Engineering: An Empirical Study*.
 
 [39] Metasploit. *Metasploit | Penetration Testing Software*, 2024. [https://www.metasploit.com/](https://www.metasploit.com/)
 
 [40] Milvus. *Milvus*, 2024. [https://milvus.io/docs/zh/quickstart.md](https://milvus.io/docs/zh/quickstart.md)
 
-[41] Lajos Muzsai, David Imolai, and András Lukács. *HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing*. arXiv preprint arXiv:2412.01778, 2024.
+[41] Lajos Muzsai, David Imolai, and András Lukács. *HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing*.
 
 [42] NetEase Youdao Inc. *BCEmbedding: Bilingual and Crosslingual Embedding for RAG*. [https://github.com/netease-youdao/BCEmbedding](https://github.com/netease-youdao/BCEmbedding), 2023.
 
@@ -889,11 +889,11 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [49] Shikhil Sharma. *All You Need to Know About Pentest (VAPT) Report*, 2024. [https://www.getastra.com/blog/security-audit/penetration-testing-report/](https://www.getastra.com/blog/security-audit/penetration-testing-report/)
 
-[50] Gemini Team et al. *Gemini: A Family of Highly Capable Multimodal Models*. arXiv preprint arXiv:2312.11805, 2023.
+[50] Gemini Team et al. *Gemini: A Family of Highly Capable Multimodal Models*.
 
 [51] VulnHub. *VulnHub: Virtual Machines for Penetration Testing and Ethical Hacking*, 2024. [https://www.vulnhub.com/](https://www.vulnhub.com/)
 
-[52] Lingzhi Wang et al. *From Sands to Mansions: Enabling Automatic Full-Life-Cycle Cyberattack Construction with LLM*. arXiv preprint arXiv:2407.16928, 2024.
+[52] Lingzhi Wang et al. *From Sands to Mansions: Enabling Automatic Full-Life-Cycle Cyberattack Construction with LLM*.
 
 [53] Kenneth Webb. *Breaking Down the Penetration Testing Process: Phases, Steps, Timelines, and Industry-Specific Strategies*, 2025. [https://www.strikegraph.com/blog/pen-testing-phases-steps](https://www.strikegraph.com/blog/pen-testing-phases-steps)
 
@@ -901,9 +901,9 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 
 [55] Lei Wu et al. *PTGroup: An Automated Penetration Testing Framework Using LLMs and Multiple Prompt Chains*. In International Conference on Intelligent Computing, pages 220–232. Springer, 2024.
 
-[56] Jiacen Xu et al. *AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-Attacks*. arXiv preprint arXiv:2403.01038, 2024.
+[56] Jiacen Xu et al. *AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-Attacks*.
 
-[57] Yikuan Yan, Yaolun Zhang, and Keman Huang. *Depending on Yourself When You Should: Mentoring LLM with RL Agents to Become the Master in Cybersecurity Games*. arXiv preprint arXiv:2403.17674, 2024.
+[57] Yikuan Yan, Yaolun Zhang, and Keman Huang. *Depending on Yourself When You Should: Mentoring LLM with RL Agents to Become the Master in Cybersecurity Games*.
 
 ---
 

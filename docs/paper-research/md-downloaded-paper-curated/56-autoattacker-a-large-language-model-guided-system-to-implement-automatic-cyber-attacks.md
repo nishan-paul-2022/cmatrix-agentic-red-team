@@ -927,17 +927,17 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [7] Z. Jiang, J. Araki, H. Ding, and G. Neubig, "How can we know when language models know? on the calibration of language models for question answering," *Transactions of the Association for Computational Linguistics*, vol. 9, pp. 962–977, 2021.
 
-[8] T. Zhang, F. Ladhak, E. Durmus, P. Liang, K. McKeown, and T. B. Hashimoto, "Benchmarking large language models for news summarization," arXiv preprint arXiv:2301.13848, 2023.
+[8] T. Zhang, F. Ladhak, E. Durmus, P. Liang, K. McKeown, and T. B. Hashimoto, "Benchmarking large language models for news summarization,"
 
-[9] D. Araci, "Finbert: Financial sentiment analysis with pre-trained language models," arXiv preprint arXiv:1908.10063, 2019.
+[9] D. Araci, "Finbert: Financial sentiment analysis with pre-trained language models,"
 
-[10] M. Fu, C. Tantithamthavorn, V. Nguyen, and T. Le, "Chatgpt for vulnerability detection, classification, and repair: How far are we?" arXiv preprint arXiv:2310.09810, 2023.
+[10] M. Fu, C. Tantithamthavorn, V. Nguyen, and T. Le, "Chatgpt for vulnerability detection, classification, and repair: How far are we?"
 
 [11] "What is microsoft security copilot?" https://learn.microsoft.com/en-us/security-copilot/microsoft-security-copilot, Oct. 2023, accessed: 2024-01-24.
 
-[12] M. Kaheh, D. K. Kholgh, and P. Kostakos, "Cyber sentinel: Exploring conversational agents in streamlining security tasks with gpt-4," arXiv preprint arXiv:2309.16422, 2023.
+[12] M. Kaheh, D. K. Kholgh, and P. Kostakos, "Cyber sentinel: Exploring conversational agents in streamlining security tasks with gpt-4,"
 
-[13] J. Hazell, "Large language models can be used to effectively scale spear phishing campaigns," arXiv preprint arXiv:2305.06972, 2023.
+[13] J. Hazell, "Large language models can be used to effectively scale spear phishing campaigns,"
 
 [14] N. Begou, J. Vinoy, A. Duda, and M. Korczynski, "Exploring the dark side of ai: Advanced phishing attack design and deployment using chatgpt," in *2023 IEEE Conference on Communications and Network Security (CNS)*. IEEE, 2023, pp. 1–6.
 
@@ -949,11 +949,11 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [18] D. Kennedy, J. O'gorman, D. Kearns, and M. Aharoni, *Metasploit: the penetration tester's guide*. No Starch Press, 2011.
 
-[19] G. Deng, Y. Liu, V. Mayoral-Vilches, P. Liu, Y. Li, Y. Xu, T. Zhang, Y. Liu, M. Pinzger, and S. Rass, "Pentestgpt: An llm-empowered automatic penetration testing tool," arXiv preprint arXiv:2308.06782, 2023.
+[19] G. Deng, Y. Liu, V. Mayoral-Vilches, P. Liu, Y. Li, Y. Xu, T. Zhang, Y. Liu, M. Pinzger, and S. Rass, "Pentestgpt: An llm-empowered automatic penetration testing tool,"
 
 [20] A. Happe and J. Cito, "Getting pwn'd by ai: Penetration testing with large language models," in *Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering*, 2023, pp. 2082–2086.
 
-[21] A. Happe, A. Kaplan, and J. Cito, "Evaluating llms for privilege-escalation scenarios," arXiv preprint arXiv:2310.11409, 2023.
+[21] A. Happe, A. Kaplan, and J. Cito, "Evaluating llms for privilege-escalation scenarios,"
 
 [22] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Kuttler, M. Lewis, W.-t. Yih, T. Rocktäschel et al., "Retrieval-augmented generation for knowledge-intensive nlp tasks," *Advances in Neural Information Processing Systems*, vol. 33, pp. 9459–9474, 2020.
 
@@ -993,83 +993,83 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [40] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin, "Attention is all you need," 2017. [Online]. Available: https://arxiv.org/pdf/1706.03762.pdf
 
-[41] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat et al., "Gpt-4 technical report," arXiv preprint arXiv:2303.08774, 2023.
+[41] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat et al., "Gpt-4 technical report,"
 
-[42] H. Touvron, L. Martin, K. Stone, P. Albert, A. Almahairi, Y. Babaei, N. Bashlykov, S. Batra, P. Bhargava, S. Bhosale et al., "Llama 2: Open foundation and fine-tuned chat models," arXiv preprint arXiv:2307.09288, 2023.
+[42] H. Touvron, L. Martin, K. Stone, P. Albert, A. Almahairi, Y. Babaei, N. Bashlykov, S. Batra, P. Bhargava, S. Bhosale et al., "Llama 2: Open foundation and fine-tuned chat models,"
 
-[43] A. Q. Jiang, A. Sablayrolles, A. Mensch, C. Bamford, D. S. Chaplot, D. d. l. Casas, F. Bressand, G. Lengyel, G. Lample, L. Saulnier et al., "Mistral 7b," arXiv preprint arXiv:2310.06825, 2023.
+[43] A. Q. Jiang, A. Sablayrolles, A. Mensch, C. Bamford, D. S. Chaplot, D. d. l. Casas, F. Bressand, G. Lengyel, G. Lample, L. Saulnier et al., "Mistral 7b,"
 
 [44] H. R. Saeidnia, "Welcome to the gemini era: Google deepmind and the information industry," *Library Hi Tech News*, 2023.
 
-[45] E. Lozic and B. Stular, "Chatgpt v bard v bing v claude 2 v aria v human-expert. how good are ai chatbots at scientific writing?(ver. 23q3)," arXiv preprint arXiv:2309.08636, 2023.
+[45] E. Lozic and B. Stular, "Chatgpt v bard v bing v claude 2 v aria v human-expert. how good are ai chatbots at scientific writing?(ver. 23q3),"
 
 [46] J. Li, G. Li, C. Tao, H. Zhang, F. Liu, and Z. Jin, "Large language model-aware in-context learning for code generation," 2023.
 
 [47] J. Wei, X. Wang, D. Schuurmans, M. Bosma, F. Xia, E. Chi, Q. V. Le, D. Zhou et al., "Chain-of-thought prompting elicits reasoning in large language models," *Advances in Neural Information Processing Systems*, vol. 35, pp. 24 824–24 837, 2022.
 
-[48] J. Liu, A. Liu, X. Lu, S. Welleck, P. West, R. L. Bras, Y. Choi, and H. Hajishirzi, "Generated knowledge prompting for commonsense reasoning," arXiv preprint arXiv:2110.08387, 2021.
+[48] J. Liu, A. Liu, X. Lu, S. Welleck, P. West, R. L. Bras, Y. Choi, and H. Hajishirzi, "Generated knowledge prompting for commonsense reasoning,"
 
-[49] S. Yao, D. Yu, J. Zhao, I. Shafran, T. L. Griffiths, Y. Cao, and K. Narasimhan, "Tree of thoughts: Deliberate problem solving with large language models," arXiv preprint arXiv:2305.10601, 2023.
+[49] S. Yao, D. Yu, J. Zhao, I. Shafran, T. L. Griffiths, Y. Cao, and K. Narasimhan, "Tree of thoughts: Deliberate problem solving with large language models,"
 
-[50] H. Liu, C. Sferrazza, and P. Abbeel, "Languages are rewards: Hindsight finetuning using human feedback," arXiv preprint arXiv:2302.02676, 2023.
+[50] H. Liu, C. Sferrazza, and P. Abbeel, "Languages are rewards: Hindsight finetuning using human feedback,"
 
-[51] N. Shinn, B. Labash, and A. Gopinath, "Reflexion: an autonomous agent with dynamic memory and self-reflection," arXiv preprint arXiv:2303.11366, 2023.
+[51] N. Shinn, B. Labash, and A. Gopinath, "Reflexion: an autonomous agent with dynamic memory and self-reflection,"
 
-[52] S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao, "React: Synergizing reasoning and acting in language models," arXiv preprint arXiv:2210.03629, 2022.
+[52] S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao, "React: Synergizing reasoning and acting in language models,"
 
-[53] Z. Xi, W. Chen, X. Guo, W. He, Y. Ding, B. Hong, M. Zhang, J. Wang, S. Jin, E. Zhou et al., "The rise and potential of large language model based agents: A survey," arXiv preprint arXiv:2309.07864, 2023.
+[53] Z. Xi, W. Chen, X. Guo, W. He, Y. Ding, B. Hong, M. Zhang, J. Wang, S. Jin, E. Zhou et al., "The rise and potential of large language model based agents: A survey,"
 
-[54] G. Wang, Y. Xie, Y. Jiang, A. Mandlekar, C. Xiao, Y. Zhu, L. Fan, and A. Anandkumar, "Voyager: An open-ended embodied agent with large language models," arXiv preprint arXiv:2305.16291, 2023.
+[54] G. Wang, Y. Xie, Y. Jiang, A. Mandlekar, C. Xiao, Y. Zhu, L. Fan, and A. Anandkumar, "Voyager: An open-ended embodied agent with large language models,"
 
 [55] L. Fan, G. Wang, Y. Jiang, A. Mandlekar, Y. Yang, H. Zhu, A. Tang, D.-A. Huang, Y. Zhu, and A. Anandkumar, "Minedojo: Building open-ended embodied agents with internet-scale knowledge," in *Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track*, 2022. [Online]. Available: https://openreview.net/forum?id=rc8oj8I8PX
 
-[56] Z. Liu, W. Yao, J. Zhang, L. Xue, S. Heinecke, R. Murthy, Y. Feng, Z. Chen, J. C. Niebles, D. Arpit et al., "Bolaa: Benchmarking and orchestrating llm-augmented autonomous agents," arXiv preprint arXiv:2308.05960, 2023.
+[56] Z. Liu, W. Yao, J. Zhang, L. Xue, S. Heinecke, R. Murthy, Y. Feng, Z. Chen, J. C. Niebles, D. Arpit et al., "Bolaa: Benchmarking and orchestrating llm-augmented autonomous agents,"
 
-[57] T. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, L. Zettlemoyer, N. Cancedda, and T. Scialom, "Toolformer: Language models can teach themselves to use tools," arXiv preprint arXiv:2302.04761, 2023.
+[57] T. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, L. Zettlemoyer, N. Cancedda, and T. Scialom, "Toolformer: Language models can teach themselves to use tools,"
 
-[58] Y. Yao, J. Duan, K. Xu, Y. Cai, E. Sun, and Y. Zhang, "A survey on large language model (llm) security and privacy: The good, the bad, and the ugly," arXiv preprint arXiv:2312.02003, 2023.
+[58] Y. Yao, J. Duan, K. Xu, Y. Cai, E. Sun, and Y. Zhang, "A survey on large language model (llm) security and privacy: The good, the bad, and the ugly,"
 
-[59] C. S. Xia, M. Paltenghi, J. L. Tian, M. Pradel, and L. Zhang, "Universal fuzzing via large language models," arXiv preprint arXiv:2308.04748, 2023.
+[59] C. S. Xia, M. Paltenghi, J. L. Tian, M. Pradel, and L. Zhang, "Universal fuzzing via large language models,"
 
 [60] R. Meng, M. Mirchev, M. Bohme, and A. Roychoudhury, "Large language model guided protocol fuzzing," in *Proceedings of the 31st Annual Network and Distributed System Security Symposium (NDSS)*, 2024.
 
 [61] H. Pearce, B. Tan, B. Ahmad, R. Karri, and B. Dolan-Gavitt, "Examining zero-shot vulnerability repair with large language models," in *2023 IEEE Symposium on Security and Privacy (SP)*. IEEE, 2023, pp. 2339–2356.
 
-[62] F. Albanese, D. Ciolek, and N. D'Ippolito, "Text sanitization beyond specific domains: Zero-shot redaction & substitution with large language models," arXiv preprint arXiv:2311.10785, 2023.
+[62] F. Albanese, D. Ciolek, and N. D'Ippolito, "Text sanitization beyond specific domains: Zero-shot redaction & substitution with large language models,"
 
-[63] M. Beckerich, L. Plein, and S. Coronado, "Ratgpt: Turning online llms into proxies for malware attacks," arXiv preprint arXiv:2308.09183, 2023.
+[63] M. Beckerich, L. Plein, and S. Coronado, "Ratgpt: Turning online llms into proxies for malware attacks,"
 
 [64] M. Botacin, "Gpthreats-3: Is automatic malware generation a threat?" in *2023 IEEE Security and Privacy Workshops (SPW)*. IEEE, 2023, pp. 238–254.
 
-[65] F. Heiding, B. Schneier, A. Vishwanath, and J. Bernstein, "Devising and detecting phishing: Large language models vs. smaller human models," arXiv preprint arXiv:2308.12287, 2023.
+[65] F. Heiding, B. Schneier, A. Vishwanath, and J. Bernstein, "Devising and detecting phishing: Large language models vs. smaller human models,"
 
-[66] R. Staab, M. Vero, M. Balunovic, and M. Vechev, "Beyond memorization: Violating privacy via inference with large language models," arXiv preprint arXiv:2310.07298, 2023.
+[66] R. Staab, M. Vero, M. Balunovic, and M. Vechev, "Beyond memorization: Violating privacy via inference with large language models,"
 
-[67] P. V. Falade, "Decoding the threat landscape: Chatgpt, fraudgpt, and wormgpt in social engineering attacks," arXiv preprint arXiv:2310.05595, 2023.
+[67] P. V. Falade, "Decoding the threat landscape: Chatgpt, fraudgpt, and wormgpt in social engineering attacks,"
 
-[68] W. Tann, Y. Liu, J. H. Sim, C. M. Seah, and E.-C. Chang, "Using large language models for cybersecurity capture-the-flag challenges and certification questions," arXiv preprint arXiv:2308.10443, 2023.
+[68] W. Tann, Y. Liu, J. H. Sim, C. M. Seah, and E.-C. Chang, "Using large language models for cybersecurity capture-the-flag challenges and certification questions,"
 
 [69] J. Yang, A. Prabhakar, S. Yao, K. Pei, and K. R. Narasimhan, "Language agents as hackers: Evaluating cybersecurity skills with capture the flag," in *Multi-Agent Security Workshop@ NeurIPS'23*, 2023.
 
-[70] H. Yao, J. Lou, and Z. Qin, "Poisonprompt: Backdoor attack on prompt-based large language models," arXiv preprint arXiv:2310.12439, 2023.
+[70] H. Yao, J. Lou, and Z. Qin, "Poisonprompt: Backdoor attack on prompt-based large language models,"
 
-[71] T. Liu, Z. Deng, G. Meng, Y. Li, and K. Chen, "Demystifying rce vulnerabilities in llm-integrated apps," arXiv preprint arXiv:2309.02926, 2023.
+[71] T. Liu, Z. Deng, G. Meng, Y. Li, and K. Chen, "Demystifying rce vulnerabilities in llm-integrated apps,"
 
-[72] A. Wei, N. Haghtalab, and J. Steinhardt, "Jailbroken: How does llm safety training fail?" arXiv preprint arXiv:2307.02483, 2023.
+[72] A. Wei, N. Haghtalab, and J. Steinhardt, "Jailbroken: How does llm safety training fail?"
 
-[73] H. Li, D. Guo, W. Fan, M. Xu, and Y. Song, "Multi-step jailbreaking privacy attacks on chatgpt," arXiv preprint arXiv:2304.05197, 2023.
+[73] H. Li, D. Guo, W. Fan, M. Xu, and Y. Song, "Multi-step jailbreaking privacy attacks on chatgpt,"
 
-[74] X. Shen, Z. Chen, M. Backes, Y. Shen, and Y. Zhang, "'do anything now': Characterizing and evaluating in-the-wild jailbreak prompts on large language models," arXiv preprint arXiv:2308.03825, 2023.
+[74] X. Shen, Z. Chen, M. Backes, Y. Shen, and Y. Zhang, "'do anything now': Characterizing and evaluating in-the-wild jailbreak prompts on large language models,"
 
-[75] P. Chao, A. Robey, E. Dobriban, H. Hassani, G. J. Pappas, and E. Wong, "Jailbreaking black box large language models in twenty queries," arXiv preprint arXiv:2310.08419, 2023.
+[75] P. Chao, A. Robey, E. Dobriban, H. Hassani, G. J. Pappas, and E. Wong, "Jailbreaking black box large language models in twenty queries,"
 
-[76] J. Yu, X. Lin, and X. Xing, "Gptfuzzer: Red teaming large language models with auto-generated jailbreak prompts," arXiv preprint arXiv:2309.10253, 2023.
+[76] J. Yu, X. Lin, and X. Xing, "Gptfuzzer: Red teaming large language models with auto-generated jailbreak prompts,"
 
-[77] Z. Wei, Y. Wang, and Y. Wang, "Jailbreak and guard aligned language models with only few in-context demonstrations," arXiv preprint arXiv:2310.06387, 2023.
+[77] Z. Wei, Y. Wang, and Y. Wang, "Jailbreak and guard aligned language models with only few in-context demonstrations,"
 
-[78] N. Kandpal, M. Jagielski, F. Tramer, and N. Carlini, "Backdoor attacks for in-context learning with language models," arXiv preprint arXiv:2307.14692, 2023.
+[78] N. Kandpal, M. Jagielski, F. Tramer, and N. Carlini, "Backdoor attacks for in-context learning with language models,"
 
-[79] A. Robey, E. Wong, H. Hassani, and G. J. Pappas, "Smoothllm: Defending large language models against jailbreaking attacks," arXiv preprint arXiv:2310.03684, 2023.
+[79] A. Robey, E. Wong, H. Hassani, and G. J. Pappas, "Smoothllm: Defending large language models against jailbreaking attacks,"
 
 [80] B. Chen, A. Paliwal, and Q. Yan, "Jailbreaker in jail: Moving target defense for large language models," in *Proceedings of the 10th ACM Workshop on Moving Target Defense*, 2023, pp. 29–32.
 
@@ -1091,7 +1091,7 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [89] R. Bellman, "A markovian decision process," in *Journal of Mathematics and Mechanics*, vol. 6, 1957, p. 679–684.
 
-[90] J. Ruan, Y. Chen, B. Zhang, Z. Xu, T. Bao, G. Du, S. Shi, H. Mao, X. Zeng, and R. Zhao, "Tptu: Task planning and tool usage of large language model-based ai agents," arXiv preprint arXiv:2308.03427, 2023.
+[90] J. Ruan, Y. Chen, B. Zhang, Z. Xu, T. Bao, G. Du, S. Shi, H. Mao, X. Zeng, and R. Zhao, "Tptu: Task planning and tool usage of large language model-based ai agents,"
 
 [91] A. Finn, *Mastering Hyper-V Deployment*. John Wiley & Sons, 2010.
 
@@ -1099,7 +1099,7 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [93] Deep Infra, "Machine learning models and infrastructure," https://deepinfra.com/.
 
-[94] X. Wang, X. Tang, W. X. Zhao, J. Wang, and J.-R. Wen, "Rethinking the evaluation for conversational recommendation in the era of large language models," arXiv preprint arXiv:2305.13112, 2023.
+[94] X. Wang, X. Tang, W. X. Zhao, J. Wang, and J.-R. Wen, "Rethinking the evaluation for conversational recommendation in the era of large language models,"
 
 [95] "thinkgpt," https://github.com/jina-ai/thinkgpt, 2023.
 
@@ -1107,9 +1107,9 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [97] S. Kublik and S. Saboo, *GPT-3*. O'Reilly Media, Incorporated, 2022.
 
-[98] F. Wan, X. Huang, D. Cai, X. Quan, W. Bi, and S. Shi, "Knowledge fusion of large language models," arXiv preprint arXiv:2401.10491, 2024.
+[98] F. Wan, X. Huang, D. Cai, X. Quan, W. Bi, and S. Shi, "Knowledge fusion of large language models,"
 
-[99] Y. Zhang, Y. Li, L. Cui, D. Cai, L. Liu, T. Fu, X. Huang, E. Zhao, Y. Zhang, Y. Chen et al., "Siren's song in the ai ocean: A survey on hallucination in large language models," arXiv preprint arXiv:2309.01219, 2023.
+[99] Y. Zhang, Y. Li, L. Cui, D. Cai, L. Liu, T. Fu, X. Huang, E. Zhao, Y. Zhang, Y. Chen et al., "Siren's song in the ai ocean: A survey on hallucination in large language models,"
 
 [100] A. Thudi, H. Jia, I. Shumailov, and N. Papernot, "On the necessity of auditable algorithmic definitions for machine unlearning," in *31st USENIX Security Symposium (USENIX Security 22)*, 2022, pp. 4007–4022.
 
@@ -1129,7 +1129,7 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 [108] A. Sarabi, T. Yin, and M. Liu, "An llm-based framework for fingerprinting internet-connected devices," in *Proceedings of the 2023 ACM on Internet Measurement Conference*, 2023, pp. 478–484.
 
-[109] M. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman et al., "Evaluating large language models trained on code," arXiv preprint arXiv:2107.03374, 2021.
+[109] M. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman et al., "Evaluating large language models trained on code,"
 
 [110] S. Malik and E. Azeem, "The secrets to mimikatz-the credential dumper," *International Journal for Electronic Crime Investigation*, vol. 5, no. 4, pp. 27–34, 2021.
 
