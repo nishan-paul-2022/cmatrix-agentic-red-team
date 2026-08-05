@@ -16,7 +16,7 @@
 | # | Status | File | Paper | Surface | Unique Contribution |
 |---|---|---|---|---|---|
 | 1 | ✅ | `68-getting-pwnd...` | **Getting pwn'd by AI** — Happe & Cito, ESEC/FSE 2023 | 🕸️ Network | First closed-loop LLM→shell agent. Foundational baseline. Every paper cites this. |
-| 2 | ✅ | `18-pentestagent...` | **PentestGPT** — Deng et al., USENIX Security 2024 | 🕸️ Network | Three-module Reasoning/Generation/Parsing architecture. USENIX — highest impact published paper in field. |
+| 2 | ✅ | `26-pentestgpt...` | **PentestGPT** — Deng et al., USENIX Security 2024 | 🕸️ Network | Three-module Reasoning/Generation/Parsing architecture. USENIX — highest impact published paper in field. |
 | 3 | ✅ | `03-what-makes...` | **PentestGPT V2 / What Makes a Good LLM Agent** — Deng et al., NTU 2025 | 🕸️ Network | Evidence-Guided Attack Tree Search (EGATS) + Task Difficulty Assessment (TDA). 91% CTF completion. Best analysis of failure modes (Type A vs Type B). The evolution of PentestGPT you cannot ignore. |
 | 4 | ✅ | `21-vulnbot...` | **VulnBot** — He et al., 2025 | 🕸️ Network | Penetration task graph driving role-specific agents. Best task-graph-driven multi-agent for network. |
 | 5 | ✅ | `18-pentestagent...` | **PentestAgent** — Zhang et al., 2024 | 🕸️ Network + 🌐 Web (partial) | First to integrate knowledge retrieval (RAG) + specialized agents end-to-end. |
