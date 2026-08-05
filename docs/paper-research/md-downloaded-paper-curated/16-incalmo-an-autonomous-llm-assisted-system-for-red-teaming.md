@@ -96,7 +96,9 @@ Next, we analyze how state-of-the-art systems failed at multi-host red-team chal
 
 Rather than try to improve LLMs' effectiveness in executing correct low-level commands (e.g., adding better prompts [14], [72], self-reflection [29], [14], [62]), we draw inspiration from how expert human red teams work and argue that we need to raise the level of abstraction to build effective autonomous LLM-assisted red teams. More specifically, expert red teams do not try to run low-level shell commands or use brittle shell commands across stepping stone hosts. Instead, they think in terms of high-level "cyber kill-chain" tasks [30] such as reconnaissance [47], exploitation [12], command and control [55], and goal-centric actions. Furthermore, they use best practice tools in the security domain to ensure each stage in the kill chain can be effective [55], [47], [12].
 
-Building on this insight—that raising the level of abstraction is the key—we present the design, implementation, and evaluation of Incalmo. Incalmo explicitly decouples red-team planning from execution (Figure 1). Incalmo uses the LLM primarily as a planning module that decides what task to perform in terms of high-level declarative tasks modeling cyber kill-chain steps, rather than low-level shell commands. Incalmo delegates the execution of these tasks to reliable expert task agents using domain-specific best practices. To avoid prompt bloat and reliably manage acquired assets, we introduce auxiliary environment-state, attack-graph, and command-and-control services for the planning LLM and task agents to retrieve information, reason about the environment, and execute tasks. Taken together, these ideas allow Incalmo to both (a) leverage the broad world knowledge in the LLM used as a planner to respond and plan next steps and (b) use domain-specific expertise to execute the plan.
+Building on this insight—that raising the level of abstraction is the key—we present the design, implementation, and evaluation of Incalmo. Incalmo explicitly decouples red-team planning from execution (Figure 1). Incalmo uses the LLM primarily as a planning module that decides what task to perform in terms of high-level declarative tasks modeling cyber kill-chain steps, rather than low-level shell commands. Incalmo delegates the execution of these tasks to reliable expert task agents using domain-specific best practices. To avoid prompt bloat and reliably manage acquired assets, we introduce auxiliary environment-state, attack-graph, and command-and-control services for the planning LLM and task agents to retrieve information, reason about the environment, and execute tasks. Taken together, these ideas allow Incalmo to both:
+- **(a) Leverage World Knowledge:** Leverage the broad world knowledge in the LLM used as a planner to respond and plan next steps.
+- **(b) Delegate Domain Execution:** Use domain-specific expertise to execute the plan.
 
 We show that Incalmo can handle unforeseen multi-host scenarios (i.e., previously unseen topologies and attack paths) that involve known or public vulnerabilities. This setting is representative of many real-world red teams that often chain together known techniques to achieve attack goals in multi-host settings [43], [46], [9]. The design of Incalmo is also extensible to include new capabilities (e.g., creating 0-day exploits [70], [73]).
 
@@ -207,7 +209,13 @@ To address the gap in evaluating state-of-the-art LLM-based systems, we create a
 
 **Success criteria.** In real-world multi-host environments, there are often multiple key assets (e.g., Equifax had multiple sensitive databases in Fig. 3). Similar to human red teams [47], we consider an attack successful if an attacker is able to compromise at least one key asset (e.g., exfiltrated SSNs from at least one database). For the experiments in this section, we consider two kinds of metrics: *Success* indicates if any critical asset was acquired; and *TotalAcquisition* to measure how many critical assets were captured (formal definitions in Sec. 6).
 
-**Baselines.** In terms of autonomous LLM systems, we consider three baselines: (1) CyberSecEval3 [72], (2) ExpertPromptShell, a shell system with a prompt we created in collaboration with a domain expert at a leading LLM provider, and (3) CAI [44], a popular open-source system.[^4] We choose these systems because they use a variety of the techniques (e.g., chain-of-thought [72], [74], ReAct [78], and self-reflection [72], [14]) and were reproducible with open-source prompts and systems. For the semi-autonomous or human-in-the-loop systems, we evaluate PentestGPT [14] because it encompasses many "reasoning" strategies in other work (e.g., [14], [80]). Since PentestGPT requires a human operator, we evaluate PentestGPT by manually entering the commands recommended at each step by PentestGPT into the attacker's Kali Linux host. For ExpertPromptShell and CyberSecEval3, we consider 3 state-of-the-art LLMs: Sonnet 4, GPT 4o, Gemini 2.5 Pro.[^5]
+**Baselines.** In terms of autonomous LLM systems, we consider three baselines:
+
+1. **CyberSecEval3 [72]**
+2. **ExpertPromptShell:** A shell system with a prompt we created in collaboration with a domain expert at a leading LLM provider.
+3. **CAI [44]:** A popular open-source system.[^4]
+
+We choose these systems because they use a variety of the techniques (e.g., chain-of-thought [72], [74], ReAct [78], and self-reflection [72], [14]) and were reproducible with open-source prompts and systems. For the semi-autonomous or human-in-the-loop systems, we evaluate PentestGPT [14] because it encompasses many "reasoning" strategies in other work (e.g., [14], [80]). Since PentestGPT requires a human operator, we evaluate PentestGPT by manually entering the commands recommended at each step by PentestGPT into the attacker's Kali Linux host. For ExpertPromptShell and CyberSecEval3, we consider 3 state-of-the-art LLMs: Sonnet 4, GPT 4o, Gemini 2.5 Pro.[^5]
 
 [^4]: All prompts are in our open-source repository.
 [^5]: We were unable to evaluate OpenAI's "o" or "GPT-5" models because the public API has a safeguard that prevents them from executing attacks.
@@ -326,7 +334,9 @@ In this section, we begin by describing the high-level idea underlying Incalmo b
 
 ### 4.1. High-level idea
 
-Our design of Incalmo draws from both our mental model of expert red teams and the failure modes we observed in existing LLM-assisted systems. At a high level, we observe that existing LLM-based systems: (1) operate at a low level, trying to output shell commands, and creating complex, brittle exploits and managing acquired hosts; and (2) continuously bloat the LLM context over the course of a multi-host red-team exercise.
+Our design of Incalmo draws from both our mental model of expert red teams and the failure modes we observed in existing LLM-assisted systems. At a high level, we observe that existing LLM-based systems:
+1. **Low-Level Operation:** Operate at a low level, trying to output shell commands, and creating complex, brittle exploits and managing acquired hosts.
+2. **Context Bloat:** Continuously bloat the LLM context over the course of a multi-host red-team exercise.
 
 Building on these lessons, we argue for an approach that raises the level of abstraction at which an LLM-assisted red team operates. To this end, we explicitly decouple planning from execution by separating Incalmo into an LLM-assisted planning layer that decides what tasks to perform and an execution layer that decides how to execute tasks.
 
@@ -361,17 +371,30 @@ graph TD
 
 This is in contrast to how prior systems use LLMs to both plan and execute tasks, shown in Fig. 8. Rather than have the planner output low-level commands as done in the baseline systems, we reformulate it to output high-level declarative tasks inspired by the cyber kill chain framework [30], [12]. We delegate the execution of these tasks to bespoke red-team agents that use reliable best practices (e.g., a C&C server service). This is in contrast to how prior systems used a variety of heuristics (e.g., fine-tuned system prompts [14], [72], [80], command self-reflection [14], [44], [29], summarizers [14], [29]) to improve the ability of a single LLM to combine planning and execution. Finally, to tackle the context bloat, we introduce auxiliary environment-state and attack-graph services that can be queried (akin to RAG [39]) by the planner and expert agents. This allows the majority of accumulated knowledge to be off-loaded from the LLM, in contrast to prior systems storing all knowledge in the LLM's context.
 
-**Scope and limitations.** We scope our design in this paper with two known limitations. First, our design does not take into account defender capabilities (e.g., detection, blocking), similar to prior work in LLM-based offense evaluations [14], [72], [80]. Second, similar to many real-world settings, we assume the red team exercise only considers known vulnerabilities and do not consider zero-day exploits [62]. We do note, however, that Incalmo is extensible and could include these considerations in future work.
+**Scope and limitations.** We scope our design in this paper with two known limitations:
+1. **Exclusion of Defender Capabilities:** First, our design does not take into account defender capabilities (e.g., detection, blocking), similar to prior work in LLM-based offense evaluations [14], [72], [80].
+2. **Focus on Known Vulnerabilities:** Second, similar to many real-world settings, we assume the red team exercise only considers known vulnerabilities and do not consider zero-day exploits [62].
+
+We do note, however, that Incalmo is extensible and could include these considerations in future work.
 
 ### 🏗️ 4.2. Detailed design
 
-Having described the high-level idea above, next we describe our concrete realization of the: (1) planning abstraction and declarative tasks; (2) library of red team agents to implement the specific tasks; and (3) auxiliary services that enable the planner LLM and the task agents to reliably manage knowledge and assets they have gained during the red team exercise.
+Having described the high-level idea above, next we describe our concrete realization of the:
+1. **Planning Abstraction:** Planning abstraction and declarative tasks.
+2. **Library of Red Team Agents:** Library of red team agents to implement the specific tasks.
+3. **Auxiliary Services:** Auxiliary services that enable the planner LLM and the task agents to reliably manage knowledge and assets they have gained during the red team exercise.
 
-**Planning abstraction.** Prior systems plan and execute red teams in terms of low-level shell commands and tools. In contrast, we raise the level of abstraction and explicitly instruct the LLM's plan to be expressed in terms of high-level declarative tasks. More specifically, our abstraction for these declarative tasks follows the logical stages specified by the MITRE ATT&CK [12] and cyber kill chain [30] frameworks: scan a network, laterally move, escalate privileges, discover local information, and exfiltrate data. Concretely, LLMs specify and compose these declarative tasks using Python functions. The functions can use the standard Python library and Incalmo's API. A function can either (1) output a series of high-level tasks (e.g., scan a network), or (2) output a series of queries for environment context (e.g., find hosts on a public network). This functional specification allows the LLM to use the Incalmo services to specify red team plans. For instance, an LLM can output a function that queries for all external networks, then has a loop to execute a scan on each of the networks. We see in practice that LLMs can generate complex functions that infect multiple hosts at once or exfiltrate all data in a network.
+**Planning abstraction.** Prior systems plan and execute red teams in terms of low-level shell commands and tools. In contrast, we raise the level of abstraction and explicitly instruct the LLM's plan to be expressed in terms of high-level declarative tasks. More specifically, our abstraction for these declarative tasks follows the logical stages specified by the MITRE ATT&CK [12] and cyber kill chain [30] frameworks: scan a network, laterally move, escalate privileges, discover local information, and exfiltrate data. Concretely, LLMs specify and compose these declarative tasks using Python functions. The functions can use the standard Python library and Incalmo's API. A function can either:
+1. **Task Specification:** Output a series of high-level tasks (e.g., scan a network).
+2. **Context Queries:** Output a series of queries for environment context (e.g., find hosts on a public network).
+
+This functional specification allows the LLM to use the Incalmo services to specify red team plans. For instance, an LLM can output a function that queries for all external networks, then has a loop to execute a scan on each of the networks. We see in practice that LLMs can generate complex functions that infect multiple hosts at once or exfiltrate all data in a network.
 
 **Task agents.** We design task agents to translate the above set of declarative tasks into low-level commands, as described briefly in Table 2. Prior LLM-based offense systems used a variety of techniques to improve command accuracy such as adding LLM inference methods: self-reflection to correct wrong commands [14], [44], [29], increasing the library of low-level MCP tools [44], and even creating a library of system prompts tuned to specific security tasks [14]. However, in Sec. 2 and Sec. 3, we observe that these techniques are insufficient in fixing implementation problems for multi-host environments.
 
-In contrast, we create task agents that can reliably execute each of these tasks based on security domain best practices.[^10] For instance, the lateral movement agent queries the attack graph service to identify possible vulnerable paths to the target server. Then, the agent searches an exploit database (e.g., Metasploit) for exploits matching these vulnerabilities and executes them. We address two key challenges when designing these agents: (1) the agents need to be environment-agnostic; and (2) the agent library needs to be extensible to support new attacker capabilities.
+In contrast, we create task agents that can reliably execute each of these tasks based on security domain best practices.[^10] For instance, the lateral movement agent queries the attack graph service to identify possible vulnerable paths to the target server. Then, the agent searches an exploit database (e.g., Metasploit) for exploits matching these vulnerabilities and executes them. We address two key challenges when designing these agents:
+1. **Environment-Agnostic Operation:** The agents need to be environment-agnostic.
+2. **Extensibility:** The agent library needs to be extensible to support new attacker capabilities.
 
 [^10]: Later in Sec. 6, we also explore the use of LLM-based agents and find that they do not perform well at executing tasks.
 
@@ -389,11 +412,18 @@ To ensure these tasks are generalizable across environments, the agents use the 
 
 We design Incalmo to be extensible and note that both the set of abstract tasks and their specific implementations are extensible. Since we decouple the task API from the realization, tasks can accommodate multiple execution agents. For instance, in Sec. 6.2, we add LLM-based agents as alternative implementations. We also enable developers to add new high-level tasks. For instance, users can add a "stealth data exfiltration" task (examples in the open-source repository).
 
-**Auxiliary services.** Next, we detail the design of the three auxiliary services that help LLMs retrieve relevant context and enable reliable execution of red team tasks: (1) an environment state service to maintain environment knowledge, (2) an attack graph service to reason about potential attack paths, and (3) a C&C server service to reliably maintain and execute commands on assets.
+**Auxiliary services.** Next, we detail the design of the three auxiliary services that help LLMs retrieve relevant context and enable reliable execution of red team tasks:
+1. **Environment State Service:** Maintains environment knowledge.
+2. **Attack Graph Service:** Reasons about potential attack paths.
+3. **C&C Server Service:** Reliably maintains and executes commands on assets.
 
 **(1) Environment state service:** To tackle context bloat, PentestGPT and CAI use several heuristics such as using LLMs to summarize prior context (e.g., command outputs, chain-of-thought, etc). However, relevant information can still get buried in the context: a crucial clue could be discovered on a host, but it only becomes meaningful after several commands on a different host are executed. While this may not have been a critical flaw in single-host CTF challenges, this stale context quickly becomes a bottleneck in long-horizon, multi-host exercises.
 
-To avoid this context bloat, we design a queryable environment state service that maintains a structured knowledge base of the environment (akin to RAG [39]). LLMs can output high-level code that queries the service. The idea is that planning LLMs (and agents) query the environment state service for information when it becomes relevant for the attack. There are two challenges when designing an environment state service: (1) our knowledge of the network changes as attackers run tasks (e.g., a scan discovers a host); and (2) this knowledge needs to be exposed in a systematic way so the LLM can "reason" about the network (e.g., what services does a host have). To address these challenges, the environment state service maintains a structured database of Python objects that represent the environment, similar to Lore [26].[^11] The database is updated as red team agents execute tasks. For instance, if an agent discovers hosts with a scan, the database will update and contain objects representing the new hosts.
+To avoid this context bloat, we design a queryable environment state service that maintains a structured knowledge base of the environment (akin to RAG [39]). LLMs can output high-level code that queries the service. The idea is that planning LLMs (and agents) query the environment state service for information when it becomes relevant for the attack. There are two challenges when designing an environment state service:
+1. **Dynamic Knowledge:** Our knowledge of the network changes as attackers run tasks (e.g., a scan discovers a host).
+2. **Systematic Exposure:** This knowledge needs to be exposed in a systematic way so the LLM can "reason" about the network (e.g., what services does a host have).
+
+To address these challenges, the environment state service maintains a structured database of Python objects that represent the environment, similar to Lore [26].[^11] The database is updated as red team agents execute tasks. For instance, if an agent discovers hosts with a scan, the database will update and contain objects representing the new hosts.
 
 [^11]: Lore uses traditional state-space exploration tools and algorithms for attack exploration, and is not designed to be exposed to LLMs as such.
 
@@ -406,7 +436,11 @@ attack_graph_service.get_possible_attack_paths(target_host)
 
 When calling this endpoint, the attack graph service will query the environment state service to obtain the current world view about host vulnerabilities and host reachability criteria to suggest next hosts to exploit. Our current implementation uses a simple brute-force search to discover these candidate paths, which we have found to be sufficiently scalable for environments on the order of 100s of nodes.
 
-**(3) C&C server service:** We design a high-level C&C server service to help task agents reliably execute commands and manage their assets. Instead of using low-level shell commands to manage assets, we abstract a C&C server as a service that (A) executes commands on an arbitrary infected user on a host, and (B) has an API endpoint to download and execute malware to infect additional hosts. Our current implementation handles all low-level communication techniques (e.g., proxying [54], beaconing [8]) internally. However, the C&C server service API can be extended to include options to configure these.
+**(3) C&C server service:** We design a high-level C&C server service to help task agents reliably execute commands and manage their assets. Instead of using low-level shell commands to manage assets, we abstract a C&C server as a service that:
+- **(A) Command Execution:** Executes commands on an arbitrary infected user on a host.
+- **(B) Malware Propagation API:** Has an API endpoint to download and execute malware to infect additional hosts.
+
+Our current implementation handles all low-level communication techniques (e.g., proxying [54], beaconing [8]) internally. However, the C&C server service API can be extended to include options to configure these.
 
 ### 🕵️ 4.3. Illustrative case study
 
@@ -486,7 +520,10 @@ For each of the five high-level tasks in Sec. 4, we create non-LLM and LLM-based
 
 We use LangChain [37] to iteratively prompt LLMs. We first create a prompt with the onboarding process outlined in Sec. 4. During the execution phase, we extract the Python function between the `<task></task>` or `<query></query>` tags. Then Incalmo executes the function to get a list of tasks for the orchestrator to execute. Incalmo will execute attacks until an LLM specifies a `<finished>` tag or reaches a time limit.
 
-**MHBench.** To systematically evaluate Incalmo, we design and implement MHBench, a multi-host red teaming benchmark with 40 environments. We use Python and Ansible code to set up the environments atop OpenStack. The red team goal in 10 environments is to exfiltrate key data files and the goal in the remaining 30 environments is to gain root access to key hosts. We design MHBench to be diverse along key dimensions: (1) network size and topology, (2) type of vulnerabilities, and (3) red teaming complexity.
+**MHBench.** To systematically evaluate Incalmo, we design and implement MHBench, a multi-host red teaming benchmark with 40 environments. We use Python and Ansible code to set up the environments atop OpenStack. The red team goal in 10 environments is to exfiltrate key data files and the goal in the remaining 30 environments is to gain root access to key hosts. We design MHBench to be diverse along three key dimensions:
+1. Network size and topology
+2. Type of vulnerabilities
+3. Red teaming complexity
 
 In terms of network size, MHBench currently includes many small enterprise environments ranging from 22 to 50 hosts. For 30 of the environments, we algorithmically generate different topology structures that are similar to real-world environments [2], [3]. In addition, we manually design the topology of 10 environments based on topologies from prior work such as "Star", "Chain", and "Dumbbell" [36], [69], [18], [2], [40] and topologies from public reports of real-world attacks [43], [33]. The manually designed topologies are named based on the environment they were adapted from (e.g., Equifax environment). The algorithmically generated topologies are named based on the topology structure: "N4-H41-G7" has four (sub)networks, 41 hosts and 7 critical assets (i.e., goals).
 
@@ -545,7 +582,11 @@ With respect to TotalAcquisition, in 9 of the environments Incalmo was able to o
 
 ### 💡 6.2. Factor analysis
 
-Next, we conduct experiments varying: (1) type of LLM executing the plan, and (2) disabling modules in Incalmo. For brevity and cost constraints, we execute these experiments on the 10 illustrative environments used in Sec. 2.
+Next, we conduct experiments varying:
+1. **Type of LLM:** The type of LLM executing the plan.
+2. **Ablation of Modules:** Disabling modules in Incalmo.
+
+For brevity and cost constraints, we execute these experiments on the 10 illustrative environments used in Sec. 2.
 
 **Impact of LLM choice.** We explore the impact of Incalmo using different LLMs to plan the red team. We evaluate Incalmo with 10 different LLMs: Haiku 3.5; Sonnet 3.5, 3.7, and 4; GPT4o and GPT4o Mini; Gemini Flash 1.5 and 2; and Gemini Pro 1.5 and 2.5.
 
@@ -598,7 +639,9 @@ Taken together, the red team success rate, low cost, and speed results present a
 
 Next, we demonstrate how Incalmo is extensible to support new task-specific agents. In the prior evaluations, tasks are executed by deterministic agents. In this case study, we explore adding LLM-based task agents to Incalmo. For example, when the planning LLM initiates a lateral movement task, instead of using the predefined Incalmo agent, we consider introducing a new LLM-based agent to dynamically execute the task with low-level commands, but still has access to helpful services like the C&C server service. For the case study, we design an LLM-based agent for each of the five tasks.
 
-As an illustration, we show the setting of Incalmo with Sonnet 3.5 to both plan the red team and have the LLM-based task agents use Sonnet 3.5 in three environments: Equifax-inspired, Enterprise C, and 6-layer star. (We see similar results for Sonnet 4, the top performing model.) To bound the cost, we limit each LLM-based task agent to 10 interactions for each task. We consider two experimental setups: (1) all task agents use Sonnet 3.5 instead of Incalmo and (2) replace Incalmo task agents one at a time.
+As an illustration, we show the setting of Incalmo with Sonnet 3.5 to both plan the red team and have the LLM-based task agents use Sonnet 3.5 in three environments: Equifax-inspired, Enterprise C, and 6-layer star. (We see similar results for Sonnet 4, the top performing model.) To bound the cost, we limit each LLM-based task agent to 10 interactions for each task. We consider two experimental setups:
+1. **All LLM-Based Agents:** All task agents use Sonnet 3.5 instead of Incalmo.
+2. **Incremental Replacement:** Replace Incalmo task agents one at a time.
 
 > **Figure 15**: The Success and TotalAcquisition metrics of Incalmo with Sonnet 3.5 task agents in three environments. Sonnet 3.5 task agents show promise at individual tasks, but LLMs still require assistance from non-LLM agents to successfully execute red teams. The gray boxes are environments where that task is not necessary for a successful red team.
 
@@ -607,7 +650,9 @@ As an illustration, we show the setting of Incalmo with Sonnet 3.5 to both plan 
 
 In the "all" setup, Sonnet 3.5 as the planner only using Sonnet 3.5 task agents was unable to succeed in any of the 3 evaluated environments, as seen in Fig. 15. However, when replacing a single Incalmo agent for LLM-based agents, Sonnet 3.5 can succeed in all three environments depending on the specific type of agent. For instance, Sonnet 3.5 with a Sonnet 3.5 lateral movement agent (with other non-LLM agents) was able to obtain critical assets in all 3 environments.
 
-This study also serves two other purposes. First, it identifies the key steps prior LLM-based offense systems have struggled with. Second, it suggests a roadmap to tackle 0-day vulnerabilities via novel AI-based agents when the existing agents lack coverage [73].
+This study also serves two other purposes:
+1. **Identifying Bottlenecks:** It identifies the key steps prior LLM-based offense systems have struggled with.
+2. **Roadmap for Zero-Day Vulnerabilities:** It suggests a roadmap to tackle 0-day vulnerabilities via novel AI-based agents when the existing agents lack coverage [73].
 
 ---
 
@@ -861,7 +906,9 @@ To track if ExpertPromptShell successfully achieved tasks, we use the following 
 To further understand how they failed, we analyze the LLM-generated commands that failed. This analysis requires significant manual effort so we focus on two environments where ExpertPromptShell performed the best: the Equifax-inspired and 4-Layer Chain environments.
 
 *   **Irrelevant tasks.** For each task, we tag the task as irrelevant if the task's command's name and command's host do not appear in any command in the reference solution. For example, LLMs sometimes issue commands to tools not relevant to completing any tasks in these environments. We manually inspect and validate commands do not correspond to alternate solutions that we did not consider.
-*   **Incorrectly implemented commands.** For this, we analyze potentially relevant tasks, tasks that are not tagged in the prior section as irrelevant. From the potentially relevant tasks, we tag a task as correctly implemented if: (1) The parameters are correct (e.g., an nmap scan has the correct flags); and (2) command has no syntax errors.
+*   **Incorrectly implemented commands.** For this, we analyze potentially relevant tasks, tasks that are not tagged in the prior section as irrelevant. From the potentially relevant tasks, we tag a task as correctly implemented if:
+    1. The parameters are correct (e.g., an nmap scan has the correct flags).
+    2. The command has no syntax errors.
 
 ---
 

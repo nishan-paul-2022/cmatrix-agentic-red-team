@@ -116,7 +116,10 @@ In summary, this survey conducts a systematic review and establishes comprehensi
 
 ## 2. LLM-based Autonomous Agent Construction
 
-LLM-based autonomous agents are expected to effectively perform diverse tasks by leveraging the human-like capabilities of LLMs. In order to achieve this goal, there are two significant aspects: (1) which architecture should be designed to better use LLMs and (2) given the designed architecture, how to enable the agent to acquire capabilities for accomplishing specific tasks. 
+LLM-based autonomous agents are expected to effectively perform diverse tasks by leveraging the human-like capabilities of LLMs. In order to achieve this goal, there are two significant aspects:
+
+1. **Architecture Design:** Which architecture should be designed to better use LLMs.
+2. **Capability Acquisition:** Given the designed architecture, how to enable the agent to acquire capabilities for accomplishing specific tasks. 
 
 Comparing LLM-based autonomous agents to traditional machine learning, architecture design is analogous to defining the network structure, while capability acquisition resembles the process of learning network parameters. In the following sections, we explore these two aspects in greater detail.
 

@@ -121,7 +121,11 @@ We evaluated VulnBot across two distinct benchmarks to assess its performance an
 Penetration testing, also referred to as ethical hacking, is a method employed to evaluate the security of computer systems, networks, or applications by simulating potential malicious attacks. The primary objective is to identify and remediate potential vulnerabilities before they can be exploited by real attackers [1, 11]. According to the OWASP Testing Guide [45], penetration testing typically consists of five key phases: reconnaissance, scanning, vulnerability exploitation, maintaining access, and reporting [8]. The duration of these phases varies depending on the scope of the test. On average, the entire process takes approximately 10 days, with the reconnaissance phase being the most time-consuming, often lasting between 4 to 6 days [7, 53]. The cost of penetration testing is also influenced by the type and scope of the assessment. For example, a basic website scan typically costs between US $349 and US $1499, while more comprehensive assessments, such as SaaS or web application scanning, can range from US $700 to US $5999 [46, 49].
 
 ### 2.2 💡 Motivation
-Traditional penetration testing is both time-intensive and costly, highlighting the need for more efficient, automated solutions. Current approaches leveraging LLM-assisted or automated agents for penetration testing face notable inefficiencies. As illustrated in Figure 1, the LLM Assistant-Guided Pentest Agent (a) lacks autonomy and requires frequent user intervention to clarify tasks, resulting in inefficiency. Similarly, the Conventional Automated Penetration Testing Agent (b) generates an excessive amount of unstructured data but fails to provide actionable insights or clear next steps, leading to context loss and command failures. The Collaborative Multi-Agent System (c) addresses these limitations by leveraging specialized agents for reconnaissance, scanning, and exploitation. This system employs a modular and phased approach, effectively managing tasks through coordinated planning, generation, and summarization, thereby enhancing the overall efficiency and autonomy of the penetration testing process.
+Traditional penetration testing is both time-intensive and costly, highlighting the need for more efficient, automated solutions. Current approaches leveraging LLM-assisted or automated agents for penetration testing face notable inefficiencies. As illustrated in Figure 1:
+
+- **(a) LLM Assistant-Guided Pentest Agent:** Lacks autonomy and requires frequent user intervention to clarify tasks, resulting in inefficiency.
+- **(b) Conventional Automated Penetration Testing Agent:** Generates an excessive amount of unstructured data but fails to provide actionable insights or clear next steps, leading to context loss and command failures.
+- **(c) Collaborative Multi-Agent System:** Addresses these limitations by leveraging specialized agents for reconnaissance, scanning, and exploitation. This system employs a modular and phased approach, effectively managing tasks through coordinated planning, generation, and summarization, thereby enhancing the overall efficiency and autonomy of the penetration testing process.
 
 #### 2.2.1 📝 Task Definition
 In this paper, we define autonomous penetration testing as encompassing two types of tasks: those requiring human intervention, where penetration testers provide guidance, and those conducted entirely without human intervention. This work specifically focuses on the latter tasks performed autonomously, without the need for human oversight. Due to time and cost constraints, we leverage open-source models to minimize expenses.
@@ -171,7 +175,12 @@ The primary cause of failure across both the reconnaissance and exploitation sta
 
 ## 3. 🏗️ Design
 
-In this section, we present the design of VulnBot, an autonomous penetration testing framework for LLM-based multi-agent systems. We begin by providing an overview of the overall architecture of VulnBot in Section 3.1. Subsequently, we elaborate on the four key design aspects of VulnBot: (1) specialization of roles (Section 3.2), (2) penetration path planning, which incorporates the Planner and Memory Retriever modules (Section 3.3), (3) inter-agent communication, facilitated by the Summarizer module (Section 3.4), and (4) generative penetration behavior and interaction, enabled by the Generator and Executor modules (Section 3.5).
+In this section, we present the design of VulnBot, an autonomous penetration testing framework for LLM-based multi-agent systems. We begin by providing an overview of the overall architecture of VulnBot in Section 3.1. Subsequently, we elaborate on the four key design aspects of VulnBot:
+
+1. **Specialization of Roles (Section 3.2):** Defining targeted capabilities for distinct agent personas.
+2. **Penetration Path Planning (Section 3.3):** Incorporates the Planner and Memory Retriever modules for strategic guidance.
+3. **Inter-Agent Communication (Section 3.4):** Facilitated by the Summarizer module to share insights without context overload.
+4. **Generative Penetration Behavior and Interaction (Section 3.5):** Enabled by the Generator and Executor modules to execute automated commands against the target environment.
 
 ### 3.1 🧩 Overview
 

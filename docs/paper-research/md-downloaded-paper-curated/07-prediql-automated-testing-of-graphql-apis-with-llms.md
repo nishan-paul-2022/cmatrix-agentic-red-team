@@ -56,7 +56,11 @@ To close this gap, we present PrediQL, an automated GraphQL testing framework th
 
 We evaluated PrediQL using multiple large language models across a diverse set of open-source and benchmark GraphQL APIs. The results show that PrediQL consistently improves test coverage, by an average of **16%** with a maximum improvement of **50%**, and discovers more context-dependent vulnerabilities compared to established baselines. Among the tested configurations, the GPT-5 Mini achieved the highest coverage, while smaller models like Llama-3-8B offered competitive results with reduced computational cost. In addition to broader coverage, PrediQL demonstrates stronger vulnerability detection capabilities, accurately identifying injection flaws, access control bypasses, and information disclosure cases that existing tools often miss.
 
-In summary, this paper makes three main contributions: (1) We present PrediQL, the first retrieval-augmented, LLM-guided GraphQL fuzzer with adaptive strategy selection, modeled as a multi-armed bandit problem [15, 20, 40] to improve efficiency and reduce redundant requests. (2) We design a context-aware vulnerability detector that leverages LLM reasoning to interpret responses and identify diverse vulnerability categories beyond static rule-based detection. (3) We conduct extensive experimental evaluation on open-source and benchmark GraphQL APIs, demonstrating that PrediQL achieves higher coverage and detects more context-dependent vulnerabilities than existing tools.
+In summary, this paper makes three main contributions:
+
+1. **Retrieval-Augmented Fuzzer:** We present PrediQL, the first retrieval-augmented, LLM-guided GraphQL fuzzer with adaptive strategy selection, modeled as a multi-armed bandit problem [15, 20, 40] to improve efficiency and reduce redundant requests.
+2. **Context-Aware Vulnerability Detector:** We design a context-aware vulnerability detector that leverages LLM reasoning to interpret responses and identify diverse vulnerability categories beyond static rule-based detection.
+3. **Extensive Empirical Evaluation:** We conduct extensive experimental evaluation on open-source and benchmark GraphQL APIs, demonstrating that PrediQL achieves higher coverage and detects more context-dependent vulnerabilities than existing tools.
 
 ```mermaid
 flowchart TD
@@ -136,7 +140,12 @@ Query generation is framed as a multi-armed bandit problem [40], where each arm 
 - **Depth:** Limits the nesting level of GraphQL selections to balance complexity and validity.
 - **Top-k:** Specifies how many similar examples from the RAG system are retrieved as contextual grounding ($k \in \{0, 3, 5\}$).
 
-Since the effectiveness of each strategy depends on the endpoint's evolving behavior, the bandit formulation enables PrediQL to dynamically allocate preference toward high-performing arms while still exploring alternatives. To balance exploration and exploitation, PrediQL employs **Thompson Sampling** [15], rewarding arms only when generated queries both (i) return HTTP 200 responses and (ii) expand coverage. To account for non-stationary environments, rewards are exponentially discounted so that outdated strategies are gradually down-weighted. This adaptive mechanism prevents over-commitment to a single strategy while progressively amplifying those that yield meaningful coverage.
+Since the effectiveness of each strategy depends on the endpoint's evolving behavior, the bandit formulation enables PrediQL to dynamically allocate preference toward high-performing arms while still exploring alternatives. To balance exploration and exploitation, PrediQL employs **Thompson Sampling** [15], rewarding arms only when generated queries satisfy two conditions:
+
+1. Return HTTP 200 responses.
+2. Expand code coverage.
+
+To account for non-stationary environments, rewards are exponentially discounted so that outdated strategies are gradually down-weighted. This adaptive mechanism prevents over-commitment to a single strategy while progressively amplifying those that yield meaningful coverage.
 
 #### Retrieval-Augmented Generation
 

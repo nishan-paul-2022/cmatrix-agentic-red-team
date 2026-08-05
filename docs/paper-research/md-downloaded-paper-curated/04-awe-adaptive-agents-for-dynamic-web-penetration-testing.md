@@ -438,7 +438,10 @@ A challenge is strictly marked as **Solved** ($\text{Solve Rate} = 1$) only if t
 
 ### A. Evaluation on DVWA
 
-We evaluate AWE through a two-stage methodology. First, we conduct controlled experiments on DVWA to isolate the contribution of the underlying language model and justify our choice of Claude Sonnet 4. Second, we benchmark AWE against MAPTA, the most diverse publicly documented autonomous penetration-testing system, on the full 104-challenge XBOW benchmark.
+We evaluate AWE through a two-stage methodology:
+
+1. **Controlled Experiments:** We conduct controlled experiments on DVWA to isolate the contribution of the underlying language model and justify our choice of Claude Sonnet 4.
+2. **Comprehensive Benchmarking:** We benchmark AWE against MAPTA, the most diverse publicly documented autonomous penetration-testing system, on the full 104-challenge XBOW benchmark.
 
 DVWA provides a stable, deterministic environment that enables fine-grained comparison of LLM behavior independent of broader architectural factors. We executed AWE with three LLMs — **Claude Sonnet 4**, **GPT-4o**, and **Gemini 2.0 Flash** — using identical agent logic and verification procedures across five representative vulnerability classes. Across all models, reflected XSS served as a baseline of capability, with each model achieving 100% success. Performance diverged sharply, however, once contextual reasoning or iterative inference became essential. Claude Sonnet 4 consistently outperformed both GPT-4o and Gemini on stored XSS with CSP enforcement and blind SQL injection — the two categories that require AWE's most complex reasoning loops.
 

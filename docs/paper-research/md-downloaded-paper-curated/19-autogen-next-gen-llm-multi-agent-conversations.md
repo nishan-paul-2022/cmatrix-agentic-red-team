@@ -67,7 +67,11 @@ While there is contemporaneous exploration of multi-agent approaches, we present
 
 1. **Customizable and Conversable Agents:** AutoGen uses a generic design of agents that can leverage LLMs, human inputs, tools, or a combination of them. The result is that developers can easily and quickly create agents with different roles (e.g., agents to write code, execute code, wire in human feedback, validate outputs, etc.) by selecting and configuring a subset of built-in capabilities. The agent's backend can also be readily extended to allow more custom behaviors. To make these agents suitable for multi-agent conversation, every agent is made conversable — they can receive, react, and respond to messages. When configured properly, an agent can hold multiple turns of conversations with other agents autonomously or solicit human inputs at certain rounds, enabling human agency and automation. The conversable agent design leverages the strong capability of the most advanced LLMs in taking feedback and making progress via chat and also allows combining capabilities of LLMs in a modular fashion. *(Section 2.1)*
 
-2. **Conversation Programming:** A fundamental insight of AutoGen is to simplify and unify complex LLM application workflows as multi-agent conversations. So AutoGen adopts a programming paradigm centered around these inter-agent conversations. We refer to this paradigm as conversation programming, which streamlines the development of intricate applications via two primary steps: (1) defining a set of conversable agents with specific capabilities and roles; (2) programming the interaction behavior between agents via conversation-centric computation and control. Both steps can be achieved via a fusion of natural and programming languages to build applications with a wide range of conversation patterns and agent behaviors. AutoGen provides ready-to-use implementations and also allows easy extension and experimentation for both steps. *(Section 2.2)*
+2. **Conversation Programming:** A fundamental insight of AutoGen is to simplify and unify complex LLM application workflows as multi-agent conversations. So AutoGen adopts a programming paradigm centered around these inter-agent conversations. We refer to this paradigm as conversation programming, which streamlines the development of intricate applications via two primary steps:
+    1. Defining a set of conversable agents with specific capabilities and roles.
+    2. Programming the interaction behavior between agents via conversation-centric computation and control.
+    
+    Both steps can be achieved via a fusion of natural and programming languages to build applications with a wide range of conversation patterns and agent behaviors. AutoGen provides ready-to-use implementations and also allows easy extension and experimentation for both steps. *(Section 2.2)*
 
 > **Figure 1: AutoGen enables diverse LLM-based applications using multi-agent conversations.**  
 > *(Left)* AutoGen agents are conversable, customizable, and can be based on LLMs, tools, humans, or even a combination of them. *(Top-middle)* Agents can converse to solve tasks. *(Right)* They can form a chat, potentially with humans in the loop. *(Bottom-middle)* The framework supports flexible conversation patterns (Joint chat, Hierarchical chat).
@@ -339,8 +343,7 @@ simplified = fraction.simplify()
 # Print the simplified fraction
 print(simplified)
 ```
-**Output:**  
-`5*sqrt(42)/27`
+**Output:** `5*sqrt(42)/27`
 
 ### Example 2: Conversational Chess (Figure 15)
 

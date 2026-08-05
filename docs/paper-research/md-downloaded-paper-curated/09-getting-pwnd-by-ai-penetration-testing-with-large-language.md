@@ -266,5 +266,5 @@ Attacks will use LLMs; the genie is out of the bottle, and the **red queen's rac
 
 ## 📌 Footnotes
 
-[^1]: CTFs (Capture-The-Flag) are gamified penetration-testing exercises.
+[^1]: CTFs (Capture-The-Flag) are gamified penetration-testing exercises.   
 [^2]: If your Linux system is not using shadow passwords by now, chatGPT is the least of your worries.

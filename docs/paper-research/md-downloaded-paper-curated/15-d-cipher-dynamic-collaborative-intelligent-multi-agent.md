@@ -132,7 +132,13 @@ EnIGMA [1] agent incorporates interactive tools, in-context learning, and LLM su
 
 ## III. 🏗️ D-CIPHER IMPLEMENTATION
 
-The D-CIPHER framework introduces a collaborative LLM multi-agent system. Each individual agent is based on the NYU CTF baseline agent [31] with upgraded prompts that describe tasks and additional interaction tools for a multi-agent collaborative context. We use function calling features of current LLMs to prompt for agent actions. The system has three agents: (1) the Planner agent generates the overall plan to solve the CTF challenge, delegating specific tasks to Executors, and revising the plan based on their feedback; (2) the Executor agent performs the task delegated by the Planner and returns a summary; and (3) the Auto-prompter agent generates a dynamic prompt based on its exploration of the CTF. Figure 2 shows D-CIPHER's workflow.
+The D-CIPHER framework introduces a collaborative LLM multi-agent system. Each individual agent is based on the NYU CTF baseline agent [31] with upgraded prompts that describe tasks and additional interaction tools for a multi-agent collaborative context. We use function calling features of current LLMs to prompt for agent actions. The system has three agents:
+
+1. **Planner Agent:** Generates the overall plan to solve the CTF challenge, delegating specific tasks to Executors, and revising the plan based on their feedback.
+2. **Executor Agent:** Performs the task delegated by the Planner and returns a summary.
+3. **Auto-Prompter Agent:** Generates a dynamic prompt based on its exploration of the CTF.
+
+Figure 2 shows D-CIPHER's workflow.
 
 > **Figure 2. Workflow of the D-CIPHER multi-agent system.** Execution starts with the Auto-prompter which explores the CTF and produces a dynamic, relevant prompt. The Planner proceeds with exploration and delegates specific tasks to the Executors. Each Executor starts with a fresh conversation history to focus on the delegated task, while the Planner maintains overall context and drives the problem solving.
 
@@ -166,7 +172,13 @@ graph TD
 ```
 
 ### A. 🧠 Context Management
-Each agent maintains a conversation history of LLM inputs and outputs. An LLM agent's context contains: (1) the system prompt that sets the agent's role and provides actions, (2) the initial prompt that describes the environment and the task (e.g., CTF challenge or delegated task); and (3) the conversation history of agent actions and observations. Following the ReAct strategy, we prompt the LLM to reason and produce an action. We utilize the function calling features of current LLMs to produce actions, so we do not define a structured format of our own, but instead rely on the LLM provider's API to parse the actions correctly. At every iteration, the conversation history is sent to the LLM and it generates a message containing the reason and action. Observations from executing the actions are appended to the conversation history. The generated reason, action, and corresponding observation constitutes a "round" of conversation. The agent continue these rounds until the task is complete or the context is full. To avoid filling up the context, we truncate observations to 25,000 characters. We also optionally truncate actions and observations in all but the last few rounds while keeping the reasoning intact, similar to Abramovich et al. [1].
+Each agent maintains a conversation history of LLM inputs and outputs. An LLM agent's context contains:
+
+1. **System Prompt:** Sets the agent's role and provides actions.
+2. **Initial Prompt:** Describes the environment and the task (e.g., CTF challenge or delegated task).
+3. **Conversation History:** Maintains agent actions and observations.
+
+Following the ReAct strategy, we prompt the LLM to reason and produce an action. We utilize the function calling features of current LLMs to produce actions, so we do not define a structured format of our own, but instead rely on the LLM provider's API to parse the actions correctly. At every iteration, the conversation history is sent to the LLM and it generates a message containing the reason and action. Observations from executing the actions are appended to the conversation history. The generated reason, action, and corresponding observation constitutes a "round" of conversation. The agent continue these rounds until the task is complete or the context is full. To avoid filling up the context, we truncate observations to 25,000 characters. We also optionally truncate actions and observations in all but the last few rounds while keeping the reasoning intact, similar to Abramovich et al. [1].
 
 ### B. 🛠️ Environment and Tools
 All agents interact with the same Linux container environment containing the CTF files and providing network access to the CTF server and the internet to install new packages. The agents have access to the following tools: `RunCommand` to execute shell commands; `CreateFile` to create a file; `Disassemble` and `Decompile` to trigger Ghidra (a popular reverse engineering tool) to reverse engineer a binary; `SubmitFlag` to submit a CTF flag to solve the challenge; and, `Giveup` to give up solving. Unlike EnIGMA [1], we do not implement advanced interfaces or interactive tools. The specialized reverse engineering tools offer the agents access to Ghidra which does not provide a direct command line interface. We also provide special actions for interaction between agents: `GeneratePrompt` for the Auto-prompter to generate a prompt; `Delegate` for the Planner to delegate tasks; and, `FinishTask` for the Executor to terminate and return a task summary.
@@ -297,7 +309,12 @@ Table III shows the categorywise % solved of D-CIPHER and other works on NYU CTF
 ### D. ⚙️ Impact of Different Configurations
 
 #### 1) Ablation Study
-D-CIPHER's special interaction functions allow versatility to configure different types of multi-agent systems. We run D-CIPHER with two different configurations: (1) without the Auto-prompter where the hard-coded prompt template is used for the Planner's initial prompt, and (2) without the Planner where a single Executor is run with the prompt generated by the Auto-prompter. These configurations allow us to examine the impact of Auto-prompter and Planner on D-CIPHER, while also demonstrating the framework's flexibility to build systems for different problems.
+D-CIPHER's special interaction functions allow versatility to configure different types of multi-agent systems. We run D-CIPHER with two different configurations:
+
+1. **Without the Auto-prompter:** The hard-coded prompt template is used for the Planner's initial prompt.
+2. **Without the Planner:** A single Executor is run with the prompt generated by the Auto-prompter.
+
+These configurations allow us to examine the impact of Auto-prompter and Planner on D-CIPHER, while also demonstrating the framework's flexibility to build systems for different problems.
 
 Table III shows the results for these two configurations. D-CIPHER without Auto-prompter with Claude 3.5 Sonnet gets a 3% improvement in challenges solved on NYU CTF Bench, but its performance drops with GPT 4o on NYU CTF Bench and Claude 3.5 Sonnet on Cybench, showing that the Auto-prompter improves performance in most cases. Without the Auto-prompter, average cost increases across LLMs and benchmarks, indicating that the Auto-prompter improves system efficiency without compromising performance in most cases. The contrasting result with Claude 3.5 Sonnet on NYU CTF Bench is due to the pwn category, where performance increases by more than 2x, while other categories get matching or lower results (see Sections VI-A and V-C).
 

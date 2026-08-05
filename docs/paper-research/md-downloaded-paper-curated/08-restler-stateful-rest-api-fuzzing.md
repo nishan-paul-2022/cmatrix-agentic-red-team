@@ -369,7 +369,13 @@ To answer **Q2**, we fuzzed six GitLab API groups using BFS with a 5-hour timeou
 Code coverage data is collected by configuring Ruby's `Class::TracePoint` hook to trace GitLab's `service/lib` folder. The results in Table I are incremental on top of **16,836 lines of code** executed during service boot.
 
 > 💡 **Observation**
-> Longer sequence lengths consistently lead to increased service-side code coverage. This is the desired behavior, especially for small sequence lengths, since some service functionality can only be exercised after at least a few requests are executed. For example, GitLab's "selecting a commit" functionality requires two dynamic objects, a `project-id` and a `commit-id`, with the following implicit dependency: (1) a user needs to create a project, (2) use the respective `project-id` to post a new commit, and then (3) select the commit using its `commit-id` and the respective `project-id`. This operation can only be performed by sequences of three requests or more — for the Commits API, coverage gradually increases from 598 to 1,108 to 1,196 lines of code for sequence lengths of one, two, and three, respectively. Most notably, for the Branches API, coverage keeps gradually increasing for sequences of length up to five, reaching 1,185 lines when the 5-hour limit expires.
+> Longer sequence lengths consistently lead to increased service-side code coverage. This is the desired behavior, especially for small sequence lengths, since some service functionality can only be exercised after at least a few requests are executed. For example, GitLab's "selecting a commit" functionality requires two dynamic objects, a `project-id` and a `commit-id`, with the following implicit dependency:
+> 
+> 1. A user needs to create a project.
+> 2. Use the respective `project-id` to post a new commit.
+> 3. Select the commit using its `commit-id` and the respective `project-id`.
+> 
+> This operation can only be performed by sequences of three requests or more — for the Commits API, coverage gradually increases from 598 to 1,108 to 1,196 lines of code for sequence lengths of one, two, and three, respectively. Most notably, for the Branches API, coverage keeps gradually increasing for sequences of length up to five, reaching 1,185 lines when the 5-hour limit expires.
 
 Table I also shows the increase in tests executed, `seqSet` size (after `RENDER` returns), and dynamic objects created — all quickly growing due to the exhaustive nature of the BFS search strategy. We emphasize that without the two key techniques evaluated in Section V-B, this growth would be much worse: for the Commits API, the `seqSet` size is 20,679 with 12,518 dynamic objects created for sequences of length up to five. By comparison, since the Commits API has 11 request types with an average of 4 rendering combinations, the number of all possible rendered request sequences of up to length four is already more than **164 million**, and a naive brute-force enumeration of those would already be intractable. Still, even with the two core techniques used in RESTler, the search space explodes quickly, motivating the evaluation of other search strategies next.
 
@@ -454,13 +460,26 @@ During all our fuzzing experiments with RESTler on our local GitLab deployment, 
 
 #### 1. Bug in Commits API
 One of the bugs found by RESTler in the Commits API is triggered when a user tries to cherry-pick a commit to a branch with an empty name. Due to incomplete input validation, an invalid branch name can be passed between two different layers of abstraction as follows: the Ruby code that checks if a target branch exists invokes a native C function whose return value is expected to be either `NULL` or an existing entry. However, if an unmatched entry type (e.g., an empty string) is passed to the native function, an exception is raised. This exception is unhandled by the higher-level Ruby code, and therefore it causes a `500 Internal Server Error`.
-* **Reproduction Steps:** (1) Create project $\rightarrow$ (2) Create new branch (in addition to the default `master` branch) $\rightarrow$ (3) Post a valid commit with action "create" in the branch created in (2) $\rightarrow$ (4) Cherry-pick the commit to a branch whose name is set to the empty string.
+* **Reproduction Steps:**
+    1. Create project
+    2. Create new branch (in addition to the default `master` branch)
+    3. Post a valid commit with action "create" in the branch created in (2)
+    4. Cherry-pick the commit to a branch whose name is set to the empty string.
 
 #### 2. Bug in Branches API
 Another bug, found by RESTler in the Branches API, is triggered when a user tries to edit a branch of a recently deleted project. The bug is due to invalid serialization of operations, which results in a database entry update using an invalid foreign key of a deleted project. Since the `project-id` (foreign key) is not present in the respective "projects" table, a `PG::ForeignKeyViolation` exception causes a `500 Internal Server Error`.
-* **Reproduction Steps:** (1) Create project $\rightarrow$ (2) Create branch $\rightarrow$ (3) Delete the project created in (1) $\rightarrow$ (4) Quickly edit the branch of the deleted project.
+* **Reproduction Steps:**
+    1. Create project
+    2. Create branch
+    3. Delete the project created in (1)
+    4. Quickly edit the branch of the deleted project.
 
-From the above bug descriptions, we see a two-fold pattern. First, RESTler produces a sequence that exercises the target service deep enough so that it reaches a particular valid "state". Second, while the service is in such a state, RESTler produces an additional request with an unexpected fuzzed value (e.g., an empty string) or an unexpected action (e.g., edit a branch of a recently deleted project). Most bugs found by RESTler require a combination of these two features in order to be found.
+From the above bug descriptions, we see a two-fold pattern:
+
+1. **Deep State Exploration:** RESTler produces a sequence that exercises the target service deep enough so that it reaches a particular valid "state".
+2. **State-Sensitive Fuzzing:** While the service is in such a state, RESTler produces an additional request with an unexpected fuzzed value (e.g., an empty string) or an unexpected action (e.g., edit a branch of a recently deleted project).
+
+Most bugs found by RESTler require a combination of these two features in order to be found.
 
 ---
 

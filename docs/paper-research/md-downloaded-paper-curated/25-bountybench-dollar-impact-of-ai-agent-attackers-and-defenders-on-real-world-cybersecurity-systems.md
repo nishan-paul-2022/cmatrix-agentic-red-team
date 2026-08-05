@@ -68,7 +68,12 @@ There have been numerous efforts in building out cybersecurity benchmarks, inclu
 >
 > While these efforts have been helpful, there is a need for more real-world and comprehensive benchmarks with localized evaluation that capture system evolution. 
 
-First, real-world systems can be complex and difficult to set up. Even with CTF benchmarks, there have been issues with tasks being broken and unsolvable, and infrastructure introducing new vulnerabilities [23]. Second, cybersecurity is a vast field, and it is difficult to design and build benchmarks that capture this comprehensively in terms of breadth (i.e., offense/defense and domain) and depth (i.e., types of vulnerabilities for a given setting). Third, cybersecurity tasks are complex, so it would be helpful to understand the mechanisms beyond the effects. Finally, cybersecurity systems evolve rapidly, so we want to capture capabilities throughout this evolution, rather than at a static snapshot.
+This need arises from several key domain challenges:
+
+1. **System Complexity:** Real-world systems can be complex and difficult to set up. Even with CTF benchmarks, there have been issues with tasks being broken and unsolvable, and infrastructure introducing new vulnerabilities [23].
+2. **Vast Domain Scope:** Cybersecurity is a vast field, and it is difficult to design and build benchmarks that capture this comprehensively in terms of breadth (i.e., offense/defense and domain) and depth (i.e., types of vulnerabilities for a given setting).
+3. **Task Complexity:** Cybersecurity tasks are complex, so it would be helpful to understand the mechanisms beyond the effects.
+4. **Rapid Evolution:** Cybersecurity systems evolve rapidly, so we want to capture capabilities throughout this evolution, rather than at a static snapshot.
 
 Accordingly, we introduce the first framework to capture offensive and defensive cyber-capabilities in evolving real-world systems, which we instantiate with **BountyBench** (Figure 1). 
 
@@ -189,7 +194,9 @@ We have a custom host Docker container, which all additional containers reside i
 ### 2.5 Task Instantiation: Detect
 
 * 📖 **Definition:** Detect is a snapshot-level task: for a given snapshot, find any of the associated vulnerabilities. Formally, the agent is provided with the environment described in Subsection 2.4 and user logins as applicable. The agent must identify a vulnerability and create an executable exploit which returns success on the current snapshot, and failure on patched snapshots.
-* 🔍 **Evaluation:** As shown in Figure 3a, the evaluator does two checks. First, it checks the runtime invariants. Second, we introduce a new **Detect Indicator**: for a specific vulnerability, a valid exploit would succeed on a snapshot with the vulnerability, and fail on a snapshot without the vulnerability.
+* 🔍 **Evaluation:** As shown in Figure 3a, the evaluator performs two checks:
+    1. **Runtime Invariants:** It checks the runtime invariants.
+    2. **Detect Indicator:** We introduce a new Detect Indicator where, for a specific vulnerability, a valid exploit would succeed on a snapshot with the vulnerability, and fail on a snapshot without the vulnerability.
 
 ### 2.6 Detect Example
 
@@ -203,7 +210,10 @@ The agent is provided with the Lunary codebase, network access to the Lunary ser
 
 ### 2.7 Task Instantiation: Exploit
 
-* 📖 **Definition:** Exploit is a vulnerability-level task. The agent is provided with (1) details about a specific vulnerability, (2) a verifier that specifies a particular exploit for that specific vulnerability, and (3) any information required to craft the exploit.
+* 📖 **Definition:** Exploit is a vulnerability-level task. The agent is provided with:
+    1. Details about a specific vulnerability.
+    2. A verifier that specifies a particular exploit for that specific vulnerability.
+    3. Any information required to craft the exploit.
 * 🔍 **Evaluation:** As shown in Figure 3b, the evaluator checks that the verifier passes after the exploit is run on the current snapshot, and fails on a patched snapshot.
 
 ### 2.8 Exploit Example

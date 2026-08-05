@@ -62,7 +62,12 @@ Penetration testing is essential for assessing organizational security, yet the 
 
 Recent systems report strong results on benchmarks such as Capture-the-Flag challenges and Hack The Box (HTB) environments [8, 17, 19, 30, 32], and emerging work has demonstrated real-world impact, including the discovery of exploitable vulnerabilities in production software [10, 13]. However, reported task completion rates range from single digits under naive prompting to 40-80% with more sophisticated architectures [9, 20], raising a central question: what drives these performance differences, and what limitations remain?
 
-To answer this question, we conduct a systematic analysis of 28 LLM-based penetration testing systems and evaluate five representative solutions across three benchmarks of increasing complexity. Our analysis yields two findings. First, existing systems are optimized to address the limitations of specific LLMs. For example, context summarization and RAG-augmented tooling are designed to compensate for transient LLM constraints of limited context windows and poor tool knowledge. Benefits brought by these designs quickly diminish as models improve: performance gaps across solutions compress by over half when backbone models upgrade from GPT-4.0 to GPT-5. Second, failures partition into two categories: Type A failures (capability gaps) stem from missing tools and knowledge addressable through engineering, while Type B failures (complexity barriers) persist regardless of tooling due to planning and state management limitations. Existing systems predominantly target Type A failures, achieving strong results on simple tasks but failing on multi-step scenarios where Type B failures dominate. This indicates that the architectures of existing penetration testing systems are not designed to complement the improvements of LLMs. Their contributions erode as models advance, rather than compounding with improved capabilities.
+To answer this question, we conduct a systematic analysis of 28 LLM-based penetration testing systems and evaluate five representative solutions across three benchmarks of increasing complexity. Our analysis yields two findings:
+
+1. **Transient LLM Optimization:** Existing systems are optimized to address the limitations of specific LLMs. For example, context summarization and RAG-augmented tooling are designed to compensate for transient LLM constraints of limited context windows and poor tool knowledge. Benefits brought by these designs quickly diminish as models improve: performance gaps across solutions compress by over half when backbone models upgrade from GPT-4.0 to GPT-5.
+2. **Failure Partitioning & Complexity Barriers:** Failures partition into two categories: Type A failures (capability gaps) stem from missing tools and knowledge addressable through engineering, while Type B failures (complexity barriers) persist regardless of tooling due to planning and state management limitations. Existing systems predominantly target Type A failures, achieving strong results on simple tasks but failing on multi-step scenarios where Type B failures dominate.
+
+This indicates that the architectures of existing penetration testing systems are not designed to complement the improvements of LLMs. Their contributions erode as models advance, rather than compounding with improved capabilities.
 
 We trace Type B failures to a missing capability: existing penetration testing agent designs cannot assess task difficulty in real time. This manifests in several ways: agents commit prematurely to unproductive branches because they cannot estimate whether a path requires 3 or 30 steps; they fail to transition from reconnaissance to exploitation because they lack metrics for evidence sufficiency; they experience context forgetting because they do not monitor context consumption. Human pentesters handle these problems through intuition built from experience. LLM agents lack equivalent mechanisms for difficulty-aware decision making. We validate this diagnosis through controlled evaluation: augmenting agents with difficulty assessment reduces the Type B failure rate from 58% to 27% while Type A rate remains unchanged, confirming that this enhancement addresses the root cause.
 
@@ -100,7 +105,11 @@ Early work explores LLMs as copilots suggesting next steps to human operators [8
 
 ## 🔍 3 Understanding LLM Agent Failures
 
-How far are we from achieving real-world penetration testing with LLM agents? To answer this question, we conduct an empirical analysis of existing LLM-based penetration testing systems. Our goals are to (1) understand what drives reported performance improvements, (2) identify failure modes through controlled evaluation, and (3) establish a framework for distinguishing tractable tasks from intractable challenges.
+How far are we from achieving real-world penetration testing with LLM agents? To answer this question, we conduct an empirical analysis of existing LLM-based penetration testing systems. Our goals are to:
+
+1. Understand what drives reported performance improvements.
+2. Identify failure modes through controlled evaluation.
+3. Establish a framework for distinguishing tractable tasks from intractable challenges.
 
 ### 3.1 Taxonomy and Evaluation of LLM-based Penetration Testing
 
@@ -192,7 +201,9 @@ XBOW: task completion (%); PentestGPT Benchmark: machines rooted (/13); GOAD: ho
 | Multi-step chain failures | 12 | ✗ |
 
 > [!IMPORTANT]
-> **Finding 2:** Failures partition into (a) Type A: capability gaps, i.e., missing tools and knowledge addressable through engineering, and (b) Type B: complexity barriers, i.e., search strategy and state management failures that persist despite adequate capabilities. These two categories require different solutions.
+> **Finding 2:** Failures partition into two categories that require different solutions:
+> - **(a) Type A (Capability Gaps):** Missing tools and knowledge addressable through engineering.
+> - **(b) Type B (Complexity Barriers):** Search strategy and state management failures that persist despite adequate capabilities.
 
 ### 🏗️ 3.3 Analysis and Design Implications
 
@@ -217,7 +228,11 @@ Neither approach alone is sufficient. Capability engineering yields strong short
 ## 🏗️ 4 Design of PENTESTGPT v2
 
 ### 4.1 Overview
-We present PENTESTGPT v2, designed around the analysis in §3.3 to address both failure categories through dedicated architectural components. Figure 2 provides its architectural overview. PENTESTGPT v2 is a single-agent system that communicates with the environment consistently, operating over different components to complete penetration testing. It consists of the following modules: (1) A Tool and Skill Layer that eliminates Type A failures through structured tool interfaces and knowledge augmentation (§4.2). (2) A Task Difficulty Assessment (TDA) mechanism that estimates tractability in real time (§4.3), integrated into an Evidence-Guided Attack Tree Search (EGATS) algorithm that replaces the traditional PTT structure for exploration-exploitation decisions (§4.4). (3) A Memory Subsystem that maintains state across attack phases to prevent context forgetting (§4.5).
+We present PENTESTGPT v2, designed around the analysis in §3.3 to address both failure categories through dedicated architectural components. Figure 2 provides its architectural overview. PENTESTGPT v2 is a single-agent system that communicates with the environment consistently, operating over different components to complete penetration testing. It consists of the following modules:
+
+1. **Tool and Skill Layer (§4.2):** Eliminates Type A failures through structured tool interfaces and knowledge augmentation.
+2. **Task Difficulty Assessment (TDA) & EGATS (§4.3–§4.4):** Estimates tractability in real time (§4.3), integrated into an Evidence-Guided Attack Tree Search (EGATS) algorithm that replaces the traditional PTT structure for exploration-exploitation decisions (§4.4).
+3. **Memory Subsystem (§4.5):** Maintains state across attack phases to prevent context forgetting.
 
 **Figure 2: PENTESTGPT v2 Architecture**
 
@@ -385,7 +400,14 @@ We assess the performance of PENTESTGPT v2 through four research questions:
 ### 5.1 Experimental Setup
 PENTESTGPT v2 is implemented in Python (~8,500 lines), with the Tool Layer, TDA-EGATS Planner, and Memory Subsystem as separate modules. The implementation is open-sourced [3]. Following the evaluation methodology in Section 3.1, we evaluate PENTESTGPT v2 on three benchmarks of increasing complexity. XBOW [2] comprises 104 CTF-style web security challenges covering SQL injection, XSS, authentication bypass, and file inclusion; these short-horizon tasks isolate Type A failures where tool usage determines success. The PentestGPT Benchmark [8] consists of 13 machines from HTB and VulnHub, requiring end-to-end penetration testing from reconnaissance through privilege escalation to root access. Difficulty ranges from Easy to Hard, with 9-22 subtasks per machine, representing realistic scenarios that demand multi-step attack chains. GOAD [25] provides a 5-host multi-domain Active Directory environment requiring credential harvesting, Kerberoasting, lateral movement, and domain escalation, complex enterprise scenarios dominated by Type B failures.
 
-We compare against four baseline systems: PentestGPT v1.0 [8], AutoPT [32], PentestAgent [30], and VulnBot [17]. We exclude Cochise [12] from this comparison because its AD-specialized architecture creates an uneven evaluation as shown in Section 3.2. Baseline systems use their original tool invocation mechanisms to reflect realistic deployment comparisons; reported improvements therefore reflect both tool integration and architectural contributions. To isolate architectural contributions from model capabilities, all systems are evaluated with three frontier models: GPT-5.2, Claude-Opus-4.5, and Gemini-3.0-Pro. We select these models for two reasons: (1) they represent state-of-the-art capabilities at the time of evaluation, and (2) all three support toggling between standard and thinking modes, enabling controlled comparison of extended reasoning effects. We report task completion rate, subtask progress, and exploration metrics including branch diversity, backtrack frequency, and time-to-pivot. We report mean performance across trials with standard deviation where variance is meaningful; for discrete outcomes (machines rooted, hosts compromised), we report best-of-three following prior work [8,9] since standard deviation on small integers provides limited insight. For XBOW's continuous completion rates, we report both headline best-of-three results and trial statistics ($\mu$: mean, $\sigma$: standard deviation across the three trials) to characterize variance. In total, we conduct 5 systems × 118 evaluation units × 6 model configurations × 3 trials, yielding 10,620 evaluation runs at an estimated cost of $2,760 USD in API tokens (Table 8 reports PENTESTGPT v2-specific costs).
+We compare against four baseline systems: PentestGPT v1.0 [8], AutoPT [32], PentestAgent [30], and VulnBot [17]. We exclude Cochise [12] from this comparison because its AD-specialized architecture creates an uneven evaluation as shown in Section 3.2. Baseline systems use their original tool invocation mechanisms to reflect realistic deployment comparisons; reported improvements therefore reflect both tool integration and architectural contributions.
+
+To isolate architectural contributions from model capabilities, all systems are evaluated with three frontier models: GPT-5.2, Claude-Opus-4.5, and Gemini-3.0-Pro. We select these models for two reasons:
+
+1. **State-of-the-art capabilities:** They represent state-of-the-art capabilities at the time of evaluation.
+2. **Reasoning modes:** All three support toggling between standard and thinking modes, enabling controlled comparison of extended reasoning effects.
+
+We report task completion rate, subtask progress, and exploration metrics including branch diversity, backtrack frequency, and time-to-pivot. We report mean performance across trials with standard deviation where variance is meaningful; for discrete outcomes (machines rooted, hosts compromised), we report best-of-three following prior work [8,9] since standard deviation on small integers provides limited insight. For XBOW's continuous completion rates, we report both headline best-of-three results and trial statistics ($\mu$: mean, $\sigma$: standard deviation across the three trials) to characterize variance. In total, we conduct 5 systems × 118 evaluation units × 6 model configurations × 3 trials, yielding 10,620 evaluation runs at an estimated cost of $2,760 USD in API tokens (Table 8 reports PENTESTGPT v2-specific costs).
 
 ### 5.2 RQ1: Overall Performance
 Table 5 shows the performance comparison across all system-model-benchmark combinations, with consistent patterns that align with our Type A/B failure framework.
