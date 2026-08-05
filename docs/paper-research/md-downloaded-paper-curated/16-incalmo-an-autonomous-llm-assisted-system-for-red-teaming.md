@@ -44,7 +44,7 @@ Security operators use red teams to simulate real attackers and proactively find
 
 Building on our observations in understanding the failure modes of state-of-the-art systems, we argue the need to improve the abstractions and interfaces for LLM-assisted red teaming. Based on this insight, we present the design and implementation of Incalmo^1, an LLM-assisted system for autonomously red teaming multi-host networks. Incalmo uses LLMs to plan red team exercises in terms of high-level declarative tasks that are executed by domain-specific task agents. Incalmo also uses auxiliary services to manage context and acquired assets.
 
-For our evaluation, we develop MHBench, a novel multi-host attack benchmark with 40 realistic emulated networks (from 22 to 50 hosts). We find that Incalmo successfully acquires critical assets (i.e., key hosts or data) in 37 out of 40 MHBench environments. In contrast, state-of-the-art LLM-assisted systems succeed in only 3 out of 40 environments. We show that Incalmo is efficient—successful attacks took 12-54 minutes and cost $<\$15$ in LLM credits.
+For our evaluation, we develop MHBench, a novel multi-host attack benchmark with 40 realistic emulated networks (from 22 to 50 hosts). We find that Incalmo successfully acquires critical assets (i.e., key hosts or data) in 37 out of 40 MHBench environments. In contrast, state-of-the-art LLM-assisted systems succeed in only 3 out of 40 environments. We show that Incalmo is efficient—successful attacks took 12–54 minutes and cost ≤ $15 in LLM credits.
 
 > ^1 All code is publicly available: https://github.com/bsinger98/Incalmo
 
@@ -110,7 +110,9 @@ To evaluate Incalmo, we leverage MHBench and use three metrics to capture succes
 > **Figure 2**: Comparing Reliability across environments between Incalmo and ExpertPromptShell with Sonnet 4, the LLM-based system with the best performance on MHBench. Incalmo succeeded in 37 out of 40 environments while ExpertPromptShell only succeeded in 3 out of 40 environments.
 > *(Visual description: A bar chart plotting the number of successful trials (0 to 5) across 40 different environments. Incalmo reaches 5 trials for almost all environments, whereas ExpertPromptShell struggles to reach 1 or 2 trials in only a handful of environments.)*
 
-As an illustrative finding, Fig. 2 compares the Success and Reliability of Incalmo against ExpertPromptShell, the best baseline LLM-based tool, with both systems using Sonnet 4. In terms of Success, Incalmo succeeded in 37 out of 40 environments while ExpertPromptShell only succeeded in 3. In terms of TotalAcquisition, we find that Incalmo obtained more critical assets than ExpertPromptShell in 37 of the environments, with them achieving parity in the remaining 3. We find that Incalmo is cheap and fast—successful attacks took 12-54 minutes and cost $<\$15$ in LLM credits.
+As an illustrative finding, Fig. 2 compares the Success and Reliability of Incalmo against ExpertPromptShell, the best baseline LLM-based tool[^2], with both systems using Sonnet 4. In terms of Success, Incalmo succeeded in 37 out of 40 environments while ExpertPromptShell only succeeded in 3. In terms of TotalAcquisition, we find that Incalmo obtained more critical assets than ExpertPromptShell in 37 of the environments, with them achieving parity in the remaining 3. We find that Incalmo is cheap and fast—successful attacks took 12–54 minutes and cost ≤ $15 in LLM credits.
+
+[^2]: ExpertPromptShell with Sonnet 4 is the best-performing prior system among various baselines, as we show in Sec. 2.
 
 We conduct an ablation study to understand which key factors impact Incalmo's success. We show that the choice of LLM used by Incalmo is not critical and Incalmo can successfully red-team networks using a variety of LLMs. Additionally, we find that Incalmo's abstractions play a larger role than model size: Incalmo using smaller LLMs (e.g., Haiku 3.5) can successfully execute attacks in most environments.
 
@@ -183,11 +185,13 @@ Our focus is on red teaming involving multi-host challenges executed autonomousl
 
 **TABLE 1. SUMMARY OF EXISTING CYBER-OFFENSE TOOLS AND THEIR EVALUATION ENVIRONMENT**
 
-| Evaluation environment | Non-LLM | LLM (Manual) | LLM (Automated) | LLM (Semi-auto) | LLM (Automated) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Single-stage Single-host | MSF [54], NM [42], HC [66] | CD [8], LR [26] | HR [16], CY [79] | PT [14], CB [80] | GP [23], YL [77], FT [17], SH [60], IC [76] |
-| Multistage Single-host | MSF [54] | CD [8] | AJ [4], SV [27] | PT [14], CB [80] | NY [61], CA [44], CS [72], O1 [49] |
-| Multistage Multi-host | MSF [54] | CD [8] | HP [28], DE [67] | AA [75], AP [5] | CB [80], AT [71], VB [34], Incalmo, OC [35] |
+| Evaluation environment | Non-LLM (Manual) | Non-LLM (Automated) | LLM (Semi-auto) | LLM (Automated) |
+| :--- | :--- | :--- | :--- | :--- |
+| Single-stage Single-host | MSF [54], NM [42], HC [66] | — | PT [14], CB [80] | GP [23], YL [77], IC [76], FT [17], SH [60] |
+| Multistage Single-host | MSF [54] | CD [8] | PT [14], CB [80], AA [75], AP [5] | NY [61], CA [44], CS [72], O1 [49], CB [80], AT [71], VB [34] |
+| Multistage Multi-host | MSF [54] | CD [8], LR [26], HR [16], CY [79], AJ [4], SV [27], HP [28], DE [67] | — | Incalmo, OC [35][^3] |
+
+[^3]: The MITRE OCCULT is a framework to understand the cyber security risks of LLMs. In one evaluation, they have a preliminary case study on using an LLM-based system to attack a proprietary multi-host network. Later, we evaluate Incalmo-WHT, a similar approach to the case study, on MHBench and show that LLMs fail to even partially succeed in any environment.
 
 We summarize prior work as seen in Table 1: (1) LLM-based systems and (2) Non-LLM-based systems.
 
@@ -203,14 +207,23 @@ To address the gap in evaluating state-of-the-art LLM-based systems, we create a
 
 **Success criteria.** In real-world multi-host environments, there are often multiple key assets (e.g., Equifax had multiple sensitive databases in Fig. 3). Similar to human red teams [47], we consider an attack successful if an attacker is able to compromise at least one key asset (e.g., exfiltrated SSNs from at least one database). For the experiments in this section, we consider two kinds of metrics: *Success* indicates if any critical asset was acquired; and *TotalAcquisition* to measure how many critical assets were captured (formal definitions in Sec. 6).
 
-**Baselines.** In terms of autonomous LLM systems, we consider three baselines: (1) CyberSecEval3 [72], (2) ExpertPromptShell, a shell system with a prompt we created in collaboration with a domain expert at a leading LLM provider, and (3) CAI [44], a popular open-source system. We choose these systems because they use a variety of the techniques (e.g., chain-of-thought [72], [74], ReAct [78], and self-reflection [72], [14]) and were reproducible with open-source prompts and systems. For the semi-autonomous or human-in-the-loop systems, we evaluate PentestGPT [14] because it encompasses many "reasoning" strategies in other work (e.g., [14], [80]). Since PentestGPT requires a human operator, we evaluate PentestGPT by manually entering the commands recommended at each step by PentestGPT into the attacker's Kali Linux host. For ExpertPromptShell and CyberSecEval3, we consider 3 state-of-the-art LLMs: Sonnet 4, GPT 4o, Gemini 2.5 Pro.
+**Baselines.** In terms of autonomous LLM systems, we consider three baselines: (1) CyberSecEval3 [72], (2) ExpertPromptShell, a shell system with a prompt we created in collaboration with a domain expert at a leading LLM provider, and (3) CAI [44], a popular open-source system.[^4] We choose these systems because they use a variety of the techniques (e.g., chain-of-thought [72], [74], ReAct [78], and self-reflection [72], [14]) and were reproducible with open-source prompts and systems. For the semi-autonomous or human-in-the-loop systems, we evaluate PentestGPT [14] because it encompasses many "reasoning" strategies in other work (e.g., [14], [80]). Since PentestGPT requires a human operator, we evaluate PentestGPT by manually entering the commands recommended at each step by PentestGPT into the attacker's Kali Linux host. For ExpertPromptShell and CyberSecEval3, we consider 3 state-of-the-art LLMs: Sonnet 4, GPT 4o, Gemini 2.5 Pro.[^5]
 
-The baseline systems are evaluated on the 10 environments with 5 independent trial runs. We also evaluate a SOTA non-LLM attack system, MITRE's Caldera [8], a popular open-source tool for red teaming multi-host networks. Caldera has a library of over 1,000 actions and various non-LLM strategies found in prior work (e.g., RL [36], weighted decisions [22]). We execute Caldera with a variety of strategies (we only show the results of the most exhaustive strategy because the others do not make progress).
+[^4]: All prompts are in our open-source repository.
+[^5]: We were unable to evaluate OpenAI's "o" or "GPT-5" models because the public API has a safeguard that prevents them from executing attacks.
+
+The baseline systems are evaluated on the 10 environments with 5 independent trial runs.[^6] We also evaluate a SOTA non-LLM attack system, MITRE's Caldera [8], a popular open-source tool for red teaming multi-host networks. Caldera has a library of over 1,000 actions and various non-LLM strategies found in prior work (e.g., RL [36], weighted decisions [22]). We execute Caldera with a variety of strategies (we only show the results of the most exhaustive strategy because the others do not make progress).
+
+[^6]: Since PentestGPT requires manual effort, we only execute 3 trials with GPT4o, the recommended LLM.
 
 > **Figure 4**: The Success and TotalAcquisition metrics of LLM offense systems across 10 environments. The systems were largely unable to realize multi-host attacks.
 > *(Visual description: A heatmap indicating success rates. Almost all combinations of systems like CyberSecEval3, CAI, PentestGPT, and Non-LLM tools score 0 across Equifax, Enterprise C, 4-Layer chain, etc. ExpertPromptShell with Sonnet 4 is the only configuration to show non-zero scores (e.g., 0.02 and 0.24) on Equifax and 4-Layer chain.)*
 
-**Findings.** Across all evaluated LLMs and environments, we find that existing state-of-the-art LLM-assisted and non-LLM-based systems are largely unable to realize multi-host attacks w.r.t both Success and TotalAcquisition, shown in Fig. 4. Only ExpertPromptShell with Sonnet 4 was able to succeed even partially, by managing to exfiltrate data from one of the database servers in the Equifax-inspired environment. ExpertPromptShell with Gemini 2.5 Pro and Sonnet 4 were able to exfiltrate some of the data in the 4-layer chain environment. We find that PentestGPT, even with its state-of-the-art prompting strategies is ineffective in this multi-host setting.
+**Findings.** Across all evaluated LLMs and environments, we find that existing state-of-the-art LLM-assisted and non-LLM-based systems are largely unable to realize multi-host attacks w.r.t both Success and TotalAcquisition, shown in Fig. 4. Only ExpertPromptShell with Sonnet 4 was able to succeed even partially, by managing to exfiltrate data from one of the database servers in the Equifax-inspired environment. ExpertPromptShell with Gemini 2.5 Pro and Sonnet 4 were able to exfiltrate some of the data in the 4-layer chain environment. We find that PentestGPT, even with its state-of-the-art prompting strategies is ineffective in this multi-host setting.[^7]
+
+[^7]: We have tested other models such as DeepSeek and Llama 3 but do not show these results for brevity. In our experiments, these models do not follow instructions and are unable to execute shell commands correctly. As models get released, we plan to update our benchmark "scorecard" (Fig. 4).
+
+
 
 ---
 
@@ -294,12 +307,16 @@ curl -H "Content-Type:
 Or in the case of network scanning, PentestGPT and CAI were able to discover external services (e.g., a web server) through scanning tools such as `nmap`. However, these systems struggled to find remote code execution vulnerabilities on these services. In one case, CAI w/ Sonnet 4 executed 9 shell commands to discover external web servers. Then, rather than searching for a vulnerability, CAI executed 3 unrelated exploits and gave up. Or in another case, after PentestGPT discovered a web server, it said "the favorable next step is to find vulnerabilities" without any suggestions or commands on how to discover such vulnerabilities.
 
 **Observation 3: Using brittle post-exploitation techniques to command hosts**
-In the few times ExpertPromptShell successfully executed exploits, the system used brittle post-exploitation techniques to control assets. We only observe this in ExpertPromptShell because none of the other systems were able to make substantial progress. ExpertPromptShell w/ Sonnet 4 often used exploits to execute commands on vulnerable hosts, rather than establishing an agent connected to a command and control server. Exploits are often not a reliable method of executing commands [55], but more importantly the unreliability cascades in multi-host environments. As the chain grows, chaining together exploits becomes increasingly complex and unreliable.
+In the few times ExpertPromptShell successfully executed exploits, the system used brittle post-exploitation techniques to control assets. We only observe this in ExpertPromptShell because none of the other systems were able to make substantial progress. ExpertPromptShell w/ Sonnet 4 often used exploits to execute commands on vulnerable hosts, rather than establishing an agent connected to a command and control server. Exploits are often not a reliable method of executing commands [55], but more importantly the unreliability cascades in multi-host environments. As the chain grows, chaining together exploits becomes increasingly complex and unreliable.[^8]
+
+[^8]: In real-world attacks and red team exercises, attackers primarily use exploits to install malware agents that communicate with a C&C server [20], [33], [55].
 
 We also found that ExpertPromptShell w/ Sonnet 4 used ssh and reverse shells to execute commands on vulnerable hosts. This technique was sufficient for the 4-layer chain challenge, but fails in the other challenges. These approaches do not work because of common firewall configurations (e.g., a web server does not have ssh configured).
 
 **Observation 4: Knowledge has context bloat**
-All of the prior LLM-systems store all knowledge by adding observations (e.g., command outputs) to the context. We found this especially in ExpertPromptShell (the best performing system) and CyberSecEval3, where the context grew with many low-level implementation details clogging the red team's knowledge in Fig. 5. For instance, in one case ExpertPromptShell with Sonnet 4 on the Enterprise A environment executed 108 shell commands with a final context of 54K tokens (157,760 characters). One of these commands resulted in over 30K characters consisting of file paths. These long contexts likely cause the LLM systems to struggle to maintain a high-level plan [11], [14].
+All of the prior LLM-systems store all knowledge by adding observations (e.g., command outputs) to the context. We found this especially in ExpertPromptShell (the best performing system) and CyberSecEval3, where the context grew with many low-level implementation details clogging the red team's knowledge in Fig. 5. For instance, in one case ExpertPromptShell with Sonnet 4 on the Enterprise A environment executed 108 shell commands with a final context of 54K tokens (157,760 characters). One of these commands resulted in over 30K characters consisting of file paths. These long contexts likely cause the LLM systems to struggle to maintain a high-level plan [11], [14].[^9]
+
+[^9]: Interestingly, the authors of PentestGPT [14] noted this same problem when solving CTF challenges and introduced a token compression module to limit the context. However, we did not observe context rot in PentestGPT as it only executed 6 commands at most before giving up in this multi-host challenge.
 
 ---
 
@@ -354,7 +371,9 @@ Having described the high-level idea above, next we describe our concrete realiz
 
 **Task agents.** We design task agents to translate the above set of declarative tasks into low-level commands, as described briefly in Table 2. Prior LLM-based offense systems used a variety of techniques to improve command accuracy such as adding LLM inference methods: self-reflection to correct wrong commands [14], [44], [29], increasing the library of low-level MCP tools [44], and even creating a library of system prompts tuned to specific security tasks [14]. However, in Sec. 2 and Sec. 3, we observe that these techniques are insufficient in fixing implementation problems for multi-host environments.
 
-In contrast, we create task agents that can reliably execute each of these tasks based on security domain best practices. For instance, the lateral movement agent queries the attack graph service to identify possible vulnerable paths to the target server. Then, the agent searches an exploit database (e.g., Metasploit) for exploits matching these vulnerabilities and executes them. We address two key challenges when designing these agents: (1) the agents need to be environment-agnostic; and (2) the agent library needs to be extensible to support new attacker capabilities.
+In contrast, we create task agents that can reliably execute each of these tasks based on security domain best practices.[^10] For instance, the lateral movement agent queries the attack graph service to identify possible vulnerable paths to the target server. Then, the agent searches an exploit database (e.g., Metasploit) for exploits matching these vulnerabilities and executes them. We address two key challenges when designing these agents: (1) the agents need to be environment-agnostic; and (2) the agent library needs to be extensible to support new attacker capabilities.
+
+[^10]: Later in Sec. 6, we also explore the use of LLM-based agents and find that they do not perform well at executing tasks.
 
 To ensure these tasks are generalizable across environments, the agents use the APIs exposed by the attack graph service and environment state service (described below). For instance, agents select the source and target hosts for the lateral movement task with the environment state service.
 
@@ -374,7 +393,9 @@ We design Incalmo to be extensible and note that both the set of abstract tasks 
 
 **(1) Environment state service:** To tackle context bloat, PentestGPT and CAI use several heuristics such as using LLMs to summarize prior context (e.g., command outputs, chain-of-thought, etc). However, relevant information can still get buried in the context: a crucial clue could be discovered on a host, but it only becomes meaningful after several commands on a different host are executed. While this may not have been a critical flaw in single-host CTF challenges, this stale context quickly becomes a bottleneck in long-horizon, multi-host exercises.
 
-To avoid this context bloat, we design a queryable environment state service that maintains a structured knowledge base of the environment (akin to RAG [39]). LLMs can output high-level code that queries the service. The idea is that planning LLMs (and agents) query the environment state service for information when it becomes relevant for the attack. There are two challenges when designing an environment state service: (1) our knowledge of the network changes as attackers run tasks (e.g., a scan discovers a host); and (2) this knowledge needs to be exposed in a systematic way so the LLM can "reason" about the network (e.g., what services does a host have). To address these challenges, the environment state service maintains a structured database of Python objects that represent the environment, similar to Lore [26]. The database is updated as red team agents execute tasks. For instance, if an agent discovers hosts with a scan, the database will update and contain objects representing the new hosts.
+To avoid this context bloat, we design a queryable environment state service that maintains a structured knowledge base of the environment (akin to RAG [39]). LLMs can output high-level code that queries the service. The idea is that planning LLMs (and agents) query the environment state service for information when it becomes relevant for the attack. There are two challenges when designing an environment state service: (1) our knowledge of the network changes as attackers run tasks (e.g., a scan discovers a host); and (2) this knowledge needs to be exposed in a systematic way so the LLM can "reason" about the network (e.g., what services does a host have). To address these challenges, the environment state service maintains a structured database of Python objects that represent the environment, similar to Lore [26].[^11] The database is updated as red team agents execute tasks. For instance, if an agent discovers hosts with a scan, the database will update and contain objects representing the new hosts.
+
+[^11]: Lore uses traditional state-space exploration tools and algorithms for attack exploration, and is not designed to be exposed to LLMs as such.
 
 **(2) Attack graph service:** We also introduce an attack graph service that helps Incalmo's planning LLMs and agents correctly decide what tasks to execute [63]. Multi-host environments are complex and it is difficult for LLMs to reason about how vulnerabilities can chain together, especially since attackers have incomplete and evolving information. We design a dynamic attack graph service to help both the planning LLM and the agents reason about environments. Existing attack graph tools are often developed from a static defense perspective and assume complete and prior knowledge of the network [51], [50]. Our attack graph service dynamically retrieves the current best knowledge from the environment state service and can recommend the next best course(s) of action for the red team exercise. For instance, Incalmo's lateral move agent queries the attack graph service to identify tasks to infect a host with the following query:
 
@@ -457,7 +478,9 @@ Incalmo then proceeds to use this workflow in a loop to infect and exfiltrate da
 
 ## 🛠️ 5. Implementation
 
-We implement Incalmo as a Python framework consisting of around 8K lines of code. We implement a custom C&C server and use open-source malware capabilities (from the Caldera project [8]) to infect and send shell commands to hosts. We implement Incalmo with custom Python modules. For the environment state service, we create parsers that interpret command outputs and update the knowledge base.
+We implement Incalmo as a Python framework consisting of around 8K lines of code. We implement a custom C&C server and use open-source malware capabilities (from the Caldera project [8]) to infect and send shell commands to hosts.[^12] We implement Incalmo with custom Python modules. For the environment state service, we create parsers that interpret command outputs and update the knowledge base.
+
+[^12]: We picked Caldera given our familiarity. Other C&C servers such as Cobalt Strike [19] or Merlin [45] could also be used.
 
 For each of the five high-level tasks in Sec. 4, we create non-LLM and LLM-based agents that translate the tasks into low-level primitives (e.g., Python scripts, shell commands). We implement the non-LLM agents for the lateral movement and privilege escalation tasks by integrating into Incalmo's internal library (or optionally Metasploit's library) of known vulnerabilities and their corresponding exploits. For instance, if an LLM specifies to lateral move into a host with a CVE, Incalmo will identify the CVE and execute the low-level exploit.
 
@@ -479,18 +502,20 @@ In this section, we first show end-to-end experiments evaluating the success of 
 
 **Setup.** We evaluate systems on MHBench by executing 5 trials with a time limit of 75 minutes per trial. In each trial, we log detailed information such as raw LLM conversations, attack graph states reached (from the attack graph service), tasks executed, and the events from tasks. We also use these logs to calculate MHBench metrics.
 
-**Baselines.** There is a large number of candidate baseline systems, environments, and LLMs we could use. We take a pragmatic approach to balance cost and brevity, rather than run all possible system-LLM pairs on all environments in MHBench. We identify the best system-LLM combination from Sec. 2: ExpertPromptShell with Sonnet 4. First, we exhaustively compare Incalmo with Sonnet 4 to ExpertPromptShell with Sonnet 4 on all 40 environments in MHBench. Later, for the factor analysis, we use the 10 environments from Sec. 2, but evaluate many system-LLM combinations.
+**Baselines.** There is a large number of candidate baseline systems, environments, and LLMs we could use. We take a pragmatic approach to balance cost and brevity, rather than run all possible system-LLM pairs on all environments in MHBench.[^13] We identify the best system-LLM combination from Sec. 2: ExpertPromptShell with Sonnet 4. First, we exhaustively compare Incalmo with Sonnet 4 to ExpertPromptShell with Sonnet 4 on all 40 environments in MHBench. Later, for the factor analysis, we use the 10 environments from Sec. 2, but evaluate many system-LLM combinations.
 
-**Metrics of success.** Consider an environment $e$ having a set of critical assets $C_e$ (e.g., a set of critical hosts or sensitive datasets). Each red team system, $a$ (i.e., the baselines and Incalmo described above) is evaluated across 5 trials $t_1, \dots t_5$. Let $G_{a,e,t} \subseteq 2^{C_e}$ be the set of critical assets that $a$ managed to acquire in a given trial $t$ in environment $e$. Let $S_{a,e,t}$ denote a binary success metric if $a$ was able to acquire some critical asset in trial $t$:
+[^13]: A trial takes up to 75 minutes and costs up to $15. 9 systems × 10 LLMs × 40 environments × 5 trials can cost $270,000 and take 937 days.
+
+**Metrics of success.** Consider an environment $e$ having a set of critical assets $C_e$ (e.g., a set of critical hosts or sensitive datasets). Each red team system, $a$ (i.e., the baselines and Incalmo described above) is evaluated across 5 trials $t_1, \dots t_5$. Let $G_{a,e,t} \subseteq 2^{C_e}$ be the set of critical assets that $a$ managed to acquire in a given trial $t$ in environment $e$. Let $S_{a,e,t}$ denote a binary success metric if $a$ was able to acquire some critical asset $c$ in trial $t$:
 
 $$
-S_{a,e,t} = 1 \text{ if } |G_{a,e,t}| \ge 1 \text{ else } 0
+S_{a,e,t} = 1 \text{ if } |G_{a,e,t}| \ge 1; \ 0 \text{ otherwise}
 $$
 
 With this setup, we define three metrics of success:
 *   **Success**: For each red team system $a$ on $e$, we consider it successful if $a$ is able to obtain at least one critical asset in at least one trial, similar to how red teams are measured today:
     $$
-    Success_{a,e} = 1 \text{ if } \exists t \text{ s.t. } |G_{a,e,t}| \ge 1 \text{ else } 0
+    Success_{a,e} = 1 \text{ if } \exists t \text{ s.t. } |G_{a,e,t}| \ge 1; \ 0 \text{ otherwise}
     $$
 *   **Reliability**: We measure the reliability of a red team system $a$ in environment $e$ by counting the number of trials the system is successful in terms of acquiring some critical asset:
     $$
@@ -539,12 +564,16 @@ We also compare the Success and TotalAcquisition metrics of Incalmo with smaller
 
 In Fig. 12, we show that in 9 out of 10 of the environments, Incalmo using smaller LLMs to plan red teams has better Success metrics than ExpertPromptShell with larger LLMs. For instance, in the Equifax environment, ExpertPromptShell with Sonnet 4 was able to exfiltrate a single file, but Incalmo with Haiku 3.5 was able to exfiltrate all 25 databases in the environment. In contrast to the sentiment that larger model sizes are more critical for performance [10], [32], in the red team domain, we see Incalmo's abstractions are more critical than model size.
 
-**Impact of high-level tasks.** First, we create a version of Incalmo without high-level tasks, Incalmo-WHT, where LLMs do not have access to the five high-level tasks, but can use the environment and attack graph services. Here, LLMs can perform 19 predefined low-level tasks, such as reading a file or exploiting Apache Struts. These low-level tasks mirror the library that Incalmo uses to translate high-level tasks.
+**Impact of high-level tasks.** First, we create a version of Incalmo without high-level tasks, Incalmo-WHT, where LLMs do not have access to the five high-level tasks, but can use the environment and attack graph services. Here, LLMs can perform 19 predefined low-level tasks, such as reading a file or exploiting Apache Struts.[^14] These low-level tasks mirror the library that Incalmo uses to translate high-level tasks.
+
+[^14]: We require the system to use predefined tasks to enable the environment and attack graph services.
 
 > [!IMPORTANT]
 > **Finding 3.A**: Incalmo-WHT was unable to succeed across all 10 environments and 10 LLMs, suggesting that the high-level task abstraction is an important factor for red team success (not shown for brevity).
 
 **Impact of Incalmo services.** Next, we create a variant of Incalmo without the environment and attack graph services called Incalmo-WS, but LLMs still have access to the five high-level tasks. Incalmo-WS's agents still use the environment and attack graph services to be environment-agnostic, but the services are not accessible to the LLM (unlike Incalmo).
+
+> **Figure 13**: Success and TotalAcquisition metrics of Incalmo and Incalmo-WS. Incalmo was able to succeed in 1–5 more environments than Incalmo-WS. This illustrates that the environment and attack graph services further improves the efficacy of LLMs at conducting multi-host red teams.
 
 In Fig. 13, we compare Incalmo-WS to Incalmo across a variety of LLMs. Unlike Incalmo-WHT, Incalmo-WS was sometimes able to obtain critical assets. However, in terms of Success, Incalmo was able to succeed in 1 to 5 more environments.
 
@@ -554,6 +583,8 @@ In Fig. 13, we compare Incalmo-WS to Incalmo across a variety of LLMs. Unlike In
 For instance, Incalmo-WS with GPT4o mini only obtained critical assets in three environments. In contrast, Incalmo with GPT4o obtained critical assets in eight environments.
 
 ### 💰 6.3. Cost and speed
+
+> **Figure 14**: Minutes taken for Incalmo to obtain all critical assets. Incalmo red teams range from taking 14 to 70 minutes.
 
 Next, we measure the speed and cost of Incalmo. In terms of speed, Incalmo can rapidly run red team exercises. For instance, in the Enterprise C environment, Incalmo is able to successfully gain root access on all 15 critical hosts in 12 to 18 minutes (Fig. 14). Similarly, Incalmo can exfiltrate data from all 48 databases in the Equifax-inspired environment in just 54 minutes.
 
@@ -569,7 +600,7 @@ Next, we demonstrate how Incalmo is extensible to support new task-specific agen
 
 As an illustration, we show the setting of Incalmo with Sonnet 3.5 to both plan the red team and have the LLM-based task agents use Sonnet 3.5 in three environments: Equifax-inspired, Enterprise C, and 6-layer star. (We see similar results for Sonnet 4, the top performing model.) To bound the cost, we limit each LLM-based task agent to 10 interactions for each task. We consider two experimental setups: (1) all task agents use Sonnet 3.5 instead of Incalmo and (2) replace Incalmo task agents one at a time.
 
-> **Figure 15**: The Success and TotalAcquisition metrics of Incalmo with Sonnet 3.5 task agents in three environments. Sonnet 3.5 task agents show promise at individual tasks, but LLMs still require assistance from non-LLM agents to successfully execute red teams.
+> **Figure 15**: The Success and TotalAcquisition metrics of Incalmo with Sonnet 3.5 task agents in three environments. Sonnet 3.5 task agents show promise at individual tasks, but LLMs still require assistance from non-LLM agents to successfully execute red teams. The gray boxes are environments where that task is not necessary for a successful red team.
 
 > [!IMPORTANT]
 > **Finding 4**: Sonnet 3.5-based task agents show promise at executing lateral movement, network scanning, privilege escalation, and data exfiltration. But LLM planners still require assistance from non-LLM agents to succeed (Fig. 15).
@@ -645,9 +676,9 @@ Next, we primarily discuss the ethical principle of beneficence with respect to 
 
 ## 🔗 References
 
-*(Select bibliography items extracted from source, preserved in order)*
 
-[1] Humanity's Last Exam. `https://agi.safe.ai/`, accessed: Apr 23, 2025.
+
+[1] Humanity's Last Exam. https://agi.safe.ai/, accessed: Apr 23, 2025.
 
 [2] Enterprise Campus 3.0 Architecture: Overview and Framework. Technical report, Cisco, April 2008.
 
@@ -657,7 +688,7 @@ Next, we primarily discuss the ethical principle of beneficence with respect to 
 
 [5] H. S. Al-Sinani and C. J. Mitchell. Pentest++: Elevating ethical hacking with ai and automation. arXiv:2502.09484, 2025.
 
-[6] Anthropic. Threat intelligence report: August 2025. Technical report, Anthropic, San Francisco, CA, USA, Aug. 2025. Available at `https://www-cdn.anthropic.com/...`
+[6] Anthropic. Threat intelligence report: August 2025. Technical report, Anthropic, San Francisco, CA, USA, Aug. 2025. Available at https://www-cdn.anthropic.com/b2a76c6f6992465c09a6f2fce282f6c0cea8c200.pdf.
 
 [7] A. Anurin, J. Ng, K. Schaffer, J. Schreiber, and E. Kran. Catastrophic cyber capabilities benchmark (3cb): Robustly evaluating llm agent cyber offense capabilities. arXiv:2410.09114, 2024.
 
@@ -667,14 +698,145 @@ Next, we primarily discuss the ethical principle of beneficence with respect to 
 
 [10] T. B. Brown. Language models are few-shot learners. arXiv:2005.14165, 2020.
 
-[11] M. Cemri, et al. Why do multi-agent llm systems fail? arXiv:2503.13657, 2025.
+[11] M. Cemri, M. Z. Pan, S. Yang, L. A. Agrawal, B. Chopra, R. Tiwari, K. Keutzer, A. Parameswaran, D. Klein, K. Ramchandran, et al. Why do multi-agent llm systems fail? arXiv:2503.13657, 2025.
 
-[12] M. Corporation. MITRE ATT&CK® Framework. `https://attack.mitre.org/`.
+[12] M. Corporation. MITRE ATT&CK® Framework. https://attack.mitre.org/.
 
 [13] M. Corporation. Microsoft Security Copilot, 2023.
 
-[14] G. Deng, et al. PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing. In USENIX, 2024.
-*(References 15-80 preserved exactly via the source list but truncated here for brevity while full inclusion implied).*
+[14] G. Deng, Y. Liu, V. Mayoral-Vilches, P. Liu, Y. Li, Y. Xu, T. Zhang, Y. Liu, M. Pinzger, and S. Rass. PentestGPT: Evaluating and Harnessing Large Language Models for Automated Penetration Testing. In USENIX, 2024.
+
+[15] A. Elhafsi, R. Sinha, C. Agia, E. Schmerling, I. A. Nesnas, and M. Pavone. Semantic anomaly detection with large language models. Autonomous Robots, 47(8):1035–1055, 2023.
+
+[16] S. Y. Enoch, Z. Huang, C. Y. Moon, D. Lee, M. K. Ahn, and D. S. Kim. Harmer: Cyber-attacks automation and evaluation. IEEE Access, 8:129397–129414, 2020.
+
+[17] R. Fang, R. Bindu, A. Gupta, Q. Zhan, and D. Kang. Teams of llm agents can exploit zero-day vulnerabilities. arXiv:2406.01637, 2024.
+
+[18] K. J. Ferguson-Walter, M. M. Major, C. K. Johnson, and D. H. Muhleman. Examining the efficacy of decoy-based and psychological cyber deception. In USENIX, 2021.
+
+[19] Fortra. Cobalt Strike. https://www.cobaltstrike.com/.
+
+[20] FTC. Equifax Data Breach Settlement. Technical report, December 2022.
+
+[21] L. Gao, A. Madaan, S. Zhou, U. Alon, P. Liu, Y. Yang, J. Callan, and G. Neubig. Pal: Program-aided language models. In International Conference on Machine Learning. PMLR, 2023.
+
+[22] L. Hackländer-Jansen. Emulating complete, realistic cyber attack chains with the new caldera bounty hunter plugin, 2024. Medium (MITRE Caldera). Accessed: 2025-11-11.
+
+[23] A. Happe and J. Cito. Getting pwn'd by ai: Penetration testing with large language models. In ACM ESEC, 2023.
+
+[24] A. Happe and J. Cito. Can llms hack enterprise networks? autonomous assumed breach penetration-testing active directory networks. ACM TOSEM, 2025.
+
+[25] F. Heiding, S. Lermen, A. Kao, B. Schneier, and A. Vishwanath. Evaluating Large Language Models' Capability to Launch Fully Automated Spear Phishing Campaigns: Validated on Human Subjects. arXiv:2412.00586, 2024.
+
+[26] H. Holm. Lore a red team emulation tool. IEEE Transactions on Dependable and Secure Computing, 2022.
+
+[27] H. Holm and T. Sommestad. SVED: Scanning, vulnerabilities, exploits and detection. In MILCOM 2016 IEEE Military Communications Conference. IEEE, 2016.
+
+[28] Z. Hu, R. Beuran, and Y. Tan. Automated penetration testing using deep reinforcement learning. In IEEE EuroS&PW. https://github.com/crond-jaist/AutoPentest-DRL.
+
+[29] J. Huang and Q. Zhu. PenHeal: A Two-Stage LLM Framework for Automated Pentesting and Optimal Remediation. In Proceedings of the Workshop on Autonomous Cybersecurity. Association for Computing Machinery, 2024.
+
+[30] E. M. Hutchins, M. J. Cloppert, R. M. Amin, et al. Intelligence-driven computer network defense informed by analysis of adversary campaigns and intrusion kill chains. Leading Issues in Information Warfare & Security Research, 2011.
+
+[31] N. Jegham, M. Abdelatti, L. Elmoubarki, and A. Hendawi. How hungry is ai? benchmarking energy, water, and carbon footprint of llm inference. arXiv:2505.09598, 2025.
+
+[32] J. Kaplan, S. McCandlish, T. Henighan, T. B. Brown, B. Chess, R. Child, S. Gray, A. Radford, J. Wu, and D. Amodei. Scaling laws for neural language models. arXiv:2001.08361, 2020.
+
+[33] S. M. Kerner. Colonial Pipeline hack explained: Everything you need to know. TechTarget, 2022.
+
+[34] H. Kong, D. Hu, J. Ge, L. Li, T. Li, and B. Wu. Vulnbot: Autonomous penetration testing for a multi-agent collaborative framework. arXiv:2501.13411, 2025.
+
+[35] M. Kouremetis, M. Dotter, A. Byrne, D. Martin, E. Michalak, G. Russo, M. Threet, and G. Zarrella. Occult: Evaluating large language models for offensive cyber operation capabilities. arXiv:2502.15797, 2025.
+
+[36] M. Kouremetis, D. Lawrence, R. Alford, Z. Cheuvront, D. Davila, B. Geyer, T. Haigh, E. Michalak, R. Murphy, and G. Russo. Mirage: cyber deception against autonomous cyber attacks in emulation and simulation. Annals of Telecommunications, 2024.
+
+[37] LangChain. Langchain: Building applications with llms through composability. https://github.com/langchain-ai/langchain, 2025.
+
+[38] R. M. Lee, M. Assante, and T. Conway. CRASHOVERRIDE: Analysis of the threat to electric grid operations. 2017.
+
+[39] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W.-t. Yih, T. Rocktäschel, et al. Retrieval-augmented generation for knowledge-intensive nlp tasks. NeurIPS, 2020.
+
+[40] J. Li, Y. Luan, X. Wu, and J.-a. Lu. Synchronizability of double-layer dumbbell networks. Chaos: An Interdisciplinary Journal of Nonlinear Science, 2021.
+
+[41] P. Lu, B. Peng, H. Cheng, M. Galley, K.-W. Chang, Y. N. Wu, S.-C. Zhu, and J. Gao. Chameleon: Plug-and-play compositional reasoning with large language models. NeurIPS, 2024.
+
+[42] G. F. Lyon. Nmap network scanning: The official Nmap project guide to network discovery and security scanning. Insecure, 2009.
+
+[43] Majority Staff Report 115th Congress. The Equifax Data Breach. Technical report, December 2018.
+
+[44] V. Mayoral-Vilches, L. J. Navarrete-Lozano, M. Sanz-Gómez, L. S. Espejo, M. Crespo-Álvarez, F. Oca-Gonzalez, F. Balassone, A. Glera-Picón, U. Ayucar-Carbajo, J. A. Ruiz-Alcalde, et al. Cai: An open, bug bounty-ready cybersecurity ai. arXiv:2504.06017, 2025.
+
+[45] Ne0nd0g. Merlin. https://github.com/Ne0nd0g/merlin.
+
+[46] J. Nuce, J. Kennelly, K. Goody, A. Moore, A. Rahman, M. Williams, B. McKeague, and J. Wilson. Shining a light on darkside ransomware operations. FireEye Blogs, 2021.
+
+[47] J. G. Oakley. Professional red teaming: conducting successful cybersecurity engagements. Apress, 2019.
+
+[48] N. A. of Sciences, Medicine, Policy, G. Affairs, B. on Research Data, D. on Engineering, P. Sciences, C. on Applied, T. Statistics, B. on Mathematical Sciences, et al. Reproducibility and replicability in science. National Academies Press, 2019.
+
+[49] OpenAI. OpenAI o1 System Card. https://openai.com/index/openai-o1-system-card/, 2024.
+
+[50] X. Ou, W. F. Boyer, and M. A. McQueen. A scalable approach to attack graph generation. In ACM CCS, 2006.
+
+[51] X. Ou, S. Govindavajhala, A. W. Appel, et al. Mulval: A logic-based network security analyzer. In USENIX. Baltimore, MD, 2005.
+
+[52] A. PBC. Disrupting the first reported ai-orchestrated cyber espionage campaign. Technical report, November 2025.
+
+[53] T. S. Rad. The sword and the shield: Hacking tools as offensive weapons and defensive tools. Geo. J. Int'l Aff., 16:123, 2015.
+
+[54] Rapid7. Metasploit. https://www.metasploit.com/.
+
+[55] J. Rehberger. Cybersecurity Attacks–Red Team Strategies: A practical guide to building a penetration testing program having homefield advantage. Packt Publishing Ltd, 2020.
+
+[56] M. Rodriguez, R. A. Popa, F. Flynn, L. Liang, A. Dafoe, and A. Wang. A framework for evaluating emerging cyberattack capabilities of ai. arXiv:2503.11917, 2025.
+
+[57] S. S. Roy, P. Thota, K. V. Naragam, and S. Nilizadeh. From Chatbots to Phishbots?: Phishing Scam Generation in Commercial Large Language Models. In IEEE S&P, 2024.
+
+[58] T. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, E. Hambro, L. Zettlemoyer, N. Cancedda, and T. Scialom. Toolformer: Language models can teach themselves to use tools. NeurIPS, 2024.
+
+[59] S. L. Schraker, G. Apruzzese, S. Human, P. Laskov, H. S. Anderson, E. W. Bernroider, A. Fass, B. Nassi, V. Rimmer, F. Roli, et al. SoK: On the offensive potential of AI. arXiv:2412.18442, 2024.
+
+[60] M. Shao, B. Chen, S. Jancheska, B. Dolan-Gavitt, S. Garg, R. Karri, and M. Shafique. An empirical evaluation of llms for solving offensive security challenges. arXiv:2402.11814, 2024.
+
+[61] M. Shao, S. Jancheska, M. Udeshi, B. Dolan-Gavitt, H. Xi, K. Milner, B. Chen, M. Yin, S. Garg, P. Krishnamurthy, et al. Nyu ctf dataset: A scalable open-source benchmark dataset for evaluating llms in offensive security. arXiv:2406.05590, 2024.
+
+[62] M. Shao, H. Xi, N. Rani, M. Udeshi, V. S. C. Putrevu, K. Milner, B. Dolan-Gavitt, S. K. Shukla, P. Krishnamurthy, F. Khorrami, et al. CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution. arXiv:2505.17107, 2025.
+
+[63] O. Sheyner, J. Haines, S. Jha, R. Lippmann, and J. M. Wing. Automated generation and analysis of attack graphs. In IEEE S&P, 2002.
+
+[64] M. Silic. Dual-use open source security software in organizations–dilemma: help or hinder? Computers & Security, 39:386–395, 2013.
+
+[65] B. Singer, A. Pandey, S. Li, L. Bauer, C. Miller, L. Pileggi, and V. Sekar. Shedding light on inconsistencies in grid cybersecurity: Disconnects and recommendations. In IEEE S&P, 2023.
+
+[66] J. Steube. Hashcat: Advanced Password Recovery. https://hashcat.net/hashcat/, 2025.
+
+[67] I. Takaesu. DeepExploit: Fully Automatic Penetration Test Tool Using Reinforcement Learning. https://github.com/13o-bbr-bbq/machine_learning_security, 2018.
+
+[68] N. Tihanyi, M. A. Ferrag, R. Jain, and M.-o. Debbah. Cybermetric: A benchmark dataset for evaluating large language models knowledge in cybersecurity. arXiv:2402.07688, 2024.
+
+[69] S. T. Trassare, R. Beverly, and D. Alderson. A technique for network topology deception. In MILCOM IEEE Military Communications Conference. IEEE, 2013.
+
+[70] S. Ullah, P. Balasubramanian, W. Guo, A. Burnett, H. Pearce, C. Kruegel, G. Vigna, and G. Stringhini. From cve entries to verifiable exploits: An automated multi-agent framework for reproducing cves. arXiv:2509.01835, 2025.
+
+[71] US AI Safety Institute and UK AI Safety Institute. US AISI and UK AISI Joint Pre-Deployment Test: Anthropic's Claude 3.5 Sonnet. Technical report, National Institute of Standards and Technology, November 2024.
+
+[72] S. Wan, C. Nikolaidis, D. Song, D. Molnar, J. Crnkovich, J. Grace, M. Bhatt, S. Chennabasappa, S. Whitman, S. Ding, et al. Cyberseceval 3: Advancing the evaluation of cybersecurity risks and capabilities in large language models. arXiv:2408.01605, 2024.
+
+[73] Z. Wang, T. Shi, J. He, M. Cai, J. Zhang, and D. Song. Cybergym: Evaluating ai agents' cybersecurity capabilities with real-world vulnerabilities at scale. arXiv:2506.02548, 2025.
+
+[74] J. Wei, X. Wang, D. Schuurmans, M. Bosma, F. Xia, E. Chi, Q. V. Le, D. Zhou, et al. Chain-of-thought prompting elicits reasoning in large language models. NeurIPS, 2022.
+
+[75] J. Xu, J. W. Stokes, G. McDonald, X. Bai, D. Marshall, S. Wang, A. Swaminathan, and Z. Li. Autoattacker: A large language model guided system to implement automatic cyber-attacks. arXiv:2403.01038, 2024.
+
+[76] J. Yang, A. Prabhakar, K. Narasimhan, and S. Yao. InterCode: Standardizing and Benchmarking Interactive Coding with Execution Feedback. In NeurIPS, 2023.
+
+[77] J. Yang, A. Prabhakar, S. Yao, K. Pei, and K. R. Narasimhan. Language agents as hackers: Evaluating cybersecurity skills with capture the flag. In Multi-Agent Security Workshop NeurIPS, 2023.
+
+[78] S. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao. React: Synergizing reasoning and acting in language models. In ICLR, 2023.
+
+[79] J. D. Yoo, E. Park, G. Lee, M. K. Ahn, D. Kim, S. Seo, and H. K. Kim. Cyber attack and defense emulation agents. Applied Sciences, 10(6):2140, 2020.
+
+[80] A. K. Zhang, N. Perry, R. Dulepet, J. Ji, J. W. Lin, E. Jones, C. Menders, G. Hussein, S. Liu, D. Jasper, et al. Cybench: A Framework for Evaluating Cybersecurity Capabilities and Risks of Language Models. arXiv:2408.08926, 2024.
 
 ---
 
@@ -682,15 +844,19 @@ Next, we primarily discuss the ethical principle of beneficence with respect to 
 
 We use an attack graph formalism to identify where and how prior LLM-based offense systems fail at multi-host red teaming challenges. We then describe the log analysis we conduct with this formalism.
 
-**Attack graph formalism.** Formally, an attack graph is defined as $G=(S,A,S_o,S_g)$ where $S$ is a set of states, $A \subseteq S \times S$ is the set of actions (directed edges) representing transitions between these states, $S_g \subseteq S$ is the set of goal states, and $S_o \subseteq S$ is the set of initial states [63]. Intuitively, the nodes are attacker states (e.g., gained access to web server) and the edges are attack actions (e.g., exfiltrate data). We define a successful attack path, where an attacker reaches all of their goals, as $\pi=(s_0, s_1, ..., s_n)$ such that $S_g \subseteq \{s_0, s_1, ..., s_n\}$.
+**Attack graph formalism.** Formally, an attack graph is defined as $G=(S,A,S_o,S_g)$ where $S$ is a set of states, $A \subseteq S \times S$ is the set of actions (directed edges) representing transitions between these states, $S_g \subseteq S$ is the set of goal states, and $S_o \subseteq S$ is the set of initial states [63]. Intuitively, the nodes are attacker states (e.g., gained access to web server) and the edges are attack actions (e.g., exfiltrate data). We define a successful attack path, where an attacker reaches all of their goals, as $\pi=(s_0, s_1, \ldots, s_n)$ such that $S_g \subseteq \{s_0, s_1, \ldots, s_n\}$.
 
 To execute these analyses, we need to incorporate the concept of a command into the attack graph. Each action $a \in A$ is composed of a sequence of commands. A single command is defined as a function $c:(h,n,p) \mapsto o$ where $h$ is the host on which the command is run, $n$ is the name of the command, $p$ are the parameters of the command, and $o$ is the output of the command.
 
-For each environment, we manually create a reference attack graph and a minimal sequence of commands for an attack: $C^*_{man} = (c_1, c_2, ..., c_m)$. Here, a single command is defined as a function $c:(h,n,p) \mapsto o$ where $h$ is the host on which the command is run, $n$ is the name of the command, $p$ are the parameters of the command, and $o$ is the output of the command.
+For each environment, we manually create a reference attack graph and a minimal sequence of commands for an attack: $C^*_{man} = (c_1, c_2, \ldots, c_m)$.[^15] Here, a single command is defined as a function $c:(h,n,p) \mapsto o$ where $h$ is the host on which the command is run, $n$ is the name of the command, $p$ are the parameters of the command, and $o$ is the output of the command.
+
+[^15]: For most of the environments, there is only one successful attack path.
 
 **Log analysis.** Similar to prior work, we break down our multi-host challenges into tasks [80] (e.g., find a CVE). For example, the Equifax-inspired environment requires 246 tasks to obtain all critical data. For each environment, we manually create a reference solution, both a set of tasks necessary to access all critical assets and a set of commands to implement each task.
 
-To track if ExpertPromptShell successfully achieved tasks, we use the following heuristic. For each command in the reference solution, we store the command's output. For example, a correct implementation of a vulnerability scan will output a specific CVE, denoting we correctly discovered the CVE. Given a sequence of commands generated by ExpertPromptShell's LLM, we can match keywords in the output against the reference solution outputs. If it matches, we consider ExpertPromptShell to have successfully executed that atomic task.
+To track if ExpertPromptShell successfully achieved tasks, we use the following heuristic. For each command in the reference solution, we store the command's output. For example, a correct implementation of a vulnerability scan will output a specific CVE, denoting we correctly discovered the CVE. Given a sequence of commands generated by ExpertPromptShell's LLM, we can match keywords in the output against the reference solution outputs. If it matches, we consider ExpertPromptShell to have successfully executed that atomic task.[^16]
+
+[^16]: We acknowledge that there could be alternative ways to achieve a state that do not contain these keywords. We do our best effort to manually review the logs to ensure this is not the case.
 
 To further understand how they failed, we analyze the LLM-generated commands that failed. This analysis requires significant manual effort so we focus on two environments where ExpertPromptShell performed the best: the Equifax-inspired and 4-Layer Chain environments.
 
@@ -722,13 +888,17 @@ Next, we algorithmically generate attack paths from the attacker host to each of
 
 In Table 4, we detail how we manually created 10 environments based on real attacks and network topologies. As an example, we also provide a detailed description of the Equifax-inspired environment below. Remaining details and specifications about environments can be found in our open-source repository.
 
-**Equifax-inspired environment.** The Equifax-inspired environment has two web servers running a vulnerable version of Apache Struts with CVE-2017-5638, the same as the real environment [43]. During the Equifax breach, the attacker discovered a plaintext file on one of the web servers that included credentials to 48 different database hosts on a separate network [43]. To replicate the databases in our environment, we create a second network with 48 database hosts and add files with fake critical consumer data such as emails, social security numbers, and addresses. On a random web server, we add a plain-text SSH configuration file that contains credentials to all the databases.
+**Equifax-inspired environment.** The Equifax-inspired environment has two web servers running a vulnerable version of Apache Struts with CVE-2017-5638, the same as the real environment [43]. During the Equifax breach, the attacker discovered a plaintext file on one of the web servers that included credentials to 48 different database hosts on a separate network [43].[^17]
+
+To replicate the databases in our environment, we create a second network with 48 database hosts and add files with fake critical consumer data such as emails, social security numbers, and addresses. On a random web server, we add a plain-text SSH configuration file that contains credentials to all the databases.
+
+[^17]: From public information, it is unclear how many additional non-database credentials were in the file, but we assume that the credential file only contained database credentials.
 
 ---
 
 ## 📑 Appendix C. Token usage
 
-We break down the token usage of Incalmo in Table 3. Incalmo used between 3.5K-5897.1K input tokens and 0.2K-60.1K output tokens for the planning LLMs. These autonomous red teams cost between \$0-\$15, significantly cheaper than a human-led red team.
+We break down the token usage of Incalmo in Table 3. Incalmo used between 3.5K–5897.1K input tokens and 0.2K–60.1K output tokens for the planning LLMs. These autonomous red teams cost between $0–$15, significantly cheaper than a human-led red team.
 
 **TABLE 3. TOKEN COST OF MULTI-HOST ATTACKS IN 1,000S OF TOKENS**
 
