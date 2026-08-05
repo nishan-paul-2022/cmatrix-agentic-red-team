@@ -172,10 +172,10 @@ XBOW: task completion (%); PentestGPT Benchmark: machines rooted (/13); GOAD: ho
 
 | System | XBOW (GPT-4.0) | XBOW (GPT-5) | XBOW (Gem.) | XBOW (Claude) | PentestGPT-Ben (GPT-4.0) | PentestGPT-Ben (GPT-5) | PentestGPT-Ben (Gem.) | PentestGPT-Ben (Claude) | GOAD (GPT-4.0) | GOAD (GPT-5) | GOAD (Gem.) | GOAD (Claude) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| PentestGPT | 27 | 42 | 36 | 39 | 4 | 7 | 6 | 6 | 0 | 1 | 1 | 1 |
-| AutoPT | 28 | 40 | 35 | 37 | 4 | 7 | 6 | 6 | 0 | 0 | 1 | 0 |
-| PentestAgent | 34 | 49 | 42 | 46 | 6 | 7 | 6 | 6 | 0 | 0 | 1 | 1 |
-| VulnBot | 39 | 45 | 44 | 46 | 6 | 8 | 7 | 6 | 0 | 0 | 1 | 1 |
+| PentestGPT | 27 | 42 | 36 | 39 | 5 | 7 | 6 | 6 | 0 | 1 | 1 | 1 |
+| AutoPT | 28 | 40 | 35 | 37 | 4 | 7 | 6 | 6 | 0 | 1 | 0 | 0 |
+| PentestAgent | 34 | 49 | 42 | 46 | 6 | 7 | 6 | 6 | 0 | 1 | 0 | 1 |
+| VulnBot | 39 | 45 | 44 | 46 | 6 | 8 | 6 | 7 | 0 | 1 | 0 | 1 |
 | Cochise | 34 | 43 | 39 | 39 | 4 | 4 | 4 | 4 | 1 | 2 | 2 | 2 |
 
 **Table 3: Failure mode analysis (200 traces).** Type A failures resolve with tooling; Type B persist regardless.
@@ -306,12 +306,13 @@ TDI guides three operational decisions. **Mode selection:** high TDI ($>\theta_{
 
 **Table 4: Search strategy comparison.** EGATS is the only approach that combines external structure, evidence-based pruning, and TDA-guided mode selection.
 
-| Approach | Structure | Pruning Difficulty | TDA |
-| :--- | :--- | :--- | :--- |
-| PSM | Finite state machine | None | |
-| PMT [20] | Tree (text) | ReAct | |
-| PTT [8] | Tree | Manual | |
-| **EGATS** | **Tree (ext).** | **Evidence ✓** | **✓** |
+| Approach | Structure | Pruning | Difficulty | TDA |
+| :--- | :--- | :--- | :--- | :--- |
+| ReAct | None | – | – | – |
+| PTT [8] | Tree (text) | Manual | – | – |
+| PSM [32] | Finite state machine | – | – | – |
+| PMT [20] | Tree | – | – | – |
+| **EGATS** | **Tree (ext.)** | **Evidence** | **✓** | **✓** |
 
 ### 📌 4.4 Evidence-Guided Attack Tree Search (EGATS)
 EGATS integrates TDA into a tree-based search framework, adapting Monte Carlo Tree Search (MCTS) [6, 16] to penetration testing. EGATS differs from standard MCTS in three ways: it explicitly separates reconnaissance (BFS) and exploitation (TDI-guided) phases, it replaces simulation-based value estimates with TDA-based difficulty assessment, and it prunes intractable branches based on evidence.
@@ -396,10 +397,10 @@ XBOW: task completion (%); PentestGPT Benchmark: machines rooted (/13); GOAD: ho
 
 | System | XBOW GPT-5.2 (-) | XBOW GPT-5.2 (T) | XBOW Opus 4.5 (-) | XBOW Opus 4.5 (T) | XBOW Gemini 3 (-) | XBOW Gemini 3 (T) | Pentest-Ben GPT-5.2 (-) | Pentest-Ben GPT-5.2 (T) | Pentest-Ben Opus 4.5 (-) | Pentest-Ben Opus 4.5 (T) | Pentest-Ben Gemini 3 (-) | Pentest-Ben Gemini 3 (T) | GOAD GPT-5.2 (-) | GOAD GPT-5.2 (T) | GOAD Opus 4.5 (-) | GOAD Opus 4.5 (T) | GOAD Gemini 3 (-) | GOAD Gemini 3 (T) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| PentestGPT | 45 | 53 | 47 | 54 | 41 | 48 | 6 | 7 | 6 | 7 | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 |
+| PentestGPT | 45 | 53 | 47 | 54 | 41 | 48 | 7 | 8 | 6 | 7 | 6 | 7 | 1 | 1 | 1 | 2 | 1 | 1 |
 | AutoPT | 43 | 50 | 44 | 51 | 38 | 45 | 6 | 7 | 7 | 8 | 5 | 6 | 1 | 1 | 0 | 1 | 1 | 1 |
-| PentestAgent | 52 | 61 | 54 | 60 | 46 | 54 | 7 | 9 | 8 | 9 | 7 | 8 | 1 | 2 | 2 | 2 | 1 | 1 |
-| VulnBot | 48 | 50 | 56 | 58 | 43 | 51 | 8 | 9 | 8 | 9 | 6 | 8 | 2 | 2 | 2 | 2 | 1 | 2 |
+| PentestAgent | 52 | 61 | 54 | 60 | 46 | 54 | 8 | 9 | 7 | 9 | 7 | 8 | 1 | 2 | 2 | 2 | 1 | 1 |
+| VulnBot | 48 | 56 | 50 | 58 | 43 | 51 | 8 | 9 | 8 | 9 | 6 | 8 | 2 | 2 | 1 | 2 | 1 | 2 |
 | **PENTESTGPT v2** | **76** | **85** | **81** | **91** | **76** | **79** | **11** | **12** | **10** | **12** | **10** | **11** | **3** | **4** | **3** | **4** | **3** | **3** |
 
 On XBOW, PENTESTGPT v2 achieves 91% task completion (best-of-3; $\mu=89\%$, $\sigma=2.1\%$) with Opus 4.5 thinking mode, a 49% relative improvement over the best baseline (PentestAgent at 61%, $\mu=59\%$, $\sigma=1.8\%$). With GPT-5.2 thinking, PENTESTGPT v2 achieves 85% ($\mu=83\%$, $\sigma=2.4\%$) compared to 61% for PentestAgent. Even comparing means, the gap (89% vs. 59%) exceeds 15 standard deviations, confirming robust architectural differences: the Tool Layer eliminates Type A failures while TDA-EGATS prevents trial-and-error loops that consume baseline attempts. Thinking mode provides 6-10 point improvements across all systems and configurations but does not close the architectural gap.
@@ -469,24 +470,24 @@ flowchart TD
         P1[Start] --> P2[enum]
         P2 --> P3[SQLi 0.3]
         P2 --> P4[Dir abandoned]
-        P2 --> P5[SSH abandoned]
+        P2 --> P5[Ports abandoned]
         P3 --> P6[Hash 0.4]
         P6 --> P7[BF-1 0.5]
-        P7 --> P8[BF-2 0.7]
+        P7 --> P8[BF-25 0.7]
         P8 --> P9[BF-47 0.9]
-        P9 -.->|Stuck: no backtrack, Context degraded| P9
+        P9 -.->|Stuck: no backtrack, Context degraded 47 failed attempts| P9
     end
 
     subgraph Excalibur EGATS
         E1[Start] --> E2[enum]
         E2 --> E3[SQLi 0.3]
-        E2 --> E4[SSH pruned]
+        E2 --> E4[XSS pruned]
         E2 --> E5[Auth 0.5]
         E3 --> E6[Hash 0.4]
         E6 --> E7[BF 0.7]
-        E7 -.->|TDI > 0.7 triggers backtrack| E5
+        E7 -.->|TDI=0.7 triggers backtrack| E5
         E5 --> E8[RAG 0.3]
-        E8 --> E9[Byp 0.2]
+        E8 --> E9[TypeJ 0.2]
         E9 --> E10[Shell 0.1]
         E10 --> E11[Root Success]
     end
