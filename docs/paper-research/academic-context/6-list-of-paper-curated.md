@@ -200,7 +200,7 @@
 
 ### 19. AutoPT: How Far Are We from the End2End Automated Web Penetration Testing?
 - **Website:** [🌐 Link](https://arxiv.org/abs/2411.01236)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/20-autopt-how-far-are-we-from-the-end2end-automated-web.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/19-autopt-how-far-are-we-from-the-end2end-automated-web.pdf)
 - **Authors:** **Benlong Wu**, Guoqiang Chen, Kejiang Chen, Xiuwei Shang, Jiapeng Han, Yanru He, Weiming Zhang, Nenghai Yu
 - **Institution:** University of Science and Technology of China (USNWR #71)
 - **Venue:** **arXiv (Nov 2024)**
@@ -210,7 +210,7 @@
 
 ### 20. AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation
 - **Website:** [🌐 Link](https://arxiv.org/abs/2308.08155)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/21-autogen-next-gen-llm-multi-agent-conversations.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/20-autogen-next-gen-llm-multi-agent-conversations.pdf)
 - **Authors:** **Qingyun Wu**, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, Ahmed Awadallah, Ryen W. White, Doug Burger, Chi Wang
 - **Institution:** Penn State University (USNWR #130)
 - **Venue:** **arXiv (Aug 2023 / 2024)**
@@ -220,7 +220,7 @@
 
 ### 21. MetaGPT: Meta Programming for Multi-Agent Frameworks
 - **Website:** [🌐 Link](https://arxiv.org/abs/2308.00352)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/22-metagpt-meta-programming-for-multi-agent-frameworks.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/21-metagpt-meta-programming-for-multi-agent-frameworks.pdf)
 - **Authors:** **Sirui Hong**, Mingchen Zhuge, Jiaqi Chen, Xiawu Zheng, Yuheng Cheng, Ceyao Zhang, Jinlin Wang, Zili Wang, Steven Ka Shing Yau, Zijuan Lin, Liyang Zhou, Chenyu Ran, Lingfeng Xiao, Chenglin Wu, Jürgen Schmidhuber
 - **Institution:** DeepWisdom
 - **Venue:** **ICLR 2024**
@@ -230,7 +230,7 @@
 
 ### 22. Getting pwn'd by AI: Penetration Testing with Large Language Models
 - **Website:** [🌐 Link](https://dl.acm.org/doi/abs/10.1145/3611643.3613083)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/23-getting-pwnd-by-ai-penetration-testing-with-large-language.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/22-getting-pwnd-by-ai-penetration-testing-with-large-language.pdf)
 - **Code:** [GitHub](https://github.com/ipa-lab/hackingBuddyGPT)
 - **Authors:** **Andreas Happe**, Jürgen Cito
 - **Institution:** TU Wien (USNWR #334)
@@ -241,7 +241,7 @@
 
 ### 23. Reflexion: Language Agents with Verbal RL
 - **Website:** [🌐 Link](https://arxiv.org/abs/2303.11366)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/24-reflexion-language-agents-with-verbal-rl.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/23-reflexion-language-agents-with-verbal-rl.pdf)
 - **Authors:** **Noah Shinn**, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
 - **Institution:** Northeastern University (USNWR #179)
 - **Venue:** **NeurIPS 2023**
@@ -252,7 +252,7 @@
 
 ### 24. Voyager: An Open-Ended Embodied Agent with Large Language Models
 - **Website:** [🌐 Link](https://arxiv.org/abs/2305.16291)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/25-voyager-an-open-ended-embodied-agent.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/24-voyager-an-open-ended-embodied-agent.pdf)
 - **Authors:** **Guanzhi Wang**, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, Anima Anandkumar
 - **Institution:** NVIDIA / Caltech / Stanford
 - **Venue:** **NeurIPS 2023**
@@ -262,7 +262,7 @@
 
 ### 25. A Survey on Large Language Model based Autonomous Agents
 - **Website:** [🌐 Link](https://arxiv.org/abs/2308.11432)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/26-a-survey-on-large-language-model-based-autonomous-agents.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/25-a-survey-on-large-language-model-based-autonomous-agents.pdf)
 - **Authors:** **Lei Wang**, Chen Ma, Xueyang Feng, Zeyu Zhang, Hao Yang, Jingsen Zhang, Zhiyuan Chen, Jiakai Tang, Xu Chen, Yankai Lin, Wayne Xin Zhao, Zhewei Wei, Ji-Rong Wen
 - **Institution:** Renmin University of China
 - **Venue:** **Frontiers of Computer Science 2024**
@@ -272,7 +272,7 @@
 
 ### 26. PrediQL: Automated Testing of GraphQL APIs with LLMs
 - **Website:** [🌐 Link](https://arxiv.org/abs/2510.10407)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/27-prediql-automated-testing-of-graphql-apis-with-llms.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/26-prediql-automated-testing-of-graphql-apis-with-llms.pdf)
 - **Authors:** **Zhenyu Cheng**, Linxi Fan, Anima Anandkumar
 - **Institution:** Chinese Academy of Sciences
 - **Venue:** **WWW 2026**
@@ -282,7 +282,7 @@
 
 ### 27. RESTler: Stateful REST API Fuzzing
 - **Website:** [🌐 Link](https://doi.org/10.1145/3213846.3213851)
-- **Paper:** [📄 Local PDF](../downloaded-paper-curated/28-restler-stateful-rest-api-fuzzing.pdf)
+- **Paper:** [📄 Local PDF](../downloaded-paper-curated/27-restler-stateful-rest-api-fuzzing.pdf)
 - **Authors:** **Vaggelis Atlidakis**, Patrice Godefroid, Marina Polishchuk
 - **Institution:** Columbia University / Microsoft
 - **Venue:** **ICSE 2019**
