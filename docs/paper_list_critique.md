@@ -104,10 +104,10 @@
 | Web Pentesting | 6 | ✅ All in library |
 | API Security | 2 | 🌐 2 internet adds (PrediQL, RESTler) |
 | Multi-Agent Architecture | 2 | ✅ All in library |
-| Agent Reasoning Foundations | 3 | 🌐 3 internet adds (Voyager, Reflexion, MulVAL) |
+| Agent Reasoning Foundations | 2 | 🌐 1 internet add (Voyager) + 1 in library (Reflexion) |
 | Benchmarks | 3 | ✅ All in library |
 | Surveys | 2 | ✅ 1 in library (Forewarned) + 🌐 1 internet add (Wang et al.) |
-| **TOTAL** | **28** | **22 from library, 6 internet additions** |
+| **TOTAL** | **27** | **22 from library, 5 internet additions** |
 
 ---
 
@@ -122,7 +122,6 @@ These papers are NOT in your library and need to be sourced:
 | 🔴 HIGH | **Voyager** — Open-Ended Embodied Agent / Skill Library | NeurIPS 2023 / arXiv:2305.16291 | Download and add to library |
 | 🔴 HIGH | **Reflexion** — Language Agents with Verbal RL | NeurIPS 2023 / arXiv:2303.11366 (in library as #72) | Promote from inline cite to primary list |
 | 🔴 HIGH | **Wang et al. 2024** — LLM Agent Survey | Frontiers of Computer Science 2024 / arXiv:2308.11432 | Download and add to library |
-| 🟡 MEDIUM | **MulVAL** — Network Security Attack Graph | USENIX Security 2005 | Download and add to library |
 
 ---
 
@@ -194,6 +193,5 @@ Everything in your library that is excluded, with exact reasons:
 | 🕸️ **Network (recon, CVE, privesc, lateral)** | Getting pwnd (#1), PentestGPT (#2), PentestGPT V2 (#3), VulnBot (#4), PentestAgent (#5), CHECKMATE (#6), D-CIPHER (#7), Incalmo (#8), Enterprise Networks (#9), Co-RedTeam (#10) | ✅ **Very Strong** |
 | 🤖 **Multi-Agent Orchestration** | AutoGen (#21), MetaGPT (#22), D-CIPHER (#7), Incalmo (#8), CHECKMATE (#6), VulnBot (#4), Co-RedTeam (#10) | ✅ **Strong** |
 | 🧠 **Agent Reasoning (planning, memory, self-correction)** | Voyager (#19) — skill crystallization, Reflexion (#20) — verbal reinforcement / self-debug, MemGPT — context paging (inline cite) | ✅ **Strong** |
-| 🗺️ **Classical Baseline (attack graphs)** | MulVAL (#21) | ✅ **Differentiation anchor** |
 | 📊 **Benchmarks** | Cybench (#23), PentestEval (#24), BountyBench (#25), AutoPT (#15 web), HackWorld (#16 web) | ✅ **Strong** |
 | 📖 **Survey** | Forewarned is Forearmed (#26) | ✅ **One authoritative survey** |
