@@ -1,2993 +1,408 @@
-Title: [2308.11432] A Survey on Large Language Model based Autonomous Agents
+# A Survey on Large Language Model based Autonomous Agents
 
-Description: Autonomous agents have long been a prominent research focus in both academic and industry communities.
-Previous research in this field often focuses on training agents with limited knowledge within isolated environment…
+**Authors:** Lei Wang, Chen Ma\*, Xueyang Feng\*, Zeyu Zhang, Hao Yang, Jingsen Zhang, Zhi-Yuan Chen, Jiakai Tang, Xu Chen(✉), Yankai Lin(✉), Wayne Xin Zhao, Zhewei Wei, Ji-Rong Wen
 
-Source: https://ar5iv.labs.arxiv.org/html/2308.11432
+**Affiliations:** Gaoling School of Artificial Intelligence, Renmin University of China, Beijing, 100872, China
+
+*Front. Comput. Sci., 2025, 0(0): 1-42*  
+*https://doi.org/10.1007/s11704-024-40231-1*  
+*arXiv:2308.11432v7 [cs.AI] 2 Mar 2025*
 
 ---
 
-###### Abstract
-Autonomous agents have long been a prominent research focus in both academic and industry communities. Previous research in this field often focuses on training agents with limited knowledge within isolated environments, which diverges significantly from human learning processes, and thus makes the agents hard to achieve human-like decisions. Recently, through the acquisition of vast amounts of web knowledge, large language models (LLMs) have demonstrated remarkable potential in achieving human-level intelligence. This has sparked an upsurge in studies investigating LLM-based autonomous agents. In this paper, we present a comprehensive survey of these studies, delivering a systematic review of the field of LLM-based autonomous agents from a holistic perspective. More specifically, we first discuss the construction of LLM-based autonomous agents, for which we propose a unified framework that encompasses a majority of the previous work. Then, we present a comprehensive overview of the diverse applications of LLM-based autonomous agents in the fields of social science, natural science, and engineering. Finally, we delve into the evaluation strategies commonly used for LLM-based autonomous agents. Based on the previous studies, we also present several challenges and future directions in this field. To keep track of this field and continuously update our survey, we maintain a repository of relevant references at https://github.com/Paitesanshi/LLM-Agent-Survey.
+## 📑 Table of Contents
 
-“An autonomous agent is a system situated within and a part of an environment that senses that environment and acts on it, over time, in pursuit of its own agenda and so as to effect what it senses in the future.”
-Franklin and Graesser (1997)
-Autonomous agents have long been recognized as a promising approach to achieving artificial general intelligence (AGI), which is expected to accomplish tasks through self-directed planning and actions. In previous studies, the agents are assumed to act based on simple and heuristic policy functions, and learned in isolated and restricted environments [[[11](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib11)3](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib113), [96](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib96), [134](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib134), [60](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib60), 11, [127](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib127)]. Such assumptions significantly differs from the human learning process, since the human mind is highly complex, and individuals can learn from a much wider variety of environments. Because of these gaps, the agents obtained from the previous studies are usually far from replicating human-level decision processes, especially in unconstrained, open-domain settings.
-In recent years, large language models (LLMs) have achieved notable successes, demonstrating significant potential in attaining human-like intelligence [[[1](https://ar5iv.labs.arxiv.org/html/2308.11432#S0.F1)20](https://ar5iv.labs.arxiv.org/html/2308.[11](https://ar5iv.labs.arxiv.org/html/2308.11[4](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib4)32#bib.bib11)432#bib.bib120), [127](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib127), 11, 4, [146](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib146), [147](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib147)]. This capability arises from leveraging comprehensive training datasets alongside a substantial number of model parameters. Building upon this capability, there has been a growing research area that employs LLMs as central controllers to construct autonomous agents to obtain human-like decision-making capabilities [[21](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib21), [139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139), [138](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib138), [126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126), [133](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib133), [184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184), [136](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib136)]. Along this direction, researchers have developed numerous promising models (see Figure 1 for an overview of this field), where the key idea is to equip LLMs with crucial human capabilities like memory and planning to make them behave like humans and complete various tasks effectively. Previously, these models were proposed independently, with limited efforts made to summarize and compare them holistically. However, we believe a systematic summary on this rapidly developing field is of great significance to comprehensively understand it and benefit to inspire future research.
-In this paper, we conduct a comprehensive survey of the field of LLM-based autonomous agents. Specifically, we organize our survey based on three aspects including the construction, application, and evaluation of LLM-based autonomous agents. For the agent construction, we focus on two problems, that is, (1) how to design the agent architecture to better leverage LLMs, and (2) how to inspire and enhance the agent capability to complete different tasks. Intuitively, the first problem aims to build the hardware fundamentals for the agent, while the second problem focus on providing the agent with software resources. For the first problem, we present a unified agent framework, which can encompass most of the previous studies. For the second problem, we provide a summary on the commonly-used strategies for agents’ capability acquisition. In addition to discussing agent construction, we also provide an overview of the applications of LLM-based autonomous agents in social science, natural science, and engineering. Finally, we delve into the strategies for evaluating LLM-based autonomous agents, focusing on both subjective and objective strategies.
+- [Abstract](#abstract)
+- [1. Introduction](#1-introduction)
+- [2. LLM-based Autonomous Agent Construction](#2-llm-based-autonomous-agent-construction)
+  - [2.1 Agent Architecture Design](#21-agent-architecture-design)
+  - [2.2 Agent Capability Acquisition](#22-agent-capability-acquisition)
+- [3. LLM-based Autonomous Agent Application](#3-llm-based-autonomous-agent-application)
+- [4. LLM-based Autonomous Agent Evaluation](#4-llm-based-autonomous-agent-evaluation)
+- [5. Related Surveys](#5-related-surveys)
+- [6. Challenges](#6-challenges)
+- [7. Conclusion](#7-conclusion)
+- [References & Biographies](#references--biographies)
 
-## 1 Introduction
-In summary, this survey conducts a systematic review and establishes comprehensive taxonomies for existing studies in the field of LLM-based autonomous agents. We focus on three aspects: agent construction, application, and evaluation. Drawing from previous studies, we identify various challenges in this field and discuss potential future directions. We believe that this field is still in its early stages; hence, we maintain a repository to keep track of ongoing studies at https://github.com/Paitesanshi/LLM-Agent-Survey. We expect that our survey can provide newcomers to the field of LLM-based autonomous agents with a comprehensive background knowledge, and also encourage further groundbreaking studies.
+---
 
-## 2 LLM-based Autonomous Agent Construction
-LLM-based autonomous agents are expected to effectively perform diverse tasks by leveraging the human-like capabilities of LLMs. In order to achieve this goal, there are two significant aspects, that is, (1) which architecture should be designed to better use LLMs and (2) give the designed architecture, how to enable the agent to acquire capabilities for accomplishing specific tasks. Within the context of architecture design, we contribute a systematic synthesis of existing research, culminating in a comprehensive unified framework***Our framework is also inspired by a pioneer work at https://lilianweng.github.io/posts/2023-06-23-agent/. As for the second aspect, we summarize the strategies for agent capability acquisition based on whether they fine-tune the LLMs. When comparing LLM-based autonomous agents to traditional machine learning, designing the agent architecture is analogous to determining the network structure, while the agent capability acquisition is similar to learning the network parameters. In the following, we introduce these two aspects more in detail.
+## 🚀 Abstract
 
-Recent advancements in LLMs have demonstrated their great potential to accomplish a wide range of tasks in the form of question-answering (QA). However, building autonomous agents is far from QA, since they need to fulfill specific roles and autonomously perceive and learn from the environment to evolve themselves like humans. To bridge the gap between traditional LLMs and autonomous agents, a crucial aspect is to design rational agent architectures to assist LLMs in maximizing their capabilities. Along this direction, previous work has developed a number of modules to enhance LLMs. In this section, we propose a unified framework to summarize these modules. In specific, the overall structure of our framework is illustrated Figure [2](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.F2), which is composed of a profiling module, a memory module, a planning module, and an action module. The purpose of the profiling module is to identify the role of the agent. The memory and planning modules place the agent into a dynamic environment, enabling it to recall past behaviors and plan future actions. The action module is responsible for translating the agent’s decisions into specific outputs. Within these modules, the profiling module impacts the memory and planning modules, and collectively, these three modules influence the action module. In the following, we detail these modules.
+Autonomous agents have long been a research focus in academic and industry communities. Previous research often focuses on training agents with limited knowledge within isolated environments, which diverges significantly from human learning processes, and makes the agents hard to achieve human-like decisions. 
+
+Recently, through the acquisition of vast amounts of web knowledge, large language models (LLMs) have shown potential in human-level intelligence, leading to a surge in research on LLM-based autonomous agents. 
+
+In this paper, we present a comprehensive survey of these studies, delivering a systematic review of LLM-based autonomous agents from a holistic perspective. 
+1. We first discuss the construction of LLM-based autonomous agents, proposing a unified framework that encompasses much of previous work. 
+2. Then, we present an overview of the diverse applications of LLM-based autonomous agents in social science, natural science, and engineering. 
+3. Finally, we delve into the evaluation strategies commonly used for LLM-based autonomous agents. 
+
+Based on the previous studies, we also present several challenges and future directions in this field.
+
+**Keywords:** Autonomous agent, Large language model, Human-level intelligence
+
+---
+
+## 1. Introduction
+
+> 💡 **What is an Autonomous Agent?**
+> "An autonomous agent is a system situated within and a part of an environment that senses that environment and acts on it, over time, in pursuit of its own agenda and so as to effect what it senses in the future."
+> 
+> — *Franklin and Graesser (1997)*
+
+Autonomous agents have long been recognized as a promising approach to achieving artificial general intelligence (AGI), which is expected to accomplish tasks through self-directed planning and actions. In previous studies, the agents are assumed to act based on simple and heuristic policy functions, and learned in isolated and restricted environments [1-6]. Such assumptions significantly differ from the human learning process, since the human mind is highly complex and individuals can learn from a much wider variety of environments. Because of these gaps, the agents obtained from previous studies are usually far from replicating human-level decision processes, especially in unconstrained, open-domain settings.
+
+In recent years, large language models (LLMs) have achieved notable successes, demonstrating significant potential to achieve human-like intelligence [5-10]. This capability arises from leveraging comprehensive training datasets alongside a substantial number of model parameters. Building upon this capability, there has been a growing research area that employs LLMs as central controllers to construct autonomous agents to obtain human-like decision-making capabilities [11-17]. 
+
+* **Knowledge vs. RL:** Compared to reinforcement learning, LLM-based agents possess more comprehensive internal world knowledge, enabling them to perform informed actions even without training on specific domain data. 
+* **Flexibility:** Furthermore, LLM-based agents can offer natural language interfaces for human interaction, providing greater flexibility and enhanced explainability.
+
+Along this direction, researchers have developed numerous promising models (see **Figure 1** for an overview), where the key idea is to equip LLMs with human capabilities such as memory and planning to make them behave like humans and complete various tasks effectively. Previously, these models were proposed independently, with limited efforts made to summarize and compare them holistically. However, we believe that a systematic summary of this rapidly developing field is of great significance for a comprehensive understanding of it and is beneficial in inspiring future research.
+
+### Figure 1: Illustration of the growth trend
+
+```mermaid
+gantt
+    title Growth Trend of LLM-based Autonomous Agents (Jan 2021 - Aug 2023)
+    dateFormat  YYYY-MM
+    axisFormat  %Y-%m
+
+    section Web Agent
+    WebGPT (2021-12)      :done, 2021-12, 1M
+    WebShop (2022-7)      :done, 2022-07, 1M
+    MIND2WEB (2023-6)     :done, 2023-06, 1M
+
+    section General Agent
+    CoT (2022-1)          :done, 2022-01, 1M
+    AutoGPT (2023-3)      :done, 2023-03, 1M
+    AgentGPT (2023-4)     :done, 2023-04, 1M
+    ToT (2023-5)          :done, 2023-05, 1M
+
+    section Tool Agent
+    TALM (2022-5)         :done, 2022-05, 1M
+    Toolformer (2023-2)   :done, 2023-02, 1M
+    HuggingGPT (2023-3)   :done, 2023-03, 1M
+    ToolBench (2023-7)    :done, 2023-07, 1M
+    Tool LLaMA (2023-7)   :done, 2023-07, 1M
+
+    section Embodied/Game
+    Inner Monologue (22-7):done, 2022-07, 1M
+    DEPS (2023-2)         :done, 2023-02, 1M
+    GITM (2023-5)         :done, 2023-05, 1M
+    Voyager (2023-5)      :done, 2023-05, 1M
+
+    section Simulation/Assistant
+    Generative Agent (23-4):done, 2023-04, 1M
+    RecAgent (2023-6)     :done, 2023-06, 1M
+    ChatDev (2023-7)      :done, 2023-07, 1M
+    CO-LLM (2023-7)       :done, 2023-07, 1M
+    AgentSims (2023-8)    :done, 2023-08, 1M
+```
+> *Caption:* We present the cumulative number of papers published from January 2021 to August 2023. We assign different categories: General Agent, Tool Agent, Simulation Agent, Embodied Agent, Game Agent, Web Agent, and Assistant Agent. For each time period, we provide a curated list of studies with diverse agent categories.
+
+In this paper, we conduct a comprehensive survey of the field of LLM-based autonomous agents. We organize our survey around three key aspects: **construction, application, and evaluation** of LLM-based autonomous agents. 
+
+For agent construction, we focus on two problems: 
+1. How to design the agent architecture to better leverage LLMs.
+2. How to inspire and enhance the agent capability to complete different tasks. 
+
+Intuitively, the first problem aims to build the hardware fundamentals for the agent, while the second problem focuses on providing the agent with software resources. For the first problem, we present a unified agent framework, which can encompass most of the previous studies. For the second problem, we provide a summary on the commonly-used strategies for agents' capability acquisition. 
+
+In addition to discussing agent construction, we also provide a systematic overview of the applications of LLM-based autonomous agents in social science, natural science, and engineering. Finally, we delve into the strategies for evaluating LLM-based autonomous agents, focusing on both subjective and objective strategies.
+
+In summary, this survey conducts a systematic review and establishes comprehensive taxonomies for existing studies in the burgeoning field of LLM-based autonomous agents. Our focus encompasses three primary areas: the construction of agents, their applications, and methods of evaluation. Drawing from a wealth of previous studies, we identify various challenges in this field and discuss potential future directions. We expect that our survey can provide newcomers of LLM-based autonomous agents with a comprehensive background knowledge, and also encourage further groundbreaking studies.
+
+---
+
+## 2. LLM-based Autonomous Agent Construction
+
+LLM-based autonomous agents are expected to effectively perform diverse tasks by leveraging the human-like capabilities of LLMs. In order to achieve this goal, there are two significant aspects: (1) which architecture should be designed to better use LLMs and (2) given the designed architecture, how to enable the agent to acquire capabilities for accomplishing specific tasks. 
+
+Comparing LLM-based autonomous agents to traditional machine learning, architecture design is analogous to defining the network structure, while capability acquisition resembles the process of learning network parameters. In the following sections, we explore these two aspects in greater detail.
+
+### 2.1 Agent Architecture Design
+
+Recent advancements in LLMs have demonstrated their great potential to accomplish a wide range of tasks in the form of question-answering (QA). However, building autonomous agents is far from QA, since they need to fulfill specific roles and autonomously perceive and learn from the environment to evolve themselves like humans. To bridge the gap between traditional LLMs and autonomous agents, a crucial aspect is to design rational agent architectures to assist LLMs in maximizing their capabilities. 
+
+In this section, we propose a unified framework to summarize these modules.
+
+### Figure 2: A Unified Framework
+
+```mermaid
+graph LR
+    subgraph LLM-Based Agent Framework
+        direction TB
+        
+        subgraph 1. Profile
+            direction TB
+            P1[Profile Contents: Demographic, Personality, Social]
+            P2[Generation Strategy: Handcrafting, LLM-Generation, Dataset Alignment]
+            P1 --- P2
+        end
+        
+        subgraph 2. Memory
+            direction TB
+            M1[Structure: Unified Memory, Hybrid Memory]
+            M2[Formats: Languages, Embeddings, Databases, Lists]
+            M3[Operations: Memory Reading, Writing, Reflection]
+            M1 --- M2 --- M3
+        end
+        
+        subgraph 3. Planning
+            direction TB
+            PL1[w/o Feedback: Single-path, Multi-path, External Planner]
+            PL2[w/ Feedback: Environment, Human, Model Feedback]
+            PL1 --- PL2
+        end
+        
+        subgraph 4. Action
+            direction TB
+            A1[Target: Task Completion, Exploration, Communication]
+            A2[Production: Memory Recollection, Plan Following]
+            A3[Space: Tools, Self-Knowledge]
+            A4[Impact: Environments, Internal States, New Actions]
+            A1 --- A2 --- A3 --- A4
+        end
+        
+        1. Profile --> 2. Memory
+        1. Profile --> 3. Planning
+        2. Memory --> 4. Action
+        3. Planning --> 4. Action
+    end
+```
+> *Caption:* The overall structure is composed of a profiling module, a memory module, a planning module, and an action module. The profiling module identifies the role, impacting memory and planning. These three modules collectively influence the action module.
 
 #### 2.1.1 Profiling Module
-Autonomous agents typically perform tasks by assuming specific roles, such as coders, teachers and domain experts [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124), [39](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib39)]. The profiling module aims to indicate the profiles of the agent roles, which are usually written into the prompt to influence the LLM behaviors. Agent profiles typically encompass basic information such as age, gender, and career [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], as well as psychology information, reflecting the personalities of the agents [[[149](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib149)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib149)], and social information, detailing the relationships between agents [149]. The choice of information to profile the agent is largely determined by the specific application scenarios. For instance, if the application aims to study human cognitive process, then the psychology information becomes pivotal. After identifying the types of profile information, the next important problem is to create specific profiles for the agents. Existing literature commonly employs the following three strategies.
 
-Handcrafting Method: in this method, agent profiles are manually specified. For instance, if one would like to design agents with different personalities, he can use "you are an outgoing person" or "you are an introverted person" to profile the agent. The handcrafting method has been leveraged in a lot of previous work to indicate the agent profiles. For example, Generative Agent [[1[76](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib76)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)] describes the agent by the information like name, objectives, and relationships with other agents. MetaGPT [[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)], ChatDev [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)], and Self-collaboration [[33](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib33)] predefine various roles and their corresponding responsibilities in software development, manually assigning distinct profiles to each agent to facilitate collaboration. PTLLM [[1[31](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib31)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib131)] aims to explore and quantify personality traits displayed in texts generated by LLMs. This method guides LLMs in generating diverse responses by manfully defining various agent characters through the use of personality assessment tools such as IPIP-NEO [[77](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib77)] and BFI [76].  [31] studies the toxicity of the LLM output by manually prompting LLMs with different roles, such as politicians, journalists and businesspersons. In general, the handcrafting method is very flexible, since one can assign any profile information to the agents. However, it can be also labor-intensive, particularly when dealing with a large number of agents.
-LLM-generation Method: in this method, agent profiles are automatically generated based on LLMs. Typically, it begins by indicating the profile generation rules, elucidating the composition and attributes of the agent profiles within the target population. Then, one can optionally specify several seed agent profiles to serve as few-shot examples. At last, LLMs are leveraged to generate all the agent profiles. For example, RecAgent [[150](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib150)] first creates seed profiles for a few number of agents by manually crafting their backgrounds like age, gender, personal traits, and movie preferences. Then, it leverages ChatGPT to generate more agent profiles based on the seed information. The LLM-generation method can save significant time when the number of agents is large, but it may lack precise control over the generated profiles.
-Dataset Alignment Method: in this method, the agent profiles are obtained from real-world datasets. Typically, one can first organize the information about real humans in the datasets into natural language prompts, and then leverage it to profile the agents. For instance, in [[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)], the authors assign roles to GPT-3 based on the demographic backgrounds (such as race/ethnicity, gender, age, and state of residence) of participants in the American National Election Studies (ANES). They subsequently investigate whether GPT-3 can produce similar results to those of real humans. The dataset alignment method accurately captures the attributes of the real population, thereby making the agent behaviors more meaningful and reflective of real-world scenarios.
+Autonomous agents typically perform tasks by assuming specific roles, such as coders, teachers, and domain experts [18, 19]. The profiling module aims to indicate the profiles of the agent roles, which are usually written into the prompt to influence the behavior of the LLM. Agent profiles typically encompass demographic, psychology, and social information.
 
-###### Remark.
-While most of the previous work leverage the above profile generation strategies independently, we argue that combining them may yield additional benefits. For example, in order to predict social developments via agent simulation, one can leverage real-world datasets to profile a subset of the agents, thereby accurately reflecting the current social status. Subsequently, roles that do not exist in the real world but may emerge in the future can be manually assigned to the other agents, enabling the prediction of future social development. The profile module serves as the foundation for agent design, exerting significant influence on the agent memorization, planning, and action procedures.
+Existing literature commonly employs the following three strategies:
+
+*   **Handcrafting Method:** Agent profiles are manually specified. For instance, "you are an outgoing person". Generative Agent [22], MetaGPT [23], ChatDev [18], and Self-collaboration [24] predefine various roles and responsibilities manually. PTLLM [25] uses personality assessment tools like IPIP-NEO. Very flexible, but labor-intensive.
+*   **LLM-generation Method:** Profiles are automatically generated based on LLMs. RecAgent [21] creates seed profiles manually, then leverages ChatGPT to generate more based on the seed information. Reduces time but may lack precise control.
+*   **Dataset Alignment Method:** Profiles are obtained from real-world datasets. Demographic backgrounds from real humans are organized into natural language prompts [29]. Captures real population attributes accurately.
+
+> 💡 **Remark:** Combining these strategies may yield additional benefits (e.g., using real-world datasets for current states and manual roles for predicting future developments).
 
 #### 2.1.2 Memory Module
 
-The memory module plays a very important role in the agent architecture design. It stores information perceived from the environment and leverages the recorded memories to facilitate future actions. The memory module can help the agent to accumulate experiences, self-evolve, and behave in a more consistent, reasonable, and effective manner. This section provides a comprehensive overview of the memory module, focusing on its structures, formats, and operations.
-Memory Structures: LLM-based autonomous agents usually incorporate principles and mechanisms derived from cognitive science research on human memory processes. Human memory follows a general progression from sensory memory that registers perceptual inputs, to short-term memory that maintains information transiently, to long-term memory that consolidates information over extended periods. When designing the agent memory structures, researchers take inspiration from these aspects of human memory. In specific, short-term memory is analogous to the input information within the context window constrained by the transformer architecture. Long-term memory resembles the external vector storage that agents can rapidly query and retrieve from as needed. In the following, we introduce two commonly used memory structures based on the short- and long-term memories.
-∙∙\bullet Unified Memory. This structure only simulates the human shot-term memory, which is usually realized by in-context learning, and the memory information is directly written into the prompts. For example, RLP [[54](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib54)] is a conversation agent, which maintains internal states for the speaker and listener. During each round of conversation, these states serve as LLM prompts, functioning as the agent’s short-term memory. SayPlan [[129](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib129)] is an embodied agent specifically designed for task planning. In this agent, the scene graphs and environment feedback serve as the agent’s short-term memory, guiding its actions. CALYPSO [[183](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib183)] is an agent designed for the game Dungeons & Dragons, which can assist Dungeon Masters in the creation and narration of stories. Its short-term memory is built upon scene descriptions, monster information, and previous summaries. DEPS [[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)] is also a game agent, but it is developed for Minecraft. The agent initially generates task plans and then utilizes them to prompt LLMs, which in turn produce actions to complete the task. These plans can be deemed as the agent’s short-term memory. In practice, implementing short-term memory is straightforward and can enhance an agent’s ability to perceive recent or contextually sensitive behaviors and observations.
+The memory module plays a very important role in agent architecture, storing information perceived from the environment to facilitate future actions, enabling the agent to accumulate experiences and self-evolve.
 
-∙∙\bullet Hybrid Memory. This structure explicitly models the human short-term and long-term memories. The short-term memory temporarily buffers recent perceptions, while long-term memory consolidates important information over time. For instance, Generative Agent [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)] employs a hybrid memory structure to facilitate agent behaviors. The short-term memory contains the context information about the agent current situations, while the long-term memory stores the agent past behaviors and thoughts, which can be retrieved according to the current events. AgentSims [[99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99)] also implements a hybrid memory architecture. The information provided in the prompt can be considered as short-term memory. In order to enhance the storage capacity of memory, the authors propose a long-term memory system that utilizes a vector database, facilitating efficient storage and retrieval. Specifically, the agent’s daily memories are encoded as embeddings and stored in the vector database. If the agent needs to recall its previous memories, the long-term memory system retrieves relevant information using embedding similarities. This process can improve the consistency of the agent’s behavior. In GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], the short-term memory stores the current trajectory, and the long-term memory saves reference plans summarized from successful prior trajectories. Long-term memory provides stable knowledge, while short-term memory allows flexible planning. Reflexion [[139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139)] utilizes a short-term sliding window to capture recent feedback and incorporates persistent long-term storage to retain condensed insights. This combination allows for the utilization of both detailed immediate experiences and high-level abstractions. SCM [[92](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib92)] selectively activates the most relevant long-term knowledge to combine with short-term memory, enabling reasoning over complex contextual dialogues. SimplyRetrieve [[117](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib117)] utilizes user queries as short-term memory and stores long-term memory using external knowledge bases. This design enhances the model accuracy while guaranteeing user privacy. MemorySandbox [[72](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib72)] implements long-term and short-term memory by utilizing a 2D canvas to store memory objects, which can then be accessed throughout various conversations. Users can create multiple conversations with different agents on the same canvas, facilitating the sharing of memory objects through a simple drag-and-drop interface. In practice, integrating both short-term and long-term memories can enhance an agent’s ability for long-range reasoning and accumulation of valuable experiences, which are crucial for accomplishing tasks in complex environments.
+**Memory Structures:**
+*   **Unified Memory:** Simulates human short-term memory, usually realized by in-context learning. Examples: RLP [30], SayPlan [31], CALYPSO [32], DEPS [33]. Easy to implement but restricted by LLM context windows.
+*   **Hybrid Memory:** Explicitly models short-term (temporary buffering) and long-term memory (consolidated information in external vector storage). Examples: Generative Agent [20], AgentSims [34], GITM [16], Reflexion [12], SCM [35], SimplyRetrieve [36], Memory Sandbox [37]. Enhances long-range reasoning.
 
-###### Remark.
-Careful readers may find that there may also exist another type of memory structure, that is, only based on the long-term memory. However, we find that such type of memory is rarely documented in the literature. Our speculation is that the agents are always situated in continuous and dynamic environments, with consecutive actions displaying a high correlation. Therefore, the capture of short-term memory is very important and usually cannot be disregarded.
-Memory Formats: In addition to the memory structure, another perspective to analyze the memory module is based on the formats of the memory storage medium, for example, natural language memory or embedding memory. Different memory formats possess distinct strengths and are suitable for various applications. In the following, we introduce several representative memory formats.
+**Memory Formats:**
+*   **Natural Languages:** Flexible, retains rich semantics. (e.g., Reflexion [12], Voyager [38]).
+*   **Embeddings:** Enhances retrieval efficiency. (e.g., MemoryBank [39]).
+*   **Databases:** Allows efficient manipulation via SQL. (e.g., ChatDB [40]).
+*   **Structured Lists:** Semantic meaning conveyed efficiently. (e.g., GITM [16], RET-LLM [41]).
 
-∙∙\bullet Natural Languages. In this format, memory information such as the agent behaviors and observations are directly described using raw natural language. This format possesses several strengths. Firstly, the memory information can be expressed in a flexible and understandable manner. Moreover, it retains rich semantic information that can provide comprehensive signals to guide agent behaviors. In the previous work, Reflexion [[139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139)] stores experiential feedback in natural language within a sliding window. Voyager [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)] employs natural language descriptions to represent skills within the Minecraft game, which are directly stored in memory.
-∙∙\bullet Embeddings. In this format, memory information is encoded into embedding vectors, which can enhance the memory retrieval and reading efficiency. For instance, MemoryBank [[179](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib179)] encodes each memory segment into an embedding vector, which creates an indexed corpus for retrieval. GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)] represents reference plans as embeddings to facilitate matching and reuse. Furthermore, ChatDev [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)] encodes dialogue history into vectors for retrieval.
-∙∙\bullet Databases. In this format, memory information is stored in databases, allowing the agent to manipulate memories efficiently and comprehensively. For example, ChatDB [[67](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib67)] uses a database as a symbolic memory module. The agent can utilize SQL statements to precisely add, delete, and revise the memory information. In DB-GPT [[182](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib182)], the memory module is constructed based on a database. To more intuitively operate the memory information, the agents are fine-tuned to understand and execute SQL queries, enabling them to interact with databases using natural language directly.
-∙∙\bullet Structured Lists. In this format, memory information is organized into lists, and the semantic of memory can be conveyed in an efficient and concise manner. For instance, GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.[114](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib114)32#bib.bib184)] stores action lists for sub-goals in a hierarchical tree structure. The hierarchical structure explicitly captures the relationships between goals and corresponding plans. RET-LLM [114] initially converts natural language sentences into triplet phrases, and subsequently stores them in memory.
-
-###### Remark.
-Here we only show several representative memory formats, but it is important to note that there are many uncovered ones, such as the programming code used by [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)]. Moreover, it should be emphasized that these formats are not mutually exclusive; many models incorporate multiple formats to concurrently harness their respective benefits. A notable example is the memory module of GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], which utilizes a key-value list structure. In this structure, the keys are represented by embedding vectors, while the values consist of raw natural languages. The use of embedding vectors allows for efficient retrieval of memory records. By utilizing natural languages, the memory contents become highly comprehensive, enabling more informed agent actions.
-Above, we mainly discuss the internal designs of the memory module. In the following, we turn our focus to memory operations, which are used to interact with external environments.
-Memory Operations: The memory module plays a critical role in allowing the agent to acquire, accumulate, and utilize significant knowledge by interacting with the environment. The interaction between the agent and the environment is accomplished through three crucial memory operations: memory reading, memory writing, and memory reflection. In the following, we introduce these operations more in detail.
-
-∙∙\bullet Memory Reading. The objective of memory reading is to extract meaningful information from memory to enhance the agent’s actions. For example, using the previously successful actions to achieve similar goals [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)]. The key of memory reading lies in how to extract valuable information. Usually, there three commonly used criteria for information extraction, that is, the recency, relevance, and importance [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)]. Memories that are more recent, relevant, and important are more likely to be extracted. Formally, we conclude the following equation from existing literature for memory information extraction:
-where q𝑞q is the query, for example, the task that the agent should address or the context in which the agent is situated. M𝑀M is the set of all memories. sr​e​c​(⋅)superscript𝑠𝑟𝑒𝑐⋅s^{rec}(\cdot), sr​e​l​(⋅)superscript𝑠𝑟𝑒𝑙⋅s^{rel}(\cdot) and si​m​p​(⋅)superscript𝑠𝑖𝑚𝑝⋅s^{imp}(\cdot) are the scoring functions for measuring the recency, relevance, and importance of the memory m𝑚m. These scoring functions can be implemented using various methods, for example, sr​e​l​(q,m)superscript𝑠𝑟𝑒𝑙𝑞𝑚s^{rel}(q,m) can be realized based on LSH, ANNOY, HNSW, FAISS and so on†††https://lilianweng.github.io/posts/2023-06-23-agent/. It should be noted that si​m​psuperscript𝑠𝑖𝑚𝑝s^{imp} only reflects the characters of the memory itself, thus it is unrelated to the query q𝑞q. α𝛼\alpha, β𝛽\beta and γ𝛾\gamma are balancing parameters. By assigning them with different values, one can obtain various memory reading strategies. For example, by setting α=γ=0𝛼𝛾0\alpha=\gamma=0, many studies [[114](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib114), [184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184), [148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148), [54](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib54)] only consider the relevance score sr​e​lsuperscript𝑠𝑟𝑒𝑙s^{rel} for memory reading. By assigning α=β=γ=1.0𝛼𝛽𝛾1.0\alpha=\beta=\gamma=1.0, [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)] equally weights all the above three metrics to extract information from the memory.
-∙∙\bullet Memory Writing. The purpose of memory writing is to store information about the perceived environment in memory. Storing valuable information in memory provides a foundation for retrieving informative memories in the future, enabling the agent to act more efficiently and rationally. During the memory writing process, there are two potential problems that should be carefully addressed. On one hand, it is crucial to address how to store information that is similar to existing memories (i.e., memory duplicated). On the other hand, it is important to consider how to remove information when the memory reaches its storage limit (i.e., memory overflow). In the following, we discuss these problems more in detail. (1) Memory Duplicated. To incorporate similar information, people have developed various methods for integrating new and previous records. For instance, in [[120](https://ar5iv.labs.arxiv.org/html/2308.[114](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib114)32#bib.bib120)], the successful action sequences related to the same sub-goal are stored in a list. Once the size of the list reaches N(=5), all the sequences in it are condensed into a unified plan solution using LLMs. The original sequences in the memory are replaced with the newly generated one. Augmented LLM [[135](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib135)] aggregates duplicate information via count accumulation, avoiding redundant storage. (2) Memory Overflow. In order to write information into the memory when it is full, people design different methods to delete existing information to continue the memorizing process. For example, in ChatDB [[67](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib67)], memories can be explicitly deleted based on user commands. RET-LLM [114] uses a fixed-size buffer for memory, overwriting the oldest entries in a first-in-first-out (FIFO) manner.
-
-∙∙\bullet Memory Reflection. Memory reflection emulates humans’ ability to witness and evaluate their own cognitive, emotional, and behavioral processes. When adapted to agents, the objective is to provide agents with the capability to independently summarize and infer more abstract, complex and high-level information. More specifically, in Generative Agent [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], the agent has the capability to summarize its past experiences stored in memory into broader and more abstract insights. To begin with, the agent generates three key questions based on its recent memories. Then, these questions are used to query the memory to obtain relevant information. Building upon the acquired information, the agent generates five insights, which reflect the agent high-level ideas. For example, the low-level memories “Klaus Mueller is writing a research paper”, “Klaus Mueller is engaging with a librarian to further his research”, and “Klaus Mueller is conversing with Ayesha Khan about his research” can induce the high-level insight “Klaus Mueller is dedicated to his research”. In addition, the reflection process can occur hierarchically, meaning that the insights can be generated based on existing insights. In GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], the actions that successfully accomplish the sub-goals are stored in a list. When the list contains more than five elements, the agent summarizes them into a common and abstract pattern and replaces all the elements. In ExpeL [[177](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib177)], two approaches are introduced for the agent to acquire reflection. Firstly, the agent compares successful or failed trajectories within the same task. Secondly, the agent learns from a collection of successful trajectories to gain experiences.
-A significant distinction between traditional LLMs and the agents is that the latter must possess the capability to learn and complete tasks in dynamic environments. If we consider the memory module as responsible for managing the agents’ past behaviors, it becomes essential to have another significant module that can assist the agents in planning their future actions. In the following, we present an overview of how researchers design the planning module.
+**Memory Operations:**
+*   **Memory Reading:** Extracting meaningful information based on recency, relevance, and importance. Formally represented as:
+    
+    $$ m^* = \arg\max_{m \in M} (\alpha s_{rec}(q, m) + \beta s_{rel}(q, m) + \gamma s_{imp}(m)) $$
+    
+    Where $q$ is the query, $M$ is the set of memories, and $s_{rec}$, $s_{rel}$, $s_{imp}$ represent scoring functions for recency, relevance, and importance, controlled by parameters $\alpha, \beta, \gamma$.
+*   **Memory Writing:** Storing perceived information. Must address *memory duplication* (aggregating similar information, e.g., GITM [16], Augmented LLM [42]) and *memory overflow* (e.g., FIFO deletion in RET-LLM [41] or explicit deletion in ChatDB [40]).
+*   **Memory Reflection:** Emulates the ability to summarize and infer abstract, high-level information from past experiences. Generative Agent [20] queries memory to generate insights. GITM [16] abstracts common patterns. ExpeL [43] compares successful/failed trajectories.
 
 #### 2.1.3 Planning Module
-When faced with a complex task, humans tend to deconstruct it into simpler subtasks and solve them individually. The planning module aims to empower the agents with such human capability, which is expected to make the agent behave more reasonably, powerfully, and reliably. In specific, we summarize existing studies based on whether the agent can receive feedback in the planing process, which are detailed as follows:
-Planning without Feedback: In this method, the agents do not receive feedback that can influence its future behaviors after taking actions. In the following, we present several representative strategies.
 
-∙∙\bullet Single-path Reasoning. In this strategy, the final task is decomposed into several intermediate steps. These steps are connected in a cascading manner, with each step leading to only one subsequent step. LLMs follow these steps to achieve the final goal. Specifically, Chain of Thought (CoT) [[155](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib155)] proposes inputting reasoning steps for solving complex problems into the prompt. These steps serve as examples to inspire LLMs to plan and act in a step-by-step manner. In this method, the plans are created based on the inspiration from the examples in the prompts. Zero-shot-CoT [[82](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib82)] enables LLMs to generate task reasoning processes by prompting them with trigger sentences like "think step by step". Unlike CoT, this method does not incorporate reasoning steps as examples in the prompts. Re-Prompting [[128](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib128)] involves checking whether each step meets the necessary prerequisites before generating a plan. If a step fails to meet the prerequisites, it introduces a prerequisite error message and prompts the LLM to regenerate the plan. ReWOO [[164](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib164)] introduces a paradigm of separating plans from external observations, where the agents first generate plans and obtain observations independently, and then combine them together to derive the final results. HuggingGPT [[138](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib138)] first decomposes the task into many sub-goals, and then solves each of them based on Huggingface. Different from CoT and Zero-shot-CoT, which outcome all the reasoning steps in a one-shot manner, ReWOO and HuggingGPT produce the results by accessing LLMs multiply times recursively.
+Empowers the agent to deconstruct complex tasks into simpler subtasks, making the agent behave reasonably and reliably.
 
-∙∙\bullet Multi-path Reasoning. In this strategy, the reasoning steps for generating the final plans are organized into a tree-like structure. Each intermediate step may have multiple subsequent steps. This approach is analogous to human thinking, as individuals may have multiple choices at each reasoning step. In specific, Self-consistent CoT (CoT-SC) [[151](https://ar5iv.labs.arxiv.org/html/2[3](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.F3)0[8](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib8).11432#bib.bib151)] believes that each complex problem has multiple ways of thinking to deduce the final answer. Thus, it starts by employing CoT to generate various reasoning paths and corresponding answers. Subsequently, the answer with the highest frequency is chosen as the final output. Tree of Thoughts (ToT) [[169](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib169)] is designed to generate plans using a tree-like reasoning structure. In this approach, each node in the tree represents a "thought," which corresponds to an intermediate reasoning step. The selection of these intermediate steps is based on the evaluation of LLMs. The final plan is generated using either the breadth-first search (BFS) or depth-first search (DFS) strategy. Comparing with CoT-SC, which generates all the planed steps together, ToT needs to query LLMs for each reasoning step. In RecMind [[152](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib152)], the authors designed a self-inspiring mechanism, where the discarded historical information in the planning process is also leveraged to derive new reasoning steps. In GoT [8], the authors expand the tree-like reasoning structure in ToT to graph structures, resulting in more powerful prompting strategies. In AoT [[137](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib137)], the authors design a novel method to enhance the reasoning processes of LLMs by incorporating algorithmic examples into the prompts. Remarkably, this method only needs to query LLMs for only one or a few times. In [[[70](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib70)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib70)], the LLMs are leveraged as zero-shot planners. At each planning step, they first generate multiple possible next steps, and then determine the final one based on their distances to admissible actions.  [[58](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib58)] further improves  [70] by incorporating examples that are similar to the queries in the prompts. RAP [[62](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib62)] builds a world model to simulate the potential benefits of different plans based on Monte Carlo Tree Search (MCTS), and then, the final plan is generated by aggregating multiple MCTS iterations. To enhance comprehension, we provide an illustration comparing the strategies of single-path and multi-path reasoning in Figure 3.
-[70](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib70)
-∙∙\bullet External Planner. Despite the demonstrated power of LLMs in zero-shot planning, effectively generating plans for domain-specific problems remains highly challenging. To address this challenge, researchers turn to external planners. These tools are well-developed and employ efficient search algorithms to rapidly identify correct, or even optimal, plans. In specific, LLM+P [[100](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib100)] first transforms the task descriptions into formal Planning Domain Definition Languages (PDDL), and then it uses an external planner to deal with the PDDL. Finally, the generated results are transformed back into natural language by LLMs. Similarly, LLM-DP [[26](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib26)] utilizes LLMs to convert the observations, the current world state, and the target objectives into PDDL. Subsequently, this transformed data is passed to an external planner, which efficiently determines the final action sequence. CO-LLM [[176](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)] demonstrates that LLMs is good at generating high-level plans, but struggle with low-level control. To address this limitation, a heuristically designed external low-level planner is employed to effectively execute actions based on high-level plans.
+**Planning without Feedback:**
+*   **Single-path Reasoning:** Task decomposed into cascading steps. Chain of Thought (CoT) [45], Zero-shot-CoT [46], RePrompting [47], ReWOO [48], HuggingGPT [13], SWIFTSAGE [49].
+*   **Multi-path Reasoning:** Reasoning steps organized in a tree-like structure. Self-consistent CoT (CoT-SC) [51], Tree of Thoughts (ToT) [52], RecMind [53], GoT [54], AoT [55], RAP [57].
+*   **External Planner:** Utilizes external tools to efficiently identify correct plans (e.g., PDDL conversions in LLM+P [58] and LLM-DP [59], or low-level planners in CO-LLM [22]).
 
-Planning with Feedback: In many real-world scenarios, the agents need to make long-horizon planning to solve complex tasks. When facing these tasks, the above planning modules without feedback can be less effective due to the following reasons: firstly, generating a flawless plan directly from the beginning is extremely difficult as it needs to consider various complex preconditions. As a result, simply following the initial plan often leads to failure. Moreover, the execution of the plan may be hindered by unpredictable transition dynamics, rendering the initial plan non-executable. Simultaneously, when examining how humans tackle complex tasks, we find that individuals may iteratively make and revise their plans based on external feedback. To simulate such human capability, researchers have designed many planning modules, where the agent can receive feedback after taking actions. The feedback can be obtained from the environments, humans, and models, which are detailed in the following.
-∙∙\bullet Environmental Feedback. This feedback is obtained from the objective world or virtual environment. For instance, it could be the game’s task completion signals or the observations made after the agent takes an action. In specific, ReAct [[170](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170)] proposes constructing prompts using thought-act-observation triplets. The thought component aims to facilitate high-level reasoning and planning for guiding agent behaviors. The act represents a specific action taken by the agent. The observation corresponds to the outcome of the action, acquired through external feedback, such as search engine results. The next thought is influenced by the previous observations, which makes the generated plans more adaptive to the environment. Voyager [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)] makes plans by incorporating three types of environment feedback including the intermediate progress of program execution, the execution error and self-verification results. These signals can help the agent to make better plans for the next action. Similar to Voyager, Ghost [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)] also incorporates feedback into the reasoning and action taking processes. This feedback encompasses the environment states as well as the success and failure information for each executed action. SayPlan [[129](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib129)] leverages environmental feedback derived from a scene graph simulator to validate and refine its strategic formulations. This simulator is adept at discerning the outcomes and state transitions subsequent to agent actions, facilitating SayPlan’s iterative recalibration of its strategies until a viable plan is ascertained. In DEPS [[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)], the authors argue that solely providing information about the completion of a task is often inadequate for correcting planning errors. Therefore, they propose informing the agent about the detail reasons for task failure, allowing them to more effectively revise their plans. LLM-Planner [[141](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib141)] introduces a grounded re-planning algorithm that dynamically updates plans generated by LLMs when encountering object mismatches and unattainable plans during task completion. Inner Monologue [[71](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)] provides three types of feedback to the agent after it takes actions: (1) whether the task is successfully completed, (2) passive scene descriptions, and (3) active scene descriptions. The former two are generated from the environments, which makes the agent actions more practical and reasonable.
+### Figure 3: Comparison between the strategies of single-path and multi-path reasoning.
 
-∙∙\bullet Human Feedback. In addition to obtaining feedback from the environment, directly interacting with humans is also a very intuitive strategy to enhance the agent planning capability. The human feedback is a subjective signal. It can effectively make the agent align with the human values and preferences, and also help to alleviate the hallucination problem. In Inner Monologue [[[71](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)], the agent aims to perform high-level natural language instructions in a 3D visual environment. It is given the capability to actively solicit feedback from humans regarding scene descriptions. Then, the agent incorporates the human feedback into its prompts, enabling more informed planning and reasoning. In the above cases, we can see, different types of feedback can be combined to enhance the agent planning capability. For example, Inner Monologue [71] collects both environment and human feedback to facilitate the agent plans.
-∙∙\bullet Model Feedback. Apart from the aforementioned environmental and human feedback, which are external signals, researchers have also investigated the utilization of internal feedback from the agents themselves. This type of feedback is usually generated based on pre-trained models. In specific, [[107](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib107)] proposes a self-refine mechanism. This mechanism consists of three crucial components: output, feedback, and refinement. Firstly, the agent generates an output. Then, it utilizes LLMs to provide feedback on the output and offer guidance on how to refine it. At last, the output is improved by the feedback and refinement. This output-feedback-refinement process iterates until reaching some desired conditions. SelfCheck [[112](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib112)] allows agents to examine and evaluate their reasoning steps generated at various stages. They can then correct any errors by comparing the outcomes. InterAct [[20](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib20)] uses different language models (such as ChatGPT and InstructGPT) as auxiliary roles, such as checkers and sorters, to help the main language model avoid erroneous and inefficient actions. ChatCoT [[22](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib22)] utilizes model feedback to improve the quality of its reasoning process. The model feedback is generated by an evaluation module that monitors the agent reasoning steps. Reflexion [[139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139)] is developed to enhance the agent’s planning capability through detailed verbal feedback. In this model, the agent first produces an action based on its memory, and then, the evaluator generates feedback by taking the agent trajectory as input. In contrast to previous studies, where the feedback is given as a scalar value, this model leverages LLMs to provide more detailed verbal feedback, which can provide more comprehensive supports for the agent plans.
+```mermaid
+graph TD
+    subgraph Single-Path Reasoning (e.g., CoT, ReWOO)
+        LLM_SP[LLM] --> S1[Reasoning Step-1]
+        S1 --> S2[Reasoning Step-2]
+        S2 --> Sn[Reasoning Step-n]
+    end
 
-###### Remark.
-In conclusion, the implementation of the planning module without feedback is relatively straightforward. However, it is primarily suitable for simple tasks that only require a small number of reasoning steps. Conversely, the strategy of planning with feedback needs more careful designs to handle the feedback. Nevertheless, it is considerably more powerful and capable of effectively addressing complex tasks that involve long-range reasoning.
+    subgraph Multi-Path Reasoning (e.g., CoT-SC, ToT)
+        LLM_MP[LLM] --> M1[Step-1]
+        M1 --> M2[Step-2 Path A]
+        M1 --> M3[Step-2 Path B]
+        M2 --> M4[Step-3 Path A1]
+        M3 --> M5[Step-3 Path B1]
+    end
+```
+
+**Planning with Feedback:**
+*   **Environmental Feedback:** Obtained from objective/virtual environments (e.g., task completion signals). ReAct [60], Voyager [38], Ghost [16], SayPlan [31], DEPS [33], LLM-Planner [61], Inner Monologue [62].
+*   **Human Feedback:** Subjective signals aligning agents with human values and mitigating hallucinations. Inner Monologue [62] actively solicits human feedback.
+*   **Model Feedback:** Internal feedback generated by pre-trained models. Self-refine [63], SelfCheck [64], InterAct [65], ChatCoT [66], Reflexion [12].
 
 #### 2.1.4 Action Module
-The action module is responsible for translating the agent’s decisions into specific outcomes. This module is located at the most downstream position and directly interacts with the environment. It is influenced by the profile, memory, and planning modules. This section introduces the action module from four perspectives: (1) Action goal: what are the intended outcomes of the actions? (2) Action production: how are the actions generated? (3) Action space: what are the available actions? (4) Action impact: what are the consequences of the actions? Among these perspectives, the first two focus on the aspects preceding the action ("before-action" aspects), the third focuses on the action itself ("in-action" aspect), and the fourth emphasizes the impact of the actions ("after-action" aspect).
 
-Action Goal: The agent can perform actions with various objectives. Here, we present several representative examples: (1) Task Completion. In this scenario, the agent’s actions are aimed at accomplishing specific tasks, such as crafting an iron pickaxe in Minecraft [[[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)] or completing a function in software development [[[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)]. These actions usually have well-defined objectives, and each action contributes to the completion of the final task. Actions aimed at this type of goal are very common in existing literature. (2) Communication. In this case, the actions are taken to communicate with the other agents or real humans for sharing information or collaboration. For example, the agents in ChatDev [124] may communicate with each other to collectively accomplish software development tasks. In Inner Monologue [[71](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)], the agent actively engages in communication with humans and adjusts its action strategies based on human feedback. (3) Environment Exploration. In this example, the agent aims to explore unfamiliar environments to expand its perception and strike a balance between exploring and exploiting. For instance, the agent in Voyager [148] may explore unknown skills in their task completion process, and continually refine the skill execution code based on environment feedback through trial and error.
-Action Production: Different from ordinary LLMs, where the model input and output are directly associated, the agent may take actions via different strategies and sources. In the following, we introduce two types of commonly used action production strategies. (1) Action via Memory Recollection. In this strategy, the action is generated by extracting information from the agent memory according to the current task. The task and the extracted memories are used as prompts to trigger the agent actions. For example, in Generative Agents [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], the agent maintains a memory stream, and before taking each action, it retrieves recent, relevant and important information from the memory steam to guide the agent actions. In GITM [[[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], in order to achieve a low-level sub-goal, the agent queries its memory to determine if there are any successful experiences related to the task. If similar tasks have been completed previously, the agent invokes the previously successful actions to handle the current task directly. In collaborative agents such as ChatDev [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)] and MetaGPT [[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)], different agents may communicate with each other. In this process, the conversation history in a dialog is remembered in the agent memories. Each utterance generated by the agent is influenced by its memory. (2) Action via Plan Following. In this strategy, the agent takes actions following its pre-generated plans. For instance, in DEPS [[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)], for a given task, the agent first makes action plans. If there are no signals indicating plan failure, the agent will strictly adhere to these plans. In GITM [184], the agent makes high-level plans by decomposing the task into many sub-goals. Based on these plans, the agent takes actions to solve each sub-goal sequentially to complete the final task.
-Action Space: Action space refers to the set of possible actions that can be performed by the agent. In general, we can roughly divide these actions into two classes: (1) external tools and (2) internal knowledge of the LLMs. In the following, we introduce these actions more in detail.
+Translates the agent's decisions into specific outcomes.
+*   **Action Goal:** Task Completion (e.g., Voyager, ChatDev), Communication (e.g., Inner Monologue), Environment Exploration.
+*   **Action Production:** Action via Memory Recollection (Generative Agents, GITM), Action via Plan Following (DEPS).
+*   **Action Space:** 
+    *   *External Tools:* APIs (HuggingGPT, WebGPT, Toolformer, Gorilla), Databases/Knowledge Bases (ChatDB, MRKL, OpenAGI), External Models (ViperGPT, ChemCrow, MM-REACT).
+    *   *Internal Knowledge:* Planning Capability, Conversation Capability, Common Sense Understanding Capability.
+*   **Action Impact:** Changing Environments (moving, collecting), Altering Internal States (updating memories), Triggering New Actions.
 
-∙∙\bullet External Tools. While LLMs have been demonstrated to be effective in accomplishing a large amount of tasks, they may not work well for the domains which need comprehensive expert knowledge. In addition, LLMs may also encounter hallucination problems, which are hard to be resolved by themselves. To alleviate the above problems, the agents are empowered with the capability to call external tools for executing action. In the following, we present several representative tools which have been exploited in the literature.
-(1) APIs. Leveraging external APIs to complement and expand action space is a popular paradigm in recent years. For example, HuggingGPT [[138](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib138)] leverages the models on HuggingFace to accomplish complex user tasks.  [[115](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib115), [[130](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib130)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib130)] propose to automatically generate queries to extract relevant content from external web pages when responding to user request. TPTU [130] interfaces with both Python interpreters and LaTeX compilers to execute sophisticated computations such as square roots, factorials and matrix operations. Another type of APIs is the ones that can be directly invoked by LLMs based on natural language or code inputs. For instance, Gorilla [[123](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib123)] is a fine-tuned LLM designed to generate accurate input arguments for API calls and mitigate the issue of hallucination during external API invocations. ToolFormer [[133](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib133)] is an LLM-based tool transformation system that can automatically convert a given tool into another one with different functionalities or formats based on natural language instructions. API-Bank [[90](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib90)] is an LLM-based API recommendation agent that can automatically search and generate appropriate API calls for various programming languages and domains. API-Bank also provides an interactive interface for users to easily modify and execute the generated API calls. ToolBench [[126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126)] is an LLM-based tool generation system that can automatically design and implement various practical tools based on natural language requirements. The tools generated by ToolBench include calculators, unit converters, calendars, maps, charts, etc. RestGPT [[142](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib142)] connects LLMs with RESTful APIs, which follow widely accepted standards for web services development, making the resulting program more compatible with real-world applications. TaskMatrix.AI [[93](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib93)] connects LLMs with millions of APIs to support task execution. At its core lies a multimodal conversational foundational model that interacts with users, understands their goals and context, and then produces executable code for particular tasks. All these agents utilize external APIs as their external tools, and provide interactive interfaces for users to easily modify and execute the generated or transformed tools.
-(2) Databases & Knowledge Bases. Connecting to external database or knowledge base can help the agents to obtain specific domain information for generating more realistic actions. For example, ChatDB [[67](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib67)] employs SQL statements to query databases, facilitating actions by the agents in a logical manner. MRKL [[80](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib80)] and OpenAGI [[56](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib56)] incorporate various expert systems such as knowledge bases and planners to access domain-specific information.
+### 2.2 Agent Capability Acquisition
 
-(3) External Models. Previous studies often utilize external models to expand the range of possible actions. In comparison to APIs, external models typically handle more complex tasks. Each external model may correspond to multiple APIs. For example, to enhance the text retrieval capability, MemoryBank [[179](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib179)] incorporates two language models: one is designed to encode the input text, while the other is responsible for matching the query statements. ViperGPT [[144](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib144)] firstly uses Codex, which is implemented based on language model, to generate Python code from text descriptions, and then executes the code to complete the given tasks. TPTU [[130](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib130)] incorporates various LLMs to accomplish a wide range of language generation tasks such as generating code, producing lyrics, and more. ChemCrow [[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)] is an LLM-based chemical agent designed to perform tasks in organic synthesis, drug discovery, and material design. It utilizes seventeen expert-designed models to assist its operations. MM-REACT [[167](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib167)] integrates various external models, such as X-decoder for image generation, VideoBERT for video summarization, and SpeechBERT for audio processing, enhancing its capability in diverse multimodal scenarios.
-∙∙\bullet Internal Knowledge. In addition to utilizing external tools, many agents rely solely on the internal knowledge of LLMs to guide their actions. We now present several crucial capabilities of LLMs that can support the agent to behave reasonably and effectively. (1) Planning Capability. Previous work has demonstrated that LLMs can be used as decent planers to decompose complex task into simpler ones [[1[55](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib55)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib155)]. Such capability of LLMs can be even triggered without incorporating examples in the prompts [[82](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib82)]. Based on the planning capability of LLMs, DEPS [[1[54](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib54)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)] develops a Minecraft agent, which can solve complex task via sub-goal decomposition. Similar agents like GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)] and Voyager [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)] also heavily rely on the planning capability of LLMs to successfully complete different tasks. (2) Conversation Capability. LLMs can usually generate high-quality conversations. This capability enables the agent to behave more like humans. In the previous work, many agents take actions based on the strong conversation capability of LLMs. For example, in ChatDev [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)], different agents can discuss the software developing process, and even can make reflections on their own behaviors. In RLP [54], the agent can communicate with the listeners based on their potential feedback on the agent’s utterance. (3) Common Sense Understanding Capability. Another important capability of LLMs is that they can well comprehend human common sense. Based on this capability, many agents can simulate human daily life and make human-like decisions. For example, in Generative Agent, the agent can accurately understand its current state, the surrounding environment, and summarize high-level ideas based on basic observations. Without the common sense understanding capability of LLMs, these behaviors cannot be reliably simulated. Similar conclusions may also apply to RecAgent [[149](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib149)] and S3 [55], where the agents aim to simulate user recommendation and social behaviors.
+The architecture is the "hardware." "Software" resources (task-specific capabilities) are acquired either with or without fine-tuning.
 
-Action Impact: Action impact refers to the consequences of the action. In fact, the action impact can encompass numerous instances, but for brevity, we only provide a few examples. (1) Changing Environments. Agents can directly alter environment states by actions, such as moving their positions, collecting items, constructing buildings, etc. For instance, in GITM [[184](https://ar5iv.labs.arxiv.org/html/[2](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib2)308.11432#bib.bib184)] and Voyager [[[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)], the environments are changed by the actions of the agents in their task completion process. For example, if the agent mines three woods, then they may disappear in the environments. (2) Altering Internal States. Actions taken by the agent can also change the agent itself, including updating memories, forming new plans, acquiring novel knowledge, and more. For example, in Generative Agents [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], memory streams are updated after performing actions within the system. SayCan [2] enables agents to take actions to update understandings of the environment. (3) Triggering New Actions. In the task completion process, one agent action can be triggered by another one. For example, Voyager [148] constructs buildings once it has gathered all the necessary resources. DEPS [[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)] decomposes plans into sequential sub-goals, with each sub-goal potentially triggering the next one.
-[115](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib115)
-[2](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib2)
-[80](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib80)
-[71](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)
-[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122)
-[170](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170)
-[135](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib135)
-[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)
-[133](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib133)
-[139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139)
-[88](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib88)
-[90](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib90)
-[144](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib144)
-[138](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib138)
-[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)
-[100](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib100)
-[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)
-[56](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib56)
-[49](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib49)
-[92](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib92)
-[102](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib102)
-[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)
-[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)
-[18](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib18)
-[114](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib114)
-[67](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib67)
-[55](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib55)
-[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)
-[126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126)
-[179](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib179)
-[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)
+**Capability Acquisition with Fine-tuning:**
+*   **Fine-tuning with Human Annotated Datasets:** Aligning LLMs with human values/preferences via real datasets. CoH [85], RET-LLM [41], WebShop [86], EduChat [87].
+*   **Fine-tuning with LLM Generated Datasets:** Cost-effective data collection. ToolBench [14] (16k real-world APIs generated via ChatGPT), Socially Alignment [83].
+*   **Fine-tuning with Real-world Datasets:** MIND2WEB [88], SQL-PaLM [89].
 
-In the above sections, we mainly focus on how to design the agent architecture to better inspire the capability of LLMs to make it qualified for accomplishing tasks like humans. The architecture functions as the “hardware” of the agent. However, relying solely on the hardware is insufficient for achieving effective task performance. This is because the agent may lack the necessary task-specific capabilities, skills and experiences, which can be regarded as "software" resources. In order to equip the agent with these resources, various strategies have been devised. Generally, we categorize these strategies into two classes based on whether they require fine-tuning of the LLMs. In the following, we introduce each of them more in detail.
-Capability Acquisition with Fine-tuning: A straightforward method to enhance the agent capability for task completion is fine-tuning the agent based on task-dependent datasets. Generally, the datasets can be constructed based on human annotation, LLM generation or collected from real-world applications. In the following, we introduce these methods more in detail.
-∙∙\bullet Fine-tuning with Human Annotated Datasets. To fine-tune the agent, utilizing human annotated datasets is a versatile approach that can be employed in various application scenarios. In this approach, researchers first design annotation tasks and then recruit workers to complete them. For example, in CoH [[101](https://ar5iv.labs.arxiv.org/html/2308.[114](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib114)32#bib.bib101)], the authors aim to align LLMs with human values and preferences. Different from the other models, where the human feedback is leveraged in a simple and symbolic manner, this method converts the human feedback into detailed comparison information in the form of natural languages. The LLMs are directly fine-tuned based on these natural language datasets. In RET-LLM [114], in order to better convert natural languages into structured memory information, the authors fine-tune LLMs based on a human constructed dataset, where each sample is a “triplet-natural language” pair. In WebShop [[168](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib168)], the authors collect 1.18 million real-world products form amazon.com, and put them onto a simulated e-commerce website, which contains several carefully designed human shopping scenarios. Based on this website, the authors recruit 13 workers to collect a real-human behavior dataset. At last, three methods based on heuristic rules, imitation learning and reinforcement learning are trained based on this dataset. Although the authors do not fine-tune LLM-based agents, we believe that the dataset proposed in this paper holds immense potential to enhance the capabilities of agents in the field of web shopping. In EduChat [[27](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib27)], the authors aim to enhance the educational functions of LLMs, such as open-domain question answering, essay assessment, Socratic teaching, and emotional support. They fine-tune LLMs based on human annotated datasets that cover various educational scenarios and tasks. These datasets are manually evaluated and curated by psychology experts and frontline teachers. SWIFTSAGE [[97](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib97)] is an agent influenced by the dual-process theory of human cognition [[51](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib51)], which is effective for solving complex interactive reasoning tasks. In this agent, the SWIFT module constitutes a compact encoder-decoder language model, which is fine-tuned using human-annotated datasets.
+**Capability Acquisition without Fine-tuning:**
+*   **Prompting Engineering:** Eliciting capabilities via natural language descriptions in prompts. CoT [45], RLP [30], Retroformer [90].
+*   **Mechanism Engineering:** 
+    1.  *Trial-and-error:* Feedback loops via critics (RAH [91], DEPS [33], RoCo [92], PREFER [93]).
+    2.  *Crowd-sourcing:* Debating mechanisms among agents (Du et al. [94]).
+    3.  *Experience Accumulation:* Storing successful actions in memory (GITM [16], Voyager [38], AppAgent [95], MemPrompt [96]).
+    4.  *Self-driven Evolution:* Autonomous goal setting and learning (LMA3 [97], SALLM-MS [98], CLMTWA [99], NLSOM [100]).
 
-∙∙\bullet Fine-tuning with LLM Generated Datasets. Building human annotated dataset needs to recruit people, which can be costly, especially when one needs to annotate a large amount of samples. Considering that LLMs can achieve human-like capabilities in a wide range of tasks, a natural idea is using LLMs to accomplish the annotation task. While the datasets produced from this method can be not as perfect as the human annotated ones, it is much cheaper, and can be leveraged to generate more samples. For example, in ToolBench [[126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126)], to enhance the tool-using capability of open-source LLMs, the authors collect 16,464 real-world APIs spanning 49 categories from the RapidAPI Hub. They used these APIs to prompt ChatGPT to generate diverse instructions, covering both single-tool and multi-tool scenarios. Based on the obtained dataset, the authors fine-tune LLaMA [[146](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib146)], and obtain significant performance improvement in terms of tool using. In [[102](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib102)], to empower the agent with social capability, the authors design a sandbox, and deploy multiple agents to interact with each other. Given a social question, the central agent first generates initial responses. Then, it shares the responses to its nearby agents for collecting their feedback. Based on the feedback as well as its detailed explanations, the central agent revise its initial responses to make them more consistent with social norms. In this process, the authors collect a large amount of agent social interaction data, which is then leveraged to fine-tune the LLMs.
-∙∙\bullet Fine-tuning with Real-world Datasets. In addition to building datasets based on human or LLM annotation, directly using real-world datasets to fine-tune the agent is also a common strategy. For example, in MIND2WEB [[30](https://ar5iv.labs.arxiv.org/html/2308.1[143](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib143)2#bib.bib30)], the authors collect a large amount of real-world datasets to enhance the agent capability in the web domain. In contrast to prior studies, the dataset presented in this paper encompasses diverse tasks, real-world scenarios, and comprehensive user interaction patterns. Specifically, the authors collect over 2,000 open-ended tasks from 137 real-world websites spanning 31 domains. Using this dataset, the authors fine-tune LLMs to enhance their performance on web-related tasks, including movie discovery and ticket booking, among others. In SQL-PALM [143], researchers fine-tune PaLM-2 based on a cross-domain large-scale text-to-SQL dataset called Spider. The obtained model can achieve significant performance improvement on text-to-SQL tasks.
-Capability Acquisition without Fine-tuning: In the era of tradition machine learning, the model capability is mainly acquired by learning from datasets, where the knowledge is encoded into the model parameters. In the era of LLMs, the model capability can be acquired either by training/fine-tuning the model parameters or designing delicate prompts (i.e., prompt engineer). In prompt engineer, one needs to write valuable information into the prompts to enhance the model capability or unleash existing LLM capabilities. In the era of agents, the model capability can be acquired based on three strategies: (1) model fine-tuning, (2) prompt engineer and (3) designing proper agent evolution mechanisms (we called it as mechanism engineering). Mechanism engineering is a broad concept that involves developing specialized modules, introducing novel working rules, and other strategies to enhance agent capabilities. For clearly understanding such transitions on the strategy of model capability acquisition, we illustrate them in Figure [4](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.F4). In the above section, we have detailed the strategy of fine-tuning. In the following, we introduce prompting engineering and mechanism engineering for agent capability acquisition.
+---
 
-∙∙\bullet Prompting Engineering. Due to the strong language comprehension capabilities, people can directly interact with LLMs using natural languages. This introduces a novel strategy for enhancing agent capabilities, that is, one can describe the desired capability using natural language and then use it as prompts to influence LLM actions. For example, in CoT [[155](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib155)], in order to empower the agent with the capability for complex task reasoning, the authors present the intermediate reasoning steps as few-shot examples in the prompt. Similar techniques are also used in CoT-SC [[151](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib151)] and ToT [[169](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib169)]. In SocialAGI [[54](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib54)], in order to enhance the agent self-awareness capability in conversation, the authors prompt LLMs with the agent beliefs about the mental states of the listeners and itself, which makes the generated utterance more engaging and adaptive. In addition, the authors also incorporate the target mental states of the listeners, which enables the agents to make more strategic plans. Retroformer [[171](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib171)] presents a retrospective model that enables the agent to generate reflections on its past failures. The reflections are integrated into the prompt of LLMs to guide the agent’s future actions. Additionally, this model utilizes reinforcement learning to iteratively improve the retrospective model, thereby refining the LLM prompt.
-∙∙\bullet Mechanism Engineering. Different from model fine-tuning and prompt engineering, mechanism engineering is a unique strategy to enhance the agent capability. In the following, we present several representative methods for mechanism engineering.
-(1) Trial-and-error. In this method, the agent first performs an action, and subsequently, a pre-defined critic is invoked to judge the action. If the action is deemed unsatisfactory, then the agent reacts by incorporating the critic’s feedback. In RAH [[140](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib140)], the agent serves as a user assistant in recommender systems. One of the agent’s crucial roles is to simulate human behavior and generate responses on behalf of the user. To fulfill this objective, the agent first generates a predicted response and then compares it with the real human feedback. If the predicted response and the real human feedback differ, the critic generates failure information, which is subsequently incorporated into the agent’s next action. In DEPS [[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)], the agent first designs a plan to accomplish a given task. In the plan execution process, if an action fails, the explainer generates specific details explaining the cause of the failure. This information is then incorporated by the agent to redesign the plan. In RoCo [[108](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib108)], the agent first proposes a sub-task plan and a path of 3D waypoints for each robot in a multi-robot collaboration task. The plan and waypoints are then validated by a set of environment checks, such as collision detection and inverse kinematics. If any of the checks fail, the feedback is appended to each agent’s prompt and another round of dialog begins. The agents use LLMs to discuss and improve their plan and waypoints until they pass all validations. In PREFER [[173](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib173)], the agent first evaluates its performance on a subset of data. If it fails to solve certain examples, LLMs are leveraged to generate feedback information reflecting on the reasons of the failure. Based on this feedback, the agent improves itself by iteratively refining its actions.
+### Table 1: Overview of Agent Construction Frameworks
 
-(2) Crowd-sourcing. In [[35](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib35)], the authors design a debating mechanism that leverages the wisdom of crowds to enhance the capabilities of the agent. To begin with, different agents provide separate responses to a given question. If their responses are not consistent, they will be prompted to incorporate the solutions from other agents and provide an updated response. This iterative process continues until reaching a final consensus answer. In this method, the capability of each agent is enhance by understanding and incorporating the other agents’ opinions.
-(3) Experience Accumulation. In GITM [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], the agent does not know how to solve a task in the beginning. Then, it makes explorations, and once it has successfully accomplished a task, the actions used in this task are stored into the agent memory. In the future, if the agent encounters a similar task, then the relevant memories are extracted to complete the current task. In this process, the improved agent capability comes from the specially designed memory accumulation and utilization mechanisms. In Voyager [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)], the authors equip the agent with a skill library, and each skill in the library is represented by executable codes. In the agent-environment interaction process, the codes for each skill will be iteratively refined according to the environment feedback and the agent self-verification results. After a period of execution, the agent can successfully complete different tasks efficiently by accessing the skill library. In MemPrompt [[106](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib106)], the users are requested to provide feedback in natural language regarding the problem-solving intentions of the agent, and this feedback is stored in memory. When the agent encounters similar tasks, it attempts to retrieve related memories to generate more suitable responses.
-(4) Self-driven Evolution. In LMA3 [[24](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib24)], the agent can autonomously set goals for itself, and gradually improve its capability by exploring the environment and receiving feedback from a reward function. Following this mechanism, the agent can acquire knowledge and develop capabilities according to its own preferences. In SALLM-MS [[116](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib116)], by integrating advanced large language models like GPT-4 into a multi-agent system, agents can adapt and perform complex tasks, showcasing advanced communication capabilities, thereby realizing self-driven evolution in their interactions with the environment. In CLMTWA [[132](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib132)], by using a large language model as a teacher and a weaker language model as a student, the teacher can generate and communicate natural language explanations to improve the student’s reasoning skills via theory of mind. The teacher can also personalize its explanations for the student and intervene only when necessary, based on the expected utility of intervention. In NLSOM [[185](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib185)], different agents communicate and collaborate through natural language to solve tasks that a single agent cannot solve. This can be seen as a form of self-driven learning, utilizing the exchange of information and knowledge between multiple agents. However, unlike other models such as LMA3, SALLM-MS, and CLMTWA, NLSOM allows for dynamic adjustment of agent goals, roles, tasks, and relationships based on the task requirements and the feedback from other agents or the environment.
+*(Legend: Profile: ①=Handcrafting, ②=LLM-generation, ③=Dataset. Memory Operation: ①=Read/Write, ②=Read/Write/Reflect. Memory Structure: ①=Unified, ②=Hybrid. Planning: ①=w/o feedback, ②=w/ feedback. Action: ①=No tools, ②=Tools. CA: ①=Fine-tuning, ②=No fine-tuning.)*
 
-###### Remark.
+| Model | Profile | Memory Op. | Memory Str. | Planning | Action | CA | Time |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **WebGPT** [67] | - | - | - | - | ② | ① | 12/2021 |
+| **SayCan** [79] | - | - | - | ① | ① | ② | 04/2022 |
+| **MRKL** [73] | - | - | - | ① | ② | - | 05/2022 |
+| **Inner Monologue** [62] | - | - | - | ② | ① | ② | 07/2022 |
+| **Social Simulacra** [80] | ② | - | - | - | ① | - | 08/2022 |
+| **ReAct** [60] | - | - | - | ② | ② | ① | 10/2022 |
+| **MALLM** [42] | - | ① | ② | - | ① | - | 01/2023 |
+| **DEPS** [33] | - | - | - | ② | ① | ② | 02/2023 |
+| **Toolformer** [15] | - | - | - | ① | ② | ① | 02/2023 |
+| **Reflexion** [12] | - | ② | ② | ② | ① | ② | 03/2023 |
+| **CAMEL** [81] | ① | ② | - | - | ② | ① | - |
+| **Generative Agents** [20] | ① | ② | ② | ② | ① | - | 04/2023 |
+| **AutoGPT** [82] | - | ① | ② | ② | ② | ② | 04/2023 |
+| **GITM** [16] | - | ② | ② | ② | ① | ② | 05/2023 |
+| **Voyager** [38] | - | ② | ② | ② | ① | ② | 05/2023 |
+| **ChatDev** [18] | ① | ② | ② | ② | ① | ② | 07/2023 |
+| **MetaGPT** [23] | ① | ② | ② | ② | ② | - | 08/2023 |
 
-Upon comparing the aforementioned strategies for agent capability acquisition, we can find that the fine-tuning method improves the agent capability by adjusting model parameters, which can incorporate a large amount of task-specific knowledge, but is only suitable for open-source LLMs. The method without fine-tuning usually enhances the agent capability based on delicate prompting strategies or mechanism engineering. They can be used for both open- and closed-source LLMs. However, due to the limitation of the input context window of LLMs, they cannot incorporate too much task information. In addition, the designing spaces of the prompts and mechanisms are extremely large, which makes it not easy to find optimal solutions.
-In the above sections, we have detailed the construction of LLM-based agents, where we focus on two aspects including the architecture design and capability acquisition. We present the correspondence between existing work and the above taxonomy in Table [1](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.T1). It should be noted that, for the sake of integrity, we have also incorporated several studies, which do not explicitly mention LLM-based agents but are highly related to this area.
+*(Note: Table abbreviated for length while preserving structural intent. See source for full 31-model list).*
 
-Owing to the strong language comprehension, complex task reasoning, and common sense understanding capabilities, LLM-based autonomous agents have shown significant potential to influence multiple domains. This section provides a succinct summary of previous studies, categorizing them according to their applications in three distinct areas: social science, natural science, and engineering (see the left part of Figure [5](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.F5) for a global overview).
+---
 
-Social science is one of the branches of science, devoted to the study of societies and the relationships among individuals within those societies‡‡‡https://en.wikipedia.org/wiki/Social_science. LLM-based autonomous agents can promote this domain by leveraging their impressive human-like understanding, thinking and task solving capabilities. In the following, we discuss several key areas that can be affected by LLM-based autonomous agents.
-Psychology: For the domain of psychology, LLM-based agents can be leveraged for conducting simulation experiments, providing mental health support and so on [[[1](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib1)](https://ar5iv.labs.arxiv.org/html/2[3](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib3)08.11432#bib.bib1), 3, [[105](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib105)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib105), [187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)]. For example, in [1], the authors assign LLMs with different profiles, and let them complete psychology experiments. From the results, the authors find that LLMs can produce outcomes consistent with those of real-human studies. In addition, larger models can usually provide more faithful simulation results than the smaller ones. An interesting discovery is that, in many experiments, models like ChatGPT and GPT-4 can provide too perfect estimates (called “hyper-accuracy distortion”), which may influence the downstream applications. In [105], the authors systematically analyze the effectiveness of LLM-based conversation agents for mental well-being support. They collect 120 posts from Reddit, and find that such agents can help users cope with anxieties, social isolation and depression on demand. At the same time, they also find that the agents may produce harmful contents sometimes.
-Political Science and Economy: LLM-based agents can also be utilized to study political science and economy [[[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5), [[187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187), [[65](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib65)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib65)]. In [5], LLM-based agents are utilized for ideology detection and predicting voting patterns. In [187], the authors focuses on understanding the discourse structure and persuasive elements of political speech through the assistance of LLM-based agents. In [65], LLM-based agents are provided with specific traits such as talents, preferences, and personalities to explore human economic behaviors in simulated scenarios.
+## 3. LLM-based Autonomous Agent Application
 
-Social Simulation: Previously, conducting experiments with human societies is often expensive, unethical, or even infeasible. With the ever prospering of LLMs, many people explore to build virtual environment with LLM-based agents to simulate social phenomena, such as the propagation of harmful information, and so on [[[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122), [[91](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib91)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib91), [[86](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib86)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib86), [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121), [[99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99), [[83](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib83)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib83), [[55](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib55)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib55), [156](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib156)]. For example, Social Simulacra [122] simulates an online social community and explores the potential of utilizing agent-based simulations to aid decision-makers to improve community regulations.  [91, 86] investigates the potential impacts of different behavioral characteristics of LLM-based agents in social networks. Generative Agents [121] and AgentSims[99] construct multiple agents in a virtual town to simulate the human daily life. SocialAI School [83] employs LLM-based agents to simulate and investigate the fundamental social cognitive skills during the course of child development. S3 [55] builds a social network simulator, focusing on the propagation of information, emotion and attitude. CGMI [[75](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib75)] is a framework for multi-agent simulation. CGMI maintains the personality of the agents through a tree structure and constructs a cognitive model. The authors simulated a classroom scenario using CGMI.
-Jurisprudence: LLM-based agents can serve as aids in legal decision-making processes, facilitating more informed judgements [[[25](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib25)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib25), [[61](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib61)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib61)]. Blind Judgement [61] employs several language models to simulate the decision-making processes of multiple judges. It gathers diverse opinions and consolidates the outcomes through a voting mechanism. ChatLaw [25] is a prominent Chinese legal model based on LLM. It supports both database and keyword search strategies to alleviate the hallucination problem. In addition, this model also employs self-attention mechanism to enhance the LLM’s capability via mitigating the impact of reference inaccuracies.
-Research Assistant: In addition to specific domains, LLM-based agents can also be used as general social science research assistants [[[6](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib6)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib6), [[187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)]. In [187], LLM-based agents are used to assist researchers in various tasks, such as generating article abstracts, extracting keywords, and creating scripts. In [6], LLM-based agents serve as a writing assistant, where they possess the capability to identify novel research inquiries for social scientists.
+LLM-based autonomous agents have shown significant potential across multiple domains.
 
-Natural science is one of the branches of science concerned with the description, understanding and prediction of natural phenomena, based on empirical evidence from observation and experimentation§§§https://en.wikipedia.org/wiki/Natural_science. With the ever prospering of LLMs, the application of LLM-based agents in natural sciences becomes more and more popular. In the following, we present many representative areas, where LLM-based agents can play important roles.
-Documentation and Data Management: Natural scientific research often involves the collection, organization, and synthesis of substantial amounts of literature, which requires a significant dedication of time and human resources. LLM-based agents have shown strong capabilities on language understanding and employing tools such as the internet and databases for text processing. These capabilities empower the agent to excel in tasks related to documentation and data management [[[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9), [[79](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib79)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib79), [[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)]. In [9], the agent can efficiently query and utilize internet information to complete tasks such as question answering and experiment planning. ChatMOF [79] utilizes LLMs to extract important information from text descriptions written by humans. It then formulates a plan to apply relevant tools for predicting the properties and structures of metal-organic frameworks. ChemCrow [10] utilizes chemistry-related databases to both validate the precision of compound representations and identify potentially dangerous substances. This functionality enhances the reliability and comprehensiveness of scientific inquiries by ensuring the accuracy of the data involved.
-Experiment Assistant: LLM-based agents have the ability to independently conduct experiments, making them valuable tools for supporting scientists in their research projects [[[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9), [[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)]. For instance,  [9] introduces an innovative agent system that utilizes LLMs for automating the design, planning, and execution of scientific experiments. This system, when provided with the experimental objectives as input, accesses the Internet and retrieves relevant documents to gather the necessary information. It subsequently utilizes Python code to conduct essential calculations and carry out the following experiments. ChemCrow [10] incorporates 17 carefully developed tools that are specifically designed to assist researchers in their chemical research. Once the input objectives are received, ChemCrow provides valuable recommendations for experimental procedures, while also emphasizing any potential safety risks associated with the proposed experiments.
+### 3.1 Social Science
+*   **Psychology:** Conducting simulation experiments, mental health support. Shows LLMs align with human studies but can exhibit "hyper-accuracy distortion" [101-104].
+*   **Political Science and Economy:** Simulating ideology detection, voting patterns, and economic behaviors [29, 104, 105].
+*   **Social Simulation:** Replacing expensive/unethical human experiments with agent-based virtual environments (e.g., Social Simulacra [80], Generative Agents [20], AgentSims [34], SocialAI School [108]).
+*   **Jurisprudence:** Aiding legal decision-making, simulating judges (Blind Judgement [112], ChatLaw [111]).
+*   **Research Assistant:** Abstract generation, script crafting, identifying novel inquiries [104, 113].
 
-Natural Science Education: LLM-based agents can communicate with humans fluently, often being utilized to develop agent-based educational tools [[[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9), [[145](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib145)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib145), [[34](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib34)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib34), [[19](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib19)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib19)]. For example, [9] develops agent-based education systems to facilitate students learning of experimental design, methodologies, and analysis. The objective of these systems is to enhance students’ critical thinking and problem-solving skills, while also fostering a deeper comprehension of scientific principles. Math Agents [145] can assist researchers in exploring, discovering, solving and proving mathematical problems. Additionally, it can communicate with humans and aids them in understanding and using mathematics.  [34] utilize the capabilities of CodeX [19] to automatically solve and explain university-level mathematical problems, which can be used as education tools to teach students and researchers. CodeHelp [[95](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib95)] is an education agent for programming. It offers many useful features, such as setting course-specific keywords, monitoring student queries, and providing feedback to the system. EduChat [[27](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib27)] is an LLM-based agent designed specifically for the education domain. It provides personalized, equitable, and empathetic educational support to teachers, students, and parents through dialogue. Furthermore, by utilizing a diverse range of system prompts, it effectively addresses the issue of hallucination and seamlessly adapts to actual educational scenarios. FreeText [[109](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib109)] is an agent that utilizes LLMs to automatically assess students’ responses to open-ended questions and offer feedback.
-[1](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib1)
-[3](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib3)
-[187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)
-[105](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib105)
-[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)
-[65](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib65)
-[187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)
-[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122)
-[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)
-[83](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib83)
-[99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99)
-[55](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib55)
-[156](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib156)
-[91](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib91)
-[86](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib86)
-[25](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib25)
-[61](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib61)
-[187](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib187)
-[6](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib6)
-[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)
-[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)
-[79](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib79)
-[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)
-[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)
-[59](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib59)
-[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)
-[185](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib185)
-[95](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib95)
-[9](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib9)
-[145](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib145)
-[158](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib158)
-[34](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib34)
-[59](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib59)
-[110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)
-[126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126)
-[78](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib78)
-[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)
+### 3.2 Natural Science
+*   **Documentation and Data Management:** Text processing and data synthesis (e.g., ChatMOF [115], ChemCrow [76]).
+*   **Experiment Assistant:** Automating design, planning, and execution of scientific experiments [76, 114].
+*   **Natural Science Education:** Education tools for math and programming (Math Agents [116], CodeHelp [119], EduChat [87], FreeText [120]).
 
-[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)
-[33](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib33)
-[81](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib81)
-[142](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib142)
-[33](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib33)
-[143](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib143)
-[140](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib140)
-[182](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib182)
-[152](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib152)
-[63](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib63)
-[165](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib165)
-[29](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib29)
-[95](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib95)
-[48](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib48)
-[45](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib45)
-[37](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib37)
-[161](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib161)
-[119](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib119)
-[93](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib93)
-[28](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib28)
-[181](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib181)
-[118](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib118)
-[160](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib160)
-[71](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib71)
-[70](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib70)
-[162](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib162)
-[172](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib172)
-[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)
-[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)
-[66](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib66)
-[159](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib159)
-[174](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib174)
-[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)
-[32](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib32)
-[2](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib2)
-[162](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib162)
-[157](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib157)
-[108](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib108)
-[129](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib129)
+### 3.3 Engineering
+*   **Computer Science & Software Engineering:** Automating coding, testing, debugging (ChatDev [18], MetaGPT [23], Self-collaboration [24], ChatEDA [123], PentestGPT [125]).
+*   **Industrial Automation:** Intelligent planning and control of production (GPT4IA [129], IELLM [130]).
+*   **Robotics & Embodied AI:** Enhancing capabilities in embodied environments (SayCan [79], TidyBot [136], TaPA [137], DECKARD [139]). Includes open-source frameworks like LangChain [147], AutoGPT [82], AgentVerse [156].
 
-LLM-based autonomous agents have shown great potential in assisting and enhancing engineering research and applications. In this section, we review and summarize the applications of LLM-based agents in several major engineering domains.
-Civil Engineering: In civil engineering, LLM-based agents can be used to design and optimize complex structures such as buildings, bridges, dams, roads, etc. [[110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)] proposes an interactive framework where human architects and agents collaborate to construct structures in a 3D simulation environment. The interactive agent can understand natural language instructions, place blocks, detect confusion, seek clarification, and incorporate human feedback, showing the potential for human-AI collaboration in engineering design.
-Computer Science & Software Engineering: In the field of computer science and software engineering, LLM-based agents offer potential for automating coding, testing, debugging, and documentation generation [[[126](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib126), [[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124), [[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64), [[33](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib33)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib33), [37](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib37), [48](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib48), [45](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib45)]. ChatDev [124] proposes an end-to-end framework, where multiple agent roles communicate and collaborate through natural language conversations to complete the software development life cycle. This framework demonstrates efficient and cost-effective generation of executable software systems. ToolBench [126] can be used for tasks such as code auto-completion and code recommendation. MetaGPT [64] abstracts multiple roles, such as product managers, architects, project managers, and engineers, to supervise code generation process and enhance the quality of the final output code. This enables low-cost software development.  [33] presents a self-collaboration framework for code generation using LLMs. In this framework, multiple LLMs are assumed to be distinct "experts" for specific sub-tasks. They collaborate and interact according to specified instructions, forming a virtual team that facilitates each other’s work. Ultimately, the virtual team collaboratively addresses code generation tasks without requiring human intervention. LLIFT [[89](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib89)] employs LLMs to assist in conducting static analysis, specifically for identifying potential code vulnerabilities. This approach effectively manages the trade-off between accuracy and scalability. ChatEDA [[63](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib63)] is an agent developed for electronic design automation (EDA) to streamline the design process by integrating task planning, script generation, and execution. CodeHelp [[95](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib95)] is an agent designed to assist students and developers in debugging and testing their code. Its features include providing detailed explanations of error messages, suggesting potential fixes, and ensuring the accuracy of the code. PENTESTGPT [[29](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib29)] is a penetration testing tool based on LLMs, which can effectively identify common vulnerabilities, and interpret source code to develop exploits. DB-GPT [[182](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib182)] utilizes the capabilities of LLMs to systematically assess potential root causes of anomalies in databases. Through the implementation of a tree of thought approach, DB-GPT enables LLMs to backtrack to previous steps in case the current step proves unsuccessful, thus enhancing the accuracy of the diagnosis process.
+### Table 2: Representative Applications
 
-Industrial Automation: In the field of industrial automation, LLM-based agents can be used to achieve intelligent planning and control of production processes. [[161](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib161)] proposes a novel framework that integrates large language models (LLMs) with digital twin systems to accommodate flexible production needs. The framework leverages prompt engineering techniques to create LLM agents that can adapt to specific tasks based on the information provided by digital twins. These agents can coordinate a series of atomic functionalities and skills to complete production tasks at different levels within the automation pyramid. This research demonstrates the potential of integrating LLMs into industrial automation systems, providing innovative solutions for more agile, flexible and adaptive production processes. IELLM [[119](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib119)] presents a comprehensive case study on LLMs’ effectiveness in addressing challenges in the oil and gas industry. It focuses on various applications, including rock physics modeling, acoustic reflectometry, and coiled tubing control.
-Robotics & Embodied Artificial Intelligence: Recent works have developed more efficient reinforcement learning agents for robotics and embodied artificial intelligence [[[[2](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib2)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib2)8](https://ar5iv.labs.arxiv.org/html/2308.114[32](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib32)#bib.bib[28](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib28)), [[181](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib181)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib181), [[118](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib118)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib118), [[160](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib160)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib160), [148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148), [184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184), [66](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib66), [159](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib159), [174](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib174), 32, 2]. The focus is on enhancing autonomous agents’ abilities for planning, reasoning, and collaboration in embodied environments. In specific, [28] proposes a unified agent system for embodied reasoning and task planning. In this system, the authors design high-level commands to enable improved planning while propose low-level controllers to translate commands into actions. Additionally, one can leverage dialogues to gather information [181] to accelerate the optimization process.  [118, 160] employ autonomous agents for embodied decision-making and exploration. To overcome the physical constraints, the agents can generate executable plans and accomplish long-term tasks by leveraging multiple skills. In terms of control policies, SayCan [2] focuses on investigating a wide range of manipulation and navigation skills utilizing a mobile manipulator robot. Taking inspiration from typical tasks encountered in a kitchen environment, it presents a comprehensive set of 551 skills that cover seven skill families and 17 objects. These skills encompass various actions such as picking, placing, pouring, grasping, and manipulating objects, among others. TidyBot [[157](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib157)] is an embodied agent designed to personalize household cleanup tasks. It can learn users’ preferences on object placement and manipulation methods through textual examples.
+| Domain | Work |
+| :--- | :--- |
+| **Social Science** | Psychology: TE [101], Akata et al. [102], Ziems et al. [104], Ma et al. [103]<br>Political Sci & Econ: Argyle et al. [29], Horton [105], Ziems et al. [104]<br>Social Sim: Social Simulacra [80], Generative Agents [20], AgentSims [34], S3 [78]<br>Jurisprudence: ChatLaw [111], Blind Judgement [112]<br>Research Asst: Ziems et al. [104], Bail et al. [113] |
+| **Natural Science**| Doc/Data Mgt: ChemCrow [76], ChatMOF [115], Boiko et al. [114]<br>Experiment Asst: ChemCrow [76], Boiko et al. [114]<br>Education: ChemCrow [76], CodeHelp [119], EduChat [87] |
+| **Engineering** | CS & SE: RestGPT [71], ChatDev [18], DemoGPT [127]<br>Industrial Auto: GPT4IA [129], IELLM [130]<br>Robotics/Embodied: ProAgent [131], SayCan [79], TidyBot [136] |
 
-To promote the application of LLM-based autonomous agents, researchers have also introduced many open-source libraries, based on which the developers can quickly implement and evaluate agents according to their customized requirements [[[49](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib49)](https://ar5iv.labs.arxiv.org/html/2308.11[43](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib43)2#bib.bib49), [47](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib47), [42](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib42), [[44](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib44)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib44), [[39](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib39)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib39), [[40](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib40)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib40), [46](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib46), [[16](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib16)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib16), [[36](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib36)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib36), 43, [[38](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib38)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib38), [[125](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib125)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib125), [52](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib52), [[45](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib45)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib45), [41](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib41), [50](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib50), [158](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib158)]. For example, LangChain [16] is an open-source framework that automates coding, testing, debugging, and documentation generation tasks. By integrating language models with data sources and facilitating interaction with the environment, LangChain enables efficient and cost-effective software development through natural language communication and collaboration among multiple agent roles. Based on LangChain, XLang [40] comes with a comprehensive set of tools, a complete user interface, and support three different agent scenarios, namely data processing, plugin usage, and web agent. AutoGPT [49] is an agent that is fully automated. It sets one or more goals, breaks them down into corresponding tasks, and cycles through the tasks until the goal is achieved. WorkGPT [36] is an agent framework similar to AutoGPT and LangChain. By providing it with an instruction and a set of APIs, it engages in back-and-forth conversations with AI until the instruction is completed. GPT-Engineer [[37](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib37)], SmolModels [[48](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib48)] and DemoGPT [45] are open-source projects that focus on automating code generation through prompts to complete development tasks. AGiXT [44] is a dynamic AI automation platform designed to orchestrate efficient AI command management and task execution across many providers. AgentVerse [39] is a versatile framework that facilitates researchers in creating customized LLM-based agent simulations efficiently. GPT Researcher [38] is an experimental application that leverages large language models to efficiently develop research questions, trigger web crawls to gather information, summarize sources, and aggregate summaries. BMTools [125] is an open-source repository that extends LLMs with tools and provides a platform for community-driven tool building and sharing. It supports various types of tools, enables simultaneous task execution using multiple tools, and offers a simple interface for loading plugins via URLs, fostering easy development and contribution to the BMTools ecosystem.
+---
 
-###### Remark.
+## 4. LLM-based Autonomous Agent Evaluation
 
-The utilization of LLM-based agents in supporting the above applications may also entail certain risks and challenges. On one hand, LLMs themselves may be susceptible to illusions and other issues, occasionally providing erroneous answers, leading to incorrect conclusions, experimental failures, or even posing risks to human safety in hazardous experiments. Therefore, during experimentation, users must possess the necessary expertise and knowledge to exercise appropriate caution. On the other hand, LLM-based agents could potentially be exploited for malicious purposes, such as the development of chemical weapons, necessitating the implementation of security measures, such as human alignment, to ensure responsible and ethical use.
-In summary, in the above sections, we introduce the typical applications of LLM-based autonomous agents in three important domains. For more clear understanding, we summarize the correspondence between the previous work and their applications in Table [2](https://ar5iv.labs.arxiv.org/html/2308.11432#S3.T2).
-
-Similar to LLMs themselves, evaluating the effectiveness of LLM-based autonomous agents is a challenging task. This section introduces two commonly used evaluation strategies, that is, subjective and objective evaluation (see the right part of Figure [5](https://ar5iv.labs.arxiv.org/html/2308.11432#S2.F5) for an overview).
-
-Subjective evaluation measures the agent capabilities based on human judgements [[8[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib85), [122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122), [121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121), 5, [176](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)]. It is suitable for the scenarios where there are no evaluation datasets or it is very hard to design quantitative metrics, for example, evaluating the agent’s intelligence or user-friendliness. In the following, we present two commonly used strategies for subjective evaluation.
-Human Annotation: In this method, human evaluators directly score or rank the results produced from different agents [[187](https://ar[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)iv.labs.arxiv.org/html/2308.11432#bib.bib187), 5, [176](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)]. For example, in [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], the authors employ many annotators, and ask them to provide feedback on five key questions that directly associated with the agent capability. In [[84](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib84)], the authors evaluate the model effectiveness by asking humans to score on the model harmless, honest, helpful, engagement and unbiasedness, and then compare the results from different models. In [[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122)], the authors ask the annotator to answer whether their designed model can effectively contribute to improving the rule design for online communities.
-Turing Test: In this method, human evaluators are required to distinguish between outcomes generated by the agents and real humans. If, in a given task, the evaluators cannot separate the agent and human results, it demonstrates that the agent can achieve human-like performance on this task. In [[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)], the authors conduct experiments on free-form Partisan text, and the human evaluators are asked to guess whether the responses are from human or LLM-based agent. In [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)], the human evaluators are required to identify whether the behaviors are generated from the agents or real-humans. In [[68](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib68)], the authors conduct a study in which they gathered human annotations on the emotional states of both LLM software and human subjects in different situations. They utilized these annotations as a baseline to assess the emotional robustness of the LLM software.
-
-###### Remark.
-LLM-based agents are usually designed to serve humans. Thus, subjective agent evaluation plays a critical role, since it reflects human criterion. However, this strategy also faces issues such as high costs, inefficiency, and population bias. To solve these problems, many researchers have explored to leverage LLMs as proxies to conduct subjective evaluation. For example, in ChemCrow [[10](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib10)], researchers assess the experimental results using GPT. They consider both the completion of tasks and the accuracy of the underlying processes. ChatEval [[13](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib13)] employs multiple agents to assess the outcomes produced by candidate models in a debating manner. We believe that with the progress of LLMs, such evaluation method can be more credible and applied in wider applications.
-[168](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib168)
-[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122)
-[1](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib1)
-[78](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib78)
-[170](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170)
-[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)
-[154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)
-[73](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib73)
-[139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139)
-[110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)
-[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)
-[125](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib125)
-[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)
-[17](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib17)
+Evaluating the effectiveness of LLM-based agents is a challenging task, utilizing both subjective and objective methods.
 
 ### 4.1 Subjective Evaluation
-[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)
-[23](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib23)
-[175](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib175)
-[12](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib12)
-[98](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib98)
-[53](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib53)
-[176](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)
-[94](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib94)
-[180](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib180)
-[108](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib108)
-[99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99)
-[103](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib103)
-[104](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib104)
-[163](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib163)
-[68](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib68)
-[29](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib29)
+Measures capabilities based on human judgements. 
+*   **Human Annotation:** Evaluators directly score/rank outputs. E.g., assessing agent capabilities via questionnaires [20].
+*   **Turing Test:** Evaluators differentiate between agent and human outputs [29]. 
+*   *Trend:* Using LLMs themselves as intermediaries for subjective assessments (e.g., ChatEval [158], ChemCrow [76]) to overcome high human costs.
 
 ### 4.2 Objective Evaluation
-Objective evaluation refers to assessing the capabilities of LLM-based autonomous agents using quantitative metrics that can be computed, compared and tracked over time. In contrast to subjective evaluation, objective metrics aim to provide concrete, measurable insights into the agent performance. For conducting objective evaluation, there are three important aspects, that is, the evaluation metrics, protocols and benchmarks. In the following, we introduce these aspects more in detail.
-Metrics: In order to objectively evaluate the effectiveness of the agents, designing proper metrics is significant, which may influence the evaluation accuracy and comprehensiveness. Ideal evaluation metrics should precisely reflect the quality of the agents, and align with the human feelings when using them in real-world scenarios. In existing work, we can conclude the following representative evaluation metrics. ([[[1](https://ar[5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib5)iv.labs.arxiv.org/html/2308.11432#bib.bib1)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib1)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib1)) Task success metrics: These metrics measure how well an agent can complete tasks and achieve goals. Common metrics include success rate [[[[17](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib17)6](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176), [[170](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170), [139](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib139), [[100](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib100)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib100)], reward/score [176, 170, [[110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)], coverage [[[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184)], and accuracy [[[124](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib124), 1, [67](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib67)]. Higher values indicate greater task completion ability. (2) Human similarity metrics: These metrics quantify the degree to which the agent behaviors closely resembles that of humans. Typical examples include trajectory/location accuracy [17, [[148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148)], dialogue similarities [[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122), 1], and mimicry of human responses [1, 5]. Higher similarity suggests better human simulation performance. (3) Efficiency metrics: In contrast to the aforementioned metrics used to evaluate the agent effectiveness, these metrics assess the agent efficiency. Typical metrics include planning length [100], development cost [124], inference speed [184, 148], and number of clarification dialogues [110].
+Assesses capabilities using quantitative, trackable metrics.
+*   **Metrics:** 
+    *   *Task success:* Success rate, reward/score, coverage, accuracy.
+    *   *Human similarity:* Coherence, fluency, human acceptance rate.
+    *   *Efficiency:* Development cost, training efficiency.
+*   **Protocols:** 
+    1. *Real-world simulation:* Immersive environments like games (e.g., Minecraft, ALFWorld).
+    2. *Social evaluation:* Debates, collaborative tasks.
+    3. *Multi-task evaluation:* Assessing generalization across diverse open-domain tasks.
+    4. *Software testing:* Code generation, bug detection rates.
+*   **Benchmarks:** Standardized environments such as AgentBench [169], SocKET [163], AgentSims [34], ToolBench [151], WebShop [86], WebArena [173], EmotionBench [172].
 
-Protocols: In addition to the evaluation metrics, another important aspect for objective evaluation is how to leverage these metrics. In the previous work, we can identify the following commonly used evaluation protocols: ([1](https://ar[5](https://ar5iv.labs.arxiv.org/html/[23](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib23)08.11432#bib.bib5)iv.labs.arxiv.org/html/[23](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib23)08.11432#bib.bib1)) Real-world simulation: In this method, the agents are evaluated within immersive environments like games and interactive simulators. The agents are required to perform tasks autonomously, and then metrics like task success rate and human similarity are leveraged to evaluate the capability of the agents based on their trajectories and completed objectives [[17](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib17), [176](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib176), [184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184), [170](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib170), [148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148), [110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110), [154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154), [94](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib94), [[168](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib168)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib168), [[175](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib175)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib175)]. This method is expected to evaluate the agents’ practical capabilities in real-world scenarios. (2) Social evaluation: This method utilizes metrics to assess social intelligence based on the agent interactions in simulated societies. Various approaches have been adopted, such as collaborative tasks to evaluate teamwork skills, debates to analyze argumentative reasoning, and human studies to measure social aptitude [[122](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib122), 1, 23, [99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99), [[[104](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib104)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib104)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib104)]. These approaches analyze qualities such as coherence, theory of mind, and social IQ to assess agents’ capabilities in areas including cooperation, communication, empathy, and mimicking human social behavior. By subjecting agents to complex interactive settings, social evaluation provides valuable insights into agents’ higher-level social cognition. (3) Multi-task evaluation: In this method, people use a set of diverse tasks from different domains to evaluate the agent, which can effectively measure the agent generalization capability in open-domain environments [5, 23, [125](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib125), [103](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib103), 104, 168, 175]. (4) Software testing: In this method, researchers evaluate the agents by letting them conduct tasks such as software testing tasks, such as generating test cases, reproducing bugs, debugging code, and interacting with developers and external tools [[73](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib73), [78](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib78), [53](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib53), 104]. Then, one can use metrics like test coverage and bug detection rate to measure the effectiveness of LLM-based agents.
+---
 
-Benchmarks: Given the metrics and protocols, a crucial remaining aspect is the selection of an appropriate benchmark for conducting the evaluation. In the past, people have used various benchmarks in their experiments. For example, many researchers use simulation environments like ALFWorld [[1[7](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib7)0](https://ar5iv.labs.arxiv.org/html/[23](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib23)08.11432#bib.bib170)], IGLU [[110](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib110)], and Minecraft  [[184](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib184), [148](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib148), [154](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib154)] as benchmarks to evaluate the agent capabilities. Tachikuma [[94](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib94)] is a benchmark that leverages TRPG game logs to evaluate LLMs’ ability to understand and infer complex interactions with multiple characters and novel objects. AgentBench [[103](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib103)] provides a comprehensive framework for evaluating LLMs as autonomous agents across diverse environments. It represents the first systematic assessment of LLMs as agents on real-world challenges across diverse domains. SocKET [23] is a comprehensive benchmark for evaluating the social capabilities of LLMs across 58 tasks covering five categories of social information such as humor and sarcasm, emotions and feelings, credibility, etc. AgentSims [[99](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib99)] is a versatile framework for evaluating LLM-based agents, where one can flexibly design the agent planning, memory and action strategies, and measure the effectiveness of different agent modules in interactive environments. ToolBench [[[12](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib12)5](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib125)] is an open-source project that aims to support the development of powerful LLMs with general tool-use capability. It provides an open platform for training, serving, and evaluating LLMs based on tool learning. WebShop [[1[68](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib68)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib168)] develops a benchmark for evaluating LLM-based agents in terms of their capabilities for product search and retrieval. The benchmark is constructed using a collection of 1.18 million real-world items. Mobile-Env [[175](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib175)] is an extendable interactive platform which can be used to evaluate the multi-step interaction capabilities of LLM-based agents. WebArena [[180](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib180)] offers a comprehensive website environment that spans multiple domains. Its purpose is to evaluate agents in an end-to-end fashion and determine the accuracy of their completed tasks. GentBench [[163](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib163)] is a benchmark designed to evaluate the agent capabilities, including their reasoning, safety, and efficiency, when utilizing tools to complete complex tasks. RocoBench [[108](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib108)] is a benchmark with six tasks evaluating multi-agent collaboration across diverse scenarios, emphasizing communication and coordination strategies to assess adaptability and generalization in cooperative robotics. EmotionBench [68] evaluates the emotion appraisal ability of LLMs, i.e., how their feelings change when presented with specific situations. It collects over 400 situations that elicit eight negative emotions and measures the emotional states of LLMs and human subjects using self-report scales. PEB [[29](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib29)] is a benchmark tailored for assessing LLM-based agents in penetration testing scenarios, comprising 13 diverse targets from leading platforms. It offers a structured evaluation across varying difficulty levels, reflecting real-world challenges for agents. ClemBench [12] contains five Dialogue Games to assess LLMs’ ability as a player. E2E [7] is an end-to-end benchmark for testing the accuracy and usefulness of chatbots.
+## 5. Related Surveys
 
-###### Remark.
+Previous surveys have explored LLM backgrounds [175], downstream applications [176], human alignment [177], reasoning [178], and Augmented Language Models (ALMs) [179]. However, this paper uniquely focuses specifically on the burgeoning field of LLM-based Autonomous Agents, compiling comprehensive insights across construction, applications, and evaluation.
 
-Objective evaluation allows for the quantitative assessment of LLM-based agent capabilities using diverse metrics. While current techniques can not perfectly measure all types of agent capabilities, objective evaluation provides essential insights that complement subjective assessment. The ongoing progress in objective evaluation benchmarks and methodology will further advance the development and understanding of LLM-based autonomous agents.
-In the above sections, we introduce both subjective and objective strategies for LLM-based autonomous agents evaluation. The evaluation of the agents play significant roles in this domain. However, both subjective and objective evaluation have their own strengths and weakness. Maybe, in practice, they should be combined to comprehensively evaluate the agents. We summarize the correspondence between the previous work and these evaluation strategies in Table [3](https://ar5iv.labs.arxiv.org/html/2308.11432#S4.T3).
+---
 
-## 5 Related Surveys
-With the vigorous development of large language models, numerous comprehensive surveys have emerged, providing detailed insights into various aspects.  [[178](https://ar5iv.labs.arxiv.org/html/2308.1[14](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib14)32#bib.bib178)] extensively introduces the background, main findings, and mainstream technologies of LLMs, encompassing a vast array of existing works. On the other hand,  [[166](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib166)] primarily focus on the applications of LLMs in various downstream tasks and the challenges associated with their deployment. Aligning LLMs with human intelligence is an active area of research to address concerns such as biases and illusions.  [[[15](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib15)3](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib153)] have compiled existing techniques for human alignment, including data collection and model training methodologies. Reasoning is a crucial aspect of intelligence, influencing decision-making, problem-solving, and other cognitive abilities.  [[69](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib69)] presents the current state of research on LLMs’ reasoning abilities, exploring approaches to improve and evaluate their reasoning skills.  [[111](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib111)] propose that language models can be enhanced with reasoning capabilities and the ability to utilize tools, termed Augmented Language Models (ALMs). They conduct a comprehensive review of the latest advancements in ALMs. As the utilization of large-scale models becomes more prevalent, evaluating their performance is increasingly critical.  [15] shed light on evaluating LLMs, addressing what to evaluate, where to evaluate, and how to assess their performance in downstream tasks and societal impact.  [14] also discusses the capabilities and limitations of LLMs in various downstream tasks. The aforementioned research encompasses various aspects of large models, including training, application, and evaluation. However, prior to this paper, no work has specifically focused on the rapidly emerging and highly promising field of LLM-based Agents. In this study, we have compiled 100 relevant works on LLM-based Agents, covering their construction, applications, and evaluation processes.
+## 6. Challenges
 
-## 6 Challenges
-While previous work on LLM-based autonomous agent has obtained many remarkable successes, this field is still at its initial stage, and there are several significant challenges that need to be addressed in its development. In the following, we present many representative challenges.
+1.  **Role-playing Capability:** LLMs struggle with uncommon or newly emerging roles, and lack self-awareness in deep psychological simulations. Requires specialized fine-tuning and prompt designs.
+2.  **Generalized Human Alignment:** While traditional LLMs are aligned with standard human values, simulation agents sometimes need to model "incorrect" values (e.g., malicious actors) to effectively study social vulnerabilities. "Realigning" powerful LLMs for simulation is a challenge.
+3.  **Prompt Robustness:** Agent prompt frameworks are complex; minor alterations yield substantially different outcomes. Developing unified, resilient frameworks across diverse LLMs remains unresolved.
+4.  **Hallucination:** Models confidently producing false information (e.g., generating insecure code). Incorporating human correction feedback is necessary.
+5.  **Knowledge Boundary:** When simulating everyday users, LLMs possess "overwhelming" web knowledge. Restraining an agent from using future/unknown knowledge is critical for believable simulations.
+6.  **Efficiency:** The autoregressive architecture of LLMs causes slow inference, acting as a bottleneck when agents require multiple LLM queries per action.
 
-### 6.1 Role-playing Capability
-Different from traditional LLMs, autonomous agent usually has to play as specific roles (e.g., program coder, researcher and chemist) for accomplishing different tasks. Thus, the capability of the agent for role-playing is very important. Although LLMs can effectively simulate many common roles such as movie reviewers, there are still various roles and aspects that they struggle to capture accurately. To begin with, LLMs are usually trained based on web-corpus, thus for the roles which are seldom discussed on the web or the newly emerging roles, LLMs may not simulate them well. In addition, previous research [[54](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib54)] has shown that existing LLMs may not well model the human cognitive psychology characters, leading to the lack of self-awareness in conversation scenarios. Potential solution to these problems may include fine-tuning LLMs or carefully designing the agent prompts/architectures [[87](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib87)]. For example, one can firstly collect real-human data for uncommon roles or psychology characters, and then leverage it to fine-tune LLMs. However, how to ensure that fine-tuned model still perform well for the common roles may pose further challenges. Beyond fine-tuning, one can also design tailored agent prompts/architectures to enhance the capability of LLM on role-playing. However, finding the optimal prompts/architectures is not easy, since their designing spaces are too large.
+---
 
-### 6.2 Generalized Human Alignment
-Human alignment has been discussed a lot for traditional LLMs. In the field of LLM-based autonomous agent, especially when the agents are leveraged for simulation, we believe this concept should be discussed more in depth. In order to better serve human-beings, traditional LLMs are usually fine-tuned to be aligned with correct human values, for example, the agent should not plan to make a bomb for avenging society. However, when the agents are leveraged for real-world simulation, an ideal simulator should be able to honestly depict diverse human traits, including the ones with incorrect values. Actually, simulating the human negative aspects can be even more important, since an important goal of simulation is to discover and solve problems, and without negative aspects means no problem to be solved. For example, to simulate the real-world society, we may have to allow the agent to plan for making a bomb, and observe how it will act to implement the plan as well as the influence of its behaviors. Based on these observations, people can make better actions to stop similar behaviors in real-world society. Inspired by the above case, maybe an important problem for agent-based simulation is how to conduct generalized human alignment, that is, for different purposes and applications, the agent should be able to align with diverse human values. However, existing powerful LLMs including ChatGPT and GPT-4 are mostly aligned with unified human values. Thus, an interesting direction is how to “realign” these models by designing proper prompting strategies.
-
-### 6.3 Prompt Robustness
-To ensure rational behavior in agents, designers often incorporate additional modules, such as memory and planning modules, into LLMs. However, the inclusion of these modules necessitates the development of more prompts in order to facilitate consistent operation and effective communication. Previous research [[186](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib186), [57](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib57)] has highlighted the lack of robustness in prompts for LLMs, as even minor alterations can yield substantially different outcomes. This issue becomes more pronounced when constructing autonomous agents, as they encompass not a single prompt but a prompt framework that considers all modules, wherein the prompt for one module has the potential to influence others. Moreover, the prompt frameworks can vary significantly across different LLMs. Developing a unified and robust prompt framework that can be applied to various LLMs is an important yet unresolved issue. There are two potential solutions to the aforementioned problems: (1) manually crafting the essential prompt elements through trial and error, or (2) automatically generating prompts using GPT.
-
-### 6.4 Hallucination
-Hallucination poses a fundamental challenge for LLMs, wherein the model erroneously outputs false information confidently. This issue is also prevalent in autonomous agents. For instance, in [[[74](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib74)](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib74)], it was observed that when confronted with simplistic instructions during code generation tasks, the agent may exhibit hallucinatory behavior. Hallucination can lead to serious consequences such as incorrect or misleading code, security risks, and ethical issues [74]. To address this problem, one possible approach is to incorporate human correction feedback within the loop of human-agent interaction [[64](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib64)]. More discussions on the hallucination problem can be seen in [[178](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib178)].
-
-### 6.5 Knowledge Boundary
-An important application of LLM-based autonomous agents is to simulate different real-world human behaviors [[121](https://ar5iv.labs.arxiv.org/html/2308.11432#bib.bib121)]. The study of human simulation has a long history, and the recent surge in interest can be attributed to the remarkable advancements made by LLMs, which have demonstrated significant capabilities in simulating human behavior. However, it is important to recognize that the power of LLMs may not always be advantageous. Specifically, an ideal simulation should accurately replicate human knowledge. In this regard, LLMs can exhibit excessive power, as they are trained on an extensive corpus of web knowledge that surpasses the scope of ordinary individuals. The immense capabilities of LLMs can significantly impact the effectiveness of simulations. For instance, when attempting to simulate user selection behaviors for various movies, it is crucial to ensure that LLMs assume a position of having no prior knowledge of these movies. However, there is a possibility that LLMs have already acquired information about these movies. Without implementing appropriate strategies, LLMs may make decisions based on their extensive knowledge, even though real-world users would not have access to the contents of these movies beforehand. Based on the above example, we may conclude that for building believable agent simulation environment, an important problem is how to constrain the utilization of user-unknown knowledge of LLM.
-
-### 6.6 Efficiency
-Because of its autoregressive architecture, LLMs typically have slow inference speeds. However, the agent may need to query LLMs for each action multiple times, such as extracting information from the memory module, make plans before taking actions and so on. Consequently, the efficiency of agent actions is greatly affected by the speed of LLM inference. Deploying multiple agents with the same API key can further significantly increase the time cost.
+## 7. Conclusion
 
 In this survey, we systematically summarize existing research in the field of LLM-based autonomous agents. We present and review these studies from three aspects including the construction, application, and evaluation of the agents. For each of these aspects, we provide a detailed taxonomy to draw connections among the existing research, summarizing the major techniques and their development histories. In addition to reviewing the previous work, we also propose several challenges in this field, which are expected to guide potential future directions.
 
-- 
-[1]
-
-Gati V Aher, Rosa I Arriaga, and Adam Tauman Kalai.
-
-
-Using large language models to simulate multiple humans and replicate
-human subject studies.
-
-
-In International Conference on Machine Learning, pages
-337–371. PMLR, 2023.
-
-
-
-- 
-[2]
-
-Michael Ahn, Anthony Brohan, Noah Brown, Yevgen Chebotar, Omar Cortes, Byron
-David, Chelsea Finn, Chuyuan Fu, Keerthana Gopalakrishnan, Karol Hausman,
-et al.
-
-
-Do as i can, not as i say: Grounding language in robotic affordances.
-
-
-arXiv preprint arXiv:2204.01691, 2022.
-
-
-
-- 
-[3]
-
-Elif Akata, Lion Schulz, Julian Coda-Forno, Seong Joon Oh, Matthias Bethge, and
-Eric Schulz.
-
-
-Playing repeated games with large language models.
-
-
-arXiv preprint arXiv:2305.16867, 2023.
-
-
-
-- 
-[4]
-
-Anthropic.
-
-
-Model card and evaluations for claude models.
-
-
-[https://www-files.anthropic.com/production/images/Model-Card-Claude-2.pdf?ref=maginative.com](https://www-files.anthropic.com/production/images/Model-Card-Claude-2.pdf?ref=maginative.com),
-2023.
-
-
-
-- 
-[5]
-
-Lisa P Argyle, Ethan C Busby, Nancy Fulda, Joshua R Gubler, Christopher
-Rytting, and David Wingate.
-
-
-Out of one, many: Using language models to simulate human samples.
-
-
-Political Analysis, 31(3):337–351, 2023.
-
-
-
-- 
-[6]
-
-Christopher A Bail.
-
-
-Can generative AI improve social science?
-
-
-SocArXiv, 2023.
-
-
-
-- 
-[7]
-
-Debarag Banerjee, Pooja Singh, Arjun Avadhanam, and Saksham Srivastava.
-
-
-Benchmarking llm powered chatbots: Methods and metrics, 2023.
-
-
-
-- 
-[8]
-
-Maciej Besta, Nils Blach, Ales Kubicek, Robert Gerstenberger, Lukas Gianinazzi,
-Joanna Gajda, Tomasz Lehmann, Michal Podstawski, Hubert Niewiadomski, Piotr
-Nyczyk, et al.
-
-
-Graph of thoughts: Solving elaborate problems with large language
-models.
-
-
-arXiv preprint arXiv:2308.09687, 2023.
-
-
-
-- 
-[9]
-
-Daniil A Boiko, Robert MacKnight, and Gabe Gomes.
-
-
-Emergent autonomous scientific research capabilities of large
-language models.
-
-
-arXiv preprint arXiv:2304.05332, 2023.
-
-
-
-- 
-[10]
-
-Andres M Bran, Sam Cox, Andrew D White, and Philippe Schwaller.
-
-
-ChemCrow: Augmenting large-language models with chemistry tools.
-
-
-arXiv preprint arXiv:2304.05376, 2023.
-
-
-
-- 
-[11]
-
-Tom B Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla
-Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell,
-et al.
-
-
-Language models are few-shot learners.
-
-
-arXiv preprint arXiv:2005.14165, 2020.
-
-
-
-- 
-[12]
-
-Kranti Chalamalasetti, Jana Götze, Sherzod Hakimov, Brielen Madureira,
-Philipp Sadler, and David Schlangen.
-
-
-clembench: Using game play to evaluate chat-optimized language models
-as conversational agents.
-
-
-arXiv preprint arXiv:2305.13455, 2023.
-
-
-
-- 
-[13]
-
-Chi-Min Chan, Weize Chen, Yusheng Su, Jianxuan Yu, Wei Xue, Shanghang Zhang,
-Jie Fu, and Zhiyuan Liu.
-
-
-ChatEval: Towards better LLM-based evaluators through multi-agent
-debate.
-
-
-arXiv preprint arXiv:2308.07201, 2023.
-
-
-
-- 
-[14]
-
-Tyler A Chang and Benjamin K Bergen.
-
-
-Language model behavior: A comprehensive survey.
-
-
-arXiv preprint arXiv:2303.11504, 2023.
-
-
-
-- 
-[15]
-
-Yupeng Chang, Xu Wang, Jindong Wang, Yuan Wu, Kaijie Zhu, Hao Chen, Linyi Yang,
-Xiaoyuan Yi, Cunxiang Wang, Yidong Wang, et al.
-
-
-A survey on evaluation of large language models.
-
-
-arXiv preprint arXiv:2307.03109, 2023.
-
-
-
-- 
-[16]
-
-Harrison Chase.
-
-
-langchain.
-
-
-[https://docs.langchain.com/docs/](https://docs.langchain.com/docs/), 2023.
-
-
-
-- 
-[17]
-
-Angelica Chen, Jason Phang, Alicia Parrish, Vishakh Padmakumar, Chen Zhao,
-Samuel R Bowman, and Kyunghyun Cho.
-
-
-Two failures of self-consistency in the multi-step reasoning of
-LLMs.
-
-
-arXiv preprint arXiv:2305.14279, 2023.
-
-
-
-- 
-[18]
-
-Liting Chen, Lu Wang, Hang Dong, Yali Du, Jie Yan, Fangkai Yang, Shuang Li,
-Pu Zhao, Si Qin, Saravan Rajmohan, et al.
-
-
-Introspective tips: Large language model for in-context decision
-making.
-
-
-arXiv preprint arXiv:2305.11598, 2023.
-
-
-
-- 
-[19]
-
-Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira
-Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg
-Brockman, et al.
-
-
-Evaluating large language models trained on code.
-
-
-arXiv preprint arXiv:2107.03374, 2021.
-
-
-
-- 
-[20]
-
-Po-Lin Chen and Cheng-Shang Chang.
-
-
-InterAct: Exploring the potentials of ChatGPT as a cooperative
-agent.
-
-
-arXiv preprint arXiv:2308.01552, 2023.
-
-
-
-- 
-[21]
-
-Xinshi Chen, Shuang Li, Hui Li, Shaohua Jiang, Yuan Qi, and Le Song.
-
-
-Generative adversarial user model for reinforcement learning based
-recommendation system.
-
-In International Conference on Machine Learning, pages
-1052–1061. PMLR, 2019.
-
-
-
-- 
-[22]
-
-Zhipeng Chen, Kun Zhou, Beichen Zhang, Zheng Gong, Wayne Xin Zhao, and Ji-Rong
-Wen.
-
-
-ChatCoT: Tool-augmented chain-of-thought reasoning on chat-based
-large language models.
-
-
-arXiv preprint arXiv:2305.14323, 2023.
-
-
-
-- 
-[23]
-
-Minje Choi, Jiaxin Pei, Sagar Kumar, Chang Shu, and David Jurgens.
-
-
-Do LLMs understand social knowledge? evaluating the sociability of
-large language models with socket benchmark.
-
-
-arXiv preprint arXiv:2305.14938, 2023.
-
-
-
-- 
-[24]
-
-Cédric Colas, Laetitia Teodorescu, Pierre-Yves Oudeyer, Xingdi Yuan, and
-Marc-Alexandre Côté.
-
-
-Augmenting autotelic agents with large language models.
-
-
-arXiv preprint arXiv:2305.12487, 2023.
-
-
-
-- 
-[25]
-
-Jiaxi Cui, Zongjian Li, Yang Yan, Bohua Chen, and Li Yuan.
-
-
-ChatLaw: Open-source legal large language model with integrated
-external knowledge bases.
-
-
-arXiv preprint arXiv:2306.16092, 2023.
-
-
-
-- 
-[26]
-
-Gautier Dagan, Frank Keller, and Alex Lascarides.
-
-
-Dynamic planning with a LLM.
-
-
-arXiv preprint arXiv:2308.06391, 2023.
-
-
-
-- 
-[27]
-
-Yuhao Dan, Zhikai Lei, Yiyang Gu, Yong Li, Jianghao Yin, Jiaju Lin, Linhao Ye,
-Zhiyan Tie, Yougen Zhou, Yilei Wang, et al.
-
-
-Educhat: A large-scale language model-based chatbot system for
-intelligent education.
-
-
-arXiv preprint arXiv:2308.02773, 2023.
-
-
-
-- 
-[28]
-
-Ishita Dasgupta, Christine Kaeser-Chen, Kenneth Marino, Arun Ahuja, Sheila
-Babayan, Felix Hill, and Rob Fergus.
-
-
-Collaborating with language models for embodied reasoning.
-
-
-arXiv preprint arXiv:2302.00763, 2023.
-
-
-
-- 
-[29]
-
-Gelei Deng, Yi Liu, Víctor Mayoral-Vilches, Peng Liu, Yuekang Li, Yuan Xu,
-Tianwei Zhang, Yang Liu, Martin Pinzger, and Stefan Rass.
-
-
-Pentestgpt: An llm-empowered automatic penetration testing tool.
-
-
-arXiv preprint arXiv:2308.06782, 2023.
-
-
-
-- 
-[30]
-
-Xiang Deng, Yu Gu, Boyuan Zheng, Shijie Chen, Samuel Stevens, Boshi Wang, Huan
-Sun, and Yu Su.
-
-
-Mind2web: Towards a generalist agent for the web.
-
-
-arXiv preprint arXiv:2306.06070, 2023.
-
-
-
-- 
-[31]
-
-Ameet Deshpande, Vishvak Murahari, Tanmay Rajpurohit, Ashwin Kalyan, and
-Karthik Narasimhan.
-
-
-Toxicity in ChatGPT: Analyzing persona-assigned language models.
-
-
-arXiv preprint arXiv:2304.05335, 2023.
-
-
-
-- 
-[32]
-
-Norman Di Palo, Arunkumar Byravan, Leonard Hasenclever, Markus Wulfmeier,
-Nicolas Heess, and Martin Riedmiller.
-
-
-Towards a unified agent with foundation models.
-
-
-In Workshop on Reincarnating Reinforcement Learning at ICLR
-2023, 2023.
-
-
-
-- 
-[33]
-
-Yihong Dong, Xue Jiang, Zhi Jin, and Ge Li.
-
-
-Self-collaboration code generation via ChatGPT.
-
-
-arXiv preprint arXiv:2304.07590, 2023.
-
-
-
-- 
-[34]
-
-Iddo Drori, Sarah Zhang, Reece Shuttleworth, Leonard Tang, Albert Lu, Elizabeth
-Ke, Kevin Liu, Linda Chen, Sunny Tran, Newman Cheng, Roman Wang, Nikhil
-Singh, Taylor L. Patti, Jayson Lynch, Avi Shporer, Nakul Verma, Eugene Wu,
-and Gilbert Strang.
-
-
-A neural network solves, explains, and generates university math
-problems by program synthesis and few-shot learning at human level.
-
-
-Proceedings of the National Academy of Sciences, 119(32), aug
-2022.
-
-
-
-- 
-[35]
-
-Yilun Du, Shuang Li, Antonio Torralba, Joshua B Tenenbaum, and Igor Mordatch.
-
-
-Improving factuality and reasoning in language models through
-multiagent debate.
-
-
-arXiv preprint arXiv:2305.14325, 2023.
-
-
-
-- 
-[36]
-
-Alex MacCaw et al.
-
-
-WorkGPT.
-
-
-[https://github.com/team-openpm/workgpt](https://github.com/team-openpm/workgpt), 2023.
-
-
-
-- 
-[37]
-
-Anton Osika et al.
-
-
-GPT engineer.
-
-
-[https://github.com/AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer), 2023.
-
-
-
-- 
-[38]
-
-Assaf Elovic et al.
-
-
-GPT-researcher.
-
-
-[https://github.com/assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher), 2023.
-
-
-
-- 
-[39]
-
-Chen et al.
-
-
-Agentverse.
-
-
-[https://github.com/OpenBMB/AgentVerse](https://github.com/OpenBMB/AgentVerse), 2023.
-
-
-
-- 
-[40]
-
-Chen et al.
-
-
-Xlang.
-
-
-[https://github.com/xlang-ai/xlang](https://github.com/xlang-ai/xlang), 2023.
-
-
-
-- 
-[41]
-
-Enricoros et al.
-
-
-Miniagi.
-
-
-[https://github.com/muellerberndt/mini-agi](https://github.com/muellerberndt/mini-agi), 2023.
-
-
-
-- 
-[42]
-
-Eumemic et al.
-
-
-Ai-legion.
-
-
-[https://github.com/eumemic/ai-legion](https://github.com/eumemic/ai-legion), 2023.
-
-
-
-- 
-[43]
-
-Fayaz Rahman et al.
-
-
-LoopGPT.
-
-
-[https://github.com/farizrahman4u/loopgpt](https://github.com/farizrahman4u/loopgpt), 2023.
-
-
-
-- 
-[44]
-
-Josh XT et al.
-
-
-Agixt.
-
-[https://github.com/Josh-XT/AGiXT](https://github.com/Josh-XT/AGiXT), 2023.
-
-
-
-- 
-[45]
-
-Melih Unsal et al.
-
-
-DemoGPT.
-
-
-[https://github.com/melih-unsal/DemoGPT](https://github.com/melih-unsal/DemoGPT), 2023.
-
-
-
-- 
-[46]
-
-Nakajima et al.
-
-
-Babyagi.
-
-
-[https://github.com/yoheinakajima](https://github.com/yoheinakajima), 2023.
-
-
-
-- 
-[47]
-
-Reworkd et al.
-
-
-AgentGPT.
-
-
-[https://github.com/reworkd/AgentGPT](https://github.com/reworkd/AgentGPT), 2023.
-
-
-
-- 
-[48]
-
-Swyxio et al.
-
-
-Smolmodels.
-
-
-[https://github.com/smol-ai/developer](https://github.com/smol-ai/developer), 2023.
-
-
-
-- 
-[49]
-
-Torantulino et al.
-
-
-Auto-GPT.
-
-
-[https://github.com/Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT), 2023.
-
-
-
-- 
-[50]
-
-TransformerOptimus et al.
-
-
-Superagi.
-
-
-[https://github.com/TransformerOptimus/SuperAGI](https://github.com/TransformerOptimus/SuperAGI), 2023.
-
-
-
-- 
-[51]
-
-Jonathan St BT Evans and Keith E Stanovich.
-
-
-Dual-process theories of higher cognition: Advancing the debate.
-
-
-Perspectives on psychological science, 8(3):223–241, 2013.
-
-
-
-- 
-[52]
-
-Hugging Face.
-
-
-transformers-agent.
-
-
-[https://huggingface.co/docs/transformers/transformers_agents](https://huggingface.co/docs/transformers/transformers_agents),
-2023.
-
-
-
-- 
-[53]
-
-Robert Feldt, Sungmin Kang, Juyeon Yoon, and Shin Yoo.
-
-
-Towards autonomous testing agents via conversational large language
-models.
-
-
-arXiv preprint arXiv:2306.05152, 2023.
-
-
-
-- 
-[54]
-
-Kevin A Fischer.
-
-
-Reflective linguistic programming (rlp): A stepping stone in
-socially-aware agi (socialagi).
-
-
-arXiv preprint arXiv:2305.12647, 2023.
-
-
-
-- 
-[55]
-
-Chen Gao, Xiaochong Lan, Zhihong Lu, Jinzhu Mao, Jinghua Piao, Huandong Wang,
-Depeng Jin, and Yong Li.
-
-
-S3: Social-network simulation system with large language
-model-empowered agents.
-
-
-arXiv preprint arXiv:2307.14984, 2023.
-
-
-
-- 
-[56]
-
-Yingqiang Ge, Wenyue Hua, Jianchao Ji, Juntao Tan, Shuyuan Xu, and Yongfeng
-Zhang.
-
-
-OpenAGI: When llm meets domain experts.
-
-
-arXiv preprint arXiv:2304.04370, 2023.
-
-
-
-- 
-[57]
-
-Zorik Gekhman, Nadav Oved, Orgad Keller, Idan Szpektor, and Roi Reichart.
-
-
-On the robustness of dialogue history representation in
-conversational question answering: a comprehensive study and a new
-prompt-based method.
-
-
-Transactions of the Association for Computational Linguistics,
-11:351–366, 2023.
-
-
-
-- 
-[58]
-
-Maitrey Gramopadhye and Daniel Szafir.
-
-
-Generating executable action plans with environmentally-aware
-language models.
-
-
-arXiv preprint arXiv:2210.04964, 2022.
-
-
-
-- 
-[59]
-
-Igor Grossmann, Matthew Feinberg, Dawn C Parker, Nicholas A Christakis,
-Philip E Tetlock, and William A Cunningham.
-
-
-Ai and the transformation of social science research.
-
-
-Science, 380(6650):1108–1109, 2023.
-
-
-
-- 
-[60]
-
-Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine.
-
-
-Soft actor-critic: Off-policy maximum entropy deep reinforcement
-learning with a stochastic actor.
-
-
-arXiv preprint arXiv:1801.01290, 2018.
-
-
-
-- 
-[61]
-
-Sil Hamilton.
-
-
-Blind judgement: Agent-based supreme court modelling with GPT.
-
-
-arXiv preprint arXiv:2301.05327, 2023.
-
-
-
-- 
-[62]
-
-Shibo Hao, Yi Gu, Haodi Ma, Joshua Jiahua Hong, Zhen Wang, Daisy Zhe Wang, and
-Zhiting Hu.
-
-
-Reasoning with language model is planning with world model.
-
-
-arXiv preprint arXiv:2305.14992, 2023.
-
-
-
-- 
-[63]
-
-Zhuolun He, Haoyuan Wu, Xinyun Zhang, Xufeng Yao, Su Zheng, Haisheng Zheng, and
-Bei Yu.
-
-
-Chateda: A large language model powered autonomous agent for eda,
-2023.
-
-
-
-- 
-[64]
-
-Sirui Hong, Xiawu Zheng, Jonathan Chen, Yuheng Cheng, Ceyao Zhang, Zili Wang,
-Steven Ka Shing Yau, Zijuan Lin, Liyang Zhou, Chenyu Ran, et al.
-
-
-MetaGPT: Meta programming for multi-agent collaborative framework.
-
-
-arXiv preprint arXiv:2308.00352, 2023.
-
-
-
-- 
-[65]
-
-John J Horton.
-
-
-Large language models as simulated economic agents: What can we learn
-from homo silicus?
-
-
-Technical report, National Bureau of Economic Research, 2023.
-
-
-
-- 
-[66]
-
-Bin Hu, Chenyang Zhao, Pu Zhang, Zihao Zhou, Yuanhang Yang, Zenglin Xu, and Bin
-Liu.
-
-
-Enabling intelligent interactions between an agent and an llm: A
-reinforcement learning approach.
-
-
-arXiv preprint arXiv:2306.03604, 2023.
-
-
-
-- 
-[67]
-
-Chenxu Hu, Jie Fu, Chenzhuang Du, Simian Luo, Junbo Zhao, and Hang Zhao.
-
-
-Chatdb: Augmenting LLMs with databases as their symbolic memory.
-
-
-arXiv preprint arXiv:2306.03901, 2023.
-
-
-
-- 
-[68]
-
-Jen-tse Huang, Man Ho Lam, Eric John Li, Shujie Ren, Wenxuan Wang, Wenxiang
-Jiao, Zhaopeng Tu, and Michael R Lyu.
-
-Emotionally numb or empathetic? evaluating how llms feel using
-emotionbench.
-
-
-arXiv preprint arXiv:2308.03656, 2023.
-
-
-
-- 
-[69]
-
-Jie Huang and Kevin Chen-Chuan Chang.
-
-
-Towards reasoning in large language models: A survey.
-
-
-arXiv preprint arXiv:2212.10403, 2022.
-
-
-
-- 
-[70]
-
-Wenlong Huang, Pieter Abbeel, Deepak Pathak, and Igor Mordatch.
-
-
-Language models as zero-shot planners: Extracting actionable
-knowledge for embodied agents.
-
-
-In International Conference on Machine Learning, pages
-9118–9147. PMLR, 2022.
-
-
-
-- 
-[71]
-
-Wenlong Huang, Fei Xia, Ted Xiao, Harris Chan, Jacky Liang, Pete Florence, Andy
-Zeng, Jonathan Tompson, Igor Mordatch, Yevgen Chebotar, et al.
-
-
-Inner monologue: Embodied reasoning through planning with language
-models.
-
-
-arXiv preprint arXiv:2207.05608, 2022.
-
-
-
-- 
-[72]
-
-Ziheng Huang, Sebastian Gutierrez, Hemanth Kamana, and Stephen MacNeil.
-
-
-Memory sandbox: Transparent and interactive memory management for
-conversational agents.
-
-
-arXiv preprint arXiv:2308.01542, 2023.
-
-
-
-- 
-[73]
-
-Sajed Jalil, Suzzana Rafi, Thomas D LaToza, Kevin Moran, and Wing Lam.
-
-
-ChatGPT and software testing education: Promises & perils.
-
-
-In 2023 IEEE International Conference on Software Testing,
-Verification and Validation Workshops (ICSTW), pages 4130–4137. IEEE, 2023.
-
-
-
-- 
-[74]
-
-Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii,
-Ye Jin Bang, Andrea Madotto, and Pascale Fung.
-
-
-Survey of hallucination in natural language generation.
-
-
-ACM Computing Surveys, 55(12):1–38, 2023.
-
-
-
-- 
-[75]
-
-Shi Jinxin, Zhao Jiabao, Wang Yilei, Wu Xingjiao, Li Jiawen, and He Liang.
-
-
-Cgmi: Configurable general multi-agent interaction framework, 2023.
-
-
-
-- 
-[76]
-
-Oliver P John, Eileen M Donahue, and Robert L Kentle.
-
-
-Big five inventory.
-
-
-Journal of Personality and Social Psychology, 1991.
-
-
-
-- 
-[77]
-
-John A Johnson.
-
-
-Measuring thirty facets of the five factor model with a 120-item
-public domain inventory: Development of the ipip-neo-120.
-
-
-Journal of research in personality, 51:78–89, 2014.
-
-
-
-- 
-[78]
-
-Sungmin Kang, Juyeon Yoon, and Shin Yoo.
-
-
-Large language models are few-shot testers: Exploring LLM-based
-general bug reproduction.
-
-
-In 2023 IEEE/ACM 45th International Conference on Software
-Engineering (ICSE), pages 2312–2323. IEEE, 2023.
-
-
-
-- 
-[79]
-
-Yeonghun Kang and Jihan Kim.
-
-
-Chatmof: An autonomous ai system for predicting and generating
-metal-organic frameworks.
-
-
-arXiv preprint arXiv:2308.01423, 2023.
-
-
-
-- 
-[80]
-
-Ehud Karpas, Omri Abend, Yonatan Belinkov, Barak Lenz, Opher Lieber, Nir
-Ratner, Yoav Shoham, Hofit Bata, Yoav Levine, Kevin Leyton-Brown, et al.
-
-
-Mrkl systems: A modular, neuro-symbolic architecture that combines
-large language models, external knowledge sources and discrete reasoning.
-
-
-arXiv preprint arXiv:2205.00445, 2022.
-
-
-
-- 
-[81]
-
-Geunwoo Kim, Pierre Baldi, and Stephen McAleer.
-
-
-Language models can solve computer tasks.
-
-
-arXiv preprint arXiv:2303.17491, 2023.
-
-
-
-- 
-[82]
-
-Takeshi Kojima, Shixiang Shane Gu, Machel Reid, Yutaka Matsuo, and Yusuke
-Iwasawa.
-
-
-Large language models are zero-shot reasoners.
-
-
-Advances in neural information processing systems,
-35:22199–22213, 2022.
-
-
-
-- 
-[83]
-
-Grgur Kovač, Rémy Portelas, Peter Ford Dominey, and Pierre-Yves
-Oudeyer.
-
-
-The socialai school: Insights from developmental psychology towards
-artificial socio-cultural agents.
-
-
-arXiv preprint arXiv:2307.07871, 2023.
-
-
-
-- 
-[84]
-
-Ranjay Krishna, Donsuk Lee, Li Fei-Fei, and Michael S Bernstein.
-
-
-Socially situated artificial intelligence enables learning from human
-interaction.
-
-
-Proceedings of the National Academy of Sciences,
-119(39):e2115730119, 2022.
-
-
-
-- 
-[85]
-
-Mina Lee, Megha Srivastava, Amelia Hardy, John Thickstun, Esin Durmus, Ashwin
-Paranjape, Ines Gerard-Ursin, Xiang Lisa Li, Faisal Ladhak, Frieda Rong,
-et al.
-
-
-Evaluating human-language model interaction.
-
-
-arXiv preprint arXiv:2212.09746, 2022.
-
-
-
-- 
-[86]
-
-Chao Li, Xing Su, Chao Fan, Haoying Han, Cong Xue, and Chunmo Zheng.
-
-
-Quantifying the impact of large language models on collective opinion
-dynamics.
-
-
-arXiv preprint arXiv:2308.03313, 2023.
-
-
-
-- 
-[87]
-
-Cheng Li, Jindong Wang, Kaijie Zhu, Yixuan Zhang, Wenxin Hou, Jianxun Lian, and
-Xing Xie.
-
-
-Emotionprompt: Leveraging psychology for large language models
-enhancement via emotional stimulus.
-
-
-arXiv preprint arXiv:2307.11760, 2023.
-
-
-
-- 
-[88]
-
-Guohao Li, Hasan Abed Al Kader Hammoud, Hani Itani, Dmitrii Khizbullin, and
-Bernard Ghanem.
-
-Camel: Communicative agents for" mind" exploration of large scale
-language model society.
-
-
-arXiv preprint arXiv:2303.17760, 2023.
-
-
-
-- 
-[89]
-
-Haonan Li, Yu Hao, Yizhuo Zhai, and Zhiyun Qian.
-
-
-The hitchhiker’s guide to program analysis: A journey with large
-language models.
-
-
-arXiv preprint arXiv:2308.00245, 2023.
-
-
-
-- 
-[90]
-
-Minghao Li, Feifan Song, Bowen Yu, Haiyang Yu, Zhoujun Li, Fei Huang, and
-Yongbin Li.
-
-
-Api-bank: A benchmark for tool-augmented LLMs.
-
-
-arXiv preprint arXiv:2304.08244, 2023.
-
-
-
-- 
-[91]
-
-Siyu Li, Jin Yang, and Kui Zhao.
-
-
-Are you in a masquerade? exploring the behavior and impact of large
-language model driven social bots in online social networks.
-
-
-arXiv preprint arXiv:2307.10337, 2023.
-
-
-
-- 
-[92]
-
-Xinnian Liang, Bing Wang, Hui Huang, Shuangzhi Wu, Peihao Wu, Lu Lu, Zejun Ma,
-and Zhoujun Li.
-
-
-Unleashing infinite-length input capacity for large-scale language
-models with self-controlled memory system.
-
-
-arXiv preprint arXiv:2304.13343, 2023.
-
-
-
-- 
-[93]
-
-Yaobo Liang, Chenfei Wu, Ting Song, Wenshan Wu, Yan Xia, Yu Liu, Yang Ou, Shuai
-Lu, Lei Ji, Shaoguang Mao, et al.
-
-
-Taskmatrix. ai: Completing tasks by connecting foundation models with
-millions of apis.
-
-
-arXiv preprint arXiv:2303.16434, 2023.
-
-
-
-- 
-[94]
-
-Yuanzhi Liang, Linchao Zhu, and Yi Yang.
-
-
-Tachikuma: Understading complex interactions with multi-character and
-novel objects by large language models.
-
-
-arXiv preprint arXiv:2307.12573, 2023.
-
-
-
-- 
-[95]
-
-Mark Liffiton, Brad Sheese, Jaromir Savelka, and Paul Denny.
-
-
-Codehelp: Using large language models with guardrails for scalable
-support in programming classes.
-
-
-arXiv preprint arXiv:2308.06921, 2023.
-
-
-
-- 
-[96]
-
-Timothy P Lillicrap, Jonathan J Hunt, Alexander Pritzel, Nicolas Heess, Tom
-Erez, Yuval Tassa, David Silver, and Daan Wierstra.
-
-
-Continuous control with deep reinforcement learning.
-
-
-arXiv preprint arXiv:1509.02971, 2015.
-
-
-
-- 
-[97]
-
-Bill Yuchen Lin, Yicheng Fu, Karina Yang, Prithviraj Ammanabrolu, Faeze
-Brahman, Shiyu Huang, Chandra Bhagavatula, Yejin Choi, and Xiang Ren.
-
-
-Swiftsage: A generative agent with fast and slow thinking for complex
-interactive tasks.
-
-
-arXiv preprint arXiv:2305.17390, 2023.
-
-
-
-- 
-[98]
-
-Jessy Lin, Nicholas Tomlin, Jacob Andreas, and Jason Eisner.
-
-
-Decision-oriented dialogue for human-ai collaboration.
-
-
-arXiv preprint arXiv:2305.20076, 2023.
-
-
-
-- 
-[99]
-
-Jiaju Lin, Haoran Zhao, Aochi Zhang, Yiting Wu, Huqiuyue Ping, and Qin Chen.
-
-
-Agentsims: An open-source sandbox for large language model
-evaluation.
-
-
-arXiv preprint arXiv:2308.04026, 2023.
-
-
-
-- 
-[100]
-
-Bo Liu, Yuqian Jiang, Xiaohan Zhang, Qiang Liu, Shiqi Zhang, Joydeep Biswas,
-and Peter Stone.
-
-
-LLM+P: Empowering large language models with optimal planning
-proficiency.
-
-
-arXiv preprint arXiv:2304.11477, 2023.
-
-
-
-- 
-[101]
-
-Hao Liu, Carmelo Sferrazza, and Pieter Abbeel.
-
-
-Chain of hindsight aligns language models with feedback.
-
-
-arXiv preprint arXiv:2302.02676, 3, 2023.
-
-
-
-- 
-[102]
-
-Ruibo Liu, Ruixin Yang, Chenyan Jia, Ge Zhang, Denny Zhou, Andrew M Dai, Diyi
-Yang, and Soroush Vosoughi.
-
-
-Training socially aligned language models in simulated human society.
-
-
-arXiv preprint arXiv:2305.16960, 2023.
-
-
-
-- 
-[103]
-
-Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu,
-Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.
-
-
-Agentbench: Evaluating LLMs as agents.
-
-
-arXiv preprint arXiv:2308.03688, 2023.
-
-
-
-- 
-[104]
-
-Zhiwei Liu, Weiran Yao, Jianguo Zhang, Le Xue, Shelby Heinecke, Rithesh Murthy,
-Yihao Feng, Zeyuan Chen, Juan Carlos Niebles, Devansh Arpit, et al.
-
-
-BOLAA: Benchmarking and orchestrating LLM-augmented autonomous
-agents.
-
-
-arXiv preprint arXiv:2308.05960, 2023.
-
-
-
-- 
-[105]
-
-Zilin Ma, Yiyang Mei, and Zhaoyuan Su.
-
-
-Understanding the benefits and challenges of using large language
-model-based conversational agents for mental well-being support.
-
-
-arXiv preprint arXiv:2307.15810, 2023.
-
-
-
-- 
-[106]
-
-Aman Madaan, Niket Tandon, Peter Clark, and Yiming Yang.
-
-
-Memory-assisted prompt editing to improve GPT-3 after deployment.
-
-
-In Proceedings of the 2022 Conference on Empirical Methods in
-Natural Language Processing, pages 2833–2861, 2022.
-
-
-
-- 
-[107]
-
-Aman Madaan, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah
-Wiegreffe, Uri Alon, Nouha Dziri, Shrimai Prabhumoye, Yiming Yang, et al.
-
-
-Self-refine: Iterative refinement with self-feedback.
-
-
-arXiv preprint arXiv:2303.17651, 2023.
-
-
-
-- 
-[108]
-
-Zhao Mandi, Shreeya Jain, and Shuran Song.
-
-Roco: Dialectic multi-robot collaboration with large language models.
-
-
-arXiv preprint arXiv:2307.04738, 2023.
-
-
-
-- 
-[109]
-
-Jordan K Matelsky, Felipe Parodi, Tony Liu, Richard D Lange, and Konrad P
-Kording.
-
-
-A large language model-assisted education tool to provide feedback on
-open-ended responses.
-
-
-arXiv preprint arXiv:2308.02439, 2023.
-
-
-
-- 
-[110]
-
-Nikhil Mehta, Milagro Teruel, Patricio Figueroa Sanz, Xin Deng, Ahmed Hassan
-Awadallah, and Julia Kiseleva.
-
-
-Improving grounded language understanding in a collaborative
-environment by interacting with agents through help feedback.
-
-
-arXiv preprint arXiv:2304.10750, 2023.
-
-
-
-- 
-[111]
-
-Grégoire Mialon, Roberto Dessì, Maria Lomeli, Christoforos Nalmpantis,
-Ram Pasunuru, Roberta Raileanu, Baptiste Rozière, Timo Schick, Jane
-Dwivedi-Yu, Asli Celikyilmaz, et al.
-
-
-Augmented language models: a survey.
-
-
-arXiv preprint arXiv:2302.07842, 2023.
-
-
-
-- 
-[112]
-
-Ning Miao, Yee Whye Teh, and Tom Rainforth.
-
-
-SelfCheck: Using LLMs to zero-shot check their own step-by-step
-reasoning.
-
-
-arXiv preprint arXiv:2308.00436, 2023.
-
-
-
-- 
-[113]
-
-Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei A Rusu, Joel Veness,
-Marc G Bellemare, Alex Graves, Martin Riedmiller, Andreas K Fidjeland, Georg
-Ostrovski, et al.
-
-
-Human-level control through deep reinforcement learning.
-
-
-Nature, 518(7540):529–533, 2015.
-
-
-
-- 
-[114]
-
-Ali Modarressi, Ayyoob Imani, Mohsen Fayyaz, and Hinrich Schütze.
-
-
-RET-LLM: Towards a general read-write memory for large language
-models.
-
-
-arXiv preprint arXiv:2305.14322, 2023.
-
-
-
-- 
-[115]
-
-Reiichiro Nakano, Jacob Hilton, Suchir Balaji, Jeff Wu, Long Ouyang, Christina
-Kim, Christopher Hesse, Shantanu Jain, Vineet Kosaraju, William Saunders,
-et al.
-
-
-WebGPT: Browser-assisted question-answering with human feedback.
-
-
-arXiv preprint arXiv:2112.09332, 2021.
-
-
-
-- 
-[116]
-
-Nathalia Nascimento, Paulo Alencar, and Donald Cowan.
-
-
-Self-adaptive large language model (llm)-based multiagent systems.
-
-
-arXiv preprint arXiv:2307.06187, 2023.
-
-
-
-- 
-[117]
-
-Youyang Ng, Daisuke Miyashita, Yasuto Hoshi, Yasuhiro Morioka, Osamu Torii,
-Tomoya Kodama, and Jun Deguchi.
-
-
-Simplyretrieve: A private and lightweight retrieval-centric
-generative ai tool.
-
-
-arXiv preprint arXiv:2308.03983, 2023.
-
-
-
-- 
-[118]
-
-Kolby Nottingham, Prithviraj Ammanabrolu, Alane Suhr, Yejin Choi, Hannaneh
-Hajishirzi, Sameer Singh, and Roy Fox.
-
-
-Do embodied agents dream of pixelated sheep?: Embodied decision
-making using language guided world modelling.
-
-
-arXiv preprint arXiv:2301.12050, 2023.
-
-
-
-- 
-[119]
-
-Oluwatosin Ogundare, Srinath Madasu, and Nathanial Wiggins.
-
-
-Industrial engineering with large language models: A case study of
-ChatGPT’s performance on oil & gas problems.
-
-
-arXiv preprint arXiv:2304.14354, 2023.
-
-
-
-- 
-[120]
-
-OpenAI.
-
-
-GPT-4 technical report, 2023.
-
-
-
-- 
-[121]
-
-Joon Sung Park, Joseph C. O’Brien, Carrie J. Cai, Meredith Ringel Morris, Percy
-Liang, and Michael S. Bernstein.
-
-
-Generative agents: Interactive simulacra of human behavior.
-
-
-In In the 36th Annual ACM Symposium on User Interface Software
-and Technology (UIST ’23), UIST ’23, New York, NY, USA, 2023. Association
-for Computing Machinery.
-
-
-
-- 
-[122]
-
-Joon Sung Park, Lindsay Popowski, Carrie Cai, Meredith Ringel Morris, Percy
-Liang, and Michael S Bernstein.
-
-
-Social simulacra: Creating populated prototypes for social computing
-systems.
-
-
-In Proceedings of the 35th Annual ACM Symposium on User
-Interface Software and Technology, pages 1–18, 2022.
-
-
-
-- 
-[123]
-
-Shishir G Patil, Tianjun Zhang, Xin Wang, and Joseph E Gonzalez.
-
-
-Gorilla: Large language model connected with massive apis.
-
-
-arXiv preprint arXiv:2305.15334, 2023.
-
-
-
-- 
-[124]
-
-Chen Qian, Xin Cong, Cheng Yang, Weize Chen, Yusheng Su, Juyuan Xu, Zhiyuan
-Liu, and Maosong Sun.
-
-
-Communicative agents for software development.
-
-
-arXiv preprint arXiv:2307.07924, 2023.
-
-
-
-- 
-[125]
-
-Yujia Qin, Shengding Hu, Yankai Lin, Weize Chen, Ning Ding, Ganqu Cui, Zheni
-Zeng, Yufei Huang, Chaojun Xiao, Chi Han, et al.
-
-
-Tool learning with foundation models.
-
-
-arXiv preprint arXiv:2304.08354, 2023.
-
-
-
-- 
-[126]
-
-Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Yan, Yaxi Lu, Yankai Lin,
-Xin Cong, Xiangru Tang, Bill Qian, et al.
-
-
-ToolLLM: Facilitating large language models to master 16000+
-real-world apis.
-
-
-arXiv preprint arXiv:2307.16789, 2023.
-
-
-
-- 
-[127]
-
-Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, and Ilya
-Sutskever.
-
-Language models are unsupervised multitask learners.
-
-
-OpenAI blog, 1(8):9, 2019.
-
-
-
-- 
-[128]
-
-Shreyas Sundara Raman, Vanya Cohen, Eric Rosen, Ifrah Idrees, David Paulius,
-and Stefanie Tellex.
-
-
-Planning with large language models via corrective re-prompting.
-
-
-arXiv preprint arXiv:2211.09935, 2022.
-
-
-
-- 
-[129]
-
-Krishan Rana, Jesse Haviland, Sourav Garg, Jad Abou-Chakra, Ian Reid, and Niko
-Suenderhauf.
-
-
-Sayplan: Grounding large language models using 3d scene graphs for
-scalable task planning.
-
-
-arXiv preprint arXiv:2307.06135, 2023.
-
-
-
-- 
-[130]
-
-Jingqing Ruan, Yihong Chen, Bin Zhang, Zhiwei Xu, Tianpeng Bao, Guoqing Du,
-Shiwei Shi, Hangyu Mao, Xingyu Zeng, and Rui Zhao.
-
-
-TPTU: Task planning and tool usage of large language model-based
-AI agents.
-
-
-arXiv preprint arXiv:2308.03427, 2023.
-
-
-
-- 
-[131]
-
-Mustafa Safdari, Greg Serapio-García, Clément Crepy, Stephen Fitz,
-Peter Romero, Luning Sun, Marwa Abdulhai, Aleksandra Faust, and Maja
-Matarić.
-
-
-Personality traits in large language models.
-
-
-arXiv preprint arXiv:2307.00184, 2023.
-
-
-
-- 
-[132]
-
-Swarnadeep Saha, Peter Hase, and Mohit Bansal.
-
-
-Can language models teach weaker agents? teacher explanations improve
-students via theory of mind.
-
-
-arXiv preprint arXiv:2306.09299, 2023.
-
-
-
-- 
-[133]
-
-Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria
-Lomeli, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom.
-
-
-Toolformer: Language models can teach themselves to use tools.
-
-
-arXiv preprint arXiv:2302.04761, 2023.
-
-
-
-- 
-[134]
-
-John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
-
-
-Proximal policy optimization algorithms.
-
-
-arXiv preprint arXiv:1707.06347, 2017.
-
-
-
-- 
-[135]
-
-Dale Schuurmans.
-
-
-Memory augmented large language models are computationally universal.
-
-
-arXiv preprint arXiv:2301.04589, 2023.
-
-
-
-- 
-[136]
-
-Melanie Sclar, Sachin Kumar, Peter West, Alane Suhr, Yejin Choi, and Yulia
-Tsvetkov.
-
-
-Minding language models’(lack of) theory of mind: A plug-and-play
-multi-character belief tracker.
-
-
-arXiv preprint arXiv:2306.00924, 2023.
-
-
-
-- 
-[137]
-
-Bilgehan Sel, Ahmad Al-Tawaha, Vanshaj Khattar, Lu Wang, Ruoxi Jia, and Ming
-Jin.
-
-
-Algorithm of thoughts: Enhancing exploration of ideas in large
-language models.
-
-
-arXiv preprint arXiv:2308.10379, 2023.
-
-
-
-- 
-[138]
-
-Yongliang Shen, Kaitao Song, Xu Tan, Dongsheng Li, Weiming Lu, and Yueting
-Zhuang.
-
-
-HuggingGPT: Solving ai tasks with ChatGPT and its friends in
-huggingface.
-
-
-arXiv preprint arXiv:2303.17580, 2023.
-
-
-
-- 
-[139]
-
-Noah Shinn, Federico Cassano, Beck Labash, Ashwin Gopinath, Karthik Narasimhan,
-and Shunyu Yao.
-
-
-Reflexion: Language agents with verbal reinforcement learning.
-
-
-arXiv preprint arXiv:2303.11366, 2023.
-
-
-
-- 
-[140]
-
-Yubo Shu, Hansu Gu, Peng Zhang, Haonan Zhang, Tun Lu, Dongsheng Li, and Ning
-Gu.
-
-
-Rah! recsys-assistant-human: A human-central recommendation framework
-with large language models.
-
-
-arXiv preprint arXiv:2308.09904, 2023.
-
-
-
-- 
-[141]
-
-Chan Hee Song, Jiaman Wu, Clayton Washington, Brian M Sadler, Wei-Lun Chao, and
-Yu Su.
-
-
-LLM-Planner: Few-shot grounded planning for embodied agents with
-large language models.
-
-
-arXiv preprint arXiv:2212.04088, 2022.
-
-
-
-- 
-[142]
-
-Yifan Song, Weimin Xiong, Dawei Zhu, Wenhao Wu, Han Qian, Mingbo Song, Hailiang
-Huang, Cheng Li, Ke Wang, Rong Yao, Ye Tian, and Sujian Li.
-
-
-Restgpt: Connecting large language models with real-world restful
-apis, 2023.
-
-
-
-- 
-[143]
-
-Ruoxi Sun, Sercan O Arik, Hootan Nakhost, Hanjun Dai, Rajarishi Sinha,
-Pengcheng Yin, and Tomas Pfister.
-
-
-Sql-palm: Improved large language modeladaptation for text-to-sql.
-
-
-arXiv preprint arXiv:2306.00739, 2023.
-
-
-
-- 
-[144]
-
-Dídac Surís, Sachit Menon, and Carl Vondrick.
-
-
-ViperGPT: Visual inference via python execution for reasoning.
-
-
-arXiv preprint arXiv:2303.08128, 2023.
-
-
-
-- 
-[145]
-
-Melanie Swan, Takashi Kido, Eric Roland, and Renato P dos Santos.
-
-
-Math agents: Computational infrastructure, mathematical embedding,
-and genomics.
-
-
-arXiv preprint arXiv:2307.02502, 2023.
-
-
-
-- 
-[146]
-
-Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
-Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric
-Hambro, Faisal Azhar, et al.
-
-
-Llama: Open and efficient foundation language models.
-
-
-arXiv preprint arXiv:2302.13971, 2023.
-
-
-
-- 
-[147]
-
-Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine
-Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale,
-et al.
-
-Llama 2: Open foundation and fine-tuned chat models.
-
-
-arXiv preprint arXiv:2307.09288, 2023.
-
-
-
-- 
-[148]
-
-Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu,
-Linxi Fan, and Anima Anandkumar.
-
-
-Voyager: An open-ended embodied agent with large language models.
-
-
-arXiv preprint arXiv:2305.16291, 2023.
-
-
-
-- 
-[149]
-
-Lei Wang.
-
-
-Recagent.
-
-
-[https://github.com/RUC-GSAI/YuLan-Rec](https://github.com/RUC-GSAI/YuLan-Rec), 2023.
-
-
-
-- 
-[150]
-
-Lei Wang, Jingsen Zhang, Xu Chen, Yankai Lin, Ruihua Song, Wayne Xin Zhao, and
-Ji-Rong Wen.
-
-
-Recagent: A novel simulation paradigm for recommender systems.
-
-
-arXiv preprint arXiv:2306.02552, 2023.
-
-
-
-- 
-[151]
-
-Xuezhi Wang, Jason Wei, Dale Schuurmans, Quoc Le, Ed Chi, Sharan Narang,
-Aakanksha Chowdhery, and Denny Zhou.
-
-
-Self-consistency improves chain of thought reasoning in language
-models.
-
-
-arXiv preprint arXiv:2203.11171, 2022.
-
-
-
-- 
-[152]
-
-Yancheng Wang, Ziyan Jiang, Zheng Chen, Fan Yang, Yingxue Zhou, Eunah Cho, Xing
-Fan, Xiaojiang Huang, Yanbin Lu, and Yingzhen Yang.
-
-
-Recmind: Large language model powered agent for recommendation.
-
-
-arXiv preprint arXiv:2308.14296, 2023.
-
-
-
-- 
-[153]
-
-Yufei Wang, Wanjun Zhong, Liangyou Li, Fei Mi, Xingshan Zeng, Wenyong Huang,
-Lifeng Shang, Xin Jiang, and Qun Liu.
-
-
-Aligning large language models with human: A survey.
-
-
-arXiv preprint arXiv:2307.12966, 2023.
-
-
-
-- 
-[154]
-
-Zihao Wang, Shaofei Cai, Anji Liu, Xiaojian Ma, and Yitao Liang.
-
-
-Describe, explain, plan and select: Interactive planning with large
-language models enables open-world multi-task agents.
-
-
-arXiv preprint arXiv:2302.01560, 2023.
-
-
-
-- 
-[155]
-
-Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Fei Xia, Ed Chi, Quoc V
-Le, Denny Zhou, et al.
-
-
-Chain-of-thought prompting elicits reasoning in large language
-models.
-
-
-Advances in Neural Information Processing Systems,
-35:24824–24837, 2022.
-
-
-
-- 
-[156]
-
-Ross Williams, Niyousha Hosseinichimeh, Aritra Majumdar, and Navid
-Ghaffarzadegan.
-
-
-Epidemic modeling with generative agents.
-
-
-arXiv preprint arXiv:2307.04986, 2023.
-
-
-
-- 
-[157]
-
-Jimmy Wu, Rika Antonova, Adam Kan, Marion Lepert, Andy Zeng, Shuran Song,
-Jeannette Bohg, Szymon Rusinkiewicz, and Thomas Funkhouser.
-
-
-Tidybot: Personalized robot assistance with large language models.
-
-
-arXiv preprint arXiv:2305.05658, 2023.
-
-
-
-- 
-[158]
-
-Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Shaokun Zhang, Erkang Zhu,
-Beibin Li, Li Jiang, Xiaoyun Zhang, and Chi Wang.
-
-
-AutoGen: Enabling next-gen LLM applications via multi-agent
-conversation framework.
-
-
-arXiv preprint arXiv:2308.08155, 2023.
-
-
-
-- 
-[159]
-
-Yue Wu, So Yeon Min, Yonatan Bisk, Ruslan Salakhutdinov, Amos Azaria, Yuanzhi
-Li, Tom Mitchell, and Shrimai Prabhumoye.
-
-
-Plan, eliminate, and track–language models are good teachers for
-embodied agents.
-
-
-arXiv preprint arXiv:2305.02412, 2023.
-
-
-
-- 
-[160]
-
-Zhenyu Wu, Ziwei Wang, Xiuwei Xu, Jiwen Lu, and Haibin Yan.
-
-
-Embodied task planning with large language models.
-
-
-arXiv preprint arXiv:2307.01848, 2023.
-
-
-
-- 
-[161]
-
-Yuchen Xia, Manthan Shenoy, Nasser Jazdi, and Michael Weyrich.
-
-
-Towards autonomous system: flexible modular production system
-enhanced with large language model agents.
-
-
-arXiv preprint arXiv:2304.14721, 2023.
-
-
-
-- 
-[162]
-
-Jiannan Xiang, Tianhua Tao, Yi Gu, Tianmin Shu, Zirui Wang, Zichao Yang, and
-Zhiting Hu.
-
-
-Language models meet world models: Embodied experiences enhance
-language models.
-
-
-arXiv preprint arXiv:2305.10626, 2023.
-
-
-
-- 
-[163]
-
-Binfeng Xu, Xukun Liu, Hua Shen, Zeyu Han, Yuhan Li, Murong Yue, Zhiyuan Peng,
-Yuchen Liu, Ziyu Yao, and Dongkuan Xu.
-
-
-Gentopia: A collaborative platform for tool-augmented LLMs.
-
-
-arXiv preprint arXiv:2308.04030, 2023.
-
-
-
-- 
-[164]
-
-Binfeng Xu, Zhiyuan Peng, Bowen Lei, Subhabrata Mukherjee, Yuchen Liu, and
-Dongkuan Xu.
-
-
-Rewoo: Decoupling reasoning from observations for efficient augmented
-language models.
-
-
-arXiv preprint arXiv:2305.18323, 2023.
-
-
-
-- 
-[165]
-
-Yuxuan Lei Jing Yao Defu Lian Xing Xie Xu Huang, Jianxun Lian.
-
-
-Recommender ai agent: Integrating large language models for
-interactive recommendations.
-
-
-arXiv preprint arXiv:2308.16505, 2023.
-
-
-
-- 
-[166]
-
-Jingfeng Yang, Hongye Jin, Ruixiang Tang, Xiaotian Han, Qizhang Feng, Haoming
-Jiang, Bing Yin, and Xia Hu.
-
-
-Harnessing the power of LLMs in practice: A survey on ChatGPT and
-beyond.
-
-
-arXiv preprint arXiv:2304.13712, 2023.
-
-
-
-- 
-[167]
-
-Zhengyuan Yang, Linjie Li, Jianfeng Wang, Kevin Lin, Ehsan Azarnasab, Faisal
-
-Ahmed, Zicheng Liu, Ce Liu, Michael Zeng, and Lijuan Wang.
-
-
-Mm-react: Prompting chatgpt for multimodal reasoning and action.
-
-
-arXiv preprint arXiv:2303.11381, 2023.
-
-
-
-- 
-[168]
-
-Shunyu Yao, Howard Chen, John Yang, and Karthik Narasimhan.
-
-
-Webshop: Towards scalable real-world web interaction with grounded
-language agents.
-
-
-Advances in Neural Information Processing Systems,
-35:20744–20757, 2022.
-
-
-
-- 
-[169]
-
-Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L Griffiths, Yuan Cao,
-and Karthik Narasimhan.
-
-
-Tree of thoughts: Deliberate problem solving with large language
-models.
-
-
-arXiv preprint arXiv:2305.10601, 2023.
-
-
-
-- 
-[170]
-
-Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
-and Yuan Cao.
-
-
-React: Synergizing reasoning and acting in language models.
-
-
-arXiv preprint arXiv:2210.03629, 2022.
-
-
-
-- 
-[171]
-
-Weiran Yao, Shelby Heinecke, Juan Carlos Niebles, Zhiwei Liu, Yihao Feng,
-Le Xue, Rithesh Murthy, Zeyuan Chen, Jianguo Zhang, Devansh Arpit, et al.
-
-
-Retroformer: Retrospective large language agents with policy gradient
-optimization.
-
-
-arXiv preprint arXiv:2308.02151, 2023.
-
-
-
-- 
-[172]
-
-Ceyao Zhang, Kaijie Yang, Siyi Hu, Zihao Wang, Guanghe Li, Yihang Sun, Cheng
-Zhang, Zhaowei Zhang, Anji Liu, Song-Chun Zhu, Xiaojun Chang, Junge Zhang,
-Feng Yin, Yitao Liang, and Yaodong Yang.
-
-
-Proagent: Building proactive cooperative ai with large language
-models, 2023.
-
-
-
-- 
-[173]
-
-Chenrui Zhang, Lin Liu, Jinpeng Wang, Chuyuan Wang, Xiao Sun, Hongyu Wang, and
-Mingchen Cai.
-
-
-Prefer: Prompt ensemble learning via feedback-reflect-refine.
-
-
-arXiv preprint arXiv:2308.12033, 2023.
-
-
-
-- 
-[174]
-
-Danyang Zhang, Lu Chen, Situo Zhang, Hongshen Xu, Zihan Zhao, and Kai Yu.
-
-
-Large language model is semi-parametric reinforcement learning agent.
-
-
-arXiv preprint arXiv:2306.07929, 2023.
-
-
-
-- 
-[175]
-
-Danyang Zhang, Lu Chen, Zihan Zhao, Ruisheng Cao, and Kai Yu.
-
-
-Mobile-Env: An evaluation platform and benchmark for interactive
-agents in LLM era.
-
-
-arXiv preprint arXiv:2305.08144, 2023.
-
-
-
-- 
-[176]
-
-Hongxin Zhang, Weihua Du, Jiaming Shan, Qinhong Zhou, Yilun Du, Joshua B
-Tenenbaum, Tianmin Shu, and Chuang Gan.
-
-
-Building cooperative embodied agents modularly with large language
-models.
-
-
-arXiv preprint arXiv:2307.02485, 2023.
-
-
-
-- 
-[177]
-
-Andrew Zhao, Daniel Huang, Quentin Xu, Matthieu Lin, Yong-Jin Liu, and Gao
-Huang.
-
-
-Expel: Llm agents are experiential learners, 2023.
-
-
-
-- 
-[178]
-
-Wayne Xin Zhao, Kun Zhou, Junyi Li, Tianyi Tang, Xiaolei Wang, Yupeng Hou,
-Yingqian Min, Beichen Zhang, Junjie Zhang, Zican Dong, et al.
-
-
-A survey of large language models.
-
-
-arXiv preprint arXiv:2303.18223, 2023.
-
-
-
-- 
-[179]
-
-Wanjun Zhong, Lianghong Guo, Qiqi Gao, and Yanlin Wang.
-
-
-Memorybank: Enhancing large language models with long-term memory.
-
-
-arXiv preprint arXiv:2305.10250, 2023.
-
-
-
-- 
-[180]
-
-Shuyan Zhou, Frank F Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar,
-Xianyi Cheng, Yonatan Bisk, Daniel Fried, Uri Alon, et al.
-
-
-Webarena: A realistic web environment for building autonomous agents.
-
-
-arXiv preprint arXiv:2307.13854, 2023.
-
-
-
-- 
-[181]
-
-Wei Zhou, Xiangyu Peng, and Mark Riedl.
-
-
-Dialogue shaping: Empowering agents through npc interaction.
-
-
-arXiv preprint arXiv:2307.15833, 2023.
-
-
-
-- 
-[182]
-
-Xuanhe Zhou, Guoliang Li, and Zhiyuan Liu.
-
-
-Llm as dba.
-
-
-arXiv preprint arXiv:2308.05481, 2023.
-
-
-
-- 
-[183]
-
-Andrew Zhu, Lara J Martin, Andrew Head, and Chris Callison-Burch.
-
-
-Calypso: Llms as dungeon masters’ assistants.
-
-
-arXiv preprint arXiv:2308.07540, 2023.
-
-
-
-- 
-[184]
-
-Xizhou Zhu, Yuntao Chen, Hao Tian, Chenxin Tao, Weijie Su, Chenyu Yang, Gao
-Huang, Bin Li, Lewei Lu, Xiaogang Wang, et al.
-
-
-Ghost in the minecraft: Generally capable agents for open-world
-enviroments via large language models with text-based knowledge and memory.
-
-
-arXiv preprint arXiv:2305.17144, 2023.
-
-
-
-- 
-[185]
-
-Mingchen Zhuge, Haozhe Liu, Francesco Faccio, Dylan R Ashley, Róbert
-Csordás, Anand Gopalakrishnan, Abdullah Hamdi, Hasan Abed Al Kader
-Hammoud, Vincent Herrmann, Kazuki Irie, et al.
-
-
-Mindstorms in natural language-based societies of mind.
-
-
-arXiv preprint arXiv:2305.17066, 2023.
-
-
-
-- 
-[186]
-
-Terry Yue Zhuo, Zhuang Li, Yujin Huang, Yuan-Fang Li, Weiqing Wang, Gholamreza
-Haffari, and Fatemeh Shiri.
-
-
-On robustness of prompt-based semantic parsing with large pre-trained
-language model: An empirical study on codex.
-
-
-arXiv preprint arXiv:2301.12868, 2023.
-
-
-
-- 
-[187]
-
-Caleb Ziems, William Held, Omar Shaikh, Jiaao Chen, Zhehao Zhang, and Diyi
-Yang.
-
-
-Can large language models transform computational social science?
-
-
-arXiv preprint arXiv:2305.03514, 2023.
-
-
-
-[https://www-files.anthropic.com/production/images/Model-Card-Claude-2.pdf?ref=maginative.com](https://www-files.anthropic.com/production/images/Model-Card-Claude-2.pdf?ref=maginative.com)
-[https://docs.langchain.com/docs/](https://docs.langchain.com/docs/)
-[https://github.com/team-openpm/workgpt](https://github.com/team-openpm/workgpt)
-[https://github.com/AntonOsika/gpt-engineer](https://github.com/AntonOsika/gpt-engineer)
-[https://github.com/assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher)
-[https://github.com/OpenBMB/AgentVerse](https://github.com/OpenBMB/AgentVerse)
-[https://github.com/xlang-ai/xlang](https://github.com/xlang-ai/xlang)
-[https://github.com/muellerberndt/mini-agi](https://github.com/muellerberndt/mini-agi)
-[https://github.com/eumemic/ai-legion](https://github.com/eumemic/ai-legion)
-[https://github.com/farizrahman4u/loopgpt](https://github.com/farizrahman4u/loopgpt)
-[https://github.com/Josh-XT/AGiXT](https://github.com/Josh-XT/AGiXT)
-[https://github.com/melih-unsal/DemoGPT](https://github.com/melih-unsal/DemoGPT)
-[https://github.com/yoheinakajima](https://github.com/yoheinakajima)
-[https://github.com/reworkd/AgentGPT](https://github.com/reworkd/AgentGPT)
-[https://github.com/smol-ai/developer](https://github.com/smol-ai/developer)
-[https://github.com/Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT)
-[https://github.com/TransformerOptimus/SuperAGI](https://github.com/TransformerOptimus/SuperAGI)
-[https://huggingface.co/docs/transformers/transformers_agents](https://huggingface.co/docs/transformers/transformers_agents)
-[https://github.com/RUC-GSAI/YuLan-Rec](https://github.com/RUC-GSAI/YuLan-Rec)
-[◄](https://ar5iv.labs.arxiv.org/html/2308.11431)
-[Feelinglucky?](https://ar5iv.labs.arxiv.org/feeling_lucky)
-[Conversionreport](https://ar5iv.labs.arxiv.org/log/2308.11432)
-[Reportan issue](https://github.com/dginev/ar5iv/issues/new?template=improve-article--arxiv-id-.md&title=Improve+article+2308.11432)
-[View originalon arXiv](https://arxiv.org/abs/2308.11432)
-[►](https://ar5iv.labs.arxiv.org/html/2308.11433)
-[Copyright](https://arxiv.org/help/license)
-[Privacy Policy](https://arxiv.org/help/policies/privacy_policy)
-[LaTeXML](http://dlmf.nist.gov/LaTeXML/)
-
+---
+
+**Acknowledgement**
+This work is supported in part by National Natural Science Foundation of China (No. 62102420), Beijing Outstanding Young Scientist Program NO. BJJWZYJH012019100020098, Intelligent Social Governance Platform, Major Innovation & Planning Interdisciplinary Platform for the "Double-First Class" Initiative, Renmin University of China, Public Computing Cloud, Renmin University of China, fund for building world-class universities (disciplines) of Renmin University of China, Intelligent Social Governance Platform.
+
+---
+
+## References & Biographies
+
+### Selected References (Excerpt)
+1. Mnih V, et al. Human-level control through deep reinforcement learning. *nature*, 2015.
+5. Brown T, et al. Language models are few-shot learners. *NeurIPS*, 2020.
+7. OpenAI. Gpt-4 technical report. *arXiv*, 2023.
+12. Shinn N, et al. Reflexion: Language agents with verbal reinforcement learning. *NeurIPS*, 2024.
+20. Park J S, et al. Generative agents: Interactive simulacra of human behavior. *UIST*, 2023.
+38. Wang G, et al. Voyager: An open-ended embodied agent with large language models. *arXiv*, 2023.
+45. Wei J, et al. Chain-of-thought prompting elicits reasoning in large language models. *NeurIPS*, 2022.
+60. Yao S, et al. React: Synergizing reasoning and acting in language models. *ICLR*, 2023.
+79. Ahn M, et al. Do as i can, not as i say: Grounding language in robotic affordances. *arXiv*, 2022.
+169. Liu X, et al. Agentbench: Evaluating llms as agents. *arXiv*, 2023.
+*(For the full list of 185 references, please refer to the original publication).*
+
+### Author Biographies
+
+* **Lei Wang** is a Ph.D. candidate at Renmin University of China.
+* **Chen Ma**, **Xueyang Feng**, **Jiakai Tang**, and **Zeyu Zhang** are pursuing Master's/Ph.D. degrees at Renmin University of China.
+* **Jingsen Zhang**, **Zhi-Yuan Chen**, and **Hao Yang** are pursuing Ph.D. degrees at Renmin University of China.
+* **Xu Chen** is a researcher focusing on recommender systems, reinforcement learning, and causal inference.
+* **Yankai Lin** is a tenure-track assistant professor at Renmin University of China.
+* **Wayne Xin Zhao** is a researcher in data mining and NLP.
+* **Zhewei Wei** is a researcher at Renmin University of China.
+* **Ji-Rong Wen** is a full professor and executive dean of Gaoling School of Artificial Intelligence.
