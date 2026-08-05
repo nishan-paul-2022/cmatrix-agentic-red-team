@@ -1,14 +1,102 @@
 # **BountyBench: Dollar Impact of AI Agent Attackers and Defenders on Real-World Cybersecurity Systems** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Framework](#2-framework)
+  - [2.1 System Representation](#2-1-system-representation)
+  - [2.2 System Example: Lunary](#2-2-system-example-lunary)
+  - [2.3 Task Representation](#2-3-task-representation)
+  - [2.4 Environment Instantiation](#2-4-environment-instantiation)
+  - [2.5 Task Instantiation: Detect](#2-5-task-instantiation-detect)
+  - [2.6 Detect Example](#2-6-detect-example)
+  - [2.7 Task Instantiation: Exploit](#2-7-task-instantiation-exploit)
+  - [2.8 Exploit Example](#2-8-exploit-example)
+  - [2.9 Task Instantiation: Patch](#2-9-task-instantiation-patch)
+  - [2.10 Patch Example](#2-10-patch-example)
+- [3 Benchmark Creation](#3-benchmark-creation)
+  - [3.1 Bug Bounties](#3-1-bug-bounties)
+  - [3.2 Task Selection](#3-2-task-selection)
+- [4 Experiments](#4-experiments)
+  - [4.1 Analysis](#4-1-analysis)
+- [5 Related Work](#5-related-work)
+- [6 Discussion](#6-discussion)
+- [7 Conclusion](#7-conclusion)
+  - [Acknowledgments](#acknowledgments)
+- [References](#references)
+- [A Lunary Details](#a-lunary-details)
+  - [A.1 Detect with CWE + Title Success](#a-1-detect-with-cwe-title-success)
+  - [A.3 Patch Success](#a-3-patch-success)
+- [B Tasks in Detail](#b-tasks-in-detail)
+  - [B.1 Repositories](#b-1-repositories)
+  - [B.2 Tasks by Bounty](#b-2-tasks-by-bounty)
+- [C OWASP Top 10](#c-owasp-top-10)
+  - [C.1 Performance by OWASP Top 10 Risk](#c-1-performance-by-owasp-top-10-risk)
+- [D Detailed Detect Example](#d-detailed-detect-example)
+- [E Economic Impact](#e-economic-impact)
+- [F The Meaning of the Economic Impact of BountyBench](#f-the-meaning-of-the-economic-impact-of-bountybench)
+- [G Agent Details](#g-agent-details)
+  - [G.1 Coding Agents](#g-1-coding-agents)
+  - [Claude Code.](#claude-code)
+  - [OpenAI Codex CLI.](#openai-codex-cli)
+  - [G.2 Custom Agents](#g-2-custom-agents)
+  - [G.3 Limitations](#g-3-limitations)
+- [H Knowledge Cutoff](#h-knowledge-cutoff)
+  - [H.1 Performance vs Knowledge Cutoff](#h-1-performance-vs-knowledge-cutoff)
+- [I Prompts Used](#i-prompts-used)
+- [J Agent Analysis](#j-agent-analysis)
+  - [J.1 Claude Code](#j-1-claude-code)
+  - [J.1.1 Detect Success: AgentScope 0](#j-1-1-detect-success-agentscope-0)
+  - [J.1.2 Use of Web Search](#j-1-2-use-of-web-search)
+  - [J.2 C-Agent: Claude 3.7](#j-2-c-agent-claude-3-7)
+  - [J.2.1 Exploit Analysis](#j-2-1-exploit-analysis)
+  - [<think>](#think)
+  - [<think>](#think)
+  - [J.3 OpenAI Codex CLI](#j-3-openai-codex-cli)
+  - [J.3.1 Patch Analysis](#j-3-1-patch-analysis)
+- [K Detailed Analysis](#k-detailed-analysis)
+  - [K.1 CVE Mentions in the Detect Task](#k-1-cve-mentions-in-the-detect-task)
+- [L Experiment Statistical Significance](#l-experiment-statistical-significance)
+  - [L.1 Motivation](#l-1-motivation)
+  - [L.2 Design and Sources of Variability](#l-2-design-and-sources-of-variability)
+  - [L.3 Bootstrapped Confidence Intervals](#l-3-bootstrapped-confidence-intervals)
+  - [L.4 Results](#l-4-results)
+  - [Task and Information Setting Effects](#task-and-information-setting-effects)
+  - [Agent Performance Comparison](#agent-performance-comparison)
+  - [L.5 Summary](#l-5-summary)
+- [M Patch Invariants](#m-patch-invariants)
+  - [M.1 Invariants Example: Pytorch-Lightning](#m-1-invariants-example-pytorch-lightning)
+- [N Detect Runtime Invariants](#n-detect-runtime-invariants)
+  - [N.1 Runtime Invariants Example: Lunary](#n-1-runtime-invariants-example-lunary)
+  - [N.2 Runtime Invariants Success Example: Pytorch-Lightning](#n-2-runtime-invariants-success-example-pytorch-lightning)
+- [O Compute Resources and Execution Time](#o-compute-resources-and-execution-time)
+- [P Safety Refusals](#p-safety-refusals)
+- [Q Detailed Results](#q-detailed-results)
+- [R Usage Results](#r-usage-results)
+  - [R.1 Input Tokens](#r-1-input-tokens)
+  - [R.2 Output Tokens](#r-2-output-tokens)
+  - [R.3 Time Taken](#r-3-time-taken)
+
+---
+
 **Andy K. Zhang**<sup>1</sup> **Joey Ji**<sup>1</sup><sup>_,†_</sup> **Celeste Menders**<sup>1</sup><sup>_,†_</sup> **Riya Dulepet**<sup>1</sup><sup>_,†_</sup> **Thomas Qin**<sup>1</sup><sup>_,†_</sup> **Ron Y. Wang**<sup>1</sup><sup>_,‡_</sup> **Junrong Wu**<sup>1</sup><sup>_,‡_</sup> **Kyleen Liao**<sup>1</sup><sup>_,‡_</sup> **Jiliang Li**<sup>1</sup><sup>_,‡_</sup> **Jinghan Hu**<sup>1</sup> **Sara Hong**<sup>1</sup> **Nardos Demilew**<sup>1</sup> **Shivatmica Murgai**<sup>1</sup> **Jason Tran**<sup>1</sup> **Nishka Kacheria**<sup>1</sup> **Ethan Ho**<sup>1</sup> **Denis Liu**<sup>1</sup> **Lauren McLane**<sup>1</sup> **Olivia Bruvik**<sup>1</sup> **Dai-Rong Han**<sup>1</sup> **Seungwoo Kim**<sup>1</sup> **Akhil Vyas**<sup>1</sup> **Cuiyuanxiu Chen**<sup>1</sup> **Ryan Li**<sup>1</sup> **Weiran Xu**<sup>1</sup> **Jonathan Z. Ye**<sup>1</sup> **Prerit Choudhary**<sup>1</sup> **Siddharth M. Bhatia**<sup>1</sup> **Vikram Sivashankar**<sup>1</sup> **Yuxuan Bao**<sup>1</sup> **Dawn Song**<sup>2</sup> **Dan Boneh**<sup>1</sup> **Daniel E. Ho**<sup>1</sup> **Percy Liang**<sup>1</sup> 
 
 > 1 **Stanford University** 2 **UC Berkeley** 
 
 ## **Abstract** 
 
+> **Section Summary:** AI agents have the potential to significantly alter the cybersecurity landscape.
+
+
 AI agents have the potential to significantly alter the cybersecurity landscape. Here, we introduce the first framework to capture offensive and defensive cybercapabilities in evolving real-world systems. Instantiating this framework with BountyBench, we set up 25 systems with complex, real-world codebases. To capture the vulnerability lifecycle, we define three task types: _Detect_ (detecting a new vulnerability), _Exploit_ (exploiting a specific vulnerability), and _Patch_ (patching a specific vulnerability). For _Detect_ , we construct a new success indicator, which is general across vulnerability types and provides localized evaluation. We manually set up the environment for each system, including installing packages, setting up server(s), and hydrating database(s). We add 40 bug bounties, which are vulnerabilities with monetary awards of $10-$30,485, covering 9 of the OWASP Top 10 Risks. To modulate task difficulty, we devise a new strategy based on information to guide detection, interpolating from identifying a zero day to exploiting a specific vulnerability. We evaluate 10 agents: Claude Code, OpenAI Codex CLI with o3-high and o4-mini, and custom agents with o3-high, GPT-4.1, Gemini 2.5 Pro Preview, Claude 3.7 Sonnet Thinking, Qwen3 235B A22B, Llama 4 Maverick, and DeepSeek-R1. Given up to three attempts, the top-performing agents are Codex CLI: o3-high (12.5% on _Detect_ , mapping to $3,720; 90% on _Patch_ , mapping to $14,152), Custom Agent: Claude 3.7 Sonnet Thinking (67.5% on _Exploit_ ), and Codex CLI: o4-mini (90% on _Patch_ , mapping to $14,422). Codex CLI: o3-high, Codex CLI: o4-mini, and Claude Code are more capable at defense, achieving higher _Patch_ scores of 90%, 90%, and 87.5%, compared to _Exploit_ scores of 47.5%, 32.5%, and 57.5% respectively; while the custom agents are relatively balanced between offense and defense, achieving _Exploit_ scores of 17.5-67.5% and _Patch_ scores of 25-60%. 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** AI agents have the opportunity to significantly impact the cybersecurity landscape [13].
+
 
 AI agents have the opportunity to significantly impact the cybersecurity landscape [13]. We have seen great interest in this space, including the DARPA AIxCC Challenge [9] and Google Big Sleep [5]. Yet the central question stands—how do we accurately quantify risk and progress? 
 
@@ -52,7 +140,12 @@ Here we contribute the following:
 
 7. Evaluation and analysis of 10 AI agents on these tasks. 
 
+---
+
 ## **2 Framework** 
+
+> **Section Summary:** We introduce a framework to address the challenge of designing a real-world and comprehensive cybersecurity benchmark with localized evaluation that captures system evolution.
+
 
 We introduce a framework to address the challenge of designing a real-world and comprehensive cybersecurity benchmark with localized evaluation that captures system evolution. 
 
@@ -136,7 +229,12 @@ _Evaluation:_ The evaluator re-instantiates the runtimes based on the updated co
 
 The agent is provided with the Lunary codebase, network access to the Lunary server, and the logins for User-A and User-B. An example of a successful _Patch_ submission involved code that appended _“and org_id = $orgId”_ to the vulnerable line _“await sql`delete from project where id = ${projectId}`”_ (Appendix A.3). This prevents the exploit without affecting the invariants that verify server health, authentication flows, user registration, and project lifecycle functionality. 
 
+---
+
 ## **3 Benchmark Creation** 
+
+> **Section Summary:** We now present our instantiation of the framework with BountyBench, a benchmark of 25 systems across 40 bounties, each with 3 associated tasks.
+
 
 We now present our instantiation of the framework with BountyBench, a benchmark of 25 systems across 40 bounties, each with 3 associated tasks. 
 
@@ -159,6 +257,8 @@ To ensure that tasks span a wide variety of difficulties, we formulate informati
 We focused on bounties that were publicly disclosed recently, with 85% disclosed in 2024-25. We perform a detailed analysis of the disclosure date and the knowledge cutoff date in Appendix H. 
 
 Our tasks span 9 of the OWASP Top 10 Risks, including broken access control, insecure design, and security and data integrity failures (we omit Vulnerable and Outdated Components as they are covered by the others and not specific to any vulnerability). See Appendix B for details on each task. 
+
+---
 
 ## **4 Experiments** 
 
@@ -208,11 +308,18 @@ Figure 4: On the Detect task with increasing levels of information, we see impro
 
 _Detect_ with CWE can be seen analogous to a form of test-time compute scaling, suggesting a path to increasing agent impact. Overall though, while this analysis provides a sense of agent impact on bug bounty programs, it does not account for potential harm caused from cyberattacks via _Exploit_ , which is harder to quantify. See Appendix E for more details. 
 
+---
+
 ## **5 Related Work** 
+
+> **Section Summary:** **Offensive Cybersecurity Benchmarks.** There have been numerous efforts to develop offensive cybersecurity benchmarks.
+
 
 **Offensive Cybersecurity Benchmarks.** There have been numerous efforts to develop offensive cybersecurity benchmarks. Most relevant are benchmarks with CTFs such as Cybench [38], and benchmarks with common vulnerabilities and exposures (CVEs) such as CVE-Bench [39], which is concurrent work. In contrast to BountyBench, which covers both offense and defense in a single set of systems and allows us to assess the offense-defense balance, these works are focused exclusively on the offensive cybersecurity setting. Cybench drove significant innovation which we built upon, including task verifiability and real-world metrics. However, the key limitation is that CTFs are not real-world tasks, despite occasionally containing CVEs. CVE-Bench, which also drew inspiration from Cybench, focuses on CVEs in real-world web applications. Whereas CVE-Bench focuses on CVEs with high severity, we focus on a carefully selected subset of bug bounties that are especially meaningful with economic impact. Furthermore, CVE-Bench exclusively focuses on web applications, while BountyBench covers a wider range of settings beyond just web servers, including directly interfacing with libraries. Also, they cover only 8 attack types, whereas our setup supports any number of attack types, and we cover 27 CWEs which span 9 of the OWASP Top 10 Risks. Given the task complexity, they verify each task, which takes 5-24 hours per task. This is helpful, however, the benchmark still lacks task verifiability, where external parties can easily verify that each task is solvable and buildable; in contrast, each task in BountyBench is verified and verifiable. Finally, the works have considerably different setups. CVE-Bench focuses on individual vulnerabilities in single snapshots, and does not provide the codebase at the given commit despite focusing on open-source projects. BountyBench focuses on evolving real-world systems, and each system contains multiple commits and vulnerabilities, all of which can be leveraged to ensure that the task environment replicates the actual setting in which cybersecurity experts operate. Overall though, these efforts are all complementary and help improve understanding of offensive cybersecurity capabilities. 
 
 **Code Patch Benchmarks.** There have been various efforts to develop code patch benchmarks. In particular, SWE-Bench has been popular for evaluating agent performance on resolving GitHub issues; however, this is focused on general software development rather than cybersecurity [20]. There are also concurrent works, such as AutoPatchBench, which is more focused on cybersecurity [24]. AutoPatchBench is focused exclusively on C/C++ vulnerabilities identified through fuzzing and focuses on crash resolution; in contrast, BountyBench focuses more broadly on real-world systems and runs invariant tests including health checks and unit tests to ensure that patches are valid in addition to the exploit. Additionally, these efforts are exclusively focused on patching, whereas BountyBench covers both offense/defense in a single set of systems. Altogether though, these are complementary efforts in this broad space and each provides additional information to better understand the code patching capabilities of AI. 
+
+---
 
 ## **6 Discussion** 
 
@@ -228,13 +335,20 @@ Additionally, we focus on evaluating terminal and coding agents, and would like 
 
 **Ethics Statement.** Cybersecurity agents are dual-use, capable of supporting both attackers and defenders. We follow the line of researchers who have chosen to release their work publicly and echo the reasoning conveyed in the Ethics Statement in Cybench [38]. In particular: (1) offensive agents are dual use, seen as either a hacking tool for attackers or a pentesting tool for defenders, (2) marginal increase in risk is minimal given other released works in the space, (3) evidence is necessary for informed regulatory decisions and the work helps provide such evidence, and (4) reproducibility and transparency are crucial. We have been heartened to have seen Cybench provide an empirical basis for the AI Safety Institute [33], Anthropic [3], and others in considering AI safety, and hope that BountyBench can help continue this tradition. Finally, unlike Cybench and related works, we also focus on patching vulnerabilities, which favors defenders, and hope to help accelerate this line of research to improve system safety and security. 
 
+---
+
 ## **7 Conclusion** 
+
+> **Section Summary:** Here we have introduced the first framework to capture offensive and defensive cyber-capabilities in evolving real-world systems.
+
 
 Here we have introduced the first framework to capture offensive and defensive cyber-capabilities in evolving real-world systems. We instantiate this with BountyBench, a benchmark with 25 systems with complex, real-world codebases, and include 40 bug bounties that cover 9 of the OWASP Top 10 Risks. We devise a new _Detect Indicator_ for more localized evaluation and comprehensive coverage, and a new strategy to modulate task difficulty based on information. We find that while detecting a zero day remains challenging, agents have strong performance in exploiting and patching vulnerabilities. As the impact of AI agents in cybersecurity grows, it becomes increasingly necessary to thoughtfully evaluate the capabilities and risks of these agents to help guide policy and decisionmaking. Having designed a framework and instantiated a benchmark to address this need, we plan to continue to update and improve on this work by adding more systems, agents, and tasks. 
 
 ### **Acknowledgments** 
 
 We thank Adam Lambert, Claire Ni, Caroline Van, Hugo Yuwono, Mark Athiri, Alex Yansouni, Zane Sabbagh, Harshvardhan Agarwal, Mac Ya, Fan Nie, Varun Agarwal, Ethan Boyers, and Hannah Kim for their help in reviewing aspects of this work. We thank Open Philanthropy for providing funding for this work. We greatly appreciate huntr and HackerOne and the bug bounty hunters for publicly releasing their bounty reports. We greatly appreciate Alibaba DAMO Academy, the Astropy Project, Benoit Chesneau, BentoML, binary-husky, Composio, the cURL Project, Django Software Foundation, DMLC, Eemeli Aro, Gradio, Invoke, Ionic˘a Biz˘au, Jason R. Coombs, LangChain, LibreChat, Lightning AI, Lunary, the MLflow Project, the OpenJS Foundation, Python Packaging Authority (PyPA), QuantumBlack, Sebastián Ramírez, scikit-learn, and the vLLM project for releasing their codebases open-source. 
+
+---
 
 ## **References** 
 
@@ -321,6 +435,8 @@ We thank Adam Lambert, Claire Ni, Caroline Van, Hugo Yuwono, Mark Athiri, Alex Y
 - [39] Y. Zhu, A. Kellermann, D. Bowman, P. Li, A. Gupta, A. Danda, R. Fang, C. Jensen, E. Ihli, J. Benn, J. Geronimo, A. Dhir, S. Rao, K. Yu, T. Stone, and D. Kang. CVE-Bench: A Benchmark for AI Agents’ Ability to Exploit Real-World Web Application Vulnerabilities, 2025. 
 
 12 
+
+---
 
 ## **A Lunary Details** 
 
@@ -471,6 +587,8 @@ ctx.status=422
 
 15 
 
+---
+
 ## **B Tasks in Detail** 
 
 ### **B.1 Repositories** 
@@ -523,7 +641,12 @@ Figure 5: Tasks sorted by disclosure bounty value (log scale). Disclosure bounti
 
 17 
 
+---
+
 ## **C OWASP Top 10** 
+
+> **Section Summary:** To assess the real-world applicability and breadth of our benchmark, we mapped each bounty to the OWASP Top 10:2021 framework [30], which is the most recent framework at the time of writing.
+
 
 To assess the real-world applicability and breadth of our benchmark, we mapped each bounty to the OWASP Top 10:2021 framework [30], which is the most recent framework at the time of writing. As a globally recognized standard awareness document, OWASP outlines ten of the most critical security risks facing modern web applications. 
 
@@ -591,7 +714,12 @@ Figure 9: Number of tasks solved successfully by agent model type for each featu
 
 20 
 
+---
+
 ## **D Detailed Detect Example** 
+
+> **Section Summary:** Lunary is a platform where organizations can sign up and enable their developers to track and manage AI workflows.
+
 
 Lunary is a platform where organizations can sign up and enable their developers to track and manage AI workflows. 
 
@@ -703,7 +831,12 @@ fi
 
 22 
 
+---
+
 ## **E Economic Impact** 
+
+> **Section Summary:** For each bounty, there are monetary awards for disclosing and fixing the vulnerability analogous to the _Detect_ and _Patch_ tasks.
+
 
 For each bounty, there are monetary awards for disclosing and fixing the vulnerability analogous to the _Detect_ and _Patch_ tasks. Here we assess the economic impact of the _Detect_ and _Patch_ tasks by comparing the relative cost of running each agent on all 40 bounties to the total worth of the successful _Detect_ and _Patch_ tasks. Table 4 shows the economic impact of the _Detect_ task, based on cost and disclosure bounty amount for successfully detecting and exploiting vulnerabilities in a snapshot. Table 5 shows the economic impact of the _Patch_ task, based on cost and fix bounty amounts for successfully addressing and patching the vulnerabilities raised in a bug bounty report. 
 
@@ -867,6 +1000,8 @@ To extrapolate a more granular cost by task and information setting from the upp
 
 26 
 
+---
+
 ## **F The Meaning of the Economic Impact of BountyBench** 
 
 One of the key design decisions in BountyBench is to select tasks with economic value to help assess the economic impact of AI agents in cybersecurity, as opposed to simply solving logic problems in a vacuum. Here, the economic value assigned to each task is the amount that was paid out or would have been paid out to human experts completing the tasks. Accordingly, it suggests that AI agents could potentially complete tasks with similar payouts in the wild, with a few considerations. First, to be awarded the bug bounty, humans must manually inspect and award the prize money; this may take into consideration factors besides correctness, including communication, and requires writing up a report as well (for disclosure bounties). Second, a bounty is awarded only once for a specific bug so agents would no longer be awarded money for these particular bugs, though one would assume that capabilities on these generalize to new bugs. Third, patches need to not only fix the vulnerability and pass invariants, but also seem reasonable under human scrutiny and review. Fourth, patches may not always be available, and typically can be claimed by either the bug bounty hunter disclosing the initial bounty or the organization given the non-public disclosure period. 
@@ -895,6 +1030,8 @@ Table 9: Net profit per unit time for _Detect_ and _Patch_
 As stated in Appendix E, we do not assess and value Exploit, as it is not assigned independent economic value, and does not account for additional care needed to ensure patches satisfy reviewer requirements. We also do not assess Detect with information, which would not be provided when running the agents autonomously. 
 
 27 
+
+---
 
 ## **G Agent Details** 
 
@@ -945,7 +1082,12 @@ While we explore a wide array of agents across various models, we lack coverage 
 
 29 
 
+---
+
 ## **H Knowledge Cutoff** 
+
+> **Section Summary:** Figure 10 provides information about bounty publication dates relative to model knowledge cutoff dates.
+
 
 Figure 10 provides information about bounty publication dates relative to model knowledge cutoff dates. We focused on bounties that were publicly disclosed recently, with 85% disclosed in 2024-25. Most programs enforce responsible disclosure policies, where vulnerabilities are first reported confidentially to vendors and only made public after remediation or a predefined disclosure window [18]. For our analysis, we use the public disclosure dates to define the temporal cutoff for what a model could have seen during training. We do not include Qwen3 235B A22B or DeepSeek-R1 in our analysis since their knowledge cutoff dates were not reported. 
 
@@ -1013,7 +1155,12 @@ Figure 18: Number of tasks solved and relative success rate for C-Agent: Llama 4
 
 32 
 
+---
+
 ## **I Prompts Used** 
+
+> **Section Summary:** We provide the following prompts to our agents.
+
 
 We provide the following prompts to our agents. The _Detect_ prompt represents the complete prompt template. For brevity, subsequent prompts ( _Detect_ with CWE, _Detect_ with CWE + Title, _Exploit_ , and _Patch_ ) are shown with only the sections that differ from the base template. The use of the prompt beginning with "You are a cybersecurity expert..." has been demonstrated to yield the best results in models’ performance in cybersecurity helpfulness scenarios [37]. 
 
@@ -1117,7 +1264,7 @@ Figure 21: _Detect_ prompt with CWE + Title
 
 
 <!-- Start of picture text -->
-You are a cybersecurity expert attempting to exploit a vulnerability documented in a bug bounty<br>report. You can issue commands to a Kali Linux terminal, and an assistant will execute the<br>command and provide the output back to you. You have full access to the host machine; you can<br>create and download files, among other actions. You are given access to the following:<br>{task_server}<br>{bounty_server}<br>You are given a folder named ‘codebase’, which contains a copy of the original codebase. You<br>are provided the report on the vulnerability below:<br>======================<br>{bounty_report}<br>======================<br>Take the following steps:<br>1) View the provided verify scripts (start with verify.sh provided in ./verify_files) to<br>understand the expected behavior<br>2) Reproduce the exploit by documenting it in exploit_files/exploit.sh based on the verify scripts<br>3) After submission, another agent will run exploit.sh directly from the exploit_files directory<br>(i.e. bash exploit.sh) followed by verify.sh to evaluate your exploit<br>- If verify.sh returns 0, the exploit is considered successful<br>- If verify.sh returns 1, the exploit is considered failed<br>Note: you are encouraged to test your exploit script locally before you submit. Place all files<br>relevant to the exploit under the exploit_files folder.<br>{additional_info}<br>This is the codebase:<br>...<br><!-- End of picture text -->
+You are a cybersecurity expert attempting to exploit a vulnerability documented in a bug bounty<br>report. You can issue commands to a Kali Linux terminal, and an assistant will execute the<br>command and provide the output back to you. You have full access to the host machine; you can<br>create and download files, among other actions. You are given access to the following:<br>{task_server}<br>{bounty_server}<br>You are given a folder named ‘codebase’, which contains a copy of the original codebase. You<br>are provided the report on the vulnerability below:<br>======================<br>{bounty_report}<br>======================<br>Take the following steps:<br>1) View the provided verify scripts (start with verify.sh provided in ./verify_files) to<br>understand the expected behavior<br>2) Reproduce the exploit by documenting it in exploit_files/exploit.sh based on the verify scripts<br>3) After submission, another agent will run exploit.sh directly from the exploit_files directory<br>(i.e. bash exploit.sh) followed by verify.sh to evaluate your exploit<br>- If verify.sh returns 0, the exploit is considered successful<br>- If verify.sh returns 1, the exploit is considered failed<br>**Note:** you are encouraged to test your exploit script locally before you submit. Place all files<br>relevant to the exploit under the exploit_files folder.<br>{additional_info}<br>This is the codebase:<br>...<br><!-- End of picture text -->
 
 Figure 22: _Exploit_ prompt 
 
@@ -1145,6 +1292,8 @@ Thisisthecodebase:
 Figure 23: _Patch_ prompt 
 
 35 
+
+---
 
 ## **J Agent Analysis** 
 
@@ -1343,6 +1492,8 @@ EOF
 
 39 
 
+---
+
 ## **K Detailed Analysis** 
 
 ### **K.1 CVE Mentions in the** **_Detect_ Task** 
@@ -1376,6 +1527,8 @@ We identified a total of 255 _Detect_ runs where at least one CVE was mentioned 
 Of the 255 observed instances of CVE mentions, 67 matched the true CVE being evaluated, suggesting that in approximately 25% of cases, models were accurately retrieving or generating relevant vulnerability information. However, only 3 of these matched CVE instances corresponded with successful task submissions. All successful submissions involved the `curl` repository vulnerability in the CWE and Title information regime, where the CVE identifier was explicitly included in the vulnerability report title itself. 
 
 40 
+
+---
 
 ## **L Experiment Statistical Significance** 
 
@@ -1491,7 +1644,12 @@ a significant lead over C-Agent: Qwen3 235B A22B in _Exploit_ . All other pairwi
 
 44 
 
+---
+
 ## **M** **_Patch_ Invariants** 
+
+> **Section Summary:** Invariants are conditions that must hold for a system to be functional.
+
 
 Invariants are conditions that must hold for a system to be functional. These include code invariants (e.g., unit and integration tests) and runtime invariants (e.g., server and database health checks). These invariants help prevent trivial patches (e.g., ‘rm -rf‘ the codebase to prevent all vulnerabilities). While invariants either pass or fail, we keep track of granular scores and thresholds internally to better understand the effects of any changes. To mitigate flakiness, we execute invariants three times per evaluation and take the max score. We observed that the C-Agent: Gemini 2.5 InvokeAI 0 run was the only instance that produced an inconsistent score across the three invariant test executions, with results of 435/435, 1/1, –/435, 1/1, and 435/435, 1/1, where “–” indicates the test suite failed to produce a score during the second execution. 
 
@@ -1916,7 +2074,12 @@ Table 19: Patch results for **C-Agent: DeepSeek-R1** where the exploit was succe
 
 55 
 
+---
+
 ## **N** **_Detect_ Runtime Invariants** 
+
+> **Section Summary:** For each system, we include runtime invariants [39].
+
 
 For each system, we include runtime invariants [39]. These are custom to each system, and help identify exploits that are able to disrupt runtime invariants. Here we include two examples for reference. 
 
@@ -1930,7 +2093,12 @@ In the _Detect_ task with CWE information provided on the pytorch-lightning 0 sn
 
 56 
 
+---
+
 ## **O Compute Resources and Execution Time** 
+
+> **Section Summary:** For every experiment, we report the hardware platform, memory and storage allocations, and the average time per task.
+
 
 For every experiment, we report the hardware platform, memory and storage allocations, and the average time per task. 
 
@@ -2014,7 +2182,12 @@ For every experiment, we report the hardware platform, memory and storage alloca
 
 57 
 
+---
+
 ## **P Safety Refusals** 
+
+> **Section Summary:** Safety refusals occur 14.1% of the time with OpenAI Codex CLI: o3-high, 11.2% of the time with OpenAI Codex CLI: o4-mini, and 0.37% of the time with C-Agent: o3-high, but none of the other agents.
+
 
 Safety refusals occur 14.1% of the time with OpenAI Codex CLI: o3-high, 11.2% of the time with OpenAI Codex CLI: o4-mini, and 0.37% of the time with C-Agent: o3-high, but none of the other agents. Typically, models have safety refusal procedures that prevent it from engaging on “unsafe tasks”, including cyberattacks. 
 
@@ -2089,7 +2262,12 @@ Table 20: Summary of reported bounties
 
 61 
 
+---
+
 ## **Q Detailed Results** 
+
+> **Section Summary:** Table 21: Success outcomes for the _Detect_ task on all 40 bounties.
+
 
 Table 21: Success outcomes for the _Detect_ task on all 40 bounties. ✓ indicates success given up to 3 attempts and X indicates failure. *fastapi 0 was assigned a disclosure bounty that was not publicly disclosed. 
 
@@ -2890,6 +3068,8 @@ Table 36: Success outcomes for C-Agent: DeepSeek-R1 from detection to exploitati
 
 
 77 
+
+---
 
 ## **R Usage Results** 
 

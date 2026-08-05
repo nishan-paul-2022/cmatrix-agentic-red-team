@@ -1,4 +1,35 @@
-## **Cybersecurity AI: A Game-Theoretic AI for** **_Guiding_ Attack and Defense** 
+# **Cybersecurity AI: A Game-Theoretic AI for** **_Guiding_ Attack and Defense** 
+
+## Table of Contents
+
+- [Cybersecurity AI: A Game-Theoretic AI for Guiding Attack and Defense](#cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and-defense)
+  - [1 Introduction](#1-introduction)
+    - [1.1 State of the Art](#1-1-state-of-the-art)
+    - [1.2 Research Contributions](#1-2-research-contributions)
+  - [2 Background](#2-background)
+    - [2.1 Cybersecurity AI](#2-1-cybersecurity-ai)
+    - [2.2 Game Theory in Cybersecurity: Cut-the-Rope](#2-2-game-theory-in-cybersecurity-cut-the-rope)
+  - [3 Game-Theoretic AI for Guiding Attack and Defense](#3-game-theoretic-ai-for-guiding-attack-and-defense)
+    - [3.1 Game-Theoretic AI Analysis via Generative Cut-The-Rope (G-CTR)](#3-1-game-theoretic-ai-analysis-via-generative-cut-the-rope-g-ctr)
+    - [3.2 Game-Theoretic AI Digest for Guiding Attack and Defense](#3-2-game-theoretic-ai-digest-for-guiding-attack-and-defense)
+  - [4 Results](#4-results)
+    - [4.1 Qualitative Comparison: Graph Quality of Human Experts vs. LLMs](#4-1-qualitative-comparison-graph-quality-of-human-experts-vs-llms)
+    - [4.2 Quantitative Evaluation: Performance of LLM Automation vs. Gold Standard/Human Experts](#4-2-quantitative-evaluation-performance-of-llm-automation-vs-gold-standard-human-experts)
+    - [4.3 Game-Theoretic AI Digest Results for Guiding Attack and Defense](#4-3-game-theoretic-ai-digest-results-for-guiding-attack-and-defense)
+    - [4.4 Ablations](#4-4-ablations)
+  - [5 Discussion](#5-discussion)
+  - [6 Conclusion](#6-conclusion)
+  - [7 Acknowledgements](#7-acknowledgements)
+  - [References](#references)
+  - [A Appendix 1: A Refresher on Cut-The-Rope (CTR) and Game Theory [6]](#a-appendix-1-a-refresher-on-cut-the-rope-ctr-and-game-theory-6)
+  - [B Appendix 2: Attack Graph Gold Standard Dataset](#b-appendix-2-attack-graph-gold-standard-dataset)
+  - [C Appendix 3: kolesa.kz](#c-appendix-3-kolesa-kz)
+  - [D Appendix 3: mercadolibre.com](#d-appendix-3-mercadolibre-com)
+  - [E Appendix 3: <u>pornbox.com</u>](#e-appendix-3-u-pornbox-com-u)
+  - [F Appendix 4: hm.com](#f-appendix-4-hm-com)
+  - [G Appendix 5: media.guilded.gg](#g-appendix-5-media-guilded-gg)
+
+---
 
 **Víctor Mayoral-Vilches**<sup>1</sup> **, María Sanz-Gómez**<sup>1</sup> **, Francesco Balassone**<sup>1</sup> **, Stefan Rass**<sup>2</sup> **, Lidia Salas-Espejo**<sup>1</sup> **, Benjamin Jablonski**<sup>2</sup> **, Luis Javier Navarrete-Lozano**<sup>1</sup> **, Maite del Mundo de Torres**<sup>1</sup> **and Cristóbal R. J. Veas Chavez**<sup>1</sup> 
 
@@ -10,7 +41,7 @@
 
 ###### **Abstract** 
 
-AI-driven penetration testing now executes thousands of actions per hour but still lacks the strategic intuition humans apply in competitive security. To build cybersecurity superintelligence–Cybersecurity AI exceeding best human capability—such strategic intuition must be embedded into agentic reasoning processes. We present Generative Cut-the-Rope (G-CTR), a game-theoretic guidance layer that extracts attack graphs from agent’s context, computes Nash equilibria with effort-aware scoring, and feeds a concise digest back into the LLM loop _guiding_ the agent’s actions. Across five real-world exercises, G-CTR matches 70–90% of expert graph structure while running 60–245 _×_ faster and over 140 _×_ cheaper than manual analysis. In a 44-run cyber-range, adding the digest lifts success from 20.0% to 42.9%, cuts cost-per-success by 2.7 _×_ , and reduces behavioral variance by 5.2 _×_ . In Attack-andDefense exercises, a shared digest produces the **Purple** agent, winning roughly 2:1 over the LLM-only baseline and 3.7:1 over independently guided teams. This closed-loop guidance is what produces the breakthrough: it reduces ambiguity, collapses the LLM’s search space, suppresses hallucinations, and keeps the model anchored to the most relevant parts of the problem, yielding large gains in success rate, consistency, and reliability. 
+> AI-driven penetration testing now executes thousands of actions per hour but still lacks the strategic intuition humans apply in competitive security. To build cybersecurity superintelligence–Cybersecurity AI exceeding best human capability—such strategic intuition must be embedded into agentic reasoning processes. We present Generative Cut-the-Rope (G-CTR), a game-theoretic guidance layer that extracts attack graphs from agent’s context, computes Nash equilibria with effort-aware scoring, and feeds a concise digest back into the LLM loop _guiding_ the agent’s actions. Across five real-world exercises, G-CTR matches 70–90% of expert graph structure while running 60–245 _×_ faster and over 140 _×_ cheaper than manual analysis. In a 44-run cyber-range, adding the digest lifts success from 20.0% to 42.9%, cuts cost-per-success by 2.7 _×_ , and reduces behavioral variance by 5.2 _×_ . In Attack-andDefense exercises, a shared digest produces the **Purple** agent, winning roughly 2:1 over the LLM-only baseline and 3.7:1 over independently guided teams. This closed-loop guidance is what produces the breakthrough: it reduces ambiguity, collapses the LLM’s search space, suppresses hallucinations, and keeps the model anchored to the most relevant parts of the problem, yielding large gains in success rate, consistency, and reliability. 
 
 ### **1 Introduction** 
 
@@ -800,7 +831,7 @@ The attacker succeeds if none of the nodes they use are inspected during the rou
 ![](images/41-cybersecurity-ai-a-game-theoretic-ai-for-guiding-attack-and.pdf-0031-20.png)
 
 
-##### **Game objective: optimal defender strategy** 
+##### **Game **objective:** optimal defender strategy** 
 
 This is a zero-sum game: the attacker’s gain is the defender’s loss. The defender seeks the strategy _σd_<sup>_⋆_thatminimizestheattacker’sbest-casechanceofsuccessacrossallpossibleattackpathsand</sup> starting points. Formally, the optimal defense is: 
 

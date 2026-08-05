@@ -1,5 +1,62 @@
 # **What Makes a Good LLM Agent for Real-world Penetration Testing?** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background](#2-background)
+- [2.1 Penetration Testing](#2-1-penetration-testing)
+- [2.2 Benchmarking Penetration Testing](#2-2-benchmarking-penetration-testing)
+- [2.3 LLM-Based Agents](#2-3-llm-based-agents)
+- [3 Understanding LLM Agent Failures](#3-understanding-llm-agent-failures)
+- [3.1 Taxonomy and Evaluation of LLM-based Penetration Testing](#3-1-taxonomy-and-evaluation-of-llm-based-penetration-testing)
+  - [3.1.1 Taxonomy](#3-1-1-taxonomy)
+  - [3.1.2 Evaluation Setup](#3-1-2-evaluation-setup)
+- [3.2 Findings](#3-2-findings)
+  - [3.2.1 Agent Architecture Convergence](#3-2-1-agent-architecture-convergence)
+  - [3.2.2 Two Distinct Failure Categories](#3-2-2-two-distinct-failure-categories)
+- [3.3 Analysis and Design Implications](#3-3-analysis-and-design-implications)
+  - [3.3.1 Root Cause: Missing Difficulty Assessment](#3-3-1-root-cause-missing-difficulty-assessment)
+  - [3.3.2 Design Implications](#3-3-2-design-implications)
+- [4 Design of PENTESTGPT V2](#4-design-of-pentestgpt-v2)
+- [4.1 Overview](#4-1-overview)
+- [4.2 Tool and Skill Layer](#4-2-tool-and-skill-layer)
+- [4.3 Task Difficulty Assessment (TDA)](#4-3-task-difficulty-assessment-tda)
+  - [4.3.1 TDA Dimensions](#4-3-1-tda-dimensions)
+- [4.4 Evidence-Guided Attack Tree Search (EGATS)](#4-4-evidence-guided-attack-tree-search-egats)
+  - [4.3.2 Task Difficulty Index](#4-3-2-task-difficulty-index)
+  - [4.4.1 Attack Tree Structure](#4-4-1-attack-tree-structure)
+  - [4.4.2 The EGATS Algorithm](#4-4-2-the-egats-algorithm)
+- [4.5 Memory Subsystem](#4-5-memory-subsystem)
+- [5 Evaluation](#5-evaluation)
+- [5.1 Experimental Setup](#5-1-experimental-setup)
+- [5.2 RQ1: Overall Performance](#5-2-rq1-overall-performance)
+- [5.3 RQ2: Ablation Study](#5-3-rq2-ablation-study)
+- [5.4 RQ3: Strategy Analysis](#5-4-rq3-strategy-analysis)
+  - [5.4.1 Search Behavior](#5-4-1-search-behavior)
+  - [5.4.2 Case Study: HTB Falafel](#5-4-2-case-study-htb-falafel)
+  - [5.4.3 Failure Case: PlayerTwo](#5-4-3-failure-case-playertwo)
+- [5.5 RQ4: Real-World Deployment](#5-5-rq4-real-world-deployment)
+  - [5.5.1 Cost Analysis](#5-5-1-cost-analysis)
+  - [5.5.2 Live Competition Deployment](#5-5-2-live-competition-deployment)
+- [6 Discussion](#6-discussion)
+- [6.1 Limitations and Threats to Validity](#6-1-limitations-and-threats-to-validity)
+- [6.2 What Remains Hard](#6-2-what-remains-hard)
+- [7 Conclusion](#7-conclusion)
+- [References](#references)
+- [A Surveyed LLM-Based Penetration Testing Systems](#a-surveyed-llm-based-penetration-testing-systems)
+- [B Tool and Skill Layer: Supported Tools](#b-tool-and-skill-layer-supported-tools)
+- [C Evidence Confidence Scoring](#c-evidence-confidence-scoring)
+- [D Parameter Derivation and Validation](#d-parameter-derivation-and-validation)
+- [D.1 Validation Dataset](#d-1-validation-dataset)
+- [D.2 TDI Weight Selection](#d-2-tdi-weight-selection)
+- [D.3 Mode Selection Thresholds](#d-3-mode-selection-thresholds)
+- [D.4 Pruning Parameters](#d-4-pruning-parameters)
+- [D.5 UCB Difficulty Penalty](#d-5-ucb-difficulty-penalty)
+- [D.6 Context Load Degradation Study](#d-6-context-load-degradation-study)
+
+---
+
 Gelei Deng<sup>1</sup> , Yi Liu<sup>1</sup> , Yuekang Li<sup>2</sup> , Ruozhao Yang<sup>3</sup> , Xiaofei Xie<sup>3</sup> , Jie Zhang<sup>4</sup> , Han Qiu<sup>5</sup> , Tianwei Zhang<sup>1</sup> 
 
 > 1 _Nanyang Technological University,_ 2 _University of New South Wales,_ 3 _Singapore Management University,_ 
@@ -8,11 +65,19 @@ Gelei Deng<sup>1</sup> , Yi Liu<sup>1</sup> , Yuekang Li<sup>2</sup> , Ruozhao Y
 
 ## **Abstract** 
 
+> **Section Summary:** LLM-based agents show promise for automating penetration testing, yet the reported performance varies widely across systems and benchmarks.
+
+
 LLM-based agents show promise for automating penetration testing, yet the reported performance varies widely across systems and benchmarks. We analyze 28 LLM-based penetration testing systems and evaluate five representative implementations across three benchmarks of increasing complexity. Our analysis reveals two distinct failure modes: _Type A failures_ stem from capability gaps (missing tools, inadequate prompts) that engineering readily addresses, while _Type B failures_ persist regardless of tooling due to planning and state management limitations. We show that Type B failures share a root cause that is largely invariant to the underlying LLM: agents lack real-time task difficulty estimation. As a result, agents misallocate effort, over-commit to low-value branches, and exhaust context before completing attack chains. 
 
 Based on this insight, we present PENTESTGPT V2, a penetration testing agent that couples strong tooling with difficultyaware planning. A Tool and Skill Layer eliminates Type A failures through typed interfaces and retrieval-augmented knowledge. A Task Difficulty Assessment (TDA) mechanism addresses Type B failures by estimating tractability through four measurable dimensions (horizon estimation, evidence confidence, context load, and historical success) and uses these estimates to guide exploration-exploitation decisions within an Evidence-Guided Attack Tree Search (EGATS) framework. PENTESTGPT V2 achieves up to 91% task completion on CTF benchmarks with frontier models (39 to 49% relative improvement over baselines) and compromises 4 of 5 hosts on the GOAD Active Directory environment versus 2 by prior systems. These results show that difficulty-aware planning yields consistent end-to-end gains across models and addresses a limitation that model scaling alone does not eliminate. 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** Penetration testing is essential for assessing organizational security, yet the demand for skilled practitioners far exceeds
+
 
 Penetration testing is essential for assessing organizational security, yet the demand for skilled practitioners far exceeds 
 
@@ -46,13 +111,25 @@ tion testing remains distant. We discuss these boundaries and propose evaluation
 
 - **Open-source artifacts** . We release PENTESTGPT V2’s implementation, tool interfaces, and evaluation scripts to support reproducibility [3]. 
 
+---
+
 ## **2 Background** 
+
+---
 
 ## **2.1 Penetration Testing** 
 
+> **Section Summary:** Penetration testing identifies security vulnerabilities by simulating real-world attackers in blackbox/greybox scenarios.
+
+
 Penetration testing identifies security vulnerabilities by simulating real-world attackers in blackbox/greybox scenarios. Standard methodologies decompose engagements into phases: _reconnaissance_ (information gathering), _enumeration_ (identifying services and entry points), _exploitation_ (gaining access), and _post-exploitation_ (privilege escalation and lateral movement) [26, 28]. This workflow follows a characteristic search pattern: _breadth-first exploration_ over attack surfaces followed by _depth-first exploitation_ along promising paths. Testers continuously decide which paths to pursue, when to abandon unproductive avenues, and how to integrate new discoveries. This interleaving of exploration and exploitation motivates our design (§4). 
 
+---
+
 ## **2.2 Benchmarking Penetration Testing** 
+
+> **Section Summary:** Evaluating penetration testing capabilities presents methodological challenges.
+
 
 Evaluating penetration testing capabilities presents methodological challenges. Real-world engagements involve social engineering, multi-target reconnaissance, and complex business logic that cannot be easily replicated, while commercial tests produce confidential reports tied to proprietary systems. Standardized benchmarks address these con- 
 
@@ -62,15 +139,27 @@ straints: _VulnHub_ [1] provides downloadable vulnerable VMs, _HTB_ [11] offers 
 
 Benchmarks differ from real-world targets in important ways. CTF challenges are designed to be solvable with a single attack path, whereas real systems may have no exploitable vulnerabilities or require broad discovery across a large attack surface. GOAD (Game of Active Directory) [25] is the closest approximation to realistic enterprise environments among current benchmarks, requiring chained attack techniques across multi-domain Windows networks, though it still abstracts away social engineering and time pressure. We interpret benchmark results as measuring specific technical capabilities rather than predicting overall real-world effectiveness. 
 
+---
+
 ## **2.3 LLM-Based Agents** 
 
 The standard approach for deploying LLMs as autonomous agents augments them with _tool use_ [31] that invokes external functions such as shell commands or APIs, and _agentic scaffolding_ that structures the interaction loop [15, 34]. Penetration testing is a natural application domain for such agents: it requires combining extensive domain knowledge with sequential decision-making, tool orchestration, and adaptive strategy. Early work explores LLMs as copilots suggesting next steps to human operators [8, 29], whereas more recent systems position LLMs as autonomous agents executing reconnaissance, exploitation, and post-exploitation workflows [17, 30, 32]. These agents must handle heterogeneous tool outputs, maintain coherent strategies across many interaction steps, and decide when to pivot between attack paths. These challenges push against the limits of current LLM capabilities. Similar limitations appear in software engineering [15] and web navigation [34], suggesting that the barriers are not specific to penetration testing. 
 
+---
+
 ## **3 Understanding LLM Agent Failures** 
+
+> **Section Summary:** _How far are we from achieving real-world penetration testing with LLM agents?_ To answer this question, we conduct an empirical analysis of existing LLM-based penetration testing systems.
+
 
 _How far are we from achieving real-world penetration testing with LLM agents?_ To answer this question, we conduct an empirical analysis of existing LLM-based penetration testing systems. Our goals are to (1) understand what drives reported performance improvements, (2) identify failure modes through controlled evaluation, and (3) establish a framework for distinguishing tractable tasks from intractable challenges. 
 
+---
+
 ## **3.1 Taxonomy and Evaluation of LLM-based Penetration Testing** 
+
+> **Section Summary:** We survey LLM-based penetration testing systems, identifying 28 candidates published between 2023–2025.
+
 
 We survey LLM-based penetration testing systems, identifying 28 candidates published between 2023–2025. Inclusion criteria require systems to use LLMs as a core component 
 
@@ -103,7 +192,12 @@ For each system-benchmark pair, we evaluate with GPT4o, GPT-5, Gemini-3-Flash, a
 
 3 
 
+---
+
 ## **3.2 Findings** 
+
+> **Section Summary:** Table 2 summarizes task completion rates across all systemmodel-benchmark combinations.
+
 
 Table 2 summarizes task completion rates across all systemmodel-benchmark combinations. We provide in-depth experimental results analysis below. 
 
@@ -182,13 +276,21 @@ The distribution of failure types varies systematically with task complexity. On
 
 **Finding 2:** Failures partition into (a) _Type A: capability gaps_ , i.e., missing tools and knowledge addressable through engineering, and (b) _Type B: complexity barriers_ , i.e., search strategy and state management failures that persist despite adequate capabilities. These two categories require different solutions. 
 
+---
+
 ## **3.3 Analysis and Design Implications** 
+
+> **Section Summary:** We now present further analysis and design implications.
+
 
 We now present further analysis and design implications. 
 
 ### **3.3.1 Root Cause: Missing Difficulty Assessment** 
 
-Type B failures share a common root cause: agents cannot distinguish tractable from intractable tasks in real time. _Premature commitment_ occurs because agents cannot estimate whether a path requires 3 or 30 steps; without this estimate, they persist on unproductive branches indefinitely. _Exploration-exploitation imbalance_ occurs because agents lack metrics for when reconnaissance is sufficient; they cannot determine whether gathered evidence justifies transitioning to exploitation. _Chain failures_ occur partly because agents cannot assess whether their accumulated context remains adequate for the current task; critical information may have been lost or degraded without the agent’s awareness. For example, context forgetting occurs because agents lack difficulty metrics: without tracking context load, they cannot predict when accumulated history will overwhelm the model’s effective memory, leading to silent degradation of reasoning quality. 
+Type B failures share a common root cause: agents cannot distinguish tractable from intractable tasks in real time. _Premature commitment_ occurs because agents cannot estimate whether a path requires 3 or 30 steps:
+- without this estimate, they persist on unproductive branches indefinitely. _Exploration-exploitation imbalance_ occurs because agents lack metrics for when reconnaissance is sufficient
+- they cannot determine whether gathered evidence justifies transitioning to exploitation. _Chain failures_ occur partly because agents cannot assess whether their accumulated context remains adequate for the current task
+- critical information may have been lost or degraded without the agent’s awareness. For example, context forgetting occurs because agents lack difficulty metrics: without tracking context load, they cannot predict when accumulated history will overwhelm the model’s effective memory, leading to silent degradation of reasoning quality.
 
 What would difficulty assessment require in practice? We identify four measurable dimensions: _horizon estimation_ (remaining steps to goal), _evidence confidence_ (certainty about current state), _context load_ (fraction of context window consumed), and _historical success_ (past performance on similar branches). These dimensions are measurable during execution, unlike abstract “difficulty” which is only knowable posthoc. An agent that tracks these signals can decide when to persist, when to pivot, and when to prune. 
 
@@ -263,13 +365,22 @@ _Addressing Type B failures_ requires a different approach: real-time difficulty
 
 Neither approach alone is sufficient. Capability engineering yields strong short-horizon performance but fails on complex tasks where navigation becomes the bottleneck. Planning innovation without adequate tooling produces agents that reason well but cannot execute. Effective systems must address both failure categories simultaneously, and in particular, agents need the ability to assess task difficulty in real time to avoid exploration-exploitation imbalance and chain failures. 
 
+---
+
 ## **4 Design of PENTESTGPT V2** 
 
+---
+
 ## **4.1 Overview** 
+
+> **Section Summary:** We present PENTESTGPT V2, designed around the analysis in §3.3 to address both failure categories through dedicated architectural components.
+
 
 We present PENTESTGPT V2, designed around the analysis in §3.3 to address both failure categories through dedicated architectural components. Figure 2 provides its architectural overview. PENTESTGPT V2 is a _single-agent_ system that communicates with the environment consistently, operating over different components to complete penetration testing. It consists of the following modules: (1) A _Tool and Skill Layer_ that eliminates Type A failures through structured tool interfaces and knowledge augmentation (§4.2). (2) A _Task Difficulty Assessment_ (TDA) mechanism that estimates tractability in real time (§4.3), integrated into an _Evidence-Guided Attack Tree Search_ (EGATS) algorithm that replaces the traditional PTT structure for exploration-exploitation decisions (§4.4). (3) A _Memory Subsystem_ that maintains state across attack phases to prevent context forgetting (§4.5). 
 
 Given a target, PENTESTGPT V2 ❶ initializes an attack tree with the target as the root node. At each step, the EGATS planner consults the TDA module to select the current attack goal and updates the memory subsystem to preserve context. ❷ The selected goal is translated into concrete actions via the Tool and Skill Layer, and ❸ the resulting commands are executed in the test environment. ❹ Execution results are parsed and incorporated back into the attack tree and memory state, feeding into subsequent planning iterations until the penetration testing process terminates. Below we detail each component. 
+
+---
 
 ## **4.2 Tool and Skill Layer** 
 
@@ -287,7 +398,12 @@ careful engineering to ensure LLM agents interact with security tools consistent
 
 These three mechanisms together provide a unified, reliable interface between LLM agents and security tools. None of these techniques is novel in isolation; their contribution lies in the combination, which minimizes tool invocation errors that otherwise cascade into attack failures. Our ablation study (§5.3) shows that this engineering effort yields substantial gains on capability-limited tasks: the Tool Layer alone improves XBOW completion by 14% (from 54% to 68%), allowing agents to focus their reasoning on the harder problems of planning and strategy. 
 
+---
+
 ## **4.3 Task Difficulty Assessment (TDA)** 
+
+> **Section Summary:** Our analysis in §3.3 identifies the inability to assess task difficulty as the root cause of Type B failures.
+
 
 Our analysis in §3.3 identifies the inability to assess task difficulty as the root cause of Type B failures. Premature commit- 
 
@@ -318,6 +434,8 @@ Table 4: Search strategy comparison. EGATS is the only approach that combines ex
 |**EGATS**|Tree (ext.)|Evidence|✓|✓|
 
 
+
+---
 
 ## **4.4 Evidence-Guided Attack Tree Search (EGATS)** 
 
@@ -377,7 +495,12 @@ After selection, EGATS computes TDI and switches between BFS (reconnaissance) an
 
 Pruning removes branches when TDI exceeds 0.8 after three attempts, which prevents infinite loops on intractable paths. To avoid premature pruning, a credential propagation mechanism re-evaluates pruned branches when new credentials are discovered that may satisfy their preconditions. 
 
+---
+
 ## **4.5 Memory Subsystem** 
+
+> **Section Summary:** Long-context forgetting is a primary cause of Type B failures (§3.2).
+
 
 Long-context forgetting is a primary cause of Type B failures (§3.2). The Memory Subsystem addresses this with a hybrid architecture that separates persistent state from conversational context, and integrates with TDA via the context load dimension. 
 
@@ -387,7 +510,12 @@ _Selective context injection_ replaces full history maintenance. When operating 
 
 _Branch summaries_ compress detailed execution history when switching branches. Each summary preserves the current status (active, pruned, completed), findings (discovered credentials, confirmed vulnerabilities), TDI at time of suspension, and recommended next actions. TDI is stored with each summary to inform revisit decisions: when new credentials are discovered elsewhere in the tree, branches with matching preconditions and previously high TDI are re-evaluated for potential reactivation. 
 
+---
+
 ## **5 Evaluation** 
+
+> **Section Summary:** We assess the performance of PENTESTGPT V2 through four research questions:
+
 
 We assess the performance of PENTESTGPT V2 through four research questions: 
 
@@ -399,7 +527,12 @@ We assess the performance of PENTESTGPT V2 through four research questions:
 
 - **RQ4** : Can PENTESTGPT V2 be practically deployed for real-world penetration testing? 
 
+---
+
 ## **5.1 Experimental Setup** 
+
+> **Section Summary:** PENTESTGPT V2 is implemented in Python ( _∼_ 8,500 lines), with the Tool Layer, TDA-EGATS Planner, and Memory Subsystem as separate modules.
+
 
 PENTESTGPT V2 is implemented in Python ( _∼_ 8,500 lines), with the Tool Layer, TDA-EGATS Planner, and Memory Subsystem as separate modules. The implementation is open- 
 
@@ -423,7 +556,12 @@ We compare against four baseline systems: PentestGPT v1.0 [8], AutoPT [32], Pent
 
 and trial statistics ( _µ_ : mean, σ: standard deviation across the three trials) to characterize variance. In total, we conduct 5 systems _×_ 118 evaluation units _×_ 6 model configurations _×_ 3 trials, yielding 10,620 evaluation runs at an estimated cost of $2,760 USD in API tokens (Table 8 reports PENTESTGPT V2-specific costs). 
 
+---
+
 ## **5.2 RQ1: Overall Performance** 
+
+> **Section Summary:** Table 5 shows the performance comparison across all systemmodel-benchmark combinations, with consistent patterns that align with our Type A/B failure framework.
+
 
 Table 5 shows the performance comparison across all systemmodel-benchmark combinations, with consistent patterns that align with our Type A/B failure framework. 
 
@@ -468,13 +606,23 @@ while baselines gain only 1 machine each but plateau at 9.
 
 GOAD shows the largest improvement. PENTESTGPT V2 compromises 4 of 5 hosts with GPT-5.2 and Opus 4.5 thinking (4 hosts in all three trials; the same four hosts each time) versus at most 2 for baselines—doubling the compromise rate (80% vs. 40%). This pattern holds consistently across all three models and both reasoning modes (even Gemini 3 achieves 3 hosts vs. 1–2 for baselines), indicating a robust architectural effect. Baselines achieve initial foothold but fail to progress through lateral movement; PENTESTGPT V2 executes coherent multi-host attack chains using the Memory Subsystem for credential persistence and TDA for exploration guidance. 
 
+---
+
 ## **5.3 RQ2: Ablation Study** 
+
+> **Section Summary:** To isolate each component’s contribution, we evaluate system variants with individual components disabled.
+
 
 To isolate each component’s contribution, we evaluate system variants with individual components disabled. Table 6 presents results using GPT-5.2 thinking mode; the base configuration uses raw shell access with reactive prompting and sliding-window context management. Figure 3 visualizes component contributions across all model configurations. 
 
 The results align with our Type A/B failure framework. The Tool Layer provides the largest improvement on XBOW (+14 points, from 54 to 68), consistent with CTF failures being predominantly engineering problems addressable through better tooling. The Tool Layer alone yields zero improvement on GOAD (remaining at 2 hosts), where planning rather than capability determines success. 
 
+---
+
 ## **5.4 RQ3: Strategy Analysis** 
+
+> **Section Summary:** Beyond aggregate performance, we analyze how TDAEGATS changes the agent’s attack strategy compared to PentestGPT’s PTT-based approach.
+
 
 Beyond aggregate performance, we analyze how TDAEGATS changes the agent’s attack strategy compared to PentestGPT’s PTT-based approach. 
 
@@ -553,7 +701,12 @@ Table 8: Resource consumption per task (median values, GPT5.2 thinking).
 
 finds no relevant documentation and the LLM lacks parametric knowledge, TDA’s evidence-based signals provide no useful guidance. TDA-EGATS therefore improves navigation through _known_ attack spaces but does not address _novel_ exploitation requiring genuine invention. 
 
+---
+
 ## **5.5 RQ4: Real-World Deployment** 
+
+> **Section Summary:** To assess practical viability, we evaluate PENTESTGPT V2’s resource consumption.
+
 
 To assess practical viability, we evaluate PENTESTGPT V2’s resource consumption. We further deploy it in a live competition environment to examine its real-world performance. 
 
@@ -587,9 +740,16 @@ Table 9 summarizes performance by difficulty. All four Easy machines and all fou
 
 The Season 8 deployment shows that PENTESTGPT V2 can operate in realistic penetration testing scenarios where solutions are unknown and time-constrained. The 100% success rate on Easy and Medium machines suggests readiness for deployment on typical enterprise targets, while Hard and Insane failures mark the current boundaries where human expertise is still required. 
 
+---
+
 ## **6 Discussion** 
 
+---
+
 ## **6.1 Limitations and Threats to Validity** 
+
+> **Section Summary:** We discuss factors that bound the generalizability of our findings.
+
 
 We discuss factors that bound the generalizability of our findings. 
 
@@ -603,7 +763,12 @@ omits binary exploitation, mobile security, and cloud-specific attack scenarios 
 
 **Failure Analysis.** We analyze PENTESTGPT V2’s remaining failures to characterize current boundaries. On XBOW, the 9 failed tasks (9%) fall into two categories: blind injection that requires extensive timing-based exfiltration (4 tasks), and multi-stage attacks that require creative payload chaining not present in our RAG corpus (5 tasks). The single unsolved PentestGPT Benchmark machine (PlayerTwo, Hard) requires exploiting a custom protocol with no public documentation, a novel exploitation scenario that demands reasoning beyond pattern matching. On GOAD, the fifth host (the forest root domain controller) requires a specific attack chain (PrintNightmare _→_ DCSync) that PENTESTGPT V2 identifies but fails to execute due to token constraints. These failures indicate that while PENTESTGPT V2 addresses Type B failures effectively, novel exploitation that requires creative reasoning remains an open problem. 
 
+---
+
 ## **6.2 What Remains Hard** 
+
+> **Section Summary:** Despite PENTESTGPT V2’s gains, three categories of irreducible Type B failures persist that better tooling, larger corpora, or improved prompting cannot resolve.
+
 
 Despite PENTESTGPT V2’s gains, three categories of irreducible Type B failures persist that better tooling, larger corpora, or improved prompting cannot resolve. 
 
@@ -615,13 +780,20 @@ search; novel tasks require reasoning capabilities that current architectures do
 
 **The Adversarial Environment Barrier.** Penetration testing occurs against active defenders who can exploit agent reasoning patterns [33]. Honeypots, canary tokens, and deceptive services can poison the agent’s state representation, causing it to pursue false attack paths or trigger detection. PENTESTGPT V2’s evidence grounding protects against self-generated hallucinations but offers limited defense against environmentallyinduced false beliefs: when a honeypot presents a convincing vulnerable service, the agent cannot tell whether the vulnerability is genuine or a deliberate trap. This asymmetry favors defenders, who can study and exploit agent behavior, while agents lack the meta-awareness to recognize manipulation. **The Temporal Scale Barrier.** Human pentesters maintain mental models across engagements that span weeks, correlating information from separate sessions and exercising strategic patience. EGATS improves multi-step reasoning within sessions and the Memory Subsystem preserves state, but neither addresses cross-session continuity. Long-horizon planning is a different problem from long-context processing: it requires hierarchical abstraction, goal decomposition, and progress monitoring, none of which current transformer architectures natively support [27]. 
 
+---
+
 ## **7 Conclusion** 
 
 This paper presents a systematic analysis of LLM-based penetration testing that identifies a distinction between Type A failures (capability gaps addressable through engineering) and Type B failures (complexity barriers requiring architectural innovation). We introduce PENTESTGPT V2, which addresses Type A failures through a Tool and Skill Layer with typed interfaces and RAG, and addresses Type B failures via Task Difficulty Assessment (TDA) integrated into Evidence-Guided Attack Tree Search (EGATS). PENTESTGPT V2 achieves 91% task completion on CTF benchmarks (49% improvement over baselines) and compromises 4 of 5 hosts on the GOAD Active Directory environment versus 2 for prior systems. Our ablation studies show that TDAguided exploration provides benefits beyond tree structure alone: difficulty-aware planning produces value that model improvements cannot replicate. 
 
 14 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Vulnhub: Vulnerable by design.
+
 
 - [1] Vulnhub: Vulnerable by design. https://www. vulnhub.com/, 2012–2026. 
 
@@ -693,11 +865,21 @@ This paper presents a systematic analysis of LLM-based penetration testing that 
 
 - [34] Shuyan Zhou, Frank F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar, Xianyi Cheng, Yonatan Bisk, Daniel Fried, Uri Alon, et al. Webarena: A realistic web environment for building autonomous agents. In _The Twelfth International Conference on Learning Representations (ICLR)_ , 2024. 
 
+---
+
 ## **A Surveyed LLM-Based Penetration Testing Systems** 
+
+> **Section Summary:** Table 10 presents the complete list of 28 candidate systems identified in our survey.
+
 
 Table 10 presents the complete list of 28 candidate systems identified in our survey. Systems meeting our inclusion criteria (LLM as core component, targeting penetration testing or CTF challenges, with published technical details) are marked with ✓. 
 
+---
+
 ## **B Tool and Skill Layer: Supported Tools** 
+
+> **Section Summary:** Table 11 lists the 38 security tools integrated into PENTESTGPT V2’s Tool and Skill Layer.
+
 
 Table 11 lists the 38 security tools integrated into PENTESTGPT V2’s Tool and Skill Layer. Each tool is exposed through a typed interface specifying input parameters, output schema, and pre/postconditions. Tool selection reflects standard penetration testing methodology and aligns with tools commonly used in professional certifications (e.g., OSCP) and real-world assessments. 
 
@@ -741,7 +923,12 @@ Table 10: Complete list of surveyed LLM-based penetration testing systems. Syste
 
 
 
+---
+
 ## **C Evidence Confidence Scoring** 
+
+> **Section Summary:** Table 12 presents the complete evidence confidence scoring rubric used by the TDA mechanism.
+
 
 Table 12 presents the complete evidence confidence scoring rubric used by the TDA mechanism. Scores are assigned deterministically based on evidence type, enabling reproducible difficulty assessment. 
 
@@ -763,21 +950,41 @@ For example, nmap output containing “open” with a service version triggers v
 
 **Example.** Consider a path: _port scan → web server (nginx 1.18) → directory bruteforce → login form discovered → SQL injection confirmed_ . Evidence scores are: 0.3 (service identified), 0.5 (version-matched to known nginx vulnerabilities), 0.3 (endpoint exists), 0.8 (injection confirmed). Path confidence _E_ = (0 _._ 3 + 0 _._ 5 + 0 _._ 3 + 0 _._ 8) _/_ 4 = 0 _._ 475, indicating moderate confidence appropriate for transitioning from reconnaissance to exploitation. 
 
+---
+
 ## **D Parameter Derivation and Validation** 
+
+> **Section Summary:** This appendix documents the derivation and sensitivity analysis for hyperparameters in PENTESTGPT V2.
+
 
 This appendix documents the derivation and sensitivity analysis for hyperparameters in PENTESTGPT V2. 
 
+---
+
 ## **D.1 Validation Dataset** 
+
+> **Section Summary:** All hyperparameters are tuned on a held-out validation set of 30 execution traces from retired HTB machines (2022– 2023), disjoint from the PentestGPT Benchmark evaluation set.
+
 
 All hyperparameters are tuned on a held-out validation set of 30 execution traces from retired HTB machines (2022– 2023), disjoint from the PentestGPT Benchmark evaluation set. The validation set includes 10 Easy, 12 Medium, and 8 Hard machines, covering web exploitation (12), Linux privilege escalation (10), and Windows/AD attacks (8). We use GPT-4o for validation to avoid overlap with evaluation models (GPT-5.2, Opus 4.5, Gemini 3). 
 
+---
+
 ## **D.2 TDI Weight Selection** 
+
+> **Section Summary:** Table 13 presents TDI weights derived via grid search over _w ∈_ [0 _._ 1 _,_ 0 _._ 4] with step size 0.05, subject to ∑ _wi_ = 1.
+
 
 Table 13 presents TDI weights derived via grid search over _w ∈_ [0 _._ 1 _,_ 0 _._ 4] with step size 0.05, subject to ∑ _wi_ = 1. Performance is measured as mean subtask completion rate across the validation set. 
 
 Performance varies within _±_ 3% across configurations where all weights remain in [0 _._ 1 _,_ 0 _._ 4], indicating robustness to precise weight selection. The selected configuration ( _wH_ = _wE_ = 0 _._ 3, _wC_ = _wS_ = 0 _._ 2) reflects domain intuition: horizon and evidence confidence are primary difficulty signals, while context load and success rate provide secondary modulation. 
 
+---
+
 ## **D.3 Mode Selection Thresholds** 
+
+> **Section Summary:** Table 14 presents sensitivity analysis for mode selection thresholds (θexplore, θexploit).
+
 
 Table 14 presents sensitivity analysis for mode selection thresholds (θexplore, θexploit). 
 
@@ -785,19 +992,34 @@ The intermediate zone (θexploit _≤_ TDI _≤_ θexplore) triggers LLMDECIDE. 
 
 17 
 
+---
+
 ## **D.4 Pruning Parameters** 
+
+> **Section Summary:** The pruning threshold (θprune = 0 _._ 8) and minimum attempts ( _k_ min = 3) prevent both premature and excessively delayed pruning.
+
 
 The pruning threshold (θprune = 0 _._ 8) and minimum attempts ( _k_ min = 3) prevent both premature and excessively delayed pruning. 
 
 Lower thresholds increase false pruning (abandoning tractable paths); higher thresholds waste attempts on intractable paths. The selected configuration achieves favorable balance. 
 
+---
+
 ## **D.5 UCB Difficulty Penalty** 
+
+> **Section Summary:** The difficulty penalty coefficient (λ = 0 _._ 5) modulates how strongly TDI affects node selection in the UCB formula.
+
 
 The difficulty penalty coefficient (λ = 0 _._ 5) modulates how strongly TDI affects node selection in the UCB formula. 
 
 λ = 0 recovers standard UCB, which underperforms due to insufficient difficulty awareness. λ = 1 _._ 0 over-penalizes difficult nodes, preventing exploration of challenging but tractable paths. 
 
+---
+
 ## **D.6 Context Load Degradation Study** 
+
+> **Section Summary:** To establish the 40% context load threshold, we conduct a controlled study measuring LLM instruction-following accuracy under varying context loads.
+
 
 To establish the 40% context load threshold, we conduct a controlled study measuring LLM instruction-following accuracy under varying context loads. 
 

@@ -1,4 +1,168 @@
-## **_Cyber-Zero_** : TRAINING CYBERSECURITY AGENTS WITHOUT RUNTIME 
+# **_Cyber-Zero_** : TRAINING CYBERSECURITY AGENTS WITHOUT RUNTIME 
+
+## Table of Contents
+
+- [Cyber-Zero : TRAINING CYBERSECURITY AGENTS WITHOUT RUNTIME](#cyber-zero-training-cybersecurity-agents-without-runtime)
+  - [ABSTRACT](#abstract)
+  - [1 INTRODUCTION](#1-introduction)
+  - [2 CYBER-ZERO FRAMEWORK](#2-cyber-zero-framework)
+    - [2.1 SOURCE DATA COLLECTION](#2-1-source-data-collection)
+    - [2.2 VERIFICATION-FREE TRAJECTORY GENERATION ON THE FLY](#2-2-verification-free-trajectory-generation-on-the-fly)
+    - [2.3 TRAINING DATA CONSTRUCTION](#2-3-training-data-construction)
+  - [3 TRAINING LLMS AS CYBERSECURITY AGENTS WITH CYBER-ZERO](#3-training-llms-as-cybersecurity-agents-with-cyber-zero)
+    - [3.1 EXPERIMENT SETUP](#3-1-experiment-setup)
+  - [4 SCALING CYBERSECURITY AGENTS](#4-scaling-cybersecurity-agents)
+    - [4.1 SCALING WITH INFERENCE-TIME COMPUTE](#4-1-scaling-with-inference-time-compute)
+    - [4.2 SCALING WITH TASK DIVERSITY](#4-2-scaling-with-task-diversity)
+    - [4.3 SCALING WITH DATA SAMPLING](#4-3-scaling-with-data-sampling)
+  - [5 RELATED WORK](#5-related-work)
+  - [6 CONCLUSION](#6-conclusion)
+  - [IMPACT STATEMENT](#impact-statement)
+  - [ACKNOWLEDGEMENT](#acknowledgement)
+  - [REFERENCES](#references)
+  - [A TRAINING](#a-training)
+    - [A.1 EMULATED SCAFFOLDING INTERFACE](#a-1-emulated-scaffolding-interface)
+    - [A.2 PROMPT FOR PLAYER MODEL](#a-2-prompt-for-player-model)
+    - [A.3 PROMPT FOR SYSTEM MODEL](#a-3-prompt-for-system-model)
+  - [B BENCHMARK ISSUES](#b-benchmark-issues)
+    - [B.1 INTERCODE-CTF](#b-1-intercode-ctf)
+    - [B.2 NYU CTF BENCH](#b-2-nyu-ctf-bench)
+    - [B.3 CYBENCH](#b-3-cybench)
+  - [D ANALYSIS ON MAIN RESULTS](#d-analysis-on-main-results)
+  - [E ABLATION STUDIES](#e-ablation-studies)
+  - [F QUALITATIVE STUDIES ON CYBER-ZERO DATA](#f-qualitative-studies-on-cyber-zero-data)
+    - [F.1 TRAJECTORY ANALYSIS OF YA D L P CHALLENGE](#f-1-trajectory-analysis-of-ya-d-l-p-challenge)
+    - [Player Model https://ctftime.org/writeup/30584](#player-model-https-ctftime-org-writeup-30584)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Player Model https://ctftime.org/writeup/30584](#player-model-https-ctftime-org-writeup-30584)
+    - [Player Model https://ctftime.org/writeup/30584](#player-model-https-ctftime-org-writeup-30584)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Player Model https://ctftime.org/writeup/30584](#player-model-https-ctftime-org-writeup-30584)
+    - [Terminal Model https://ctftime.org/writeup/30584](#terminal-model-https-ctftime-org-writeup-30584)
+    - [Player Model https://ctftime.org/writeup/30584](#player-model-https-ctftime-org-writeup-30584)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model https://ctftime.org/writeup/30584](#terminal-model-https-ctftime-org-writeup-30584)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Terminal Model https://ctftime.org/writeup/30584](#terminal-model-https-ctftime-org-writeup-30584)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/30584](#https-ctftime-org-writeup-30584)
+    - [F.2 TRAJECTORY ANALYSIS OF A N E W HI R E CHALLENGE](#f-2-trajectory-analysis-of-a-n-e-w-hi-r-e-challenge)
+    - [Terminal Model](#terminal-model)
+    - [Player Model https://ctftime.org/writeup/40114](#player-model-https-ctftime-org-writeup-40114)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/40114](#https-ctftime-org-writeup-40114)
+    - [Player Model https://ctftime.org/writeup/40114](#player-model-https-ctftime-org-writeup-40114)
+    - [Terminal Model](#terminal-model)
+    - [Player Model https://ctftime.org/writeup/40114](#player-model-https-ctftime-org-writeup-40114)
+    - [Player Model https://ctftime.org/writeup/40114](#player-model-https-ctftime-org-writeup-40114)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/40114](#https-ctftime-org-writeup-40114)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/40114](#https-ctftime-org-writeup-40114)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Player Model https://ctftime.org/writeup/40114](#player-model-https-ctftime-org-writeup-40114)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Terminal Model https://ctftime.org/writeup/25465](#terminal-model-https-ctftime-org-writeup-25465)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/25465](#https-ctftime-org-writeup-25465)
+    - [Player Model](#player-model)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Terminal Model](#terminal-model)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [Terminal Model https://ctftime.org/writeup/25465](#terminal-model-https-ctftime-org-writeup-25465)
+    - [Player Model https://ctftime.org/writeup/25465](#player-model-https-ctftime-org-writeup-25465)
+    - [F.4 TRAJECTORY ANALYSIS OF SN A K E LI C E N S E CHALLENGE](#f-4-trajectory-analysis-of-sn-a-k-e-li-c-e-n-s-e-challenge)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/11841](#https-ctftime-org-writeup-11841)
+    - [Terminal Model https://ctftime.org/writeup/11841](#terminal-model-https-ctftime-org-writeup-11841)
+    - [Player Model https://ctftime.org/writeup/11841](#player-model-https-ctftime-org-writeup-11841)
+    - [Terminal Model https://ctftime.org/writeup/11841](#terminal-model-https-ctftime-org-writeup-11841)
+    - [Player Model https://ctftime.org/writeup/11841](#player-model-https-ctftime-org-writeup-11841)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [F.5 TRAJECTORY ANALYSIS OF WA S M B A B Y CHALLENGE](#f-5-trajectory-analysis-of-wa-s-m-b-a-b-y-challenge)
+    - [Player Model](#player-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Player Model https://ctftime.org/writeup/29616](#player-model-https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [Terminal Model](#terminal-model)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+    - [Player Model](#player-model)
+    - [https://ctftime.org/writeup/29616](#https-ctftime-org-writeup-29616)
+    - [Terminal Model](#terminal-model)
+
+---
 
 **Terry Yue Zhuo**<sup>1</sup><sup>_,_2</sup><sup>_∗_</sup> **Dingmin Wang**<sup>2</sup> **Hantian Ding**<sup>2</sup> **Varun Kumar**<sup>2</sup> **Zijian Wang**<sup>2</sup> 
 
@@ -26,9 +190,9 @@ _terry.zhuo@monash.edu {wdimmy, dhantian, kuvrun, zijwan}@amazon.com_
 
 ### ABSTRACT 
 
-Large Language Models (LLMs) have achieved remarkable success in software engineering tasks when trained with executable runtime environments, particularly in resolving GitHub issues. However, such runtime environments are often unavailable in other domains, especially cybersecurity, where challenge configurations and execution contexts are ephemeral or restricted. We present CYBER-ZERO, the first runtime-free framework for synthesizing high-quality agent trajectories to train cybersecurity LLMs. CYBER-ZERO leverages publicly available CTF writeups and employs persona-driven LLM simulation to reverse-engineer runtime behaviors and generate realistic, long-horizon interaction sequences without actual environments. Using trajectories synthesized by CYBER-ZERO, we train LLMbased agents that achieve up to 13.1% absolute performance gains over baseline models on three prominent CTF benchmarks: InterCode-CTF, NYU CTF Bench, and Cybench. Our best model, CYBER-ZERO-32B, establishes new state-of-the-art performance among open-weight models, matching the capabilities of proprietary systems like DeepSeek-V3-0324 and Claude-3.5-Sonnet while offering superior cost-effectiveness, and demonstrating that runtime-free trajectory synthesis can effectively democratize the development of state-of-the-art cybersecurity agents. 
+> Large Language Models (LLMs) have achieved remarkable success in software engineering tasks when trained with executable runtime environments, particularly in resolving GitHub issues. However, such runtime environments are often unavailable in other domains, especially cybersecurity, where challenge configurations and execution contexts are ephemeral or restricted. We present CYBER-ZERO, the first runtime-free framework for synthesizing high-quality agent trajectories to train cybersecurity LLMs. CYBER-ZERO leverages publicly available CTF writeups and employs persona-driven LLM simulation to reverse-engineer runtime behaviors and generate realistic, long-horizon interaction sequences without actual environments. Using trajectories synthesized by CYBER-ZERO, we train LLMbased agents that achieve up to 13.1% absolute performance gains over baseline models on three prominent CTF benchmarks: InterCode-CTF, NYU CTF Bench, and Cybench. Our best model, CYBER-ZERO-32B, establishes new state-of-the-art performance among open-weight models, matching the capabilities of proprietary systems like DeepSeek-V3-0324 and Claude-3.5-Sonnet while offering superior cost-effectiveness, and demonstrating that runtime-free trajectory synthesis can effectively democratize the development of state-of-the-art cybersecurity agents. 
 
-https://github.com/amazon-science/cyber-zero 
+> https://github.com/amazon-science/cyber-zero 
 
 
 ```mermaid
@@ -40,22 +204,28 @@ xychart-beta
 ```
 
 
-<!-- Start of picture text -->
-InterCode-CTF 20.0 NYU CTF 35 Cybench<br>Cyber-Zero<br>80 17.5 30 Baseline<br>15.0<br>25<br>60<br>12.5<br>20<br>10.0<br>40 15<br>7.5<br>10<br>20 5.0<br>2.5 5<br>0 0.0 0<br>Claude-3.7-SonnetClaude-3.5-SonnetDeepSeek-V3-0324Gemini-2.5-FlashQwen3-32BQwen3-14BQwen3-8BClaude-3.7-SonnetClaude-3.5-SonnetGemini-2.5-FlashDeepSeek-V3-0324Qwen3-32BQwen3-14BQwen3-8BClaude-3.7-SonnetDeepSeek-V3-0324Claude-3.5-SonnetGemini-2.5-FlashQwen3-14BQwen3-32BQwen3-8B<br>Pass@1 (%)<br><!-- End of picture text -->
+> <!-- Start of picture text -->
+> InterCode-CTF 20.0 NYU CTF 35 Cybench<br>Cyber-Zero<br>80 17.5 30 Baseline<br>15.0<br>25<br>60<br>12.5<br>20<br>10.0<br>40 15<br>7.5<br>10<br>20 5.0<br>2.5 5<br>0 0.0 0<br>Claude-3.7-SonnetClaude-3.5-SonnetDeepSeek-V3-0324Gemini-2.5-FlashQwen3-32BQwen3-14BQwen3-8BClaude-3.7-SonnetClaude-3.5-SonnetGemini-2.5-FlashDeepSeek-V3-0324Qwen3-32BQwen3-14BQwen3-8BClaude-3.7-SonnetDeepSeek-V3-0324Claude-3.5-SonnetGemini-2.5-FlashQwen3-14BQwen3-32BQwen3-8B<br>Pass@1 (%)<br><!-- End of picture text -->
 
-Figure 1: CYBER-ZERO enables open LLMs like Qwen3 to achieve the superior performance comparable with state-of-the-art models. We note that the evaluation is conducted under greedy decoding and ENIGMA+ scaffold, following Abramovich et al. (2025). 
+> Figure 1: CYBER-ZERO enables open LLMs like Qwen3 to achieve the superior performance comparable with state-of-the-art models. We note that the evaluation is conducted under greedy decoding and ENIGMA+ scaffold, following Abramovich et al. (2025). 
 
 > _∗_ Work done during an internship at Amazon. 
 
-1 
+> 1 
 
 ### 1 INTRODUCTION 
 
 Modern cybersecurity demands continuous security analysis of increasingly complex software systems. As the attack surface of globally connected systems expands, traditional manual security analysis techniques struggle to keep pace with the need for rapid vulnerability detection and patching. This challenge has catalyzed significant research initiatives, including the DARPA Cyber Grand Challenge (Song & Alves-Foss, 2015) and DARPA AIxCC (DARPA, 2024), which aim to develop autonomous exploitation frameworks. Within this landscape, Capture The Flag (CTF) competitions have emerged as the de facto standard for assessing machine learning models’ cybersecurity reasoning capabilities. These competitions require sophisticated multi-step adversarial thinking to exploit vulnerabilities and extract hidden flags from simulated systems (Anthropic, 2025a; xAI, 2025; OWASP GenAI Project (CTI Layer Team), 2025). 
 
-Recent advances have demonstrated promising results in applying large language model (LLM) agents to CTF challenges (Hurst et al., 2024; Jaech et al., 2024; Anthropic, 2025b; Abramovich et al., 2025), with systems like ENIGMA (Abramovich et al., 2025) showing substantial progress on complex security tasks. However, these approaches achieve strong performance only when paired with frontier proprietary models such as OpenAI’s o3 or Anthropic’s Claude-3.5-Sonnet. They fail to generalize to open-source LLMs, creating a significant capability gap between proprietary and open models. 
+Recent advances have demonstrated promising results in applying large language model (LLM) agents to CTF challenges (Hurst et al., 2024:
+- Jaech et al., 2024
+- Anthropic, 2025b
+- Abramovich et al., 2025), with systems like ENIGMA (Abramovich et al., 2025) showing substantial progress on complex security tasks. However, these approaches achieve strong performance only when paired with frontier proprietary models such as OpenAI’s o3 or Anthropic’s Claude-3.5-Sonnet. They fail to generalize to open-source LLMs, creating a significant capability gap between proprietary and open models.
 
-This performance disparity stems from two fundamental challenges. First, most open models lack the sophisticated agentic capabilities essential for complex cybersecurity tasks, including self-directed reasoning, long-horizon planning, and strategic tool utilization (Shao et al., 2024; Zhang et al., 2025). Second, and more critically, the scarcity of high-quality training data fundamentally limits the development of capable open-source cybersecurity agents. Unlike software engineering domains where comprehensive codebases and issue resolution contexts are readily available (Pan et al., 2024; Xie et al., 2025; Wei et al., 2025b), CTF challenges present unique data acquisition issues. Most competitions provide only ephemeral access to vulnerable environments, with minimal postcompetition maintenance or documentation. Even when challenges become open-source through community efforts, the absence of executable environments prevents the collection of authentic agent trajectories that capture the iterative, exploratory nature of vulnerability discovery and exploitation. 
+This performance disparity stems from two fundamental challenges. First, most open models lack the sophisticated agentic capabilities essential for complex cybersecurity tasks, including self-directed reasoning, long-horizon planning, and strategic tool utilization (Shao et al., 2024:
+- Zhang et al., 2025). Second, and more critically, the scarcity of high-quality training data fundamentally limits the development of capable open-source cybersecurity agents. Unlike software engineering domains where comprehensive codebases and issue resolution contexts are readily available (Pan et al., 2024
+- Xie et al., 2025
+- Wei et al., 2025b), CTF challenges present unique data acquisition issues. Most competitions provide only ephemeral access to vulnerable environments, with minimal postcompetition maintenance or documentation. Even when challenges become open-source through community efforts, the absence of executable environments prevents the collection of authentic agent trajectories that capture the iterative, exploratory nature of vulnerability discovery and exploitation.
 
 To address these limitations, we present CYBER-ZERO, the first framework that synthesizes highquality trajectories for cybersecurity agents without requiring access to original executable environments. Specifically, CYBER-ZERO utilizes the public CTF writeups, containing step-by-step problem-solving strategies documented by participants, to reconstruct the simulated environment and generate complete learning trajectories. CYBER-ZERO operates through a multi-stage pipeline that combines persona-driven LLM agents with strategic environment simulation. We construct specialized LLM personas (Ge et al., 2024) to analyze existing writeups and reverse-engineer plausible environment behaviors. These personas collaborate to synthesize complete, long-horizon interaction sequences that explore not only successful solution paths but also realistic failed attempts, debugging sessions, and strategic pivots that characterize authentic cybersecurity workflows. 
 
@@ -96,7 +266,10 @@ Table 1: CYBER-ZERO is the first without _any_ runtime environment. _Detection:_
 
 ### 2 CYBER-ZERO FRAMEWORK 
 
-CYBER-ZERO is the first runtime-free framework designed to synthesize high-quality agent trajectories for training LLMs on offensive cybersecurity tasks. As shown in Table 1, existing cybersecurity datasets either lack agentic interaction patterns or fail to provide training data, creating a critical gap in the development of capable security agents. Inspired by the success of trajectory-based learning in software engineering agents (Jimenez et al., 2024; Yang et al., 2024a), CYBER-ZERO adapts this paradigm to cybersecurity by transforming natural-language CTF writeups into structured, simulated interaction sequences (Figure 2). Different from prior pipelines for SWE tasks (Pan et al., 2024; Xie et al., 2025; Yang et al., 2025b), our method enables learning from rich problem-solving workflows without requiring access to original challenges’ environments. The framework operates through three main stages: source data collection, persona-driven interaction trajectory generation, and dataset construction with examples illustrated in Appendix F. 
+CYBER-ZERO is the first runtime-free framework designed to synthesize high-quality agent trajectories for training LLMs on offensive cybersecurity tasks. As shown in Table 1, existing cybersecurity datasets either lack agentic interaction patterns or fail to provide training data, creating a critical gap in the development of capable security agents. Inspired by the success of trajectory-based learning in software engineering agents (Jimenez et al., 2024:
+- Yang et al., 2024a), CYBER-ZERO adapts this paradigm to cybersecurity by transforming natural-language CTF writeups into structured, simulated interaction sequences (Figure 2). Different from prior pipelines for SWE tasks (Pan et al., 2024
+- Xie et al., 2025
+- Yang et al., 2025b), our method enables learning from rich problem-solving workflows without requiring access to original challenges’ environments. The framework operates through three main stages: source data collection, persona-driven interaction trajectory generation, and dataset construction with examples illustrated in Appendix F.
 
 #### 2.1 SOURCE DATA COLLECTION 
 
@@ -443,11 +616,26 @@ This finding parallels results from trajectory-based learning in other domains (
 
 ### 5 RELATED WORK 
 
-**LLM Agents for Offensive Cybersecurity** The application of LLM agents to cybersecurity challenges has gained significant traction, with multiple frameworks developed for solving CTF challenges in dockerized environments (Yang et al., 2023; Shao et al., 2024; Zhang et al., 2025; Mayoral-Vilches et al., 2025). These frameworks typically use Kali Linux for pre-installed cybersecurity tools. These frameworks serve as foundations for broader offensive cybersecurity applications, where LLMs are employed to conduct penetration testing, exploit security weaknesses, and craft cyberattacks (Charan et al., 2023; Deng et al., 2024; Fang et al., 2024). CyberSecEval benchmarks (Bhatt et al., 2023; Wan et al., 2024) provide problems specifically designed to assess the security risks and capabilities of LLMs in assisting with cyberattacks, while other work (Phuong et al., 2024; Guo et al., 2024) explores the "dangerous capabilities" of LLMs, evaluating their performance on various tasks including CTF challenges, though achieving relatively lower results on the latter. Recent advances have introduced more sophisticated agent architectures. Project Naptime (Glazunov & Brand, 2024) and Big Sleep (Allamanis et al., 2024) developed an agent benchmarked on CyberSecEval2 that successfully discovered a new SQLite vulnerability using tools such as debuggers and web browsers. EnIGMA (Abramovich et al., 2025) surpasses existing baselines by integrating specialized cybersecurity tools and interactive interfaces tailored for LLM agents, achieving higher success rates on the InterCode, NYU CTF, and Cybench benchmarks. Unlike prior methods relying on the agent scaffold-dependent approaches, we introduce a new training paradigm that fundamentally improves models’ capability of handling cybersecurity tasks. 
+**LLM Agents for Offensive Cybersecurity** The application of LLM agents to cybersecurity challenges has gained significant traction, with multiple frameworks developed for solving CTF challenges in dockerized environments (Yang et al., 2023:
+- Shao et al., 2024
+- Zhang et al., 2025
+- Mayoral-Vilches et al., 2025). These frameworks typically use Kali Linux for pre-installed cybersecurity tools. These frameworks serve as foundations for broader offensive cybersecurity applications, where LLMs are employed to conduct penetration testing, exploit security weaknesses, and craft cyberattacks (Charan et al., 2023
+- Deng et al., 2024
+- Fang et al., 2024). CyberSecEval benchmarks (Bhatt et al., 2023
+- Wan et al., 2024) provide problems specifically designed to assess the security risks and capabilities of LLMs in assisting with cyberattacks, while other work (Phuong et al., 2024
+- Guo et al., 2024) explores the "dangerous capabilities" of LLMs, evaluating their performance on various tasks including CTF challenges, though achieving relatively lower results on the latter. Recent advances have introduced more sophisticated agent architectures. Project Naptime (Glazunov & Brand, 2024) and Big Sleep (Allamanis et al., 2024) developed an agent benchmarked on CyberSecEval2 that successfully discovered a new SQLite vulnerability using tools such as debuggers and web browsers. EnIGMA (Abramovich et al., 2025) surpasses existing baselines by integrating specialized cybersecurity tools and interactive interfaces tailored for LLM agents, achieving higher success rates on the InterCode, NYU CTF, and Cybench benchmarks. Unlike prior methods relying on the agent scaffold-dependent approaches, we introduce a new training paradigm that fundamentally improves models’ capability of handling cybersecurity tasks.
 
-**Training LLM Agents to Code** Previous training paradigms for coding in software engineering tasks have primarily focused on general programming capabilities (Li et al., 2023; Lozhkov et al., 2024; Muennighoff et al., 2024; Zhuo et al., 2024; Wei et al., 2024). While existing scaffolds have successfully leveraged proprietary language models to address real-world software engineering challenges, open models consistently underperform, motivating research into domain-specific training approaches. Several notable efforts have emerged in this direction. Lingma SWE-GPT (Ma et al., 2024) introduces 7B and 72B models(Hui et al., 2024), employing an iterative development-processcentric methodology. SWE-Gym (Pan et al., 2024) presents the first open training environment for software engineering agents, achieving substantial improvements on SWE-bench. More recently, SWE-Fixer (Xie et al., 2025) creates specialized code retriever andeditors, while SWE-RL (Wei et al., 2025b) employs reinforcement learning (RL) (Grattafiori et al., 2024) to enable self-improvement through RL incentives. Despite these advances in software engineering, our work represents the first training paradigm specifically designed for cybersecurity tasks, addressing a critical gap where code-focused training fails to transfer to security domains. 
+**Training LLM Agents to Code** Previous training paradigms for coding in software engineering tasks have primarily focused on general programming capabilities (Li et al., 2023:
+- Lozhkov et al., 2024
+- Muennighoff et al., 2024
+- Zhuo et al., 2024
+- Wei et al., 2024). While existing scaffolds have successfully leveraged proprietary language models to address real-world software engineering challenges, open models consistently underperform, motivating research into domain-specific training approaches. Several notable efforts have emerged in this direction. Lingma SWE-GPT (Ma et al., 2024) introduces 7B and 72B models(Hui et al., 2024), employing an iterative development-processcentric methodology. SWE-Gym (Pan et al., 2024) presents the first open training environment for software engineering agents, achieving substantial improvements on SWE-bench. More recently, SWE-Fixer (Xie et al., 2025) creates specialized code retriever andeditors, while SWE-RL (Wei et al., 2025b) employs reinforcement learning (RL) (Grattafiori et al., 2024) to enable self-improvement through RL incentives. Despite these advances in software engineering, our work represents the first training paradigm specifically designed for cybersecurity tasks, addressing a critical gap where code-focused training fails to transfer to security domains.
 
-**Benchmarking Models’ Cybersecurity Capabilities** Various benchmarks have been developed to evaluate language models on cybersecurity-related tasks. Multiple-choice question based datasets (Li et al., 2024; Tihanyi et al., 2024; Liu, 2023) typically provide limited insights due to their high sensitivity to prompt formatting (Qi et al., 2024; Łucki et al., 2024) and insufficient alignment with real-world operational contexts. Carlini et al. (2025) introduced AutoAdvExBench, which evaluates LLMs on their ability to autonomously compromise image-based adversarial defenses, while CybersecEval (Bhatt et al., 2023) concentrates on single-turn exploitation of code snippets, though this approach lacks the interactive nature of realistic scenarios. Agent-based frameworks incorporating tool usage provide superior approximations of real-world conditions. Consequently, numerous studies have adopted Capture-the-Flag challenges as proxies for assessing security capabilities. More recent frameworks (e.g., Abramovich et al. (2025); Mayoral-Vilches et al. (2025)) have further advanced the field by integrating interactive simulations with structured attack-chain analyses. 
+**Benchmarking Models’ Cybersecurity Capabilities** Various benchmarks have been developed to evaluate language models on cybersecurity-related tasks. Multiple-choice question based datasets (Li et al., 2024:
+- Tihanyi et al., 2024
+- Liu, 2023) typically provide limited insights due to their high sensitivity to prompt formatting (Qi et al., 2024
+- Łucki et al., 2024) and insufficient alignment with real-world operational contexts. Carlini et al. (2025) introduced AutoAdvExBench, which evaluates LLMs on their ability to autonomously compromise image-based adversarial defenses, while CybersecEval (Bhatt et al., 2023) concentrates on single-turn exploitation of code snippets, though this approach lacks the interactive nature of realistic scenarios. Agent-based frameworks incorporating tool usage provide superior approximations of real-world conditions. Consequently, numerous studies have adopted Capture-the-Flag challenges as proxies for assessing security capabilities. More recent frameworks (e.g., Abramovich et al. (2025)
+- Mayoral-Vilches et al. (2025)) have further advanced the field by integrating interactive simulations with structured attack-chain analyses.
 
 ### 6 CONCLUSION 
 
@@ -839,7 +1027,7 @@ Table 4: In additional to the standard Linux Bash commands and the SWE-agent spe
 
 <mark>same command a second time will just lead to the same error message again. If the player successfully</mark> _<mark>←�</mark>_ <mark>edits the file, you MUST return "File updated. Please review the changes and make sure they are</mark> _<mark>←�</mark>_ <mark>correct (correct indentation, no duplicate lines, etc). Edit the file again if necessary.". After the</mark> _<mark>←�</mark>_ <mark>notice message, you MUST provide the exact same context of the updated part of the file, labelled</mark> _<mark>←�</mark>_ <mark>with line numbers. If there are syntax errors in the requested edit, you MUST provide the comparsion</mark> _<mark>←�</mark>_ <mark>of the original and the updated file with two seperate sections, labelled with line numbers of each</mark> _<mark>←�</mark>_ <mark>section.</mark> 
 
-<mark>note: <end_line> **MUST** BE GREATER THAN <start_line>** signature: edit <start_line>:<end_line>\n<replacement_text>\nend_of_edit arguments: - start_line (integer) [required]: the line number to start the edit at - end_line (integer) [required]: the line number to end the edit at (inclusive), end_line >= start_line - replacement_text (string) [required]: the text to replace the current selection with submit:</mark> 
+<mark>**note:** <end_line> **MUST** BE GREATER THAN <start_line>** signature: edit <start_line>:<end_line>\n<replacement_text>\nend_of_edit arguments: - start_line (integer) [required]: the line number to start the edit at - end_line (integer) [required]: the line number to end the edit at (inclusive), end_line >= start_line - replacement_text (string) [required]: the text to replace the current selection with submit:</mark> 
 
 <mark>docstring: The player can use this command to submit the current flag and terminates the session, you</mark> _<mark>←�</mark>_ <mark>should be aware to properly escape the flag as this is a bash command and to put the flag under</mark> _<mark>←�</mark>_ <mark>single quotes. signature: submit '<flag>' arguments: - flag (string) [required]: the flag found decompile:</mark> 
 
@@ -2411,15 +2599,49 @@ echo 'from pwn import *; print(ELF("emoji_binary").checksec())' > _�→_ check
 
 You're right, I should check the output file after decompiling. _�→_ Let me open the decompiled main function: open main_decompiled.txt 
 
-**Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/main_decompiled.txt] undefined8 main(void) { int32_t iVar1; char *pcVar2; undefined2 local_2e; char local_2c [32]; while (1) { printf("gimme (b)eer or (h)orse\n\n"); pcVar2 = fgets(local_2c, 0x20, stdin); if (pcVar2 == NULL) break; if ((byte)local_2c[0] == 0x62) { iVar1 = aloha(); } else { if ((byte)local_2c[0] != 0x68) continue; iVar1 = drinkmybeer(); } if (iVar1 == -1) break; } return 0; } 
+**Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/main_decompiled.txt] undefined8 main(void) { int32_t iVar1:
+- char *pcVar2
+- undefined2 local_2e
+- char local_2c [32]
+- while (1) { printf("gimme (b)eer or (h)orse\n\n")
+- pcVar2 = fgets(local_2c, 0x20, stdin)
+- if (pcVar2 == NULL) break
+- if ((byte)local_2c[0] == 0x62) { iVar1 = aloha()
+- } else { if ((byte)local_2c[0] != 0x68) continue
+- iVar1 = drinkmybeer()
+- } if (iVar1 == -1) break
+- } return 0
+- }
 
 78 
 
-(Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ **Player Model https://ctftime.org/writeup/25465** The main function shows a simple menu where: 1. 'b' (0x62) calls aloha() 2. 'h' (0x68) calls drinkmybeer() Given that drinkmybeer() is mentioned in the challenge description _�→_ as taking our input and executing it with restrictions, let's _�→_ analyze this function first. This should show us exactly how _�→_ our input is processed and where those 2 custom bytes at _�→_ offset 0x200 come into play: decompile emoji_binary --function_name drinkmybeer > _�→_ drinkmybeer.txt **Terminal Model https://ctftime.org/writeup/25465** (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ **Player Model https://ctftime.org/writeup/25465** You're right, let me check the decompiled drinkmybeer function: open drinkmybeer.txt **Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/drinkmybeer.txt] int32_t drinkmybeer(void) { int32_t iVar1; char *pcVar2; size_t local_18; char *local_10; if (DAT_006020a0 == 0) { puts("no memory yet"); return 0; } puts("gib:"); local_10 = (char *)mmap(0, 0x1000, 7, 0x22, -1, 0); iVar1 = read(0, local_10, 0x1000); if (iVar1 == -1) { puts("0_o"); return -1; } 
+(Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ **Player Model https://ctftime.org/writeup/25465** The main function shows a simple menu where: 1. 'b' (0x62) calls aloha() 2. 'h' (0x68) calls drinkmybeer() Given that drinkmybeer() is mentioned in the challenge description _�→_ as taking our input and executing it with restrictions, let's _�→_ analyze this function first. This should show us exactly how _�→_ our input is processed and where those 2 custom bytes at _�→_ offset 0x200 come into play: decompile emoji_binary --function_name drinkmybeer > _�→_ drinkmybeer.txt **Terminal Model https://ctftime.org/writeup/25465** (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ **Player Model https://ctftime.org/writeup/25465** You're right, let me check the decompiled drinkmybeer function: open drinkmybeer.txt **Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/drinkmybeer.txt] int32_t drinkmybeer(void) { int32_t iVar1:
+- char *pcVar2
+- size_t local_18
+- char *local_10
+- if (DAT_006020a0 == 0) { puts("no memory yet")
+- return 0
+- } puts("gib:")
+- local_10 = (char *)mmap(0, 0x1000, 7, 0x22, -1, 0)
+- iVar1 = read(0, local_10, 0x1000)
+- if (iVar1 == -1) { puts("0_o")
+- return -1
+- }
 
 79 
 
-local_18 = 0; while (local_18 < 0x100) { local_10[local_18 + 0x100] = 0x41; local_18 = local_18 + 1; } pcVar2 = (char *)write(1, "=====", 5); memcpy(pcVar2 + 0x202, &DAT_00400660, 0x3c); local_18 = 0; while (local_18 < 0xc2) { pcVar2[local_18 + 0x23e] = 0x41; local_18 = local_18 + 1; } memcpy(pcVar2 + 0x400, &DAT_004006a0, 0x13); asm_call_shellcode(pcVar2 + 0x400); return 0; } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ 
+local_18 = 0:
+- while (local_18 < 0x100) { local_10[local_18 + 0x100] = 0x41
+- local_18 = local_18 + 1
+- } pcVar2 = (char *)write(1, "=====", 5)
+- memcpy(pcVar2 + 0x202, &DAT_00400660, 0x3c)
+- local_18 = 0
+- while (local_18 < 0xc2) { pcVar2[local_18 + 0x23e] = 0x41
+- local_18 = local_18 + 1
+- } memcpy(pcVar2 + 0x400, &DAT_004006a0, 0x13)
+- asm_call_shellcode(pcVar2 + 0x400)
+- return 0
+- } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$
 
 **Player Model https://ctftime.org/writeup/25465** 
 
@@ -2445,7 +2667,20 @@ Let me check the aloha function: open aloha.txt
 
 80 
 
-**Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/aloha.txt] int32_t aloha(void) { int32_t iVar1; undefined8 uVar2; time_t tVar3; tVar3 = time(0); srand(tVar3); uVar2 = rand(); DAT_006020a0 = (char *)(uVar2 << 0xc); iVar1 = mprotect(DAT_006020a0, 0x1000, 7); if (iVar1 == -1) { puts("0_o"); DAT_006020a0 = 0; return -1; } printf("mmaped @%p\n", DAT_006020a0); return 0; } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$ 
+**Terminal Model https://ctftime.org/writeup/25465** [File: /home/LLM_CTF_Database/emoji/aloha.txt] int32_t aloha(void) { int32_t iVar1:
+- undefined8 uVar2
+- time_t tVar3
+- tVar3 = time(0)
+- srand(tVar3)
+- uVar2 = rand()
+- DAT_006020a0 = (char *)(uVar2 << 0xc)
+- iVar1 = mprotect(DAT_006020a0, 0x1000, 7)
+- if (iVar1 == -1) { puts("0_o")
+- DAT_006020a0 = 0
+- return -1
+- } printf("mmaped @%p\n", DAT_006020a0)
+- return 0
+- } (Open file: n/a) (Current directory: /__home__LLM_CTF_Database__emoji) (Interactive session: n/a) bash-$
 
 
 ```mermaid
@@ -3274,11 +3509,78 @@ decompile snake.exe > decompiled_output.txt
 
 (Interactive session: n/a) bash-$ **Player Model https://ctftime.org/writeup/11841** You're right, let me check the decompiled output first. open decompiled_output.txt 
 
-**Terminal Model https://ctftime.org/writeup/11841** [File: decompiled_output.txt (2453 lines total)] 1: Function main 2: main (undefined8 param_1) 3: { 4: char *license_input; 5: int score; 6: int high_score; 7: bool valid_key; 8: char play_again; 9: 10: license_input = (char *)malloc(17); 11: 12: // Get license key from user 13: printf("Please enter your 16-character license key: "); 14: scanf("%16s", license_input); 15: 16: // Check license key length 17: if (strlen(license_input) != 16) { 18: printf("Error: Invalid license key length. Must be 16 _�→_ characters.\n"); 19: free(license_input); 20: return 1; 21: } 22: 23: // Validate license key 24: valid_key = validate_license(license_input); 25: if (!valid_key) { 26: printf("Invalid License Key!\n"); 27: free(license_input); 28: return 1; 29: } 30: 31: printf("License Key Accepted! Welcome to Snake Game!\n"); 32: printf("Press any key to continue...\n"); 33: getchar(); 34: getchar(); 35: 36: high_score = 0; 37: do { 38: score = play_game(); 39: printf("Game Over! Your score: %d\n", score); 40: if (score > high_score) { 41: high_score = score; 42: } 43: printf("High score: %d\n", high_score); 44: 45: printf("Enter Y to play again: "); 
+**Terminal Model https://ctftime.org/writeup/11841** [File: decompiled_output.txt (2453 lines total)] 1: Function main 2: main (undefined8 param_1) 3: { 4: char *license_input:
+- 5: int score
+- 6: int high_score
+- 7: bool valid_key
+- 8: char play_again
+- 9: 10: license_input = (char *)malloc(17)
+- 11: 12: // Get license key from user 13: printf("Please enter your 16-character license key: ")
+- 14: scanf("%16s", license_input)
+- 15: 16: // Check license key length 17: if (strlen(license_input) != 16) { 18: printf("Error: Invalid license key length. Must be 16 _�→_ characters.\n")
+- 19: free(license_input)
+- 20: return 1
+- 21: } 22: 23: // Validate license key 24: valid_key = validate_license(license_input)
+- 25: if (!valid_key) { 26: printf("Invalid License Key!\n")
+- 27: free(license_input)
+- 28: return 1
+- 29: } 30: 31: printf("License Key Accepted! Welcome to Snake Game!\n")
+- 32: printf("Press any key to continue...\n")
+- 33: getchar()
+- 34: getchar()
+- 35: 36: high_score = 0
+- 37: do { 38: score = play_game()
+- 39: printf("Game Over! Your score: %d\n", score)
+- 40: if (score > high_score) { 41: high_score = score
+- 42: } 43: printf("High score: %d\n", high_score)
+- 44: 45: printf("Enter Y to play again: ")
+- 
 
 104 
 
-46: scanf(" %c", &play_again); 47: } while (play_again == 'Y' || play_again == 'y'); 48: 49: free(license_input); 50: return 0; 51: } 52: 53: Function validate_license 54: validate_license (char *license) 55: { 56: size_t sVar1; 57: byte bVar2; 58: byte bVar3; 59: byte bVar4; 60: int local_14; 61: byte *pbVar5; 62: byte *pbVar6; 63: byte bVar7; 64: byte bVar8; 65: byte bVar9; 66: 67: sVar1 = strlen(license); 68: if (sVar1 == 0x10) { 69: pbVar5 = (byte *)license; 70: pbVar6 = expected_hash; 71: local_14 = 0; 72: while (local_14 < 0x10) { 73: bVar2 = *pbVar5; 74: bVar7 = bVar2; 75: bVar3 = pbVar5[1]; 76: bVar8 = (byte)((char)bVar3 << 6); 77: bVar4 = (byte)((char)bVar3 >> 2); 78: bVar9 = bVar8 | bVar4; 79: bVar9 = bVar9 ^ 0xae; 80: bVar8 = (byte)((char)bVar9 >> 3); 81: bVar3 = (byte)((char)bVar9 << 5); 82: bVar3 = bVar8 | bVar3; 83: bVar3 = bVar3 ^ 0x66; 84: bVar8 = (byte)((char)bVar3 >> 1); 85: bVar4 = (byte)((char)bVar3 << 7); 86: bVar9 = (byte)((char)bVar7 >> 4); 87: bVar4 = bVar9 | bVar4; 88: bVar4 = bVar4 | bVar8; 89: bVar4 = ~bVar4; 90: bVar4 = bVar4 ^ bVar7; 91: if (bVar4 != *pbVar6) { 92: return false; 93: } 94: bVar4 = ~bVar4; 95: local_14 = local_14 + 1; 96: pbVar5 = pbVar5 + 1; 97: pbVar6 = pbVar6 + 1; 98: } 99: return true; 100: } (2353 more lines) (Open file: decompiled_output.txt) (Current directory: /__home__LLM_CTF_Database__Snake_License) (Interactive session: n/a) bash-$ 
+46: scanf(" %c", &play_again):
+- 47: } while (play_again == 'Y' || play_again == 'y')
+- 48: 49: free(license_input)
+- 50: return 0
+- 51: } 52: 53: Function validate_license 54: validate_license (char *license) 55: { 56: size_t sVar1
+- 57: byte bVar2
+- 58: byte bVar3
+- 59: byte bVar4
+- 60: int local_14
+- 61: byte *pbVar5
+- 62: byte *pbVar6
+- 63: byte bVar7
+- 64: byte bVar8
+- 65: byte bVar9
+- 66: 67: sVar1 = strlen(license)
+- 68: if (sVar1 == 0x10) { 69: pbVar5 = (byte *)license
+- 70: pbVar6 = expected_hash
+- 71: local_14 = 0
+- 72: while (local_14 < 0x10) { 73: bVar2 = *pbVar5
+- 74: bVar7 = bVar2
+- 75: bVar3 = pbVar5[1]
+- 76: bVar8 = (byte)((char)bVar3 << 6)
+- 77: bVar4 = (byte)((char)bVar3 >> 2)
+- 78: bVar9 = bVar8 | bVar4
+- 79: bVar9 = bVar9 ^ 0xae
+- 80: bVar8 = (byte)((char)bVar9 >> 3)
+- 81: bVar3 = (byte)((char)bVar9 << 5)
+- 82: bVar3 = bVar8 | bVar3
+- 83: bVar3 = bVar3 ^ 0x66
+- 84: bVar8 = (byte)((char)bVar3 >> 1)
+- 85: bVar4 = (byte)((char)bVar3 << 7)
+- 86: bVar9 = (byte)((char)bVar7 >> 4)
+- 87: bVar4 = bVar9 | bVar4
+- 88: bVar4 = bVar4 | bVar8
+- 89: bVar4 = ~bVar4
+- 90: bVar4 = bVar4 ^ bVar7
+- 91: if (bVar4 != *pbVar6) { 92: return false
+- 93: } 94: bVar4 = ~bVar4
+- 95: local_14 = local_14 + 1
+- 96: pbVar5 = pbVar5 + 1
+- 97: pbVar6 = pbVar6 + 1
+- 98: } 99: return true
+- 100: } (2353 more lines) (Open file: decompiled_output.txt) (Current directory: /__home__LLM_CTF_Database__Snake_License) (Interactive session: n/a) bash-$
 
 105 
 
@@ -3295,7 +3597,18 @@ flowchart TD
 <!-- Start of picture text -->
 Player Model https://ctftime.org/writeup/11841<br>Looking at the decompiled code, I can see the key validation logic<br>�→ in the ` validate_license ` function. The important parts I<br>�→ notice:<br>1. It compares against an ` expected_hash ` array<br>2. Each character goes through a series of bitwise operations:<br>- Left/right shifts<br>- XOR operations with constants (0xae, 0x66)<br>- NOT operations<br>- The algorithm processes pairs of characters together<br>We need to see the ` expected_hash ` array values. Let me scroll down<br>�→ to find where it's defined or any other relevant functions.<br>scroll_down<br><!-- End of picture text -->
 
-**Terminal Model https://ctftime.org/writeup/11841** [File: decompiled_output.txt - Displaying lines 101-200] 101: return false; 102: } 103: 104: Function play_game 105: play_game () 106: { 107: // Snake game implementation - not relevant for license _�→_ check 108: int score = 0; 109: bool game_over = false; 110: 111: // Initialize game board 112: init_game_board(); 113: 114: while (!game_over) { 115: // Game logic 116: update_snake_position(); 117: check_collisions(); 118: update_score(&score); 119: draw_game_board(); 120: 121: // Check if game should end 122: if (collision_detected()) { 123: game_over = true; 124: } 125: 126: // Delay between frames 127: Sleep(100); 128: } 129: 130: return score; 131: } 132: 133: Function init_game_board 134: init_game_board () 135: { 136: // Initialize game board state 137: // Not relevant for license check 138: } 
+**Terminal Model https://ctftime.org/writeup/11841** [File: decompiled_output.txt - Displaying lines 101-200] 101: return false:
+- 102: } 103: 104: Function play_game 105: play_game () 106: { 107: // Snake game implementation - not relevant for license _�→_ check 108: int score = 0
+- 109: bool game_over = false
+- 110: 111: // Initialize game board 112: init_game_board()
+- 113: 114: while (!game_over) { 115: // Game logic 116: update_snake_position()
+- 117: check_collisions()
+- 118: update_score(&score)
+- 119: draw_game_board()
+- 120: 121: // Check if game should end 122: if (collision_detected()) { 123: game_over = true
+- 124: } 125: 126: // Delay between frames 127: Sleep(100)
+- 128: } 129: 130: return score
+- 131: } 132: 133: Function init_game_board 134: init_game_board () 135: { 136: // Initialize game board state 137: // Not relevant for license check 138: }
 
 106 
 
@@ -3556,7 +3869,25 @@ Let me examine the converted WAT file to understand the _�→_ WebAssembly cod
 
 open index.wat 
 
-**Terminal Model https://ctftime.org/writeup/29616** [File: index.wat] 1:(module 2: (type (;0;) (func (param i32) (result i32))) 3: (type (;1;) (func (param i32 i32) (result i32))) 4: (type (;2;) (func (result i32))) 5: (type (;3;) (func)) 6: (import "env" "memoryBase" (global (;0;) i32)) 7: (import "env" "memory" (memory (;0;) 256)) 8: (import "env" "table" (table (;0;) 0 funcref)) 9: (import "env" "tableBase" (global (;1;) i32)) 10: (func (;0;) (type 3) 11: i32.const 0 12: i32.const 1024 13: i32.store 14: i32.const 4 15: i32.const 1025 16: i32.store 17: i32.const 8 18: i32.const 1026 19: i32.store 
+**Terminal Model https://ctftime.org/writeup/29616** [File: index.wat] 1:(module 2: (type (:
+- 0
+- ) (func (param i32) (result i32))) 3: (type (
+- 1
+- ) (func (param i32 i32) (result i32))) 4: (type (
+- 2
+- ) (func (result i32))) 5: (type (
+- 3
+- ) (func)) 6: (import "env" "memoryBase" (global (
+- 0
+- ) i32)) 7: (import "env" "memory" (memory (
+- 0
+- ) 256)) 8: (import "env" "table" (table (
+- 0
+- ) 0 funcref)) 9: (import "env" "tableBase" (global (
+- 1
+- ) i32)) 10: (func (
+- 0
+- ) (type 3) 11: i32.const 0 12: i32.const 1024 13: i32.store 14: i32.const 4 15: i32.const 1025 16: i32.store 17: i32.const 8 18: i32.const 1026 19: i32.store
 
 #### **Terminal Model** 
 
@@ -3643,7 +3974,41 @@ Let me scroll down to see more of the file since there might be _�→_ importa
 
 scroll_down 
 
-**Terminal Model https://ctftime.org/writeup/29616** [File: index.wat (continued from line 101)] 101: (func (;1;) (type 0) (param i32) (result i32) 102: (local i32) 103: block ;; label = @1 104: block ;; label = @2 105: block ;; label = @3 106: block ;; label = @4 107: block ;; label = @5 108: block ;; label = @6 109: block ;; label = @7 110: block ;; label = @8 111: block ;; label = @9 112: block ;; label = @10 113: block ;; label = @11 114: block ;; label = @12 115: block ;; label = @13 116: block ;; label = @14 117: block ;; label = @15 118: block ;; label = @16 
+**Terminal Model https://ctftime.org/writeup/29616** [File: index.wat (continued from line 101)] 101: (func (:
+- 1
+- ) (type 0) (param i32) (result i32) 102: (local i32) 103: block
+- 
+- label = @1 104: block
+- 
+- label = @2 105: block
+- 
+- label = @3 106: block
+- 
+- label = @4 107: block
+- 
+- label = @5 108: block
+- 
+- label = @6 109: block
+- 
+- label = @7 110: block
+- 
+- label = @8 111: block
+- 
+- label = @9 112: block
+- 
+- label = @10 113: block
+- 
+- label = @11 114: block
+- 
+- label = @12 115: block
+- 
+- label = @13 116: block
+- 
+- label = @14 117: block
+- 
+- label = @15 118: block
+- 
+- label = @16
 
 117 
 

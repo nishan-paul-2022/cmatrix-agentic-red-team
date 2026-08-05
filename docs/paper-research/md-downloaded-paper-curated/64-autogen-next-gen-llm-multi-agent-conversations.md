@@ -1,5 +1,40 @@
 # `AutoGen` **: Enabling Next-Gen LLM Applications via Multi-Agent Conversation** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 The AutoGen Framework](#2-the-autogen-framework)
+  - [2.1 Conversable Agents](#2-1-conversable-agents)
+  - [2.2 Conversation Programming](#2-2-conversation-programming)
+- [3 Applications of AutoGen](#3-applications-of-autogen)
+  - [A1: Math Problem Solving](#a1-math-problem-solving)
+  - [A2: Retrieval-Augmented Code Generation and Question Answering](#a2-retrieval-augmented-code-generation-and-question-answering)
+  - [A3: Decision Making in Text World Environments](#a3-decision-making-in-text-world-environments)
+  - [A4: Multi-Agent Coding](#a4-multi-agent-coding)
+  - [A5: Dynamic Group Chat](#a5-dynamic-group-chat)
+  - [A6: Conversational Chess](#a6-conversational-chess)
+- [4 Discussion](#4-discussion)
+- [Ethics statement](#ethics-statement)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
+- [A Related Work](#a-related-work)
+  - [Single-Agent Systems:](#single-agent-systems)
+  - [Multi-Agent Systems:](#multi-agent-systems)
+- [B Expanded Discussion](#b-expanded-discussion)
+  - [B.1 General Guidelines for Using AutoGen](#b-1-general-guidelines-for-using-autogen)
+  - [B.2 Future Work](#b-2-future-work)
+- [C Default System Message for Assistant Agent](#c-default-system-message-for-assistant-agent)
+- [D Application Details](#d-application-details)
+  - [A1: Math Problem Solving](#a1-math-problem-solving)
+  - [A2: Retrieval-Augmented Code Generation and Question Answering](#a2-retrieval-augmented-code-generation-and-question-answering)
+  - [A5: Dynamic Group Chat](#a5-dynamic-group-chat)
+    - [Conversational Chess](#conversational-chess)
+  - [A7: Online Decision Making for Browser interactions](#a7-online-decision-making-for-browser-interactions)
+- [E Example outputs from applications](#e-example-outputs-from-applications)
+
+---
+
 **Qingyun Wu**<sup>_†_</sup> **, Gagan Bansal**<sup>_∗_</sup> **, Jieyu Zhang**<sup>_±_</sup> **, Yiran Wu**<sup>_†_</sup> **, Beibin Li**<sup>_∗_</sup> **Erkang Zhu**<sup>_∗_</sup> **, Li Jiang**<sup>_∗_</sup> **, Xiaoyun Zhang**<sup>_∗_</sup> **, Shaokun Zhang**<sup>_†_</sup> **, Jiale Liu**<sup>_∓_</sup> 
 
 **Ahmed Awadallah**<sup>_∗_</sup> **, Ryen W. White**<sup>_∗_</sup> **, Doug Burger**<sup>_∗_</sup> **, Chi Wang**<sup>_∗_1</sup> 
@@ -139,13 +174,20 @@ Got it! Here is the<br>revised code …<br><!-- End of picture text -->
 
 Figure 1: `AutoGen` enables diverse LLM-based applications using multi-agent conversations. (Left) `AutoGen` agents are conversable, customizable, and can be based on LLMs, tools, humans, or even a combination of them. (Top-middle) Agents can converse to solve tasks. (Right) They can form a chat, potentially with humans in the loop. (Bottom-middle) The framework supports flexible conversation patterns. 
 
+---
+
 ## **Abstract** 
+
+> **Section Summary:** `AutoGen`<sup>2</sup> is an open-source framework that allows developers to build LLM applications via multiple _agents_ that can converse with each other to accomplish tasks.
+
 
 `AutoGen`<sup>2</sup> is an open-source framework that allows developers to build LLM applications via multiple _agents_ that can converse with each other to accomplish tasks. `AutoGen` agents are customizable, _conversable_ , and can operate in various modes that employ combinations of LLMs, human inputs, and tools. Using `AutoGen` , developers can also flexibly define agent interaction behaviors. Both natural language and computer code can be used to program flexible conversation patterns for different applications. `AutoGen` serves as a generic framework for building diverse applications of various complexities and LLM capacities. Empirical studies demonstrate the effectiveness of the framework in many example applications, with domains ranging from mathematics, coding, question answering, operations research, online decision-making, entertainment, etc. 
 
 > 1Corresponding author. Email: auto-gen@outlook.com 
 
 > 2 `https://github.com/microsoft/autogen` 
+
+---
 
 ## **1 Introduction** 
 
@@ -164,6 +206,8 @@ While there is contemporaneous exploration of multi-agent approaches,<sup>3</sup
 2 
 
 `AutoGen` also provides a collection of multi-agent applications created using conversable agents and conversation programming. These applications demonstrate how `AutoGen` can easily support applications of various complexities and LLMs of various capabilities. Moreover, we perform both evaluation on benchmarks and a pilot study of new applications. The results show that `AutoGen` can help achieve outstanding performance on many tasks, and enable innovative ways of using LLMs, while reducing development effort. (Section 3 and Appendix D) 
+
+---
 
 ## **2 The** `AutoGen` **Framework** 
 
@@ -248,7 +292,12 @@ Figure 2 provides a simple illustration. The bottom sub-figure shows how individ
 
 In the conversation programming paradigm, one can realize multi-agent conversations of diverse patterns. In addition to static conversation with predefined flow, `AutoGen` also supports dynamic conversation flows with multiple agents. `AutoGen` provides two general ways to achieve this: 1) Customized `generate` ~~`r`~~ `eply` function: within the customized `generate` ~~`r`~~ `eply` function, one agent can hold the current conversation while invoking conversations with other agents depending on the content of the current message and context. 2) Function calls: In this approach, LLM decides whether or not to call a particular function depending on the conversation status. By messaging additional agents in the called functions, the LLM can drive dynamic multi-agent conversation. In addition, `AutoGen` supports more complex dynamic group chat via built-in `GroupChatManager` , which can dynamically select the next speaker and then broadcast its response to other agents. We elaborate on this feature and its application in Section 3. We provide implemented working systems to showcase all these different patterns, with some of them visualized in Figure 3. 
 
+---
+
 ## **3 Applications of** `AutoGen` 
+
+> **Section Summary:** We demonstrate six applications using `AutoGen` (see Figure 3) to illustrate its potential in simplifying the development of high-performance multi-agent applications.
+
 
 We demonstrate six applications using `AutoGen` (see Figure 3) to illustrate its potential in simplifying the development of high-performance multi-agent applications. These applications are selected based on their real-world relevance (A1, A2, A4, A5, A6), problem difficulty and solving capabilities enabled by `AutoGen` (A1, A2, A3, A4), and innovative potential (A5, A6). Together, these criteria showcase `AutoGen` ’s role in advancing the LLM-application landscape. 
 
@@ -348,7 +397,10 @@ Retrieval augmentation has emerged as a practical and effective approach for mit
 <!-- Start of picture text -->
 80 80<br>70 69.48% 120 Level-5 problems Whole Dataset 70 AutoGen AuotGen W/O interactive retrieval 66.65%<br>DPR 62.59%<br>60 55.18% 60 58.56%<br>52.5%<br>50 48.33% 45.0% 50<br>40 40<br>30.0%<br>30 26.67% 23.33% 30 25.88% 22.79%<br>20 20 15.12%<br>10 10<br>0 AutoGen ChatGPT+Code ChatGPT+Plugin GPT-4 Multi-AgentDebate LangChainReAct 0 F1 Recall<br>Methods Metrics<br>(a) A1: Performance on MATH (w/ GPT-4). (b) A2: Q&A tasks (w/ GPT-3.5).<br>100<br>Average Multi-GPT4Single-GPT4<br>Best of 3 100 96.00% 98.00% Multi-GPT3.5<br>80 77% 88.00% Single-GPT3.5<br>69% 66% 80 83.00% 78.00%<br>63% 72.00%<br>60 54% 54%<br>60<br>48.00%<br>40<br>40<br>32.00%<br>20 20<br>0 AutoGen (3 agent) AutoGen (2 agent) ReAct 0 F1 Recall<br>Methods Metrics<br>(c) A3: Performance on ALFWorld. (d) A4: Performance on OptiGuide.<br>Success Ratio (%) Percentage (%)<br>Success Ratio (%) Percentage (%)<br><!-- End of picture text -->
 
-Figure 4: Performance on four applications A1-A4. (a) shows that `AutoGen` agents can be used out of the box to achieve the most competitive performance on math problem solving tasks; (b) shows that `AutoGen` can be used to realize effective retrieval augmentation and realize a novel interactive retrieval feature to boost performance on Q&A tasks; (c) shows that `AutoGen` can be used to introduce a three-agent system with a grounding agent to improve performance on ALFWorld; (d) shows that a multi-agent design is helpful in boosting performance in coding tasks that need safeguards. 
+Figure 4: Performance on four applications A1-A4. (a) shows that `AutoGen` agents can be used out of the box to achieve the most competitive performance on math problem solving tasks:
+- (b) shows that `AutoGen` can be used to realize effective retrieval augmentation and realize a novel interactive retrieval feature to boost performance on Q&A tasks
+- (c) shows that `AutoGen` can be used to introduce a three-agent system with a grounding agent to improve performance on ALFWorld
+- (d) shows that a multi-agent design is helpful in boosting performance in coding tasks that need safeguards.
 
 2023) with SentenceTransformers (Reimers & Gurevych, 2019) as the context retriever. A detailed workflow description of the Retrieval-augmented Chat is provided in Appendix D. 
 
@@ -384,7 +436,12 @@ Using `AutoGen` , we developed Conversational Chess, a natural language interfac
 
 With `AutoGen` , we enabled two essential features: (1) Natural, flexible, and engaging game dynamics, enabled by the customizable agent design in `AutoGen` . Conversational Chess supports a range of game-play patterns, including AI-AI, AI-human, and human-human, with seamless switching between these modes during a single game. An illustrative example of these entertaining game dynamics can be found in Figure 15, Appendix D. (2) Grounding, which is a crucial aspect to maintain game integrity. During gameplay, the board agent checks each proposed move for legality; if a move is invalid, the agent responds with an error, prompting the player agent to re-propose a legal move before continuing. This process ensures that only valid moves are played and helps maintain a consistent gaming experience. As an ablation study, we removed the board agent and instead only relied on a relevant prompt _“you should make sure both you and the opponent are making legal moves”_ to ground their move. The results highlighted that without the board agent, illegitimate moves caused game disruptions. The modular design offered flexibility, allowing swift adjustments to the board agent in response to evolving game rules or varying chess rule variants. A comprehensive demonstration of this ablation study is in Appendix D. 
 
+---
+
 ## **4 Discussion** 
+
+> **Section Summary:** We introduced an open-source library, `AutoGen` , that incorporates the paradigms of conversable agents and conversation programming.
+
 
 We introduced an open-source library, `AutoGen` , that incorporates the paradigms of conversable agents and conversation programming. This library utilizes capable agents that are well-suited for multi-agent cooperation. It features a unified conversation interface among the agents, along with an auto-reply mechanisms, which help establish an agent-interaction interface that capitalizes on the strengths of chat-optimized LLMs with broad capabilities while accommodating a wide range of applications. `AutoGen` serves as a general framework for creating and experimenting with multiagent systems that can easily fulfill various practical requirements, such as reusing, customizing, and extending existing agents, as well as programming conversations between them. 
 
@@ -396,7 +453,12 @@ Although this work is still in its early experimental stages, it paves the way f
 
 We provide more discussion in Appendix B, including guidelines for using `AutoGen` and direction of future work. We hope `AutoGen` will help improve many LLM applications in terms of speed of development, ease of experimentation, and overall effectiveness and safety. We actively welcome contributions from the broader community. 
 
+---
+
 ## **Ethics statement** 
+
+> **Section Summary:** There are several potential ethical considerations that could arise from the development and use of the `AutoGen` framework.
+
 
 There are several potential ethical considerations that could arise from the development and use of the `AutoGen` framework. 
 
@@ -410,13 +472,20 @@ There are several potential ethical considerations that could arise from the dev
 
 - Unintended Consequences: As discussed before, the use of multi-agent conversations and automation in complex tasks may have unintended consequences. In particular, allowing LLM agents to make changes in external environments through code execution or function calls, such as installing packages, could be risky. Developers should carefully consider the potential risks and ensure that appropriate safeguards are in place to prevent harm or negative outcomes. 
 
+---
+
 ## **Acknowledgements** 
 
 The work presented in this report was made possible through discussions and feedback from Peter Lee, Johannes Gehrke, Eric Horvitz, Steven Lucco, Umesh Madan, Robin Moeur, Piali Choudhury, Saleema Amershi, Adam Fourney, Victor Dibia, Guoqing Zheng, Corby Rosset, Ricky Loynd, Ece Kamar, Rafah Hosn, John Langford, Ida Momennejad, Brian Krabach, Taylor Webb, Shanka Subhra Mondal, Wei-ge Chen, Robert Gruen, Yinan Li, Yue Wang, Suman Nath, Tanakorn Leesatapornwongsa, Xin Wang, Shishir Patil, Tianjun Zhang, Saehan Jo, Ishai Menache, Kontantina Mellou, Runlong Zhou, Feiran Jia, Hamed Khanpour, Hamid Palangi, Srinagesh Sharma, Julio Albinati Cortez, Amin Saied, Yuzhe Ma, Dujian Ding, Linyong Nan, Prateek Yadav, Shannon Shen, Ankur Mallick, Mark Encarnaci´on, Lars Liden, Tianwei Yue, Julia Kiseleva, Anastasia Razdaibiedina, and Luciano Del Corro. Qingyun Wu would like to acknowledge the funding and research support from the College of Information Science and Technology at Penn State University. 
 
 10 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - Vaibhav Adlakha, Parishad BehnamGhader, Xing Han Lu, Nicholas Meade, and Siva Reddy.
+
 
 - Vaibhav Adlakha, Parishad BehnamGhader, Xing Han Lu, Nicholas Meade, and Siva Reddy. Evaluating correctness and faithfulness of instruction-following models for question answering. _arXiv preprint arXiv:2307.16877_ , 2023. 
 
@@ -518,7 +587,12 @@ Yiran Wu, Feiran Jia, Shaokun Zhang, Qingyun Wu, Hangyu Li, Erkang Zhu, Yue Wang
 
 13 
 
+---
+
 ## **A Related Work** 
+
+> **Section Summary:** We examine existing LLM-based agent systems or frameworks that can be used to build LLM applications.
+
 
 We examine existing LLM-based agent systems or frameworks that can be used to build LLM applications. We categorize the related work into single-agent and multi-agent systems and specifically provide a summary of differentiators comparing `AutoGen` with existing multi-agent systems in Table 1. Note that many of these systems are evolving open-source projects, so the remarks and statements about them may only be accurate as of the time of writing. We refer interested readers to detailed LLM-based agent surveys (Xi et al., 2023; Wang et al., 2023b) 
 
@@ -561,7 +635,12 @@ Table 1: Summary of differences between `AutoGen` and other related multi-agent 
 
 15 
 
+---
+
 ## **B Expanded Discussion** 
+
+> **Section Summary:** The applications in Section 3 show how `AutoGen` not only enables new applications but also helps renovate existing ones.
+
 
 The applications in Section 3 show how `AutoGen` not only enables new applications but also helps renovate existing ones. For example, in A1 (scenario 3), A5, and A6, `AutoGen` enabled the creation of multi-agent conversations that follow a dynamic pattern instead of a fixed back-and-forth. And in both A5 and A6, humans can participate in the activities together with multiple other AI agents in a conversational manner. Similarly, A1-A4 show how popular applications can be renovated quickly with `AutoGen` . Despite the complexity of these applications (most of them involve more than two agents or dynamic multi-turn agent cooperation), our `AutoGen` -based implementation remains simple, demonstrating promising opportunities to build creative applications and a large space for innovation. In reflecting on _why_ these benefits can be achieved in these applications with `AutoGen` , we believe there are a few reasons: 
 
@@ -579,7 +658,10 @@ The applications in Section 3 show how `AutoGen` not only enables new applicatio
 
 Below we give some recommendations for using agents in `AutoGen` to accomplish a task. 
 
-1. **Consider using built-in agents first.** For example, `AssistantAgent` is pre-configured to be backed by GPT-4, with a carefully designed system message for generic problem-solving via code. The `UserProxyAgent` is configured to solicit human inputs and perform tool execution. Many problems can be solved by simply combining these two agents. When customizing agents for an application, consider the following options: (1) human input mode, termination condition, code execution configuration, and LLM configuration can be specified when constructing an agent; (2) `AutoGen` supports adding instructions in an initial user message, which is an effective way to boost performance without needing to modify the system message; (3) `UserProxyAgent` can be extended to handle different execution environments and exceptions, etc.; (4) when system message modification is needed, consider leveraging the LLM’s capability to program its conversation flow with natural language. 
+1. **Consider using built-in agents first.** For example, `AssistantAgent` is pre-configured to be backed by GPT-4, with a carefully designed system message for generic problem-solving via code. The `UserProxyAgent` is configured to solicit human inputs and perform tool execution. Many problems can be solved by simply combining these two agents. When customizing agents for an application, consider the following options: (1) human input mode, termination condition, code execution configuration, and LLM configuration can be specified when constructing an agent:
+- (2) `AutoGen` supports adding instructions in an initial user message, which is an effective way to boost performance without needing to modify the system message
+- (3) `UserProxyAgent` can be extended to handle different execution environments and exceptions, etc.
+- (4) when system message modification is needed, consider leveraging the LLM’s capability to program its conversation flow with natural language.
 
 2. **Start with a simple conversation topology** . Consider using the two-agent chat or the group chat setup first, as they can often be extended with the least code. Note that the two-agent chat can be easily extended to involve more than two agents by using LLM-consumable functions in a dynamic way. 
 
@@ -607,7 +689,12 @@ Our work also shows how complex, fully autonomous workflows with `AutoGen` can b
 
 17 
 
+---
+
 ## **C Default System Message for Assistant Agent** 
+
+> **Section Summary:** ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
+
 
 
 ![](images/64-autogen-next-gen-llm-multi-agent-conversations.pdf-0018-01.png)
@@ -621,13 +708,19 @@ System Message<br><!-- End of picture text -->
 
 
 <!-- Start of picture text -->
-System Message<br>You are a helpful AI assistant. Solve tasks using your coding and language skills.<br>In the following cases,  suggest python code  (in a python coding block) or shell script (in a sh<br>coding block)  for the user to execute.<br>1.  When you need to  collect info , use the code to output the info you need, for example, browse or<br>search the web, download/read a file, print the content of a webpage or a file, get the current<br>date/time. After  sufficient info is printed and the task is ready to be solved based on your<br>language skill, you can  solve the task by yourself.<br>2.  When you need to  perform some task with code,  use the code to  perform the task and  output the<br>result.  Finish the task smartly.<br>Solve the task step by step  if you need to. If a plan is not provided,  explain your plan first. Be<br>clear which step uses code, and which step uses your language skill.<br>When using code, you must indicate the script type in the code block .  The user cannot provide any<br>other feedback or perform any other action beyond executing the code you suggest. The user can’t<br>modify your code. So do not suggest incomplete code which requires users to modify .  Don’t use a<br>code block if it’s not intended to  be executed by the user.<br>If you want the user to  save the code in a file before executing it,  put # filename: <filename><br>inside the code block as the first line. Don’t include multiple code blocks in one response. Do not<br>ask users to copy and paste the result. Instead, use ’print’ function for the output when relevant.<br>Check the execution result returned by the user.<br>If the result indicates  there is an error, fix the error and output the code again.  Suggest the<br>full code instead of partial code or code changes. If the error can’t be fixed or if the task is<br>not solved even after the code is executed successfully,  analyze the problem, revisit your<br>assumption, collect additional info you need, and think of a different approach to try.<br>When you find an answer,  verify the answer carefully. Include verifiable evidence in your response<br>if possible.<br>Reply “TERMINATE” in the end when everything is done.<br>Prompting techniques color code:  Role Play; Control Flow; Output Confine; Facilitate Automation ;  Grounding<br><!-- End of picture text -->
+System Message<br>You are a helpful AI assistant. Solve tasks using your coding and language skills.<br>In the following cases,  suggest python code  (in a python coding block) or shell script (in a sh<br>coding block)  for the user to execute.<br>1.  When you need to  collect info , use the code to output the info you need, for example, browse or<br>search the web, download/read a file, print the content of a webpage or a file, get the current<br>date/time. After  sufficient info is printed and the task is ready to be solved based on your<br>language skill, you can  solve the task by yourself.<br>2.  When you need to  perform some task with code,  use the code to  perform the task and  output the<br>result.  Finish the task smartly.<br>Solve the task step by step  if you need to. If a plan is not provided,  explain your plan first. Be<br>clear which step uses code, and which step uses your language skill.<br>When using code, you must indicate the script type in the code block .  The user cannot provide any<br>other feedback or perform any other action beyond executing the code you suggest. The user can’t<br>modify your code. So do not suggest incomplete code which requires users to modify .  Don’t use a<br>code block if it’s not intended to  be executed by the user.<br>If you want the user to  save the code in a file before executing it,  put # filename: <filename><br>inside the code block as the first line. Don’t include multiple code blocks in one response. Do not<br>ask users to copy and paste the result. Instead, use ’print’ function for the output when relevant.<br>Check the execution result returned by the user.<br>If the result indicates  there is an error, fix the error and output the code again.  Suggest the<br>full code instead of partial code or code changes. If the error can’t be fixed or if the task is<br>not solved even after the code is executed successfully,  analyze the problem, revisit your<br>assumption, collect additional info you need, and think of a different approach to try.<br>When you find an answer,  verify the answer carefully. Include verifiable evidence in your response<br>if possible.<br>Reply “TERMINATE” in the end when everything is done.<br>Prompting techniques color code:  Role Play:
+- Control Flow
+- Output Confine
+- Facilitate Automation
+- Grounding<br><!-- End of picture text -->
 
 Figure 5: Default system message for the built-in assistant agent in `AutoGen` (v0.1.1). This is an example of conversation programming via natural language. It contains instructions of different types, including role play, control flow, output confine, facilitate automation, and grounding. 
 
 Figure 5 shows the default system message for the built-in assistant agent in `AutoGen` (v0.1.1), where we introduce several new prompting techniques and highlight them accordingly. When combining these new prompting techniques together, we can program a fairly complex conversation even with the simplest two-agent conversation topology. This approach tries to exploit the capability of LLMs in implicit state inference to a large degree. LLMs do not follow all the instructions perfectly, so the design of the system needs to have other mechanisms to handle the exceptions and faults. Some instructions can have ambiguities, and the designer should either reduce them for preciseness or intentionally keep them for flexibility and address the different situations in other agents. In general, we observe that GPT-4 follows the instructions better than GPT-3.5-turbo. 
 
 18 
+
+---
 
 ## **D Application Details** 
 
@@ -1086,7 +1179,12 @@ Table 7: Cases analysis on four typical tasks from MiniWob++.
 
 33 
 
+---
+
 ## **E Example outputs from applications** 
+
+> **Section Summary:** In this section, we include example outputs from the following applications and systems:
+
 
 In this section, we include example outputs from the following applications and systems: 
 
@@ -1249,7 +1347,7 @@ Table 16: Application A1. Scenario 1: autonomous math solving. Preliminary test 
 ||-<br>_√_<br>245 =<br>_~~√~~_<br>49_∗_5 =<br>_~~√~~_<br>49_×_<br>_√_<br>5 = 7<br>_~~√~~_<br>5|
 ||-<br>_√_<br>108 =<br>_~~√~~_<br>36_∗_3 =<br>_~~√~~_<br>36_×_<br>_√_<br>3 = 6<br>_~~√~~_<br>3<br>Now, substitute these values into the original expression which gives:|
 ||4_∗_<br>_√_<br>10<br>2<br>_~~√~~_<br>63<br>_×_<br>7<br>_~~√~~_<br>5<br>6<br>_~~√~~_<br>3<br>=<br>2_∗_<br>_~~√~~_<br>10<br>_~~√~~_<br>63<br>_×_<br>7<br>_~~√~~_<br>5<br>2<br>_~~√~~_<br>3<br>We get rid of the square root in the denominator by multiplying the fractions which gives:|
-||=<br>2_∗_7<br>_√_<br>10_∗_5<br>2_∗_<br>_~~√~~_<br>63_∗_3<br>=<br>14<br>_√_<br>50<br>_~~√~~_<br>189<br>=<br>14_∗_5<br>_√_<br>2<br>7<br>_~~√~~_<br>27<br>= 2<br>_~~√~~_<br>2_∗_<br>10<br>_~~√~~_<br>27<br>=<br>20<br>_~~√~~_<br>2<br>_~~√~~_<br>27<br>_._<br>To simplify further and rationalize the denominator, we multiply by<br>_√_<br>27<br>_~~√~~_<br>27 <sup>which gives:</sup><br>= <sup>20</sup><br>_√_<br>2<br>_~~√~~_<br>27 <sup>_∗_</sup><br>_√_<br>27<br>_~~√~~_<br>27 <sup>= 20</sup><br>_√_<br>54<br>27<br>= <sup>20</sup><sup>_∗_3</sup><br>_√_<br>6<br>27<br>= <sup>60</sup><br>_√_<br>6<br>27<br>_._<br>Simplifying further gives:<br>= <sup>20</sup><br>_√_<br>6<br>9<br>_._<br>*****TASK CREATION AGENT PROMPT****<br>You are to use the result from an execution agent to create new tasks with the following objective: Solve math problems. The last<br>completed task has the result: First, let’s simplify each square root separately:|
+||=<br>2_∗_7<br>_√_<br>10_∗_5<br>2_∗_<br>_~~√~~_<br>63_∗_3<br>=<br>14<br>_√_<br>50<br>_~~√~~_<br>189<br>=<br>14_∗_5<br>_√_<br>2<br>7<br>_~~√~~_<br>27<br>= 2<br>_~~√~~_<br>2_∗_<br>10<br>_~~√~~_<br>27<br>=<br>20<br>_~~√~~_<br>2<br>_~~√~~_<br>27<br>_._<br>To simplify further and rationalize the denominator, we multiply by<br>_√_<br>27<br>_~~√~~_<br>27 <sup>which gives:</sup><br>= <sup>20</sup><br>_√_<br>2<br>_~~√~~_<br>27 <sup>_∗_</sup><br>_√_<br>27<br>_~~√~~_<br>27 <sup>= 20</sup><br>_√_<br>54<br>27<br>= <sup>20</sup><sup>_∗_3</sup><br>_√_<br>6<br>27<br>= <sup>60</sup><br>_√_<br>6<br>27<br>_._<br>Simplifying further gives:<br>= <sup>20</sup><br>_√_<br>6<br>9<br>_._<br>*****TASK CREATION AGENT PROMPT****<br>You are to use the result from an execution agent to create new tasks with the following **objective:** Solve math problems. The last<br>completed task has the **result:** First, let’s simplify each square root separately:|
 ||-<br>_√_<br>160 =<br>_√_<br>16_∗_10 =<br>_√_<br>16_∗_<br>_√_<br>10 = 4_∗_<br>_√_<br>10<br>**...Repeat after “First, let’s simplify each square..”**<br>Now, substitute these values into the original expression which gives:|
 ||4_∗_<br>_√_<br>10<br>2<br>_~~√~~_<br>63<br>_×_<br>7<br>_~~√~~_<br>5<br>6<br>_~~√~~_<br>3<br>=<br>2_∗_<br>_~~√~~_<br>10<br>_~~√~~_<br>63<br>_×_<br>7<br>_~~√~~_<br>5<br>2<br>_~~√~~_<br>3<br>We get rid of the square root in the denominator by multiplying the fractions which gives:|
 ||=<br>2_∗_7<br>_√_<br>10_∗_5<br>2_∗_<br>_~~√~~_<br>63_∗_3<br>=<br>14<br>_√_<br>50<br>_~~√~~_<br>189<br>=<br>14_∗_5<br>_√_<br>2<br>7<br>_~~√~~_<br>27<br>= 2<br>_~~√~~_<br>2_∗_<br>10<br>_~~√~~_<br>27<br>=<br>20<br>_~~√~~_<br>2<br>_~~√~~_<br>27<br>_._<br>To simplify further and rationalize the denominator, we multiply by<br>_√_<br>27<br>_~~√~~_<br>27 <sup>which gives:</sup><br>=<br>20<br>_√_<br>2<br>_~~√~~_<br>27<br>_∗_<br>_√_<br>27<br>_~~√~~_<br>27<br>=<br>20<br>_√_<br>54<br>27<br>=<br>20_∗_3<br>_√_<br>6<br>27<br>=<br>60<br>_~~√~~_<br>6<br>27<br>_._<br>Simplifying further gives:<br>= <sup>20</sup><br>_√_<br>6<br>9<br>_._This result was based on this task description: Completely simplify and rationalize the denominator:<br>_√_<br>160<br>_~~√~~_<br>252 <sup>_×_</sup><br>_√_<br>245<br>_~~√~~_<br>108 <sup>.</sup><br>Based on the result, return a list of tasks to be completed in order to meet the objective. Return one task per line in your response.<br>The result must be a numbered list in the format:<br># First task # Second task<br>The number of each entry must be followed by a period. If your list is empty, write “There are no tasks to add at this time.” Unless<br>your list is empty, do not include any headers before your numbered list or follow your numbered list with any other output.<br>****TASK CREATION AGENT RESPONSE****<br>1. Simplify and rationalize the denominator for the expression<br>_√_<br>225<br>_~~√~~_<br>45 <sup>_×_</sup><br>_√_<br>200<br>_~~√~~_<br>125 <sup>2. Simplify and rationalize the denominator for</sup><br>the expression<br>_√_<br>289<br>_~~√~~_<br>361 <sup>_×_</sup><br>_√_<br>100<br>_~~√~~_<br>72 <sup>**...Until 10**</sup><br>Adding new tasks to task<br>storage ‘task<br>name’:<br>‘Simplify and rationalize the denominator for the expression frac-<br>sqrt225sqrt45timesfracsqrt200sqrt125’, ‘task<br>~~i~~d’: 2<br>‘task<br>~~n~~ame’: ‘Simplify and rationalize the denominator for the expression fracsqrt289sqrt361timesfracsqrt100sqrt72’, ‘task<br>~~i~~d’: 3<br>**...Until task id 11**<br>****TASK PRIORITIZATION AGENT PROMPT****<br>You<br>are<br>tasked<br>with<br>prioritizing<br>the<br>following<br>tasks:<br>Simplify<br>and<br>rationalize<br>the<br>denominator<br>for<br>the<br>ex-<br>pression<br>fracsqrt225sqrt45timesfracsqrt200sqrt125<br>Simplify<br>and<br>rationalize<br>the<br>denominator<br>for<br>the<br>expression<br>frac-<br>sqrt289sqrt361timesfracsqrt100sqrt72<br>**...Aborted**|
@@ -1308,14 +1406,26 @@ Table 19: Application A7. Example output of MiniWobChat on one web manipulation 
 |**Action**<br>`AutoGen`<br><br> <br>|
 |---|
 |�<br>Init chat<br>Executor agent to AssistantAgent:<br>We have an autonomous computer control agent that can perform atomic instructions specifed by natural language to control<br>computers. There are two types of instructions it can execute.<br>First, given the instruction that matches the regular expression`‘‘^type\s.{1,}$"`, it can type a list of characters via the keyboard.<br>This instruction should specify the target keyboard input for the agent to type. Before this typing instruction, you should frst locate<br>the cursor by clicking the input box with click instruction.<br>Second, given the instruction that matches the regular expression, `‘‘^clickxpath\s.{1,}$"`, it can click an HTML element<br>with an xpath that is visible on the webpage. The target of this instruction should be a valid xpath. Below is the HTML code of the<br>webpage where the agent should solve a task.|
-|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute; left :103 px; top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute; left :44px; top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
+|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute:
+- left :103 px
+- top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute
+- left :44px
+- top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
 |task: Click button ONE, then click button TWO.<br>plan:<br>1. Click the button with xpath “//button[@id=‘subbtn’]”.<br>2. Click the button with xpath “//button[@id=‘subbtn2’]”.<br>Current task: Click button ONE, then click button TWO.<br>plan:|
 |�<br>***************************************************************<br>AssistantAgent to Executor agent:<br>1. Click the button with xpath “//button[@id=‘subbtn’]”.<br>2. Click the button with xpath “//button[@id=‘subbtn2’]”.<br>***************************************************************<br>Executor agent to AssistantAgent:<br>Below is the HTML code of the webpage where the agent should solve a task.|
-|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute; left :103 px; top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute; left :44px; top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
+|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute:
+- left :103 px
+- top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute
+- left :44px
+- top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
 |Current task: Click button ONE, then click button TWO.<br>Here is a plan you are following now.<br>1. Click the button with xpath “//button[@id=‘subbtn’]”.<br>2. Click the button with xpath “//button[@id=‘subbtn2’]”.<br>We have a history of instructions that have been already executed by the autonomous agent so far.<br>No instruction has been executed yet.<br>Based on the plan and the history of instructions executed so far, the frst instruction should be ‘<br>***************************************************************<br>AssistantAgent to Executor agent:<br>clickxpath //button[@id=‘subbtn’]<br>***************************************************************|
 |Executor agent to AssistantAgent:<br>Hold on, please wait for my next instruction.<br>***************************************************************<br>AssistantAgent to Executor agent:<br>Sure, I’ll be here when you’re ready with your next instruction.<br>***************************************************************|
 |Executor agent to AssistantAgent:<br>Below is the HTML code of the webpage where the agent should solve a task.|
-|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute; left :103 px; top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0" data -tampered="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute; left :44px; top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
+|1<br>`<div id="wrap" data -wob_ref="2" data -wob_eps="e0">`<br>2<br>`<div id="query">Click`<br>`button ONE , then`<br>`click`<br>`button`<br>`TWO.</div >`<br>3<br>`<div id="area" data -wob_ref="3" data -wob_eps="e0">`<br>4<br>`<button id="subbtn" style="position:absolute:
+- left :103 px
+- top :87 px" data -`<br>`wob_ref="4" data -wob_eps="e0" data -tampered="e0">ONE </ button >`<br>5<br>`<button id="subbtn2" style="position:absolute
+- left :44px
+- top :97 px" data -`<br>`wob_ref="5" data -wob_eps="e0">TWO </ button >`<br>6<br>`</div >`<br>7<br>`</div >`|
 |Current task: Click button ONE, then click button TWO.<br>Here is a plan you are following now.<br>1. Click the button with xpath “//button[@id=‘subbtn’]”.<br>2. Click the button with xpath “//button[@id=‘subbtn2’]”.<br>We have a history of instructions that have been already executed by the autonomous agent so far.<br>1: clickxpath //button[@id=‘subbtn’]<br>Based on the plan and the history of instructions executed so far, the next proper instruction should be ‘<br>***************************************************************<br>AssistantAgent to Executor agent:<br>clickxpath //button[@id=‘subbtn2’]<br>***************************************************************|
 |Executor agent to AssistantAgent:<br>SUCCESS!!!!|
 |�<br>TERMINATE|

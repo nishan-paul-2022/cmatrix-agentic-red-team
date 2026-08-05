@@ -1,5 +1,35 @@
 # **HackSynth: LLM Agent and Evaluation Framework for Autonomous Penetration Testing** 
 
+## Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. Background](#2-background)
+  - [2.1. Capture The Flag (CTF) Challenges](#2-1-capture-the-flag-ctf-challenges)
+  - [2.2. Heuristic CTF Solvers](#2-2-heuristic-ctf-solvers)
+  - [2.3. LLMs in cybersecurity](#2-3-llms-in-cybersecurity)
+  - [2.4. LLM agents](#2-4-llm-agents)
+  - [2.5. LLM agents for CTF challenges](#2-5-llm-agents-for-ctf-challenges)
+  - [2.6. Datasets For Pentesting Agents](#2-6-datasets-for-pentesting-agents)
+- [3. Methods](#3-methods)
+  - [3.1. HackSynth](#3-1-hacksynth)
+  - [3.2. Benchmarks](#3-2-benchmarks)
+- [4. Experimental Results](#4-experimental-results)
+  - [4.1. Parameter Optimization](#4-1-parameter-optimization)
+  - [4.2. Benchmark Runs](#4-2-benchmark-runs)
+- [5. Behavioral analysis of HackSynth](#5-behavioral-analysis-of-hacksynth)
+  - [5.1. Insight on the solving process](#5-1-insight-on-the-solving-process)
+    - [mktemp -d; cd /tmp/ \  mktemp -d && cd $TMPDIR](#mktemp-d-cd-tmp-mktemp-d-cd-tmpdir)
+  - [5.2. Dangers from unexpected behavior](#5-2-dangers-from-unexpected-behavior)
+- [6. Future Work](#6-future-work)
+- [7. Conclusion](#7-conclusion)
+- [Acknowledgments](#acknowledgments)
+- [References](#references)
+- [Appendix](#appendix)
+    - [Planner Prompts](#planner-prompts)
+    - [Summarizer Prompts](#summarizer-prompts)
+
+---
+
 Lajos Muzsai David Imolai Andr´as Luk´acs 
 
 _AI Research Group, Institute of Mathematics E¨otv¨os Lor´and University_ 
@@ -10,7 +40,12 @@ _muzsailajos@protonmail.com_ , _david@imol.ai_ , _andras.lukacs@ttk.elte.hu_
 
 **_Index Terms_ —Cybersecurity Automation, Autonomous Penetration Testing Agents, Large Language Models, Benchmarks, Capture The Flag Challenges** 
 
+---
+
 ## **1. Introduction** 
+
+> **Section Summary:** The rapid increase in cyber threats, coupled with the growing sophistication of attack methods, has created an urgent need for robust and scalable cybersecurity solutions [1].
+
 
 The rapid increase in cyber threats, coupled with the growing sophistication of attack methods, has created an urgent need for robust and scalable cybersecurity solutions [1]. Penetration testing is critical in identifying and mitigating vulnerabilities by simulating cyber-attacks on systems. Traditionally, penetration testing relies heavily on human experts to conduct comprehensive assessments. However, as systems grow in complexity and the volume of potential vulnerabilities expands, this manual approach becomes increasingly impractical and resource-intensive. 
 
@@ -44,7 +79,12 @@ testing agent capable of solving CTF challenges without human intervention.
 
 The proposed benchmarks, with the code for the agent HackSynth and the measurements presented, are publicly available on GitHub<sup>*</sup> . 
 
+---
+
 ## **2. Background** 
+
+> **Section Summary:** In this section, the typical CTF tasks, included also in the benchmark databases, are presented first.
+
 
 In this section, the typical CTF tasks, included also in the benchmark databases, are presented first. Second, we outline the automatic CTF tools divided into pre-LLM (heuristic) methods and ones using LLM agents. 
 
@@ -90,7 +130,12 @@ Several LLM-based agents have been developed with a focus on automating penetrat
 
 There are some datasets aimed at testing pentesting agents. They usually consist of CTF challenges either from competitions or from CTF websites. The NYU CTF [49] Benchmark contains 200 CTF challenges from the CSAW CTF competitions from 2017 to 2023. These challenges mirror real-world security issues, covering a spectrum of difficulty levels and 6 categories. Intercode CTF is similar to one of the benchmarks we present, as it too contains 100 challenges from PicoCTF, covering 6 categories. However, this benchmark does not contain difficulty ratings or hints and has the flags and files statically saved, so it cannot utilize that the flags change from time to time and from user to user. Cybench [48] contains 40 professional level CTF challenges from 4 distinct competitions. Each challenge is divided into subtasks aimed at more detailed evaluation. The challenges found on the Hack The Box platform have been used to test multiple agents [8], [11], however, there is no standardized version available. 
 
+---
+
 ## **3. Methods** 
+
+> **Section Summary:** This section first provides a detailed description of the HackSynth architecture, focusing on its core components and operational framework, and also discussing its security solutions.
+
 
 This section first provides a detailed description of the HackSynth architecture, focusing on its core components and operational framework, and also discussing its security solutions. Second, the two proposed benchmarks, their construction, and related considerations are presented. 
 
@@ -176,7 +221,12 @@ curity challenges—that test participants’ ability to exploit common vulnerab
 
 These wargames, taken together, offer a diverse and comprehensive testing ground. The challenges range from simple exercises to advanced multi-step problems, ensuring that different LLMs driving the agent can be compared using this dataset due to its wide difficulty spectrum. By incorporating these diverse challenges, our benchmark evaluates not only the models’ technical problem-solving abilities but also their adaptability across different cybersecurity domains. 
 
+---
+
 ## **4. Experimental Results** 
+
+> **Section Summary:** In this section, experimental results regarding the parameter optimization and performance of HackSynth on the two proposed benchmarks are presented.
+
 
 In this section, experimental results regarding the parameter optimization and performance of HackSynth on the two proposed benchmarks are presented. The experiments are separated into two distinct blocks. The first block contains the parameter optimization experiments conducted with two 
 
@@ -270,6 +320,8 @@ Figure 8: Cumulative completions on the PicoCTF benchmark by various LLM models 
 
 tags. However, the GPT-4o model refuses to answer, because of ethical reasons. These findings underscore the diverse operational tendencies of LLMs within agent environments, highlighting model-specific variations that could influence deployment decisions and risk assessments in automated cybersecurity contexts. 
 
+---
+
 ## **5. Behavioral analysis of HackSynth** 
 
 ### **5.1. Insight on the solving process** 
@@ -354,7 +406,12 @@ An additional instance of unexpected behavior involved the destabilization of th
 
 These incidents underscore the importance of implementing robust safety measures when deploying autonomous agents like HackSynth. It is crucial to ensure that the agent operates within strict boundaries and adheres to predefined limitations to prevent unintended consequences, both within the testing environment and in broader operational contexts. 
 
+---
+
 ## **6. Future Work** 
+
+> **Section Summary:** HackSynth currently comprises two core modules—the Planner and the Summarizer.
+
 
 HackSynth currently comprises two core modules—the Planner and the Summarizer. However, other pentesting agents have shown promising results by incorporating more specialized modules. For example, AutoAttacker [10] utilizes _experiment manager_ , which utilizes retrieval augmented generation (RAG) [60] to store previously successful actions in order to make the commands generated by the planner more accurate. Additionally, developing modules specifically designed to interpret visual data from screenshots would allow HackSynth to tackle challenges that require graphical analysis, thereby broadening its applicability. Besides, a module capable of searching the internet for helpful information about software versions and known exploits could enhance the overall performance and help mimic human hacker behavior. Furthermore, enabling the agent to handle features requiring interactive terminals like ACIs used by Enigma [11] would further strengthen HackSynth’s utility. 
 
@@ -370,7 +427,12 @@ Future work should also address the ethical implications and security risks asso
 
 We must note, however, that the rise of automated penetration testing agents is a double-edged sword; on one end, system administrators have to work harder to defend their systems from cyber threats; but on the other end, if we give them access and sufficient training to use these tools, they will be able to discover the vulnerabilities of the managed systems much faster, and probably in a larger quantity than with traditional methods. 
 
+---
+
 ## **7. Conclusion** 
+
+> **Section Summary:** In this paper, we presented HackSynth, an autonomous penetration testing agent powered by LLMs.
+
 
 In this paper, we presented HackSynth, an autonomous penetration testing agent powered by LLMs. HackSynth’s architecture combines a Planner and a Summarizer module, enabling it to generate and execute commands iteratively without human intervention. To evaluate its capabilities, we introduced two new benchmarks based on PicoCTF and OverTheWire platforms, encompassing 200 diverse challenges across multiple cybersecurity domains and difficulty levels. 
 
@@ -382,9 +444,13 @@ By making HackSynth and the proposed benchmarks publicly available, we aim to en
 
 work may focus on enhancing HackSynth’s architecture with additional specialized modules, fine-tuning LLMs for improved performance, and expanding benchmarks to include more complex and realistic hacking scenarios. 
 
+---
+
 ## **Acknowledgments** 
 
 The authors thank the support of the National Research, Development and Innovation Office within the framework of the Thematic Excellence Program 2021 – National Research Sub programme: “Artificial intelligence, large networks, data security: mathematical foundation and applications” and the Artificial Intelligence National Laboratory Program (MILAB). We appreciate the support provided by OpenAI under the Researcher Access Program. We would also like to thank GitHub and neptune.ai for providing us with academic access. 
+
+---
 
 ## **References** 
 
@@ -508,7 +574,12 @@ The authors thank the support of the National Research, Development and Innovati
 
 - [60] P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. K¨uttler, M. Lewis, W.-t. Yih, T. Rockt¨aschel _et al._ , “Retrievalaugmented generation for knowledge-intensive nlp tasks,” _Advances in Neural Information Processing Systems_ , vol. 33, pp. 9459–9474, 2020. 
 
+---
+
 ## **Appendix** 
+
+> **Section Summary:** The following prompts were utilized during the evaluation of the PicoCTF Benchmark and OverTheWire Benchmark to guide autonomous penetration testing agents.
+
 
 The following prompts were utilized during the evaluation of the PicoCTF Benchmark and OverTheWire Benchmark to guide autonomous penetration testing agents. These prompts are carefully designed to ensure consistent, effective, and reproducible behavior across tasks. The prompts are divided into two main categories: Planner and Summarizer, each fulfilling distinct roles in the autonomous agent’s workflow. 
 
@@ -546,7 +617,7 @@ Your summary must be clear, thorough, and should include all relevant details to
 
 Listing 5: Summarizer System Prompt. PicoCTF Benchmark 
 
-You are building a comprehensive history of all actions and their outputs. Your summary should be detailed, including every command run, its output, and any changes or files created. This summary will be used to guide the planning of the next command, so it must include all critical information without omitting any important details.\newline Current Summary: {summarized_history} Latest Action and Output: {new_observation} Expand the current summary by incorporating the new information into the complete history of actions and outputs. Ensure that each step is clear and nothing essential is missed . This summary should fully support the planning of the next step by providing all necessary context. 
+You are building a comprehensive history of all actions and their outputs. Your summary should be detailed, including every command run, its output, and any changes or files created. This summary will be used to guide the planning of the next command, so it must include all critical information without omitting any important details.\newline Current **Summary:** {summarized_history} Latest Action and Output: {new_observation} Expand the current summary by incorporating the new information into the complete history of actions and outputs. Ensure that each step is clear and nothing essential is missed . This summary should fully support the planning of the next step by providing all necessary context. 
 
 Listing 6: Summarizer User Prompt. PicoCTF Benchmark 
 
@@ -564,7 +635,7 @@ Listing 10: Solver Script For The Safe Opener Challenge
 
 Listing 7: Summarizer System Prompt. OverTheWire Benchmark 
 
-Given the previous summary of your history and your latest action, generate a new summary. Include a list of all previous actions. Keep it short. Summarize the text using short sentences and abbreviations. Include all info that may be a password or key. Current summary: {summarized_history} Add to summary: {new_observation} 
+Given the previous summary of your history and your latest action, generate a new summary. Include a list of all previous actions. Keep it short. Summarize the text using short sentences and abbreviations. Include all info that may be a password or key. Current **summary:** {summarized_history} Add to **summary:** {new_observation} 
 
 Listing 8: Summarizer User Prompt. OverTheWire Benchmark 
 

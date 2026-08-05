@@ -1,5 +1,22 @@
 # **Towards Cybersecurity Superintelligence: from AI-guided humans to human-guided AI** 
 
+## Table of Contents
+
+    - [February 10, 2026](#february-10-2026)
+- [1 Introduction](#1-introduction)
+- [2 Evolution Toward Superintelligence](#2-evolution-toward-superintelligence)
+    - [2.1 AI-Guided Humans: PentestGPT](#2-1-ai-guided-humans-pentestgpt)
+    - [2.2 Expert-Level Agents: CAI](#2-2-expert-level-agents-cai)
+    - [2.3 Game-Theoretic Agents: G-CTR](#2-3-game-theoretic-agents-g-ctr)
+- [3 Discussion](#3-discussion)
+  - [Cybersecurity Superintelligence](#cybersecurity-superintelligence)
+- [Author Contributions](#author-contributions)
+- [Declarations](#declarations)
+- [References](#references)
+- [A Full Model Comparison](#a-full-model-comparison)
+
+---
+
 **V´ıctor Mayoral-Vilches**<sup>∗1</sup> **, Stefan Rass**<sup>2</sup> **, Martin Pinzger**<sup>3</sup> **, Endika Gil-Uriarte**<sup>1</sup> **, Unai Ayucar-Carbajo**<sup>1</sup> **, Jon Ander Ruiz-Alcalde**<sup>1</sup> **, Maite del Mundo de Torres**<sup>1</sup> **, Mar´ıa Sanz-G´omez**<sup>1</sup> **, Francesco Balassone**<sup>1</sup> **, Crist´obal R. J. Veas Chavez**<sup>1</sup> **, Vanesa Turiel**<sup>1</sup> **, Alfonso Glera-Pic´on**<sup>1</sup> **, Daniel S´anchez-Prieto**<sup>1</sup> **, Yuri Salvatierra**<sup>1</sup> **, Paul Zabalegui-Landa**<sup>1</sup> **, Ruffino Reydel Cabrera-Alvarez**<sup>**´**1</sup> **and Patxi Mayoral-Pizarroso**<sup>1</sup> 
 
 > 1Alias Robotics, Vitoria-Gasteiz, ´Alava, Spain 
@@ -12,9 +29,11 @@
 
 ##### **Abstract** 
 
-Cybersecurity superintelligence—artificial intelligence exceeding the best human capability in both speed and strategic reasoning—represents the next frontier in security. This paper documents the emergence of such capability through three major contributions that have pioneered the field of AI Security. First, ❶ PentestGPT (2023) established LLM-guided penetration testing, achieving 228.6% improvement over baseline models through an architecture that externalizes security expertise into natural language guidance. Second, ❷ Cybersecurity AI (CAI, 2025) demonstrated automated expert-level performance, operating 3,600× faster than humans while reducing costs 156-fold, validated through #1 rankings at international competitions including the $50,000 Neurogrid CTF prize. Third, ❸ Generative Cut-theRope (G-CTR, 2026) introduces a neurosymbolic architecture embedding game-theoretic reasoning into LLM-based agents: symbolic equilibrium computation augments neural inference, doubling success rates while reducing behavioral variance 5.2× and achieving 2:1 advantage over non-strategic AI in Attack & Defense scenarios. 
+> Cybersecurity superintelligence—artificial intelligence exceeding the best human capability in both speed and strategic reasoning—represents the next frontier in security. This paper documents the emergence of such capability through three major contributions that have pioneered the field of AI Security. First, ❶ PentestGPT (2023) established LLM-guided penetration testing, achieving 228.6% improvement over baseline models through an architecture that externalizes security expertise into natural language guidance. Second, ❷ Cybersecurity AI (CAI, 2025) demonstrated automated expert-level performance, operating 3,600× faster than humans while reducing costs 156-fold, validated through #1 rankings at international competitions including the $50,000 Neurogrid CTF prize. Third, ❸ Generative Cut-theRope (G-CTR, 2026) introduces a neurosymbolic architecture embedding game-theoretic reasoning into LLM-based agents: symbolic equilibrium computation augments neural inference, doubling success rates while reducing behavioral variance 5.2× and achieving 2:1 advantage over non-strategic AI in Attack & Defense scenarios. 
 
-Together, these advances establish a clear progression from AI-guided humans to human-guided gametheoretic cybersecurity superintelligence. 
+> Together, these advances establish a clear progression from AI-guided humans to human-guided gametheoretic cybersecurity superintelligence. 
+
+---
 
 ## **1 Introduction** 
 
@@ -36,7 +55,12 @@ The domain-specific treatment is justified by cybersecurity’s unique structura
 
 In this work, we present an evolution toward Cybersecurity Superintelligence. We trace this evolution through three landmark achievements (Figure 3) that mark a paradigmatic shift: we begin by ❶ using AI to augment human capabilities (Section 2.1), followed by ❷ using AI to build human expert-level agents (Section 2.2), and culminate in ❸ using human reasoning to guide AI toward superhuman performance (Section 2.3). This progression—from AI-guided humans to human-guided AI—represents a fundamental shift in the role each (human and AI) plays, where human expertise transitions from actor to operator, and from operator to supervisor. We examine this inversion and its implications in detail. 
 
+---
+
 ## **2 Evolution Toward Superintelligence** 
+
+> **Section Summary:** | Model | Pass@3 Rate | Solved/Total |
+
 
 > 2Refer to [6] for comprehensive benchmarking methodology and evaluation results of the `alias` model series. 
 
@@ -249,6 +273,8 @@ Empirical validation [16] across 44 cyber-range penetration tests demonstrates t
 
 soning capabilities that exceed humans while maintaining mathematical rigor in adversarial decision-making. We argue that these game-theoretic agents pave the way towards cybersecurity superintelligence. 
 
+---
+
 ## **3 Discussion** 
 
 The progression, from AI-guided humans (Section 2.1) to game-theoretic AI agents to human-guided AI (Section 2.3), represents a fundamental inversion in the relationship between human expertise and machine capability (Figure 5). 
@@ -271,13 +297,22 @@ Yet significant barriers remain to be solved before these superintelligence capa
 
 With AI weaponized by nation-states, democratizing defensive capability via open-source frameworks is imperative. This transformation is empirically validated; our task is to steer it responsibly so that advances from human–AI collaboration to strategic AI strengthen defense rather than fuel offensive proliferation. 
 
+---
+
 ## **Author Contributions** 
 
 V.M.-V. conceived the study, led the overall research, designed and led the experiments, wrote the main manuscript, and served as the principal scientific lead of the three core contributions presented in this work (PentestGPT, CAI, and G-CTR). S.R. and M.P. contributed to the development of PentestGPT and CAI; S.R. additionally contributed to G-CTR. Both S.R. and M.P. contributed to the methodological design, scientific rigor, and validation of the study. E.G.-U., U.A.-C., J.A.R.-A., and M.d.M.d.T. contributed to the analysis and alignment of the state of the art and to the critical review of the perspectives and contributions of the work. M.S.-G. and F.B. contributed to CAI and G-CTR, including development, testing and experiments, validation, and scientific grounding. C.R.J.V.-C., V.T., A.G.-P., D.S.-P., Y.S., P.Z.-L., R.R.C.-A.,<sup>´</sup> and P.M.-P. contributed to the testing and development of CAI. All authors reviewed and approved the final manuscript. 
 
+---
+
 ## **Declarations** 
 
+> **Section Summary:** Funding: European Innovation Council (GA 101161136).
+
+
 Funding: European Innovation Council (GA 101161136). Competing interests: None. Data/Code availability: https://github.com/aliasrobotics/cai (Dual MIT/Proprietary license). 
+
+---
 
 ## **References** 
 
@@ -324,6 +359,8 @@ Funding: European Innovation Council (GA 101161136). Competing interests: None. 
 - [21] Raja Parasuraman, Thomas B. Sheridan, and Christopher D. Wickens. A model for types and levels of human interaction with automation. _IEEE Transactions on Systems, Man, and Cybernetics-Part A: Systems and Humans_ , 30(3):286–297, 2000. 
 
 - [22] Alias Robotics. Cai: Cybersecurity ai - an open bug bounty-ready artificial intelligence, 2025. URL `https://github.com/aliasrobotics/cai` . Accessed: 2025-06-27. 
+
+---
 
 ## **A Full Model Comparison** 
 

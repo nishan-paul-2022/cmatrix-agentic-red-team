@@ -1,12 +1,49 @@
 # **To Defend Against Cyber Attacks, We Must Teach AI Agents to Hack** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1. Introduction](#1-introduction)
+- [2. Catastrophic Cybersecurity Risks in the AI Agent Era](#2-catastrophic-cybersecurity-risks-in-the-ai-agent-era)
+  - [2.1. Threat Model](#2-1-threat-model)
+  - [2.2. System-Level Vulnerability Exploitation](#2-2-system-level-vulnerability-exploitation)
+  - [2.3. Automated Superhuman Cyber Attacks](#2-3-automated-superhuman-cyber-attacks)
+- [3. Defensive Safeguarding Against Cyber Attackers: Why Not Enough](#3-defensive-safeguarding-against-cyber-attackers-why-not-enough)
+  - [3.1. Data Governance](#3-1-data-governance)
+  - [3.2. Safety Alignment](#3-2-safety-alignment)
+  - [3.3. Representation Engineering](#3-3-representation-engineering)
+  - [3.4. Output Guardrails](#3-4-output-guardrails)
+  - [3.5. Access and Deployment Controls](#3-5-access-and-deployment-controls)
+- [4. Future Safeguarding with Offensive Security Agents](#4-future-safeguarding-with-offensive-security-agents)
+  - [4.1. Frontier Offensive Security Measurements](#4-1-frontier-offensive-security-measurements)
+  - [4.2. Frontier Offensive Security Development](#4-2-frontier-offensive-security-development)
+  - [4.3. Frontier Offensiveness Protection](#4-3-frontier-offensiveness-protection)
+- [5. Alternative Views](#5-alternative-views)
+  - [5.1. Challenges in Teaching AI Agents to Hack](#5-1-challenges-in-teaching-ai-agents-to-hack)
+  - [5.2. Limited Adoption of AI Agents in Cyberattacks](#5-2-limited-adoption-of-ai-agents-in-cyberattacks)
+  - [5.3. Lack of Continuing Investment in Frontier AI Development](#5-3-lack-of-continuing-investment-in-frontier-ai-development)
+- [6. Related Works](#6-related-works)
+- [7. Conclusion](#7-conclusion)
+- [Impact Statement](#impact-statement)
+- [References](#references)
+
+---
+
 **Terry Yue Zhuo**<sup>1 2</sup> **Yangruibo Ding**<sup>3</sup> **Wenbo Guo**<sup>4</sup> **Ruijie Meng**<sup>5</sup> 
 
 ## **Abstract** 
 
+> **Section Summary:** For over a decade, cybersecurity has relied on human labor scarcity to limit attackers to high-value targets or generic automated attacks.
+
+
 For over a decade, cybersecurity has relied on human labor scarcity to limit attackers to high-value targets or generic automated attacks. Building sophisticated exploits requires deep expertise and manual effort, leading defenders to assume adversaries cannot afford tailored attacks at scale. AI agents break this balance by automating vulnerability discovery and exploitation across thousands of targets, needing only small success rates to remain profitable. Current developers focus on preventing misuse through data filtering, safety alignment, and output guardrails. However, such protections fail against adversaries who control openweight models or develop offensive capabilities independently. We argue that **AI agent-driven cyber attacks are inevitable and require a fundamental shift in defensive strategy** . Defenders must develop offensive security intelligence to predict how attacks will occur at scale. We propose three actions for building frontier offensive AI capabilities responsibly. First, construct comprehensive benchmarks covering the full attack lifecycle. Second, advance from workflow-based to trained agents for discovering in-wild vulnerabilities. Third, implement governance restricting offensive agents to audited cyber ranges and distilling findings into defensive-only agents. Offensive AI capabilities should be treated as essential defensive infrastructure, as containing cybersecurity risks requires mastering them in controlled settings before adversaries do. 
 
+---
+
 ## **1. Introduction** 
+
+> **Section Summary:** For more than a decade, software security has depended on continuous human effort, and the shortage of skilled people
+
 
 For more than a decade, software security has depended on continuous human effort, and the shortage of skilled people 
 
@@ -47,7 +84,12 @@ The remainder of this paper is organized as follows. We begin by discussing how 
 
 tion 3). We then outline promising future directions for securing the cyber domain in light of emerging offensive AI capabilities (Section 4). Finally, we present alternative views on the challenges of enabling offensive AI responsibly and scenarios that challenge our foundational assumptions (Section 5). Throughout, our focus is on defenses from the AI perspective rather than system-level defenses that use AI to enhance traditional software security tasks. 
 
+---
+
 ## **2. Catastrophic Cybersecurity Risks in the AI Agent Era** 
+
+> **Section Summary:** In this section, we aim to formalize the frontier cybersecurity risks in the era of AI agents.
+
 
 In this section, we aim to formalize the frontier cybersecurity risks in the era of AI agents. We believe that AI agents can enable autonomous cyber attacks that break existing software systems. We argue that AI agents introduce not only incremental risks, but also systemic failure modes that can propagate across infrastructure at a pace exceeding human response capacity (XBOW, 2024). 
 
@@ -77,7 +119,12 @@ The convergence of breadth and depth represents a qualitative shift in the cyber
 
 agent-driven attacks make widespread security breaches more likely. Once attackers compromise one system, they can more easily spread to other connected software systems and networks. 
 
+---
+
 ## **3. Defensive Safeguarding Against Cyber Attackers: Why Not Enough** 
+
+> **Section Summary:** To reduce the possibility that AI agents will be abused for cyberattacks, a variety of defensive measures have been put forth and implemented.
+
 
 To reduce the possibility that AI agents will be abused for cyberattacks, a variety of defensive measures have been put forth and implemented. The majority of protections rely on preset guidelines and limitations that are implemented at particular stages of the AI system. Instead of creating intelligent defensive systems that can actively thwart attacks, developers try to limit model behavior through localized controls on training data, model outputs, or user access. Although the aforementioned defensive strategies offer certain protection against abuse, they all depend on presumptions about the resources and capabilities of attackers. The beliefs that underpin existing protections become less trustworthy as AI agents grow more sophisticated and widely available. In this section, we examine the major categories of defensive safeguards and explain why each approach falls short against adaptive adversaries using AI agents. 
 
@@ -136,6 +183,8 @@ _Table 1._ Performance of SOTA agents on widely used security benchmarks. The nu
 |Patching|SEC-bench (Lee et al.,2025)<br>SWE-bench-Verifed(Yanget al.,2024)|22.3%<br>78.8%|
 
 
+
+---
 
 ## **4. Future Safeguarding with Offensive Security Agents** 
 
@@ -199,7 +248,12 @@ taining strictly audited cyber ranges. The construction of these environments is
 
 Finally, to maximize defensive benefit while minimizing proliferation risk, organizations should decouple those models trained for offensive discovery from the defensive deployment of secure agents. The ultimate goal of teaching agents to hack is to produce superior defensive systems that can operate at machine speed without inheriting the dangerous action space of an attacker. In this offense-to-defense workflow, an offensive agent identifies and validates vulnerabilities in containment, and these traces are then distilled into actionable security artifacts, such as automated patch suggestions and regression tests. While the offensive agent remains restricted to the cyber range, specialized defensive agents, which focus exclusively on detection, root cause analysis, and remediation, can be safely released to protect the global software ecosystem. This separation ensures that the loop between discovery and repair is closed by machinescale intelligence, allowing defenders to secure the rare or unknown cases of software that were exploited by offenders but currently receive limited adversarial attention. 
 
+---
+
 ## **5. Alternative Views** 
+
+> **Section Summary:** Our argument that securing the future requires investment in offensive intelligence rests on assumptions about AI capabilities, attacker adoption, and the limits of existing safeguards.
+
 
 Our argument that securing the future requires investment in offensive intelligence rests on assumptions about AI capabilities, attacker adoption, and the limits of existing safeguards. In this section, we consider alternative views that challenge these assumptions and explain why they do not eliminate the need for our approach. 
 
@@ -223,6 +277,8 @@ inference costs decline, the barrier to adoption is likely to decrease, making l
 
 A second alternative view is that continued rapid progress in frontier AI development is not guaranteed. Economic constraints, regulatory pressure, or diminishing returns to scale could slow investment, leading to a plateau in capabilities (Floridi, 2024). If AI progress stalls, the most severe projected cyber risks may never materialize, and bottom-up safeguards could remain sufficient. While this possibility cannot be ruled out, it is risky to base security planning on optimistic assumptions about stalled progress. Even without further breakthroughs, current and near frontier AI already exhibit capabilities that strain existing defensive paradigms, particularly when combined with agentic scaffolding and tool use. Additionally, progress in AI has historically been uneven rather than linear, with periods of apparent stagnation followed by rapid advances driven by architectural, algorithmic, or system-level innovations (Guo et al., 2025). Security strategies that depend on slowed progress risk being overtaken by sudden capability jumps. Preparing for stronger adversaries before they fully materialize is therefore a prudent defensive posture. 
 
+---
+
 ## **6. Related Works** 
 
 **Large Language Models for Cybersecurity** Research on large language models for cybersecurity has progressed from early domain-adaptive encoder models to scalable generative architectures enabled by curated security corpora. Early models such as CyBERT (Ranade et al., 2021), SecureBERT (Aghaei et al., 2022), and CTI-BERT (Park & You, 2023) demonstrated the benefits of domain-specific finetuning, but closed datasets and task-specific adaptation limited scalability. More recent work emphasizes data-centric approaches based on continued pretraining and instruction tuning. PRIMUS (Yu et al., 2025) and Foundation-Sec-8B (Kassianik et al., 2025) are pretrained on large-scale cybersecurity corpora and then adapted via post-training strategies, though their datasets remain unreleased. CyberPal (Levi et al., 2025a) introduces expert-driven cybersecurity instruction tuning to improve reasoning and instruction following, while CyberPal 2.0 (Levi et al., 2025b) further extends this approach by training smaller specialized modes using enriched expert-curated data. 
@@ -233,7 +289,12 @@ for repository-level code auditing that navigates large codebases, performs on-d
 
 **Agentic Offensive Security** Agentic offensive security explores the use of AI agents to perform multi-step penetration testing, vulnerability exploitation, and Capture The Flag (CTF) tasks in interactive environments. Early systems such as PentestGPT (Deng et al., 2024) illustrate the feasibility of applying LLMs to offensive workflows, though they rely heavily on human guidance. More recent approaches focus on higher degrees of autonomy through structured agent design and environment interaction. EnIGMA (Abramovich et al.) introduces an agentic framework tailored for CTF challenges, integrating tool execution, iterative reasoning, and feedback-driven planning to solve complex offensive tasks end to end. Recent works (Zhuo et al., a;b) have started to address the scarcity of long-horizon training data by synthesizing interaction trajectories for offensive agents, enabling improved performance and generalization across multiple CTF benchmarks. Progress in this area is further supported by the development of standardized evaluation environments and benchmarks, including Cybench (Zhang et al., 2025b), CVE-Bench (Zhu et al., 2025b), and BountyBench (Zhang et al., 2025a), which assess agentic capabilities across professional CTF tasks, real-world vulnerability exploitation, and impact-driven bounty scenarios. 
 
+---
+
 ## **7. Conclusion** 
+
+> **Section Summary:** In this work, we argue that the current defensive AI safety paradigm poses a restrictive view of cybersecurity resilience in the age of AI agents.
+
 
 In this work, we argue that the current defensive AI safety paradigm poses a restrictive view of cybersecurity resilience in the age of AI agents. Focusing solely on model-centric safeguards remains disconnected from the economic reality that AI agents fundamentally alter the cost structure of cyber attacks. We posit that developing offensive security intelligence should be recognized as essential defensive infrastructure, as relying exclusively on reactive protections continues to widen the gap between what attackers can automate and what defenders can anticipate. Only by proactively teach- 
 
@@ -243,11 +304,21 @@ In this work, we argue that the current defensive AI safety paradigm poses a res
 
 ing AI agents to hack within controlled environments can we model adversarial behavior at scale, predict exploitation patterns before they materialize, and maintain a defensible security posture rather than perpetually responding to threats we cannot foresee. The choice is not whether offensive AI capabilities will exist, but whether defenders will master them under responsible governance or be forced to reverse-engineer them after attacks have already succeeded. 
 
+---
+
 ## **Impact Statement** 
+
+> **Section Summary:** This paper examines the dual-use cybersecurity implications of increasingly capable AI and argues for the development of defensive intelligence informed by controlled offensive research.
+
 
 This paper examines the dual-use cybersecurity implications of increasingly capable AI and argues for the development of defensive intelligence informed by controlled offensive research. As AI becomes more agentic and integrated into critical digital infrastructure, failures to anticipate and mitigate its misuse could lead to large-scale security, privacy, and economic harms. While research into offensive capabilities raises ethical concerns around misuse and leakage, avoiding such study may leave defenders unprepared for adversaries who explore these capabilities independently. We emphasize that offensive intelligence should be developed only within secure, well-governed research environments and used to strengthen defensive systems rather than enable real-world attacks. Overall, this work aims to support the responsible advancement of machine learning by improving the resilience of digital systems to emerging automated threats. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - Abramovich, T., Udeshi, M., Shao, M., Lieret, K., Xi, H., Milner, K., Jancheska, S., Yang, J., Jimenez, C.
+
 
 - Abramovich, T., Udeshi, M., Shao, M., Lieret, K., Xi, H., Milner, K., Jancheska, S., Yang, J., Jimenez, C. E., Khorrami, F., et al. Enigma: Interactive tools substantially assist lm agents in finding security vulnerabilities. In <u>Forty-second International Conference on Machine Learning.</u> 
 

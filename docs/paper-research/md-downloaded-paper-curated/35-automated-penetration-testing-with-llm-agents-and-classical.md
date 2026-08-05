@@ -1,5 +1,36 @@
 # Automated Penetration Testing with LLM Agents and Classical Planning 
 
+## Table of Contents
+
+- [I. INTRODUCTION](#i-introduction)
+- [II. THE PEP PARADIGM AND RELATED WORK](#ii-the-pep-paradigm-and-related-work)
+- [A. The PEP Designing Paradigm for Pentesting Systems](#a-the-pep-designing-paradigm-for-pentesting-systems)
+- [B. Classical Planning](#b-classical-planning)
+- [III. EVALUATION OF EXISTING PENTESTING SYSTEMS](#iii-evaluation-of-existing-pentesting-systems)
+- [A. Experimental Methodology & Setup](#a-experimental-methodology-setup)
+- [B. Comparative Evaluation of Existing Systems](#b-comparative-evaluation-of-existing-systems)
+- [C. Discussion on Capabilities and Limitations](#c-discussion-on-capabilities-and-limitations)
+- [IV. SYSTEM DESIGN](#iv-system-design)
+- [A. Overview](#a-overview)
+- [B. Predefined Attack Actions](#b-predefined-attack-actions)
+- [C. Planner](#c-planner)
+- [D. Executor](#d-executor)
+- [E. Perceptor](#e-perceptor)
+- [V. EVALUATION](#v-evaluation)
+- [A. Penetration Capability](#a-penetration-capability)
+- [B. Efficiency](#b-efficiency)
+- [C. Stability](#c-stability)
+- [D. Case Study](#d-case-study)
+- [E. Ablation Study](#e-ablation-study)
+- [VI. DISCUSSION AND FUTURE WORK](#vi-discussion-and-future-work)
+- [A. Actions and States in Pentesting](#a-actions-and-states-in-pentesting)
+- [B. Multimodal and UI-Aware Pentesting](#b-multimodal-and-ui-aware-pentesting)
+- [VII. CONCLUSION](#vii-conclusion)
+- [ETHICAL CONSIDERATIONS](#ethical-considerations)
+- [REFERENCES](#references)
+
+---
+
 Lingzhi Wang<sup>_∗_</sup> , Xinyi Shi<sup>_∗_</sup> , Ziyu Li<sup>_∗_</sup> , Yi Jiang<sup>_†_</sup> , Shiyu Tan<sup>_†_</sup> , Yuhao Jiang<sup>_∗_</sup> , Junjie Cheng<sup>_†_</sup> , Wenyuan Chen<sup>_†_</sup> , Xiangmin Shen<sup>_‡_</sup> , Zhenyuan LI<sup>_†_</sup> , Yan Chen<sup>_∗_</sup> 
 
 > _∗Northwestern University_ , _†Zhejiang University_ , _‡Hofstra University_ 
@@ -8,7 +39,12 @@ Lingzhi Wang<sup>_∗_</sup> , Xinyi Shi<sup>_∗_</sup> , Ziyu Li<sup>_∗_</su
 
 **_Index Terms_ —Cyberattacks, Penetration Testing, LLM, Classical Planning** 
 
+---
+
 ## I. INTRODUCTION 
+
+> **Section Summary:** Penetration testing, hereafter used interchangeably with “pentesting,” has become a vital component of cybersecurity.
+
 
 Penetration testing, hereafter used interchangeably with “pentesting,” has become a vital component of cybersecurity. It enables organizations to proactively identify and mitigate vulnerabilities before exploited by adversaries. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) highlights pentesting as a core service for protecting critical infrastructure [1]. MarketsandMarkets [2] forecasts that the global pentesting market was valued at USD 1.7 billion in 2024, and is projected to grow to USD 3.9 billion by 2029 [3]. The PenTesting-as-a-Service (PTaaS) segment alone is expected to expand from USD 118 million in 2024 to USD 301 million by 2029. This significant and rising demand has prompted the adoption of artificial intelligence (AI) to meet the need for more efficient and scalable penetration testing solutions. A recent research [4] suggests that by 2028, AI-powered security testing tools will outnumber human pentesters in mainstream security operations, signaling a transformative shift in the field. 
 
@@ -36,7 +72,11 @@ Our main contributions are summarized as follows.
 
 - 3) **Proposed Classical Planning+ and Developed CHECKMATE.** To address these limitations, we propose classical planning+, the first dynamically updating classical planning scheme powered by LLMs, which extends conventional classical planning to partially observable and nondeterministic tasks. Based on it, we develop CHECKMATE, which integrates classical planning and LLM agents for pentesting. Our extensive evaluation demonstrates that CHECKMATE substantially outperforms prior systems, improving success rates on Vulhub benchmark by over 20% and cutting both time and monetary costs by more than 50%. 
 
+---
+
 ## II. THE PEP PARADIGM AND RELATED WORK 
+
+---
 
 ## _A. The PEP Designing Paradigm for Pentesting Systems_ 
 
@@ -60,7 +100,12 @@ _3) Perceptor:_ The perceptor is responsible for converting heterogeneous, unstr
 
 **Challenges and open questions:** Existing work focuses primarily on textual data, while visual information is also important in pentesting. For example, analysts may need to infer a web application’s functionality from its user interface or extract data embedded within images (e.g., reading CAPTCHA). Developing future perceptors, therefore, requires addressing the challenges of robust visual understanding. Although an increasing number of LLMs and multimodal models now offer image-analysis capabilities, to the best of our knowledge, no prior work has leveraged visual artifacts effectively in the context of pentesting. 
 
+---
+
 ## _B. Classical Planning_ 
+
+> **Section Summary:** Classical planners operate on state representations explicitly defined by predicates.
+
 
 Classical planners operate on state representations explicitly defined by predicates. Every action includes clearly defined preconditions and effects, which allow the planner to know exactly which actions are applicable at any given state. This 
 
@@ -85,9 +130,16 @@ symbolic grounding guarantees that valid actions are not overlooked, actions are
 
 In contrast, LLM-based planning relies on implicit, language-based reasoning [39], [40]. It lacks a persistent and structured memory of the world state, which makes it prone to forgetting past actions, repeating steps, or hallucinating outcomes, especially as the reasoning chain grows longer [41]– [43]. This also leads to skipped steps in the action sequence or invalid transitions. It also suffers from the limited context windows [44] (e.g., 8K–128K tokens), which restrict its ability to retain long-term planning structure [40], especially in complex tasks like penetration testing. 
 
+---
+
 ## III. EVALUATION OF EXISTING PENTESTING SYSTEMS 
 
+---
+
 ## _A. Experimental Methodology & Setup_ 
+
+> **Section Summary:** _1) Benchmark Datasets:_ We adopt Vulhub [20], a community-maintained collection of containerized vulnerable environments, as the basis of our benchmark.
+
 
 _1) Benchmark Datasets:_ We adopt Vulhub [20], a community-maintained collection of containerized vulnerable environments, as the basis of our benchmark. From this repository, we randomly sampled 120 containers for evaluation. All target Docker images were anonymized, preventing the evaluation system from recognizing them as Vulhub challenges. Compared with recent work [5], [30], [45], our benchmark is the largest of its kind to date. We exclude puzzlelike challenges [46] such as those from HackTheBox [47], which emphasize more on CTF-style tricks. In addition, these challenge sets (e.g., [48]) have extensive public writeups, many of which are likely included in LLM training corpora, posing a risk of data contamination. To maintain experimental fairness and unbiasedness, we therefore do not incorporate them into our benchmark. 
 
@@ -123,6 +175,8 @@ _3) Baselines and Evaluation Criteria:_ We chose four open-source, well-recogniz
 
 **Minimal Human Intervention.** We noticed that some systems still rely on human intervention, such as interpreting system outputs, extracting key information, and guiding LLMs in choosing tools. We believe rigorous evaluation should minimize human involvement to ensure consistency, fairness, and unbiasedness. Accordingly, we followed the principle of minimal human intervention. For systems that could not operate in a fully hands-off-the-keyboard manner, we allowed only essential interactions, strictly limited to selecting default options, executing provided commands, reporting execution outcomes, etc, without offering external knowledge or guidance. 
 
+---
+
 ## _B. Comparative Evaluation of Existing Systems_ 
 
 In addition to the baselines representing the prior work on automated pentesting, we also evaluated the penetration capabilities of three out-of-the-box LLM agents: Claude Code [18] + Sonnet 4.5, Codex [52] + o4-mini, and Gemini Code Assistant [53] + Gemini Pro 2.5. We fed each system the same initial prompt with the task description and allowed them to use any tool that ships in a standard Kali Linux distribution. Beyond that, we provided no additional hints or human intervention. Any single step that stalled for more than two hours was terminated and counted as a failure. For PENTESTGPT [30], PENTESTAGENT [35], and CAI [4], we employed the most powerful LLM that each system supports. We measured the percentage of targets that each system advanced to each milestone. 
@@ -130,6 +184,8 @@ In addition to the baselines representing the prior work on automated pentesting
 The results shown in Figure 1 indicate that Claude Code + Sonnet 4.5 consistently outperforms all other systems across almost all milestones. The performance of PENTESTGPT drops sharply after M1, indicating its limited pentesting ability without human intervention. Although the remaining systems completed the early milestones involving basic reconnaissance and enumeration, their performance diverged significantly once the workflow demands deeper reasoning and planning, as well as exploit development. PENTESTAGENT outperforms CAI, Codex, and Gemini Code Assist due to its online exploitsearch strategy, but it still fails to make progress beyond M4. In contrast, Claude Code maintains strong performance through M7 and still achieves some success in later stages, demonstrating a significantly better capability in multi-step 
 
 penetration tasks. Please note that M8 to M11 correspond to lateral movement, privilege escalation, and credential leakage. Because the Vulhub dataset simulates single–application vulnerabilities, it may not provide the attack paths necessary to reach these milestones. Overall, these results highlight two key findings. First, the out-of-the-box Claude Code + Sonnet 4.5 demonstrates substantially stronger capabilities for automated penetration testing than all prior systems evaluated in this domain. Second, this level of capability is not uniform across LLM-based code agents: Codex and Gemini Code Assist fail to progress beyond basic scanning and enumeration, whereas Claude Code consistently performs a larger number of successful follow-on actions after initial discovery. A detailed analysis of each system’s penetration process and the factors causing the performance gaps is presented in §III-C. 
+
+---
 
 ## _C. Discussion on Capabilities and Limitations_ 
 
@@ -158,9 +214,16 @@ the process, it also increases the risks of hallucinated steps, inconsistent per
 
 **Claude Code has difficulty using specialized pentesting tools:** We also observed a tendency that Claude Code favors crafting custom scripts instead of first leveraging established, specialized pentesting tools, which diverges from human pentesting methodology. For example, Claude Code frequently generates custom curl commands to probe web applications, even though thousands of highly effective Nuclei scanning templates already exist and would provide broader, faster, and more reliable coverage. We assume this is largely because such tools appear less frequently in LLMs’ training data. 
 
+---
+
 ## IV. SYSTEM DESIGN 
 
+---
+
 ## _A. Overview_ 
+
+> **Section Summary:** In this paper, we present CHECKMATE, a system designed to overcome limitations of existing LLM-based pentesting frameworks.
+
 
 In this paper, we present CHECKMATE, a system designed to overcome limitations of existing LLM-based pentesting frameworks. Following the PEP diagram proposed in §II-A, CHECKMATE consists of three major components: classical planning+ as the planner, an LLM agent as the executor, and an LLM as the perceptor. The overall design of CHECKMATE is illustrated in Figure 2. Specifically, we introduced predefined attack actions to expand LLM’s knowledge on the specialized tools. Classical planning+ is leveraged to plan the next action, which is executed by an LLM agent. An LLM is used to interpret execution results and update the planner for further planning. Instead of relying on the LLM agent for the entire pentesting workflow, CHECKMATE restricts the LLM’s role to a pure perceptor and a simple-task executor. This design leverages the LLM agent’s strong executing and interpreting capabilities while relieving it of long-horizon planning and reasoning, which are handled by the classical planner. 
 
@@ -183,7 +246,12 @@ Fig. 2: Overview of CHECKMATE. The orange arrow shows the iterative loop of clas
 
 _2) Classical Planning+:_ Classical planning+ is proposed to address the limitations of traditional classical planning in dynamic, non-deterministic, and partially observable tasks. **Non-Deterministic Action Effects:** Pentesting inherently involves uncertainty and incomplete information. For instance, the result of a port scan is not known until finished, and the outcome of an exploit attempt is often unpredictable until it is executed. However, traditional classical planning assumes a static, deterministic, and fully observable target, where all action effects are determined, and the state of the target is completely specified before the planning starts. Some pentesting systems use complex models to encode uncertainty, which are difficult to scale in the real world. In CHECKMATE, we propose classical planning+, leveraging LLMs to dynamically determine action effects. Since it updates action effects at runtime, complete knowledge is no longer required before planning begins. Specifically, we define the non-deterministic effect to indicate that the effect of an action is unknown until it is executed. Once an action with a non-deterministic effect is executed, LLMs are invoked to analyze the execution outcome and generate concrete effect predicates. We describe this process in §IV-C2, along with a concrete example. Through this mechanism, we successfully extend classical planning to dynamic, non-deterministic, partially-observable scenarios. 
 
+---
+
 ## _B. Predefined Attack Actions_ 
+
+> **Section Summary:** As previously mentioned, existing general-purpose LLM agents lack knowledge of specialized tools during pentesting.
+
 
 As previously mentioned, existing general-purpose LLM agents lack knowledge of specialized tools during pentesting. To address this, we introduce predefined attack actions to expand their knowledge base. We explicitly predefine niche and fine-grained tools such as Metasploit modules, NSE scripts, and Nuclei templates as “actions”, which are considered by the planner. Predefined attack actions also help avoid the inconsistency and errors in LLM-command-generation. In pentesting, most commands adhere to a consistent structure. For example, when executing a default port scan using nmap -Pn -sC -sV -p- -oN - # _{_ target _}_ , the command structure remains largely consistent, while the only part that usually changes is # _{_ target _}_ . However, the next-token prediction mechanism of LLMs is increasingly unstable, and errorprone when generating long commands. In contrast, predefined attack actions provide the core structure and options of the command, leaving only parameters like # _{_ target _}_ to be specified, significantly reducing the risk of generating incorrect commands. 
 
@@ -191,7 +259,12 @@ Predefined attack action offers an alternative approach to expanding an LLM’s 
 
 Classical planning+ begins from the initial state representing all prior knowledge about the target. In each iteration, the planner checks whether the goal is reachable under the current state. If it is, the planner executes the action sequence leading to the goal. If not, the planner produces a list of applicable actions by checking the preconditions of each action. Next, the LLM executes the optimal action from this list based on its knowledge and updates the initial state. If the executed action has a non-deterministic effect, the LLM is invoked to analyze the execution output and translate it into concrete predicates. This process is repeated iteratively until either the goal is met or all possible actions have been explored. Compared to LLM agents, classical planning+ provides a more structured planning engine by presenting a plan as a directed acyclic graph. It offers several advantages in pentesting planning. First, it exhaustively explores the entire action space, avoiding missing available actions, especially in scenarios with a large number of actions or long action sequences. Second, 
 
+---
+
 ## _C. Planner_ 
+
+> **Section Summary:** We propose classical planning+ as the planner of CHECKMATE, which encodes the causal relationships explicitly and maintains a persistent and coherent plan throughout the pentesting.
+
 
 We propose classical planning+ as the planner of CHECKMATE, which encodes the causal relationships explicitly and maintains a persistent and coherent plan throughout the pentesting. 
 
@@ -225,21 +298,40 @@ it avoids repeating previously executed actions or jumping across different dire
 
 
 
+---
+
 ## _D. Executor_ 
 
+> **Section Summary:** Once the next action is determined, the system should execute it without human intervention.
+
+
 Once the next action is determined, the system should execute it without human intervention. To do so, it must select the appropriate tools, reliably generate precise, executable instructions, and configure all required parameters. Given the strong execution abilities of LLM-based code agents, CHECKMATE employs an LLM agent as its executor. Each predefined action is paired with a concise, action-specific prompt that guides the agent. These prompts specify the required tool and command structure, along with placeholders for parameters. For instance, for a network-scanning action, the prompt clearly outlines the expected flags and arguments, while still allowing task-specific values (the IP address) to be injected. These placeholders are automatically populated by the classical planner, ensuring that critical parameters, such as a module name for an exploitation step, are determined deterministically rather than by the LLM, thereby reducing the risk of hallucinations. After the planner selects an action, CHECKMATE provides the corresponding prompt to the LLM executor, which performs the command and returns the resulting output for downstream processing. 
+
+---
 
 ## _E. Perceptor_ 
 
 The perceptor bridges the executor and the planner: it analyzes the execution results in heterogeneous formats and content, translates them into the representation that the planner can use for subsequent planning. In CHECKMATE, the perceptor translates the outputs into predicates defined in classical planning+, which are then used to update the current state. CHECKMATE has two types of perceptors: a rule-based perceptor and an LLM-based perceptor. The rule-based perceptor parses structured outputs and maps them to the corresponding predicates, avoiding the randomness introduced when using LLMs. For example, the JSON result returned from a Metasploit search can be directly mapped to a predicate _(msfmodule-available ?exploit-name)_ for simplicity. The LLMbased perceptor leverages LLMs to interpret unstructured outputs and produce predicates defined in classical planning+. 
 
+---
+
 ## V. EVALUATION 
+
+---
 
 ## _A. Penetration Capability_ 
 
+> **Section Summary:** We first evaluate the penetration capability of CHECKMATE, compared to existing work.
+
+
 We first evaluate the penetration capability of CHECKMATE, compared to existing work. We adopt the same benchmark dataset, metrics, and experimental setup as described in Section 3. The results are shown in Figure 4. CHECKMATE demonstrates substantially stronger penetration capability than all baselines, as evidenced by its progress across all milestones. Notably, 88% of its penetration attempts reach milestone M7, whereas prior work, except Claude Code, rarely progresses beyond M4. Furthermore, CHECKMATE shows advantages over Claude Code at the higher milestones, particularly in the success rates for M6 and M7, indicating improved effectiveness in executing exploits and successfully obtaining a shell. These gains result from the explicitly defined, finegrained actions and a structured planning strategy. By planning all available actions before committing to any specific attack path, CHECKMATE avoids becoming trapped in unproductive branches and maintains steady progress toward deeper system compromise. 
 
+---
+
 ## _B. Efficiency_ 
+
+> **Section Summary:** In this section, we evaluate both the efficiency and cost of CHECKMATE.
+
 
 In this section, we evaluate both the efficiency and cost of CHECKMATE. We selected 20 penetration tasks that CHECKMATE and Claude Code were both able to successfully complete. Under the same LLM model setting, we compared the total monetary cost, representing the amount of LLM tokens consumed, and the time required to finish each task. The results are summarized in Figure 5. On average, CheckMate has a total cost of $0.68, which is 53% lower than that of Claude Code under identical conditions. This reduction in token consumption can be attributed to the use of classical planning for strategy formulation. In contrast, Claude Code relies entirely on text-based reasoning, where every intermediate thought and plan must be expressed in natural language, leading to substantial token overhead. By adopting a symbolic and formalized planning mechanism, CHECKMATE avoids using the LLM to “generate” its reasoning process, thereby concentrating the model’s generation capacity on executing 
 
@@ -438,7 +530,12 @@ Fig. 3: A pentesting workflow driven by classical planning+. Each panel shows on
 
 actions and interpreting outputs. The average time consumed for CHECKMATE is 7.75 minutes, which is 54% lower than Claude Code. 
 
+---
+
 ## _C. Stability_ 
+
+> **Section Summary:** In this section, we evaluate the stability of the pentesting process, i.e., whether the system demonstrates consistent performance across repeated executions of the same task.
+
 
 In this section, we evaluate the stability of the pentesting process, i.e., whether the system demonstrates consistent performance across repeated executions of the same task. To assess this, we execute each task three times and record the results, costs, and time consumption for each run. We then compute the success rate (i.e., the proportion of runs in which all three attempts successfully achieve penetration) and the _Coefficient of Variation_ (a scale-independent measure of dispersion) of both cost and time. The aggregated results are summarized in Table II. About 25% of the tasks 
 
@@ -465,7 +562,12 @@ TABLE II: Stability comparison between CHECKMATE and Claude Code.
 
 
 
+---
+
 ## _D. Case Study_ 
+
+> **Section Summary:** We analyze a specific example in detail to illustrate differences during pentesting between CHECKMATE and Claude Code.
+
 
 We analyze a specific example in detail to illustrate differences during pentesting between CHECKMATE and Claude Code. In this case, CHECKMATE completed the penetration in only three steps; Claude Code, by contrast, used 26 steps, many of which were added because of redundancy, premature abandonment, distractions, and incomplete planning and reasoning. The target is an old version of Apache ActiveMQ (an open-source messaging middleware that supports Java messaging services, clustering, and the Spring framework) from Vulhub. CHECKMATE began with a full-port Nmap scan plus fingerprinting and script probes. It discovered two open ports (22 and 8191), identified that Apache ActiveMQ was running, and associated that service with likely CVEs and corresponding Metasploit modules. Rather than rushing straight to exploitation, CHECKMATE chose, from the feasible action set, to analyze the web interface to further confirm the ActiveMQ version. That analysis verified that an ActiveMQ Console was running and revealed the 
 
@@ -484,13 +586,25 @@ By contrast, Claude Code’s test was a largely ad-hoc process, showing explorat
 
 time or risking failure. Claude Code also struggled to remain focused on a single attack path. While attempting to determine the ActiveMQ version, it would abruptly switch to trying the default-credential brute force. After selecting and spending a long time configuring a Metasploit module, it might suddenly divert to investigating another script found on Exploit-DB, creating needless context switches and time loss. Finally, because Claude Code lacked explicit, structured reasoning, it failed to map the discovered ActiveMQ version to the most appropriate CVE. As a result, it missed the more effective Metasploit module and wasted excessive time on two suboptimal exploits. 
 
+---
+
 ## _E. Ablation Study_ 
+
+> **Section Summary:** In this section, we conduct an ablation study by comparing CHECKMATE with two commonly used strategies for enhancing LLM-based systems.
+
 
 In this section, we conduct an ablation study by comparing CHECKMATE with two commonly used strategies for enhancing LLM-based systems. First, we compare CHECKMATE against the RAG-based approach, which is an alternative strategy for expanding an LLM’s knowledge base. We embedded metadata of specialized penetration tools, including more than 14 thousand Metasploit modules, NSE scripts, and Nuclei templates, as the document database and implemented a RAG pipeline. We aim to evaluate whether LLM agents can effectively use external knowledge to improve their penetration capabilities without relying on predefined actions and classical planning+. Second, we let Claude Code maintain a structured planning file in JSON format rather than using its default to-do list. The prompting was modified so that after each command execution, Claude Code updates this structured planning file and infers the next step based on the revised state. This approach reflects common methodologies in prior work that employ structured planning representations to improve an LLM agent’s planning consistency. For each method, we evaluated the performance on 20 tasks, running each task three times. All four methods successfully obtained a remote shell at least once. As shown in Figure 7, CHECKMATE achieves the lowest overall cost and the shortest execution time, while also delivering the most consistent and efficient performance across test cases. These results indicate that although incorporating RAG or structured planning files can enhance the efficiency of LLM-based agents, the classical planning+ approach provides the most substantial gains in both efficiency and consistency. 
 
+---
+
 ## VI. DISCUSSION AND FUTURE WORK 
 
+---
+
 ## _A. Actions and States in Pentesting_ 
+
+> **Section Summary:** Existing work leaves two fundamental questions unanswered: (1) What actions and skills does pentesting require?
+
 
 Existing work leaves two fundamental questions unanswered: (1) What actions and skills does pentesting require? and (2) How should we represent the state of the target system? The difficulty arises from the open-ended nature of pentesting. Unlike tasks with well-defined action and state spaces, pentesting spans the full breadth of a system’s architecture, configurations, vulnerabilities, and defenses, and demands a wide and adaptable skill set. Current approaches either define fixed, finite sets of skills and states, or depend heavily on black-box LLMs to infer target states and propose actions. The fixed schemas are too restrictive, while relying on opaque LLMs makes it difficult to systematically improve penetration 
 
@@ -506,19 +620,36 @@ Fig. 7: Cost and time comparison. (a) Median API costs in USD. (b) Median execut
 
 capabilities. This gap highlights the need for future work on representing, organizing, extracting, and operationalizing the fragmented knowledge on actions and states in pentesting. 
 
+---
+
 ## _B. Multimodal and UI-Aware Pentesting_ 
 
 Existing pentesting systems struggle in scenarios that require rich human-computer interaction, as traditional LLM agents are not good at interpreting non-textual information and operating web user interfaces (UIs) like a human. As a result, tasks that involve understanding visual elements or manipulating dynamic, interactive web components still depend heavily on humans. Recent advances in multimodal learning and Customizable UI Automation (CUA) offer promising avenues for addressing these limitations [36], [37], opening up new possibilities for pentesting in complex UI environments. 
 
+---
+
 ## VII. CONCLUSION 
+
+> **Section Summary:** In this paper, we first presented a systematic review of existing automated pentesting work through the lens of our PlannerExecutor-Perceptor (PEP) paradigm.
+
 
 In this paper, we first presented a systematic review of existing automated pentesting work through the lens of our PlannerExecutor-Perceptor (PEP) paradigm. Our evaluation shows that the out-of-the-box Claude Code+Sonnet 4.5 substantially outperforms all prior systems in this area. However, further analysis revealed three limitations of Claude Code. We thus proposed CHECKMATE, a framework that couples classical planning+ with LLM agents to address these limitations. Experimental evaluations demonstrated that CHECKMATE outperforms existing systems in penetration capability, efficiency, and stability. 
 
+---
+
 ## ETHICAL CONSIDERATIONS 
+
+> **Section Summary:** This paper presents a practical study on using LLM Agents for pentesting.
+
 
 This paper presents a practical study on using LLM Agents for pentesting. All techniques and systems involved are publicly accessible; we have not developed any new zero-day attacks. All experiments were conducted within authorized virtual environments. We will contact the service providers to inform them of the potential for their products in offensive scenarios. This work is intended solely for research and educational purposes, and we do not encourage or endorse any misuse of the discussed techniques. 
 
+---
+
 ## REFERENCES 
+
+> **Section Summary:** - [1] Cybersecurity and Infrastructure Security Agency, “Penetration testing services,” https://www.cisa.gov/resources-tools/services/penetrationtesting, 2023, u.S.
+
 
 - [1] Cybersecurity and Infrastructure Security Agency, “Penetration testing services,” https://www.cisa.gov/resources-tools/services/penetrationtesting, 2023, u.S. Department of Homeland Security. 
 

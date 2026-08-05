@@ -2,6 +2,73 @@
 
 # **LLMs as Hackers: Autonomous Linux Privilege Escalation Attacks** 
 
+## Table of Contents
+
+- [state management through LLM-driven reflection doubled unaided GPT4-Turbo success rates (from 33% to 66%).](#state-management-through-llm-driven-reflection-doubled-unaided-gpt4-turbo-success-rates-from-33-to-66)
+- [1 Introduction](#1-introduction)
+- [1.1 Motivation](#1-1-motivation)
+- [1.2 Research Questions](#1-2-research-questions)
+- [1.3 Contributions](#1-3-contributions)
+- [2 Background and Related Work](#2-background-and-related-work)
+- [2.1 Large-Language Models](#2-1-large-language-models)
+- [2.2 Penetration Testing](#2-2-penetration-testing)
+- [2.2.1 Linux Privilege-Escalation Vulnerabilities](#2-2-1-linux-privilege-escalation-vulnerabilities)
+- [2.2.2 Automated Linux Privilege-Escalation Tools](#2-2-2-automated-linux-privilege-escalation-tools)
+- [2.2.3 Benchmarks and Testbeds](#2-2-3-benchmarks-and-testbeds)
+- [2.3 Offensive usage of LLMs for “hacking”](#2-3-offensive-usage-of-llms-for-hacking)
+- [2.4 Differentiation](#2-4-differentiation)
+- [3 Methodology](#3-methodology)
+- [3.1 Overall Architecture and Benchmark Workflow](#3-1-overall-architecture-and-benchmark-workflow)
+- [3.2 Baselines](#3-2-baselines)
+- [3.3 HackingBuddyGPT: Autonomous Hacking Agent](#3-3-hackingbuddygpt-autonomous-hacking-agent)
+- [3.4 Model Selection](#3-4-model-selection)
+- [3.5 Experiment Design](#3-5-experiment-design)
+- [3.5.1 Model Capability Analysis](#3-5-1-model-capability-analysis)
+- [3.5.2 Potential Impact of High-Level Guidance](#3-5-2-potential-impact-of-high-level-guidance)
+- [3.5.3 Impact of Context Management](#3-5-3-impact-of-context-management)
+- [3.6 Collected Metrics](#3-6-collected-metrics)
+- [4 Benchmark Design](#4-benchmark-design)
+- [4.1 Desiderata](#4-1-desiderata)
+- [4.1.1 Complexity Level of Included Test-Cases](#4-1-1-complexity-level-of-included-test-cases)
+- [4.2 Testbed Curation](#4-2-testbed-curation)
+- [4.2.1 Vulnerability Classes](#4-2-1-vulnerability-classes)
+- [4.3 Providing Optional High-Level Guidance](#4-3-providing-optional-high-level-guidance)
+- [4.4 Insights into the Benchmark](#4-4-insights-into-the-benchmark)
+- [4.4.1 Enumeration vs. Exploitation](#4-4-1-enumeration-vs-exploitation)
+- [4.4.2 Single- vs. Multi-Step Exploitation](#4-4-2-single-vs-multi-step-exploitation)
+- [4.4.3 Objectives with temporal dependencies](#4-4-3-objectives-with-temporal-dependencies)
+- [5 Evaluation](#5-evaluation)
+- [5.1 Feasibility of Different Models](#5-1-feasibility-of-different-models)
+- [5.1.1 Using State to Aggregate History](#5-1-1-using-state-to-aggregate-history)
+- [5.2 Impact of Context Management Strategies and Context-Size](#5-2-impact-of-context-management-strategies-and-context-size)
+- [5.2.1 Increasing the Context-Size.](#5-2-1-increasing-the-context-size)
+- [5.2.2 In-Context Learning (ICL)](#5-2-2-in-context-learning-icl)
+- [5.3 Impact of Guidance](#5-3-impact-of-guidance)
+- [5.4 Cost Analysis](#5-4-cost-analysis)
+- [6 Discussion](#6-discussion)
+- [6.1 LLM-Generated Commands](#6-1-llm-generated-commands)
+- [6.2 Reacting to System Responses](#6-2-reacting-to-system-responses)
+- [6.3 Causality and Multi-Step Exploits](#6-3-causality-and-multi-step-exploits)
+- [6.3.1 Cron-based Vulnerabilities](#6-3-1-cron-based-vulnerabilities)
+- [6.4 Llama3-8b](#6-4-llama3-8b)
+- [6.4.1 Analysis of Llama3-8b’s errors](#6-4-1-analysis-of-llama3-8b-s-errors)
+- [6.5 Comparison to Baselines](#6-5-comparison-to-baselines)
+- [6.5.1 Comparison to Existing Linux Privilege-Escalation Tooling](#6-5-1-comparison-to-existing-linux-privilege-escalation-tooling)
+- [6.5.2 Comparing LLMs to Human Pen-Testers](#6-5-2-comparing-llms-to-human-pen-testers)
+- [6.5.3 On the Efficiency of using LLMs compared to Developing Traditional Tooling](#6-5-3-on-the-efficiency-of-using-llms-compared-to-developing-traditional-tooling)
+- [6.6 Guardrails and Ethical/Safety Filters](#6-6-guardrails-and-ethical-safety-filters)
+- [6.7 Threats to Validity](#6-7-threats-to-validity)
+- [7 Experience and Guidance](#7-experience-and-guidance)
+- [8 Conclusion](#8-conclusion)
+- [8.1 Final Ethical Considerations](#8-1-final-ethical-considerations)
+- [Declarations](#declarations)
+- [Author Contributions](#author-contributions)
+- [Data Availability Statement](#data-availability-statement)
+- [Conflict of Interest](#conflict-of-interest)
+- [References](#references)
+
+---
+
 **Andreas Happe** **_·_ Aaron Kaplan** **_·_ J¨urgen Cito** 
 
 Received: 10 Februrary 2025 / Accepted: 20 October 2025 
@@ -18,11 +85,18 @@ Andreas Happe et al.
 
 2 
 
+---
+
 ## **state management through LLM-driven reflection doubled unaided GPT4-Turbo success rates** (from 33% to 66%). 
 
 Qualitative analysis reveals both LLMs’ strengths and weaknesses in generating valid commands and highlights challenges in common-sense reasoning, error handling, and multi-step exploitation, particularly with temporal dependencies. Cost analysis indicates that **GPT-4-Turbo can achieve human-comparable performance at competitive costs** per exploited vulnerability, especially with optimized context management. Our work provides a baseline for evaluating LLM capabilities in autonomous privilege escalation, guiding future research toward more effective and reliable LLM-guided penetration-testing. 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** In the rapidly evolving field of cybersecurity, penetration-testing (“pen-testing” or “hacking”) plays a pivotal role in identifying and mitigating potential vulnerabilities.
+
 
 In the rapidly evolving field of cybersecurity, penetration-testing (“pen-testing” or “hacking”) plays a pivotal role in identifying and mitigating potential vulnerabilities. A crucial subtask of pen-testing is privilege-escalation, which involves _exploiting a bug, design flaw, or configuration oversight in an operating system or software application to gain elevated access to resources that are normally protected from an application or user_<sup>1</sup> . The ability to escalate privileges provides a malicious actor with increased access, potentially leading to more significant breaches or system damage. Therefore, understanding and improving the performance of tools used for this task is highly relevant and impacts real-life security. 
 
@@ -30,7 +104,12 @@ In this paper, we focus on investigating the performance of Large Language Model
 
 To address this gap, we performed an empirical analysis of multiple LLMs using a newly created open-source Linux privilege-escalation benchmark, providing insight into LLMs’ strengths and weaknesses in the context of these attacks. We release a platform to evaluate and compare the performance of different LLMs in a controlled manner. By understanding the performance of these models in the critical task of privilege-escalation, we can guide future research efforts towards higher effectiveness and reliability for LLM-guided penetration-testing. 
 
+---
+
 ## 1.1 Motivation 
+
+> **Section Summary:** In our previous work (Happe and Cito 2023a), we employed a proof-of-concept autonomous hacking agent ( _wintermute_ ) to attack a single vulnerable Linux virtual machine.
+
 
 In our previous work (Happe and Cito 2023a), we employed a proof-of-concept autonomous hacking agent ( _wintermute_ ) to attack a single vulnerable Linux virtual machine. Using GPT-3.5, we were able to experience successful privilege-escalation 
 
@@ -44,7 +123,12 @@ attacks occasionally. We will show in Section 2.3 that concurrent and subsequent
 
 In this work, we want to investigate the latent knowledge and decision-making capabilities of off-the-shelf LLMs for Linux privilege-escalation attacks. This provides a baseline against which advanced techniques such as CoT can be compared against—if privilege-escalation attacks without these advanced techniques are already successful, their additionally needed resources can be saved. 
 
+---
+
 ## 1.2 Research Questions 
+
+> **Section Summary:** We guide our work based on the following research questions:
+
 
 We guide our work based on the following research questions: 
 
@@ -59,6 +143,8 @@ We guide our work based on the following research questions:
 - **impact the efficacy and efficiency** of LLM-driven privilege-escalation agents? 
 
 - **– RQ3:** To what extent do different **high-level guidance mechanisms influence the success rates** of attack vectors by LLM-based privilege-escalation agents? 
+
+---
 
 ## 1.3 Contributions 
 
@@ -78,11 +164,21 @@ Andreas Happe et al.
 
 We publicly release the source code of our prototype<sup>2</sup> , the created testbed<sup>3</sup> , and captured trajectory data<sup>4</sup> under an open-source license on github. 
 
+---
+
 ## **2 Background and Related Work** 
+
+> **Section Summary:** The background section focuses on the two distinct areas that this work integrates: LLMs and penetration-testing.
+
 
 The background section focuses on the two distinct areas that this work integrates: LLMs and penetration-testing. 
 
+---
+
 ## 2.1 Large-Language Models 
+
+> **Section Summary:** Five years after transformer models were introduced (Vaswani et al.
+
 
 Five years after transformer models were introduced (Vaswani et al. 2017), OpenAI’s publicly accessible chatGPT (OpenAI 2022) transformed the public understanding of LLMs. By now, cloud-based commercial LLMs such as OpenAI’s GPT family, Anthropic’s Claude or Google’s Gemini have become ubiquitous (Zhao et al. 2023). Each new generation of Meta’s Llama model (Touvron et al. 2023) ignites interest in running local LLMs to reduce both potential privacy impact as well as subscriptionbased costs. 
 
@@ -106,7 +202,12 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 findings indicate that ICL can be used as a stand-in for RAG systems given that the used knowledge base fits into the LLM’s context size. 
 
+---
+
 ## 2.2 Penetration Testing 
+
+> **Section Summary:** _Penetration-Testing_ , short _pen-testing_ , is described by Geer and Harthorne (2002) as “ _the art of finding an open door_ ”.
+
 
 _Penetration-Testing_ , short _pen-testing_ , is described by Geer and Harthorne (2002) as “ _the art of finding an open door_ ”. Its goal is to find a vulnerability within the subject-under-test to falsify the hypothesis that the subject is secure. The outcome of a penetration-test allows defenders to fortify their systems so that other, potentially malicious, attackers cannot abuse similar vulnerabilities (Bishop 2007). Professionals performing those tests are typically called _penetration-testers_ , _pen-tester_ , or simply _hackers_ . An additional differentiation is often performed upon the intend of the pentester: _white-hats_ perform ethical research to improve the field of software security while _black-hats_ are malicious and work for monetary or political gain. 
 
@@ -114,7 +215,12 @@ Shah and Mehtre (2015) further elaborate on the nature of penetration testing an
 
 Only little empirical research into how penetration-testers perform their work, and the potential problems therein, has been performed. Happe and Cito (2023b) performed an interview study with professional penetration-testers. One of their key findings is that security researchers and security practitioners (penetration-testers) differ in their methodologies and tooling. While security researchers focus upon finding new and novel vulnerabilities, i.e., finding 0-days, security practitioners spend the majority of their time using known vulnerabilities and abusing insecure configurations. These are often emulated through _Capture-the-Flag_ (CTF) challenges indicating the possibility of transfer learning. When attacking enterprise networks, or performing privilege-escalation attacks, interviewees mentioned that they would never search for novel 0-day vulnerabilities due to their limited amount of time, further underscoring why efficiency and resource consumption (time, tokens, and monetary costs) are critical metrics in this domain. Instead they depend upon their knowledge of existing vulnerabilities as detailed by large online knowledge bases such as _hacktricks_ (Polop 2025). 
 
+---
+
 ## _2.2.1 Linux Privilege-Escalation Vulnerabilities_ 
+
+> **Section Summary:** Privilege-Escalation (short _priv-esc_ ) is the art of making a system perform operations that the current user should not be allowed to.
+
 
 Privilege-Escalation (short _priv-esc_ ) is the art of making a system perform operations that the current user should not be allowed to. We focus upon a subsection of priv- 
 
@@ -137,6 +243,8 @@ Privilege-Escalation attacks are typically performed manually by searching for e
 In many security areas, established standards and methodologies guide novice practitioners, e.g., in the web application area the non-profit organization OWASP provides both the de-facto standard list of commonly used web vulnerabilities (OWASP 2021) as well as detailed testing guides (OWASP 2013). In contrast, there is no such coverage for Linux Privilege Escalation Attacks. Partially fitting is the MITRE ATT&CK framework (Strom et al. 2018) that “ _is a knowledge base of cyber adversary behavior and taxonomy for adversarial actions across their lifecycle_ ”. Originally focusing on Microsoft Windows Enterprise networks, subsequent iterations also include Linux attack vectors. MITRE ATT&CK does not offer a methodology, i.e., it does not describe attacks paths, but is an unordered taxonomy of potential attack vectors, thus does not provide high-level guidance to security practitioners, nor can it be used as a high-level structure for benchmarks. 
 
 Instead of established standards, aspiring penetration testers typically consume living online information sources. Ample unstructured information about Linux privilege escalation techniques can be found in public online wikis such as hacktricks (Polop 2025) or GTFObins (Pinna and Cardaci 2025), a collection of privilege-escalation techniques. In addition, _Capture-the-Flag_ (CTF) style exercises allow penetration testers to hone their skills. Sites such as _TryHackMe_<sup>10</sup> or _HackTheBox_<sup>11</sup> allow online access to an ever-changing set of vulnerable virtual machines. 
+
+---
 
 ## _2.2.2 Automated Linux Privilege-Escalation Tools_ 
 
@@ -181,13 +289,23 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 The well known _metasploit_ framework deprecated its automated exploitation module, _autopwn db_ in 2011 as “ _it did not fit in the scope of the framework, was unmaintained, and caused damage to systems when used in the default mode_ ” (munky9001 2011). Alternative solutions such as _pwncat-cs_<sup>14</sup> or _traitor_<sup>15</sup> are infrequently updated. 
 
+---
+
 ## _2.2.3 Benchmarks and Testbeds_ 
+
+> **Section Summary:** In addition to the lack of established Linux privilege-escalation standards, there is also a lack of Linux privilege-escalation benchmarks.
+
 
 In addition to the lack of established Linux privilege-escalation standards, there is also a lack of Linux privilege-escalation benchmarks. We assume that one of the reasons is the competitive nature of security testing: as soon as a benchmark is established, tools can optimize for their test-cases, and thus invalidate the benchmark leading to a _Red Queen’s Race_ (Harang and Ducau 2018). 
 
 Due to the sensitive, unpredictable, and potentially destructive nature of security experiments, the safety of the testbed is of high importance. The commands executed within the test environment must not interact with any non-test system nor network. To achieve this, the test scenarios should be hosted within virtual machines upon a virtual network that is not publicly reachable. This safety requirement, in addition to their ever-changing nature, makes the reuse of online CTF exercises problematic. 
 
+---
+
 ## 2.3 Offensive usage of LLMs for “hacking” 
+
+> **Section Summary:** The potential of LLMs is seen by both ethical hackers and blackhats.
+
 
 The potential of LLMs is seen by both ethical hackers and blackhats. Gupta et al. (2023) identify multiple areas of interest for using LLMs including phishing/social engineering, pen-testing and the generation of malicious code/binaries (e.g., payloads, ransomware or malware). 
 
@@ -269,7 +387,12 @@ They evaluated GPT-3.5, GPT-4 and LLama2 (both 7b and 70b variants). GPT4 was ab
 
 The paper was the only paper that mentioned being detected by policy/ethics filter and uses _Roleplaying Prompts_ (Kong et al. 2023) to bypass those countermeasure. 
 
+---
+
 ## 2.4 Differentiation 
+
+> **Section Summary:** Our work is based on our initial proof-of-concept prototype, _wintermute_ (Happe and Cito 2023a).
+
 
 Our work is based on our initial proof-of-concept prototype, _wintermute_ (Happe and Cito 2023a). 
 
@@ -289,11 +412,21 @@ By focusing on the efficacy of generating and executing hacking commands, we all
 
 We highlight differences in autonomous behavior and reproducibility between this publication and related work in Table 2. 
 
+---
+
 ## **3 Methodology** 
+
+> **Section Summary:** Our study investigates the efficacy of LLMs for autonomous privilege-escalation attacks by executing a prototype against a testbed of vulnerable Linux virtual machines.
+
 
 Our study investigates the efficacy of LLMs for autonomous privilege-escalation attacks by executing a prototype against a testbed of vulnerable Linux virtual machines. This section highlights our experiment design while the subsequent Section 4 describes the creation and provenance of our utilized testbed. 
 
+---
+
 ## 3.1 Overall Architecture and Benchmark Workflow 
+
+> **Section Summary:** Our prototype allows for fully automated evaluation of an LLM’s privilege-escalation capabilities as highlighted in Figure 1.
+
 
 Our prototype allows for fully automated evaluation of an LLM’s privilege-escalation capabilities as highlighted in Figure 1. To achieve this, we instantiate new Linux virtual machines (VMs) for each new benchmark run. Each of the generated VMs is secure except for the single vulnerability injected into it. The virtual machines are subsequently used as targets for the configured LLM-driven prototypes and privilegeescalation attacks are performed as detailed in Section 3.3. After _root_ -level access has been achieved, or a predefined number of rounds has been reached, the attacks are stopped and the respective VM destroyed. We keep the log information according to Section 3.6 for later analysis. 
 
@@ -349,7 +482,12 @@ Script Vagrant Ansible hackingBuddyGPT VMs<br>vagrant up create VMs<br>provision
 
 To allow for extensibility the benchmark was implemented using well-known Unix administration tools. The virtual machines are provisioned using _Vagrant_ and are based on the standard _Debian GNU/Linux_ distribution. Vulnerabilities are introduced into each VM using _Ansible_ automation scripts. _Ansible_ is also used to prepare a low-privilege account (“lowpriv”) and high-level account (“root”) with a standard password. If the benchmark is used as target for human pen-tester, varying the root password for each machine is recommended. 
 
+---
+
 ## 3.2 Baselines 
+
+> **Section Summary:** We used human professional penetration-testers as well as traditional automated privilege-escalation tools to provide realistic baselines to compare our LLM-driven prototype against.
+
 
 We used human professional penetration-testers as well as traditional automated privilege-escalation tools to provide realistic baselines to compare our LLM-driven prototype against. Table 3 shows the results of our baselines when run against the benchmark described in Section 4.2. 
 
@@ -377,7 +515,12 @@ After the initial run, they were tasked to attempt the failed test-cases while b
 
 We installed _pwncat-cs_ on a separate machine due its dependency on Python 3.9. In addition, its source code was modified manually to fix problems while connecting through SSH to its targets<sup>20</sup> . With these fixes, we were able to connect to the vulnerable virtual machines over SSH and start automated exploitation through the command `escalate run` . 
 
+---
+
 ## 3.3 HackingBuddyGPT: Autonomous Hacking Agent 
+
+> **Section Summary:** Our prototype, _hackingBuddyGPT_ , is a Python program that supervises and controls the privilege-escalation attempts.
+
 
 Our prototype, _hackingBuddyGPT_ , is a Python program that supervises and controls the privilege-escalation attempts. It connects to the target VM through SSH as well as to the used LLMs through their OpenAI-compatible HTTP API. It is responsible for collecting and storing log information for subsequent analysis. 
 
@@ -489,6 +632,8 @@ Andreas Happe et al.
 
 16 
 
+---
+
 ## 3.4 Model Selection 
 
 We are basing our model selection on reported experiences (Background Section 2.3), as well as on the recommendations derived from a recent survey of offensive LLMdriven penetration-testing prototypes (Happe and Cito 2025). 
@@ -501,17 +646,32 @@ Existing research (Section 2.3) indicates that GPT-4-Turbo should be able to suc
 
 Using our prototype’s context-size limiter (Section 3.3), we initially limited the context size to 8k tokens. When testing for the impact of using large context sizes, we employed GPT-4-Turbo with its maximum context size of 128k tokens. 
 
+---
+
 ## 3.5 Experiment Design 
+
+> **Section Summary:** Our experiments were designed to closely align with our research questions.
+
 
 Our experiments were designed to closely align with our research questions. 
 
+---
+
 ## _3.5.1 Model Capability Analysis_ 
+
+> **Section Summary:** **Baseline.** For a baseline, we configure the respective LLM to use the history mechanism while limiting its context size to 8k.
+
 
 **Baseline.** For a baseline, we configure the respective LLM to use the history mechanism while limiting its context size to 8k. A test run ends when the agent has reached root access or if an upper limit of 60 steps is reached otherwise. 
 
 **Feasibility of Small Language Models.** Recently, the term Small Language Models for models with parameter sizes smaller than 8–12b has been established. These models are interesting from a privacy perspective as they can be executed locally. To evaluate the feasibility of using those, we will run the benchmark suite with a small language model (Llama3-8b). 
 
+---
+
 ## _3.5.2 Potential Impact of High-Level Guidance_ 
+
+> **Section Summary:** The potential action state for LLMs driving Linux privilege-escalation is immense, creating the peril of LLMs not covering potential attack vectors.
+
 
 The potential action state for LLMs driving Linux privilege-escalation is immense, creating the peril of LLMs not covering potential attack vectors. Our previous research indicates that providing high-level guidance substantially improves LLM performance (Happe and Cito 2023a). To evaluate this, we use the _guidance_ feature of our prototype (Section 3.3) to introduce two different types of guidance: 
 
@@ -526,6 +686,8 @@ High-Level hints also allow us to investigate if our LLM-driven prototype can be
 **Enumeration-Tool Derived Hints.** Additionally, we used the output of an existing Linux enumeration tool ( _linux-smart-enumeration.sh_ , Section 2.2.2) to provide guidance to our LLM-driven prototype. To translate the text output of the enumeration tool into actionable instructions for our LLM-prototype, we used a LLM prompt to summarize the enumeration tool’s output into three concrete attack strategies which are then subsequently be used as guidance for the LLM-based prototype. We keep our interaction limit to 60 rounds, but divide that into a maximum limit of 20 rounds per derived attack strategy to keep the overall number of interactions round comparable to our other results. 
 
 By default, we use the same LLM for summarizing the output of the enumeration tool as well as for our LLM-driven prototype. To analyze the impact of summarization quality, we use the larger GPT-4-Turbo model to generate the list of attack strategies, and combine it with the faster and more cost-efficient GPT-3.5-Turbo model for driving our penetration-testing prototype. The combination of these two models should reduce the overall execution cost of our simulated penetration-testing. 
+
+---
 
 ## _3.5.3 Impact of Context Management_ 
 
@@ -623,6 +785,8 @@ We also evaluate the impact of using smaller context sizes by limiting them to 4
 
 **Using Context for Background Information.** As a separate experiment, we investigate the benefits of in-context learning as the larger context size allows to include additional information. To test its efficiency, we converted the Linux PrivilegeEscalation parts of _hacktricks_ into plain-text and include that as background information. Including the whole “linux-privesc” and “linux-hardening” areas yielded a background section of 173k tokens, thus exceeding GPT-4-Turbo’s context size. We manually selected _hacktricks_ articles related to the benchmark test-cases and thus created a background section of 67k tokens—roughly 50% of the available context size. 
 
+---
+
 ## 3.6 Collected Metrics 
 
 _General meta-data_ such as the used LLM, its maximum allowed context size, the tested vulnerability class and full run configuration data including usage of guidance is stored for each configured benchmark run. For each completed run, we store the start and stop timestamps, the number of times that the LLM was asked for a new command (“rounds”) as well as the run’s final state which indicates if root-level access has been achieved or not. 
@@ -631,7 +795,12 @@ _LLM query-specific data_ contains the type of query, the executed LLM _prompt_ 
 
 The collected data allow us to perform both quantitative analysis, e.g., number of rounds needed for privilege-escalation, as well as qualitative analysis, e.g., quality of the LLM-derived system commands. As cloud-based models are typically priced by utilized tokens, capturing those allows us to analyze potential costs of LLM-guided penetration testing. 
 
+---
+
 ## **4 Benchmark Design** 
+
+> **Section Summary:** Linux systems are integral to the infrastructure of modern computing environments, necessitating robust security measures to prevent unauthorized access.
+
 
 Linux systems are integral to the infrastructure of modern computing environments, necessitating robust security measures to prevent unauthorized access. Privilegeescalation attacks represent a significant threat, typically allowing attacker to elevate their privileges from an initial low-privilege account to the all-powerful _root_ account. 
 
@@ -643,7 +812,12 @@ Andreas Happe et al.
 
 20 
 
+---
+
 ## 4.1 Desiderata 
+
+> **Section Summary:** The benchmark’s use-case, i.e., testing the efficacy of malicious privilege-escalation attacks against Linux systems, leads to unique requirements:
+
 
 The benchmark’s use-case, i.e., testing the efficacy of malicious privilege-escalation attacks against Linux systems, leads to unique requirements: 
 
@@ -657,6 +831,8 @@ The benchmark’s use-case, i.e., testing the efficacy of malicious privilege-es
 
 - The created virtual machines should be as extensible and transparent as possible, mandating both the usage of, and the release as, open source. 
 
+---
+
 ## _4.1.1 Complexity Level of Included Test-Cases_ 
 
 The complexity of a testbed is of paramount importance for potential analysis: if tasks are too easy, too little information about the test subject’s capabilities can be derived; if tasks are too hard, the subject’s missing progress also leads to little analyzable data. 
@@ -667,7 +843,12 @@ Our human baseline, a professional penetration-tester with 7 years of experience
 
 We released the testbed as open-source on github. If future LLM-driven prototypes are capable of exploiting more testbeds, additional test-cases, e.g., multi-step test-cases utilizing multiple user-accounts, can be incorporated. Both the results of our baselines (Table 3) as well as the results of our prototype (Table 8) indicate that the current testbed’s complexity is a good fit for this generation of automated penetration-testing tools. 
 
+---
+
 ## 4.2 Testbed Curation 
+
+> **Section Summary:** To the best of our knowledge, there exists no benchmark for evaluating Linux privilege-escalation capabilities fulfilling our stated requirements and desiderata.
+
 
 To the best of our knowledge, there exists no benchmark for evaluating Linux privilege-escalation capabilities fulfilling our stated requirements and desiderata. During pen-tester education, Capture-the-Flag challenges (CTFs) are often used. These are simulated test-cases, often placed within Virtual Machines, in which 
 
@@ -701,7 +882,12 @@ Training companies such as _HackTheBox_ or _TryHackMe_ provide cloud-based acces
 
 To solve this, we designed a novel Linux privilege-escalation benchmark that can be executed locally, i.e., which is reproducible and can be deployed in air-gapped environments. To gain detailed insights into privilege-escalation capabilities we introduce distinct test-cases that allow reasoning about the feasibility of attackers’ capabilities for each distinct vulnerability class. 
 
+---
+
 ## _4.2.1 Vulnerability Classes_ 
+
+> **Section Summary:** The benchmark consists of test-cases, each of which allows the exploitation of a single specific vulnerability class.
+
 
 The benchmark consists of test-cases, each of which allows the exploitation of a single specific vulnerability class. We based the vulnerability classes upon vulnerabilities typically abused during CTFs as well as on vulnerabilities covered by online privilegeescalation training platforms. Overall, we focused on configuration vulnerabilities, not exploits for specific software versions. Our previous empirical study on how hackers work (Happe and Cito 2023b) indicates that configuration vulnerabilities are often searched for manually, while version-based exploits are often automatically detected. This indicates that improving the former yields a larger real-world impact for pen-tester’s productivity. 
 
@@ -725,7 +911,12 @@ We did not implement all of TryHackMe’s vulnerabilities. We opted to not imple
 
 The resulting vulnerability test-cases are detailed in Table 4. We discussed this selection with two professional penetration-testers who thought it to be representative of typical CTF challenges. The overall architecture of our benchmark allows the easy addition of further test-cases in the future. In Table 5, benchmark cases are mapped upon their respective implemented MITRE techniques. 
 
+---
+
 ## 4.3 Providing Optional High-Level Guidance 
+
+> **Section Summary:** Our recent interview study indicates that human hackers rely on intuition or checklists when searching for vulnerabilities (Happe and Cito 2023b).
+
 
 Our recent interview study indicates that human hackers rely on intuition or checklists when searching for vulnerabilities (Happe and Cito 2023b). The mentioned checklists often consist of a list of different vulnerability classes to test. 
 
@@ -777,11 +968,21 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 In addition, the same guidance mechanism is used to emulate hints given by high-level LLM _Planner_ modules or by automated vulnerability scanners such as the _linux-smart-enumeration.sh_ (often called _lse.sh_ ) hacking script. 
 
+---
+
 ## 4.4 Insights into the Benchmark 
+
+> **Section Summary:** After describing the selection process and composition of the benchmark, we elaborate further upon the benchmark itself.
+
 
 After describing the selection process and composition of the benchmark, we elaborate further upon the benchmark itself. We discussed the included vulnerabilities with a professional penetration-tester and included their feedback in this section. 
 
+---
+
 ## _4.4.1 Enumeration vs. Exploitation_ 
+
+> **Section Summary:** During the enumeration phase of an attack, system information is gathered and used to identify potential vulnerable configuration and components that are subsequently
+
 
 During the enumeration phase of an attack, system information is gathered and used to identify potential vulnerable configuration and components that are subsequently 
 
@@ -805,7 +1006,12 @@ Andreas Happe et al.
 
 targeted through attacks. Penetration testers commonly stress the importance of system enumeration for successful penetration testing. Anecdotally speaking, the time effort to enumerate a system and subsequently identify a potential attack vector far supersedes the time effort for exploitation. 
 
+---
+
 ## _4.4.2 Single- vs. Multi-Step Exploitation_ 
+
+> **Section Summary:** When analyzing the potential exploitation of the included vulnerabilities, two distinct classes arise.
+
 
 When analyzing the potential exploitation of the included vulnerabilities, two distinct classes arise. The first class consists of _Single-Step Exploits_ , i.e., vulnerabilities that can be exploited by giving a single command after successful identification in the enumeration phase. Example vulnerabilities and their respective exploitation commands are shown in Table 7. 
 
@@ -847,7 +1053,12 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 --uts--ipcs--net--pid--bash
 ```
 
+---
+
 ## _4.4.3 Objectives with temporal dependencies_ 
+
+> **Section Summary:** The benchmark suite also includes multiple scenarios utilizing timed tasks, i.e., _cron jobs_ .
+
 
 The benchmark suite also includes multiple scenarios utilizing timed tasks, i.e., _cron jobs_ . While the prior multi-step exploitation examples had a causal ordering, cronbased exploits also include a temporal component: in an initial step, the attacker places malicious code that will subsequently be called by the cron process with elevated privileges. When this malicious code is executed, it changes the system configuration and creates a backdoor that allows the attacker to elevate their privileges. The attacker typically has to periodically check if the malicious code has already been executed and try to elevate their privileges. Oftentimes, the attacker does not know when or if the malicious code is executed, but has to use educated guesses about potential execution times, e.g., that a backup script will typically be called outside of typical office hours. 
 
@@ -866,7 +1077,12 @@ echo’#!/ bin/bash\necho"trustno1"|passwd ’>\\
 
 In those examples, the attacker has to wait until the cron job is executed, typically ranging from minutes in CTFs to hours in real-life systems. Only after the cron command has been executed, the backdoor is inserted into the system, and the attacker can subsequently abuse that backdoor to elevate their privileges. 
 
+---
+
 ## **5 Evaluation** 
+
+> **Section Summary:** We initially analyze the different evaluated LLM families and then analyze the results of our experiments.
+
 
 We initially analyze the different evaluated LLM families and then analyze the results of our experiments. Detailed results can be seen in Table 8. Please note, that we were not able to include other prototypes (Section 2.3) within the evaluation due to missing autonomy or lack of available source-code. 
 
@@ -919,7 +1135,12 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 27 
 
+---
+
 ## 5.1 Feasibility of Different Models 
+
+> **Section Summary:** **RQ1:** What is the efficacy of LLMs in performing autonomous Linux privilege escalation attacks?
+
 
 **RQ1:** What is the efficacy of LLMs in performing autonomous Linux privilege escalation attacks? 
 
@@ -935,7 +1156,12 @@ Llama3’s results offer room for improvement. The 70b variant was able to solve
 
 **Feasibility of Vulnerability Classes.** Looking from the vulnerability class perspective, file-based exploits were well handled, information-disclosure based exploits needed high-level guidance for both LLMs and human ethical hackers, and multi-step _cron_ attacks were hard for both LLMs and human operators. 
 
+---
+
 ## _5.1.1 Using State to Aggregate History_ 
+
+> **Section Summary:** Results when using a LLM to summarize the current LLM’s world view into a compact state, and subsequently replacing history with that state, were surprising.
+
 
 Results when using a LLM to summarize the current LLM’s world view into a compact state, and subsequently replacing history with that state, were surprising. When using less expressive LLMs, such as GPT-3.5-Turbo or Llama3, success rates stagnated or even degraded. When using GPT-4-Turbo for updating the state, success rates increased by 100% when unaided, and 25% when using high-level hints. Qualitative analysis indicates that this increase is due to GPT-4-Turbo reflecting upon its existing knowledge of the target system and not only creating a new fact list (worldview) but also including potential attack vectors for subsequent rounds. This indicates the benefits of using the _Reflection_ pattern (Renze and Guven 2024). 
 
@@ -947,7 +1173,12 @@ The generated state used up 432 tokens on average with a standard deviation of 1
 
 During the evaluation, one drawback was identified: the _update-state_ prompts took significantly longer than the _next-cmd_ prompts even when the latter included the history. Using GPT-4-Turbo, the _update-state_ queries took 13 _._ 4 times longer than the _next-cmd_ queries (19 _._ 89 _s_ vs. 1 _._ 48 _s_ on average). Another problem is OpenAI’s asymmetric pricing of tokens: output tokens, e.g., tokens needed for updating the state cost thrice as much as input tokens, thus making state-processing potentially cost-ineffective. 
 
+---
+
 ## 5.2 Impact of Context Management Strategies and Context-Size 
+
+> **Section Summary:** **RQ2:** How do various context management strategies and context sizes impact the efficacy and efficiency of LLM-driven privilege escalation agents?
+
 
 **RQ2:** How do various context management strategies and context sizes impact the efficacy and efficiency of LLM-driven privilege escalation agents? **Answer:** Our results show that using GPT-4-Turbo to compress history into a compact state can increase success rates by 100% unaided and 25% with high-level hints, indicating the benefits of the Reflection pattern. We also explore the efficacy of adding background hacking information and the impact of larger execution histories, noting that background hacking information had a smaller impact with state-of-the-art models like GPT-4Turbo, while increasing stored history significantly improved success rates. However, using larger context sizes and in-context learning substantially increased benchmarking costs. 
 
@@ -957,7 +1188,12 @@ To make the models comparable, our prototype estimates the token count needed by
 
 We used a context size of 8192 as an initial limit. This context size is supported by GPT-3.5-Turbo, GPT-4-Turbo as well as by the different Llama3 models. In addition, using a smaller context size should reduce computation time and directly impact occurring query costs. We reduced the input token size of Llama3-based models to 6k to allow for output tokens. 
 
+---
+
 ## _5.2.1 Increasing the Context-Size._ 
+
+> **Section Summary:** Figure 6 shows the context usage counts during different runs utilizing OpenAI models, indicating that GPT-3.5-Turbo is using up context quicker than GPT-
+
 
 Figure 6 shows the context usage counts during different runs utilizing OpenAI models, indicating that GPT-3.5-Turbo is using up context quicker than GPT- 
 
@@ -971,7 +1207,12 @@ GPT-4-Turbo supports larger context sizes up to 128k tokens. To evaluate the imp
 
 Figure 5(b) shows the impact of compacting history into state. This configuration increased the success-rate from 33% to 66% while the used context size typically stayed at 2k tokens with few individual rounds reaching context counts of 10k<sup>26</sup> . 
 
+---
+
 ## _5.2.2 In-Context Learning (ICL)_ 
+
+> **Section Summary:** GPT-4-Turbo’s large context size of 128k allowed us to utilize In-Context Learning (ICL).
+
 
 GPT-4-Turbo’s large context size of 128k allowed us to utilize In-Context Learning (ICL). Based on prior research indicating that ICL typically rivals Retrieval Augmented Generation (RAG) performance for retrieval tasks (Lewis et al. 2020a; Lee et al. 2024; Li et al. 2024), we used ICL to test the efficacy of integrating external knowledge as a proxy for RAG-based approaches.We used roughly 50% of the available context size to include background hacking information extracted from _hacktricks_ . Adding this hacking background did not yield better results, indicating no benefit over the information inherently stored within the LLMs themselves. We assume that this background information would help smaller models as they store less information within their model weights. Alas, Llama3’s small context size of 8k prevented empirically testing this assumption. 
 
@@ -1019,7 +1260,12 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 test-case history truncation would occur and otherwise both history and background knowledge fit into the model’s context size. 
 
+---
+
 ## 5.3 Impact of Guidance 
+
+> **Section Summary:** **RQ3:** To what extent do different guidance mechanisms influence the success rates of attack vectors by LLM-based privilege-escalation agents?
+
 
 **RQ3:** To what extent do different guidance mechanisms influence the success rates of attack vectors by LLM-based privilege-escalation agents? **Answer:** We show that high-level guidance, similar to that provided by human penetration-testers or through privilege-escalation check-lists, can significantly increase success rates, for example, from 66% to 83% for GPT-4Turbo, and from 16% to 50% for GPT-3.5-Turbo. 
 
@@ -1065,7 +1311,12 @@ xychart-beta
 
 **Fig. 6** Graphs of accumulated context token usage over time (indicated by the rounds) for different LLMs. Both graphs use identical colors for identifying test-cases. 
 
+---
+
 ## 5.4 Cost Analysis 
+
+> **Section Summary:** We analyze the monetary impact of LLM-driven penetration-testing by calculating the costs (in US$) that would have occurred if all tests had been performed during July, 2025.
+
 
 We analyze the monetary impact of LLM-driven penetration-testing by calculating the costs (in US$) that would have occurred if all tests had been performed during July, 2025. We use the amount of consumed tokens and use current pricing to calculate costs. For OpenAI-based models, we use their current token pricing; for 
 
@@ -1102,17 +1353,26 @@ Andreas Happe et al.
 
 For analysis of augmenting human penetration-testers we look at GPT-4-Turbo using high-level guidance where the high-level hint is a standin for human-given tasks. When using GPT-4-Turbo (8k) with state-management, high-level guidance (i.e., giving the prototype an area to investigate) roughly reduces the costs by 50%. While incorporating background hacking knowledge through In-Context Learning (ICL) allowed for high successful exploitation rates, its costs would surpass the cost of human penetration-testers and thus is inefficient to use. 
 
+---
+
 ## **6 Discussion** 
 
 While metrics provide a quantitative overview of the efficacy of _hackingBuddyGPT_ , we also inspected the quality of the generated Linux privilege-escalation commands based on data collected during benchmarking. We discuss notions of causality and common-sense in multi-step exploits and provide a comparison to commands and strategies typically seen by human pen-testers in similar situations. 
 
+---
+
 ## 6.1 LLM-Generated Commands 
+
+> **Section Summary:** Successful privilege escalation depends on the quality of LLM-provided commands.
+
 
 Successful privilege escalation depends on the quality of LLM-provided commands. OpenAI-based models can consistently provide valid Linux commands while Llama3based models struggled. As shown in Figure 7, generated Llama3-70b commands often contained syntax errors or Llama3 interleaved comments into commands, thus making them invalid. Llama3-8b was often not able to correctly call capabilities but hallucinated new capabilities such as _exec cmd_ , _exec find_ , or _exec cat_ . A workaround was added to _hackingBuddyGPT_ to detect these hallucinations and execute the intended commands. 
 
 Llama3-70b creatively concatenates multiple commands to reduce the executed command count, thus “hacking” the round limit. Llama3 being able to identify potential _suid_ binaries but not being able to abuse them, could indicate that _GTFObins_ were not within its training corpus. 
 
 While OpenAI-based models were able to provide syntactically correct commands, they were often convoluted. Two examples shown in Figure 7 recursively call _sudo_ or _tar_ instead of directly calling them. 
+
+---
 
 ## 6.2 Reacting to System Responses 
 
@@ -1209,11 +1469,18 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 37 
 
+---
+
 ## 6.3 Causality and Multi-Step Exploits 
 
 Successful exploitation of vulnerabilities requires using information gathered during previous steps; sometimes the exploitation itself consists of multiple sequential steps, creating a causal connection between the gathered information and its exploitation or the steps therein. LLMs, especially those with larger parameter sizes, were observed to base subsequent commands on the output of prior ones. Typical examples include listing allowed _sudo_ binaries before exploiting one of those, searching for _suid_ binaries before exploiting one of those, or searching for files before outputting their contents and then using a password found within those contents. 
 
+---
+
 ## _6.3.1 Cron-based Vulnerabilities_ 
+
+> **Section Summary:** The _cron-based_ vulnerability class was problematic for LLMs.
+
 
 The _cron-based_ vulnerability class was problematic for LLMs. To exploit it, an attacker would need to exploit a writable cron-task ( _cron_ test-case) or create a malicious shell script and trigger it through creating specially named files within the backup directory ( _cron-wildcard_ test-case). As _cron_ tasks are not executed immediately but only every minute in our benchmark, typically an attacker would initially alter the _cron_ job to introduce another vulnerability into the system, e.g., create _suid_ binaries or add _sudo_ permissions. These introduced vulnerabilities can then be exploited subsequently to perform the actual privilege escalation. This introduces a temporal dependency between adding the exploit and being able to reap its benefits. A perfect run would look like: 
 
@@ -1273,11 +1540,21 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 39 
 
+---
+
 ## 6.4 Llama3-8b 
+
+> **Section Summary:** While the locally run Llama3-based LLMs generated valid-looking shell commands, they were convoluted and had hard to decipher intentions.
+
 
 While the locally run Llama3-based LLMs generated valid-looking shell commands, they were convoluted and had hard to decipher intentions. Llama3 struggled to provide correct parameters to commands, thus yielding failed command invocations. Table 7 shows examples of faulty commands. 
 
+---
+
 ## _6.4.1 Analysis of Llama3-8b’s errors_ 
+
+> **Section Summary:** We further review the captured execution traces of Llama3-8b when run without high-level hints as this configuration was not able to successfully exploit a single test-case.
+
 
 We further review the captured execution traces of Llama3-8b when run without high-level hints as this configuration was not able to successfully exploit a single test-case. 
 
@@ -1343,7 +1620,12 @@ xargstest_credslowprivtrustno1
 
 This command sequence would extract all contained IP-addresses from `/etc/hosts` (a file that contains static IP information about often used computer systems) and tries to perform a password-spraying attack by reusing a known username/password combination against network hosts. This command fails as `test_creds` (which is actually named `test_credentials` ) only works against the local machine and cannot be passed an IP-address. While this is thus a hallucinated command invocation, the overall strategy is valid and worth emulating. 
 
+---
+
 ## 6.5 Comparison to Baselines 
+
+> **Section Summary:** In this section we compare the prototype’s results with results achieved by a human professional penetration-tester and with results gathered by using traditional automated tooling.
+
 
 In this section we compare the prototype’s results with results achieved by a human professional penetration-tester and with results gathered by using traditional automated tooling. We conclude this section with a short discussion of implementation and maintenance costs. 
 
@@ -1351,7 +1633,12 @@ LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks
 
 41 
 
+---
+
 ## _6.5.1 Comparison to Existing Linux Privilege-Escalation Tooling_ 
+
+> **Section Summary:** We use automated Linux privilege-escalation tools (Section 2.2.2) as a traditional automated baseline.
+
 
 We use automated Linux privilege-escalation tools (Section 2.2.2) as a traditional automated baseline. Out test results indicate their lack of efficacy, as _traitor_ and _autopwn-cs_ were only able to successfully exploit 1–3 of our test-cases (8 _._ 33–25%). 
 
@@ -1359,7 +1646,12 @@ Comparing these results with the results of our human baseline indicates that au
 
 Cost-wise, traditional tooling does not impose any LLM-related costs while similarperforming Llama3-70b or GPT-3.5-Turbo solutions would impose a cost of US$<sup>˜</sup> 0.4 per exploited vulnerable machine. GPT-4-Turbo would allow for increased detection rates but would impose costs of US$<sup>˜</sup> 2 _._ 98 per exploited vulnerable machine. While these costs seem feasible, esp. compared to potential damages due to vulnerabilities, using LLM-driven prototypes is thus inherently more expensive than traditional tooling. 
 
+---
+
 ## _6.5.2 Comparing LLMs to Human Pen-Testers_ 
+
+> **Section Summary:** Although using LLMs is often fascinating, it must show benefits over existing approaches (Sommer and Paxson 2010), i.e., the combination of humans with handcrafted tooling.
+
 
 Although using LLMs is often fascinating, it must show benefits over existing approaches (Sommer and Paxson 2010), i.e., the combination of humans with handcrafted tooling. While some observed behavior emulated human behavior, e.g., going down rabbit holes when analyzing a potential vulnerability (Happe and Cito 2023b), some behavior was distinctively not feeling human, e.g., not changing the working directory even once during observed benchmark runs. 
 
@@ -1377,7 +1669,12 @@ Humans employed push-based approaches in addition to the LLM-favored pullbased a
 
 **Missing experience.** GPT-4-Turbo commonly searched for _suid_ binaries and then tried to exploit every one of the found binaries. An experienced human penetration tester would know that a typical Linux system commonly includes _suid_ commands (such as _passwd_ , _newgrp_ , etc.), but as there are no known exploits for those, their examination can be skipped. To quote one of the human pen-testers: “ _while this binary is suid, I’ve seen it on many systems so I believe that it is a common occurrence and not exploitable_ ”. This is alluded to common-sense or experience by pen-testers (Happe and Cito 2023b). GPT-4-Turbo does not have this experience yet. The same behavior of testing all potential suid binaries, was seen while using the same vulnerable virtual machines with novice human penetration testers. 
 
+---
+
 ## _6.5.3 On the Efficiency of using LLMs compared to Developing Traditional Tooling_ 
+
+> **Section Summary:** An important question is how LLM-based approaches compare with traditional handwritten tools, for example _linpeas_ .
+
 
 An important question is how LLM-based approaches compare with traditional handwritten tools, for example _linpeas_ . The main distinction is that existing tools only enumerate vulnerabilities, but do not automatically exploit them. 
 
@@ -1387,7 +1684,12 @@ LLMs tend to be flexible. For example, we were able to extend our Linux privileg
 
 **Keeping up to date.** GPT-3.5-Turbo and GPT-4-Turbo were initially reported to have a training cut-off date of September 2021, but are said to be recently updated to December 2023 (Community 2023). This can be problematic in the fast-paced security world as LLMs might not include recent exploitation paths and vulnerabilities while traditional enumeration tools can be updated frequently. On the other hand, maintaining an enumeration script imposes a substantial maintenance burden, leading to some scripts becoming out-dated, i.e., the last update to _linenum.sh_ ’s GitHub repository occurred on Jan 7th, 2020 (approx. 5 years ago at the time of writing this paper). In contrast, utilizing the inherent enumeration and privilege-escalation knowledge within generic “off-the-shelf” pre-trained LLMs does not impose this maintenance tax. 
 
+---
+
 ## 6.6 Guardrails and Ethical/Safety Filters 
+
+> **Section Summary:** As shown in Figures 3 and 4, we are instructing LLMs to attack computer systems which, if performed by black-hat hackers, would task LLMs with malicious behavior.
+
 
 As shown in Figures 3 and 4, we are instructing LLMs to attack computer systems which, if performed by black-hat hackers, would task LLMs with malicious behavior. 
 
@@ -1399,13 +1701,23 @@ To prevent potential abuse, LLMs often implement safe guards against this (Halaw
 
 During our investigation of existing work on the offensive use of LLMs (Section 2.3), only a single paper mentioned being detected by safe guards. They were able to use simple techniques such as _Roleplay Prompting_ to bypass these safeguards. Matching the experiences of other publications, we did not detect any filtering due to safeguards during our evaluation. 
 
+---
+
 ## 6.7 Threats to Validity 
+
+> **Section Summary:** Both the selection of vulnerability classes within the chosen benchmark and the selected LLMs could be subject to selection bias.
+
 
 Both the selection of vulnerability classes within the chosen benchmark and the selected LLMs could be subject to selection bias. There is a daily influx of newly released LLMs, making testing _all of them_ not feasible for research. In addition, empirical testing of LLMs incurs substantial costs. We selected well-known and broadly utilized LLM families for our empirical analysis and covered both locally-run as well as cloud-based models. 
 
 Design science uses metrics to measure the impact of different treatments. If these metrics do not correctly capture the intended effects correctly, _construct bias_ occurs. We counteract this by adding qualitative analysis in addition to metricsbased quantitative analysis. _Learning effects_ can be problematic, especially for using LLMs: if the benchmark is contained in the training set, the LLM’s results will be distorted. To prevent this from happening, we create new VMs without identifying information such as unique hostnames for each training run. 
 
+---
+
 ## **7 Experience and Guidance** 
+
+> **Section Summary:** We invested substantial resources running the benchmarks so that future researchers don’t have to.
+
 
 We invested substantial resources running the benchmarks so that future researchers don’t have to. We offer our baselines as starting point for future research. Our experience yields the following suggestions: 
 
@@ -1425,13 +1737,23 @@ Andreas Happe et al.
 
 6. Human hackers were achieving comparable success-rates to GPT-4-Turbo (unaided human baseline: 75%, GPT-4-Turbo: 66%; when using high-level hints, human hackers achieved 91% while LLMs achieved up to 83%). While LLMs struggled with common sense tasks, such as using a gathered password to login as root, humans struggled with command syntax and finding the right commands. 
 
+---
+
 ## **8 Conclusion** 
+
+> **Section Summary:** There is both academic and industrial interest in integrating LLMs with penetrationtesting.
+
 
 There is both academic and industrial interest in integrating LLMs with penetrationtesting. The efficient usage of LLMs depends on a firm understanding of their capabilities and strengths. To bolster this understanding, we have created an automated LLM escalation prototype and evaluated multiple LLMs. We gained insights into their capabilities, explored the impact of different history strategies, analyzed the quality of generated commands, and compared results with human hackers. We also released our created benchmark to foster further automation research. 
 
 Although generating exploitation commands is feasible for larger models, highlevel guidance or expensive state/history management is currently mandatory for achieving human-level success rates. We see the potential of LLMs in enriching privilege-escalation attacks and suggest further research into efficient context usage and prompt design. The most cost-effective improvement of the success rate was providing high-level guidance. Research into human–AI interaction could provide insight into how to design and develop these systems. In addition, further analysis and improvement of the performance of locally-run LLMs would democratize the use of LLMs. 
 
+---
+
 ## 8.1 Final Ethical Considerations 
+
+> **Section Summary:** As our research concerns the offensive use of LLMs, ethical considerations are warranted.
+
 
 As our research concerns the offensive use of LLMs, ethical considerations are warranted. LLMs are already in use by darknet operators (Section 2) so we cannot contain their threat anymore. Defensive Blue Teams can only benefit from understanding the capabilities and limitations of LLMs in the context of penetration testing. Our work provides insights (Section 6.5.2) that can be leveraged to differentiate attack patterns LLMs from human operators. Our results indicate that locally run ethical-free LLMs are not sophisticated enough for performing privilege-escalation yet (Section 6.1). Cloud-provided LLMs like GPT-4-Turbo seem capable but costly and are protected by ethics filters, which, in our experience as well as in others (Liu et al. 2023; Abdelnabi et al. 2023; Huang et al. 2024b) can be bypassed though. 
 
@@ -1440,6 +1762,8 @@ We release all our benchmarks, prototypes, and logged run data. This should enab
 LLMs as Hackers:Autonomous Linux Privilege Escalation Attacks 
 
 45 
+
+---
 
 ## **Declarations** 
 
@@ -1451,21 +1775,38 @@ Ethical approval: not applicable
 
 Informed consent: not applicable 
 
+---
+
 ## Author Contributions 
 
-Conceptualization: Andreas Happe, J¨urgen Cito; Methodology: Andreas Happe, J¨urgen Cito; Formal analysis and investigation: Andreas Happe; Writing–original draft preparation: Andreas Happe; Writing–review & editing: Andreas Happe, J¨urgen Cito; Resources: Andreas Happe, Aaron Kaplan, J¨urgen Cito; Supervision: J¨urgen Cito. 
+Conceptualization: Andreas Happe, J¨urgen Cito; **Methodology:** Andreas Happe, J¨urgen Cito; Formal analysis and investigation: Andreas Happe; Writing–original draft preparation: Andreas Happe; Writing–review & editing: Andreas Happe, J¨urgen Cito; Resources: Andreas Happe, Aaron Kaplan, J¨urgen Cito; Supervision: J¨urgen Cito. 
+
+---
 
 ## Data Availability Statement 
 
+> **Section Summary:** We publicly release the source code of our prototype<sup>30</sup> , the created testbed<sup>31</sup> , and captured trajectory data<sup>32</sup> under an open-source license on github.
+
+
 We publicly release the source code of our prototype<sup>30</sup> , the created testbed<sup>31</sup> , and captured trajectory data<sup>32</sup> under an open-source license on github. 
 
+---
+
 ## Conflict of Interest 
+
+> **Section Summary:** The authors declare that they have no conflict of interest.
+
 
 The authors declare that they have no conflict of interest. 
 
 Clinical Trial Number: not applicable 
 
+---
+
 ## **References** 
+
+> **Section Summary:** Abdelnabi S, Greshake K, Mishra S, Endres C, Holz T, Fritz M (2023) Not what you’ve signed up for: Compromising real-world llm-integrated applications with indirect prompt injection.
+
 
 Abdelnabi S, Greshake K, Mishra S, Endres C, Holz T, Fritz M (2023) Not what you’ve signed up for: Compromising real-world llm-integrated applications with indirect prompt injection. URL `https://openreview.net/forum?id=fxCaArHpEj` 
 

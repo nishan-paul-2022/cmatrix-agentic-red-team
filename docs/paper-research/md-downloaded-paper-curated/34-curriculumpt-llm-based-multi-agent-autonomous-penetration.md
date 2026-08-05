@@ -3,6 +3,41 @@
 
 # **CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling** 
 
+## Table of Contents
+
+  - [Article](#article)
+  - [Abstract](#abstract)
+- [1. Introduction](#1-introduction)
+- [2. Related Work](#2-related-work)
+  - [2.1. Large Language Models in Penetration Testing](#2-1-large-language-models-in-penetration-testing)
+  - [2.2. Curriculum Learning](#2-2-curriculum-learning)
+- [3. Methodology](#3-methodology)
+  - [3.1. Overview](#3-1-overview)
+  - [3.2. Curriculum-Guided Learning and Experience Accumulation](#3-2-curriculum-guided-learning-and-experience-accumulation)
+  - [3.2.1. Task Difficulty-Based Curriculum Design](#3-2-1-task-difficulty-based-curriculum-design)
+  - [3.2.2. Experience Representation](#3-2-2-experience-representation)
+  - [3.2.3. Experience-Driven Reasoning](#3-2-3-experience-driven-reasoning)
+  - [3.2.4. Adaptive Curriculum Pacing](#3-2-4-adaptive-curriculum-pacing)
+  - [3.3. Curriculum-Guided Multi-Agent System](#3-3-curriculum-guided-multi-agent-system)
+  - [3.4. Workflow](#3-4-workflow)
+- [4. Evaluation](#4-evaluation)
+  - [4.1. Experimental Setting](#4-1-experimental-setting)
+  - [4.2. Performance Evaluation](#4-2-performance-evaluation)
+  - [Answering RQ1](#answering-rq1)
+  - [4.3. Comparison Analysis](#4-3-comparison-analysis)
+  - [Answering RQ2](#answering-rq2)
+  - [4.4. Ablation Study](#4-4-ablation-study)
+  - [Answering RQ3](#answering-rq3)
+- [5. Discussion](#5-discussion)
+  - [5.1. Core Contributions](#5-1-core-contributions)
+  - [5.2. Challenges for Real-World Performance](#5-2-challenges-for-real-world-performance)
+  - [5.3. Limitations](#5-3-limitations)
+  - [5.4. Ethical Considerations](#5-4-ethical-considerations)
+- [6. Conclusions](#6-conclusions)
+- [References](#references)
+
+---
+
 **Xingyu Wu**<sup>**1,2**</sup> **, Yunzhe Tian**<sup>**1,2**</sup> **, Yuanwan Chen**<sup>**1,2**</sup> **, Ping Ye**<sup>**1,2**</sup> **, Xiaoshu Cui**<sup>**1,3**</sup> **, Jingqi Jia**<sup>**1,2**</sup> **, Shouyang Li**<sup>**4**</sup> **, Jiqiang Liu**<sup>**1,2**</sup> **and Wenjia Niu**<sup>**1,2,**</sup> ***** 
 
 - 1 Beĳing Key Laboratory of Security and Privacy in Intelligent Transportation, Beĳing Jiaotong University, Beĳing 100044, China; xingyu_wu@bjtu.edu.cn (X.W.); tianyunzhe@bjtu.edu.cn (Y.T.); chenyuanwan@bjtu.edu.cn (Y.C.); 23120489@bjtu.edu.cn (P.Y.); cuixiaoshu@bjtu.edu.cn (X.C.); jingqĳia@bjtu.edu.cn (J.J.); jqliu@bjtu.edu.cn (J.L.) 
@@ -15,61 +50,68 @@
 
 ### **Abstract** 
 
-Academic Editor: Rui Araújo 
+> Academic Editor: Rui Araújo 
 
-Received: 9 July 2025 Revised: 7 August 2025 Accepted: 13 August 2025 Published: 18 August 2025 
+> Received: 9 July 2025 Revised: 7 August 2025 Accepted: 13 August 2025 Published: 18 August 2025 
 
-**Citation:** Wu, X.; Tian, Y.; Chen, Y.; Ye, P.; Cui, X.; Jia, J.; Li, S.; Liu, J.; Niu, W. CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling. _Appl. Sci._ **2025** , _15_ , 9096. https://doi.org/10.3390/ app15169096 
+> **Citation:** Wu, X.; Tian, Y.; Chen, Y.; Ye, P.; Cui, X.; Jia, J.; Li, S.; Liu, J.; Niu, W. CurriculumPT: LLM-Based Multi-Agent Autonomous Penetration Testing with Curriculum-Guided Task Scheduling. _Appl. Sci._ **2025** , _15_ , 9096. https://doi.org/10.3390/ app15169096 
 
-**Copyright:** © 2025 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https://creativecommons.org/ licenses/by/4.0/). 
+> **Copyright:** © 2025 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https://creativecommons.org/ licenses/by/4.0/). 
 
-While autonomous driving systems and intelligent transportation infrastructures become increasingly software-defined and network-connected, ensuring their cybersecurity has become a critical component of traffic safety. Large language models (LLMs) have recently shown promise in automating aspects of penetration testing, yet most existing approaches remain limited to simple, single-step exploits. They struggle to handle complex, multi-stage vulnerabilities that demand precise coordination, contextual reasoning, and knowledge reuse. This is particularly problematic in safety-critical domains, such as autonomous vehicles, where subtle software flaws can cascade across interdependent subsystems. In this work, we present CurriculumPT, a novel LLM-based penetration testing framework specifically designed for the security of intelligent systems. CurriculumPT combines curriculum learning and a multi-agent system to enable LLM agents to progressively acquire and apply exploitation skills across common vulnerabilities and exposures-based tasks. Through a structured progression from simple to complex vulnerabilities, agents build and refine an experience knowledge base that supports generalization to new attack surfaces without requiring model fine-tuning. We evaluate CurriculumPT on 15 realworld vulnerabilities scenarios and demonstrate that it outperforms three state-of-the-art baselines by up to 18 percentage points in exploit success rate, while achieving superior efficiency in execution time and resource usage. Our results confirm that CurriculumPT is capable of autonomous, scalable penetration testing and knowledge transfer, laying the groundwork for intelligent security auditing of modern autonomous driving systems and other cyberphysical transportation platforms. 
+> While autonomous driving systems and intelligent transportation infrastructures become increasingly software-defined and network-connected, ensuring their cybersecurity has become a critical component of traffic safety. Large language models (LLMs) have recently shown promise in automating aspects of penetration testing, yet most existing approaches remain limited to simple, single-step exploits. They struggle to handle complex, multi-stage vulnerabilities that demand precise coordination, contextual reasoning, and knowledge reuse. This is particularly problematic in safety-critical domains, such as autonomous vehicles, where subtle software flaws can cascade across interdependent subsystems. In this work, we present CurriculumPT, a novel LLM-based penetration testing framework specifically designed for the security of intelligent systems. CurriculumPT combines curriculum learning and a multi-agent system to enable LLM agents to progressively acquire and apply exploitation skills across common vulnerabilities and exposures-based tasks. Through a structured progression from simple to complex vulnerabilities, agents build and refine an experience knowledge base that supports generalization to new attack surfaces without requiring model fine-tuning. We evaluate CurriculumPT on 15 realworld vulnerabilities scenarios and demonstrate that it outperforms three state-of-the-art baselines by up to 18 percentage points in exploit success rate, while achieving superior efficiency in execution time and resource usage. Our results confirm that CurriculumPT is capable of autonomous, scalable penetration testing and knowledge transfer, laying the groundwork for intelligent security auditing of modern autonomous driving systems and other cyberphysical transportation platforms. 
 
-**Keywords:** autonomous driving security; intelligent transportation systems; penetration testing; large language models; multi-agent system; curriculum learning; sensor-based cyberphysical systems 
+> **Keywords:** autonomous driving security; intelligent transportation systems; penetration testing; large language models; multi-agent system; curriculum learning; sensor-based cyberphysical systems 
+
+---
 
 ## **1. Introduction** 
 
-With the proliferation of intelligent transportation systems and the rapid deployment of autonomous driving, ensuring cybersecurity has become a foundational pillar for traffic 
+> **Section Summary:** With the proliferation of intelligent transportation systems and the rapid deployment of autonomous driving, ensuring cybersecurity has become a foundational pillar for traffic
 
-_Appl. Sci._ **2025** , _15_ , 9096 
 
-https://doi.org/10.3390/app15169096 
+> With the proliferation of intelligent transportation systems and the rapid deployment of autonomous driving, ensuring cybersecurity has become a foundational pillar for traffic 
 
-_Appl. Sci._ **2025** , _15_ , 9096 
+> _Appl. Sci._ **2025** , _15_ , 9096 
 
-2 of 20 
+> https://doi.org/10.3390/app15169096 
 
-safety and road system resilience. Modern autonomous driving platforms integrate complex cyberphysical architectures that include real-time operating systems, networked electronic control units (ECUs), and vehicular communication modules (e.g., V2X), as well as diverse sensor suites such as LiDAR, GPS, and cameras. These components collectively expose a broad and dynamic attack surface. In this context, penetration testing [1,2] serves as a proactive mechanism to assess the security posture of such intelligent systems. However, traditional penetration testing [3] remains heavily reliant on human expertise, rendering it impractical for large-scale, continuous, and adaptive evaluation in safety-critical domains like autonomous driving. This limitation has intensified the demand for automated, intelligent penetration testing solutions [4] capable of operating across complex, multi-stage attack chains and identifying novel threats, including zero-day vulnerabilities [5,6]. 
+> _Appl. Sci._ **2025** , _15_ , 9096 
 
-Recent efforts have explored diverse automation strategies to advance penetration testing beyond traditional, manual paradigms. Tudosi et al. [7] performed comprehensive assessments on distributed firewall deployments and revealed that even widely adopted solutions such as pfSense exhibit exploitable security flaws under targeted probing. Their findings highlight the critical need for combining automated scanning with human-in-the-loop analysis to uncover subtle, system-wide vulnerabilities. In parallel, Chowdhary et al. [8] introduced a GAN-based framework that autonomously generates adversarial web attack payloads capable of bypassing modern Web Application Firewalls (WAFs). Their approach demonstrates the efficacy of generative models in crafting evasive, realistic attack vectors—particularly in application-layer contexts such as cross-site scripting (XSS) and SQL injection. In a related but orthogonal direction, Berenguer et al. [9] investigated the use of large language models (LLMs) to extract and transform raw sensor data from unstructured formats (e.g., HTML) into structured representations (e.g., JSON, XML). While primarily targeting data interoperability, their work showcases the broader potential of LLMs for robust parsing, semantic interpretation, and transformation of machine-generated outputs—capabilities that are increasingly relevant for automated vulnerability analysis and exploit generation. 
+> 2 of 20 
 
-These developments collectively signal a broader trend: leveraging AI-driven models, particularly LLMs and generative frameworks, to replace or augment traditional manual security workflows. With strong capabilities in language understanding, reasoning, code generation and tool interaction [10], LLMs provide a powerful alternative to conventional AI planning or reinforcement learning (RL) agents, which often struggle with generalization and scalability. Early explorations in this direction include the work of Happe et al. [11], which constructed a closed-loop system using GPT-3.5 to autonomously interact with vulnerable virtual machines. Despite its feasibility, it was limited to CTF-style tasks and lacked modularity or learning mechanisms. PentestGPT [12] is one of the earliest attempts to apply LLMs to real-world penetration testing. It leverages an Auto-GPT [13] architecture to plan and guide attack steps but requires human intervention for command execution, limiting its autonomy. However, these early systems treat each attack task in isolation and lack a mechanism to accumulate and transfer knowledge across tasks. Without the ability to build up reusable experience, their generalization and long-term planning capabilities remain limited. 
+> safety and road system resilience. Modern autonomous driving platforms integrate complex cyberphysical architectures that include real-time operating systems, networked electronic control units (ECUs), and vehicular communication modules (e.g., V2X), as well as diverse sensor suites such as LiDAR, GPS, and cameras. These components collectively expose a broad and dynamic attack surface. In this context, penetration testing [1,2] serves as a proactive mechanism to assess the security posture of such intelligent systems. However, traditional penetration testing [3] remains heavily reliant on human expertise, rendering it impractical for large-scale, continuous, and adaptive evaluation in safety-critical domains like autonomous driving. This limitation has intensified the demand for automated, intelligent penetration testing solutions [4] capable of operating across complex, multi-stage attack chains and identifying novel threats, including zero-day vulnerabilities [5,6]. 
 
-Building on early explorations, recent research has shifted toward the multi-agent system (MAS) based on LLMs to better emulate the division of labor observed in realworld penetration testing teams. This design enables role specialization, improves task modularity, and facilitates coordinated execution across complex attack phases. For instance, AutoAttacker [14] proposes a modular MAS architecture in which LLM agents collaborate on post-exploitation tasks, supported by a retrieval-augmented generation (RAG)-based experience manager for limited knowledge reuse. AutoPT [15] introduces a 
+> Recent efforts have explored diverse automation strategies to advance penetration testing beyond traditional, manual paradigms. Tudosi et al. [7] performed comprehensive assessments on distributed firewall deployments and revealed that even widely adopted solutions such as pfSense exhibit exploitable security flaws under targeted probing. Their findings highlight the critical need for combining automated scanning with human-in-the-loop analysis to uncover subtle, system-wide vulnerabilities. In parallel, Chowdhary et al. [8] introduced a GAN-based framework that autonomously generates adversarial web attack payloads capable of bypassing modern Web Application Firewalls (WAFs). Their approach demonstrates the efficacy of generative models in crafting evasive, realistic attack vectors—particularly in application-layer contexts such as cross-site scripting (XSS) and SQL injection. In a related but orthogonal direction, Berenguer et al. [9] investigated the use of large language models (LLMs) to extract and transform raw sensor data from unstructured formats (e.g., HTML) into structured representations (e.g., JSON, XML). While primarily targeting data interoperability, their work showcases the broader potential of LLMs for robust parsing, semantic interpretation, and transformation of machine-generated outputs—capabilities that are increasingly relevant for automated vulnerability analysis and exploit generation. 
 
-_Appl. Sci._ **2025** , _15_ , 9096 
+> These developments collectively signal a broader trend: leveraging AI-driven models, particularly LLMs and generative frameworks, to replace or augment traditional manual security workflows. With strong capabilities in language understanding, reasoning, code generation and tool interaction [10], LLMs provide a powerful alternative to conventional AI planning or reinforcement learning (RL) agents, which often struggle with generalization and scalability. Early explorations in this direction include the work of Happe et al. [11], which constructed a closed-loop system using GPT-3.5 to autonomously interact with vulnerable virtual machines. Despite its feasibility, it was limited to CTF-style tasks and lacked modularity or learning mechanisms. PentestGPT [12] is one of the earliest attempts to apply LLMs to real-world penetration testing. It leverages an Auto-GPT [13] architecture to plan and guide attack steps but requires human intervention for command execution, limiting its autonomy. However, these early systems treat each attack task in isolation and lack a mechanism to accumulate and transfer knowledge across tasks. Without the ability to build up reusable experience, their generalization and long-term planning capabilities remain limited. 
 
-3 of 20 
+> Building on early explorations, recent research has shifted toward the multi-agent system (MAS) based on LLMs to better emulate the division of labor observed in realworld penetration testing teams. This design enables role specialization, improves task modularity, and facilitates coordinated execution across complex attack phases. For instance, AutoAttacker [14] proposes a modular MAS architecture in which LLM agents collaborate on post-exploitation tasks, supported by a retrieval-augmented generation (RAG)-based experience manager for limited knowledge reuse. AutoPT [15] introduces a 
 
-Penetration testing State Machine (PSM), using finite-state control to guide LLM agents through web penetration stages, helping reduce planning instability in long-horizon tasks. Similarly, VulnBot [16] constructs a full-stack MAS framework where LLM agents handle reconnaissance, vulnerability analysis, and exploitation, coordinated through a shared Penetration Task Graph (PTG). Extending these MAS paradigms to the domain of intelligent transportation, Gao et al. [17] explored the use of LLMs in simulating traffic system behaviors and generating cybersecurity strategies in autonomous driving scenarios. Their work highlights the feasibility of leveraging LLMs not only for modeling vehicular communication and sensor interactions, but also for identifying attack vectors and evaluating potential impacts on traffic safety. While these systems demonstrate notable improvements in autonomy and success rates compared to single-agent baselines, they still suffer from a fundamental limitation: the lack of structured, progressive skill acquisition. In all cases, agents are exposed directly to high-difficulty, multi-stage common vulnerabilities and exposures (CVE) exploitation tasks without prior scaffolding or experiential buildup, leading to low success rates (e.g., VulnBot reports only 20% on complex vulnerabilities), weak generalization, and fragile reasoning when handling logical flaws or chained exploits. Critically, none of these methods reflect the human-like process of accumulating expertise over time through a curriculum of increasing difficulty. This absence of structured experiential learning has emerged as a key bottleneck limiting the scalability and adaptability of current LLM-based pentesting systems. 
+> _Appl. Sci._ **2025** , _15_ , 9096 
 
-These limitations are particularly problematic in safety-critical domains like autonomous driving, where vulnerabilities may cascade across multiple components—from perception to control—and compromise not only system integrity but also physical safety. To bridge this critical gap, we propose CurriculumPT, an automated penetration testing framework designed to enable agents to learn systematically. Our approach uniquely integrates three core components: curriculum learning (CL), a multi-agent system (MAS), and an experience knowledge base (EKB). To solve the problem of unstructured skill acquisition, the CL module organizes CVEs into a curriculum of increasing difficulty, allowing agents to build expertise incrementally without costly fine-tuning, thereby mimicking human learning patterns. This curriculum guides our MAS module, where specialized LLM agents (e.g., planner, recon, exploiter) collaborate to execute tasks. Their strategies and focus adapt based on the curriculum’s difficulty stage. Finally, to ensure knowledge retention and transfer, the EKB module serves as a central memory. It captures and organizes successful strategies, toolchains, and decision rationales from completed tasks. This dynamic knowledge base is then retrieved by agents to tackle more complex challenges, fostering generalization. By tightly coupling these components, CurriculumPT creates a virtuous cycle of learning and application, enabling agents to autonomously accumulate experience and achieve superior performance on real-world penetration tests. 
+> 3 of 20 
 
-We systematically evaluate CurriculumPT against three state-of-the-art LLM-based penetration testing systems (AutoPT [15], VulnBot [16], and PentestAgent [18]) on 15 realworld CVE exploitation scenarios. The results unequivocally demonstrate the superiority of our learning-centric approach. CurriculumPT achieves the highest average exploit success rate (ESR), outperforming the strongest baseline by a significant 18 percentage points. This success is complemented by superior efficiency: CurriculumPT reduces both average task execution time (by 20.6%) and token usage (by 25.5%), and requires the fewest decisionmaking steps. These efficiency gains underscore that our framework learns more direct and effective exploitation strategies, rather than relying on brute-force attempts. Furthermore, ablation studies confirm that the curriculum is essential for effective skill acquisition, while the knowledge base is critical for adaptability and knowledge reuse. Together, these findings validate that CurriculumPT is a more effective, efficient, and scalable solution for complex, 
+> Penetration testing State Machine (PSM), using finite-state control to guide LLM agents through web penetration stages, helping reduce planning instability in long-horizon tasks. Similarly, VulnBot [16] constructs a full-stack MAS framework where LLM agents handle reconnaissance, vulnerability analysis, and exploitation, coordinated through a shared Penetration Task Graph (PTG). Extending these MAS paradigms to the domain of intelligent transportation, Gao et al. [17] explored the use of LLMs in simulating traffic system behaviors and generating cybersecurity strategies in autonomous driving scenarios. Their work highlights the feasibility of leveraging LLMs not only for modeling vehicular communication and sensor interactions, but also for identifying attack vectors and evaluating potential impacts on traffic safety. While these systems demonstrate notable improvements in autonomy and success rates compared to single-agent baselines, they still suffer from a fundamental limitation: the lack of structured, progressive skill acquisition. In all cases, agents are exposed directly to high-difficulty, multi-stage common vulnerabilities and exposures (CVE) exploitation tasks without prior scaffolding or experiential buildup, leading to low success rates (e.g., VulnBot reports only 20% on complex vulnerabilities), weak generalization, and fragile reasoning when handling logical flaws or chained exploits. Critically, none of these methods reflect the human-like process of accumulating expertise over time through a curriculum of increasing difficulty. This absence of structured experiential learning has emerged as a key bottleneck limiting the scalability and adaptability of current LLM-based pentesting systems. 
 
-_Appl. Sci._ **2025** , _15_ , 9096 
+> These limitations are particularly problematic in safety-critical domains like autonomous driving, where vulnerabilities may cascade across multiple components—from perception to control—and compromise not only system integrity but also physical safety. To bridge this critical gap, we propose CurriculumPT, an automated penetration testing framework designed to enable agents to learn systematically. Our approach uniquely integrates three core components: curriculum learning (CL), a multi-agent system (MAS), and an experience knowledge base (EKB). To solve the problem of unstructured skill acquisition, the CL module organizes CVEs into a curriculum of increasing difficulty, allowing agents to build expertise incrementally without costly fine-tuning, thereby mimicking human learning patterns. This curriculum guides our MAS module, where specialized LLM agents (e.g., planner, recon, exploiter) collaborate to execute tasks. Their strategies and focus adapt based on the curriculum’s difficulty stage. Finally, to ensure knowledge retention and transfer, the EKB module serves as a central memory. It captures and organizes successful strategies, toolchains, and decision rationales from completed tasks. This dynamic knowledge base is then retrieved by agents to tackle more complex challenges, fostering generalization. By tightly coupling these components, CurriculumPT creates a virtuous cycle of learning and application, enabling agents to autonomously accumulate experience and achieve superior performance on real-world penetration tests. 
 
-4 of 20 
+> We systematically evaluate CurriculumPT against three state-of-the-art LLM-based penetration testing systems (AutoPT [15], VulnBot [16], and PentestAgent [18]) on 15 realworld CVE exploitation scenarios. The results unequivocally demonstrate the superiority of our learning-centric approach. CurriculumPT achieves the highest average exploit success rate (ESR), outperforming the strongest baseline by a significant 18 percentage points. This success is complemented by superior efficiency: CurriculumPT reduces both average task execution time (by 20.6%) and token usage (by 25.5%), and requires the fewest decisionmaking steps. These efficiency gains underscore that our framework learns more direct and effective exploitation strategies, rather than relying on brute-force attempts. Furthermore, ablation studies confirm that the curriculum is essential for effective skill acquisition, while the knowledge base is critical for adaptability and knowledge reuse. Together, these findings validate that CurriculumPT is a more effective, efficient, and scalable solution for complex, 
 
-multi-stage autonomous penetration testing. The main contributions of this work can be summarized as follows: 
+> _Appl. Sci._ **2025** , _15_ , 9096 
 
-- We pioneer the integration of curriculum learning into multi-agent LLM-based penetration testing. This novel approach systematically addresses the critical challenge of skill acquisition and generalization, enabling agents to progressively master complex tasks without human intervention or model fine-tuning. 
+> 4 of 20 
 
-- We design and implement a synergistic framework, CurriculumPT, that tightly couples a curriculum scheduler, specialized agents, and a dynamic experience knowledge base. This architecture creates a closed-loop system for continuous, autonomous learning and knowledge transfer in complex environments. 
+> multi-stage autonomous penetration testing. The main contributions of this work can be summarized as follows: 
 
-- We conduct extensive experiments on a benchmark of real-world CVE tasks, demonstrating that our method achieves a 15–36% improvement in exploit success rate (ESR) over representative baselines, along with significantly lower execution time and token usage, confirming its superior efficiency and effectiveness. 
+> - We pioneer the integration of curriculum learning into multi-agent LLM-based penetration testing. This novel approach systematically addresses the critical challenge of skill acquisition and generalization, enabling agents to progressively master complex tasks without human intervention or model fine-tuning. 
 
-The rest of this paper is organized as follows. Section 2 reviews related work on LLMbased penetration testing and curriculum learning. Section 3 presents the overall architecture of the proposed CurriculumPT framework, including the curriculum construction strategy, task scheduling mechanism, multi-agent collaboration design, and the experience knowledge base. Section 4 describes the experimental setup, evaluation metrics, and benchmark scenarios, and reports results from comparative and ablation studies. Section 5 discusses the core contributions of our approach, challenges for real-world deployment, and its limitations. Finally, Section 6 concludes the work and outlines potential directions for future research. 
+> - We design and implement a synergistic framework, CurriculumPT, that tightly couples a curriculum scheduler, specialized agents, and a dynamic experience knowledge base. This architecture creates a closed-loop system for continuous, autonomous learning and knowledge transfer in complex environments. 
+
+> - We conduct extensive experiments on a benchmark of real-world CVE tasks, demonstrating that our method achieves a 15–36% improvement in exploit success rate (ESR) over representative baselines, along with significantly lower execution time and token usage, confirming its superior efficiency and effectiveness. 
+
+> The rest of this paper is organized as follows. Section 2 reviews related work on LLMbased penetration testing and curriculum learning. Section 3 presents the overall architecture of the proposed CurriculumPT framework, including the curriculum construction strategy, task scheduling mechanism, multi-agent collaboration design, and the experience knowledge base. Section 4 describes the experimental setup, evaluation metrics, and benchmark scenarios, and reports results from comparative and ablation studies. Section 5 discusses the core contributions of our approach, challenges for real-world deployment, and its limitations. Finally, Section 6 concludes the work and outlines potential directions for future research. 
+
+---
 
 ## **2. Related Work** 
 
@@ -103,7 +145,12 @@ _Appl. Sci._ **2025** , _15_ , 9096
 
 VulnBot [16] incorporate memory modules or retrieval-based augmentation to reuse prior knowledge, but they lack an explicit progression of task difficulty to guide systematic skill acquisition. As a result, LLM agents are often exposed directly to complex, multi-stage CVE scenarios without sufficient grounding, leading to low exploitation success rates and poor generalization. In this work, we make the first attempt to integrate curriculum learning into LLM-based autonomous penetration testing. Our CurriculumPT framework introduces a structured task scheduling mechanism that organizes real-world CVE exploitation tasks into a difficulty-graded curriculum. This progression enables a multi-agent LLM system to accumulate actionable experience in a staged manner, learning reusable strategies and decision patterns from simpler tasks and transferring them to tackle more complex vulnerabilities. Crucially, our approach does not require model fine-tuning or external supervision. Instead, the curriculum is used to shape the agents’ experiential learning trajectory and improve their reasoning and adaptability. This explicit coupling of curriculum learning with multi-agent LLM orchestration constitutes a key innovation that addresses core limitations in scalability, skill transfer, and generalization found in prior work. 
 
+---
+
 ## **3. Methodology** 
+
+> **Section Summary:** In this section, we first present an overview of the CurriculumPT architecture (Section 3.1).
+
 
 In this section, we first present an overview of the CurriculumPT architecture (Section 3.1). We then detail its core learning mechanisms, including curriculum design and experience management (Section 3.2). Next, we describe the curriculum-guided multi-agent system that acts as the execution engine (Section 3.3). Finally, we integrate these components to illustrate the system’s end-to-end workflow (Section 3.4). 
 
@@ -194,7 +241,10 @@ Based on the computed difficulty score, each vulnerability task is automatically
 
 ### 3.2.2. Experience Representation 
 
-In this framework, “experience” refers to the structured recording of task execution processes, including successful strategies, useful intermediate results, and insights derived from both successes and failures. The Report Agent is responsible for generating and storing this experience. After each task attempt, regardless of success or failure, this agent analyzes the entire interaction process to extract valuable knowledge. It then organizes this information into several predefined, structured formats before storing them as new entries in the EKB. This captured knowledge includes comprehensive structured exploitation cases, saved as json objects detailing everything from the CVE ID to the exact command sequences used; practical problem–solution pairs that document specific errors and their resolutions; an atomic operation skills library containing efficient, context-specific commands for various services or protocols; and a high-quality prompt template library with validated prompts for recurring subtasks. By treating failed attempts and their causal analyzes as equally valuable, this process ensures that the EKB becomes a robust repository of actionable experiential knowledge. 
+In this framework, “experience” refers to the structured recording of task execution processes, including successful strategies, useful intermediate results, and insights derived from both successes and failures. The Report Agent is responsible for generating and storing this experience. After each task attempt, regardless of success or failure, this agent analyzes the entire interaction process to extract valuable knowledge. It then organizes this information into several predefined, structured formats before storing them as new entries in the EKB. This captured knowledge includes comprehensive structured exploitation cases, saved as json objects detailing everything from the CVE ID to the exact command sequences used:
+- practical problem–solution pairs that document specific errors and their resolutions
+- an atomic operation skills library containing efficient, context-specific commands for various services or protocols
+- and a high-quality prompt template library with validated prompts for recurring subtasks. By treating failed attempts and their causal analyzes as equally valuable, this process ensures that the EKB becomes a robust repository of actionable experiential knowledge.
 
 _Appl. Sci._ **2025** , _15_ , 9096 
 
@@ -250,7 +300,10 @@ invokes the Reconnaissance Agent to gather target information before generating 
 
 **Algorithm 1** Curriculum-Guided Learning and Experience Accumulation. 
 
-1: **Input:** Curriculum Levels _L_ = _{L_ 1, . . . , _Ln}_ ; Task Pool _T_ with CVE metadata; Max Replanning Iterations _N_ max; Completion Thresholds _θ_ 2: **Output:** Updated Experience Knowledge Base (EKB) 3: Initialize EKB _E ←_ ∅ 4: Initialize Progress Tracker _P ←_ ∅ 5: **for** each level _Li ∈L_ **do** 6: **while** NotCompleted( _P_ , _Li_ , _θ_ ) **do** 7: _t ←_ CommanderAgent.SelectTask( _TLi_ , _P_ ) 8: _exp ←_ QueryEKB( _E_ , _t_ ) 9: _plan ←_ PlannerAgent.Plan( _t_ , _exp_ ) 10: **if** PlannerAgent.RequiresRecon( _plan_ ) **then** 11: _in f o ←_ ReconnaissanceAgent( _t_ ) 12: _plan ←_ PlannerAgent.ReplanWithInfo( _plan_ , _in f o_ ) 13: **end if** 14: _success ←_ **false** , _attempt ←_ 0 15: **while** _¬success_ **and** _attempt < N_ max **do** 16: _result ←_ ExploitationAgent.Execute( _plan_ ) 17: **if** IsSuccess( _result_ ) **then** 18: _success ←_ **true** 19: **else** 20: _plan ←_ ReplanAgent( _result_ , _plan_ , _E_ ) 21: _attempt ← attempt_ + 1 22: **end if** 23: **end while** 24: _log ←_ LogExecution( _result_ , _plan_ ) 25: _metrics ←_ AnalysisAgent.Evaluate( _log_ ) 26: CommanderAgent.UpdateProgress( _P_ , _t_ , _metrics_ ) 27: _entry ←_ ReportAgent.Summarize( _log_ ) 28: _E ←E ∪{entry}_ 29: **end while** 30: **end for** 31: **return** _E_ 
+1: **Input:** Curriculum Levels _L_ = _{L_ 1, . . . , _Ln}_ :
+- Task Pool _T_ with CVE metadata
+- Max Replanning Iterations _N_ max
+- Completion Thresholds _θ_ 2: **Output:** Updated Experience Knowledge Base (EKB) 3: Initialize EKB _E ←_ ∅ 4: Initialize Progress Tracker _P ←_ ∅ 5: **for** each level _Li ∈L_ **do** 6: **while** NotCompleted( _P_ , _Li_ , _θ_ ) **do** 7: _t ←_ CommanderAgent.SelectTask( _TLi_ , _P_ ) 8: _exp ←_ QueryEKB( _E_ , _t_ ) 9: _plan ←_ PlannerAgent.Plan( _t_ , _exp_ ) 10: **if** PlannerAgent.RequiresRecon( _plan_ ) **then** 11: _in f o ←_ ReconnaissanceAgent( _t_ ) 12: _plan ←_ PlannerAgent.ReplanWithInfo( _plan_ , _in f o_ ) 13: **end if** 14: _success ←_ **false** , _attempt ←_ 0 15: **while** _¬success_ **and** _attempt < N_ max **do** 16: _result ←_ ExploitationAgent.Execute( _plan_ ) 17: **if** IsSuccess( _result_ ) **then** 18: _success ←_ **true** 19: **else** 20: _plan ←_ ReplanAgent( _result_ , _plan_ , _E_ ) 21: _attempt ← attempt_ + 1 22: **end if** 23: **end while** 24: _log ←_ LogExecution( _result_ , _plan_ ) 25: _metrics ←_ AnalysisAgent.Evaluate( _log_ ) 26: CommanderAgent.UpdateProgress( _P_ , _t_ , _metrics_ ) 27: _entry ←_ ReportAgent.Summarize( _log_ ) 28: _E ←E ∪{entry}_ 29: **end while** 30: **end for** 31: **return** _E_
 
 Phase 2: Experience-Driven Penetration Testing. The second phase assesses the framework’s generalization capability by applying the knowledge accumulated in Phase 1 to solve real-world security challenges. Transitioning from curriculum-driven learning to practical application, this phase is initiated by a user-defined task, which can be an unstructured, high-level objective (e.g., “try to read sensitive file/etc/passwd”). Upon receiving this goal, the Commander Agent orchestrates the agent pipeline. A key feature of this phase is the experience-driven planning strategy employed by the Planner Agent. It proactively queries the EKB, and, upon finding a highly relevant precedent, may generate 
 
@@ -260,7 +313,12 @@ _Appl. Sci._ **2025** , _15_ , 9096
 
 a direct exploitation plan, potentially bypassing unnecessary reconnaissance steps. The framework then leverages the same execution and replanning loop from Phase 1 to attempt the task. After the attempt, the Analysis Agent assesses the final outcome against the user’s objective and generates performance metrics. Importantly, the learning loop remains active. The Report Agent processes the entire execution trace, including successful strategies and failure recovery paths, and transforms them into new structured entries. This ensures that the experience knowledge base (EKB) is continuously enriched with diverse, real-world scenarios. 
 
+---
+
 ## **4. Evaluation** 
+
+> **Section Summary:** In this section, we validate the effectiveness of CurriculumPT.
+
 
 In this section, we validate the effectiveness of CurriculumPT. 
 
@@ -393,7 +451,12 @@ _Appl. Sci._ **2025** , _15_ , 9096
 
 The results show that curriculum learning effectively guides LLMs to acquire and generalize penetration testing skills, while the EKB enhances efficiency through experience reuse. Together, they significantly boost success rates and reduce execution overhead. 
 
+---
+
 ## **5. Discussion** 
+
+> **Section Summary:** This work on CurriculumPT, which introduces a curriculum learning paradigm to multi-agent penetration testing systems, has demonstrated significant potential.
+
 
 This work on CurriculumPT, which introduces a curriculum learning paradigm to multi-agent penetration testing systems, has demonstrated significant potential. This section further contextualizes our core contributions, discusses the challenges of real-world deployment, and candidly addresses the limitations of our current study. 
 
@@ -417,7 +480,12 @@ Despite its promising results, this study has several limitations. First, the cu
 
 Given the dual-use nature of penetration testing tools, CurriculumPT has been developed with explicit ethical safeguards to prevent misuse and ensure responsible deployment. All experiments presented in this work were performed within isolated, sandboxed environments to eliminate any risk to external systems. For real-world applications, the framework requires explicit consent from the system owner and a strictly defined operational scope. To further reduce the potential for unintended system impact, CurriculumPT incorporates human-in-the-loop oversight, execution throttling, and automatic termination in response to anomalous behavior. Comprehensive logging of all actions enables full traceability and auditability. While the system is capable of high autonomy, its use must remain fully compliant with legal and ethical standards. CurriculumPT is not intended for offensive or unauthorized activities. Responsible use of the framework is grounded in established ethical principles, including informed consent, transparency, and the minimization of harm. 
 
+---
+
 ## **6. Conclusions** 
+
+> **Section Summary:** This paper presented CurriculumPT, a novel automated penetration testing framework that pioneers a curriculum-guided learning approach.
+
 
 This paper presented CurriculumPT, a novel automated penetration testing framework that pioneers a curriculum-guided learning approach. By simulating how human experts master skills through progressively complex tasks, CurriculumPT enables LLM agents to systematically accumulate and transfer experience, significantly enhancing their success rate and generalization on complex CVEs without costly model fine-tuning. The experimental results demonstrate that CurriculumPT significantly outperforms baselines that lack its learning-centric, multi-agent architecture. Furthermore, ablation studies confirmed that each core component—curriculum learning, the experience knowledge base, and specialized agent design—is indispensable for achieving the framework’s high performance and efficiency. Notably, through curriculum learning, the system’s experience utilization efficiency improved with increasing task complexity, and it displayed promising generalization potential on a hold-out set. While this study has limitations, including the scope of the dataset, the degree of automation in curriculum design, and the depth of experience representation, it provides a valuable exploration into enabling LLMs to achieve a “learning to learn” capability within complex professional domains. CurriculumPT also lays the groundwork for building more intelligent, adaptive, and autonomous cybersecurity systems. 
 
@@ -427,7 +495,19 @@ _Appl. Sci._ **2025** , _15_ , 9096
 
 Looking ahead, the CurriculumPT framework and its core concepts open several promising research directions for advancing automated penetration testing. As a first step toward real-world deployment, we plan to enhance the learning process through dynamic curriculum generation and more robust reasoning models to support knowledge transfer across heterogeneous systems. We also aim to extend CurriculumPT by integrating real-time adaptation to dynamic targets and network conditions, enabling the framework to operate effectively in evolving environments. To ensure safety and operational oversight, we will incorporate human-in-the-loop mechanisms for supervising high-risk actions and validating system decisions. Additionally, we are exploring multimodal information processing and human–AI collaborative paradigms to improve task coordination and explainability. Finally, addressing ethical implications and defensive countermeasures remains essential to the responsible application and governance of this technology. 
 
-**Author Contributions:** Conceptualization, X.W.; methodology, X.W. and Y.T.; validation, X.W.; formal analysis, X.W., Y.C. and J.J.; investigation, X.W., P.Y. and Y.T.; resources, X.W., X.C. and S.L.; data curation, X.W., S.L. and J.J.; writing—original draft preparation, X.W.; writing—review and editing, X.W. and Y.T.; visualization, X.W. and Y.T.; supervision, J.L. and W.N.; project administration, J.L. and W.N.; funding acquisition, J.L. and W.N. All authors have read and agreed to the published version of the manuscript. 
+**Author Contributions:** Conceptualization, X.W.:
+- methodology, X.W. and Y.T.
+- validation, X.W.
+- formal analysis, X.W., Y.C. and J.J.
+- investigation, X.W., P.Y. and Y.T.
+- resources, X.W., X.C. and S.L.
+- data curation, X.W., S.L. and J.J.
+- writing—original draft preparation, X.W.
+- writing—review and editing, X.W. and Y.T.
+- visualization, X.W. and Y.T.
+- supervision, J.L. and W.N.
+- project administration, J.L. and W.N.
+- funding acquisition, J.L. and W.N. All authors have read and agreed to the published version of the manuscript.
 
 **Funding:** This work was supported by the Central Funds Guiding the Local Science and Technology Development under Grant No. 236Z0806G, the Fundamental Research Funds for the Central Universities under Grant No. 2023JBMC055, and the National Natural Science Foundation of China under Grant No. 62372021, China. 
 
@@ -438,6 +518,8 @@ Looking ahead, the CurriculumPT framework and its core concepts open several pro
 **Data Availability Statement:** The original contributions presented in the study are included in the article, further inquiries can be directed to the corresponding author. 
 
 **Conflicts of Interest:** Author Shouyang Li was employed by the company China Railway Qinghai Tibet Group Co., Ltd. The remaining authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest. 
+
+---
 
 ## **References** 
 

@@ -1,10 +1,68 @@
 # **Chain-of-Thought Prompting Elicits Reasoning in Large Language Models** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Chain-of-Thought Prompting](#2-chain-of-thought-prompting)
+- [3 Arithmetic Reasoning](#3-arithmetic-reasoning)
+  - [3.1 Experimental Setup](#3-1-experimental-setup)
+  - [3.2 Results](#3-2-results)
+  - [3.3 Ablation Study](#3-3-ablation-study)
+  - [3.4 Robustness of Chain of Thought](#3-4-robustness-of-chain-of-thought)
+- [4 Commonsense Reasoning](#4-commonsense-reasoning)
+- [5 Symbolic Reasoning](#5-symbolic-reasoning)
+- [6 Discussion](#6-discussion)
+- [7 Related Work](#7-related-work)
+- [8 Conclusions](#8-conclusions)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
+- [Checklist](#checklist)
+- [A Frequently Asked Questions](#a-frequently-asked-questions)
+  - [A.1 Why does increasing model scale improve chain-of-thought prompting?](#a-1-why-does-increasing-model-scale-improve-chain-of-thought-prompting)
+  - [A.2 What is the role of prompt engineering?](#a-2-what-is-the-role-of-prompt-engineering)
+  - [A.3 Will chain-of-thought prompting improve performance for my task of interest?](#a-3-will-chain-of-thought-prompting-improve-performance-for-my-task-of-interest)
+  - [A.4 Why is prompting with the equation only not enough for some arithmetic reasoning datasets?](#a-4-why-is-prompting-with-the-equation-only-not-enough-for-some-arithmetic-reasoning-datasets)
+- [B All Experimental Results](#b-all-experimental-results)
+- [C Extended Related Work](#c-extended-related-work)
+  - [C.1 Prompting](#c-1-prompting)
+  - [C.2 Natural language explanations](#c-2-natural-language-explanations)
+  - [C.3 Program synthesis and execution](#c-3-program-synthesis-and-execution)
+  - [C.4 Numeric and logical reasoning](#c-4-numeric-and-logical-reasoning)
+  - [C.5 Intermediate language steps](#c-5-intermediate-language-steps)
+- [D Appendix: Additional Analysis](#d-appendix-additional-analysis)
+  - [D.1 Correct Chain of Thought Analysis](#d-1-correct-chain-of-thought-analysis)
+  - [D.2 Incorrect Chain of Thought Analysis](#d-2-incorrect-chain-of-thought-analysis)
+  - [D.3 Additional Robustness Analysis](#d-3-additional-robustness-analysis)
+- [E Additional Details](#e-additional-details)
+- [Version Control](#version-control)
+  - [E.1 Reproducibility Statement](#e-1-reproducibility-statement)
+  - [E.2 Computational Resources](#e-2-computational-resources)
+  - [E.3 Dataset Details and Licenses](#e-3-dataset-details-and-licenses)
+  - [Arithmetic reasoning](#arithmetic-reasoning)
+  - [Commonsense reasoning](#commonsense-reasoning)
+- [F Appendix: Input/Output Examples](#f-appendix-input-output-examples)
+- [G Appendix: Full Prompts](#g-appendix-full-prompts)
+    - [<u>PROMPT FOR MATH WORD PROBLEMS</u>](#u-prompt-for-math-word-problems-u)
+    - [PROMPT FOR AQUA ALGEBRAIC WORD PROBLEMS](#prompt-for-aqua-algebraic-word-problems)
+    - [<u>PROMPT FOR LAST LETTER CONCATENATION</u>](#u-prompt-for-last-letter-concatenation-u)
+    - [PROMPT FOR CSQA](#prompt-for-csqa)
+    - [PROMPT FOR STRATEGYQA](#prompt-for-strategyqa)
+    - [<u>PROMPT FOR DATE UNDERSTANDING</u>](#u-prompt-for-date-understanding-u)
+- [H Appendix: Alternate Annotators for MWP](#h-appendix-alternate-annotators-for-mwp)
+    - [<u>PROMPT FOR MATH WORD PROBLEMS</u>](#u-prompt-for-math-word-problems-u)
+    - [<u>PROMPT FOR MATH WORD PROBLEMS</u>](#u-prompt-for-math-word-problems-u)
+
+---
+
 **Jason Wei Xuezhi Wang Dale Schuurmans Maarten Bosma Brian Ichter Fei Xia Ed H. Chi Quoc V. Le Denny Zhou** 
 
 Google Research, Brain Team `{jasonwei,dennyzhou}@google.com` 
 
 ## **Abstract** 
+
+> **Section Summary:** We explore how generating a _chain of thought_ —a series of intermediate reasoning steps—significantly improves the ability of large language models to perform complex reasoning.
+
 
 We explore how generating a _chain of thought_ —a series of intermediate reasoning steps—significantly improves the ability of large language models to perform complex reasoning. In particular, we show how such reasoning abilities emerge naturally in sufficiently large language models via a simple method called _chain-ofthought prompting_ , where a few chain of thought demonstrations are provided as exemplars in prompting. 
 
@@ -22,11 +80,22 @@ Figure 1: Chain-of-thought prompting enables large language models to tackle com
 
 36th Conference on Neural Information Processing Systems (NeurIPS 2022). 
 
+---
+
 ## **1 Introduction** 
 
-The NLP landscape has recently been revolutionized by language models (Peters et al., 2018; Devlin et al., 2019; Brown et al., 2020, _inter alia_ ). Scaling up the size of language models has been shown to confer a range of benefits, such as improved performance and sample efficiency (Kaplan et al., 2020; Brown et al., 2020, _inter alia_ ). However, scaling up model size alone has not proved sufficient for achieving high performance on challenging tasks such as arithmetic, commonsense, and symbolic reasoning (Rae et al., 2021). 
+> **Section Summary:** The NLP landscape has recently been revolutionized by language models (Peters et al., 2018; Devlin et al., 2019; Brown et al., 2020, _inter alia_ ).
 
-This work explores how the reasoning ability of large language models can be unlocked by a simple method motivated by two ideas. First, techniques for arithmetic reasoning can benefit from generating natural language rationales that lead to the final answer. Prior work has given models the ability to generate natural language intermediate steps by training from scratch (Ling et al., 2017) or finetuning a pretrained model (Cobbe et al., 2021), in addition to neuro-symbolic methods that use formal languages instead of natural language (Roy and Roth, 2015; Chiang and Chen, 2019; Amini et al., 2019; Chen et al., 2019). Second, large language models offer the exciting 
+
+The NLP landscape has recently been revolutionized by language models (Peters et al., 2018:
+- Devlin et al., 2019
+- Brown et al., 2020, _inter alia_ ). Scaling up the size of language models has been shown to confer a range of benefits, such as improved performance and sample efficiency (Kaplan et al., 2020
+- Brown et al., 2020, _inter alia_ ). However, scaling up model size alone has not proved sufficient for achieving high performance on challenging tasks such as arithmetic, commonsense, and symbolic reasoning (Rae et al., 2021).
+
+This work explores how the reasoning ability of large language models can be unlocked by a simple method motivated by two ideas. First, techniques for arithmetic reasoning can benefit from generating natural language rationales that lead to the final answer. Prior work has given models the ability to generate natural language intermediate steps by training from scratch (Ling et al., 2017) or finetuning a pretrained model (Cobbe et al., 2021), in addition to neuro-symbolic methods that use formal languages instead of natural language (Roy and Roth, 2015:
+- Chiang and Chen, 2019
+- Amini et al., 2019
+- Chen et al., 2019). Second, large language models offer the exciting
 
 
 ```text
@@ -41,7 +110,12 @@ Both of the above ideas, however, have key limitations. For rationale-augmented 
 
 We present empirical evaluations on arithmetic, commonsense, and symbolic reasoning benchmarks, showing that chain-of-thought prompting outperforms standard prompting, sometimes to a striking degree. Figure 2 illustrates one such result—on the GSM8K benchmark of math word problems (Cobbe et al., 2021), chain-of-thought prompting with PaLM 540B outperforms standard prompting by a large margin and achieves new state-of-the-art performance. A prompting only approach is important because it does not require a large training dataset and because a single model checkpoint can perform many tasks without loss of generality. This work underscores how large language models can learn via a few examples with natural language data about the task (c.f. automatically learning the patterns underlying inputs and outputs via a large training dataset). 
 
+---
+
 ## **2 Chain-of-Thought Prompting** 
+
+> **Section Summary:** Consider one’s own thought process when solving a complicated reasoning task such as a multi-step math word problem.
+
 
 Consider one’s own thought process when solving a complicated reasoning task such as a multi-step math word problem. It is typical to decompose the problem into intermediate steps and solve each before giving the final answer: _“After Jane gives 2 flowers to her mom she has 10 . . . then after she gives 3 to her dad she will have 7 . . . so the answer is 7.”_ The goal of this paper is to endow language models with the ability to generate a similar _chain of thought_ —a coherent series of intermediate reasoning steps that lead to the final answer for a problem. We will show that sufficiently large 
 
@@ -63,7 +137,12 @@ Chain-of-thought prompting has several attractive properties as an approach for 
 
 In empirical experiments, we will observe the utility of chain-of-thought prompting for arithmetic reasoning (Section 3), commonsense reasoning (Section 4), and symbolic reasoning (Section 5). 
 
+---
+
 ## **3 Arithmetic Reasoning** 
+
+> **Section Summary:** We begin by considering math word problems of the form in Figure 1, which measure the arithmetic reasoning ability of language models.
+
 
 We begin by considering math word problems of the form in Figure 1, which measure the arithmetic reasoning ability of language models. Though simple for humans, arithmetic reasoning is a task where language models often struggle (Hendrycks et al., 2021; Patel et al., 2021, _inter alia_ ). Strikingly, chainof-thought prompting when used with the 540B parameter language model performs comparably with task-specific finetuned models on several tasks, even achieving new state of the art on the challenging GSM8K benchmark (Cobbe et al., 2021). 
 
@@ -153,6 +232,8 @@ source (examples in this dataset already included reasoning steps like a chain o
 
 In addition to robustness to annotators, independently-written chains of thought, different exemplars, and various language models, we also find that chain-of-thought prompting for arithmetic reasoning is robust to different exemplar orders and varying numbers of exemplars (see Appendix A.2). 
 
+---
+
 ## **4 Commonsense Reasoning** 
 
 Although chain of thought is particularly suitable for math word problems, the language-based nature of chain of thought actually makes it applicable to a broad class of commonsense reasoning problems, which involve reasoning about physical and human interactions under the presumption of general background knowledge. Commonsense reasoning is key for interacting with the world and is still beyond the reach of current natural language understanding systems (Talmor et al., 2021). 
@@ -174,7 +255,12 @@ Figure 7: Chain-of-thought prompting also improves the commonsense reasoning abi
 
 7 
 
+---
+
 ## **5 Symbolic Reasoning** 
+
+> **Section Summary:** Our final experimental evaluation considers symbolic reasoning, which is simple for humans but potentially challenging for language models.
+
 
 Our final experimental evaluation considers symbolic reasoning, which is simple for humans but potentially challenging for language models. We show that chain-ofthought prompting not only enables language models to perform symbolic reasoning tasks that are challenging in the standard prompting setting, but also facilitates length generalization to inference-time inputs longer than those seen in the few-shot exemplars. 
 
@@ -201,7 +287,12 @@ the training/few-shot exemplars, as well as an _out-of-domain_ (OOD) test set, f
 
 As for the OOD evaluations, standard prompting fails for both tasks. With chain-of-thought prompting, language models achieve upward scaling curves (though performance is lower than in the in-domain setting). Hence, chain-of-thought prompting facilitates length generalization beyond seen chains of thought for language models of sufficient scale. 
 
+---
+
 ## **6 Discussion** 
+
+> **Section Summary:** We have explored chain-of-thought prompting as a simple mechanism for eliciting multi-step reasoning behavior in large language models.
+
 
 We have explored chain-of-thought prompting as a simple mechanism for eliciting multi-step reasoning behavior in large language models. We first saw that chain-of-thought prompting improves performance by a large margin on arithmetic reasoning, yielding improvements that are much stronger than ablations and robust to different annotators, exemplars, and language models (Section 3). Next, 
 
@@ -215,27 +306,54 @@ experiments on commonsense reasoning underscored how the linguistic nature of ch
 
 The emergence of chain-of-thought reasoning as a result of model scale has been a prevailing theme (Wei et al., 2022b). For many reasoning tasks where standard prompting has a flat scaling curve, chainof-thought prompting leads to dramatically increasing scaling curves. Chain-of-thought prompting appears to expand the set of tasks that large language models can perform successfully—in other words, our work underscores that standard prompting only provides a lower bound on the capabilities of large language models. This observation likely raises more questions than it answers—for instance, how much more can we expect reasoning ability to improve with a further increase in model scale? What other prompting methods might expand the range of tasks that language models can solve? 
 
-As for limitations, we first qualify that although chain of thought emulates the thought processes of human reasoners, this does not answer whether the neural network is actually “reasoning,” which we leave as an open question. Second, although the cost of manually augmenting exemplars with chains of thought is minimal in the few-shot setting, such annotation costs could be prohibitive for finetuning (though this could potentially be surmounted with synthetic data generation, or zero-shot generalization). Third, there is no guarantee of correct reasoning paths, which can lead to both correct and incorrect answers; improving factual generations of language models is an open direction for future work (Rashkin et al., 2021; Ye and Durrett, 2022; Wiegreffe et al., 2022, _inter alia_ ). Finally, the emergence of chain-of-thought reasoning only at large model scales makes it costly to serve in real-world applications; further research could explore how to induce reasoning in smaller models. 
+As for limitations, we first qualify that although chain of thought emulates the thought processes of human reasoners, this does not answer whether the neural network is actually “reasoning,” which we leave as an open question. Second, although the cost of manually augmenting exemplars with chains of thought is minimal in the few-shot setting, such annotation costs could be prohibitive for finetuning (though this could potentially be surmounted with synthetic data generation, or zero-shot generalization). Third, there is no guarantee of correct reasoning paths, which can lead to both correct and incorrect answers:
+- improving factual generations of language models is an open direction for future work (Rashkin et al., 2021
+- Ye and Durrett, 2022
+- Wiegreffe et al., 2022, _inter alia_ ). Finally, the emergence of chain-of-thought reasoning only at large model scales makes it costly to serve in real-world applications
+- further research could explore how to induce reasoning in smaller models.
+
+---
 
 ## **7 Related Work** 
 
+> **Section Summary:** This work is inspired by many research areas, which we detail in an extended related work section (Appendix C).
+
+
 This work is inspired by many research areas, which we detail in an extended related work section (Appendix C). Here we describe two directions and associated papers that are perhaps most relevant. 
 
-The first relevant direction is using intermediate steps to solve reasoning problems. Ling et al. (2017) pioneer the idea of using natural language rationales to solve math word problems through a series of intermediate steps. Their work is a remarkable contrast to the literature using formal languages to reason (Roy et al., 2015; Chiang and Chen, 2019; Amini et al., 2019; Chen et al., 2019). Cobbe et al. (2021) extend Ling et al. (2017) by creating a larger dataset and using it to finetune a pretrained language model rather than training a model from scratch. In the domain of program synthesis, Nye et al. (2021) leverage language models to predict the final outputs of Python programs via first line-to-line predicting the intermediate computational results, and show that their step-by-step prediction method performs better than directly predicting the final outputs. 
+The first relevant direction is using intermediate steps to solve reasoning problems. Ling et al. (2017) pioneer the idea of using natural language rationales to solve math word problems through a series of intermediate steps. Their work is a remarkable contrast to the literature using formal languages to reason (Roy et al., 2015:
+- Chiang and Chen, 2019
+- Amini et al., 2019
+- Chen et al., 2019). Cobbe et al. (2021) extend Ling et al. (2017) by creating a larger dataset and using it to finetune a pretrained language model rather than training a model from scratch. In the domain of program synthesis, Nye et al. (2021) leverage language models to predict the final outputs of Python programs via first line-to-line predicting the intermediate computational results, and show that their step-by-step prediction method performs better than directly predicting the final outputs.
 
 Naturally, this paper also relates closely to the large body of recent work on prompting. Since the popularization of few-shot prompting as given by Brown et al. (2020), several general approaches have improved the prompting ability of models, such as automatically learning prompts (Lester et al., 2021) or giving models instructions describing a task (Wei et al., 2022a; Sanh et al., 2022; Ouyang et al., 2022). Whereas these approaches improve or augment the input part of the prompt (e.g., instructions that are prepended to inputs), our work takes the orthogonal direction of augmenting the outputs of language models with a chain of thought. 
 
+---
+
 ## **8 Conclusions** 
+
+> **Section Summary:** We have explored chain-of-thought prompting as a simple and broadly applicable method for enhancing reasoning in language models.
+
 
 We have explored chain-of-thought prompting as a simple and broadly applicable method for enhancing reasoning in language models. Through experiments on arithmetic, symbolic, and commonsense reasoning, we find that chain-of-thought reasoning is an emergent property of model scale that allows sufficiently large language models to perform reasoning tasks that otherwise have flat scaling curves. Broadening the range of reasoning tasks that language models can perform will hopefully inspire further work on language-based approaches to reasoning. 
 
 9 
 
+---
+
 ## **Acknowledgements** 
+
+> **Section Summary:** We thank Jacob Devlin, Claire Cui, Andrew Dai, and Ellie Pavlick for providing feedback on the paper.
+
 
 We thank Jacob Devlin, Claire Cui, Andrew Dai, and Ellie Pavlick for providing feedback on the paper. We thank Jacob Austin, Yuhuai Wu, Henryk Michalewski, Aitor Lewkowycz, Charles Sutton, and Aakanksha Chowdhery for helpful discussions. We thank Sid Maxwell for notifying us about a mistake in the manual error analysis in the original manuscript. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** Michael Ahn, Anthony Brohan, Noah Brown, Yevgen Chebotar, Omar Cortes, Byron David, Chelsea Finn, Keerthana Gopalakrishnan, Karol Hausman, Alex Herzog, et al.
+
 
 Michael Ahn, Anthony Brohan, Noah Brown, Yevgen Chebotar, Omar Cortes, Byron David, Chelsea Finn, Keerthana Gopalakrishnan, Karol Hausman, Alex Herzog, et al. 2022. Do as I can, not as I say: Grounding language in robotic affordances. _arXiv preprint arXiv:2204.01691_ . 
 
@@ -419,6 +537,8 @@ Wojciech Zaremba and Ilya Sutskever. 2014. Learning to execute. _arXiv preprint 
 
 14 
 
+---
+
 ## **Checklist** 
 
 1. For all authors... 
@@ -468,6 +588,8 @@ Wojciech Zaremba and Ilya Sutskever. 2014. Learning to execute. _arXiv preprint 
    - (c) Did you include the estimated hourly wage paid to participants and the total amount spent on participant compensation? [N/A] 
 
 15 
+
+---
 
 ## **A Frequently Asked Questions** 
 
@@ -549,7 +671,12 @@ It is hard for the model to directly translate all of the semantics into a singl
 
 19 
 
+---
+
 ## **B All Experimental Results** 
+
+> **Section Summary:** This section contains tables for experimental results for varying models and model sizes, on all benchmarks, for standard prompting vs.
+
 
 This section contains tables for experimental results for varying models and model sizes, on all benchmarks, for standard prompting vs. chain-of-thought prompting. 
 
@@ -700,6 +827,8 @@ Table 7: Ablation and robustness results for four datasets in commonsense and sy
 
 23 
 
+---
+
 ## **C Extended Related Work** 
 
 Chain-of-thought prompting is a general approach that is inspired by several prior directions: prompting, natural language explanations, program synthesis/execution, numeric and logical reasoning, and intermediate language steps. 
@@ -708,15 +837,28 @@ Chain-of-thought prompting is a general approach that is inspired by several pri
 
 The recent success of large-scale language models has led to growing interest in improving their capability to perform tasks via prompting (Brown et al. (2020), and see Liu et al. (2021) for a survey). This paper falls in the category of general prompting approaches, whereby input prompts are optimized to allow a single large language model to better perform a variety of tasks (Li and Liang, 2021; Lester et al., 2021; Reif et al., 2022, _inter alia_ ). 
 
-One recent line of work aims to improve the ability of language models to perform a task by providing instructions that describe the task (Raffel et al., 2020; Wei et al., 2022a; Ouyang et al., 2022; Sanh et al., 2022; Wang et al., 2022b). This line of work is related because it also augments input–output pairs with meta-data. But whereas an instruction augments the input to a task (instructions are typically prepended to the inputs), chain-of-thought prompting augments the outputs of language models. Another related direction is sequentially combining the outputs of language models; human–computer interaction (HCI) work (Wu et al., 2022a,b) has shown that combining sequential generations of language models improves task outcomes in a 20-person user study. 
+One recent line of work aims to improve the ability of language models to perform a task by providing instructions that describe the task (Raffel et al., 2020:
+- Wei et al., 2022a
+- Ouyang et al., 2022
+- Sanh et al., 2022
+- Wang et al., 2022b). This line of work is related because it also augments input–output pairs with meta-data. But whereas an instruction augments the input to a task (instructions are typically prepended to the inputs), chain-of-thought prompting augments the outputs of language models. Another related direction is sequentially combining the outputs of language models
+- human–computer interaction (HCI) work (Wu et al., 2022a,b) has shown that combining sequential generations of language models improves task outcomes in a 20-person user study.
 
 ### **C.2 Natural language explanations** 
 
-Another closely related direction uses natural language explanations (NLEs), often with the goal of improving model interpretability (Zhou et al., 2020; Wiegreffe and Marasovi´c, 2021, _inter alia_ ). That line of work typically focuses on natural language inference (Camburu et al., 2018; Yordanov et al., 2021; Bostrom et al., 2021), and produces explanations either simultaneously to or after the final prediction (Narang et al., 2020; Majumder et al., 2021; Wiegreffe et al., 2021, 2022). By contrast, the chain of thought processing considered in this paper occurs _before_ the final answer. And while NLE aims mostly to improve neural network interpretability (Rajagopal et al., 2021), the goal of chain-of-thought prompting is to allow models to decompose multi-hop reasoning tasks into multiple steps—interpretability is just a side effect. Marasovi´c et al. (2022) show that prompt-based finetuning with NLE improves NLI and classification performance, though they largely focus on evaluating explanation plausibility. In comparison, our work focuses on a range of arithmetic, commonsense, and symbolic tasks that require multi-hop reasoning. 
+Another closely related direction uses natural language explanations (NLEs), often with the goal of improving model interpretability (Zhou et al., 2020:
+- Wiegreffe and Marasovi´c, 2021, _inter alia_ ). That line of work typically focuses on natural language inference (Camburu et al., 2018
+- Yordanov et al., 2021
+- Bostrom et al., 2021), and produces explanations either simultaneously to or after the final prediction (Narang et al., 2020
+- Majumder et al., 2021
+- Wiegreffe et al., 2021, 2022). By contrast, the chain of thought processing considered in this paper occurs _before_ the final answer. And while NLE aims mostly to improve neural network interpretability (Rajagopal et al., 2021), the goal of chain-of-thought prompting is to allow models to decompose multi-hop reasoning tasks into multiple steps—interpretability is just a side effect. Marasovi´c et al. (2022) show that prompt-based finetuning with NLE improves NLI and classification performance, though they largely focus on evaluating explanation plausibility. In comparison, our work focuses on a range of arithmetic, commonsense, and symbolic tasks that require multi-hop reasoning.
 
 ### **C.3 Program synthesis and execution** 
 
-Using intermediate reasoning steps has a long history in program synthesis and execution (Zaremba and Sutskever, 2014, _inter alia_ ). Recent work along in this direction has included a number of architectural innovations (Cai et al., 2017; Dong et al., 2019; Yan et al., 2020), as well as the use of large language models (Chen et al., 2021; Austin et al., 2021). The program execution work closest to ours is perhaps Nye et al. (2021), which show that large language models can perform up to 10-digit addition, evaluate polynomials, and execute python programs. Whereas generating a program and then executing it can be viewed as a type of reasoning, our work generalizes such domain-specific primitives to natural language, which is open-domain and relevant to any text-to-text NLP task in principle. 
+Using intermediate reasoning steps has a long history in program synthesis and execution (Zaremba and Sutskever, 2014, _inter alia_ ). Recent work along in this direction has included a number of architectural innovations (Cai et al., 2017:
+- Dong et al., 2019
+- Yan et al., 2020), as well as the use of large language models (Chen et al., 2021
+- Austin et al., 2021). The program execution work closest to ours is perhaps Nye et al. (2021), which show that large language models can perform up to 10-digit addition, evaluate polynomials, and execute python programs. Whereas generating a program and then executing it can be viewed as a type of reasoning, our work generalizes such domain-specific primitives to natural language, which is open-domain and relevant to any text-to-text NLP task in principle.
 
 ### **C.4 Numeric and logical reasoning** 
 
@@ -728,7 +870,14 @@ Perhaps the most-related work here is Recchia (2021), which shows that finetunin
 
 ### **C.5 Intermediate language steps** 
 
-Extensive prior work has shown the benefits of endowing neural networks with the ability to produce intermediate steps via training or finetuning confers various benefits in a range of scenarios. As examples, it has been shown that natural language intermediate steps can improve performance (Zaidan et al., 2007; Yao et al., 2021; Hase and Bansal, 2022; Gu et al., 2022), improve robustness (Chen et al., 2022), speed up training (Hancock et al., 2018), mitigate bias (Dua et al., 2020), and even help in image and reinforcement learning settings (Andreas et al., 2018). To endow models with the ability to produce intermediate steps, prior work typically finetunes models on either manually annotated training datasets (Camburu et al., 2018; Rajani et al., 2019, _inter alia_ ) or generates synthetic datasets (Talmor et al., 2020; Zelikman et al., 2022). Compared with these training or finetuning methods, our work shows that various natural language reasoning abilities can be elicited in off-theshelf language models of sufficient scale simply via prompting. This prompting setup is important because it allows for intermediate step reasoning without a large number of labeled annotations, and because a single model can perform a range of reasoning tasks without any gradient updates. 
+Extensive prior work has shown the benefits of endowing neural networks with the ability to produce intermediate steps via training or finetuning confers various benefits in a range of scenarios. As examples, it has been shown that natural language intermediate steps can improve performance (Zaidan et al., 2007:
+- Yao et al., 2021
+- Hase and Bansal, 2022
+- Gu et al., 2022), improve robustness (Chen et al., 2022), speed up training (Hancock et al., 2018), mitigate bias (Dua et al., 2020), and even help in image and reinforcement learning settings (Andreas et al., 2018). To endow models with the ability to produce intermediate steps, prior work typically finetunes models on either manually annotated training datasets (Camburu et al., 2018
+- Rajani et al., 2019, _inter alia_ ) or generates synthetic datasets (Talmor et al., 2020
+- Zelikman et al., 2022). Compared with these training or finetuning methods, our work shows that various natural language reasoning abilities can be elicited in off-theshelf language models of sufficient scale simply via prompting. This prompting setup is important because it allows for intermediate step reasoning without a large number of labeled annotations, and because a single model can perform a range of reasoning tasks without any gradient updates.
+
+---
 
 ## **D Appendix: Additional Analysis** 
 
@@ -846,7 +995,13 @@ Table 11: Example of incorrect chains of thought, categorized as described in Ap
 
 **EXPLANATION FOR ERROR CATEGORY:** This chain of thought is incoherent in that the percent of entire students enrolled in hip-hope dance cannot be the percent of student enrolled in hip-hop dance minus another term. 
 
-Overall, there are no guarantees that the reasoning processes generated by large language models are coherent or factually correct, as underscored by the recent work evaluating the factuality of language model generations and explanations (Maynez et al., 2020; Rashkin et al., 2021; Ye and Durrett, 2022; Marasovi´c et al., 2022; Wiegreffe et al., 2022). Incorrect reasoning processes can lead to both incorrect final answers as well as accidentally correct final answers (with accidentally correct final answers being more likely for tasks such as binary classification as opposed to free response). Improving the factuality of language model generations with respect to context and world knowledge is an important direction open problems in language model research and could also be expected to potentially improve multi-step reasoning abilities of language models. One potential method for improving the quality of decoding could involve generating multiple reasoning paths and scoring each of them with a verifier, though this requires training the verifier (Cobbe et al., 2021; Shen et al., 2021; Thoppilan et al., 2022). 
+Overall, there are no guarantees that the reasoning processes generated by large language models are coherent or factually correct, as underscored by the recent work evaluating the factuality of language model generations and explanations (Maynez et al., 2020:
+- Rashkin et al., 2021
+- Ye and Durrett, 2022
+- Marasovi´c et al., 2022
+- Wiegreffe et al., 2022). Incorrect reasoning processes can lead to both incorrect final answers as well as accidentally correct final answers (with accidentally correct final answers being more likely for tasks such as binary classification as opposed to free response). Improving the factuality of language model generations with respect to context and world knowledge is an important direction open problems in language model research and could also be expected to potentially improve multi-step reasoning abilities of language models. One potential method for improving the quality of decoding could involve generating multiple reasoning paths and scoring each of them with a verifier, though this requires training the verifier (Cobbe et al., 2021
+- Shen et al., 2021
+- Thoppilan et al., 2022).
 
 ### **D.3 Additional Robustness Analysis** 
 
@@ -878,7 +1033,11 @@ Table 12: Summary of math word problem benchmarks we use in this paper with exam
 
 29 
 
+---
+
 ## **E Additional Details** 
+
+---
 
 ## **Version Control** 
 
@@ -932,7 +1091,12 @@ We list the details and licenses for all arithmetic and commonsense datasets use
 
 31 
 
+---
+
 ## **F Appendix: Input/Output Examples** 
+
+> **Section Summary:** Table 13: Examples of correct and incorrect chains of thought produced by LaMDA 137B on the letter concatenation task.
+
 
 Table 13: Examples of correct and incorrect chains of thought produced by LaMDA 137B on the letter concatenation task. 
 
@@ -1038,7 +1202,12 @@ Table 19: Examples of correct and incorrect chains of thought produced by PaLM 5
 
 34 
 
+---
+
 ## **G Appendix: Full Prompts** 
+
+> **Section Summary:** Table 20: Few-shot exemplars for full chain of thought prompt for math word problems.
+
 
 Table 20: Few-shot exemplars for full chain of thought prompt for math word problems. This set of exemplars was used for all math word problem datasets except AQuA. 
 
@@ -1273,7 +1442,12 @@ Table 28: Few-shot exemplars for full chain of thought prompt for SayCan robot p
 
 41 
 
+---
+
 ## **H Appendix: Alternate Annotators for MWP** 
+
+> **Section Summary:** Table 29: Few-shot exemplars for full chain of thought prompt for math word problems.
+
 
 Table 29: Few-shot exemplars for full chain of thought prompt for math word problems. These exemplars are the same as in Table 20, except that the chains of thought were written by a different annotator (“Annotator B” instead of “Annotator A”). Annotators were co-authors and familiar with the goal of chain of thought prompting. 
 

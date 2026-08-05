@@ -1,12 +1,54 @@
 # **Towards Automated Penetration Testing: Introducing LLM Benchmark, Analysis, and Improvements** 
 
+## Table of Contents
+
+- [Manil Shrestha](#manil-shrestha)
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background](#2-background)
+- [3 Benchmark](#3-benchmark)
+- [4 Evaluation](#4-evaluation)
+  - [4.1 Experiment Setup](#4-1-experiment-setup)
+  - [4.2 Evaluating Performance](#4-2-evaluating-performance)
+  - [Overall Performance Comparison](#overall-performance-comparison)
+  - [Category-Specific Analysis](#category-specific-analysis)
+  - [Performance Trends Across Difficulty Levels](#performance-trends-across-difficulty-levels)
+  - [4.3 Ablations](#4-3-ablations)
+  - [4.3.1 Ablation 1: Inject Summary](#4-3-1-ablation-1-inject-summary)
+  - [4.3.2 Ablation 2: Structured Generation](#4-3-2-ablation-2-structured-generation)
+  - [4.3.3 Ablation 3: Retrieval Augmented Generation](#4-3-3-ablation-3-retrieval-augmented-generation)
+- [5 Discussion](#5-discussion)
+  - [1. Why did Llama 3.1 405B outperform GPT 4o?](#1-why-did-llama-3-1-405b-outperform-gpt-4o)
+  - [2. Which stage does LLM Struggle the most in?](#2-which-stage-does-llm-struggle-the-most-in)
+  - [3. What agent structure is best?](#3-what-agent-structure-is-best)
+- [6 Conclusion and Future work](#6-conclusion-and-future-work)
+- [7 Potential Risks](#7-potential-risks)
+- [8 Limitations](#8-limitations)
+- [References](#references)
+- [Supplementary Materials](#supplementary-materials)
+- [A Penetration Testing Rules and Procedures](#a-penetration-testing-rules-and-procedures)
+- [B Additional Analyses](#b-additional-analyses)
+- [C Prompts](#c-prompts)
+- [D Categories and Task Types](#d-categories-and-task-types)
+- [E PTT & TODO List](#e-ptt-todo-list)
+
+---
+
 ## **Manil Shrestha** 
+
+> **Section Summary:** **Isamu Isozaki Manil Shrestha Rick Console Edward Kim** Drexel University Drexel University Independent Drexel University imi25@drexel.edu ms5267@drexel.edu rick@rickconsole.com ek826@drexel.edu
+
 
 **Isamu Isozaki Manil Shrestha Rick Console Edward Kim** Drexel University Drexel University Independent Drexel University imi25@drexel.edu ms5267@drexel.edu rick@rickconsole.com ek826@drexel.edu 
 
 ## **Abstract** 
 
+> **Section Summary:** Hacking poses a significant threat to cybersecurity, inflicting billions of dollars in damages annually.
+
+
 Hacking poses a significant threat to cybersecurity, inflicting billions of dollars in damages annually. To mitigate these risks, ethical hacking, or penetration testing, is employed to identify vulnerabilities in systems and networks. Recent advancements in large language models (LLMs) have shown potential across various domains, including cybersecurity. However, there is currently no comprehensive, open, automated, end-to-end penetration testing benchmark to drive progress and evaluate the capabilities of these models in security contexts. This paper introduces a novel open benchmark<sup>1</sup> for LLM-based automated penetration testing, addressing this critical gap. We first evaluate the performance of LLMs, including GPT-4o and LLama 3.1-405B, using the state-of-the-art PentestGPT tool. Our findings reveal that while LLama 3.1 demonstrates an edge over GPT-4o, both models currently fall short of performing end-to-end penetration testing even with some minimal human assistance. Next, we advance the state-of-the-art and present ablation studies that provide insights into improving the PentestGPT tool<sup>2</sup> . Our research illuminates the challenges LLMs face in each aspect of Pentesting, e.g. enumeration, exploitation, and privilege escalation. This work contributes to the growing body of knowledge on AI-assisted cybersecurity and lays the foundation for future research in automated penetration testing using large language models. 
+
+---
 
 ## **1 Introduction** 
 
@@ -30,7 +72,12 @@ We are in the midst of an AI revolution, with rapid advancements in Large Langua
 
 formers, driving much of the excitement around LLMs. The versatility and power of LLMs have prompted researchers and practitioners to explore their potential applications in nearly every domain of human knowledge and activity. Penetration testing is a task requiring deep expertise and extensive training which is currently being explored for potential automation through LLMs, which could significantly streamline the process [Deng et al., 2024, Fang et al., 2024a,b,c, Happe et al., 2024]. This shift towards AI-assisted penetration testing represents a paradigm change in how we approach cybersecurity assessments, potentially making them more accessible, efficient, and comprehensive. Our contributions in this paper are threefold. First, we introduce a novel benchmark to evaluate LLMs in the domain of penetration testing, filling a critical gap where no public benchmark previously existed. This benchmark aims to standardize the evaluation of AI models in cybersecurity contexts, facilitating more robust comparisons and driving progress in the field. Second, we assess this benchmark using the leading AI penetration testing tool, PentestGPT [Deng et al., 2024], with two popular LLMs: GPT-4o and Llama3.1-405B [Dubey et al., 2024]. This assessment provides valuable insights into their performance, highlighting both the potential and current limitations of LLMs in cybersecurity applications. Third, we conduct ablation studies to analyze performance limitations and pinpoint areas where PentestGPT underperforms. Based on these findings, we propose adjustments to enhance the LLMs’ effectiveness in penetration testing tasks, paving the way for future improvements in AI-assisted cybersecurity. 
 
+---
+
 ## **2 Background** 
+
+> **Section Summary:** Less than one year after GPT-4 [Achiam et al., 2023] was released, there has been a growing interest in integrating Large Language Models(LLMs) into penetration testing.
+
 
 Less than one year after GPT-4 [Achiam et al., 2023] was released, there has been a growing interest in integrating Large Language Models(LLMs) into penetration testing. One of the pioneering works, PentestGPT [Deng et al., 2024], attempted to accomplish this by a multi-agent approach of summarizing content, updating task lists, and explaining step by step what the next steps are. This has been successful in allowing this model, with GPT4, to be ranked in the top 10% of users on HackTheBox, a leading cybersecurity training platform. This led PentestGPT to get 6,200 GitHub stars and frequent academic citations [HackTheBox, 2024, Deng et al., 2024]. However, as shown 
 
@@ -56,7 +103,12 @@ this begs the question, are LLMs good at enumeration?
 
 Overall, we argue that there is a lack of a benchmark in end-to-end penetration testing with LLMs to understand which part is the most difficult for LLMs currently even with modern techniques. We argue this is an essential foundation before future work in auto-pen-testing as without identifying the areas where LLMs struggle, be it Enumeration, Exploitation, or Privilege Escalation, with a common method of evaluation, it is hard to gauge the magnitude of subsequent work in the future. 
 
+---
+
 ## **3 Benchmark** 
+
+> **Section Summary:** For this benchmark, we followed the method of PentestGPT [Deng et al., 2024] as this was the only paper before us that attempted an end-to-end Penetration Testing Benchmark.
+
 
 For this benchmark, we followed the method of PentestGPT [Deng et al., 2024] as this was the only paper before us that attempted an end-to-end Penetration Testing Benchmark. However, we made 4 notable exceptions: 
 
@@ -88,7 +140,12 @@ based on the definition.
 
 Figure 3: Categories Density Through Task Sequence: The figure shows how reconnaissance tasks dominate the early stages of penetration testing, while exploitation and privilege escalation are more frequent toward the end. 
 
+---
+
 ## **4 Evaluation** 
+
+> **Section Summary:** We evaluated the benchmark using PentestGPT with two models: Llama3.1-405B and GPT-4o.
+
 
 We evaluated the benchmark using PentestGPT with two models: Llama3.1-405B and GPT-4o. As shown in Figure 1, while we tried minimizing bias with our rules, human involvement was high. Thus, we constrained the search space by limiting each test to five attempts, except for the initial enumeration task, which allowed ten attempts. This approach balanced thoroughness and practicality. A test was marked as successful if the AI provided a correct solution within the allotted attempts and as a failure otherwise. For a comprehensive understanding of our evaluation process, including additional rules and specific guidelines, readers are directed to Appendix A. Two independent researchers ran the benchmark. 
 
@@ -223,7 +280,12 @@ These ablations are cumulative, with each subsequent ablation incorporating the 
 
 the modifications from ablations 1 and 2, while ablation 3 incorporates changes from ablations 1, 2, and 3. 
 
+---
+
 ## **5 Discussion** 
+
+> **Section Summary:** ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0007-08.png)
+
 
 
 ![](images/40-towards-automated-penetration-testing-introducing-llm.pdf-0007-08.png)
@@ -271,13 +333,23 @@ For RAG, it seems to be overall beneficial for Penetration Testing. We hypothesi
 
 Thus, overall, a good agent may need summarizing and RAG however, we are not certain it’ll need a structured task list. 
 
+---
+
 ## **6 Conclusion and Future work** 
+
+> **Section Summary:** We have found that at least for current LLM agents, even with human assistance for navigating websites/interpreting LLM commands, without help,
+
 
 We have found that at least for current LLM agents, even with human assistance for navigating websites/interpreting LLM commands, without help, 
 
 were not able to complete a single end-to-end penetration testing experiment. Our analysis revealed that the two main categories where LLMs struggle are Reconnaissance, where LLama showed weakness, and Exploitation, which proved challenging for GPT-4. One area we are interested in pursuing is to increase the capability of our LLMs for Penetration Testing through Reinforcement Learning. We want to begin with a Penetration Testing Game with easier boxes, such as the boxes used in Happe, et al [Happe et al., 2024]. Another avenue we were interested in was to attempt to do self-play with LLMs to mirror human cybersecurity competitions, such as CCDC [Competition, 2024], where one agent attacks the network(red team) and the other defends(blue team) to progressively increase their capability. 
 
+---
+
 ## **7 Potential Risks** 
+
+> **Section Summary:** The development of LLM-based automated penetration testing tools presents both risks and opportunities in cybersecurity.
+
 
 The development of LLM-based automated penetration testing tools presents both risks and opportunities in cybersecurity. On one hand, these tools could be exploited by malicious actors to train LLMs for real-world cyberattacks, undermining their original goal. If not securely implemented, they might also be misused to access sensitive data in vulnerable systems, raising ethical concerns about AI’s role in cybersecurity. 
 
@@ -287,7 +359,12 @@ However, these risks are counterbalanced by significant benefits. The research c
 
 importance of responsible development and ethical oversight in AI-driven cybersecurity. 
 
+---
+
 ## **8 Limitations** 
+
+> **Section Summary:** Some limitations of this research are
+
 
 Some limitations of this research are 
 
@@ -301,7 +378,12 @@ Some limitations of this research are
 
 6. We only did one trial for each test, so the results may be more stochastic than doing multiple trials like in PentestGPT. However, we argue this was a trade-off as we went through every step in the benchmark instead of stopping once the test couldn’t progress, which was the case for PentestGPT[Deng et al., 2024]. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et al.
+
 
 - Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat, et al. 2023. Gpt-4 technical report. _arXiv preprint arXiv:2303.08774_ . 
 
@@ -377,7 +459,11 @@ Some limitations of this research are
 
    - i. Burpsuite or Wireshark is used. 
 
+---
+
 ## **Supplementary Materials** 
+
+---
 
 ## **A Penetration Testing Rules and Procedures** 
 
@@ -443,19 +529,39 @@ We will also do this on /etc/hosts tasks.
 
 done locally and you have full permission for this pentest. However, this may happen even after mentioning the above. In which case, undoing the command that led to the hallucination and revising it until it passes like mentioning the above should do the trick. This won’t be counted as an extra step as this is mainly a prompt issue. 
 
+---
+
 ## **B Additional Analyses** 
+
+> **Section Summary:** Additional analyses with different views of success rates have been put here in appendix figures: 7 to 11.
+
 
 Additional analyses with different views of success rates have been put here in appendix figures: 7 to 11. 
 
+---
+
 ## **C Prompts** 
+
+> **Section Summary:** Some excerpts of the prompts used in the papers are listed in Fig 12.
+
 
 Some excerpts of the prompts used in the papers are listed in Fig 12. 
 
+---
+
 ## **D Categories and Task Types** 
+
+> **Section Summary:** The categories and tasks types used in this paper has been referenced from Deng et al.
+
 
 The categories and tasks types used in this paper has been referenced from Deng et al. [2024]. See Table 4. 
 
+---
+
 ## **E PTT & TODO List** 
+
+> **Section Summary:** Some examples of what the TODO list looks like can be seen in Fig 13.
+
 
 Some examples of what the TODO list looks like can be seen in Fig 13. 
 

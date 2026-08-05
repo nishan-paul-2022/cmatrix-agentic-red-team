@@ -1,5 +1,44 @@
 # **Reflexion: Language Agents with Verbal Reinforcement Learning** 
 
+## Table of Contents
+
+  - [Federico Cassano](#federico-cassano)
+  - [Edward Berman](#edward-berman)
+  - [Ashwin Gopinath](#ashwin-gopinath)
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Related work](#2-related-work)
+- [3 Reflexion: reinforcement via verbal reflection](#3-reflexion-reinforcement-via-verbal-reflection)
+- [4 Experiments](#4-experiments)
+  - [4.1 Sequential decision making: ALFWorld](#4-1-sequential-decision-making-alfworld)
+  - [4.2 Reasoning: HotpotQA](#4-2-reasoning-hotpotqa)
+  - [4.3 Programming](#4-3-programming)
+- [5 Limitations](#5-limitations)
+- [6 Broader impact](#6-broader-impact)
+- [7 Conclusion](#7-conclusion)
+- [8 Reproducibility](#8-reproducibility)
+- [References](#references)
+- [A Evaluation with additional models](#a-evaluation-with-additional-models)
+- [B Decision-making](#b-decision-making)
+  - [Trial #1](#trial-1)
+  - [B.1 WebShop Limitation](#b-1-webshop-limitation)
+- [C Programming](#c-programming)
+  - [C.1 Programming function implementation example (HumanEval Python)](#c-1-programming-function-implementation-example-humaneval-python)
+  - [C.2 Reflexion Actor instruction](#c-2-reflexion-actor-instruction)
+  - [C.3 Reflexion Self-reflection instruction and example](#c-3-reflexion-self-reflection-instruction-and-example)
+  - [C.4 Reflexion programming no Self-Reflection ablation example](#c-4-reflexion-programming-no-self-reflection-ablation-example)
+  - [C.5 Reflexion programming no test generation ablation example](#c-5-reflexion-programming-no-test-generation-ablation-example)
+- [D Reasoning](#d-reasoning)
+  - [D.1 Full example](#d-1-full-example)
+  - [D.2 Chain-of-Thought + Reflexion](#d-2-chain-of-thought-reflexion)
+  - [D.3 HotPotQA Chain-of-Thought (GT) + Reflexion](#d-3-hotpotqa-chain-of-thought-gt-reflexion)
+  - [D.4 HotPotQA episodic memory (EPM) ablation prompts](#d-4-hotpotqa-episodic-memory-epm-ablation-prompts)
+  - [D.4.1 (EPM) Chain-of-Thought + Reflexion](#d-4-1-epm-chain-of-thought-reflexion)
+  - [<mark>Trial #2:</mark> <mark>Question: Which</mark> of <mark>Jonny Craig and Pete Doherty has been</mark> a <mark>member</mark> of <mark>more bands</mark> ?](#mark-trial-2-mark-mark-question-which-mark-of-mark-jonny-craig-and-pete-doherty-has-been-mark-a-mark-member-mark-of-mark-more-bands-mark)
+  - [D.4.2 (EPM) Chain-of-Thought (GT) + Reflexion](#d-4-2-epm-chain-of-thought-gt-reflexion)
+
+---
+
 **Noah Shinn** 
 
 Northeastern University `noahshinn024@gmail.com` 
@@ -20,9 +59,16 @@ Massachusetts Institute of Technology `agopi@mit.edu`
 
 **Shunyu Yao** Princeton University `shunyuy@princeton.edu` 
 
+---
+
 ## **Abstract** 
 
+> **Section Summary:** Large language models (LLMs) have been increasingly used to interact with external environments (e.g., games, compilers, APIs) as goal-driven agents.
+
+
 Large language models (LLMs) have been increasingly used to interact with external environments (e.g., games, compilers, APIs) as goal-driven agents. However, it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning. We propose _Reflexion_ , a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. Reflexion is flexible enough to incorporate various types (scalar values or free-form language) and sources (external or internally simulated) of feedback signals, and obtains significant improvements over a baseline agent across diverse tasks (sequential decision-making, coding, language reasoning). For example, Reflexion achieves a 91% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previous state-of-the-art GPT-4 that achieves 80%. We also conduct ablation and analysis studies using different feedback signals, feedback incorporation methods, and agent types, and provide insights into how they affect performance. We release all code, demos, and datasets at `https://github.com/noahshinn024/reflexion` . 
+
+---
 
 ## **1 Introduction** 
 
@@ -48,7 +94,12 @@ To summarize, our contributions are the following:
 
 - We show that Reflexion achieves improvements over strong baselines across several tasks, and achieves state-of-the-art results on various code generation benchmarks. 
 
+---
+
 ## **2 Related work** 
+
+> **Section Summary:** **Reasoning and decision-making** Self-Refine [15] employs an iterative framework for selfrefinement to autonomously improve generation through self-evaluation.
+
 
 **Reasoning and decision-making** Self-Refine [15] employs an iterative framework for selfrefinement to autonomously improve generation through self-evaluation. These self-evaluation and self-improvement steps are conditioned on given task constraints, such as "How can this generation be written in a more positive way". Self-Refine is effective but is limited to single-generation reasoning tasks. Pryzant et al. [21] performs a similar semantic prompt-writing optimization, but is also limited to single-generation tasks. Paul et al. [20] fine-tune critic models to provide intermediate feedback within trajectories to improve reasoning responses. Xie et al. [27] use stochastic beam search over actions to perform a more efficient decision-making search strategy which allows the agent to use foresight advantage due to its self-evaluation component. Yoran et al. [31] and Nair et al. 
 
@@ -87,6 +138,8 @@ Figure 1: Reflexion works on decision-making 4.1, programming 4.3, and reasoning
 [16] use decider models to reason over several generations. Kim et al. [10] use a retry pattern over a fixed number of steps without an evaluation step. Goodman [9] perform a qualitative evaluation step that proposes optimizations to the previous generation. In this paper, we show that several of these concepts can be enhanced with _self-reflection_ to build a persisting memory of self-reflective experiences which allows an agent to identify its own errors and self-suggest lessons to learn from its mistakes over time. 
 
 **Programming** Several past and recent works employ variations of test-driven development or code debugging practices. AlphaCode [14] evaluates a set of generations on hidden test cases. CodeT [5] uses self-generated unit tests that are used to score generated function implementations. Self-Debugging [7] employs a debugging component that is used to improve existing implementations given feedback from a code execution environment. CodeRL [12] sets the problem in an RL framework using an actor-critic setup to debug programs given feedback from an execution environment. AlphaCode, Self-Debugging and CodeRL are effective in fixing less-complex program bugs, but they rely upon ground truth test cases that invalidate pass@1 eligibility, and do not use self-reflection to bridge the gap between error identification and implementation improvement. CodeT does not access hidden test cases but does not implement a self-learning step to improve code writing. 
+
+---
 
 ## **3 Reflexion: reinforcement via verbal reflection** 
 
@@ -137,7 +190,12 @@ to the way that humans remember fine-grain recent details while also recalling d
 
 **The Reflexion process** Reflexion is formalized as an iterative optimization process in 1. In the first trial, the Actor produces a trajectory _τ_ 0 by interacting with the environment. The Evaluator then produces a score _r_ 0 which is computed as _rt_ = _Me_ ( _τ_ 0). _rt_ is only a scalar reward for trial _t_ that improves as task-specific performance increases. After the first trial, to amplify _r_ 0 to a feedback form that can be used for improvement by an LLM, the Self-Reflection model analyzes the set of _{τ_ 0 _, r_ 0 _}_ to produce a summary _sr_ 0 which is stored in the memory _mem_ . _srt_ is a verbal experience feedback for trial _t_ . The Actor, Evaluator, and Self-Reflection models work together through trials in a loop until the Evaluator deems _τt_ to be correct. As mentioned in 3, the memory component of Reflexion is crucial to its effectiveness. After each trial _t_ , _srt_ , is appended _mem_ . In practice, we bound _mem_ by a maximum number of stored experiences, Ω (usually set to 1-3) to adhere to max context LLM limitations. 
 
+---
+
 ## **4 Experiments** 
+
+> **Section Summary:** We evaluate various natural language RL setups on decision-making, reasoning, and code generation tasks.
+
 
 We evaluate various natural language RL setups on decision-making, reasoning, and code generation tasks. Specifically, we challenge an agent to perform search-based question answering on HotPotQA [28], multi-step tasks in common household environments in AlfWorld [24], and code writing tasks in competition-like environments with interpreters and compilers in HumanEval [6], MBPP [2], and LeetcodeHard, a new benchmark. Most notably, Reflexion improves performance over strong baselines by 22% in AlfWorld, 20% in HotPotQA, and 11% on HumanEval. 
 
@@ -253,27 +311,52 @@ Next, we test self-reflection contribution by omitting the natural language expl
 
 propose _blind_ trial and error debugging techniques without self-reflection are ineffective on harder tasks such as writing complex programs in Rust. 
 
+---
+
 ## **5 Limitations** 
+
+> **Section Summary:** At its core, Reflexion is an optimization technique that uses natural language to do policy optimization.
+
 
 At its core, Reflexion is an optimization technique that uses natural language to do policy optimization. Policy optimization is a powerful approach to improve action choice through experience, but it may still succumb to non-optimal local minima solutions. In this study, we limit long-term memory to a sliding window with maximum capacity, but we encourage future work to extend the memory component of _Reflexion_ with more advanced structures such as vector embedding databases or traditional SQL databases. Specific to code generation, there are many practical limitations to testdriven development in specifying accurate input-output mappings such as non-deterministic generator functions, impure functions that interact with APIs, functions that vary output according to hardware specifications, or functions that invoke parallel or concurrent behavior that may be difficult to predict. 
 
+---
+
 ## **6 Broader impact** 
+
+> **Section Summary:** Large language models are increasingly used to interact with external environments (e.g.
+
 
 Large language models are increasingly used to interact with external environments (e.g. the Internet, software, robotics, etc.) and humans. Our work has the potential of reinforcing and empowering these agents toward greater automation and work efficiency, but it also amplifies the risks when these agents were put into misuse. We believe that this direction of research will need more effort in safety and ethical considerations. 
 
 On the other hand, reinforcement learning has suffered from its black-box policy and optimization setups in which interpretability and alignment have been challenging. Our proposed “verbal” reinforcement learning might address some of the issues and turn autonomous agents more interpretable and diagnosable. For example, in the case of tool-usage that may be too hard for humans to understand, self-reflections could be monitored to ensure proper intent before using the tool. 
 
+---
+
 ## **7 Conclusion** 
+
+> **Section Summary:** In this work, we present _Reflexion_ , an approach that leverages verbal reinforcement to teach agents to learn from past mistakes.
+
 
 In this work, we present _Reflexion_ , an approach that leverages verbal reinforcement to teach agents to learn from past mistakes. We empirically show that Reflexion agents significantly outperform currently widely-used decision-making approaches by utilizing self-reflection. In future work, Reflexion could be used to employ more advanced techniques that have been thoroughly studied in traditional RL settings, such as value learning in natural language or off-policy exploration techniques. 
 
+---
+
 ## **8 Reproducibility** 
+
+> **Section Summary:** We highly advise others to use isolated execution environments when running autonomous code writing experiments as the generated code is not validated before execution.
+
 
 We highly advise others to use isolated execution environments when running autonomous code writing experiments as the generated code is not validated before execution. 
 
 9 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Ahn, M., Brohan, A., Brown, N., Chebotar, Y., Cortes, O., David, B., Finn, C., Gopalakrishnan, K., Hausman, K., Herzog, A., et al.
+
 
 - [1] Ahn, M., Brohan, A., Brown, N., Chebotar, Y., Cortes, O., David, B., Finn, C., Gopalakrishnan, K., Hausman, K., Herzog, A., et al. (2022). Do as i can, not as i say: Grounding language in robotic affordances. _arXiv preprint arXiv:2204.01691_ . 
 
@@ -341,7 +424,12 @@ We highly advise others to use isolated execution environments when running auto
 
 11 
 
+---
+
 ## **A Evaluation with additional models** 
+
+> **Section Summary:** We further investigated the applicability of trial-and-error problem-solving with models of various strengths.
+
 
 We further investigated the applicability of trial-and-error problem-solving with models of various strengths. We found that the ability to specify self-corrections is an emergent quality of stronger, larger models. 
 
@@ -369,7 +457,12 @@ Table 5: Pass@1 accuracy on 100 HotPotQA using various models.
 
 12 
 
+---
+
 ## **B Decision-making** 
+
+> **Section Summary:** **<mark>Environment:</mark>** <mark>You are</mark> in <mark>the middle</mark> of a <mark>room.
+
 
 **<mark>Environment:</mark>** <mark>You are</mark> in <mark>the middle</mark> of a <mark>room. Looking quickly around you, you see</mark> a <mark>bed</mark> 1, a <mark>desk</mark> 2, a <mark>desk</mark> 1, a <mark>drawer</mark> 6, a <mark>drawer</mark> 5, a <mark>drawer</mark> 4, a <mark>drawer</mark> 3, a <mark>drawer</mark> 2, a <mark>drawer</mark> 1, a <mark>garbagecan</mark> 1, a <mark>laundryhamper</mark> 1, a <mark>safe</mark> 1, a <mark>shelf</mark> 6, a <mark>shelf</mark> 5, a <mark>shelf</mark> 4, a <mark>shelf</mark> 3, a <mark>shelf</mark> 2, <mark>and</mark> a <mark>shelf</mark> 1. **<mark>Task:</mark>** e <mark>xamine the mug with the desklamp.</mark> 
 
@@ -413,7 +506,12 @@ WebShop Success Rate<br>0.50<br>ReAct only<br>0.45 ReAct + Reflexion<br>0.40<br>
 
 Figure 6: Reflexion vs React performance on WebShop across 100 customer shopping requests. ReAct + Reflexion fails to significantly outperform ReAct. 
 
+---
+
 ## **C Programming** 
+
+> **Section Summary:** Programming LLM calls require strict instructions to produce function bodies _only_ , due to the extensive dialogue training of the LLMs.
+
 
 Programming LLM calls require strict instructions to produce function bodies _only_ , due to the extensive dialogue training of the LLMs. A few programming examples are reported below with instructions <mark>highlighted</mark> in <mark>blue</mark> and templates. See the full implementation at `https://github. com/noahshinn024/reflexion` . 
 
@@ -456,6 +554,8 @@ Reflexion _no_ test generation ablation Actor generations follow the form: (Inst
 (Function implementation) ~~(Unit test feedback)~~ (Self-reflection) (Instruction for next function implmentation) 
 
 16 
+
+---
 
 ## **D Reasoning** 
 

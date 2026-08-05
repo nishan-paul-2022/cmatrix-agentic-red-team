@@ -1,5 +1,46 @@
 # **Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation and Analysis** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [CCS Concepts](#ccs-concepts)
+- [Keywords](#keywords)
+    - [ACM Reference Format:](#acm-reference-format)
+- [1 Introduction](#1-introduction)
+- [2 Related Work](#2-related-work)
+- [2.1 Automated Penetration Testing](#2-1-automated-penetration-testing)
+- [2.2 Cybersecurity Datasets for LLM Evaluation](#2-2-cybersecurity-datasets-for-llm-evaluation)
+- [2.3 Finetuning LLMs with Reinforcement Learning](#2-3-finetuning-llms-with-reinforcement-learning)
+- [3 System Overview](#3-system-overview)
+- [4 Methodology](#4-methodology)
+- [4.1 Dataset Curation](#4-1-dataset-curation)
+- [4.2 Pen-Strategist Model Training](#4-2-pen-strategist-model-training)
+  - [GRPO fine-tuning](#grpo-fine-tuning)
+- [5 Experimental Setup](#5-experimental-setup)
+- [5.1 Test Set Evaluation](#5-1-test-set-evaluation)
+- [5.2 Evaluation by Integrating to Existing Frameworks](#5-2-evaluation-by-integrating-to-existing-frameworks)
+- [5.3 Cross-Task Generalization](#5-3-cross-task-generalization)
+- [5.4 Ablation Study](#5-4-ablation-study)
+- [5.5 Human Expert Evaluation](#5-5-human-expert-evaluation)
+- [6 Results](#6-results)
+- [6.1 Test Set Evaluation](#6-1-test-set-evaluation)
+- [6.2 Evaluate on Pentesting Frameworks](#6-2-evaluate-on-pentesting-frameworks)
+- [6.3 Cross-Task Generalization](#6-3-cross-task-generalization)
+- [6.4 Ablation Study](#6-4-ablation-study)
+- [6.5 Survey Analysis](#6-5-survey-analysis)
+- [6.6 Extended Experiments](#6-6-extended-experiments)
+- [7 Discussion and Concluding Remarks](#7-discussion-and-concluding-remarks)
+- [References](#references)
+- [A Open Science](#a-open-science)
+- [B Ethical Considerations](#b-ethical-considerations)
+- [C Prompts](#c-prompts)
+- [System Prompt](#system-prompt)
+- [User Prompt](#user-prompt)
+- [Reward Model Prompt](#reward-model-prompt)
+- [Survey Scenario](#survey-scenario)
+
+---
+
 Yasod Ginige*, Pasindu Marasinghe*, Sajal Jain<sup>†</sup> , Suranga Seneviratne* 
 
 * _The University of Sydney, NSW, Australia_ 
@@ -8,9 +49,17 @@ Yasod Ginige*, Pasindu Marasinghe*, Sajal Jain<sup>†</sup> , Suranga Senevirat
 
 ## **Abstract** 
 
+> **Section Summary:** Cyber threats are rapidly increasing, expanding their impact from large-scale enterprises to government services and individual users, making robust security systems increasingly essential.
+
+
 Cyber threats are rapidly increasing, expanding their impact from large-scale enterprises to government services and individual users, making robust security systems increasingly essential. However, a significant shortage of skilled cybersecurity professionals exacerbates this challenge. While recent research has explored automating tasks such as penetration testing using LLM-based agents, existing frameworks often perform poorly due to limited capability in strategy formulation, domain-specific reasoning, and accurate action and tool selection. To overcome these limitations, we propose _Pen-Strategist_ framework, consisting of a novel domain-specific reasoning model that derives pentesting strategies via logical reasoning and a classifier that converts the strategies into actionable steps. First, we construct a reasoning dataset containing logical explanations for both strategy derivation and step selection in pentesting scenarios. We then fine-tune a Qwen-3-14B model for strategy generation using reinforcement learning. Evaluation on the test split of the dataset demonstrates a 87% improvement in strategy derivation performance compared to the baseline. Furthermore, we integrate the fine-tuned Pen-Strategist model into existing automated pentesting frameworks, such as PentestGPT, and evaluate its performance on vulnerable machines, achieving a 47.5% improvement in subtask completion while surpassing the baseline GPT-5. Further experiments on the CTFKnow benchmark show an 18% performance gain over the base model. For step prediction, we train a semantic-based CNN classifier, which outperforms commercial LLMs by 28% and enhances execution stability. Finally, we conduct a user study to qualitatively assess the generated strategies, and Pen-Strategist demonstrates superior performance compared to the Claude-4.6-Sonnet. 
 
+---
+
 ## **CCS Concepts** 
+
+> **Section Summary:** • **Security and privacy** → **Software and application security, Systems security** ; • **Computing methodologies** → _Artificial intelligence_ .
+
 
 • **Security and privacy** → **Software and application security, Systems security** ; • **Computing methodologies** → _Artificial intelligence_ . 
 
@@ -18,7 +67,12 @@ Permission to make digital or hard copies of all or part of this work for person
 
 > © 2018 Copyright held by the owner/author(s). Publication rights licensed to ACM. ACM ISBN 978-1-4503-XXXX-X/2018/06 https://doi.org/XXXXXXX.XXXXXXX 
 
+---
+
 ## **Keywords** 
+
+> **Section Summary:** Network Security, Software Security, Penetration Testing, Reasoning Models, LLM, LLM Agents
+
 
 Network Security, Software Security, Penetration Testing, Reasoning Models, LLM, LLM Agents 
 
@@ -26,7 +80,12 @@ Network Security, Software Security, Penetration Testing, Reasoning Models, LLM,
 
 Yasod Ginige*, Pasindu Marasinghe*, Sajal Jain<sup>†</sup> , Suranga Seneviratne*, * _The University of Sydney, NSW, Australia_ ,<sup>†</sup> _Catharsis.net.au, Australia_ , Email: {yasod.ginige, pasindu.marasinghe, suranga.seneviratne}@sydney.edu.au, sajal@catharsis.net.au. 2018. Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation and Analysis. In _Proceedings of Make sure to enter the correct conference title from your rights confirmation email (Conference acronym ’XX)._ ACM, New York, NY, USA, 16 pages. https: //doi.org/XXXXXXX.XXXXXXX 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** Cyber incidents and attacks are increasing rapidly worldwide.
+
 
 Cyber incidents and attacks are increasing rapidly worldwide. While attackers have traditionally focused on large enterprises, they now also target small and medium-sized enterprises (SMEs), public sector organizations, and critical services such as hospitals and emergency response systems. This expanded threat landscape requires systems of all sizes to maintain a robust and continuously evolving security posture. Penetration testing (pentesting) and vulnerability and threat assessment are standard practices for securing software and networked systems. Pentesting simulates real-world attacks to uncover exploitable weaknesses, while vulnerability and threat assessment systematically identifies, analyzes, and prioritizes risks to enable proactive mitigation. Their frequency is often driven by regulatory requirements that vary across industries and government sectors [13]. However, these processes are time-consuming and resource-intensive, and the cybersecurity workforce cannot keep pace with demand due to the persistent skills shortage [1]. Consequently, automating these processes has become essential. 
 
@@ -54,15 +113,27 @@ More specifically, we make the following contributions.
 
 We provide our dataset and code in our GitHub repository.<sup>1</sup> 
 
+---
+
 ## **2 Related Work** 
 
+---
+
 ## **2.1 Automated Penetration Testing** 
+
+> **Section Summary:** Early approaches to automated penetration testing relied on traditional reinforcement learning methods.
+
 
 Early approaches to automated penetration testing relied on traditional reinforcement learning methods. For instance, Hu et al. [19] proposed a two-stage Deep Q-learning approach that first constructs an attack tree from network topology information and enumerates possible attack paths, then applies a Deep Q-Learning Network (DQN) to select the most easily exploitable path. However, their work focuses solely on recommending attack vectors rather than exploiting software vulnerabilities. 
 
 Recent advancements in large language models (LLMs), including GPT [8], Claude [5], and Gemini [34], have enabled new approaches to automating cybersecurity tasks through LLM-based agents. PentestGPT [12] represents one of the first major efforts toward LLM-driven penetration testing, employing a summarizeranalyzer-generator pipeline. However, it remains semi-automated, requiring security professionals to manually execute strategies and provide feedback to guide the analyzer toward correct approaches. AutoAttacker [37] automated command generation and execution but was restricted to the Metasploit framework. The AutoPentester framework [14] addressed this limitation by supporting a broader range of tools; nevertheless, despite its multi-agent architecture, subtask completion rates on Hack-The-Box [16] challenges remain low, primarily due to strategy identification failures. Similarly, PentestAgent [33] and VulnBot [21] employ multi-agent architectures with specialized agents for planning, execution, and summarization, yet they too suffer from low subtask completion rates. The fundamental limitation underlying these frameworks is that commercial LLMs lack specialized capabilities for analyzing penetration testing strategies, as they are not specifically fine-tuned for such tasks. Additionally, existing frameworks frequently fail during action execution due to incorrect or unavailable tool selection [12, 21]. 
 
+---
+
 ## **2.2 Cybersecurity Datasets for LLM Evaluation** 
+
+> **Section Summary:** Multiple datasets have been released to assess LLMs’ capabilities in various cybersecurity tasks.
+
 
 Multiple datasets have been released to assess LLMs’ capabilities in various cybersecurity tasks. For example, the ExCyTIn-Bench dataset [36] is designed to evaluate LLM agents on their capabilities for cyber incident assessment, framed as multi-step questionanswering over security logs. It is constructed from a controlled Azure environment, simulating eight real-world attack scenarios. The final dataset consists of 589 question–answer pairs; however, 
 
@@ -73,6 +144,8 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation and Analysis 
 
 it does not provide any opportunity for strategic reasoning-based training, rather acts as a benchmark for existing LLMs. The CTFKnow dataset [20] is designed for evaluating LLMs on automated vulnerability discovery and exploitation tasks, where models must identify and reason about potential attack vectors. It contains multiple choice questions; therefore cannot be used to fine-tune a model for strategy derivations. The CyberSecEval dataset [7] is designed to evaluate LLMs on cybersecurity tasks such as vulnerability identification, exploit generation, and CVE score prediction. The dataset is constructed by combining real-world security benchmarks, including CVEs, CTF challenges, and code samples. However, none of the above datasets provides the platform to fine-tune a model for strategy analysis in the pentesting. CyberLLaMA [38] introduces a named entity recognition (NER) framework aimed at extracting structured security information, such as threats, vulnerabilities, and malware, from unstructured text. It fine-tunes a LLaMA-3.2-3B model on a large, carefully curated corpus of cybersecurity articles annotated with 4,788 unique entities, improving sequence labeling performance. Similarly, TrafficLLM [15] explores the fine-tuning of large language models for network traffic analysis to detect potential security threats. However, neither of these approaches addresses the need for a reasoning-oriented model capable of deriving penetration testing strategies. 
+
+---
 
 ## **2.3 Finetuning LLMs with Reinforcement Learning** 
 
@@ -135,7 +208,12 @@ flowchart TD
 
 reported that RL improves clinical reasoning and diagnostic generation under data scarcity. Similarly, Dai et al. [11] found that RL can be used to improve structured reasoning in legal applications. Similar improvements have been shown in finance for tasks such as credit assessment and risk pricing [26]. However, to the best of our knowledge, no existing work has fine-tuned a reasoning model specifically for penetration testing tasks. 
 
+---
+
 ## **3 System Overview** 
+
+> **Section Summary:** As illustrated in Figure 1, Pen-Strategist is a modular framework comprising two models for strategy generation and step (i.e., action) classification in the pentesting.
+
 
 As illustrated in Figure 1, Pen-Strategist is a modular framework comprising two models for strategy generation and step (i.e., action) classification in the pentesting. The _Strategy model_ acts as a domain-specific reasoning component that derives logical strategies for different pentesting stages based on prior findings, while the _Step model_ functions as a classifier that translates these strategies into executable steps and tool selections, guiding the automated execution. Pen-Strategist is designed to integrate with existing agentic penetration testing frameworks (e.g., PentestGPT [12], AutoPentester [14]), improving overall task performance. 
 
@@ -313,11 +391,21 @@ flowchart TD
 
 the Step Model gives access to widely used security MCP servers and enables individual pentesters to use their preferred subset of tools (from a large and diverse ecosystem ) with existing frameworks by simply finetuning the classifier. The MCP servers can also be replaced using recently developed Claude Skills [4], which will be discussed in the Discussion. Overall, the Pen-Strategist framework manages the full planning pipeline, from deriving a logical strategy to its high-level execution. The significance of these components is discussed in the ablation study (Section 6.4). 
 
+---
+
 ## **4 Methodology** 
+
+> **Section Summary:** In this section, we discuss curation of the training dataset, followed by Pen-Strategist model training.
+
 
 In this section, we discuss curation of the training dataset, followed by Pen-Strategist model training. 
 
+---
+
 ## **4.1 Dataset Curation** 
+
+> **Section Summary:** Our dataset is collected to accomplish two tasks: fine-tuning and training models for (i) pentest strategy derivation through reasoning and (ii) predicting the next step to execute a given strategy.
+
 
 Our dataset is collected to accomplish two tasks: fine-tuning and training models for (i) pentest strategy derivation through reasoning and (ii) predicting the next step to execute a given strategy. It contains data points collected using 240 HTB and VulnHub machines in total, under two main parts based on the data curation process: **(i) Manual collection:** We collected data for 40 HTB machines using human supervision to input the strategy, next steps, and the logical reasoning for each decision using the write-ups (further explained in Section 4.1.1). Here, the human annotator breaks into HTB machines following walkthroughs and records the steps with logical reasoning for each decision, (ii) **Automated collection:** Since it is not practical to complete all the machines manually, and the fact that a large number of data points are required to fine-tune a reasoning model, we also designed an automated data curation workflow using Claude Code as detailed in Section 4.1.2. Our complete dataset contains 2,165 data points. 
 
@@ -351,7 +439,11 @@ Further enumerate the website by identifying hidden directories, links, and unde
 
 a manual review of the entire dataset to validate formatting consistency, along with an additional inspection of 10% randomly sampled entries to verify their content correctness against the original writeups. This process did not reveal any significant errors, indicating the dataset’s overall reliability. 
 
-_4.1.3_ **Dataset format** _._ Figure 2-(b) illustrates a sample data instance comprising: _PTT_ , which represents the pentesting process as an attack tree enriched with summarized findings; _New strategy_ and _Strategy explanation_ , which provide the ground truth strategy and its derivation for a given pentest instance; _Next step_ and _Step explanation_ , which specify the action to be taken along with its rationale; _MCP tools_ , which gives suitable tools to execute the selected step; and _Results_ , which summarize the tool outputs from executed commands. 
+_4.1.3_ **Dataset format** _._ Figure 2-(b) illustrates a sample data instance comprising: _PTT_ , which represents the pentesting process as an attack tree enriched with summarized findings:
+- _New strategy_ and _Strategy explanation_ , which provide the ground truth strategy and its derivation for a given pentest instance
+- _Next step_ and _Step explanation_ , which specify the action to be taken along with its rationale
+- _MCP tools_ , which gives suitable tools to execute the selected step
+- and _Results_ , which summarize the tool outputs from executed commands.
 
 The _Next step_ is restricted to a predefined set of high-level actions as listed in the first column of Table 1. This constraint helps stabilize the automated execution phase by reducing hallucinations and variability in command generation and tool usage. As illustrated in Figure 3, when executing a strategy, the step model classifies it into one of these steps and predicts the MCP server to be used to execute the step. We define 11 _MCP servers_<sup>2</sup> that commonly used in pentesting: Nmap, Metasploit, Netcat, Dirbuster, SQLmap, SMB client, Hydra, John-the-ripper, Google search, Interactive CLI, and Web page interaction. This facilitates training a model to accurately produce the New step and its explanation, while also selecting the appropriate MCP servers needed to execute the commands for that step. 
 
@@ -390,6 +482,8 @@ _4.1.4_ **Dataset summary** _._ Next, we present summary statistics of the datas
 model fine-tuning, as it reflects realistic operational patterns and allows the model to focus on the most critical and commonly occurring stages, particularly reconnaissance and exploitation. At the same time, the inclusion of 76 lateral movement and 63 maintaining access instances ensures that even these less frequent stages are adequately represented, enabling the model to learn a more complete spectrum of pentesting tasks. 
 
 Table 1 lists the distribution of the _Next Steps_ in the dataset. In particular, exploiting identified vulnerabilities (35.64%) and further enumeration of services (20.26%) appear most frequently, followed by activities such as analyzing findings and reporting-related steps. Other actions, such as domain enumeration and source code analysis, occur less frequently due to their lower prevalence in the HTB environment. 
+
+---
 
 ## **4.2 Pen-Strategist Model Training** 
 
@@ -549,11 +643,21 @@ weighted combination of both losses, calculated as L = _𝜆_ stepLstep + _𝜆_
 
 where we set _𝜆_ step = 1 and _𝜆_ mcp = 1 _._ 5 based on empirical performance. Optimization is performed using AdamW with a linear warmup followed by linear decay, where _𝜂𝑡_ denotes the timedependent learning rate and _𝑤𝑑_ is the weight decay coefficient. The overall training procedure is summarized in Algorithm 1. 
 
+---
+
 ## **5 Experimental Setup** 
+
+> **Section Summary:** We divide the experiments into several setups for easier analysis.
+
 
 We divide the experiments into several setups for easier analysis. 
 
+---
+
 ## **5.1 Test Set Evaluation** 
+
+> **Section Summary:** We evaluate the fine-tuned strategy and step models using the heldout test set of the dataset.
+
 
 We evaluate the fine-tuned strategy and step models using the heldout test set of the dataset. It contains 10 machines from the manual collection and 30 from the automated collection. The goal is to measure how well the fine-tuned model performs in strategy derivation and step prediction compared to other commercial models such as GPT, Gemini, and Claude (The exact model versions are listed in the result Table 2). For strategy derivation, we use two metrics: final strategy similarity and the explanation similarities measured by G-Eval scores, following the same criteria as the similarity reward (Section 4.2.1). 
 
@@ -569,7 +673,12 @@ flowchart TD
 
 Here, _𝑁_ denotes the total number of samples in the evaluation set and _𝐾_ denotes the number of MCP server labels in the multilabel prediction space. For each sample _𝑛_ ∈{1 _, . . . , 𝑁_ } and label _𝑗_ ∈{1 _, . . . , 𝐾_ }, the ground-truth indicator _𝑦𝑛,𝑗_ ∈{0 _,_ 1} specifies whether MCP label _𝑗_ is actually present, while the predicted indicator _𝑦_ ˆ _𝑛,𝑗_ ∈{0 _,_ 1} specifies whether the model predicts that label. The corresponding results are presented in Section 6.1. 
 
+---
+
 ## **5.2 Evaluation by Integrating to Existing Frameworks** 
+
+> **Section Summary:** In this experiment, we replace the strategy analysis/planning module of existing pentesting frameworks with the fine-tuned strategy model.
+
 
 In this experiment, we replace the strategy analysis/planning module of existing pentesting frameworks with the fine-tuned strategy model. Specifically, we evaluate this integration within the PentestGPT [12], AutoPentester [14], and VulnBot [21] frameworks. As the evaluation benchmark, we use six HTB machines (Sau, Pilgrimage, Authority, Jupiter, Jarvis, and Bank), none of which were included in the training data of the fine-tuned model. The objective is to assess the performance improvement of these frameworks when employing the fine-tuned LLM in place of commercial LLMs within the strategy analysis component. For comparison, GPT-5 
 
@@ -581,7 +690,12 @@ is used as the baseline commercial LLM under the default settings of each framew
 
 Recent updates of Claud Code demonstrate enhanced skills in task automation. Therefore, we evaluate the Claude Code in pentesting tasks by giving the six HTB machines to solve autonomously. The corresponding results are presented in Section 6.2. 
 
+---
+
 ## **5.3 Cross-Task Generalization** 
+
+> **Section Summary:** To assess generalizability, we evaluate Pen-Strategist on additional security tasks that require logical reasoning, such as CTF challenges.
+
 
 To assess generalizability, we evaluate Pen-Strategist on additional security tasks that require logical reasoning, such as CTF challenges. In particular, we use the PicoCTF challenges [12] and the CTFKnow [20] dataset to determine whether fine-tuning improves performance in task completion. 
 
@@ -589,7 +703,12 @@ For the PicoCTF evaluation, we adapt the experiment setup in PentestGPT [12], wh
 
 In the CTFKnow dataset, we run the benchmark experiments using the fine-tuned strategy model directly. The dataset consists of multiple-choice questions based on security incidents, where the agent is required to analyze each scenario and select the most appropriate answer. We evaluate the task success rate, the original metric used in the benchmark. The corresponding results are presented in Section 6.3. 
 
+---
+
 ## **5.4 Ablation Study** 
+
+> **Section Summary:** We conduct an ablation study using the AutoPentester [14] and integrate the fine-tuned strategy model as the backend of its analyzer agent.
+
 
 We conduct an ablation study using the AutoPentester [14] and integrate the fine-tuned strategy model as the backend of its analyzer agent. The Step model is used to predict the next step and tools that guide the command generator in the execution phase. Unlike PentestGPT, which requires manual command execution, AutoPentester is a fully automated framework. Therefore, it enables us to assess the effectiveness of the Step model by measuring reductions in command execution failures in an automated setting. 
 
@@ -613,7 +732,12 @@ For evaluation, we use three HTB machines—Sau, Authority, and Jarvis—as the 
 
 
 
+---
+
 ## **5.5 Human Expert Evaluation** 
+
+> **Section Summary:** We conducted a user study with 12 security experts to qualitatively evaluate the reasoning quality and practical usefulness of the generated pentesting strategies.
+
 
 We conducted a user study with 12 security experts to qualitatively evaluate the reasoning quality and practical usefulness of the generated pentesting strategies. The study was approved by our institution’s Human Research Ethics Committee, and the participants were recruited based on their expressed interest in a LinkedIn post promoting the survey. We used 15 pentesting scenarios, each outlining the sequence of steps performed and the corresponding findings describing a specific stage of an ongoing penetration testing process. These scenarios were organized into three sets, each consisting of five scenarios. For each scenario, we give three strategy outputs to rank generated by different LLMs: our fine-tuned Strategy model, GPT-5, and Claude-4.6-Sonnet. To avoid bias, model identities were anonymized. A sample scenario is given in Figure 13 in the Appendix C. 
 
@@ -621,7 +745,12 @@ Each participant was presented with one set containing five scenarios. For each 
 
 As evaluation metrics, we report: (i) the percentage of a particular model being selected as the first choice, and (ii) Kendall’s W statistic [23] to assess the level of agreement among participants’ rankings. To incorporate participant confidence into the evaluation, we filter a subset of scenarios where the participant was highly confident and recalculate the metrics. The corresponding results are presented in Section 6.5 
 
+---
+
 ## **6 Results** 
+
+> **Section Summary:** In this section, we report results from the experiments described in Section 5.
+
 
 In this section, we report results from the experiments described in Section 5. 
 
@@ -648,7 +777,12 @@ Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation
 
 
 
+---
+
 ## **6.1 Test Set Evaluation** 
+
+> **Section Summary:** _6.1.1_ **Strategy Model:** Table 2 shows the results of Pen-Strategist evaluated on the test set using the setup described in Section 5.1.
+
 
 _6.1.1_ **Strategy Model:** Table 2 shows the results of Pen-Strategist evaluated on the test set using the setup described in Section 5.1. As observed, predicting pentesting strategies remains challenging for current large language models, as reflected in consistently low GEval scores, mostly below 0.6. The strongest baseline, Claude4.5-Sonnet, achieves 0.65 for strategy and 0.72 for explanation, yet still falls short of the proposed approach. It is also notable that more recent commercial model versions generally outperform their earlier counterparts (e.g., Claude 4.5 Sonnet vs. Claude 3 Haiku), suggesting incremental improvements with model evolution. 
 
@@ -670,7 +804,12 @@ The next strategy involves exploiting the confirmed SQL injection vulnerability 
 
 **Figure 6: A sample strategy derived by Qwen-3-14B base model and the fine-tuned model (i.e., Pen-Strategist-Strategy model) for a pentesting scenario.** 
 
+---
+
 ## **6.2 Evaluate on Pentesting Frameworks** 
+
+> **Section Summary:** As outlined in Section 5.2, we assess the Strategy model by integrating it as the backend of strategy analyzer agents within automated pentesting frameworks.
+
 
 As outlined in Section 5.2, we assess the Strategy model by integrating it as the backend of strategy analyzer agents within automated pentesting frameworks. Figure 7 shows the performance of these frameworks across six HTB machines, using GPT-5 and the Strategy model as backends. The higher patterned bars show that our model consistently outperforms GPT-5, achieving higher subtask completion rates across all machines and frameworks. Overall, the finetuned model improved the subtask completion rate of PentestGPT by 46.5% and AutoPentester by 43.4%, VulnBot by 52.5%, across all the test machines. These findings indicate that RL-augmented frameworks demonstrate clear performance gains, indicating that 
 
@@ -713,7 +852,12 @@ the fine-tuned model significantly enhances subtask completion by enabling more 
 
 For completeness, we repeat the experiment using the Claude Code as the agentic pentester. We observed that Claude Code falls short compared to AutoPentester and PentestGPT with the Strategy model backend, achieving 45.83% on average across machines. However, it is worth noting that Claude Code performs marginally better than VulnBot version with the fine-tuned model. 
 
+---
+
 ## **6.3 Cross-Task Generalization** 
+
+> **Section Summary:** As outlined in Section 5.3, we assess the performance of the Strategy model on CTF challenges.
+
 
 As outlined in Section 5.3, we assess the performance of the Strategy model on CTF challenges. The results in Table 4 on the CTFKnown benchmark show that GRPO finetuning substantially enhances the Strategy model’s reasoning and problem-solving performance across all task categories. The Qwen-3-14B base model achieves a total success rate of 72.38%, which is substantially lower than GPT-4o and GPT-4-Turbo. This performance gap is expected, as commercial models benefit from significantly larger parameter scales and are trained on extensive proprietary datasets comparable to those 
 
@@ -749,11 +893,21 @@ used in the experiment. However, after GRPO fine-tuning, Qwen3-14B-GRPO improves
 
 Furthermore, Table 5 presents the results of the PicoCTF challenges conducted using the PentestGPT framework and different LLMs as the strategy analyzer. The results show a clear improvement in the Qwen model after fine-tuning. The base Qwen-3-14B achieves only 5 total successful cases, whereas the fine-tuned QwenRL reaches 17. Notably, Qwen-RL slightly outperforms GPT-5 in total successful attempts, indicating that fine-tuning improves the model’s ability to generalize reasoning across CTF challenges. 
 
+---
+
 ## **6.4 Ablation Study** 
+
+> **Section Summary:** Our ablation study consists of evaluating the impact of the two newly introduced models, namely the strategy and step models, on pentesting tasks, with the results reported in Table 6.
+
 
 Our ablation study consists of evaluating the impact of the two newly introduced models, namely the strategy and step models, on pentesting tasks, with the results reported in Table 6. In addition, we analyze the failure cases observed in the ablation study and present them in Table 7. The AutoPentester with the Strategy model (RL-A-Strategy) consistently improves subtask completion over the baseline AutoPentester (A) across all the machines, gaining 21.8%. This is further supported by Table 7, where “incorrect strategy selected” errors are reduced from 4 to 2, indicating that the Strategy model improves reasoning at the planning level. With the addition of the step prediction module (RL-A-Strategy + Step), performance further increases by 11.5% on average, due to stable strategy execution. Table 7 shows that tool-related errors are fully eliminated, indicating that the step model effectively guides correct tool selection. Overall, the Strategy model improves correct strategy selection, while the step model reduces tool-selection errors and strengthens execution reliability, leading to the best overall performance as measured by subtask completion rate. 
 
+---
+
 ## **6.5 Survey Analysis** 
+
+> **Section Summary:** As described in Section 5.5, we conducted a user study with 12 cybersecurity experts to qualitatively evaluate the Pen-Strategist.
+
 
 As described in Section 5.5, we conducted a user study with 12 cybersecurity experts to qualitatively evaluate the Pen-Strategist. As illustrated in Figure 8, across the full response set, the Strategy 
 
@@ -821,7 +975,12 @@ Full response set High-confidence subset<br>GPT-5 GPT-5<br>5.1% 0.0%<br>Claude S
 
 focused on enumeration, whereas our model extends this by incorporating broader contextual awareness, such as the importance of CVE research. Overall, participants emphasize our model’s ability to combine accurate technical insight with actionable, context-aware strategy compared to the other two models. 
 
+---
+
 ## **6.6 Extended Experiments** 
+
+> **Section Summary:** To further evaluate the Pen-Strategist, we conduct extended experiments.
+
 
 To further evaluate the Pen-Strategist, we conduct extended experiments. 
 
@@ -876,7 +1035,12 @@ dataset, we compare the performance of fine-tuned Qwen-3-8B [3], Nemotron-cascad
 
 _6.6.3_ **Pass@k Evaluation:** Finally, we evaluate the strategy generation performance of different models on the test set of the dataset using Pass@k metrics, where _𝑘_ represents the number of strategies generated for a sample. For instance, Pass@3 refers to generating 3 strategies and selecting the best one for GEval calculations. Table 9 shows that our Strategy consistently outperforms strong commercial baselines across all _𝑘_ values. Overall, performance increases across all models with _𝑘_ , as generating more candidate strategies increases the likelihood of including a correct solution. The superior performance of the Strategy model across all the k- cases demonstrates consistency in generating correct strategies and explanations compared to other models. Furthermore, unlike other models, the Strategy model achieves a higher Pass@1 rate, indicating its ability to generate the correct strategy in a single attempt. 
 
+---
+
 ## **7 Discussion and Concluding Remarks** 
+
+> **Section Summary:** We propose Pen-Strategist, a framework to derive strategies through logical reasoning for penetration testing scenarios and predict the actions and MCP servers to execute the selected strategy.
+
 
 We propose Pen-Strategist, a framework to derive strategies through logical reasoning for penetration testing scenarios and predict the actions and MCP servers to execute the selected strategy. To achieve that, we collect a reasoning dataset using HTB and Vulnhub machines and fine-tune an open-source Qwen-3-14B model for strategy derivation using GRPO. Furthermore, we train a semantic-based dual-head CNN classifier to predict the next step and the MCP servers. The extensive experiments conducted demonstrate that 
 
@@ -894,7 +1058,12 @@ Pen-Strategist: A Reasoning Framework for Penetration Testing Strategy Formation
 
 current findings to determine the next strategy. Another challenge lies in executing these strategies while respecting the constraints of the execution environment. To this end, we proposed Pen-Strategist, consisting of two models, strategy and step, which together lead to significant performance improvements in pretesting strategy formation and across a range of security tasks. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Hessa Mohammed Zaher Al Shebli and Babak D Beheshti.
+
 
 - [1] Hessa Mohammed Zaher Al Shebli and Babak D Beheshti. 2018. A study on penetration testing process and tools. In _2018 IEEE Long Island Systems, Applications and Technology Conference_ . 1–7. 
 
@@ -976,7 +1145,12 @@ Conference acronym ’XX, June 03–05, 2018, Woodstock, NY
 
 Trovato et al. 
 
+---
+
 ## **A Open Science** 
+
+> **Section Summary:** We published our dataset and codes in an anonymous GitHub repository (https://anonymous.4open.science/r/Pentest-Strategist-B783/).
+
 
 We published our dataset and codes in an anonymous GitHub repository (https://anonymous.4open.science/r/Pentest-Strategist-B783/). More specifically, it contains the following components. 
 
@@ -992,15 +1166,27 @@ We published our dataset and codes in an anonymous GitHub repository (https://an
 
 The repository contains README files for each section, which guide users to set up the Python environment and run the experiments. Please follow those steps to execute the code successfully. 
 
+---
+
 ## **B Ethical Considerations** 
+
+> **Section Summary:** The survey received formal approval from our University’s Ethics Committee following a comprehensive review process.
+
 
 The survey received formal approval from our University’s Ethics Committee following a comprehensive review process. Additionally, all responses were collected anonymously (without any personal details), and informed consent was obtained from participants via a dedicated form. As a result, the study fully complies with the University’s ethical guidelines, which are designed to international standards. 
 
 As this work presents a framework for strategy generation in penetration testing, supported by a dataset collected from simulated public platforms such as Hack-The-Box and VulnHub, we do not identify any potential risks to society arising from this research. 
 
+---
+
 ## **C Prompts** 
 
+> **Section Summary:** This section presents the complete prompts used during model fine-tuning and evaluation of the Pen-Strategist framework.
+
+
 This section presents the complete prompts used during model fine-tuning and evaluation of the Pen-Strategist framework. 
+
+---
 
 ## **System Prompt** 
 
@@ -1019,6 +1205,8 @@ flowchart TD
 
 Figure 10 presents the system prompt used during both finetuning and inference of the Strategy model. As described in Section 4.2.1, the model is fine-tuned to act as a domain-specific penetration testing strategist. The system prompt instructs the model to derive a new strategy for the next pentesting step based on the current attack environment state, and specifies the required output format: a brief chain-of-thought reasoning enclosed in <think> tags followed by the final strategy. The reasoning phase is capped at 512 tokens, consistent with the generation length reward _𝑅𝑙_ defined in Section 4.2.1, which penalizes outputs exceeding the maximum token count to prevent reasoning explosion during training. 
 
+---
+
 ## **User Prompt** 
 
 
@@ -1036,11 +1224,21 @@ flowchart TD
 
 Figure 11 presents the user prompt, which provides the structured input context for each training instance, as described in Section 4.1.3. Specifically, it supplies three input fields drawn from the dataset: the PenTest Tree (PTT), which summarizes the current attack state including previously executed steps and their findings; the Previous Step, representing the most recent action performed; and the Previous Step Result, containing the observed output of that action. 
 
+---
+
 ## **Reward Model Prompt** 
+
+> **Section Summary:** Figure 12 presents the reward model prompt used during GRPO finetuning to compute the semantic and logical similarity reward _𝑅𝑠_ , as defined in Section 4.2.1.
+
 
 Figure 12 presents the reward model prompt used during GRPO finetuning to compute the semantic and logical similarity reward _𝑅𝑠_ , as defined in Section 4.2.1. It instructs GPT-4o, acting as the evaluator in the G-Eval framework [25], to score a generated strategy against the ground-truth strategy along four independent criteria: (i) logical alignment with the ground-truth rationale, (ii) coverage of essential technical terms and entities, (iii) consistency of the final decision given the context, and (iv) use of equivalent tools or techniques. Each criterion is scored on a scale from −2 to +2, and the final reward is computed as the average across all four criteria. 
 
+---
+
 ## **Survey Scenario** 
+
+> **Section Summary:** Figure 13 presents a representative scenario from the user study described in Section 5.5.
+
 
 Figure 13 presents a representative scenario from the user study described in Section 5.5. Each scenario consists of a pentesting context summarizing the findings at the current exploitation state, followed by three anonymized strategy outputs generated by the Strategy model, Claude-4.6-Sonnet, and GPT-5, respectively. Participants were asked to rank the three strategies from best to worst based on logical correctness and alignment with the given task, as described in Section 5.5. In this example, Option 1 (Strategy model) correctly identifies that test.py is executed by root via a scheduled task and 
 

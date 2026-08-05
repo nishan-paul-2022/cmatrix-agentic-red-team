@@ -1,4 +1,29 @@
-## **CAI: An Open, Bug Bounty-Ready Cybersecurity AI** 
+# **CAI: An Open, Bug Bounty-Ready Cybersecurity AI** 
+
+## Table of Contents
+
+- [CAI: An Open, Bug Bounty-Ready Cybersecurity AI](#cai-an-open-bug-bounty-ready-cybersecurity-ai)
+  - [1 Introduction](#1-introduction)
+    - [1.1 State of the Art and Research Gaps](#1-1-state-of-the-art-and-research-gaps)
+    - [1.2 Research Contributions](#1-2-research-contributions)
+  - [2 Cybersecurity AI (CAI) Framework](#2-cybersecurity-ai-cai-framework)
+  - [3 Results](#3-results)
+    - [3.1 Benchmarking CAI against Humans in CTFs](#3-1-benchmarking-cai-against-humans-in-ctfs)
+    - [3.2 Benchmarking CAI Across LLMs](#3-2-benchmarking-cai-across-llms)
+    - [3.3 Benchmarking CAI in competitive scenarios using Hack-The-Box (HTB) platform](#3-3-benchmarking-cai-in-competitive-scenarios-using-hack-the-box-htb-platform)
+    - [3.4 Benchmarking CAI in live international CTF competitions](#3-4-benchmarking-cai-in-live-international-ctf-competitions)
+    - [3.5 Benchmarking CAI in bug bounties](#3-5-benchmarking-cai-in-bug-bounties)
+  - [4 Discussion](#4-discussion)
+    - [4.1 CAI as an international CTF award-winning AI architecture](#4-1-cai-as-an-international-ctf-award-winning-ai-architecture)
+  - [5 Conclusions](#5-conclusions)
+    - [5.1 Discrepancies Between Vendor Security Claims and Empirical Offensive Capabilities](#5-1-discrepancies-between-vendor-security-claims-and-empirical-offensive-capabilities)
+    - [5.2 Relevance of CAI for robot cybersecurity](#5-2-relevance-of-cai-for-robot-cybersecurity)
+  - [Acknowledgments](#acknowledgments)
+  - [References](#references)
+  - [B List of CTF](#b-list-of-ctf)
+  - [C Benchmarking CAI against Humans in CTF: Detailed results](#c-benchmarking-cai-against-humans-in-ctf-detailed-results)
+
+---
 
 ###### **Víctor Mayoral-Vilches**<sup>1</sup> **, Luis Javier Navarrete-Lozano**<sup>1</sup> **, María Sanz-Gómez**<sup>1</sup> **, Lidia Salas Espejo**<sup>1</sup> **, Martiño Crespo-Álvarez**<sup>1</sup> **, Francisco Oca-Gonzalez**<sup>2</sup> **, Francesco Balassone**<sup>2</sup> **, Alfonso Glera-Picón**<sup>1</sup> **, Unai Ayucar-Carbajo**<sup>1</sup> **, Jon Ander Ruiz-Alcalde**<sup>1</sup> **, Stefan Rass**<sup>3</sup> **, Martin Pinzger**<sup>4</sup> **and Endika Gil-Uriarte**<sup>1</sup> 
 
@@ -16,7 +41,7 @@
 
 ###### **Abstract** 
 
-By 2028 most cybersecurity actions will be autonomous, with humans teleoperating. We present the first classification of autonomy levels in cybersecurity and introduce Cybersecurity AI (CAI), an open-source framework that democratizes advanced security testing through specialized AI agents. Through rigorous empirical evaluation, we demonstrate that CAI consistently outperforms state-of-the-art results in CTF benchmarks, solving challenges across diverse categories with significantly greater efficiency –up to 3,600 _×_ faster than humans in specific tasks and averaging 11 _×_ faster overall. CAI achieved first place among AI teams and secured a top-20 position worldwide in the "AI vs Human" CTF live Challenge, earning a monetary reward of $750. Based on our results, we argue against LLM-vendor claims about limited security capabilities. Beyond cybersecurity competitions, CAI demonstrates real-world effectiveness, reaching top-30 in Spain and top-500 worldwide on Hack The Box within a week, while dramatically reducing security testing costs by an average of 156 _×_ . Our framework transcends theoretical benchmarks by enabling non-professionals to discover significant security bugs (CVSS 4.3-7.5) at rates comparable to experts during bug bounty exercises. By combining modular agent design with seamless tool integration and human oversight (HITL), CAI offers organizations of all sizes access to AI-powered bug bounty testing previously available only to well-resourced firms –thereby challenging the oligopolistic ecosystem currently dominated by major bug bounty platforms. 
+> By 2028 most cybersecurity actions will be autonomous, with humans teleoperating. We present the first classification of autonomy levels in cybersecurity and introduce Cybersecurity AI (CAI), an open-source framework that democratizes advanced security testing through specialized AI agents. Through rigorous empirical evaluation, we demonstrate that CAI consistently outperforms state-of-the-art results in CTF benchmarks, solving challenges across diverse categories with significantly greater efficiency –up to 3,600 _×_ faster than humans in specific tasks and averaging 11 _×_ faster overall. CAI achieved first place among AI teams and secured a top-20 position worldwide in the "AI vs Human" CTF live Challenge, earning a monetary reward of $750. Based on our results, we argue against LLM-vendor claims about limited security capabilities. Beyond cybersecurity competitions, CAI demonstrates real-world effectiveness, reaching top-30 in Spain and top-500 worldwide on Hack The Box within a week, while dramatically reducing security testing costs by an average of 156 _×_ . Our framework transcends theoretical benchmarks by enabling non-professionals to discover significant security bugs (CVSS 4.3-7.5) at rates comparable to experts during bug bounty exercises. By combining modular agent design with seamless tool integration and human oversight (HITL), CAI offers organizations of all sizes access to AI-powered bug bounty testing previously available only to well-resourced firms –thereby challenging the oligopolistic ecosystem currently dominated by major bug bounty platforms. 
 
 ### **1 Introduction** 
 
@@ -176,7 +201,13 @@ The remainder of this paper is organized as follows: Section 2 details the archi
 <!-- Start of picture text -->
 Human<br>Interface HITL Turns LLMs<br>Layer<br>1 4<br>Agent<br>Coordin. Patterns 2 Handoffs 3 Agents<br>Layer<br>7 6 5<br>9<br>Execution<br>Extensions 8 Tracing 6 Tools<br>Layer<br><!-- End of picture text -->
 
-**Figure 3:** The CAI Architecture showing how core components interact in a cybersecurity workflow. Core components (darker boxes) form the essential framework pillars, while support components (lighter boxes) provide infrastructure. The numbered flow indicators illustrate the typical sequence of operations: **1)** Human operators interact with the system through HITL, initiating Patterns for agent coordination; **2-3)** Patterns coordinate Agent interactions through Handoffs enabling specialized agent collaboration; **4)** Agents leverage LLMs for reasoning about security challenges; **5)** Agents execute security actions using Tools for practical tasks; **6-7)** Agent and Handoff activities are logged by the Tracing system; **8)** Tracing data is available to Extensions for enhanced functionality; **9)** Tool execution results are returned to Agents for further reasoning and action. 
+**Figure 3:** The CAI Architecture showing how core components interact in a cybersecurity workflow. Core components (darker boxes) form the essential framework pillars, while support components (lighter boxes) provide infrastructure. The numbered flow indicators illustrate the typical sequence of operations: **1)** Human operators interact with the system through HITL, initiating Patterns for agent coordination:
+- **2-3)** Patterns coordinate Agent interactions through Handoffs enabling specialized agent collaboration
+- **4)** Agents leverage LLMs for reasoning about security challenges
+- **5)** Agents execute security actions using Tools for practical tasks
+- **6-7)** Agent and Handoff activities are logged by the Tracing system
+- **8)** Tracing data is available to Extensions for enhanced functionality
+- **9)** Tool execution results are returned to Agents for further reasoning and action.
 
 The Cybersecurity AI (CAI) framework introduces an agent-centric, lightweight and powerful architecture specifically designed for cybersecurity operations. Figure 3 presents its architecture and 4 demonstrates CAI’s effectiveness in practice, showing how an agent systematically approaches a penetration testing challenge from initial reconnaissance through gaining a foothold, discovering credentials, and ultimately achieving privilege escalation. This real-world example illustrates the methodical, step-by-step reasoning process that makes CAI particularly effective for complex security tasks. Then, Figure 5 depicts three of the various specialized agentic architectures ( `Patterns` ) available in CAI. 
 
@@ -226,7 +257,7 @@ For brevity, detailed explanations of each pillar in CAI’s architecture have b
 
 
 <!-- Start of picture text -->
-Red Team Agent Bug Bounty Hunter Blue Team Agent<br>linux_command<br>Tools Tools Tools<br>shodan_host_info<br>linux_command execute_code execute_code<br>execute_code<br>ssh_command google_search shodan_search linux_command ssh_command<br>Handoffs Handoffs Handoffs<br>Objective: Gain root Objective: Find vul- Objective: Protect<br>access nerabilities systems<br>Focus: Penetration Focus: Web app se- Focus: Defense &<br>testing curity monitoring<br>Key capabilities: Key capabilities: Key capabilities:<br>• Network • Asset discovery • Network<br>enumeration • Vulnerability monitoring<br>• Service assessment • Vulnerability<br>exploitation • Responsible assessment<br>• Privilege disclosure • Incident<br>escalation response<br><!-- End of picture text -->
+Red Team Agent Bug Bounty Hunter Blue Team Agent<br>linux_command<br>Tools Tools Tools<br>shodan_host_info<br>linux_command execute_code execute_code<br>execute_code<br>ssh_command google_search shodan_search linux_command ssh_command<br>Handoffs Handoffs Handoffs<br>**Objective:** Gain root **Objective:** Find vul- **Objective:** Protect<br>access nerabilities systems<br>Focus: Penetration Focus: Web app se- Focus: Defense &<br>testing curity monitoring<br>Key capabilities: Key capabilities: Key capabilities:<br>• Network • Asset discovery • Network<br>enumeration • Vulnerability monitoring<br>• Service assessment • Vulnerability<br>exploitation • Responsible assessment<br>• Privilege disclosure • Incident<br>escalation response<br><!-- End of picture text -->
 
 **Figure 5:** Specialized Cybersecurity Agent Patterns in CAI: Red Team Agent (left) focused on offensive security, Bug Bounty Hunter (middle) specialized in web application vulnerability discovery, and Blue Team Agent (right) dedicated to defensive security. Each agent uses similar core tool architecture but with objectives and methodologies tailored to their specific security roles. 
 

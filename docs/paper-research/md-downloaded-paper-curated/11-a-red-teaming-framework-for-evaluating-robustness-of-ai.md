@@ -1,5 +1,39 @@
 # **A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems** 
 
+## Table of Contents
+
+  - [Abstract](#abstract)
+- [1 INTRODUCTION](#1-introduction)
+- [2 LITERATURE REVIEW](#2-literature-review)
+  - [2.1 Cyber Operations Simulation Environments](#2-1-cyber-operations-simulation-environments)
+  - [2.2 Large Language Models for Cybersecurity](#2-2-large-language-models-for-cybersecurity)
+  - [2.3 Reinforcement Learning for Cyber Operations](#2-3-reinforcement-learning-for-cyber-operations)
+  - [2.4 Hybrid Architectures and Research Gap](#2-4-hybrid-architectures-and-research-gap)
+- [3 Methodology](#3-methodology)
+  - [3.1 Problem Formulation](#3-1-problem-formulation)
+  - [3.2 Hierarchical LLM–RL Architecture](#3-2-hierarchical-llm-rl-architecture)
+  - [3.3 State and Intent Representation](#3-3-state-and-intent-representation)
+  - [3.4 Hierarchical Reward Shaping](#3-4-hierarchical-reward-shaping)
+  - [3.5 Policy Learning](#3-5-policy-learning)
+  - [3.6 Memory and Adaptation](#3-6-memory-and-adaptation)
+- [4 Experiments](#4-experiments)
+  - [4.1 Environment](#4-1-environment)
+  - [4.2 Red Agent Configurations](#4-2-red-agent-configurations)
+  - [4.3 Training Details](#4-3-training-details)
+  - [4.4 Evaluation Protocol and Metrics](#4-4-evaluation-protocol-and-metrics)
+  - [4.5 Experimental Design](#4-5-experimental-design)
+  - [4.6 Implementation Details](#4-6-implementation-details)
+- [5 Results](#5-results)
+  - [5.1 Evaluation of the Hierarchical LLM-RL Red Teaming Framework](#5-1-evaluation-of-the-hierarchical-llm-rl-red-teaming-framework)
+  - [5.2 Comparison with Standalone LLM Agents](#5-2-comparison-with-standalone-llm-agents)
+  - [5.3 Comparison with RL-only Agents](#5-3-comparison-with-rl-only-agents)
+  - [5.4 Key Insights](#5-4-key-insights)
+- [6 CONCLUSION](#6-conclusion)
+- [Acknowledgments](#acknowledgments)
+- [References](#references)
+
+---
+
 Ayan Javeed Shaikh<sup>a</sup> , Nathaniel D. Bastian<sup>b</sup> , and Ankit Shah<sup>∗a</sup> 
 
 > aIndiana University, Bloomington, IN, United States 
@@ -8,9 +42,11 @@ Ayan Javeed Shaikh<sup>a</sup> , Nathaniel D. Bastian<sup>b</sup> , and Ankit Sh
 
 ### **Abstract** 
 
-AI-enabled Security Orchestration, Automation, and Response (SOAR) systems increasingly employ autonomous agents for cyber defense, yet their resilience to adaptive adversaries is underexplored. We introduce an autonomous red teaming framework that integrates large language models (LLMs) with reinforcement learning (RL) to generate adaptive, multi-stage attack campaigns against autonomous defenders in enterprise networks. A hierarchical design combines an LLM-based planner for strategic intent with an RL controller for tactical execution, supported by reward shaping aligned with kill-chain progression. Evaluation in a high-fidelity enterprise simulation demonstrates the effectiveness of the proposed approach, while also showing that standalone LLM agents fail to sustain multi-stage attack campaigns and that domain-specific cybersecurity models achieve only limited levels of compromise, highlighting the necessity for hybrid LLM-RL approaches to red teaming. 
+> AI-enabled Security Orchestration, Automation, and Response (SOAR) systems increasingly employ autonomous agents for cyber defense, yet their resilience to adaptive adversaries is underexplored. We introduce an autonomous red teaming framework that integrates large language models (LLMs) with reinforcement learning (RL) to generate adaptive, multi-stage attack campaigns against autonomous defenders in enterprise networks. A hierarchical design combines an LLM-based planner for strategic intent with an RL controller for tactical execution, supported by reward shaping aligned with kill-chain progression. Evaluation in a high-fidelity enterprise simulation demonstrates the effectiveness of the proposed approach, while also showing that standalone LLM agents fail to sustain multi-stage attack campaigns and that domain-specific cybersecurity models achieve only limited levels of compromise, highlighting the necessity for hybrid LLM-RL approaches to red teaming. 
 
-**Keywords:** Red Teaming, Large Language Models, Reinforcement Learning, Cybersecurity, SOAR System 
+> **Keywords:** Red Teaming, Large Language Models, Reinforcement Learning, Cybersecurity, SOAR System 
+
+---
 
 ## **1 INTRODUCTION** 
 
@@ -33,6 +69,8 @@ We evaluate our approach in the Cyber Operations Research Gym (CybORG) CAGE Chal
 The key contributions of our work are as follows. We present a hierarchical LLM–RL architecture for autonomous red teaming that decouples strategic planning (LLM) from tactical execution (RL), enabling structured interaction between high-level intent generation and low-level environment-grounded control. We further introduce a kill-chain-aligned RL framework that incorporates structured reward shaping to guide long-horizon adversarial behavior consistent with MITRE ATT&CK stages. In addition, we provide a comprehensive empirical study of LLMs across multiple families, including Qwen3, Llama, reasoning specialists such as DeepSeek-R1, and domain-specialized cybersecurity models such as Foundation-Sec and DeepHat, and across a wide parameter range (0.6B to 70B), revealing systematic limitations of standalone LLM agents in sustaining long-horizon cyber operations against adaptive autonomous defenders. Finally, we conduct an extensive evaluation in the CAGE 4 environment demonstrating the effectiveness of the proposed hybrid architecture under partial observability and multi-agent defender dynamics. 
 
 The remainder of this paper is organized as follows. Section 2 reviews related work in autonomous cyber operations, LLMs for cybersecurity, and hybrid LLM–RL architectures. Section 3 presents the proposed red teaming framework. Section 4 describes the experimental setup. Section 5 reports the results and compares the proposed approach with standalone LLM and RL baselines. Section 6 concludes with a discussion of limitations and directions for future work. 
+
+---
 
 ## **2 LITERATURE REVIEW** 
 
@@ -94,7 +132,12 @@ A Prepprint
 
 guided by the planner’s intent. 
 
+---
+
 ## **3 Methodology** 
+
+> **Section Summary:** We propose a hierarchical framework for autonomous red teaming that integrates LLMs with RL to address long-horizon decision-making in adversarial environments.
+
 
 We propose a hierarchical framework for autonomous red teaming that integrates LLMs with RL to address long-horizon decision-making in adversarial environments. The framework decomposes the problem into two levels: (i) high-level strategic planning and (ii) low-level tactical execution, enabling complementary strengths of reasoning and learning to be combined within a unified agent. 
 
@@ -191,6 +234,8 @@ Reflections are stored in a bounded first-in, first-out (FIFO) buffer and incorp
 A Red Teaming Framework for Evaluating Robustness of AI-enabled Security Orchestration, Automation, and Response Systems A Prepprint 
 
 A Prepprint 
+
+---
 
 ## **4 Experiments** 
 
@@ -340,7 +385,12 @@ All experiments are executed on a GPU cluster with NVIDIA H100 (80 GB) GPUs. Eac
 
 For LLM-integrated configurations, the LLM is deployed as a local vLLM server on GPU 0, while RL training runs on GPU 1 within the same node, avoiding cross-node communication overhead. Both FoundationSec-8B-Reasoning and Qwen3-1.7B fit comfortably within a single H100 GPU under this setup. The LLM server operates asynchronously alongside training and is accessed through an OpenAI-compatible REST API over localhost. Ports are assigned dynamically to support multiple concurrent experiments without conflicts. 
 
+---
+
 ## **5 Results** 
+
+> **Section Summary:** We first evaluate the proposed hierarchical LLM-RL framework and then compare it against standalone LLM and RL baselines.
+
 
 We first evaluate the proposed hierarchical LLM-RL framework and then compare it against standalone LLM and RL baselines. 
 
@@ -410,7 +460,12 @@ We note that this outcome is influenced by the reward formulation used in our fr
 
 These results highlight the complementary limitations of LLMs and RL when used in isolation. Standalone LLM agents provide high-level reasoning but fail to sustain coherent long-horizon behavior, while RL agents can optimize actions through interaction but fail to discover meaningful attack strategies due to sparse rewards and exploration challenges. Our proposed hybrid framework overcomes these limitations by combining strategic guidance from LLMs with environment-grounded learning in RL, resulting in substantial improvements in multi-stage attack success and robustness against adaptive defenses. 
 
+---
+
 ## **6 CONCLUSION** 
+
+> **Section Summary:** We present a hierarchical LLM-RL framework for evaluating the robustness of AI-enabled cyber defense systems in high-fidelity simulation.
+
 
 We present a hierarchical LLM-RL framework for evaluating the robustness of AI-enabled cyber defense systems in high-fidelity simulation. Across extensive experiments in the CybORG CAGE Challenge 4 environment, we demonstrate that autonomous red teaming requires the tight coupling of strategic reasoning and learned execution. Our principal findings from this study are as follows. First, standalone approaches are fundamentally insufficient. Across 14 LLMs, we observe limited end-to-end attack capability, with most models failing to sustain multi-step compromises. Similarly, RL alone collapses to a degenerate policy, unable to discover meaningful attack progression under sparse rewards. These results highlight the inability of either reasoning- or learning-only systems to execute full kill-chain behavior. 
 
@@ -430,7 +485,12 @@ Our study is constrained by several factors. First, evaluation is conducted in a
 
 Future directions include extending the framework to multi-agent red team coordination, improving topology inference through structured exploration strategies, and evaluating scalability across diverse environments and defender policies. We also plan to investigate larger and more capable LLM planners to better understand scaling behavior within hierarchical RL systems. 
 
+---
+
 ## **Acknowledgments** 
+
+> **Section Summary:** This work was supported in part by the U.S.
+
 
 This work was supported in part by the U.S. Military Academy (USMA) under Cooperative Agreement No. W911NF-25-2-0008 and the Defense Advanced Research Projects Agency (DARPA) under Cooperative Agreement No. HR0011-24-2-0004. The views and conclusions expressed in this paper are those of the authors and do not reflect the official policy or position of USMA, U.S. Army, U.S. Department of War, or U.S. Government. 
 
@@ -438,7 +498,12 @@ Computational resources for this study were in part provided by Indiana Universi
 
 Distribution statement: Approved for public release; distribution is unlimited. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Check Point Software Technologies Ltd.
+
 
 - [1] Check Point Software Technologies Ltd. Cyber security report 2026, 2026. URL `https://www. checkpoint.com/security-report/` . Accessed: 2026-03-11. 
 

@@ -1,5 +1,32 @@
 # **Cybersecurity AI: The World’s Top AI Agent for Security Capture-the-Flag (CTF)** 
 
+## Table of Contents
+
+    - [Víctor Mayoral-Vilches, Luis Javier Navarrete-Lozano, Francesco Balassone, María Sanz-Gómez, Cristóbal R. J. Veas Chavez, Maite del Mundo de Torres and Vanesa Turiel<sup>1</sup>](#v-ctor-mayoral-vilches-luis-javier-navarrete-lozano-francesco-balassone-mar-a-sanz-g-mez-crist-bal-r-j-veas-chavez-maite-del-mundo-de-torres-and-vanesa-turiel-sup-1-sup)
+- [1 Introduction](#1-introduction)
+  - [1.1 Evolution from Augmentation to Autonomy](#1-1-evolution-from-augmentation-to-autonomy)
+  - [1.2 Report Structure](#1-2-report-structure)
+- [2 Results: Five CTF Dominations](#2-results-five-ctf-dominations)
+  - [2.1 HTB “AI vs Humans” Challenge](#2-1-htb-ai-vs-humans-challenge)
+  - [2.2 Cyber Apocalypse CTF 2025](#2-2-cyber-apocalypse-ctf-2025)
+  - [2.3 Dragos OT CTF 2025](#2-3-dragos-ot-ctf-2025)
+  - [2.4 UWSP Pointer Overflow 2025](#2-4-uwsp-pointer-overflow-2025)
+  - [2.5 Neurogrid AI Security Showdown](#2-5-neurogrid-ai-security-showdown)
+- [3 Discussion](#3-discussion)
+  - [3.1 System Architecture and Configuration](#3-1-system-architecture-and-configuration)
+    - [3.1.1 Dynamic Model Selection via Entropy Estimation](#3-1-1-dynamic-model-selection-via-entropy-estimation)
+    - [3.1.2 Multi-Model Orchestration Strategies](#3-1-2-multi-model-orchestration-strategies)
+  - [3.2 Are Jeopardy CTFs still meaningful?](#3-2-are-jeopardy-ctfs-still-meaningful)
+  - [3.3 Implications for OT Security](#3-3-implications-for-ot-security)
+  - [3.4 Limitations](#3-4-limitations)
+  - [3.5 Ethical Considerations](#3-5-ethical-considerations)
+  - [3.6 Relationship to CAIBench](#3-6-relationship-to-caibench)
+- [4 Conclusion](#4-conclusion)
+- [5 Acknowledgements](#5-acknowledgements)
+- [References](#references)
+
+---
+
 #### **Víctor Mayoral-Vilches, Luis Javier Navarrete-Lozano, Francesco Balassone, María Sanz-Gómez, Cristóbal R. J. Veas Chavez, Maite del Mundo de Torres and Vanesa Turiel**<sup>1</sup> 
 
 > 1 **Alias Robotics** , Vitoria-Gasteiz, Álava, Spain, � `research@aliasrobotics.com` 
@@ -19,6 +46,8 @@
 
 
 **Table 1:** Cross-event snapshot. Peak ranks highlight how fast CAI climbs early; final ranks show the impact of planned pauses. 
+
+---
 
 ## **1 Introduction** 
 
@@ -52,7 +81,12 @@ This evolution exposes a fundamental problem with current evaluation methods. Je
 
 The remainder of this report is organized as follows: Section 2 presents comprehensive results across five major CTF competitions, demonstrating systematic AI dominance with specific competition analyses: HTB “AI vs Humans” (Section 2.1), Cyber Apocalypse CTF 2025 (Section 2.2), Dragos OT CTF (Section 2.3), UWSP Pointer Overflow (Section 2.4), and Neurogrid AI Showdown (Section 2.5). Section 3 provides in-depth discussion including system architecture and configuration, the meaningfulness of Jeopardy CTFs, implications for OT security, limitations, ethical considerations, and relationship to CAIBench. Section 4 delivers the verdict on Jeopardy CTF obsolescence as they are, and proposes Attack & Defense formats as the future of competitive security assessment in an AI-dominated era. 
 
+---
+
 ## **2 Results: Five CTF Dominations** 
+
+> **Section Summary:** ![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0002-09.png)
+
 
 
 ![](images/24-cybersecurity-ai-the-worlds-top-ai-agent-for-security-ctf.pdf-0002-09.png)
@@ -190,6 +224,8 @@ ing performance cost: 0ca’s solve rate plummeted from 834 pts/hour (first 12 h
 
 CAI’s final statistics tell a story of absolute dominance: 33,917 points, 91% solve rate (41/45 flags), and a 1,925-point margin over second place—achieved in 25 fewer hours of operation. The architectural improvements deployed—enhanced error recovery, persistent state management, and adaptive resource allocation—didn’t just improve performance; they redefined what autonomous hacking systems can achieve. Neurogrid wasn’t just won by CAI; it was dominated from the first hour to the last. 
 
+---
+
 ## **3 Discussion** 
 
 ### **3.1 System Architecture and Configuration** 
@@ -319,7 +355,7 @@ outperform elite human teams in standardized security challenges, the entire def
 
 **Infrastructure and integration challenges:** Deployment in OT environments faces unique constraints beyond traditional IT security. As agentic AI systems integrate into enterprise workflows—whether in data centers, at the edge, or on factory floors—the underlying infrastructure becomes critical for enforcing isolation, visibility, and control by design. Legacy system incompatibility and fragmented SIEM interoperability require substantial effort in developing new APIs and middleware. For critical infrastructure, **zero-trust architecture** must extend to autonomous agents themselves: French and German cybersecurity agencies [12] now recommend applying zero-trust principles to agentic AI deployments, while Thailand advocates control measures including kill chain monitoring and regulated Software Bills of Materials [13]. 
 
-**The new security paradigm:** The CTF results herald a fundamental transformation: security operations must evolve from human-centric to AI-first architectures. The demonstrated capabilities—91% solve rates, 20x velocity advantages, sustained performance over 48hour operations—represent merely the opening salvo. As these systems improve exponentially while human capabilities remain static, the gap will only widen. Organizations must choose: embrace autonomous defense or face obsolescence. The data supports a stark conclusion: by 2030, security operations without AI agents will be as anachronistic as defending networks without firewalls [14]. 
+**The new security paradigm:** The CTF results herald a fundamental transformation: security operations must evolve from human-centric to AI-first architectures. The demonstrated capabilities—91% solve rates, 20x velocity advantages, sustained performance over 48hour operations—represent merely the opening salvo. As these systems improve exponentially while human capabilities remain static, the gap will only widen. Organizations must choose: embrace autonomous defense or face obsolescence. The data supports a stark **conclusion:** by 2030, security operations without AI agents will be as anachronistic as defending networks without firewalls [14]. 
 
 ### **3.4 Limitations** 
 
@@ -349,7 +385,12 @@ exploitation across web services. These same techniques enabling 787 pts/h defen
 
 This competition-based evaluation complements CAIBench’s structured benchmarks [9], offering: real-world competitive dynamics, OT specialization, sustained 24-hour operation, direct human comparison, and emergent challenges. 
 
+---
+
 ## **4 Conclusion** 
+
+> **Section Summary:** The 2025 CTF circuit delivered an unequivocal verdict: Jeopardy-style competitions, as they exist, are obsolete.
+
 
 The 2025 CTF circuit delivered an unequivocal verdict: Jeopardy-style competitions, as they exist, are obsolete. CAI’s systematic conquest—Rank 1 at Dragos OT and Neurogrid, $50,000 prize victory, 91% solve rates, 20x velocity advantages over human teams—proves these formats now measure only computational speed, not security expertise. When autonomous agents routinely achieve near-perfect scores across reverse engineering, cryptography, exploitation, and forensics, the competition framework has failed its evaluative purpose. 
 
@@ -359,9 +400,16 @@ These results force the security community to confront two uncomfortable truths.
 
 The path forward is clear but challenging. First, immediately rethinking the meaning of Jeopardy CTFs—they now serve only as regression tests for AI systems, not meaningful evaluation tools. Second, establish Attack & Defense competitions as the new standard, introducing dynamic adversarial elements that resist automation. Third, accelerate adoption of autonomous defensive systems using cost-effective architectures like CAI’s—the economic excuse for inaction no longer exists. The window for gradual transition has closed; as our results hint at, in the battle between human and machine capabilities for standardized security tasks, the machines are showing an edge and already won some rounds, affordably. 
 
+---
+
 ## **5 Acknowledgements** 
 
+> **Section Summary:** This research was partly funded by the European Innovation Council (EIC) accelerator project “RIS” (GA 101161136).
+
+
 This research was partly funded by the European Innovation Council (EIC) accelerator project “RIS” (GA 101161136). 
+
+---
 
 ## **References** 
 

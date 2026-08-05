@@ -1,10 +1,90 @@
 # 🔐 AUTOATTACKER: A Large Language Model Guided System to Implement Automatic Cyber-attacks
 
+## Table of Contents
+
+- [📋 Table of Contents](#table-of-contents)
+- [Abstract](#abstract)
+- [I. Introduction](#i-introduction)
+  - [⚠️ Challenges of Attack Automation with LLM](#challenges-of-attack-automation-with-llm)
+  - [💡 Our Solution](#our-solution)
+  - [📊 Summary of Experiment Results](#summary-of-experiment-results)
+  - [🏆 Contributions](#contributions)
+- [II. Background and Related Work](#ii-background-and-related-work)
+  - [A. Cyber-attack Automation and Frameworks](#a-cyber-attack-automation-and-frameworks)
+    - [🗺️ Cyber-attack Frameworks](#cyber-attack-frameworks)
+  - [B. LLMs and Their Security Applications](#b-llms-and-their-security-applications)
+    - [Advanced Planning/Reasoning Techniques](#advanced-planning-reasoning-techniques)
+    - [LLMs for Security Applications](#llms-for-security-applications)
+  - [C. Security Issues of LLMs](#c-security-issues-of-llms)
+    - [🔓 Jailbreaking in LLMs](#jailbreaking-in-llms)
+- [III. Motivation](#iii-motivation)
+  - [A. Limitations of LLMs](#a-limitations-of-llms)
+    - [❌ Problem 1: Policy Refusals](#problem-1-policy-refusals)
+    - [❌ Problem 2: Verbose Responses](#problem-2-verbose-responses)
+    - [❌ Problem 3: Environment Tracking Failure](#problem-3-environment-tracking-failure)
+    - [📋 Summary of LLM Challenges](#summary-of-llm-challenges)
+  - [B. Limitations of Prior Works](#b-limitations-of-prior-works)
+- [IV. Methodology](#iv-methodology)
+  - [A. Overview of AUTOATTACKER](#a-overview-of-autoattacker)
+    - [🎯 Threat Model](#threat-model)
+    - [📐 Attack Formalization](#attack-formalization)
+    - [🏗️ Components and Workflow](#components-and-workflow)
+    - [🔓 LLM Jailbreaking](#llm-jailbreaking)
+  - [B. Summarizer (SUM)](#b-summarizer-sum)
+    - [Summarizer Prompt Template](#summarizer-prompt-template)
+    - [Example Situation Output](#example-situation-output)
+  - [C. Planner (PLA)](#c-planner-pla)
+    - [Planner Prompt Template (abbreviated)](#planner-prompt-template-abbreviated)
+    - [Action Format](#action-format)
+    - [Example Action Returned from LLM](#example-action-returned-from-llm)
+  - [D. Navigator (NAV) and Experience Manager (EXP)](#d-navigator-nav-and-experience-manager-exp)
+    - [🗄️ Experience Manager (EXP)](#experience-manager-exp)
+    - [🧱 Basic Task Preparation](#basic-task-preparation)
+    - [🤖 LLM-based Action Selection](#llm-based-action-selection)
+- [V. Evaluation](#v-evaluation)
+  - [A. Experiment Settings](#a-experiment-settings)
+    - [🗂️ Attack Tasks](#attack-tasks)
+    - [🖥️ Environment Setup](#environment-setup)
+    - [📊 Evaluation Metrics](#evaluation-metrics)
+    - [🤖 LLM Models](#llm-models)
+    - [🛠️ Implementations of AUTOATTACKER](#implementations-of-autoattacker)
+    - [⚖️ Ethical Considerations](#ethical-considerations)
+  - [B. Experiment Results](#b-experiment-results)
+    - [Results of GPT LLMs](#results-of-gpt-llms)
+    - [Results of Llama2 LLMs](#results-of-llama2-llms)
+    - [Task Chain Results](#task-chain-results)
+    - [LLM Jailbreaking Results](#llm-jailbreaking-results)
+    - [Ablation Study](#ablation-study)
+    - [Analysis of the Embedding Module](#analysis-of-the-embedding-module)
+- [VI. Discussion](#vi-discussion)
+  - [⚠️ Limitations and Future Works](#limitations-and-future-works)
+  - [🌀 LLM Hallucinations](#llm-hallucinations)
+  - [🛡️ Defenses against AUTOATTACKER](#defenses-against-autoattacker)
+  - [🌐 Implications of this Study](#implications-of-this-study)
+  - [🤖 Containing Malicious AGI Agents](#containing-malicious-agi-agents)
+- [VII. Conclusion](#vii-conclusion)
+- [References](#references)
+- [Appendix VIII. Motivation of Automating Pentesting with LLMs](#appendix-viii-motivation-of-automating-pentesting-with-llms)
+- [Appendix IX. Task List](#appendix-ix-task-list)
+- [Appendix X. AUTOATTACKER System Workflow](#appendix-x-autoattacker-system-workflow)
+- [Appendix XI. Example Prompts and LLM Responses](#appendix-xi-example-prompts-and-llm-responses)
+  - [GPT-4 Default Response (Without Role-Play Jailbreak)](#gpt-4-default-response-without-role-play-jailbreak)
+  - [Full Planner Prompt Template](#full-planner-prompt-template)
+  - [GPT-4 Responses for Pass the Hash Attack Steps](#gpt-4-responses-for-pass-the-hash-attack-steps)
+  - [GPT-4 Hallucination Then Self-Correction (Log4j Header Injection)](#gpt-4-hallucination-then-self-correction-log4j-header-injection)
+- [Appendix XII. Detailed and Abstract Objective Examples](#appendix-xii-detailed-and-abstract-objective-examples)
+  - [📋 Detailed Objective](#detailed-objective)
+  - [🗺️ Abstract Objective](#abstract-objective)
+
+---
+
 > **Authors:** Jiacen Xu¹, Jack W. Stokes², Geoff McDonald², Xuesong Bai¹, David Marshall², Siyue Wang², Adith Swaminathan², Zhou Li¹
 >
 > ¹University of California, Irvine &nbsp;&nbsp;|&nbsp;&nbsp; ²Microsoft
 >
 > 📄 *arXiv:2403.01038v1 [cs.CR] — 2 Mar 2024*
+
+---
 
 ---
 
@@ -38,7 +118,12 @@
 
 ---
 
+---
+
 ## Abstract
+
+> **Section Summary:** Large language models (LLMs) have demonstrated impressive results on natural language tasks, and security researchers are beginning to employ them in both offensive and defensive systems.
+
 
 Large language models (LLMs) have demonstrated impressive results on natural language tasks, and security researchers are beginning to employ them in both offensive and defensive systems. In cyber-security, there have been multiple research efforts that utilize LLMs focusing on the **pre-breach stage** of attacks like phishing and malware generation. However, so far there lacks a comprehensive study regarding whether LLM-based systems can be leveraged to simulate the **post-breach stage** of attacks that are typically human-operated, or *"hands-on-keyboard"* attacks, under various attack techniques and environments.
 
@@ -65,7 +150,12 @@ We conduct extensive tests and show that while **GPT-3.5**, **Llama2-7B-chat**, 
 
 ---
 
+---
+
 ## I. Introduction
+
+> **Section Summary:** Large Language Models (LLMs) have developed quickly and shown great abilities on many applications or tasks.
+
 
 Large Language Models (LLMs) have developed quickly and shown great abilities on many applications or tasks. The impressive performance of models like GPT-4, which, despite its massive size with over **1.7 trillion parameters**, demonstrated remarkable results across various natural language processing (NLP) tasks. For example, LLMs can perform text generation, translation, question-answering, summarization, and sentiment analysis tasks at human-level performance or even better. This suggests the potential for LLMs to excel in a wide range of tasks due to their capacity for learning and generalization.
 
@@ -103,6 +193,8 @@ Our simulation environment consists of multiple virtual machines (VMs) running i
 - We design a new system **AUTOATTACKER** for attack automation with LLMs, with a new reasoning and planning procedure.
 - We develop a **new benchmark** to evaluate the LLM-based attack automation, with attack tasks ranging from basic to advanced.
 - We evaluate the effectiveness of AUTOATTACKER, and our results show **all attack tasks can be successfully completed** when GPT-4 is leveraged.
+
+---
 
 ---
 
@@ -183,6 +275,8 @@ LLMs themselves are also vulnerable to cyber-attacks and adversarial machine-lea
 *Jailbreaking* refers to circumventing built-in security measures to elicit responses to queries that are typically restricted or deemed unsafe, effectively unlocking features that are normally constrained by safety mechanisms. Various techniques have been proposed for successfully bypassing the safeguards in LLMs by a few queries or automatically generated prompts.
 
 Yet, we found the existing jailbreaking methods are not always suitable for our setting. For example, **PAIR** can only reach 62% and 60% success rates with 16.6 and 15.6 queries in GPT-4 and GPT-3.5. In this work, we propose a highly efficient jailbreaking method on top of *"role-playing"*, which **succeeds with just one prompt**.
+
+---
 
 ---
 
@@ -289,6 +383,8 @@ We found three recent works that leverage LLMs for automated pentests:
 > *ENV = Task Environment (Linux, Windows, or Both); Human Involvement = HI; Cross-Machines = CM; RAG = Retrieval-Augmented Generation; TT = Scope of Tested Attacks ("Unknown" for PentestGPT because of a vague description of the benchmark CTF competitions)*
 
 We also found none of the prior works make full usage of the results of the other executed attack tasks, though a complex attack task can usually be decomposed to smaller tasks that might have been executed before. The simulated attacks all target a single machine, while the complex cross-machine attacks like lateral movement are not evaluated.
+
+---
 
 ---
 
@@ -485,6 +581,8 @@ The navigator NAV needs to select the best action from the top k (k = 3) action 
 Which command is the best one for the next step based on the instruction
 hint and the task objective? ONLY RETURN ONE INDEX OF THE CHOICE!
 ```
+
+---
 
 ---
 
@@ -751,6 +849,8 @@ Now that we need to get system privileges.
 
 ---
 
+---
+
 ## VI. Discussion
 
 ### ⚠️ Limitations and Future Works
@@ -791,6 +891,8 @@ Government, industry, and academia have expressed concerns about **Artificial Ge
 
 ---
 
+---
+
 ## VII. Conclusion
 
 In this work, we introduce **AUTOATTACKER** to automatically generate penetration tests using large language models (LLMs) for complex attack tasks such as lateral movement, credential getting, etc., covering different stages in the attack life-cycle. Though previous works have explored the direction of LLMs for cyber-attacks, they either focus on pre-breach stages like creating phishing emails or result in an unsatisfactory attack success rate.
@@ -804,6 +906,8 @@ We address the challenges related to the limitations of the LLMs and the complex
 As a result, we believe GPT-4 can now be utilized to launch automated penetration tests by **red teams** to identify existing weaknesses in their networks so they can fix them to improve their security posture. Furthermore, given the significant improvement from GPT-3.5 to GPT-4, we expect these capabilities to further increase as the LLMs continue their ever-increasing progress toward AGI.
 
 Finally, this work demonstrates the **critical need for defenders to quickly develop defenses** that can effectively thwart attacks generated by increasingly powerful large language models.
+
+---
 
 ---
 
@@ -1033,7 +1137,12 @@ Finally, this work demonstrates the **critical need for defenders to quickly dev
 
 ---
 
+---
+
 ## Appendix VIII. Motivation of Automating Pentesting with LLMs
+
+> **Section Summary:** We envision a security professional trying to perform pentesting against an enterprise.
+
 
 We envision a security professional trying to perform pentesting against an enterprise. The goal is to infiltrate an enterprise network and exfiltrate a sensitive document from an internal machine. We select a few key attack stages following the **MITRE ATT&CK framework** ("Txxxx.yyy" matches a TTP) and demonstrate how they can be boosted with LLMs.
 
@@ -1067,6 +1176,8 @@ After the attacks are carried out (either succeeded or failed), the attacker cou
 
 ---
 
+---
+
 ## Appendix IX. Task List
 
 ##### Table VIII — Full Task Descriptions with MITRE ATT&CK Tactics
@@ -1090,7 +1201,12 @@ After the attacks are carried out (either succeeded or failed), the attacker cou
 
 ---
 
+---
+
 ## Appendix X. AUTOATTACKER System Workflow
+
+> **Section Summary:** **Algorithm 1: AUTOATTACKER Workflow**
+
 
 **Algorithm 1: AUTOATTACKER Workflow**
 
@@ -1145,6 +1261,8 @@ end
 D.add(A);
 return i, status;
 ```
+
+---
 
 ---
 
@@ -1266,7 +1384,12 @@ reverse shell of the target victim machine.</r><t>execute_shell</t>
 
 ---
 
+---
+
 ## Appendix XII. Detailed and Abstract Objective Examples
+
+> **Section Summary:** The following examples are for the **Pass the Hash attack**.
+
 
 The following examples are for the **Pass the Hash attack**. The detailed objective describes all the atomic actions and necessary reminders for the attack while the abstract objective omits most of these details and provides only high-level ideas.
 
@@ -1304,6 +1427,6 @@ domain controller.
 ...
 ```
 
----
+> ---
 
-*📄 End of Document — AUTOATTACKER Paper (arXiv:2403.01038v1)*
+> *📄 End of Document — AUTOATTACKER Paper (arXiv:2403.01038v1)*

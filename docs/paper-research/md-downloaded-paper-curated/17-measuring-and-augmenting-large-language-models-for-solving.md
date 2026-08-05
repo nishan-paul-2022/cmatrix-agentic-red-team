@@ -1,5 +1,52 @@
 # **Measuring and Augmenting Large Language Models for Solving Capture-the-Flag Challenges** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [CCS Concepts](#ccs-concepts)
+    - [ACM Reference Format:](#acm-reference-format)
+- [2 Background](#2-background)
+- [2.1 Capture the Flag (CTF)](#2-1-capture-the-flag-ctf)
+- [2.2 Large Language Models (LLMs)](#2-2-large-language-models-llms)
+- [3 Measuring LLM Capability for CTF](#3-measuring-llm-capability-for-ctf)
+- [3.1 LLM4CTF: Understanding and Exploiting](#3-1-llm4ctf-understanding-and-exploiting)
+- [3.2 CTFKnow Design](#3-2-ctfknow-design)
+- [3.3 Measurement Settings](#3-3-measurement-settings)
+- [3.4 Knowledge Measurement (RQ1)](#3-4-knowledge-measurement-rq1)
+- [3.5 Comparative Analysis (RQ2)](#3-5-comparative-analysis-rq2)
+- [4 Augmenting LLMs for CTF with CTFAgent](#4-augmenting-llms-for-ctf-with-ctfagent)
+- [4.1 Reflection from Measurement Findings](#4-1-reflection-from-measurement-findings)
+- [4.2 Two-stage RAG for CTF Knowledge](#4-2-two-stage-rag-for-ctf-knowledge)
+- [4.3 Interactive Environmental Augmentation](#4-3-interactive-environmental-augmentation)
+- [4.4 An Illustrative Example](#4-4-an-illustrative-example)
+- [5 Evaluation of CTFAgent](#5-evaluation-of-ctfagent)
+- [5.2 Performance Evaluation (RQ3)](#5-2-performance-evaluation-rq3)
+- [5.3 Ablation Study (RQ4)](#5-3-ablation-study-rq4)
+- [5.4 Practicality Study (RQ5)](#5-4-practicality-study-rq5)
+- [5.5 Failure Analysis (RQ6)](#5-5-failure-analysis-rq6)
+- [6.1 CTF Automation for Education & Research](#6-1-ctf-automation-for-education-research)
+- [6.2 Comparing With Prior Work](#6-2-comparing-with-prior-work)
+- [6.3 Future Work](#6-3-future-work)
+- [6.4 Ethics Concerns](#6-4-ethics-concerns)
+- [7 Related Work](#7-related-work)
+- [8 Conclusion](#8-conclusion)
+- [References](#references)
+- [Appendix](#appendix)
+- [A Knowledge Topics](#a-knowledge-topics)
+- [B Distribution of Write-ups](#b-distribution-of-write-ups)
+- [C System Prompts](#c-system-prompts)
+  - [Knowledge Extraction](#knowledge-extraction)
+  - [Knowledge Filtering](#knowledge-filtering)
+  - [Single Choice Question Generation](#single-choice-question-generation)
+  - [Open-ended Question Evaluation](#open-ended-question-evaluation)
+  - [Vulnerable Code Snippet Extraction](#vulnerable-code-snippet-extraction)
+  - [Question Filtering](#question-filtering)
+- [Question {text}](#question-text)
+  - [ReAct Prompt For o1-preview](#react-prompt-for-o1-preview)
+
+---
+
 Zimo JI 
 
 Daoyuan Wu<sup>∗</sup> daoyuan@cse.ust.hk Hong Kong University of Science and Technology Hong Kong, China 
@@ -12,13 +59,23 @@ Pingchuan Ma pmaab@cse.ust.hk Hong Kong University of Science and Technology Hon
 
 Zongjie Li Shuai Wang<sup>∗</sup> zligo@cse.ust.hk shuaiw@cse.ust.hk Hong Kong University of Science and Hong Kong University of Science and Technology Technology Hong Kong, China Hong Kong, China 
 
+---
+
 ## **Abstract** 
+
+> **Section Summary:** _Conference on Computer and Communications Security (CCS ’25), October 13–17, 2025, Taipei, Taiwan, China._ ACM, New York, NY, USA, 18 pages.
+
 
 _Conference on Computer and Communications Security (CCS ’25), October 13–17, 2025, Taipei, Taiwan, China._ ACM, New York, NY, USA, 18 pages. https://doi.org/10.1145/3719027.3744855 
 
 Capture-the-Flag (CTF) competitions are crucial for cybersecurity education and training. As large language models (LLMs) evolve, there is increasing interest in their ability to automate CTF challenge solving. For example, DARPA has organized the AIxCC competition since 2023 to advance AI-powered automated offense and defense. However, this demands a combination of multiple abilities, from knowledge to reasoning and further to actions. In this paper, we highlight the importance of technical knowledge in solving CTF problems and deliberately construct a _focused_ benchmark, CTFKnow, with 3,992 questions to measure LLMs’ performance in this core aspect. Our study offers a focused and innovative measurement of LLMs’ capability in understanding CTF knowledge and applying it to solve CTF challenges. Our key findings reveal that while LLMs possess substantial technical knowledge, they falter in accurately applying this knowledge to specific scenarios and adapting their strategies based on feedback from the CTF environment. 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** Capture-the-Flag (CTF) is universally acknowledged as an essential component of cybersecurity.
+
 
 Capture-the-Flag (CTF) is universally acknowledged as an essential component of cybersecurity. To simulate real-world vulnerability scenarios and enhance participants’ cybersecurity skills and knowledge, CTF competitions have become an indispensable tool for cybersecurity training since their inception at DEFCON in 1993 [39]. In a typical CTF challenge, participants are tasked with identifying and exploiting vulnerabilities in a target system, aiming to discover the hidden “flag” string within the sandbox environment. CTF challenges cover a broad spectrum of domains, such as cryptography, reverse engineering, web exploitation, forensics, and miscellaneous. 
 
@@ -28,7 +85,12 @@ Based on insights derived from this measurement study, we propose CTFAgent, a no
 
 As large language models (LLMs) exhibit exceptional capabilities in various security tasks, such as penetration testing [44], vulnerability detection [74], and exploiting zero-day vulnerabilities [47], CTF education and research could also evolve into a new era of _leveraging LLMs to automate CTF challenge solving_ . With such intelligent CTF automation, it is anticipated that existing CTF education and training will be significantly enhanced, as cybersecurity learners can use LLM-based “copilots” to quickly identify various attack surfaces across numerous CTF challenges; see more in §6. Moreover, automating offense and defense in CTF competitions, and in cyber-autonomy more generally [38], has long been recognized to stimulate notable research challenges and opportunities, e.g., achieving automated vulnerability discovery and repair in light of software releases now exceeding human review capacity [38], and assessing and enhancing LLMs’ vulnerability reasoning [71, 74]. 
 
+---
+
 ## **CCS Concepts** 
+
+> **Section Summary:** • **Social and professional topics** → _Computing education_ ; • **Security and privacy** ; • **Computing methodologies** → **Artificial intelligence** ;
+
 
 • **Social and professional topics** → _Computing education_ ; • **Security and privacy** ; • **Computing methodologies** → **Artificial intelligence** ; 
 
@@ -64,9 +126,16 @@ In sum, we make the following contributions in this paper:
 
 - **Artifact.** CTFKnow and its evaluation scripts, with the full paper, are accessible at our landing website. CTFKnow is designed to be easily extensible. To minimize potential misuse, the release of CTFAgent is subject to a review process on the website, ensuring that access is restricted to institute-affiliated research personnel only. 
 
+---
+
 ## **2 Background** 
 
+---
+
 ## **2.1 Capture the Flag (CTF)** 
+
+> **Section Summary:** CTF competitions are a crucial component of cybersecurity education [83].
+
 
 CTF competitions are a crucial component of cybersecurity education [83]. These gamified competitions expose participants to 
 
@@ -123,7 +192,12 @@ To support the study and practice of CTF competitions, engaging with various CTF
 
 **CTF Value in Cybersecurity** . According to projections by Cybersecurity Ventures, global cybercrime costs are expected to reach $10.5 trillion annually by 2025, reflecting a 15% annual growth rate since 2020 [1]. This increasing threat landscape is prompting organizations to invest more in cybersecurity training and skill development. To date, CTF competitions have been playing a vital role in cybersecurity education and training. These competitions simulate real-world security scenarios, challenging participants across various categories (e.g., web exploitation, reverse engineering, cryptography). This encourages continuous learning to the ever-evolving cybersecurity landscape. CTFs have significant industry visibility. Industrial giants like Google and governmental organizations like DARPA actively hosts CTFs to showcase their cybersecurity prowess and attract a talent pool. Leading-edge CTFs often leverage cutting-edge information systems to design challenges that may involve exploiting zero-day vulnerabilities, offering substantial rewards and valuable contributions to the cybersecurity community [3, 9, 27, 29, 73]. These illustrate the importance and value of this conducted research in measuring and augmenting LLMs for CTF challenges. 
 
+---
+
 ## **2.2 Large Language Models (LLMs)** 
+
+> **Section Summary:** Since the release of GPT-3.5 in 2022 [17], Large Language Models (LLMs) have attracted increasing attention.
+
 
 Since the release of GPT-3.5 in 2022 [17], Large Language Models (LLMs) have attracted increasing attention. Trained on extensive natural language data, these models are fine-tuned for various downstream tasks [40, 61, 66, 84]. Leading LLMs such as o1 [22], GPT-4 [35], Claude 3.5 Sonnet [11], and Llama-3.1 [23] have excelled in natural language understanding [52] and code generation [94]. 
 
@@ -146,7 +220,11 @@ Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang
 
 LLM agents have recently seen widespread application across a variety of commercial tasks [60, 67, 91]. A typical LLM agent comprises three main modules: understand, plan, and act. The understand module is primarily responsible for identifying the task that needs to be completed, based on user input or environmental feedback. The plan module decomposes the understood task into sub-tasks, facilitating their completion by the act module. The act module primarily leverages the tool invocation capability of LLMs, enabling the LLM to utilize externally provided tools to accomplish these sub-tasks and to receive the results following the tool’s execution. In this paper, we primarily utilize the OpenAI Assistants API [6] and OpenAI Function Calling [14] to construct our tool. 
 
+---
+
 ## **3 Measuring LLM Capability for CTF** 
+
+---
 
 ## **3.1 LLM4CTF: Understanding and Exploiting** 
 
@@ -191,7 +269,12 @@ In a XSS challenge, which option is right?<br>open-ended question<br>In a XSS ch
 
 **Figure 3: The workflow of building our benchmark.** 
 
+---
+
 ## **3.2 CTFKnow Design** 
+
+> **Section Summary:** **Motivation.** We recognize the necessity for a benchmark that specifically measures LLM capabilities in CTF.
+
 
 **Motivation.** We recognize the necessity for a benchmark that specifically measures LLM capabilities in CTF. Yet, existing benchmarks, such as Intercode-CTF [89] and NYU CTF Dataset [71], focus on evaluating LLMs’ _overall performance_ in solving CTF challenges. We see this as a limitation, as it is often challenging to disentangle the technical knowledge from the reasoning ability of LLMs, resulting in a lack of clarity in the evaluation and even bloated performance metrics. We thus champion a targeted benchmark that deliberately measures LLMs’ technical knowledge, which is crucial for understanding and exploiting vulnerabilities in CTF challenges. This benchmark should offer a focused and innovative viewpoint on LLM, without incurring biases or bloated performance metrics. 
 
@@ -245,7 +328,12 @@ Zimo JI, Daoyuan Wu, Wenyuan Jiang, Pingchuan Ma, Zongjie Li, and Shuai Wang
 
 points and single-choice questions are reliable after two rounds of filtering. This further reflects the high quality of CTFKnow. **An Illustrative Example.** Figure 4 demonstrates a technical knowledge example and a single-choice question crafted using ② and ③. The original challenge write-up employs the payload ls | grep ˆf | wc -l | grep 1 in a blind command injection vulnerability, effectively bypassing restrictions by indicating the presence of files starting with ’f’ in the directory. The designed technical knowledge states: "In blind command injection scenarios, where output indicates only success or failure, commands like ls, wc, and grep can be combined... Example payload: ls | grep ˆf | wc -l | grep 1." The single-choice question utilizes this CTF scenario, presenting the example payload as the correct answer alongside three incorrect options. The open-ended question is crafted by subtly altering the wording to avoid direct repetition of the example. 
 
+---
+
 ## **3.3 Measurement Settings** 
+
+> **Section Summary:** Using CTFKnow, we measure LLMs’ mastery of CTF technical knowledge.
+
 
 Using CTFKnow, we measure LLMs’ mastery of CTF technical knowledge. Specifically, we aim to address the following two research questions (RQs): 
 
@@ -259,7 +347,12 @@ Using CTFKnow, we measure LLMs’ mastery of CTF technical knowledge. Specifical
 
 minutes. These questions were randomly sampled from CTFKnow, ensuring a comprehensive inclusion across all CTF categories. For assessing the correctness of open-ended responses, we employed manual verification instead of LLM-based evaluation. This decision was made because human participants tend to provide brief answers, which could introduce significant bias if an LLM were used as the evaluator, per our observation. It is also worth noting that in this testing, it is the human experts who are involved in answering cybersecurity questions _only_ . Thus, no human is under “attack” in any circumstances, and no personal or identifiable information (PII) is collected. Given the nature of this testing, which involves noninterventional expert task responses and no collection of personal data, it qualifies for exemption under Exempt Category 2 [81]. We will also acknowledge the assistance of these invited students in the Acknowledgement section upon publication of this paper. 
 
+---
+
 ## **3.4 Knowledge Measurement (RQ1)** 
+
+> **Section Summary:** Table 1 presents the measurement results of LLMs on single-choice questions.
+
 
 Table 1 presents the measurement results of LLMs on single-choice questions. The outcomes show that all five evaluated LLMs perform exceptionally well, with an overall accuracy rate exceeding 70% for each model. Notably, GPT-4o achieved the best results, successfully answering 1,753 out of 1,996 questions, which translates to an impressive accuracy rate of 87.83%. This demonstrates that LLMs have thoroughly mastered a significant amount of technical knowledge during the pre-training phase. 
 
@@ -271,7 +364,12 @@ Further analysis of the single choice question section in Table 1 across differe
 
 A longitudinal comparison among different LLMs reveals that, while all demonstrate commendable performance, there are notable differences. Among the five LLMs tested, GPT-4-Turbo, GPT-4o, and Llama-3 slightly outperform GPT-3.5-Turbo and Mixtral-8x7b. This is consistent with results from general benchmarks such as MMLU [52], suggesting that for general-purpose large models, better overall capabilities correlate with a more robust mastery of CTF technical knowledge. 
 
+---
+
 ## **3.5 Comparative Analysis (RQ2)** 
+
+> **Section Summary:** Despite LLMs demonstrating a strong grasp of technical knowledge in CTF scenarios, successfully solving CTF challenges requires not only mastering this knowledge but also accurately matching and
+
 
 Despite LLMs demonstrating a strong grasp of technical knowledge in CTF scenarios, successfully solving CTF challenges requires not only mastering this knowledge but also accurately matching and 
 
@@ -342,7 +440,12 @@ even when agents successfully wrote complete scripts with all dependencies insta
 
 **Broader Implications for the CTF Domain.** Our findings highlight both the encouraging potential and implications of LLMs in the CTF domain. Overall, the strong grasp of technical knowledge suggests LLMs can serve as effective _educational aids_ , providing learners with instant access to security breach insight. Specifically, LLMs could function as intelligent tutoring systems and interactive knowledge bases that guide learners through CTF challenges by explaining vulnerabilities and suggesting relevant technical concepts on demand. This is encouraging, as it aligns with the growing trend of using LLMs in educational settings, where they can assist learners in understanding complex topics and provide personalized learning experiences. Moreover, we believe LLMs can also augment the CTF community by serving as valuable tools for _CTF content creation and competition judging_ . They could automate the generation of new challenges, develop realistic scenarios, assess competitor performance, and even provide hints during competitions. This reduces the burden on CTF organizers and fostering a more vibrant and engaging competition environment. This could lead to more frequent and diverse CTF events, benefiting both seasoned professionals and aspiring cybersecurity enthusiasts. 
 
+---
+
 ## **4 Augmenting LLMs for CTF with CTFAgent** 
+
+> **Section Summary:** Our above discussion (“Broader Implications for the CTF Domain”) sheds light on the promising potential of LLMs in accelerating
+
 
 Our above discussion (“Broader Implications for the CTF Domain”) sheds light on the promising potential of LLMs in accelerating 
 
@@ -390,7 +493,12 @@ Technical<br>Knowledge<br>Hints<br>Retrieval<br><!-- End of picture text -->
 
 **Figure 6: Overview of CTFAgent.** 
 
+---
+
 ## **4.1 Reflection from Measurement Findings** 
+
+> **Section Summary:** In Findings 1 and 2 of §3.4, we observed that LLMs demonstrate a strong grasp of CTF technical knowledge.
+
 
 In Findings 1 and 2 of §3.4, we observed that LLMs demonstrate a strong grasp of CTF technical knowledge. Even in the relatively low-performing Web category, the accuracy exceeds 70%, highlighting their significant potential for automating the solution of CTF challenges. Despite these encouraging observations, the following limitations motivate our further exploration and augmentation of LLMs for CTF challenges: 
 
@@ -415,7 +523,12 @@ Query DB-Understanding<br>Embedding Vulnerable Code Snippet<br>Code in CTF Chall
 
 CTF challenge, including both the challenge description and attached files, CTFAgent initially engages with the EA module. This interaction involves executing commands such as cat or decompilation instructions to read the code within the CTF challenge. Once the RAG module detects that the LLM has received code from the EA, it uses DB-Understanding to employ the code as a key. This facilitates the retrieval of the two most closely related pieces of technical knowledge based on vector similarity, which are then returned to the LLM along with the code itself as hints. Following the LLM’s successful understanding, identification of vulnerabilities, and formulation of exploitation ideas, it attempts to execute commands within the EA module to exploit these vulnerabilities and hence, discover the flag. Throughout this process, the RAG module employs DB-Exploiting to retrieve technical knowledge closely aligned with the LLM’s exploit ideas, aiding in capturing the flag. This continues until the LLM successfully secures the flag or terminates the problem-solving attempt. Details of these two modules are presented below. 
 
+---
+
 ## **4.2 Two-stage RAG for CTF Knowledge** 
+
+> **Section Summary:** To construct technical knowledge pieces as the database for LLMbased CTF RAG, the optimal retrieval results should be condensed and focused<sup>2</sup> CTF knowledge trunks.
+
 
 To construct technical knowledge pieces as the database for LLMbased CTF RAG, the optimal retrieval results should be condensed and focused<sup>2</sup> CTF knowledge trunks. These trunks should include relevant background on vulnerability scenarios, reasons for the vulnerability’s occurrence, and ideas for exploitation. Furthermore, we need to provide CTF knowledge via RAG at different stages of the CTF. During the Understanding phase, the LLM needs to search for potential vulnerabilities based on relevant CTF vulnerability code snippets. Similarly, during the Exploit phase, it requires knowledge on how to effectively exploit a specific vulnerability. To accommodate these two distinct scenarios, we design a two-stage RAG system, consisting of RAG-Understanding and RAG-Exploiting, whose architecture is shown in Figure 7. 
 
@@ -425,7 +538,12 @@ To construct technical knowledge pieces as the database for LLMbased CTF RAG, th
 
 scenario. During the offline preparation, we use another LLM to extract or reconstruct relevant vulnerability code snippets from original write-ups and establish their mapping to the extracted technical knowledge trunks. During the online testing, when the LLM solving the problem accesses code files via command-line tools, RAG-Understanding automatically retrieves the vulnerable code snippets based on the content of the code using cosine similarity ranking and returns the corresponding technical knowledge trunks as hints to the LLM. This process effectively informs the LLM about potential vulnerabilities in the current code, aiding in understanding the problem and facilitating the next steps for exploitation. **RAG-Exploiting** focuses on the Exploit phase, where the LLM has already recognized potential vulnerabilities in the CTF scenario. At this stage, our goal is to assist it in retrieving knowledge on how to exploit these vulnerabilities. Since the CTF knowledge trunks contain both the CTF scenario and exploit methods, retrieval is directly based on the similarity of the trunks themselves. Whenever the LLM outputs a potential exploitation idea (“Exploit Idea” in Figure 7), we use this output to retrieve more specific and effective strategies for exploiting the vulnerability, using relevant CTF tools, writing Python scripts, and more. 
 
+---
+
 ## **4.3 Interactive Environmental Augmentation** 
+
+> **Section Summary:** As mentioned in the second design principle in §4.1, providing a more potent CTF environment is as important as, if not more important than, technical knowledge.
+
 
 As mentioned in the second design principle in §4.1, providing a more potent CTF environment is as important as, if not more important than, technical knowledge. However, previous work on CTF environments [70, 71, 89] provided only static command-line access in sandboxed Linux machines and non-specialized, general-purpose tools. Thus, in the Environmental Augmentation (EA) module of CTFAgent, we aim to provide a more interactive CTF environment by integrating interactive command lines and advanced CTF tools. **Interactive Commands.** This represents our enhancement to command-line tools. Replicating previous work, we observed numerous difficulties LLMs faced while interacting with the accompanying static command-line tools. For example, without timely prompts, LLMs may fail to solve a problem because they cannot read a CTF attachment due to insufficient user permissions; or they cannot interact in real-time with remote servers using the netcat tool, which only accepts results after the pipeline outputs EOF, preventing LLMs from testing payloads and receiving immediate feedback, significantly impacting problem-solving. Based on these observations, we made substantial adjustments to the Command Line environment as follows. 
 
@@ -530,11 +648,21 @@ In this challenge, the binary file (compiled from the above source code) is depl
 
 Figure 8 illustrates the process of CTFAgent solving this challenge. Upon completing the decompilation of an attachment within EA and accessing the core code, RAG’s DB-Understanding performs a vector similarity search based on the vulnerable code. It identifies that the code most closely aligns with technical knowledge regarding buffer overflow and thus returns this piece of knowledge as a hint to the LLM. Upon reviewing this hint, the LLM generates an exploit idea targeted at buffer overflow. When RAG’s DB-Exploit receives this idea, it searches its database for the most closely related piece of technical knowledge, which includes an example payload for buffer overflow. This is returned as a hint to the LLM too. Leveraging this example payload, the LLM successfully executes the exploit and captures the flag. 
 
+---
+
 ## **4.4 An Illustrative Example** 
+
+> **Section Summary:** To demonstrate the workflow of CTFAgent and how its modules are coordinated, we present an example in the form of a CTF challenge from the NYU CSAW called “puffin,” categorized under the
+
 
 To demonstrate the workflow of CTFAgent and how its modules are coordinated, we present an example in the form of a CTF challenge from the NYU CSAW called “puffin,” categorized under the 
 
+---
+
 ## **5 Evaluation of CTFAgent** 
+
+> **Section Summary:** Following § 3.3, this section evaluates CTFAgent in response to the following research questions:
+
 
 Following § 3.3, this section evaluates CTFAgent in response to the following research questions: 
 
@@ -560,7 +688,12 @@ The Intercode-CTF dataset comprises 100 CTF challenges collected from the picoCT
 
 Our code is developed based on the environment provided by the NYU-CTF Dataset [71] To ensure the stability and reproducibility of our results, we set the temperature parameter of the GPT-4-Turbo model to 0 and for each CTF challenge in the two datasets, we conduct a single test iteration. However, regarding the maximum number of interaction rounds for CTFAgent to solve each challenge, we use 30 rounds for both datasets. 
 
+---
+
 ## **5.2 Performance Evaluation (RQ3)** 
+
+> **Section Summary:** **Table 2: Performance of CTFAgent, CTFAgent-w/o-RAG, CTFAgent-w/o-EA, and Baseline on the Intercode-CTF Dataset.**
+
 
 **Table 2: Performance of CTFAgent, CTFAgent-w/o-RAG, CTFAgent-w/o-EA, and Baseline on the Intercode-CTF Dataset.** 
 
@@ -638,7 +771,12 @@ We compiled statistics on the cumulative distribution function for the number of
 
 We present the evaluation results of CTFAgent on NYU CTF Dataset in Table 3. Although NYU CTF Dataset has notably higher difficult challenges, CTFAgent also gains remarkable progress. Totally 18 of 200 challenges solved, CTFAgent makes an improvement of 120% compared with the NYU CTF Baseline (8 challenges solved). Which indicates CTFAgent has huge advantages in more challenging CTF challenges as well. 
 
+---
+
 ## **5.3 Ablation Study (RQ4)** 
+
+> **Section Summary:** To investigate the individual contributions of the two modules within CTFAgent, we conduct ablation experiments using the following two variants of CTFAgent:
+
 
 To investigate the individual contributions of the two modules within CTFAgent, we conduct ablation experiments using the following two variants of CTFAgent: 
 
@@ -676,7 +814,12 @@ and principles of CTFAgent. We can draw the same conclusion from the experimenta
 
 Simultaneously, we observe that the performance of CTFAgentw/o-RAG and CTFAgent-w/o-EA on some challenges is even worse than the baseline, which indicates that in certain CTF challenges, the RAG system and the interactive environment play critical roles. Without either of them, the overall system performance quickly drops under the CTFAgent framework. 
 
+---
+
 ## **5.4 Practicality Study (RQ5)** 
+
+> **Section Summary:** To assess the practicality of CTFAgent, we opt for an evaluation beyond standardized datasets by selecting the picoCTF2024, held in May 2024[26], to evaluate CTFAgent.
+
 
 To assess the practicality of CTFAgent, we opt for an evaluation beyond standardized datasets by selecting the picoCTF2024, held in May 2024[26], to evaluate CTFAgent. picoCTF, hosted by Carnegie Mellon University, is a CTF competition renowned internationally. The picoCTF2024 featured 46 challenges, with 6,957 valid participants. The challenges, varying in difficulty, were assigned points ranging from 25 to 500. We conduct a practicality analysis using CTFAgent and NYU Framework, with the results detailed in Table 5. The competition outcomes reveal that CTFAgent successfully solved 19 CTF challenges, amassing 1,875 points, thereby ranking in the top 23.6% of all participating teams, significantly outperforming NYU Framework. This indicates that CTFAgent can achieve promising results in real CTF competitions. 
 
@@ -702,7 +845,12 @@ This superiority can be attributed to the challenges in these categories primari
 
 
 
+---
+
 ## **5.5 Failure Analysis (RQ6)** 
+
+> **Section Summary:** We analyze the reasons why CTFAgent cannot correctly complete the entire problem-solving process on the two tested baselines, with the results shown in Table 6.
+
 
 We analyze the reasons why CTFAgent cannot correctly complete the entire problem-solving process on the two tested baselines, with the results shown in Table 6. It is evident that exceeding the maximum number of attempts is the primary reason for failure across both datasets. Based on a manual analysis of these instances, we believe this may primarily be due to two observations: 
 
@@ -712,7 +860,12 @@ We analyze the reasons why CTFAgent cannot correctly complete the entire problem
 
 These observations shed light on future work: we anticipate to further enhance CTFAgent’s performance by employing techniques like Tree of Thought (ToT)[90] or Graph of Thought (GoT) [36], which may presumably enhance the LLM’s ability to persist in attempting more possible solutions. **6 Discussion** 
 
+---
+
 ## **6.1 CTF Automation for Education & Research** 
+
+> **Section Summary:** The automation of CTF challenge solving through LLMs carries significant implications for both cybersecurity education and cuttingedge research.
+
 
 The automation of CTF challenge solving through LLMs carries significant implications for both cybersecurity education and cuttingedge research. From an educational perspective, LLM-powered automation can serve as an intelligent “copilot” for cybersecurity learners [31, 70, 78], helping them rapidly identify attack surfaces across diverse CTF challenges by observing and learning from automated solving processes. This addresses a critical need in security 
 
@@ -720,11 +873,18 @@ training where the volume and complexity of modern vulnerabilities often outpace
 
 At the research frontier, CTF automation represents a crucial stepping stone toward more advanced AI-powered offensive security capabilities, as evidenced by major initiatives like DARPA’s Cyber Grand Challenge [10] and the recent AI Cyber Challenge (AIxCC) [2] with its multi-million dollar prize pool. As noted in [38], the accelerating pace of software development has made automated vulnerability discovery and remediation not just desirable but imperative — with CTF environments serving as ideal testbeds for developing and evaluating these capabilities. The successful automation of CTF solving would directly contribute to addressing fundamental challenges in automated vulnerability mining and exploit generation, subsequently enhancing the security of real-world systems before real attacks occur [32–34]. 
 
+---
+
 ## **6.2 Comparing With Prior Work** 
 
 While prior studies such as Intercode-CTF [89] and NYU CTF Bench [71] have made valuable contributions by evaluating LLMs’ end-to-end CTF problem-solving capabilities, our work makes three distinct advances. First, we pioneer a knowledge-centric measurement paradigm through CTFKnow, enabling granular analysis of LLMs’ technical mastery—an aspect overlooked by previous benchmarks that treated CTF challenges as mostly “black-box” missions. Second, unlike prior tools that focused primarily on command-line automation, CTFAgent’s two-stage RAG and Environmental Augmentation modules are explicitly designed to address the knowledge application gaps (see Finding 3 in §3.5) identified by our measurement study. Third, our empirical results demonstrate both quantitative and qualitative improvements: CTFAgent not only achieves 85–120% performance gains over baseline approaches on established benchmarks but also shows superior human-competitive performance in real-world CTF competitions, validating that our knowledge-focused approach translates into practical advantages beyond incremental automation improvements. 
 
+---
+
 ## **6.3 Future Work** 
+
+> **Section Summary:** We discuss several potential directions for future research and extend CTFKnow and CTFAgent.
+
 
 We discuss several potential directions for future research and extend CTFKnow and CTFAgent. 
 
@@ -740,7 +900,12 @@ thereby limiting the tool’s applicability in these scenarios. We anticipate th
 
 **Further Strengthening CTFAgent’s Reasoning Ability.** In this work, although we adopt two-stage RAG to guide CTFAgent through multi-turn interactions in CTF scenarios, we do not enhance its reasoning capabilities at the fundamental model level. How to effectively strengthen the base model’s reasoning ability in CTF scenarios involving multi-tool integration and multi-turn interaction remains a meaningful direction for future research. A potentially effective approach is to incorporate o1-like long CoT models [62], enabling the agent to solve CTF challenges through a reasoning process. Reinforcement learning methods like ToolIntegrated RL [59] or LLM Agent RL [41] can also be introduced to further improve the agent’s reasoning in complex CTF scenarios. 
 
+---
+
 ## **6.4 Ethics Concerns** 
+
+> **Section Summary:** We posit that, disregarding misuse—namely, when CTFAgent is solely employed for solving CTF challenges—it aligns fully with ethical standards.
+
 
 We posit that, disregarding misuse—namely, when CTFAgent is solely employed for solving CTF challenges—it aligns fully with ethical standards. The rationale is as follows: 
 
@@ -752,7 +917,12 @@ We posit that, disregarding misuse—namely, when CTFAgent is solely employed fo
 
 Should CTFAgent be misused inappropriately, it could indeed encounter ethical dilemmas, such as being used to attack unauthorized web applications or crack software. Mitigating such risks requires concerted community efforts. To minimize potential misuse, CTFAgent will be released by review only, while CTFKnow will remain open source. We also advocate for continued research and safeguards on the use of LLMs in offensive security contexts. 
 
+---
+
 ## **7 Related Work** 
+
+> **Section Summary:** Recently, LLMs have become increasingly relevant in cybersecurity domains.
+
 
 Recently, LLMs have become increasingly relevant in cybersecurity domains. CyberSecEval 2 [37], SecBench [55] and CyberMetric [79] have built benchmarks for evaluating the overall cybersecurity knowledge of LLMs. In specific downstream cybersecurity tasks, FuzzGPT [46], Fuzz4all [86], and CHATAFL [68] introduced LLMs for fuzzing tasks; Happe _et al._ [51] employed LLMs as partners in penetration testing, while PentestGPT [44] and PenHeal [53] developed strong tools driven by LLMs for penetration testing; PropertyGPT [65] built an LLM agent for formal verification. Since Thapa _et al._ [77] started testing LLMs’ capacity in vulnerability detection, many benchmarks and systems including VulBench [50], GPTScan [75], TitanFuzz [45], LLM4Vuln [74], and works by Khare _et al._ [56] and Ullah _et al._ [80] have been devoted to this direction. In contrast, Pearce _et al._ [69] and ACFix [93] focus on using LLMs for vulnerability repair. 
 
@@ -760,9 +930,16 @@ Efforts have been made to benchmark LLMs for solving CTF challenges [70, 71, 76,
 
 systems like AutoPwn [87] have also been introduced for CTF solving progress. Furthermore, AutoCTF [54] employed AI systems in CTF challenge design. Significant efforts have also been made to enhance the quality and educational significance of CTF challenges, including Git-based CTF [85] and Pwnable-Sherpa [57]. 
 
+---
+
 ## **8 Conclusion** 
 
+> **Section Summary:** This work has conducted a systematic measurement and augmentation on LLM’s capability in CTF challenges.
+
+
 This work has conducted a systematic measurement and augmentation on LLM’s capability in CTF challenges. We create a novel and targeted benchmark, CTFKnow, to evaluate LLMs’ performance in mastering CTF technical knowledge. With findings obtained from the measurement study, we design an enhancement framework, CTFAgent, to improve LLM performance in this domain. Our evaluation results demonstrate the effectiveness of CTFAgent in enhancing LLM in CTF challenges. We believe this work lays a solid foundation for future in-depth evaluations, understanding, and enhancements of LLMs’ abilities in CTF. 
+
+---
 
 ## **References** 
 
@@ -944,23 +1121,37 @@ Regulations Part 46.104(d)(2).
 
 - [91] Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. 2022. React: Synergizing reasoning and acting in language models. _arXiv preprint arXiv:2210.03629_ (2022). 
 
-- [92] Wenhao Yu, Hongming Zhang, Xiaoman Pan, Kaixin Ma, Hongwei Wang, and Dong Yu. 2023. Chain-of-note: Enhancing robustness in retrieval-augmented language models. _arXiv preprint arXiv:2311.09210_ (2023). 
+- [92] Wenhao Yu, Hongming Zhang, Xiaoman Pan, Kaixin Ma, Hongwei Wang, and Dong Yu. 2023. Chain-of-**note:** Enhancing robustness in retrieval-augmented language models. _arXiv preprint arXiv:2311.09210_ (2023). 
 
 - [93] Lyuye Zhang, Kaixuan Li, Kairan Sun, Daoyuan Wu, Ye Liu, Haoye Tian, and Yang Liu. 2024. Acfix: Guiding llms with mined common rbac practices for context-aware repair of access control vulnerabilities in smart contracts. _arXiv preprint arXiv:2403.06838_ (2024). 
 
 - [94] Li Zhong, Zilong Wang, and Jingbo Shang. 2024. Ldb: A large language model debugger via verifying runtime execution step-by-step. _arXiv preprint arXiv:2402.16906_ (2024). 
 
+---
+
 ## **Appendix** 
+
+---
 
 ## **A Knowledge Topics** 
 
 To visually illustrate the topics covered by the final 2,013 knowledge points in §3.2, we applied the Affinity Propagation [48] clustering algorithm to analyze the embeddings of all knowledge points, resulting in 173 distinct clusters. We then visualized the clusters by reducing their embeddings to two dimensions using t-SNE [82]. The visualization results are shown in Figure 11, where different colors represent different clusters. Overall, we interpret that the knowledge points are well-organized and cover a wide range of topics. We manually verified that each major cluster represents a coherent category of related knowledge. The clusters containing the top ten knowledge instances are presented in Table 7, demonstrating that each major cluster corresponds to a set of related technical knowledge. 
 
+---
+
 ## **B Distribution of Write-ups** 
+
+> **Section Summary:** In §3, we mentioned the distribution of CTF challenges across various write-ups.
+
 
 In §3, we mentioned the distribution of CTF challenges across various write-ups. The details of this distribution are available in Figure 12. 
 
+---
+
 ## **C System Prompts** 
+
+> **Section Summary:** In §3, we designed customized system prompts for the tasks of knowledge extraction, knowledge filtering, question generation (for
+
 
 In §3, we designed customized system prompts for the tasks of knowledge extraction, knowledge filtering, question generation (for 
 
@@ -1062,6 +1253,8 @@ CCS ’25, October 13–17, 2025, Taipei, Taiwan, China
 Instructions: The following is a multiple choice question about general knowledge for CTF contests. The background and the answer is given for the question. Starting by summarizing the available information, you need to judge if it is correct or not in a step-by-step fashion and provide explanation. 
 
 NOTICE: OUTPUT THE EXPLANATION FIRST AND IN THE LAST LINE ONLY OUTPUT ’CORRECT’ OR ’INCORRECT’ OF YOUR JUDGE. 
+
+---
 
 ## Question {text} 
 

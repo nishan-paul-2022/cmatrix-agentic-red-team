@@ -1,8 +1,50 @@
 # **On the Surprising Efficacy of LLMs for Penetration-Testing** 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [CCS CONCEPTS](#ccs-concepts)
+- [KEYWORDS](#keywords)
+- [1 INTRODUCTION](#1-introduction)
+- [2 BACKGROUND](#2-background)
+- [2.1 Penetration-Testing](#2-1-penetration-testing)
+- [2.2 Pre-LLM Usage of AI for Offensive Security](#2-2-pre-llm-usage-of-ai-for-offensive-security)
+- [2.3 Evolution of LLMs](#2-3-evolution-of-llms)
+- [3 A SHORT HISTORY OF USING LLMS FOR PENETRATION-TESTING](#3-a-short-history-of-using-llms-for-penetration-testing)
+- [3.1 Academic Research](#3-1-academic-research)
+- [3.2 Industry Adoption](#3-2-industry-adoption)
+- [4 ON THE SURPRISING EFFICACY OF LLMS FOR PENETRATION-TESTING](#4-on-the-surprising-efficacy-of-llms-for-penetration-testing)
+- [4.1 Penetration-Testing Resembles Pattern-Matching](#4-1-penetration-testing-resembles-pattern-matching)
+- [4.2 LLMs Inherently Cope With Uncertainty](#4-2-llms-inherently-cope-with-uncertainty)
+- [4.3 The Costs of Using LLMs](#4-3-the-costs-of-using-llms)
+- [4.4 Additional Beneficial Capabilities](#4-4-additional-beneficial-capabilities)
+- [5.2 Towards Autonomous Hacking](#5-2-towards-autonomous-hacking)
+- [6 OBSTACLES TO OVERCOME](#6-obstacles-to-overcome)
+- [5 STATUS-QUO: VIBE-HACKING AND AUTONOMOUS AGENTS](#5-status-quo-vibe-hacking-and-autonomous-agents)
+- [5.1 Vibe-Hacking](#5-1-vibe-hacking)
+- [6.1 Model Features and Stability](#6-1-model-features-and-stability)
+- [6.2 Safety and Security Concerns](#6-2-safety-and-security-concerns)
+- [6.3 Costs and Efficiency Concerns](#6-3-costs-and-efficiency-concerns)
+- [6.4 Privacy and Digital Sovereignty Concerns](#6-4-privacy-and-digital-sovereignty-concerns)
+- [6.5 Accountability Concerns](#6-5-accountability-concerns)
+- [6.6 Capability vs. Reliability](#6-6-capability-vs-reliability)
+- [6.7 Concerns About Ethics](#6-7-concerns-about-ethics)
+- [7 THE WAY FORWARD?](#7-the-way-forward)
+- [7.1 Costs and Features](#7-1-costs-and-features)
+- [7.2 The Need for Better Safeguards](#7-2-the-need-for-better-safeguards)
+- [7.3 Capabilities and Reliability](#7-3-capabilities-and-reliability)
+- [7.4 Decision Time for Individuals and Society](#7-4-decision-time-for-individuals-and-society)
+- [8 CONCLUSION](#8-conclusion)
+- [REFERENCES](#references)
+
+---
+
 Andreas Happe andreas.happe@tuwien.ac.at TU Wien Vienna, Austria 
 
 ## **ABSTRACT** 
+
+> **Section Summary:** This paper presents a critical examination of the surprising efficacy of Large Language Models (LLMs) in penetration testing.
+
 
 This paper presents a critical examination of the surprising efficacy of Large Language Models (LLMs) in penetration testing. The paper thoroughly reviews the evolution of LLMs and their rapidly expanding capabilities which render them increasingly suitable for complex penetration testing operations. It systematically details the historical adoption of LLMs in both academic research and industry, showcasing their application across various offensive security tasks and covering broader phases of the cyber kill chain. Crucially, the analysis also extends to the observed adoption of LLMs by malicious actors, underscoring the inherent dual-use challenge of this technology within the security landscape. 
 
@@ -10,17 +52,32 @@ The unexpected effectiveness of LLMs in this context is elucidated by several ke
 
 The current landscape of LLM-aided penetration testing is categorized into interactive ’vibe-hacking’ and the emergence of fully autonomous systems. The paper identifies and discusses significant obstacles impeding wider adoption and safe deployment. These include critical issues concerning model reliability and stability, paramount safety and security concerns, substantial monetary and ecological costs, implications for privacy and digital sovereignty, complex questions of accountability, and profound ethical dilemmas. This comprehensive review and analysis provides a foundation for discussion on future research directions and the development of robust safeguards at the intersection of AI and security. 
 
+---
+
 ## **CCS CONCEPTS** 
+
+> **Section Summary:** • **Security and privacy** → **Systems security** ; **Network security** ;
+
 
 • **Security and privacy** → **Systems security** ; **Network security** ; 
 
 - **Computing methodologies** → **Artificial intelligence** . 
 
+---
+
 ## **KEYWORDS** 
+
+> **Section Summary:** Penetration-Testing, Security Testing, Large Language Models, LLM, Offensive Security
+
 
 Penetration-Testing, Security Testing, Large Language Models, LLM, Offensive Security 
 
+---
+
 ## **1 INTRODUCTION** 
+
+> **Section Summary:** Upholding an organization’s IT security has been problematic since the rise of enterprise networks in the early 2000s.
+
 
 Upholding an organization’s IT security has been problematic since the rise of enterprise networks in the early 2000s. One of the most publicly visible type of security incidents are ransomware attacks. Current estimates indicate that 72% of business were affected by ransomware between 2018–2023 [81]. Related losses are estimated to reach $57 billion for 2025 or $6.5 million per hour [73]. The trend indicates a worsening of this situation with estimates of ransomware incidents happening every 2 seconds in 2031, up from 11 seconds in 2021 [73]. 
 
@@ -30,11 +87,21 @@ A common way of preventing security incidents is to test one’s own defenses th
 
 In this paper, we reflect on the first two years (2023–2025) of LLM-aided penetration-testing. We use the Background Section (Section 2) to create a common understanding of penetration-testing and highlight important milestones within the evolution of LLMs. In Section 3, we give a short history of how LLMs were used for penetration-testing, separated into academic research and adoption by industry. After we have shown their clear and present interest in LLMs, we discuss why LLMs are a good fit for penetration-testing and summarize the current status-quo (Sections 4 and 5). Subsequently, we highlight obstacles that prevent further adoption of LLMs before we conclude with a final section highlighting potential remediation means, also known as research opportunities, for the mentioned obstacles. 
 
+---
+
 ## **2 BACKGROUND** 
+
+> **Section Summary:** We introduce penetration-testing, show how pre-LLM AI systems were used by adversaries, and conclude with a high-level overview of the evolution of LLMs.
+
 
 We introduce penetration-testing, show how pre-LLM AI systems were used by adversaries, and conclude with a high-level overview of the evolution of LLMs. 
 
+---
+
 ## **2.1 Penetration-Testing** 
+
+> **Section Summary:** During penetration-testing highly-skilled professionals try to break systems to uncover vulnerabilities so that those can be mitigated by defensive personnel before malicious actors can exploit them.
+
 
 During penetration-testing highly-skilled professionals try to break systems to uncover vulnerabilities so that those can be mitigated by defensive personnel before malicious actors can exploit them. We focus on the practitioners’ daily work [34], not on security researchers that seek to find new vulnerabilities and attack vectors that practitioners will subsequently exploit. 
 
@@ -44,7 +111,12 @@ Andreas Happe and Jürgen Cito
 
 enforcing the idea that **penetration-testing is often based on pattern-matching** . 
 
+---
+
 ## **2.2 Pre-LLM Usage of AI for Offensive Security** 
+
+> **Section Summary:** Interest into applying machine-learning techniques to offensive security tasks precedes the rise of LLMs.
+
 
 Interest into applying machine-learning techniques to offensive security tasks precedes the rise of LLMs. Mirsky et al. [72] performed a literature review and surveyed experts from academia, industry, and government on the potential threat of offensive AI to organizations. The initial version of the paper was released to arXiv in July 2021, a revised version was published in January 2023. As ChatGPT went public in late November 2022, this publication describes the state-of-the-art pre-LLM. 
 
@@ -54,7 +126,12 @@ They conclude that offensive AI primarily impacts the initial steps of the cyber
 
 We will show in this paper that the rise of LLMs has accelerated the adoption of machine-learning for offensive security and has fulfilled some of the paper’s predictions. While we focus upon penetration-testing (roughly comprising the _automation_ and _campaign resilience_ categories of their study), our section on malicious industrial use of LLMs (Section 3.2.2) will show that their predictions about social engineering, exploit development, and information gathering became reality. Furthermore, while not employed by industry yet, LLMs enabled academic prototypes (Section 3.1) to cover more phases of the cyber kill chain, including privilege escalation and lateral movement. Dwelling deeper on their list of identified offensive AI capabilities, we see the following _Automation_ capabilities well-covered by research: _Attack Adaption_ , _Attack Coordination_ , _Next Hop Targeting_ , _Point of Entry Detection_ . Of _Campaign Resilience_ ’s capabilities, we see _Campaign Planning_ covered; of the other techniques some are implicitly covered by the prototypes highlighted in Section 3.1, e.g., _Virtualization Detection_ and _Password Guessing_ . 
 
+---
+
 ## **2.3 Evolution of LLMs** 
+
+> **Section Summary:** In November 2022, OpenAI made ChatGPT publicly available [78] and thus sparkled public interest into LLMs.
+
 
 In November 2022, OpenAI made ChatGPT publicly available [78] and thus sparkled public interest into LLMs. Their API allowed integration of LLMs into existing tools and workflows. 
 
@@ -64,13 +141,23 @@ Another big step forward was the introduction of reasoning LLMs, e.g., by OpenAI
 
 Latest advancements further improve the ability of LLMs to interact with their environment or with each other. The _Model Context Protocol_ (MCP), originally proposed by Anthropic in 2024 [4], standardized integration of tools into LLMs, leading to an explosion of available tool-integrations. Recent interest into _Multi-Agent Systems_ , e.g. Google’s A2A [93], uses multiple collaborating LLMs to solve complex tasks [51]. 
 
+---
+
 ## **3 A SHORT HISTORY OF USING LLMS FOR PENETRATION-TESTING** 
+
+> **Section Summary:** Give the rapid evolution for LLMs, we want to highlight their impact on security with a focus on penetration-testing.
+
 
 Give the rapid evolution for LLMs, we want to highlight their impact on security with a focus on penetration-testing. We differentiate between academic research and industry adoption. 
 
 For academic research, we used Google Scholar to identify survey papers on offensive use of LLMs [7, 20, 39, 48, 69, 74, 87, 107, 113– 115]. We included papers from these surveys if they were using LLMs to perform penetration-testing, and analyzed them in chronological order for their novelty. The analysis of industrial use of LLMs is based on articles posted on security-specific news-sites<sup>1</sup> mentioning the use of LLMs, as well as on abuse reports provided by LLM providers. 
 
+---
+
 ## **3.1 Academic Research** 
+
+> **Section Summary:** We group academic research based on the initial publication year of the respective publication, typically using the date of their initial upload to arXiv.
+
 
 We group academic research based on the initial publication year of the respective publication, typically using the date of their initial upload to arXiv. 
 
@@ -106,7 +193,12 @@ In February 2025, Happe et al. [37] published _Can LLMs Hack Enterprise Networks
 
 _3.1.4 Specialized LLMs for Security Tasks._ In parallel, LLMs were fine-tuned for security-tasks [83, 104]. As their makers typically do not publish these models, or, if published, they lack capabilities such as tool-calling, these specialized models were not used within the reviewed publications. 
 
+---
+
 ## **3.2 Industry Adoption** 
+
+> **Section Summary:** We differentiate between white-hats trying to improve security, and black-hats trying to use LLMs to exploit security vulnerabilities.
+
 
 We differentiate between white-hats trying to improve security, and black-hats trying to use LLMs to exploit security vulnerabilities. 
 
@@ -134,13 +226,23 @@ Presumed state-level actors use LLMs for covert _Influence Operations_ (IO) tryi
 
 Advanced Persistent Threats (APTs) use LLMs to aid development of malware and backdoors, analyze defensive capabilities and perform deceptive employment schemes.<sup>6</sup> As Anthropic states [5], LLMs “ _flatten the learning curve for malicious actors_ ”. OpenAI’ highlighted in its June 2025 report [76] that threat actors start to research into LLM-driven penetration-testing. 
 
+---
+
 ## **4 ON THE SURPRISING EFFICACY OF LLMS FOR PENETRATION-TESTING** 
+
+> **Section Summary:** In this section we speculate why LLMs have become a part of the vanguard for automated penetration-testing.
+
 
 In this section we speculate why LLMs have become a part of the vanguard for automated penetration-testing. 
 
 There are few empirical studies on the work practices of penetrationtesters and their decision making processes [34]. Thus, we include our own experiences (one of the authors has been a professional penetration-tester for 13 years and taught penetration-testing both in academic and industrial settings). We encourage further empirical research into hackers’ work and expect that future findings will support our hypotheses. 
 
+---
+
 ## **4.1 Penetration-Testing Resembles Pattern-Matching** 
+
+> **Section Summary:** We focus on security practitioners within this work: they are the professionals that perform daily penetration-tests to find vulnerabilities in enterprise networks and web-applications.
+
 
 We focus on security practitioners within this work: they are the professionals that perform daily penetration-tests to find vulnerabilities in enterprise networks and web-applications. 
 
@@ -168,13 +270,23 @@ _4.1.3 LLMs exceed in Pattern-Matching._ One side-effect of the ongoing discussi
 
 Research implies that LLMs are able to solve tasks if examples in their training data resemble those tasks [28]. Given the described semi-monocultures, target IT environments should resemble each other. Furthermore, there is ample publicly available penetrationtesting background knowledge available from technical blog posts, incident reports, and CTF walk-throughs and thus included in common training data sets. We further note that common walkthrough formats, i.e., providing step-by-step instructions including reasoning steps and tool usage examples, structurally resembles trajectories used to train LLMs and thus are well-suited to train LLMs. 
 
+---
+
 ## **4.2 LLMs Inherently Cope With Uncertainty** 
+
+> **Section Summary:** _4.2.1 Uncertainty During Penetration-Testing._ Security practitioners routinely deal with uncertainty [34, 43].
+
 
 _4.2.1 Uncertainty During Penetration-Testing._ Security practitioners routinely deal with uncertainty [34, 43]. Examples given for sources of uncertainty include interpreting misleading tool outputs and target system responses, negative side-effects like target systems becoming unresponsive due to exploits, incomplete information about the target environment, and invalid but not falsified assumptions about the target system’s behavior and security. 
 
 _4.2.2 LLMs’ Pattern-Matching Copes with Uncertainty._ Patternmatching is inherently capable of dealing with uncertainty. During a penetration-test, a LLM-driven hacking prototype will sample the target environment and create a representation of its view of the target world, typically as a text-based representation. This world view is typically included in subsequent LLM invocations. Compared to deterministic rule-based systems, LLMs are able to ignore parts of their world-view through the pattern-matching process. This is beneficial during penetration-testing in realistic network scenarios where actions influence the state of the network, e.g., where a failed attack might lead to locked accounts or crashed network servers, changing the ground truth. While traditional systems need to manually invalidate their world view, LLMs implicitly do this through their pattern-matching approach. 
 
+---
+
 ## **4.3 The Costs of Using LLMs** 
+
+> **Section Summary:** When adopting machine learning, there’s always the question of costs for creating and operating the system, as well as for creating a training data-set and utilizing it for training.
+
 
 When adopting machine learning, there’s always the question of costs for creating and operating the system, as well as for creating a training data-set and utilizing it for training. 
 
@@ -194,7 +306,12 @@ their defenses based on our activities, e.g., develop new intrusiondetection (ID
 
 Security tooling, esp. in case of covert C2 frameworks or vulnerability scanners, impose a high maintenance cost as they have to be adopted to new vulnerabilities, current trends, and evolved adversary measures. Penetration-testers also have to continuously improve, e.g., learn new attack vectors or how to circumvent novel counter-measures. Delegating parts of these costs to the LLM-maker, as newer training data will inherently incorporate these new techniques, is thus tempting to time-poor penetration-testers. 
 
+---
+
 ## **4.4 Additional Beneficial Capabilities** 
+
+> **Section Summary:** We want to high-light additional LLM capabilities that, while not required for successful penetration-testing, are beneficial.
+
 
 We want to high-light additional LLM capabilities that, while not required for successful penetration-testing, are beneficial. 
 
@@ -206,7 +323,12 @@ The former highlights the potential for developer burnout, catastrophic failures
 
 We foresee that, over time, more and more complex tasks will be delegated to LLM agents, culminating in LLMs autonomously performing complex multi-step tasks. This is already established in academic research (Section 3.1) and first forays can be seen in industrial adoption (Section 3.2). 
 
+---
+
 ## **5.2 Towards Autonomous Hacking** 
+
+> **Section Summary:** We see two research directions leading towards autonomous hacking.
+
 
 We see two research directions leading towards autonomous hacking. The first paper using LLMs for penetration-testing already used autonomous LLM agents [33]. In addition, with increasing delegated task complexity, interactive LLM-systems resemble autonomous hacking systems. When the task becomes “hack system x”, both approaches converge. 
 
@@ -216,19 +338,33 @@ Autonomous systems often try to minimize the amount of keeping humans in the loo
 
 We find it concerning that malicious actors already have started to investigate using LLMs for autonomous penetration-testing and influence-operations (Section 3.2.2), increasing the need for security tooling with which defenders can test and improve their defenses. 
 
+---
+
 ## **6 OBSTACLES TO OVERCOME** 
+
+---
 
 ## **5 STATUS-QUO: VIBE-HACKING AND AUTONOMOUS AGENTS** 
 
+> **Section Summary:** We want to highlight the current status-quo of LLM-driven penetrationtesting.
+
+
 We want to highlight the current status-quo of LLM-driven penetrationtesting. We structure this into interactive use of LLMs ( _vibe-hacking_ ) and in prototypes that use LLMs to autonomously hack systems. 
 
+---
+
 ## **5.1 Vibe-Hacking** 
+
+> **Section Summary:** As Section 3.2 has shown, industrial interactive uptake of LLMs is already occurring.
+
 
 As Section 3.2 has shown, industrial interactive uptake of LLMs is already occurring. Borrowing from _vibe-coding_ , this interactive delegating of tedious tasks has become known as _vibe-hacking_ . Levels of autonomy are diverse, ranging from chat-based LLMs for information-retrieval and exploit-code generation, over co-pilot inspired augmenting agents, to systems influenced by pentestGPT [16] where humans are responsible for oversight. CTF challenges are often created by the same authors, exhibiting patterns in their structure. Anecdotally, CTF players use OpenAI’s custom GPTs support to create LLMs trained with previous challenges created by well-known authors and use that knowledge for future challenges. Compared to other automation approaches, currently vibe-hacking keeps the human in the loop and thus incorporating an important safety feature. 
 
 While _vibe-hacking_ is not often discussed online, _vibe-coding_ is, current opinions range from AI Angst to AI enthusiasm [8]. 
 
 We highlight obstacles that prevent further adaption of LLMs for penetration-testing. We focus on autonomous use as this includes obstacles relevant to vibe-hacking too. 
+
+---
 
 ## **6.1 Model Features and Stability** 
 
@@ -242,7 +378,12 @@ impact results: He et al. [40] investigated the impact of using different format
 
 These instabilities are problematic as seemingly unrelated prompt adaptions occurring during empirical experiments can potentially impact and taint the experiment’s measurements. 
 
+---
+
 ## **6.2 Safety and Security Concerns** 
+
+> **Section Summary:** _6.2.1 Safety._ As LLMs are autonomously interacting with their environment in potentially destructive ways, safety is of the highest concern.
+
 
 _6.2.1 Safety._ As LLMs are autonomously interacting with their environment in potentially destructive ways, safety is of the highest concern. Typically, prototypes embed safety instructions into their prompts, e.g., limit valid targets that the LLM prototype is allowed to attack. If LLMs do not heed those safety instructions, outcomes can be catastrophic. Concurrent research investigates potential catastrophic fallout when LLMs are used in National Security Applications [10] or CBRN [109] domains.<sup>7</sup> Safety instructions are also employed during penetration-testing. Happe et al. [37] describe while they instructed LLMs to only target their lab network range, some of their evaluated LLMs ignored those instructions and attacked systems explicitly forbidden form being targeted. 
 
@@ -250,7 +391,12 @@ _6.2.2 Alignment Concerns._ Happe et al. [37] highlight another case in which th
 
 _6.2.3 Security._ Safety and security are intertwined. While we are investigating the offensive use of LLMs, offensive prototypes can also become the target of adversaries, e.g., became victims to active or forward defenses. Offensive AI agents are high-value targets for attackers as they sit at the intersection of private data, untrusted content, powerful actions, and external communication [106]. An adversary, that is able to take over an offensive AI agent, e.g., through using a prompt injection, gains powerful means of attacking the agent’s owner or an unrelated third-party system, further complicating attribution. 
 
+---
+
 ## **6.3 Costs and Efficiency Concerns** 
+
+> **Section Summary:** _6.3.1 Monetary Costs._ Running a LLM depends upon a costly runtime environment: either they run on expensive local AI accelerators or are hosted within on-demand clouds occurring a per-minute cost.
+
 
 _6.3.1 Monetary Costs._ Running a LLM depends upon a costly runtime environment: either they run on expensive local AI accelerators or are hosted within on-demand clouds occurring a per-minute cost. Especially newer reasoning models can incur unexpected costs when using their maker’s cloud offerings: spending thousands of US$ for running a single prototype for few hours is not unheard of; using a non-reasoning LLM with the same prototype can cost 1–2 orders of magnitude less. 
 
@@ -262,7 +408,12 @@ Analysis of the energy and water usage of different model families indicates tha
 
 _6.3.3 Effectiveness of Using LLMs._ Given the mentioned monetary and ecological costs, usage of LLMs should show cost-effectiveness. The common internet saying of “ _go away or I will replace you with a small shell script_ ” encapsulates the difference between the two extremes: writing a shell script can be tedious and resourceintensive, but operating it is light on resources. Creating a LLMdriven hacking prototype is comparatively cheap, but running it is resource-intensive. Coming back to Sommer and Paxson [92], machine-learning might not be an end in itself, but rather an underappreciated means to an end, used to illuminating the problem space. 
 
+---
+
 ## **6.4 Privacy and Digital Sovereignty Concerns** 
+
+> **Section Summary:** LLMs do not exist in emptiness but within the real-world with its geo-political tensions.
+
 
 LLMs do not exist in emptiness but within the real-world with its geo-political tensions. 
 
@@ -271,6 +422,8 @@ _6.4.1 Privacy._ When LLM-driven penetration-testing prototypes interact with en
 _6.4.2 Digital Sovereignty._ LLMs are currently only provided by a limited amount of countries, making LLM users dependent upon those countries. 
 
 Another problem is the opaque nature of LLMs. Due to their missing explainability, both closed- and open-weight models can contain backdoors that can result in adversary-planted behavior when triggered by a predefined interaction with the environment. Kutosov et al. [56] tasked frontier LLMs to compete a main task while they should also covertly execute a side-task, emulating industrial espionage, sabotage, and insider threats. Complex models such as Claude 3.7 Sonnet and Gemini 2.5 Pro performed “best”, resulting in 27% and 15% successful covert task execution. 
+
+---
 
 ## **6.5 Accountability Concerns** 
 
@@ -284,13 +437,20 @@ at hand. Who is liable for damages? What if this happens not to a “normal” c
 
 _6.5.2 Overlap with Explainability._ Regulatory and legal requirements often imply explainability. The European Union’s AI Act mandates that organizations operating high-risk AI systems must provide meaningful explanations of AI decisions to individuals. In the United States of America, _the FDA’s proposed framework for medical devices empathizes the importance of explainable AI for patient safety and clinical decision making_ [18]. 
 
+---
+
 ## **6.6 Capability vs. Reliability** 
 
 _6.6.1 Missing Reliability._ As mentioned in Sections 3.1.3 and 3.2.2, experiments indicate that LLMs exhibit capabilities for penetrationtesting but lack reliability, i.e., multiple runs of the same prototype against the same testbed yield different vulnerabilities. The obvious solution of repeatedly calling the prototype is problematic due to the higher time- and resource usage (Section 6.3). In addition, if a security-test should be covert, repeatedly calling the prototype might trigger detection. Better approaches to raise consistency and reliability are needed. 
 
 _6.6.2 The Problem with Capability Evaluations._ Capability Evaluations are used to measure LLM’s abilities throughout diverse fields, typically using testbeds and benchmarks. Benchmark test-cases have multiple desired properties, e.g., atomicity of test-cases and reproducibility, that can conflict with real-world use-cases which are often “messy” and not reproducible [35]. There are concerns [64, 92] that synthetic test-beds often do not measure real-world impact and thus not provide meaningful guidance for LLM development. 
 
+---
+
 ## **6.7 Concerns About Ethics** 
+
+> **Section Summary:** While usage of LLMs might be technically feasible, the question arises if it is ethical, or wise, to advance this research.
+
 
 While usage of LLMs might be technically feasible, the question arises if it is ethical, or wise, to advance this research. Machinelearning ethics is a diverse field; we only cover the subset of using LLMs for penetration-testing purposes and refer to existing publications for areas not covered in this publication, such as bias [14, 94, 100] or potential problems with training data [13, 19, 67]. 
 
@@ -302,11 +462,21 @@ with the hopeful expectation that LLMs will be beneficial for novice and lower-s
 
 Experience indicates that successful use of autonomous LLMagents depends on oversight by highly-skilled human workers with domain knowledge [105]. Recent research shows that (premature) use of LLMs during education, e.g., through delegating informationretrieval tasks, has negative impact on brain neural connectivity, leading to measurable negative impact on learning skills [53]. Do we bite the hand that feeds us? 
 
+---
+
 ## **7 THE WAY FORWARD?** 
+
+> **Section Summary:** Academic (Section 3.1) and industrial (Section 3.2) uptake of LLMs suggest that they will play an increasing role for cybersecurity in the near future.
+
 
 Academic (Section 3.1) and industrial (Section 3.2) uptake of LLMs suggest that they will play an increasing role for cybersecurity in the near future. As Section 5 showed, vibe-hacking is already here, and real-world use of LLMs for autonomous hacking is currently investigated by both white- and blackhats. Based on the issues mentioned in Section 6, we now turn to potential remediations and research opportunities to enable and ease adaption of LLMs for offensive security tasks. 
 
+---
+
 ## **7.1 Costs and Features** 
+
+> **Section Summary:** While LLM-based experiments can impose substantial costs (Section 6.3), the overall trajectory indicates continuously decreasing costs per token.
+
 
 While LLM-based experiments can impose substantial costs (Section 6.3), the overall trajectory indicates continuously decreasing costs per token. For example, during January 2025, one million output/reasoning tokens using OpenAI’s o1 model would cost $60. Five months later, using the new o3 model, the costs would have been reduced from $60 to $8 per million output/reasoning tokens. 
 
@@ -314,7 +484,12 @@ Newer model releases typically also improve their feature support, e.g., functio
 
 While costs per token decreases, overall volume of token consumption is rising and thus impacts global energy use and ecology. To reduce this impact, careful selection of models is essential, e.g., only using reasoning models if their capabilities are needed. Unfortunately, one of the most resource-intensive areas of using LLMs, image- and video-creation [68], is used by blackhats for influence operations (Section 3.2.2)—we assume that these malicious operators are not that ecology-conscious. Ultimately, the decision about the ecological impact of LLMs if for each individual, and societies at large, to decide (Section 7.4). 
 
+---
+
 ## **7.2 The Need for Better Safeguards** 
+
+> **Section Summary:** LLMs become further integrated into security workflows and thus gain more potential to interact with their environment, making their security and safety parameter (Section 6.2).
+
 
 LLMs become further integrated into security workflows and thus gain more potential to interact with their environment, making their security and safety parameter (Section 6.2). If security or safety incidents occur, Accountability (Section 6.5) becomes important. 
 
@@ -330,7 +505,12 @@ Still, using agentic AI for penetration-testing imposes the problem that we cann
 
 Please note that concerns for safety and security should not be abused as reason to put ethical penetration-testing prototypes inside walled-gardens to prepare later commercialization. 
 
+---
+
 ## **7.3 Capabilities and Reliability** 
+
+> **Section Summary:** As seen in Section 6.6.1, there is currently a lack of reliability and reproducibility when using LLMs for penetration-testing.
+
 
 As seen in Section 6.6.1, there is currently a lack of reliability and reproducibility when using LLMs for penetration-testing. Improvements can be categorized in single-agent and multi-agent solutions. The former try to improve reliability within a single agent’s trajectory, while the latter combine multiple agents to increase reliability while typically imposing higher token costs due to more agents being run. 
 
@@ -340,7 +520,12 @@ If a multi-agent system uses multiple different LLMs, concerns about LLM stabili
 
 Regardless of the chosen approach, more empirical data about model behavior is needed. Improving the explainability of models would make analysis of models’ decisions more impactful and also more efficient. 
 
+---
+
 ## **7.4 Decision Time for Individuals and Society** 
+
+> **Section Summary:** While we try to propose technological improvements, some of the imposed problems of LLMs are for society to decide, i.e., are a socio-economical problem, not a technological one.
+
 
 While we try to propose technological improvements, some of the imposed problems of LLMs are for society to decide, i.e., are a socio-economical problem, not a technological one. We need consensus on how to handle privacy, ecological impact, ethical issues, accountability, and digital sovereignty concerns (Section 6.7). While technology solutions for parts of the problems exists, e.g., running small language models locally to keep data private, individuals will 
 
@@ -348,7 +533,12 @@ often have to ultimately decide if they value, e.g., privacy, over LLM-provided 
 
 Andy Masley compared resource-consumption of using LLMs with other lifestyle-decisions [96] and calculated the equivalent of “going vegan” with 400 _._ 000 chatGPT text queries a year, concluding with that his becoming vegan will offset his chatGPT use. When measuring the average query counts of the two best-performing LLMs for hacking enterprise networks [37], we arrive at 165 _._ 75 queries per hours, or _._ 145 million queries a year if the autonomous penetration-testing prototype is running 24/7. Given their preliminary results, this could prevent dozens or hundreds of ransomware incidents saving resource-intesive recovery costs. How would this balance out? 
 
+---
+
 ## **8 CONCLUSION** 
+
+> **Section Summary:** Using LLMs for offensive security is evolving at a fast pace.
+
 
 Using LLMs for offensive security is evolving at a fast pace. Vibehacking has already been established; autonomous penetrationtesting is currently investigated within Academia while both blackand whitehat hackers are deploying first systems in production. Given the scarcity of professional penetration-testers, a reduction in interest is hard to believe in. 
 
@@ -356,7 +546,12 @@ Due to the high-risk environment, keeping humans in the loop is essential for pr
 
 Security tooling always had an dual-edged nature, especially if it is deployable in an autonomous manner as this reduces the skills needed to perform security audits. We have reports of initial adversarial use (Section 3.2.2), we are already within a weapons race. Fittingly, Vernor Vinge [99] used the Red Queen’s paradox to illustrate the struggle between encouraging technological advancement and protecting the world if technology is abused. While originally this was written as part of a science fiction story-line, we are living it out right now. 
 
+---
+
 ## **REFERENCES** 
+
+> **Section Summary:** - [1] Martín Abadi, Mihai Budiu, Ulfar Erlingsson, and Jay Ligatti.
+
 
 - [1] Martín Abadi, Mihai Budiu, Ulfar Erlingsson, and Jay Ligatti. Control-flow integrity principles, implementations, and applications. _ACM Transactions on Information and System Security (TISSEC)_ , 13(1):1–40, 2009. 
 

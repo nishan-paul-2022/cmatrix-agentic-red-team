@@ -1,5 +1,37 @@
 # **Incalmo: An Autonomous LLM-assisted System for Red Teaming Multi-Host Networks** 
 
+## Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. Motivation and background](#2-motivation-and-background)
+  - [2.1. Motivating example: Red teaming Equifax](#2-1-motivating-example-red-teaming-equifax)
+  - [2.2. Approaches to offense systems](#2-2-approaches-to-offense-systems)
+  - [2.3. Existing LLM-based systems are ineffective in multi-host red team challenges](#2-3-existing-llm-based-systems-are-ineffective-in-multi-host-red-team-challenges)
+- [3. Failure analysis](#3-failure-analysis)
+  - [3.1. Methodology](#3-1-methodology)
+  - [3.2. Observations](#3-2-observations)
+- [4. Incalmo: An LLM-based system for autonomously executing multi-host red teams](#4-incalmo-an-llm-based-system-for-autonomously-executing-multi-host-red-teams)
+  - [4.1. High-level idea](#4-1-high-level-idea)
+  - [4.2. Detailed design](#4-2-detailed-design)
+  - [4.3. Illustrative case study](#4-3-illustrative-case-study)
+- [5. Implementation](#5-implementation)
+- [6. Evaluation](#6-evaluation)
+  - [6.1. Red team success evaluation](#6-1-red-team-success-evaluation)
+  - [6.2. Factor analysis](#6-2-factor-analysis)
+  - [6.3. Cost and speed](#6-3-cost-and-speed)
+  - [6.4. Extensibility case study](#6-4-extensibility-case-study)
+- [7. Discussion and limitations](#7-discussion-and-limitations)
+- [8. Other related work](#8-other-related-work)
+- [9. Conclusions](#9-conclusions)
+- [Ethics considerations](#ethics-considerations)
+- [LLM usage considerations](#llm-usage-considerations)
+- [References](#references)
+- [Appendix A. Attack Graph Formalism and Log analysis](#appendix-a-attack-graph-formalism-and-log-analysis)
+- [Appendix B. Environments](#appendix-b-environments)
+- [Appendix C. Token usage](#appendix-c-token-usage)
+
+---
+
 Brian Singer<sup>_∗_</sup> , Keane Lucas<sup>_†_</sup> , Lakshmi Adiga<sup>_∗_</sup> , Meghna Jain<sup>_∗_</sup> , Lujo Bauer<sup>_∗_</sup> , Vyas Sekar<sup>_∗_</sup> , _∗Carnegie Mellon University †Anthropic_ 
 
 **_Abstract_ —Security operators use red teams to simulate real attackers and proactively find defense gaps. In realistic enterprise settings, this involves executing multi-host network attacks spanning many “stepping stone” hosts. Unfortunately, red teams are expensive and entail significant expertise and effort. Given the promise of LLMs in CTF challenges, we first analyze if LLMs can autonomously execute multi-host red team exercises. We find that state-of-the-art LLM-assisted offense systems (e.g., PentestGPT, CyberSecEval3) with leading LLMs (e.g., Sonnet 4, Gemini 2.5 Pro) are unable to do so.** 
@@ -8,7 +40,12 @@ Brian Singer<sup>_∗_</sup> , Keane Lucas<sup>_†_</sup> , Lakshmi Adiga<sup>_
 
 **For our evaluation, we develop MHBench, a novel multihost attack benchmark with 40 realistic emulated networks (from 22 to 50 hosts). We find that Incalmo successfully acquires critical assets (i.e., key hosts or data) in 37 out of 40 MHBench environments. In contrast, state-of-the-art LLMassisted systems succeed in only 3 out of 40 environments. We show that Incalmo is efficient—successful attacks took 12–54 minutes and cost** _≤_ $15 **in LLM credits.** 
 
+---
+
 ## **1. Introduction** 
+
+> **Section Summary:** Defenders often use red teams to proactively test and discover gaps in their network defenses.
+
 
 Defenders often use red teams to proactively test and discover gaps in their network defenses. Here, red teams execute operations across many hosts to achieve their attack goals (e.g., compromising a key host), emulating real attackers [43], [46]. Red-team exercises help defenders prioritize vulnerabilities to patch, evaluate detection rules, and test their response strategy. Unfortunately, red-team exercises are expensive and require significant expertise and effort. 
 
@@ -74,7 +111,12 @@ context bloat and to manage acquired assets. We show that Incalmo can autonomous
 
 _Ethics and reproducible research._ We acknowledge that Incalmo is a dual-use technology that could be leveraged by real attackers. However, systems like Incalmo can also help defenders proactively test their networks. As prior work has also noted [80], [14], there is a long history of dual-use systems (e.g., bug finding [73], [26], exploit generation [14], [8], [54]) helping defenders more than attackers [64] and we believe the same will be true for autonomous red teams. Additionally, the use of LLMs by real attackers has already been documented [6], [52], and we hope our work will help defenders also benefit from the capabilities that LLMs offer. Following the precedent of previous work [14], [80], [8], [75], [28], [54], [35], [73], we are open-sourcing Incalmo, the benchmarks, and all of the code related to this study to enable defenders and researchers to use and build on our findings. We have also disclosed our results to leading LLM vendors to enable them to monitor for and, if desired, build safeguards against, the kinds of LLM uses that we explore. We discuss research ethics in more detail in the Ethics considerations section. 
 
+---
+
 ## **2. Motivation and background** 
+
+> **Section Summary:** We start with a motivating example highlighting the importance of running red team exercises in multi-host networks.
+
 
 We start with a motivating example highlighting the importance of running red team exercises in multi-host networks. Then, we give a brief overview of related work in cyber-offense systems. We address a key gap in prior work [59]—understanding how existing LLM-based systems perform in _multi-host red team exercises_ . 
 
@@ -157,7 +199,12 @@ Figure 5. A mental model of how red teams execute multi-host attacks. Red teams 
 
 attacks w.r.t both Success and TotalAcquisition, shown in Fig. 4. Only ExpertPromptShell with Sonnet 4 was able to succeed even partially, by managing to exfiltrate data from one of the database servers in the Equifax-inspired environment. ExpertPromptShell with Gemini 2.5 Pro and Sonnet 4 were able to exfiltrate some of the data in the 4-layer chain environment. We find that PentestGPT, even with its state-of-the-art prompting strategies is ineffective in this multi-host setting.<sup>7</sup> 
 
+---
+
 ## **3. Failure analysis** 
+
+> **Section Summary:** In this section, we analyze _how_ existing state-of-the-art LLM-assisted systems fail at multi-host red team exercises.
+
 
 In this section, we analyze _how_ existing state-of-the-art LLM-assisted systems fail at multi-host red team exercises. These insights help inform our design of Incalmo. 
 
@@ -211,7 +258,12 @@ We also found that ExpertPromptShell w/ Sonnet 4 used ssh and reverse shells to 
 
 **Observation 4: Knowledge has context bloat** All of the prior LLM-systems store all knowledge by adding observations (e.g., command outputs) to the context. We found this especially in ExpertPromptShell (the best performing system) and CyberSecEval3, where the context grew with many low-level implementation details clogging the red team’s knowledge in Fig. 5. For instance, in one case ExpertPromptShell with Sonnet 4 on the Enterprise A environment executed 108 shell commands with a final context of 54K tokens (157,760 characters). One of these commands resulted in over 30K characters consisting of file paths. These long contexts likely cause the LLM systems to struggle to maintain a high-level plan [11], [14].<sup>9</sup> 
 
+---
+
 ## **4. Incalmo: An LLM-based system for autonomously executing multi-host red teams** 
+
+> **Section Summary:** In this section, we begin by describing the high-level idea underlying Incalmo before presenting the detailed design.
+
 
 In this section, we begin by describing the high-level idea underlying Incalmo before presenting the detailed design. 
 
@@ -303,7 +355,12 @@ After exploring this futile path, the Sonnet 4 planner decides to infect the oth
 
 the network (not shown in Fig. 9 for brevity). 
 
+---
+
 ## **5. Implementation** 
+
+> **Section Summary:** We implement Incalmo as a Python framework consisting of around 8K lines of code.
+
 
 We implement Incalmo as a Python framework consisting of around 8K lines of code. We implement a custom C&C server and use open-source malware capabilities (from the Caldera project [8]) to infect and send shell commands to hosts.<sup>12</sup> We implement Incalmo with custom Python modules. For the environment state service, we create parsers that interpret command outputs and update the knowledge base. 
 
@@ -327,7 +384,12 @@ In terms of red teaming complexity, we vary the number of critical assets as wel
 ![](images/22-incalmo-an-autonomous-llm-assisted-system-for-red-teaming.pdf-0010-02.png)
 
 
+---
+
 ## **6. Evaluation** 
+
+> **Section Summary:** In this section, we first show end-to-end experiments evaluating the success of Incalmo at autonomously conducting red team exercises in multi-host environments and compare it to baseline solutions.
+
 
 In this section, we first show end-to-end experiments evaluating the success of Incalmo at autonomously conducting red team exercises in multi-host environments and compare it to baseline solutions. Then, we conduct an ablation study to understand the key factors that impact Incalmo’s success. 
 
@@ -449,7 +511,12 @@ In the “all” setup, Sonnet 3.5 as the planner only using Sonnet 3.5 task age
 
 This study also serves two other purposes. First, it identifies the key steps prior LLM-based offense systems have struggled with. Second, it suggests a roadmap to tackle 0-day vulnerabilities via novel AI-based agents when the existing agents lack coverage [73]. 
 
+---
+
 ## **7. Discussion and limitations** 
+
+> **Section Summary:** Next, we briefly discuss limitations and directions for improving the capabilities in Incalmo.
+
 
 Next, we briefly discuss limitations and directions for improving the capabilities in Incalmo. 
 
@@ -467,7 +534,12 @@ _Adding defenders in the loop._ As a first step toward understanding the feasibi
 
 _Memorization._ A concern with LLMs is the memorization of training data. Given that the prior LLM-offense systems failed in MHBench, they may have not been exposed to multi-host network challenges. In contrast, LLMs’ success with CTF challenges [80], [14], [71], [49] may be due to publicly available solutions in training data. However, as MHBench will be released, LLM providers may incorporate MHBench in the training data. Similar to other efforts [1], we envision MHBench as evolving and using “holdout” tests in the future. 
 
+---
+
 ## **8. Other related work** 
+
+> **Section Summary:** We discussed most of the closely related work on LLMassisted cyber offense capabilities in Sec.
+
 
 We discussed most of the closely related work on LLMassisted cyber offense capabilities in Sec. 2. Before we conclude, we briefly discuss other related work. 
 
@@ -475,13 +547,23 @@ _LLM security benchmarks._ As mentioned in Sec. 2, there are many benchmarks for
 
 _Other research in LLMs for security._ In addition, there is work to create LLM-based systems for other security tasks. For instance, there is work evaluating LLMs ability to find vulnerable code (e.g., [72]), using LLMs to summarize defender security logs (e.g., [13]), and using LLMs for anomaly detection (e.g., [15]). Other work has shown how LLMs can be used for social engineering tasks like phishing [57], [25]. These are orthogonal to our focus on multi-host red teams. 
 
+---
+
 ## **9. Conclusions** 
+
+> **Section Summary:** We identify a key gap in existing LLM-based offense capabilities: autonomously executing red teaming exercises in multi-host environments.
+
 
 We identify a key gap in existing LLM-based offense capabilities: autonomously executing red teaming exercises in multi-host environments. We showed that state-of-theart LLM-assisted cyber offense systems struggle in this setting and shed light on the key failure modes of existing solutions. By raising the level of abstraction via decoupling of planning and execution and introducing domain-specific task agents, Incalmo demonstrates the feasibility of LLMassisted red teaming in complex multi-host settings. Across a majority of the diverse environments in MHBench, Incalmo can autonomously find vulnerable services, execute exploits, gain access to networks, discover configurations and vulnerabilities to laterally move, exploit vulnerabilities to escalate privileges, and exfiltrate data. 
 
 We believe Incalmo and MHBench represent a significant advance in our understanding of LLM-assisted red teaming capabilities in realistic multi-host settings. We believe that by lowering the barrier for defenders to run red teaming exercises quickly, cheaply, and often, we can better enable them to proactively protect their networks against future attacks (both human and AI-based). We hope our work spurs further advances in the “science of security” in the use of AI-assisted autonomous cyber defense and offense capabilities. 
 
+---
+
 ## **Ethics considerations** 
+
+> **Section Summary:** In computer security, there is a history of developing dual-use technologies [64], [53].
+
 
 In computer security, there is a history of developing dual-use technologies [64], [53]. For example: fuzzing can find bugs for defenders to patch or attacker to exploit, malware research can help defenders detect malware or attackers evade malware detection, and adversarial ML techniques can help defenders train better models or help attackers trick existing models. In many cases, such dual-use technologies benefit defenders more than attackers [64], [53]. 
 
@@ -505,7 +587,12 @@ _Decision._ We decided to proceed with this research because we believe the bene
 
 _Open Science._ In addition, reproducibility and transparency are key tenets to scientific research [48]. Open source code both assists researchers to reproduce this work and accelerates scientific progress. As a result, similar to other prior offensive systems [14], [80], [8], [54], [44], MHBench, our tools to reproduce prior work, and Incalmo will be open source and publicly available to the research community: https://github.com/bsinger98/Incalmo. 
 
+---
+
 ## **LLM usage considerations** 
+
+> **Section Summary:** _Originality:_ LLMs were used for editorial purposes in this manuscript, and all outputs were inspected by the authors to ensure accuracy and originality.
+
 
 _Originality:_ LLMs were used for editorial purposes in this manuscript, and all outputs were inspected by the authors to ensure accuracy and originality. 
 
@@ -514,6 +601,8 @@ _Transparency:_ We evaluated Incalmo with both openand closed-source LLMs, but w
 results with the closed-source models. We acknowledge that closed-source LLMs may make some of the results harder to reproduce. However, we mitigate this limitation by open-sourcing MHBench, prompts, model numbers, and Incalmo’s code. We also show in Sec. 6 that Incalmo performs well across a diverse range of LLMs. As open-source LLMs increase in capabilities, we envision these models could be used instead of closed-source LLMs. 
 
 _Responsibility:_ We are unable to calculate exact carbon footprints for our experiments [31]. Experiments cost at most $15 of credits and in total we spent around $3,000 of LLM credits across providers. We also took care to design and debug Incalmo on smaller LLMs before executing thorough evaluations to minimize the environmental impact. Furthermore, cyberattacks are extraordinarily costly (in terms of money, energy, human harm, etc) for society [20], [33]. As a result, we conclude that the potential benefits of reducing the cost of red teaming networks to proactively find security gaps outweigh the environmental impact of the research. 
+
+---
 
 ## **References** 
 
@@ -695,7 +784,12 @@ TABLE 3. TOKEN COST OF MULTI-HOST ATTACKS IN 1,000S OF TOKENS
 
 
 
+---
+
 ## **Appendix A. Attack Graph Formalism and Log analysis** 
+
+> **Section Summary:** We use an attack graph formalism to identify where and how prior LLM-based offense systems fail at multi-host red teaming challenges.
+
 
 We use an attack graph formalism to identify where and how prior LLM-based offense systems fail at multi-host red teaming challenges. We then describe the log analysis we conduct with this formalism. 
 
@@ -719,7 +813,12 @@ _Irrelevant tasks._ For each task, we tag the task as irrelevant if the task’s
 
 _Incorrectly implemented commands._ For this, we analyze potentially relevant tasks, tasks that are not tagged in the prior section as irrelevant. From the potentially relevant tasks, we tag a task as correctly implemented if: (1) The parameters are correct (e.g., an nmap scan has the correct flags); and (2) command has no syntax errors. 
 
+---
+
 ## **Appendix B. Environments** 
+
+> **Section Summary:** In this section, we give detailed descriptions of each environment.
+
 
 In this section, we give detailed descriptions of each environment. We algorithmically generate 30 environments in MHBench. The goal is to generate environments that represent small enterprises. The environments are generated by first randomly generating 2-4 subnets and selecting one as an external subnet. Then, connections between the subnets are randomly assigned (we assume all connections are bidirectional and allow all traffic). For each subnet, we randomly generate between 7 and 15 hosts. Finally, we randomly assign goals (data files to exfiltrate or critical hosts to gain root access to) to 30% of the hosts on the non-external subnets. 
 
@@ -750,7 +849,12 @@ _Equifax-inspired environment._ The Equifax-inspired environment has two web ser
 
 To replicate the databases in our environment, we create a second network with 48 database hosts and add files with fake critical consumer data such as emails, social security numbers, and addresses. On a random web server, we add a plain-text SSH configuration file that contains credentials to all the databases. 
 
+---
+
 ## **Appendix C. Token usage** 
+
+> **Section Summary:** We break down the token usage of Incalmo in Table 3.
+
 
 We break down the token usage of Incalmo in Table 3. Incalmo used between 3.5K-5897.1K input tokens and 0.2K-60.1K output tokens for the planning LLMs. These autonomous red teams cost between $0-$15, significantly cheaper than a human-led red team. 
 

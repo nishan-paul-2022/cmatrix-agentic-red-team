@@ -1,5 +1,68 @@
 # 🤖 VulnBot: Autonomous Penetration Testing for A Multi-Agent Collaborative Framework
 
+## Table of Contents
+
+- [📋 Abstract](#abstract)
+- [📚 Table of Contents](#table-of-contents)
+- [1. 🚀 Introduction](#1-introduction)
+  - [Three Approaches Compared](#three-approaches-compared)
+  - [🏆 Key Results](#key-results)
+  - [🎯 Contributions](#contributions)
+- [2. 🎓 Background & Motivation](#2-background-motivation)
+  - [2.1 Background](#2-1-background)
+  - [2.2 Motivation](#2-2-motivation)
+  - [2.2.1 Task Definition](#2-2-1-task-definition)
+  - [2.2.2 Exploratory Study](#2-2-2-exploratory-study)
+    - [📊 Table 1: Failure Counts and Causes for Open-Source LLMs in Different Phases](#table-1-failure-counts-and-causes-for-open-source-llms-in-different-phases)
+  - [2.3 ⚠️ Challenges (Takeaways)](#2-3-challenges-takeaways)
+- [3. 🏗️ Design](#3-design)
+  - [3.1 Overview](#3-1-overview)
+  - [3.2 🎭 Specialization of Roles](#3-2-specialization-of-roles)
+    - [🔍 Reconnaissance](#reconnaissance)
+    - [🔎 Scanning](#scanning)
+    - [💥 Exploitation](#exploitation)
+  - [3.3 🗺️ Penetration Path Planning](#3-3-penetration-path-planning)
+    - [Plan Session](#plan-session)
+    - [Task Session](#task-session)
+    - [🗃️ Memory Retriever](#memory-retriever)
+  - [3.3.1 Task-Driven Mechanism](#3-3-1-task-driven-mechanism)
+    - [Definition 1 — Penetration Task Graph (PTG)](#definition-1-penetration-task-graph-ptg)
+    - [PTG Example](#ptg-example)
+  - [3.3.2 Check and Reflection Mechanism](#3-3-2-check-and-reflection-mechanism)
+    - [Algorithm 1 — Merge Plan Algorithm](#algorithm-1-merge-plan-algorithm)
+  - [3.4 💬 Inter-Agent Communication](#3-4-inter-agent-communication)
+  - [3.5 ⚙️ Generative Penetration Behavior and Interaction](#3-5-generative-penetration-behavior-and-interaction)
+    - [Generator Module](#generator-module)
+    - [Executor Module](#executor-module)
+- [4. 🛠️ Implementation](#4-implementation)
+  - [4.1 Evaluation Settings](#4-1-evaluation-settings)
+- [5. 📊 Evaluation](#5-evaluation)
+  - [5.1 Performance Evaluation (RQ1)](#5-1-performance-evaluation-rq1)
+    - [📊 Table 2: Overall Target Completion Performance](#table-2-overall-target-completion-performance)
+    - [📊 Table 3: Subtask Completion Performance](#table-3-subtask-completion-performance)
+    - [Phase-wise Failure Analysis](#phase-wise-failure-analysis)
+  - [5.2 Ablation Study (RQ2)](#5-2-ablation-study-rq2)
+    - [Ablation Results](#ablation-results)
+  - [5.3 Real-World Effectiveness (RQ3)](#5-3-real-world-effectiveness-rq3)
+    - [📊 Real-World Machine Subtask Completion Rates](#real-world-machine-subtask-completion-rates)
+  - [5.4 Retrieval Augmented Generation (RQ4)](#5-4-retrieval-augmented-generation-rq4)
+    - [📊 RAG Performance Comparison](#rag-performance-comparison)
+- [6. 💬 Discussion](#6-discussion)
+  - [6.1 Limitations in Processing Non-Textual Information](#6-1-limitations-in-processing-non-textual-information)
+  - [6.2 Real-World Performance and Challenges](#6-2-real-world-performance-and-challenges)
+- [7. 📖 Related Work](#7-related-work)
+  - [7.1 Vulnerability Detection and Exploitation](#7-1-vulnerability-detection-and-exploitation)
+  - [7.2 Automated Penetration Testing](#7-2-automated-penetration-testing)
+  - [7.3 Application of LLMs in Cybersecurity](#7-3-application-of-llms-in-cybersecurity)
+- [8. 🎯 Conclusion](#8-conclusion)
+- [📚 References](#references)
+- [Appendix A: Prompt Examples 📝](#appendix-a-prompt-examples)
+  - [A.1 Plan Session Initial Prompt](#a-1-plan-session-initial-prompt)
+    - [Variable Explanations](#variable-explanations)
+  - [A.2 Task Session Initial Prompt](#a-2-task-session-initial-prompt)
+
+---
+
 > **Authors:** He Kong¹², Die Hu¹², Jingguo Ge¹², Liangxiong Li¹, Tong Li¹, and Bingzhen Wu¹
 >
 > ¹ *State Key Laboratory of Cyberspace Security Defense, Institute of Information Engineering, Chinese Academy of Sciences*
@@ -9,7 +72,12 @@
 
 ---
 
+---
+
 ## 📋 Abstract
+
+> **Section Summary:** Penetration testing is a vital practice for identifying and mitigating vulnerabilities in cybersecurity systems, but its manual execution is **labor-intensive** and **time-consuming**.
+
 
 Penetration testing is a vital practice for identifying and mitigating vulnerabilities in cybersecurity systems, but its manual execution is **labor-intensive** and **time-consuming**. Existing large language model (LLM)-assisted or automated penetration testing approaches often suffer from inefficiencies, such as a lack of contextual understanding and excessive, unstructured data generation.
 
@@ -29,6 +97,8 @@ Experimental results demonstrate that VulnBot **outperforms baseline models** su
 
 ---
 
+---
+
 ## 📚 Table of Contents
 
 1. [Introduction](#1-introduction)
@@ -44,7 +114,12 @@ Experimental results demonstrate that VulnBot **outperforms baseline models** su
 
 ---
 
+---
+
 ## 1. 🚀 Introduction
+
+> **Section Summary:** Penetration testing is a critical methodology for proactively identifying network vulnerabilities and mitigating potential cyberattacks.
+
 
 Penetration testing is a critical methodology for proactively identifying network vulnerabilities and mitigating potential cyberattacks. It enables the timely detection of weaknesses in target systems, facilitating targeted remediation and reinforcement efforts.
 
@@ -107,6 +182,8 @@ On **real-world machines** using the AI-Pentest-Benchmark, VulnBot with RAG **au
 - **VulnBot Framework** — An autonomous penetration testing framework leveraging LLMs and multi-agent systems with a tri-phase design (reconnaissance, scanning, exploitation), minimizing information loss and enhancing efficiency.
 - **PTG Mechanism** — A task-driven mechanism based on a Penetration Task Graph, modeling tasks and dependencies as a directed acyclic graph, combined with a **Check and Reflection Mechanism** for continuous improvement and adaptation.
 - **Open-Source LLM Feasibility** — Demonstrated using Llama3.3-70B, Llama3.1-405B, and DeepSeek-V3, achieving a **69.05% subtask completion rate** and **30.3% overall completion rate** on AUTOPENBENCH.
+
+---
 
 ---
 
@@ -185,6 +262,8 @@ Using the **AUTOPENBENCH** benchmark (33 tasks, two difficulty levels), 220 expe
 > **🔵 Takeaway #4: Dynamic Reasoning Across Testing Phases**
 >
 > Penetration testing involves multiple, interdependent phases, each building on information gathered in previous stages. Current systems struggle to maintain this dynamic flow, often requiring human oversight to link findings across phases, resulting in fragmented analyses.
+
+---
 
 ---
 
@@ -429,7 +508,12 @@ Converts the next task from the Planner into a tool-specific command. Example:
 
 ---
 
+---
+
 ## 4. 🛠️ Implementation
+
+> **Section Summary:** The VulnBot prototype was implemented using approximately **3,000 lines of Python code**, complemented by meticulously designed prompts.
+
 
 The VulnBot prototype was implemented using approximately **3,000 lines of Python code**, complemented by meticulously designed prompts.
 
@@ -474,7 +558,12 @@ Instruction: At each run, focus on the observations
 
 ---
 
+---
+
 ## 5. 📊 Evaluation
+
+> **Section Summary:** Four research questions guide the evaluation:
+
 
 Four research questions guide the evaluation:
 
@@ -621,6 +710,8 @@ Three systems compared: Llama3.1-405B with RAG, GPT-4o with Manual, Llama3.1-405
 
 ---
 
+---
+
 ## 6. 💬 Discussion
 
 ### 6.1 Limitations in Processing Non-Textual Information
@@ -636,6 +727,8 @@ A significant limitation of VulnBot is its **inability to process non-textual in
   - Complexity of real-world systems
   - Dynamic nature of security vulnerabilities
   - Need for precise execution of multi-step attack chains
+
+---
 
 ---
 
@@ -678,6 +771,8 @@ A significant limitation of VulnBot is its **inability to process non-textual in
 
 ---
 
+---
+
 ## 8. 🎯 Conclusion
 
 VulnBot is an autonomous penetration testing framework designed to emulate the collaborative workflows of human penetration testing teams, addressing inefficiencies and manual dependencies inherent in traditional methodologies.
@@ -689,6 +784,8 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 - **End-to-end autonomous penetration** of real-world machines through RAG integration — without human intervention
 
 > VulnBot highlights the potential to **revolutionize the field of penetration testing** by enhancing efficiency, scalability, and autonomy.
+
+---
 
 ---
 
@@ -807,6 +904,8 @@ VulnBot is an autonomous penetration testing framework designed to emulate the c
 [56] Jiacen Xu et al. *AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-Attacks*. arXiv preprint arXiv:2403.01038, 2024.
 
 [57] Yikuan Yan, Yaolun Zhang, and Keman Huang. *Depending on Yourself When You Should: Mentoring LLM with RL Agents to Become the Master in Cybersecurity Games*. arXiv preprint arXiv:2403.17674, 2024.
+
+---
 
 ---
 

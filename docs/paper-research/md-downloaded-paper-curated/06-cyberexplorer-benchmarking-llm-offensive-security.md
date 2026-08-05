@@ -1,12 +1,51 @@
 # **CTFExplorer: Evaluating LLM Offensive Agents Through Multi-Target Web CTF Benchmarking** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background and Related Work](#2-background-and-related-work)
+- [3 Method](#3-method)
+  - [3.1 CTFExplorer Benchmark](#3-1-ctfexplorer-benchmark)
+  - [3.2 CTFExplorer Agent](#3-2-ctfexplorer-agent)
+  - [3.3 CTFExplorerEval Methodology](#3-3-ctfexplorereval-methodology)
+  - [3.4 Evaluation Measures](#3-4-evaluation-measures)
+- [4 Results and Analysis](#4-results-and-analysis)
+  - [4.1 Exploration Efficiency](#4-1-exploration-efficiency)
+  - [4.2 Exploration Progression](#4-2-exploration-progression)
+  - [4.3 Reasoning Depth Analysis](#4-3-reasoning-depth-analysis)
+- [5 Case Study](#5-case-study)
+- [6 Conclusion and Future Work](#6-conclusion-and-future-work)
+- [References](#references)
+- [A Graph Analysis](#a-graph-analysis)
+- [B Evidence Analysis](#b-evidence-analysis)
+- [C OWASP-aligned Vulnerability](#c-owasp-aligned-vulnerability)
+- [D Flag Capture via Agentic Knowledge Transfer](#d-flag-capture-via-agentic-knowledge-transfer)
+  - [D.1 Chaining Agents](#d-1-chaining-agents)
+  - [’;/bin/c?t /fl;’](#bin-c-t-fl)
+  - [D.2 Supervised Tasks, Critic Pivot](#d-2-supervised-tasks-critic-pivot)
+  - [D.3 Conclusion](#d-3-conclusion)
+- [E Hyperparameter Sensitivity and Agent Escalation Dynamics](#e-hyperparameter-sensitivity-and-agent-escalation-dynamics)
+  - [E.1 Hyperparameter Configuration and Experimental Design](#e-1-hyperparameter-configuration-and-experimental-design)
+  - [E.2 Sensitivity of Budget–Escalation Strategies](#e-2-sensitivity-of-budget-escalation-strategies)
+  - [E.3 Agent Dynamics and Escalation Behavior](#e-3-agent-dynamics-and-escalation-behavior)
+  - [E.4 Depth–Breadth Trade-off in Agentic Reasoning](#e-4-depth-breadth-trade-off-in-agentic-reasoning)
+  - [E.5 Cross-Model Behavioral Comparison under Identical Regimes](#e-5-cross-model-behavioral-comparison-under-identical-regimes)
+
+---
+
 **Nanda Rani**<sup>1</sup><sup>_,∗_</sup> **Kimberly Milner**<sup>2</sup><sup>_,∗_</sup> **Minghao Shao**<sup>2</sup><sup>_,_3</sup><sup>_∗_</sup> **Meet Udeshi**<sup>2</sup> **Haoran Xi**<sup>2</sup> **Venkata Sai Charan Putrevu**<sup>2</sup> **Saksham Aggarwal**<sup>2</sup> **Sandeep K. Shukla**<sup>4</sup> **Prashanth Krishnamurthy**<sup>2</sup> **Farshad Khorrami**<sup>2</sup> **Muhammad Shafique**<sup>3</sup> **Ramesh Karri**<sup>2</sup> 
 
 1CISPA - Helmholtz Center for Information Security 2NYU Tandon School of Engineering 3NYU Abu Dhabi 4IIIT Hyderabad 
 
 ## **Abstract** 
 
+> **Section Summary:** Existing benchmarks for LLM-based offensive security agents use isolated, singletarget setups with a known vulnerable service and fixed objective.
+
+
 Existing benchmarks for LLM-based offensive security agents use isolated, singletarget setups with a known vulnerable service and fixed objective. They measure exploitation effectively, but miss how real Capture-the-Flag (CTF) participants triage unknown surfaces, prioritize targets, and allocate effort under uncertainty. Current evaluations therefore fail to assess strategic reasoning beyond exploitation alone. To address this, we introduce _CTFExplorer_ , a benchmark suite that shifts offensive security evaluation toward a multi-target setting, which tests how agents explore, prioritize, and chain attacks. CTFExplorer deploys 40 web-based vulnerable services within a single environment, where agents must autonomously discover, distinguish, and exploit targets without predefined guidance. We also present a reactive multi-agent setup as a reference agent framework and develop an agent-agnostic evaluation framework that records structured reasoning traces for fine-grained assessment. This enables behavioral evaluation beyond binary flag capture, such as how agents manage target selection, handle failed hypotheses, coordinate across multiple stages, and extract security intelligence. 
+
+---
 
 ## **1 Introduction** 
 
@@ -24,7 +63,12 @@ To address these challenges, we propose _Multi-Target CTF Benchmarking_ , an eva
 
 We present _CTFExplorer_ , a benchmark suite that deploys 40 web-based vulnerable services within a single environment, paired with a reactive multi-agent architecture featuring parallel exploration, supervisor-guided knowledge transfer, and critic-based trajectory correction. Our contributions are: (1) CTFExplorer Benchmark, a multi-attack surface evaluation setting that captures the strategic dimensions of real CTF competitions absent from isolated benchmarks. (2) CTFExplorer Agent, a multi-agent setup with parallel entrypoint exploration, supervisor-guided agentic chaining, and critic intervention as a reference agent framework for studying agent behavior. (3) CTFExplorerEval, an agent-agnostic evaluation system that exposes a standardized tool interface via the Model Context Protocol, records structured reasoning traces and maintains a live knowledge graph throughout each session, enabling fine-grained assessment of agent behaviour beyond binary flag capture. (4) Evaluations of six state-of-the-art LLMs across correctness and efficiency analysis metrics. 
 
+---
+
 ## **2 Background and Related Work** 
+
+> **Section Summary:** Advances in LLMs have enabled autonomous agents with multi-step reasoning, tool use, and environment interaction [5, 16, 31].
+
 
 Advances in LLMs have enabled autonomous agents with multi-step reasoning, tool use, and environment interaction [5, 16, 31]. These capabilities inform research on LLM-based cybersecurity systems for vulnerability discovery, exploit generation, and automated CTF solving [12, 26, 15, 20, 22]. Such systems use agent loops that combine reasoning, action, and observation to conduct offensive tasks. 
 
@@ -84,7 +128,12 @@ isolated targets, which limits its ability to capture autonomous exploration, ta
 
 Most methods use isolated setups where agents exploit a single target. This limits evaluation of target selection, prioritization, attack chaining, and effort management across challenges. These environments lack distractors, so agents face fewer false positives and dead ends, which can overestimate reasoning ability. CTFExplorer moves to a multi-attack setting with many services running together. Agents must perform reconnaissance, select targets, and exploit them without guidance. With a multi-agent setup and an agent-agnostic evaluation system, it supports behavioral assessment beyond success rate. 
 
+---
+
 ## **3 Method** 
+
+> **Section Summary:** CTFExplorer is implemented in a controlled virtual machine (VM) environment that hosts multiple vulnerable services.
+
 
 CTFExplorer is implemented in a controlled virtual machine (VM) environment that hosts multiple vulnerable services. Each service runs in a separate Docker container and is exposed through network ports, which collectively forms the benchmark’s observable attack surface. The environment includes vulnerable, stateless services as standalone containers for consistent deployment. Containers interact through external endpoints. Multiple services running together create a partially observable and noisy setup. Agents do not know services or vulnerabilities and must infer targets through probing, interaction, and hypothesis refinement. This setup reflects realistic environments where multiple unrelated services coexist on a host. It stresses agent capabilities like target discrimination, uncertainty handling, and prioritization that are not exercised in isolated settings. 
 
@@ -190,7 +239,12 @@ These measures capture task success, efficiency, and exploration quality, suppor
 
 **Models** To assess generality, we evaluate agents across both closed and open LLMs, including `GPT 5.2` , `Claude Opus 4.5` , `Claude Sonnet 4` , `Gemini 3 Pro` , `DeepSeek V4 Pro` , and `Qwen 3.5 397B-A17B` . This range captures different architectures and training setups to study how model choice affects performance. For fairness, we use fixed budgets on iterations and cost per entry point. These constraints reflect realistic settings and ensure that differences come from reasoning and decision making rather than excessive computation. 
 
+---
+
 ## **4 Results and Analysis** 
+
+> **Section Summary:** Table 4 shows the performance for all models on CTFExplorer.
+
 
 Table 4 shows the performance for all models on CTFExplorer. Performance varies across models in how they balance exploration and accurate exploitation. `Gemini 3 Pro` finds the most flags (13/40) and has the highest recall (27.50%). In contrast, `Claude Opus 4.5` , `GPT 5.2` , and `DeepSeek V4 Pro` achieve perfect precision, which means every submitted flag is correct. This reflects reliable exploitation once a target is identified. The entry-point resolution shows that several models interact with all 40 targets within the budget. However, this does not always lead to correct flags. For example, Gemini 3 Pro explores all targets but converts only some into valid flags, while Claude Opus 4.5 covers fewer targets but achieves perfect correctness. This shows a gap between broad exploration and effective exploitation. The results further reveal a clear precision and recall trade-off. High precision models follow a conservative strategy, with no incorrect flags but lower recall. Models with higher recall explore more and improve coverage, but produce some incorrect flags. This shows that agents favor either careful validation or broader exploration, without a balance between the two. Overall, these results show that strong performance in CTFExplorer needs both broad coverage and accurate reasoning. Some models perform well in parts, but none excel across all aspects, which highlights the need for evaluation beyond simple success rates. 
 
@@ -266,7 +320,12 @@ Costs remain similar across models. DeepSeek V4 Pro and Qwen 3.5 are lowest (aro
 
 Extended evaluations in Appendix include finding graph analysis, evidence analysis, OWASP analysis, agentic knowledge transfer, and hyperparameter tuning. 
 
+---
+
 ## **5 Case Study** 
+
+> **Section Summary:** To show multi-step reasoning, we present two cases: _The Silent Corridor_ and _The Glass Atrium_ .
+
 
 To show multi-step reasoning, we present two cases: _The Silent Corridor_ and _The Glass Atrium_ . These require agents to track state across reconnaissance, exploitation, internal discovery, and pivoting. 
 
@@ -289,7 +348,12 @@ No model produces incorrect flags, which shows reliable execution once a path is
 
 initial exploration (L0–L1) to intermediate stages (L2–L3), which shows structured progression. For example, GPT-5.2 steadily increases reasoning depth to L3 on the main entry point while keeping controlled exploration on others. A common pattern is early stabilization at L1, followed by selective moves to deeper levels. Strong models progress to L3, which shows effective vulnerability identification and exploitation. Moves to L4 remain limited, which matches the incomplete flag coverage in Table 4. Overall, the results show that current agents are strong at early-stage reasoning, including reconnaissance and initial exploitation, and can extend this reasoning into subsequent stages in selective cases. The variation in flag coverage highlights differences in how effectively models sustain reasoning across chained steps such as internal discovery and pivoting. 
 
+---
+
 ## **6 Conclusion and Future Work** 
+
+> **Section Summary:** CTFExplorer is a behavior-centric evaluation framework for simulating open-ended attack environments to benchmark LLMs’ offensive security capabilities.
+
 
 CTFExplorer is a behavior-centric evaluation framework for simulating open-ended attack environments to benchmark LLMs’ offensive security capabilities. By instrumenting agent interactions, 
 
@@ -297,7 +361,12 @@ CTFExplorer is a behavior-centric evaluation framework for simulating open-ended
 
 CTFExplorer enables analysis beyond isolated environments with binary success, exposing reasoning efficiency, coordination dynamics, failure persistence, and security-relevant signals that are invisible in success-only benchmarks. Our results demonstrate that agent performance is governed not only by outcomes, but by how agents converge and manage incorrect hypotheses under realistic constraints. CTFExplorer can extend to broader attack surfaces, adaptive orchestration, and repeated-run robustness evaluation. It is a foundation for systematic, behavior-aware evaluation of autonomous security agents, supporting efficient and controllable agent design. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E Jimenez, Farshad Khorrami, et al.
+
 
 - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E Jimenez, Farshad Khorrami, et al. Enigma: Enhanced interactive generative model agent for ctf challenges. _arXiv preprint arXiv:2409.16165_ , 2024. 
 
@@ -369,7 +438,12 @@ CTFExplorer enables analysis beyond isolated environments with binary success, e
 
 - [33] Jie Zhang, Haoyu Bu, Hui Wen, Yongji Liu, Haiqiang Fei, Rongrong Xi, Lun Li, Yun Yang, Hongsong Zhu, and Dan Meng. When llms meet cybersecurity: A systematic literature review. _Cybersecurity_ , 8(1):55, 2025. 
 
+---
+
 ## **A Graph Analysis** 
+
+> **Section Summary:** The reasoning structure, captured through the number of nodes and edges in the evaluation knowledge graph, reflects how agents build and connect intermediate steps.
+
 
 The reasoning structure, captured through the number of nodes and edges in the evaluation knowledge graph, reflects how agents build and connect intermediate steps. As shown in Table 8, GPT 5.2 constructs the largest graph (1569 nodes, 1529 edges), which indicates a detailed and exhaustive process. In contrast, DeepSeek V4 Pro and Gemini 3 Pro produce more compact graphs, which suggests concise reasoning with fewer steps. These differences highlight distinct reasoning styles, from compact decision making to more extensive exploration. Fig. 7 shows sample reasoning graphs for each model. 
 
@@ -389,7 +463,12 @@ Table 8: Reasoning Graph Size across models
 
 Figure 7: Target-wise reasoning graph across models 
 
+---
+
 ## **B Evidence Analysis** 
+
+> **Section Summary:** To complement the primary evaluation, we analyze persistent evidence artifacts generated during execution.
+
 
 To complement the primary evaluation, we analyze persistent evidence artifacts generated during execution. These artifacts are files written by agents, such as HTML pages or text notes, and are treated as observable outputs without assumptions about correctness. Table 9 summarizes evidence generation across models. We report the number of agents that produce at least one artifact and the total number of files. Evidence generation varies across models. GPT 5.2 and Qwen 3.5 produce evidence more frequently, with a large number of agents generating artifacts and higher total files. DeepSeek V4 Pro shows moderate activity, while Gemini 3 Pro and Opus 4.5 produce very few artifacts. 
 
@@ -409,7 +488,12 @@ Table 9: Summary of persistent evidence artifacts generated by agents across mod
 
 Across models, agents typically generate a small number of files per instance. Even for GPT 5.2 and Qwen 3.5, the average remains low relative to total agents, which indicates that persistent artifact generation is not a dominant behavior. Overall, evidence artifacts appear as a secondary outcome of interaction rather than a core strategy. We treat them as auxiliary signals and do not use them as indicators of task success or exploit effectiveness. 
 
+---
+
 ## **C OWASP-aligned Vulnerability** 
+
+> **Section Summary:** To interpret extracted findings through a security-relevant lens, we further map vulnerability signals to the OWASP Top-10 taxonomy using keyword-based matching over finding descriptions.
+
 
 To interpret extracted findings through a security-relevant lens, we further map vulnerability signals to the OWASP Top-10 taxonomy using keyword-based matching over finding descriptions. Fig. 8 presents the normalized distribution of discovered vulnerability categories across models. 
 
@@ -424,7 +508,12 @@ Figure 8: OWASP Top-10 category distribution of extracted findings (normalized p
 
 Across all agents, the majority of findings concentrate in A01 (Broken Access Control) and A03 (Injection), reflecting the dominant exploitation primitives present in realistic web-based attack surfaces. Categories such as cryptographic failures and insecure design remain sparse, consistent with the limited observability of such flaws in black-box interaction settings. 
 
+---
+
 ## **D Flag Capture via Agentic Knowledge Transfer** 
+
+> **Section Summary:** Here we demonstrate how the agentic chain and knowledge hand-off can exploit a command injection vulnerability of medium difficulty.
+
 
 Here we demonstrate how the agentic chain and knowledge hand-off can exploit a command injection vulnerability of medium difficulty. The target application seen in Table 10 accepts a parameter for date/time formatting passing it to a shell terminal without proper input sanitization, using anti-pattern black-listing to block payloads. As this method of input sanitization is a security flaw the multi-agent system is able to successfully bypass the constraints through iterative hypothesis refinement across the agentic chain. 
 
@@ -453,7 +542,10 @@ flowchart TD
 
 
 <!-- Start of picture text -->
-AGENT 0: DISCOVERY AGENT 1: CONFIRM<br>Found: 🔍 Found:  ?format= ?format= 🛠 Try:Try:  '%0aid%0a' '%0aid%0a'<br>Tried: 🛠 Tried:  $(id) $(id) Error: 💥 Error:  sh: 3: Perm d sh: 3: P e niedrm denied<br>❌ Result:Result:  Echoed literal Echoed literal ✅ Shell ErrorSHELL CONFIRMED<br>Po tential Injectiontential Injection Fi lter Activelter Active<br>AGENT 3: FILTER ID AGENT 2: MAPPING<br>Failed: 🚫 Failed:  /bin/cat, e /bin/ c hoat, echo Failed:  TZ, ; , |<br>✅🛑 Identified:Identified:  Blacklist fil er Blacklis t Constraint:  Newlines<br>ST UCK - ask CriticUCK - Budget Warn ✅ Identified:  require quotes (%27)<br>AGENT 5: SOLVER<br>CRITIC @ 80%<br>Try Bypasses: ✅ Inherited:  21 fails +<br>Backticks+IFS, Wildcard Idea<br>Subshell Payload: ;/bin/c?t /fl*;<br>Flag:  HTB{...}<br>✅ SOLVED<br>AGENT 4: GRIND<br>🛠 Actions:  Exhausted<br>Actions: all common bypasses. Exhaust<br>all common bypasses.❌ Result:  All blocked.<br>❌ BUDGET EXHAUSTED Result:  All blocked. CRITIC HANDOFF<br>Key Idea:<br>Wildcard Globbing<br>/bin/c?t /fl*<br><!-- End of picture text -->
+AGENT 0: DISCOVERY AGENT 1: CONFIRM<br>Found: 🔍 Found:  ?format= ?format= 🛠 Try:Try:  '%0aid%0a' '%0aid%0a'<br>Tried: 🛠 Tried:  $(id) $(id) Error: 💥 Error:  sh: 3: Perm d sh: 3: P e niedrm denied<br>❌ Result:**Result:**  Echoed literal Echoed literal ✅ Shell ErrorSHELL CONFIRMED<br>Po tential Injectiontential Injection Fi lter Activelter Active<br>AGENT 3: FILTER ID AGENT 2: MAPPING<br>Failed: 🚫 Failed:  /bin/cat, e /bin/ c hoat, echo Failed:  TZ, :
+- , |<br>✅🛑 Identified:Identified:  Blacklist fil er Blacklis t Constraint:  Newlines<br>ST UCK - ask CriticUCK - Budget Warn ✅ Identified:  require quotes (%27)<br>AGENT 5: SOLVER<br>CRITIC @ 80%<br>Try Bypasses: ✅ Inherited:  21 fails +<br>Backticks+IFS, Wildcard Idea<br>Subshell Payload:
+- /bin/c?t /fl*
+- <br>Flag:  HTB{...}<br>✅ SOLVED<br>AGENT 4: GRIND<br>🛠 Actions:  Exhausted<br>Actions: all common bypasses. Exhaust<br>all common bypasses.❌ **Result:**  All blocked.<br>❌ BUDGET EXHAUSTED **Result:**  All blocked. CRITIC HANDOFF<br>Key Idea:<br>Wildcard Globbing<br>/bin/c?t /fl*<br><!-- End of picture text -->
 
 Figure 9: CyberExplorer agentic chain: Knowledge handoff via context injection, exploration pivot via context injection by Critic. 
 
@@ -580,6 +672,8 @@ Table 13: Supervisor Guidance Effectiveness: Agent Outcomes
 |5|Variable concatenation|Led to wildcard variant|
 
 
+
+---
 
 ## **E Hyperparameter Sensitivity and Agent Escalation Dynamics** 
 

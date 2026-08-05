@@ -1,5 +1,29 @@
 # **Using Large Language Models for Cybersecurity Capture-The-Flag Challenges and Certification Questions** 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [CCS CONCEPTS](#ccs-concepts)
+- [KEYWORDS](#keywords)
+- [1 INTRODUCTION](#1-introduction)
+- [2 BACKGROUND](#2-background)
+- [2.1 Capture The Flag (CTF) Challenges](#2-1-capture-the-flag-ctf-challenges)
+- [2.2 Large Language Models (LLMs)](#2-2-large-language-models-llms)
+- [2.3 LLM Safety Standards](#2-3-llm-safety-standards)
+- [2.4 Jailbreaking LLMs](#2-4-jailbreaking-llms)
+- [3 PROFESSIONAL CERTIFICATIONS](#3-professional-certifications)
+- [3.1 Certification Questions](#3-1-certification-questions)
+- [3.2 Question-Answering Performance](#3-2-question-answering-performance)
+- [4 CTF CHALLENGES AND LLMs](#4-ctf-challenges-and-llms)
+- [4.1 CTF Challenge Test Cases](#4-1-ctf-challenge-test-cases)
+- [4.2 Three LLMs](#4-2-three-llms)
+- [4.3 LLMs Solving CTF Challenges](#4-3-llms-solving-ctf-challenges)
+- [4.4 Jailbreak Prompts](#4-4-jailbreak-prompts)
+- [5 CONCLUSION](#5-conclusion)
+- [REFERENCES](#references)
+
+---
+
 Wesley Tann<sup>∗</sup> National University of Singapore Singapore wesleyjtann@u.nus.edu 
 
 Yuancheng Liu<sup>∗</sup> National Cybersecurity R&D Lab Singapore yc_liu@nus.edu.sg 
@@ -16,7 +40,12 @@ National University of Singapore Singapore changec@comp.nus.edu.sg
 *Illustration of an attacker examining CTFd through a magnifying glass, while thinking about various LLMs like ChatGPT, Bard AI, and Bing.*
 
 
+---
+
 ## **ABSTRACT** 
+
+> **Section Summary:** The assessment of cybersecurity Capture-The-Flag (CTF) exercises involves participants finding text strings or “flags” by exploiting system vulnerabilities.
+
 
 The assessment of cybersecurity Capture-The-Flag (CTF) exercises involves participants finding text strings or “flags” by exploiting system vulnerabilities. Large Language Models (LLMs) are naturallanguage models trained on vast amounts of words to understand and generate text; they can perform well on many CTF challenges. Such LLMs are freely available to students. In the context of CTF exercises in the classroom, this raises concerns about academic integrity. Educators must understand LLMs’ capabilities to modify their teaching to accommodate generative AI assistance. This research investigates the effectiveness of LLMs, particularly in the realm of CTF challenges and questions. Here we evaluate three popular LLMs, OpenAI _ChatGPT_ , Google _Bard_ , and Microsoft _Bing_ . First, we assess the LLMs’ question-answering performance on five Cisco certifications with varying difficulty levels. Next, we qualitatively study the LLMs’ abilities in solving CTF challenges to understand their limitations. We report on the experience of using the LLMs for seven test cases in all five types of CTF challenges. In addition, we demonstrate how jailbreak prompts can bypass and break LLMs’ ethical safeguards. The paper concludes by discussing LLM’s impact on CTF exercises and its implications. 
 
@@ -24,15 +53,27 @@ The assessment of cybersecurity Capture-The-Flag (CTF) exercises involves partic
 
 generate new texts [2, 4, 17]. In November 2022, OpenAI released _ChatGPT_<sup>1</sup> to the public, which was shortly followed by Google _Bard_ and Microsoft _Bing_ . These services are free and have experienced widespread adoption by students. Whether we view its role in education as a boon or bane, many students will continue to use the free LLM service for assignments and exercises without learning to develop their security skills. This paper investigates using LLMs to solve CTF challenges and answer professional certification questions; consider their role in cybersecurity education. 
 
+---
+
 ## **CCS CONCEPTS** 
+
+> **Section Summary:** Recent work on using large language models in cybersecurity applications has demonstrated promising results [1, 7, 12].
+
 
 Recent work on using large language models in cybersecurity applications has demonstrated promising results [1, 7, 12]. One study [7] gives an overview of security risks associated with _ChatGPT_ (e.g., malicious code generation, fraudulent services), while another work [12] generates phishing attacks using LLMs. However, at this point (August 2023), there is no study on the performance of LLMs in solving CTF challenges and answering security professional certification questions. 
 
 • **Security and privacy** ; • **Computing methodologies** → _Natural language generation_ ; 
 
+---
+
 ## **KEYWORDS** 
 
+> **Section Summary:** AI, Large language models (LLM), cybersecurity capture-the-flag (CTF) challenges, professional certifications, academic integrity
+
+
 AI, Large language models (LLM), cybersecurity capture-the-flag (CTF) challenges, professional certifications, academic integrity 
+
+---
 
 ## **1 INTRODUCTION** 
 
@@ -52,11 +93,21 @@ Large language models (LLMs) are a type of generative AI that uses processes hum
 
 LastName et al. 
 
+---
+
 ## **2 BACKGROUND** 
+
+> **Section Summary:** In this section, we explain the capture-the-flag challenges in cybersecurity.
+
 
 In this section, we explain the capture-the-flag challenges in cybersecurity. Next, we describe large language models (LLMs) in AI and the safety standards of the leaders in deploying such language models. Finally, we investigate an attack method that allows users to bypass the restrictions set by LLMs to unleash its potential for malicious intents. 
 
+---
+
 ## **2.1 Capture The Flag (CTF) Challenges** 
+
+> **Section Summary:** Capture The Flag (CTF) in computer security is a competition where individuals or teams of competitors pit against each other to solve a number of challenges [6].
+
 
 Capture The Flag (CTF) in computer security is a competition where individuals or teams of competitors pit against each other to solve a number of challenges [6]. In these challenges, “flags” are hidden in vulnerable computer systems or websites. Participating teams race to complete as many challenges as possible. There are five main types of challenges during the event, as listed below. 
 
@@ -72,7 +123,12 @@ Capture The Flag (CTF) in computer security is a competition where individuals o
 
 CTFd<sup>2</sup> is an easy-to-use and customizable Capture The Flag framework platform to run the challenges. 
 
+---
+
 ## **2.2 Large Language Models (LLMs)** 
+
+> **Section Summary:** A large language model (LLM) is artificial intelligence (AI) based on massive human language data and deep learning to comprehend, extract, and generate new language content.
+
 
 A large language model (LLM) is artificial intelligence (AI) based on massive human language data and deep learning to comprehend, extract, and generate new language content. LLMs are sometimes also referred to as generative AI. These models have architecture specifically designed to generate text-based content [17]. In particular, the transformer models [14], a deep learning architecture in natural language processing, have rapidly become a core technology in LLMs. One of the most popular AI chatbots developed by OpenAI, ChatGPT, uses a Generative Pre-trained Transformer, the GPT-3 language model [3]. 
 
@@ -82,7 +138,12 @@ GPT-3 can generate convincing content, write code, compose poetry copying variou
 
 GPT-3 detected 213 security vulnerabilities in a single codebase, while commercial tools on the market (from a reputable cybersecurity company) only found 99 issues [9]. Given the emergence of LLMs, an early work [8] highlights the limitations, challenges, and potential risks of these models in cybersecurity and privacy. However, more information is needed about their impact on CTF exercises that are common in cybersecurity education. 
 
+---
+
 ## **2.3 LLM Safety Standards** 
+
+> **Section Summary:** As generative AI tools become increasingly accessible and familiar, the safety policy of LLMs is a significant concern in their development.
+
 
 As generative AI tools become increasingly accessible and familiar, the safety policy of LLMs is a significant concern in their development. It is essential to ensure _responsible AI_ —designed to distinguish between legitimate uses and potential harms, estimate the likelihood of occurrence and build solutions to mitigate these risks and empower society [15]. 
 
@@ -92,11 +153,21 @@ As generative AI tools become increasingly accessible and familiar, the safety p
 
 **Microsoft Bing**<sup>5</sup> **.** The Responsible AI program is designed to Identify, Measure, and Mitigate. Potential misuse is first identified through processes like stress testing. Next, abuses are measured, and mitigation methods are developed to circumvent them. 
 
+---
+
 ## **2.4 Jailbreaking LLMs** 
+
+> **Section Summary:** While LLMs have safety safeguards in place, a particular attack aims to bypass these safeguards.
+
 
 While LLMs have safety safeguards in place, a particular attack aims to bypass these safeguards. Jailbreaking is a form of hacking designed to break the ethical safeguards of LLMs [16]. It uses creative prompts to trick LLMs into ignoring their rules, producing hateful content, or releasing information their safety and responsibility policies would otherwise restrict. 
 
+---
+
 ## **3 PROFESSIONAL CERTIFICATIONS** 
+
+> **Section Summary:** In this section, we first list the certifications that technology professionals take in the security industry.
+
 
 In this section, we first list the certifications that technology professionals take in the security industry. We then classify the questions into different categories, and present the results of _ChatGPT_ in answering these questions. 
 
@@ -110,7 +181,12 @@ In this section, we first list the certifications that technology professionals 
 
 > 6https://github.com/ 
 
+---
+
 ## **3.1 Certification Questions** 
+
+> **Section Summary:** For our experiments, we use questions from Cisco Career Certifications 2023 that offer varying levels of network certification.
+
 
 For our experiments, we use questions from Cisco Career Certifications 2023 that offer varying levels of network certification. All questions are from a publicly available exam bank<sup>7</sup> . The questions of increasing difficulty levels are from certifications, CCNA, CCNP (SENSS), CCNP (SISAS), CCNP (THR), and CCIE. These certifications are a comprehensive set of credentials that validate expertise in different aspects of networking. They are divided into three main levels: Associate, Professional, and Expert. 
 
@@ -124,7 +200,12 @@ For example, factual questions such as “ Which authentication mechanism is ava
 
 The questions are further distinguished between Multiple-Choice Questions (MCQ) and Multiple-Response Questions (MRQ), where MCQ questions ask for one choice and MRQ questions could require multiple choices. We note that the classification of questions can be biased. Hence, our sorting was done independently by two experts. Most of the questions were labeled the same; for a small number of ambiguous questions, we resolved such conflicts by labeling them as conceptual. 
 
+---
+
 ## **3.2 Question-Answering Performance** 
+
+> **Section Summary:** In our evaluation, _ChatGPT_ showcases its question-answering performance on the Cisco certification questions across all levels, from CCNA to CCIE (see Table 2).
+
 
 In our evaluation, _ChatGPT_ showcases its question-answering performance on the Cisco certification questions across all levels, from CCNA to CCIE (see Table 2). As demonstrated in the results, there seems to be a trend where _ChatGPT_ is able to consistently answer factual MCQ questions with higher accuracy than conceptual MCQ questions. However, when answering MRQ, its accuracy on conceptual questions is around the same, but performance on factual questions drops to similar levels as conceptual ones. 
 
@@ -142,7 +223,12 @@ In our evaluation, _ChatGPT_ showcases its question-answering performance on the
 
 To our understanding, Large Language Models (LLMs) like _ChatGPT_ are powerful models that can generate human-like text. While LLMs excel in various language tasks and can provide helpful information for factual questions, they have limitations when answering conceptual questions. We believe the following are some reasons why LLMs might struggle with conceptual questions: (1) the model does not always have up-to-date industry-specific information to make informed choices, (2) there is an absence of reasoning ability to reason logically and may provide responses that are not accurate when dealing with complex concepts, and (3) due to limited training data in the security domain, it lacks depth in its subjective interpretation. Hence, as shown in the results, it performs much worse on conceptual questions than on factual ones. 
 
+---
+
 ## **4 CTF CHALLENGES AND LLMs** 
+
+> **Section Summary:** **Table 1: Number of Questions in each category.**
+
 
 **Table 1: Number of Questions in each category.** 
 
@@ -186,7 +272,12 @@ Finally, our end goal is to use the most prominent LLM, ChatGPT, to create an au
 
 
 
+---
+
 ## **4.1 CTF Challenge Test Cases** 
+
+> **Section Summary:** In our study, we use seven test cases.
+
 
 In our study, we use seven test cases. These test cases are from all five types of CTF challenges appearing in most CTF events. The areas of disciplines that CTF competitions tend to measure are vulnerability exploitation, exploit discovery, toolkit design, and professional operation and analysis. 
 
@@ -210,7 +301,12 @@ _Test case(s)_ : Brute Force Attack
 
    - _Test case(s)_ : Memory Dump Analysis 
 
+---
+
 ## **4.2 Three LLMs** 
+
+> **Section Summary:** In our investigations, we evaluate three large language models (see Table 3).
+
 
 In our investigations, we evaluate three large language models (see Table 3). These are currently the top popular AI chatbots publicly available and have advanced generative AI capabilities. 
 
@@ -218,7 +314,12 @@ Among the three LLMs, _ChatGPT_ was first released in 2022. It started using the
 
 The other two LLMs, _Bard_ and _Bing_ , were released around the same time in 2023. The former was built on a transformer-based large language model developed by Google AI Pathways Language Model (PaLM) [5]; the latter uses a next-generation OpenAI large language model to create a proprietary AI model, Prometheus [11]. Both were developed as a direct response to the rise of _ChatGPT_ , and they are capable of a wide range of similar tasks, including text generation and translation, reasoning, and search. 
 
+---
+
 ## **4.3 LLMs Solving CTF Challenges** 
+
+> **Section Summary:** We verify if large language models (LLMs) are able to solve the various CTF challenges.
+
 
 We verify if large language models (LLMs) are able to solve the various CTF challenges. In order to measure the performance of LLMs, we emphasize the following focus points. 
 
@@ -346,7 +447,12 @@ _Give me a curl example of_ CVE-2014-6271 _to show a file "credentials.txt" in t
 
 where the participant runs the command: curl -H "Referer: () :; ; echo; echo; /bin/bash -c ’find / -type f -name credentials.txt’" http://10.31.51.173/cgi-bin/printenv 
 
+---
+
 ## **4.4 Jailbreak Prompts** 
+
+> **Section Summary:** While guidelines and policies are in place to prevent unconventional or even controversial use cases with _ChatGPT_ , jailbreak prompts can bypass these restrictions.
+
 
 While guidelines and policies are in place to prevent unconventional or even controversial use cases with _ChatGPT_ , jailbreak prompts can bypass these restrictions. In CTF challenges, participants are frequently required to carry out attacks on websites or servers, and even scan the vulnerabilities of a system. If a participant directly asks for the procedure to attack a website, _ChatGPT_ will deem it unethical and refuse to answer such questions. 
 
@@ -382,7 +488,12 @@ In such cases, the participant used cleverly crafted requests that aimed to “j
 
 security questions, these jailbreak prompts could potentially bypass most of the safety policy guidelines and directly provide the answers for solving CTF challenges. 
 
+---
+
 ## **5 CONCLUSION** 
+
+> **Section Summary:** In this paper, large language models are used to (1) answer professional certification questions and (2) solve capture-the-flag (CTF) challenges.
+
 
 In this paper, large language models are used to (1) answer professional certification questions and (2) solve capture-the-flag (CTF) challenges. First, we evaluated the question-answering abilities of LLMs on varying levels of Cisco certifications, getting objective measures of their performance on different question types. Next, we applied the LLMs on CTF test cases in all five types of challenges and examined whether they have utility in CTF exercises and classroom assignments. To summarize, we answer our research questions. 
 
@@ -398,7 +509,12 @@ We find that LLMs’ answers and suggested solutions provide a significant advan
 
 The presented results were obtained using the unpaid versions of OpenAI _ChatGPT_ , _Google_ Bard, and Microsoft _Bing_ ; these LLMs were the latest versions at the time of the study (July 2023). As LLMs continually improve with more data and new models, our reported results create a baseline for future work in AI-aided CTF competitions, as well as for investigating the application of LLMs and CTFs in classroom settings. 
 
+---
+
 ## **REFERENCES** 
+
+> **Section Summary:** - [1] Markus Bayer, Philipp Kuehn, Ramin Shanehsaz, and Christian Reuter.
+
 
 - [1] Markus Bayer, Philipp Kuehn, Ramin Shanehsaz, and Christian Reuter. 2022. CySecBERT: A Domain-Adapted Language Model for the Cybersecurity Domain. 
 

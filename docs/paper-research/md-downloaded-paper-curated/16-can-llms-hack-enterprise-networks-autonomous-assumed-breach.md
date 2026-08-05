@@ -1,10 +1,75 @@
 # **Can LLMs Hack Enterprise Networks?** 
 
+## Table of Contents
+
+- [ANDREAS HAPPE, TU Wien, Austria](#andreas-happe-tu-wien-austria)
+- [JÜRGEN CITO, TU Wien, Austria](#j-rgen-cito-tu-wien-austria)
+    - [ACM Reference Format:](#acm-reference-format)
+  - [1 Introduction](#1-introduction)
+  - [1.1 Illustrative Example](#1-1-illustrative-example)
+  - [1.2 Motivation](#1-2-motivation)
+  - [1.3 Contributions](#1-3-contributions)
+  - [1.4 Ethics Statement](#1-4-ethics-statement)
+  - [1.5 Source Code and Analysis Package](#1-5-source-code-and-analysis-package)
+  - [2 Background & Related Work](#2-background-related-work)
+  - [2.1 Enterprise Networks and Common Attacks](#2-1-enterprise-networks-and-common-attacks)
+  - [2.2 Penetration-Testing](#2-2-penetration-testing)
+  - [2.3 LLM-aided Task-Planning](#2-3-llm-aided-task-planning)
+  - [2.4 Automated Penetration Testing](#2-4-automated-penetration-testing)
+  - [2.5 Differences to Existing Work](#2-5-differences-to-existing-work)
+  - [3 Methodology](#3-methodology)
+  - [3.1 Overall Architecture](#3-1-overall-architecture)
+  - [3.2 Testbed](#3-2-testbed)
+  - [3.3 LLM Selection](#3-3-llm-selection)
+  - [3.4 Experiment Design](#3-4-experiment-design)
+  - [3.5 Data Collection and Analysis](#3-5-data-collection-and-analysis)
+  - [3.6 Threats to Validity](#3-6-threats-to-validity)
+  - [4 Prototype Architecture](#4-prototype-architecture)
+  - [4.1 The Planner](#4-1-the-planner)
+  - [4.2 The Executor](#4-2-the-executor)
+  - [4.3 Interactions between Planner and Executor](#4-3-interactions-between-planner-and-executor)
+  - [5 Evaluation](#5-evaluation)
+  - [5.1 Non-Reasoning LLMs: OpenAI GPT-4o and DeepSeek-V3](#5-1-non-reasoning-llms-openai-gpt-4o-and-deepseek-v3)
+  - [5.2 Reasoning SLM: Qwen3:32b](#5-2-reasoning-slm-qwen3-32b)
+  - [5.3 Reasoning LLMs: OpenAI o1+GPT-4o and Google Gemini-2.5-Flash (preview)](#5-3-reasoning-llms-openai-o1-gpt-4o-and-google-gemini-2-5-flash-preview)
+  - [5.4 Planner rounds, Executor rounds, and Command Counts](#5-4-planner-rounds-executor-rounds-and-command-counts)
+  - [5.5 LLM Cost and Call Duration](#5-5-llm-cost-and-call-duration)
+  - [5.6 Detailed Tool-Analysis for OpenAI o1+GPT-4o](#5-6-detailed-tool-analysis-for-openai-o1-gpt-4o)
+  - [6 Discussion](#6-discussion)
+  - [6.1 The Problem with Qwen3](#6-1-the-problem-with-qwen3)
+  - [6.2 Planner: High-Level Attack Trajectories](#6-2-planner-high-level-attack-trajectories)
+  - [6.3 Quality of Attacks](#6-3-quality-of-attacks)
+  - [6.4 Problems with Command Generation](#6-4-problems-with-command-generation)
+  - [6.5 Safety Concerns](#6-5-safety-concerns)
+  - [6.6 Defenses against LLM-based Attacks](#6-6-defenses-against-llm-based-attacks)
+  - [6.7 Ethical Issues or the lack thereof](#6-7-ethical-issues-or-the-lack-thereof)
+  - [7 Conclusion](#7-conclusion)
+  - [7.1 Challenges and Research Opportunities](#7-1-challenges-and-research-opportunities)
+  - [Acknowledgments](#acknowledgments)
+  - [References](#references)
+  - [A Used Prompts](#a-used-prompts)
+  - [A.1 Scenario Description](#a-1-scenario-description)
+  - [A.2 Planner Prompt: Update Plan](#a-2-planner-prompt-update-plan)
+  - [A.3 Planner Prompt: Select Next Task](#a-3-planner-prompt-select-next-task)
+  - [A.4 Executor Prompt: Select Next Command(s)](#a-4-executor-prompt-select-next-command-s)
+  - [A.5 Executor Prompt: Summarize if Executor ran out of Rounds](#a-5-executor-prompt-summarize-if-executor-ran-out-of-rounds)
+  - [B Example States/Pentest-Task-Trees using OpenAI’s o1-GPT-4o](#b-example-states-pentest-task-trees-using-openai-s-o1-gpt-4o)
+  - [B.1 Initial State/Pentest-Task-Tree before first command is executed](#b-1-initial-state-pentest-task-tree-before-first-command-is-executed)
+  - [B.2 State/Pentest-Task-Tree after 10 Rounds](#b-2-state-pentest-task-tree-after-10-rounds)
+  - [C List of “Almost-There” Attack Vectors](#c-list-of-almost-there-attack-vectors)
+  - [D List of Offensive Tools](#d-list-of-offensive-tools)
+  - [D.1 (Offensive) Tools Mentioned within this Paper](#d-1-offensive-tools-mentioned-within-this-paper)
+
+---
+
 Autonomous Assumed Breach Penetration-Testing Active Directory Networks 
 
 ## ANDREAS HAPPE, TU Wien, Austria 
 
 ## JÜRGEN CITO, TU Wien, Austria 
+
+> **Section Summary:** Traditional enterprise penetration-testing, while critical for validating defenses and uncovering vulnerabilities, is often limited by high operational costs and the scarcity of human expertise.
+
 
 Traditional enterprise penetration-testing, while critical for validating defenses and uncovering vulnerabilities, is often limited by high operational costs and the scarcity of human expertise. This paper investigates the feasibility and effectiveness of using Large Language Model (LLM)-driven autonomous systems to address these challenges in real-world Active Directory (AD) enterprise networks. 
 

@@ -4,11 +4,31 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 
 # A Unified Modeling Framework for Automated Penetration Testing 
 
+## Table of Contents
+
+- [I. INTRODUCTION](#i-introduction)
+- [II. THEORETICAL FOUNDATIONS OF AUTOPT SIMULATION MODELING](#ii-theoretical-foundations-of-autopt-simulation-modeling)
+- [A. Control Theory Perspective](#a-control-theory-perspective)
+- [B. AutoPT as a Dynamic Nonlinear System](#b-autopt-as-a-dynamic-nonlinear-system)
+- [C. Core Modeling Elements](#c-core-modeling-elements)
+- [III. THE MULTI-DIMENSIONAL CLASSIFICATION SYSTEM FOR PENETRATION TESTING MODELING: MDCPM](#iii-the-multi-dimensional-classification-system-for-penetration-testing-modeling-mdcpm)
+- [A. Dimensionality of MDCPM](#a-dimensionality-of-mdcpm)
+- [B. Case Study](#b-case-study)
+- [IV. AUTOPT-SIM: A UNIFIED SIMULATION MODELING FRAMEWORK FOR AUTOMATED PENETRATION TESTING](#iv-autopt-sim-a-unified-simulation-modeling-framework-for-automated-penetration-testing)
+- [A. AutoPT Simulation Modeling Framework](#a-autopt-simulation-modeling-framework)
+- [B. Network Simulation Dataset and Network Generator](#b-network-simulation-dataset-and-network-generator)
+- [V. CONCLUSION](#v-conclusion)
+- [REFERENCES](#references)
+
+---
+
 Yunfei Wang*, Shixuan Liu*, Wenhao Wang*, Changling Zhou, Chao Zhang, _Member, IEEE_ , Jiandong Jin, Cheng Zhu 
 
 **_Abstract_ —The integration of artificial intelligence into automated penetration testing (AutoPT) has highlighted the necessity of simulation modeling for the training of intelligent agents, due to its cost-efficiency and swift feedback capabilities. Despite the proliferation of AutoPT research, there is a recognized gap in the availability of a unified framework for simulation modeling methods. This paper presents a systematic review and synthesis of existing techniques, introducing MDCPM to categorize studies based on literature objectives, network simulation complexity, dependency of technical and tactical operations, and scenario feedback and variation. To bridge the gap in unified method for multi-dimensional and multi-level simulation modeling, dynamic environment modeling, and the scarcity of public datasets, we introduce AutoPT-Sim, a novel modeling framework that based on policy automation and encompasses the combination of all sub dimensions. AutoPT-Sim offers a comprehensive approach to modeling network environments, attackers, and defenders, transcending the constraints of static modeling and accommodating networks of diverse scales. We publicly release a generated standard network environment dataset and the code of Network Generator. By integrating publicly available datasets flexibly, support is offered for various simulation modeling levels focused on policy automation in MDCPM and the network generator help researchers output customized target network data by adjusting parameters or fine-tuning the network generator.** 
 
 **_Index Terms_ —Automated Penetration Testing, Simulation Modeling, Penetration Testing Modeling** 
+
+---
 
 ## I. INTRODUCTION 
 
@@ -75,7 +95,11 @@ across the other three dimensions.
 
 The paper is organized as follows: Section 2 examines the theoretical foundations and core modeling elements in simulation modeling for AutoPT. Section 3 presents our proposed Multi-Dimensional Penetration Testing Modeling Classification System (MDCPM), discussing typical cases and current research trends. Section 4 introduces AutoPT Simulation Modeling Framework (AutoPT-Sim), along with the open-source network simulation dataset and Network Generator. Section 5 concludes with a summary of our contributions and future work. 
 
+---
+
 ## II. THEORETICAL FOUNDATIONS OF AUTOPT SIMULATION MODELING 
+
+---
 
 ## _A. Control Theory Perspective_ 
 
@@ -90,6 +114,8 @@ IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY
 and simulation of cybersecurity dynamics by conceptualizing the target network, attackers, and defenders as an integrated system. Control theory quantifies the status of the system through assignment of a state and formally describe the progression of AutoPT. It adopts a state-based approach to define cost structures that balance security and availability. The _information state_ in control theory compresses attackerdefender information to a level sufficient for optimal decisionmaking, converting determining the optimal defense policy into a sequential optimization problem [17]. 
 
 The complexity and variability of network activities, coupled with the multifactorial nature of penetration and defense strategies, means that identical actions on the same system can yield divergent outcomes, indicating that the penetration testing system is inherently dynamic. It implies that the same action combinations may produce different outputs, rendering linear differential equations inadequate for describing the system’s behavior. The superposition principle is inapplicable, thus classifying such systems as a dynamic nonlinear system. Traditional research often models penetration testing as a discrete system based on the actions of attackers and defenders, treating these actions as discrete events. The system’s output is influenced not only by its structural parameters but also by the inputs and initial conditions. 
+
+---
 
 ## _B. AutoPT as a Dynamic Nonlinear System_ 
 
@@ -142,7 +168,12 @@ where, _tk_ represents the _k_ -th sampling instant within a discrete-time frame
 
 Traditional penetration testing research often frames the process as a discrete system driven by isolated attacker and defender actions, modeled as discrete, isolated events [9, 19, 20]. However, system outputs are contingent upon structural parameters, system inputs, and initial conditions. This interdependence necessitates a holistic framework that accounts for inherent feedback dynamics, integrating interdependent variables to accurately capture penetration testing environments. 
 
+---
+
 ## _C. Core Modeling Elements_ 
+
+> **Section Summary:** In this section, we will introduce every core element in detail.
+
 
 In this section, we will introduce every core element in detail. 
 
@@ -196,6 +227,8 @@ Despite their comprehensive visibility of the network, defenders typically lack 
 
 Upon establishing the core elements, penetration testing can be understood as a dynamic interaction between attackers and defenders or as a series of unidirectional offensive maneuvers by attackers. The target network’s state evolves based on predefined logical relationships that dictate the outcomes of various actions. Furthermore, routine user activities may also alter the network’s assets and topology [9]. These changes collectively influence the decision-making for subsequent attack and defense actions. The penetration test is conducted through the iterative application of these strategies throughout the simulation. Our modeling classification method is constructed based on three perspectives: the overall aim of the research literature, the key elements presented in this section, and the interactions between these elements. We will first present the overall contributions of the paper, followed by an analysis on the core modeling factors. 
 
+---
+
 ## III. THE MULTI-DIMENSIONAL CLASSIFICATION SYSTEM FOR PENETRATION TESTING MODELING: MDCPM 
 
 In this section, we present the **M** ulti- **D** imensional **C** lassification System for **P** enetration Testing **M** odeling (MDCPM), an innovative approach for classifying target network scenarios modeling method in penetration testing. This system categorizes scenario modeling based on four principal dimensions: (1) Literature Objectives, (2) Network Simulation Complexity, (3) Dependency of Technical and Tactical Operations, and (4) Scenario Feedback and Variation. Each dimension comprises sub-dimensions for a nuanced classification of attack scenarios, as illustrated in Figure 3. This paper begins with an explanation of our classification criteria, followed by illustrative examples, and concludes with an analysis of the reviewed literature. 
@@ -213,7 +246,12 @@ Automated Penetration Testing<br>Components<br>Intelligent  Jointly Decide Autom
 
 Figure 3: The Multi-Dimensional Classification System for Penetration Testing Modeling 
 
+---
+
 ## _A. Dimensionality of MDCPM_ 
+
+> **Section Summary:** In this section, we define and introduce the four primary dimensions characterizing the MDCPM, along with their associated sub-dimensions.
+
 
 In this section, we define and introduce the four primary dimensions characterizing the MDCPM, along with their associated sub-dimensions. 
 
@@ -263,7 +301,12 @@ Based on these two aspects in AutoPT modeling, scenario feedback and variation a
 
 **Completely Dynamic Scenario:** A scenario that encompasses both passive changes from attack-defense interactions and active alterations to the target environment. 
 
+---
+
 ## _B. Case Study_ 
+
+> **Section Summary:** To clarify MDCPM, we present and analyze four representative cases, including:
+
 
 To clarify MDCPM, we present and analyze four representative cases, including: 
 
@@ -306,7 +349,10 @@ _2) Numerical Simulation Networks:_ Numerical simulation networks encompass poli
 
 Hammer et al. investigated attack–defense interactions in penetration testing using a four-node numerical simulation network [20]. Figure 5 presents the network architecture, its graphical representation and attribute model. In the left diagram, _Nstart_ represents the attacker’s computer, while the other nodes correspond to defender components. The attacker’s objective is to compromise _Ndata_ . The middle diagram formalizes the network as a graph, with nodes representing components and edges indicating connections. Each node _k_ is characterized by attributes _Sk_ = _{Sk_<sup>_A, S_</sup> _k_<sup>_D}_,whichinclude</sup> both attack and defense values. The attack attributes _Sk_<sup>_A_=</sup> _{Sk,_<sup>_A_</sup> 1<sup>_, S_</sup> _k,_<sup>_A_</sup> 2<sup>_, . . . , S_</sup> _k,m_<sup>_A}_represent the strength of</sup><sup>_m_attack types</sup> and are visible only to the attacker. The defense attributes _Sk_<sup>_D_</sup> = _{Sk,_<sup>_D_</sup> 1<sup>_, S_</sup> _k,_<sup>_D_</sup> 2<sup>_, . . . , S_</sup> _k,m_<sup>_D_</sup> +1<sup>_}_arevisibleonlytothede-</sup> fender, where the first _m_ attributes correspond to the respective attack types and the ( _m_ + 1)-th attribute indicates detection capability. This study simulates hypothetical attributes, and the target network remains static. 
 
-The attacker can perform two actions on a node _k_ : (1) reconnaissance to reveal the defense state _Sk_<sup>_D_, and (2) execute</sup> an attack of type _j ∈{_ 1 _,_ 2 _, · · · , m}_ , increasing the attack state _Sk,j_<sup>_A_by one. The defender can take two actions on node</sup><sup>_k_: (1)</sup> monitoring operations to enhance the node’s detection ability _Sk_<sup>_D_</sup> ; _m_ +1<sup>,and(2)defensiveoperationstostrengthendefenses</sup> against attack type _j ∈{_ 1 _,_ 2 _, · · · , m}_ , thereby increasing _Sk,j_<sup>_D_.</sup> The attacker and defender alternate actions. If _Sk,j_<sup>_A> S_</sup> _k,j_<sup>_D_for</sup> any attack type _j_ , the attacker compromises node _k_ , making its neighbors visible. If the attack does not compromise the node, the defender detects it with probability _p_ = _Skw_<sup>_D_</sup> <u>;</u> _m_ +1+1<sup>,basedon</sup> the node’s detection ability _Sk_<sup>_D_</sup> ; _m_ +1<sup>.</sup> 
+The attacker can perform two actions on a node _k_ : (1) reconnaissance to reveal the defense state _Sk_<sup>_D_, and (2) execute</sup> an attack of type _j ∈{_ 1 _,_ 2 _, · · · , m}_ , increasing the attack state _Sk,j_<sup>_A_by one. The defender can take two actions on node</sup><sup>_k_: (1)</sup> monitoring operations to enhance the node’s detection ability _Sk_<sup>_D_</sup> :
+- _m_ +1<sup>,and(2)defensiveoperationstostrengthendefenses</sup> against attack type _j ∈{_ 1 _,_ 2 _, · · · , m}_ , thereby increasing _Sk,j_<sup>_D_.</sup> The attacker and defender alternate actions. If _Sk,j_<sup>_A> S_</sup> _k,j_<sup>_D_for</sup> any attack type _j_ , the attacker compromises node _k_ , making its neighbors visible. If the attack does not compromise the node, the defender detects it with probability _p_ = _Skw_<sup>_D_</sup> <u>
+- </u> _m_ +1+1<sup>,basedon</sup> the node’s detection ability _Sk_<sup>_D_</sup>
+- _m_ +1<sup>.</sup>
 
 From the attacker and defender models, it is evident that both can execute actions without constraints, allowing them to act independently. This categorizes their actions as Isolated 
 
@@ -545,11 +591,18 @@ Figure 9: Three Types of Network Topology in AutoPT-Sim
 
 environments. Additionally, existing studies typically simulate only small to medium-sized networks [9, 49, 92], overlooking large-scale network modeling and the impact of diverse network architectures on penetration testing. Furthermore, current simulation methods lack flexibility, focusing on limited combinations without providing a unified approach for multidimensional and multi-level simulation modeling. 
 
+---
+
 ## IV. AUTOPT-SIM: A UNIFIED SIMULATION MODELING FRAMEWORK FOR AUTOMATED PENETRATION TESTING 
+
+> **Section Summary:** Current scenario modeling methods are often incomplete, exhibit low variability, lack fully dynamic capabilities, and are hindered by the absence of public datasets.
+
 
 Current scenario modeling methods are often incomplete, exhibit low variability, lack fully dynamic capabilities, and are hindered by the absence of public datasets. To address these limitations, we introduce the AutoPT Simulation Modeling Framework (AutoPT-Sim), which leverages policy automation to integrate all sub-dimensions of the MDCPM framework across its three primary dimensions. Additionally, we provide 
 
 a comprehensive and publicly accessible dataset on GitHub<sup>1</sup> to support future research endeavors. We welcome constructive feedback to refine our standards and dataset further. Furthermore, we have developed a suite of interfaces to underpin future extensions in tactical and full-process automation. 
+
+---
 
 ## _A. AutoPT Simulation Modeling Framework_ 
 
@@ -713,7 +766,12 @@ Table IV: Defender Action Modeling
 
 
 
+---
+
 ## _B. Network Simulation Dataset and Network Generator_ 
+
+> **Section Summary:** We developed a network generator using the AutoPTSim framework, enabling the creation of dynamic and static networks with diverse architectures, attributes, and scales.
+
 
 We developed a network generator using the AutoPTSim framework, enabling the creation of dynamic and static networks with diverse architectures, attributes, and scales. The open-source code allows researchers to generate custom network data through parameter adjustments, thereby advancing AutoPT research. We offer a pre-generated network simulation dataset, which includes hypothetical numerical attributes, authentic attributes, and their continuous-time counterparts. 
 
@@ -733,7 +791,12 @@ between these snapshots to effectively capture network dynamics.
 
 To advance simulation modeling in policy automation within MDCPM, we integrate publicly available datasets flexibly. We have also released network generator code, enabling researchers to customize network data by adjusting parameters or fine-tuning the generator. AutoPT-Sim addresses the limitations of existing scene modeling methods, which often focus on small to medium-sized networks and lack support for large networks and varied architectures. Current methods fall short in dynamic scene modeling, offering limited flexibility and lacking a unified approach for multidimensional and multilayer simulations. 
 
+---
+
 ## V. CONCLUSION 
+
+> **Section Summary:** This paper reviews the literature on AutoPT and introduces an innovative classification framework, MDCPM, for scenario modeling methods.
+
 
 This paper reviews the literature on AutoPT and introduces an innovative classification framework, MDCPM, for scenario modeling methods. Our framework categorizes existing research distinctly, addressing the limited scope, fragmented scenarios, and lack of unified standards and public datasets in current AutoPT modeling. We propose AutoPT-Sim, a method that emphasizes strategy automation while supporting tactic and technique automation, as well as full-process integration. Our public release includes a network scenario dataset and 
 
@@ -746,6 +809,8 @@ network generator code, facilitating flexible scenario modeling across all level
 Ethical considerations are crucial in AutoPT. Our modeling framework, AutoPT-Sim, uses real-world data while abstracting it to protect privacy and excludes actual penetration tools and payloads, ensuring no direct real-world application. Our research focuses on developing penetration strategies without full automation, thereby avoiding potential harm to systems or users. 
 
 In our current modeling framework, we detail the modeling of attacker and defender actions and plan to release the attacker-defender action dataset and state transition functions in a future phase. We will enhance our characterization of attacker capabilities post-intrusion. Recognizing that information gathering significantly depends on the attacker’s expertise, we will examine network visibility disparities between attackers and defenders, as well as defenders’ delayed response times to attacker actions. Another significant challenge in AutoPT is the lack of a unified evaluation method. Current evaluations often emphasize convergence speed and cumulative rewards in specific network settings, with varying reward configurations complicating comparisons. There is no widely accepted set of metrics for assessing the effectiveness of intelligent decision-making. We advocate for future research to develop standardized evaluation metrics to enhance comparison and advance AutoPT methodologies. 
+
+---
 
 ## REFERENCES 
 

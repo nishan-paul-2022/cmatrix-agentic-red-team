@@ -1,5 +1,32 @@
 # **Adapting Large Language Models to Emerging Cybersecurity using Retrieval Augmented Generation** 
 
+## Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. Background](#2-background)
+  - [2.1. Related Work](#2-1-related-work)
+  - [2.2. RAG Overview and Applications](#2-2-rag-overview-and-applications)
+- [3. Methodology](#3-methodology)
+  - [3.2. Sparse Retrieval](#3-2-sparse-retrieval)
+  - [3.1. Dense Retrieval](#3-1-dense-retrieval)
+  - [3.3. Hybrid Sparse–Dense Retriever](#3-3-hybrid-sparse-dense-retriever)
+  - [3.4. Regular Expression Matching for CVEs](#3-4-regular-expression-matching-for-cves)
+- [4. Experimental Setting](#4-experimental-setting)
+  - [4.1. Baseline Without RAG](#4-1-baseline-without-rag)
+  - [4.2. Baseline RAG](#4-2-baseline-rag)
+  - [4.3. Hybrid Sparse–Dense Retrieval](#4-3-hybrid-sparse-dense-retrieval)
+  - [4.4. Evaluation Protocol](#4-4-evaluation-protocol)
+- [5. Results and Discussion](#5-results-and-discussion)
+- [7. Limitations and Future Work](#7-limitations-and-future-work)
+- [6. Ablation Studies](#6-ablation-studies)
+  - [6.1. Temperature Setting](#6-1-temperature-setting)
+  - [6.2. Embedding Models](#6-2-embedding-models)
+- [8. Conclusion](#8-conclusion)
+- [Acknowledgment](#acknowledgment)
+- [References](#references)
+
+---
+
 Arnabh Borah _School of Electrical and Computer Engineering Georgia Institute of Technology Atlanta, USA arnabh360@gmail.com_ 
 
 Md Tanvirul Alam Nidhi Rastogi _Department of Computer Science Department of Computer Science Rochester Institute of Technology Rochester Institute of Technology Rochester, USA Rochester, USA ma8235@rit.edu nxrvse@rit.edu_ 
@@ -8,7 +35,12 @@ Md Tanvirul Alam Nidhi Rastogi _Department of Computer Science Department of Com
 
 **_Index Terms_ —cybersecurity, large language models, retrieval augmented generation, cyber threat intelligence** 
 
+---
+
 ## **1. Introduction** 
+
+> **Section Summary:** even under shifting semantic definitions and changing contextual requirements.
+
 
 even under shifting semantic definitions and changing contextual requirements. 
 
@@ -23,6 +55,8 @@ With the rapid advancement of cybersecurity technologies and the growing adoptio
 - 2) **Empirical Evaluation on CTI Tasks:** We demonstrate the effectiveness of the proposed framework across multiple cybersecurity tasks, including Common Vulnerabilities and Exposures (CVEs) [11] and Common Weakness Enumerations (CWEs) [12]. Our results show consistent improvements over both baseline LLMs and baseline RAG-augmented LLMs, utilizing the Llama-38B-Instruct model [13] and established benchmarks such as SECURE [6]. 
 
 - 3) **In-depth Analysis and Guidelines:** We conduct a comprehensive analysis of key design parameters, such as temperature scaling, embedding model selection, and document extraction strategies, and provide actionable guidelines for optimizing retrieval-augmented cybersecurity reasoning in future work. 
+
+---
 
 ## **2. Background** 
 
@@ -98,6 +132,8 @@ or spread false intelligence. Moreover, cybersecurity terminology is highly nuan
 
 NN) search is performed against the FAISS index. The top- _k_ documents with the highest cosine similarity scores are returned and passed to the LLM as context. This allows the model to retrieve semantically related passages, even if the query does not exactly match the wording in the documents. 
 
+---
+
 ## **3. Methodology** 
 
 ### **3.2. Sparse Retrieval** 
@@ -134,7 +170,12 @@ To further tailor the framework to cybersecurity tasks, we integrate a regular-e
 
 This mechanism significantly improves retrieval precision when users provide CVE-IDs explicitly and ensures that the framework can surface reliable context even when minimal information is available. For example, if the only input is a CVE string, the system can still retrieve accurate descriptions, advisories, and mitigations, thereby improving LLM performance in time-sensitive security scenarios. 
 
+---
+
 ## **4. Experimental Setting** 
+
+> **Section Summary:** We evaluate our proposed framework using the KCV and CWET datasets from the SECURE benchmark [6].
+
 
 We evaluate our proposed framework using the KCV and CWET datasets from the SECURE benchmark [6]. These datasets are widely used for assessing LLM performance in cybersecurity reasoning, particularly for tasks involving vulnerability and weakness identification. For all experiments, we adopt the Llama-3-8B-Instruct model [13] as the base LLM. The external context for RAG is derived from official cybersecurity sources, including CVE descriptors (with a focus on 2024 entries) [11] and the CWE knowledge base [12]. 
 
@@ -176,7 +217,12 @@ TABLE 1. RESULTS FOR EACH SETTING
 
 Across all settings, experiments were repeated multiple times to reduce variance, and the results were averaged to report stable accuracy values. Metrics focused on the correctness of the model’s response to each prompt, comparing performance across (i) baseline LLM without RAG, (ii) baseline RAG, and (iii) the proposed hybrid framework. This experimental pipeline enables a direct assessment of whether retrieval strategies improve the reliability of LLMs in CTI reasoning tasks. 
 
+---
+
 ## **5. Results and Discussion** 
+
+> **Section Summary:** Table 1 summarizes the KCV results across all evaluation settings, reporting both mean accuracy and standard deviation ( _σ_ ).
+
 
 Table 1 summarizes the KCV results across all evaluation settings, reporting both mean accuracy and standard deviation ( _σ_ ). All results are averaged over ten iterations. Without any contextual support, the LLM achieved 59.2% accuracy and consistently predicted ‘F’ (false) for every question, highlighting its limitations in handling unseen vulnerabilities. When supplied with pre-formatted and manually curated context, accuracy improved significantly to 82.8%, demonstrating the impact of structured, high-quality evidence. In contrast, the baseline RAG configuration underperformed at 57.6%, suggesting that na¨ıve retrieval can introduce noisy or misleading context. The hybrid sparse–dense retriever provided a modest gain, reaching 62.5%, while the hybrid model enhanced with regex achieved the best performance of 72.7% in a fully automated setting, narrowing the gap toward curated context. The low standard deviations across runs indicate that these improvements are consistent and robust. 
 
@@ -225,7 +271,11 @@ By contrast, CWET documents are provided in PDF form, with complete sentences an
 
 accuracy, its advantage over the much smaller ‘multi-qaMiniLM-L6-dot-v1’ was only 1.94%. Given that the former has 335M parameters compared to just 22.7M for the latter, this trade-off highlights the importance of resource constraints. In practice, the choice of embedding model may depend less on absolute accuracy and more on deployment requirements, such as memory footprint, inference speed, or scalability within large-scale CTI pipelines. 
 
+---
+
 ## **7. Limitations and Future Work** 
+
+---
 
 ## **6. Ablation Studies** 
 
@@ -243,13 +293,22 @@ Second, the current regex matcher is limited to CVE patterns. Extending this cap
 
 Finally, the current study is restricted to Llama-3-8BInstruct. Evaluating the framework across different model families and scales would provide more substantial evidence of the generalizability of the hybrid sparse–dense retriever. Longer-term directions include exploring lightweight postprocessing of retrieved context, integrating multimodal retrieval (for example, diagrams or vendor advisories), and assessing the feasibility of deployment in real-world CTI pipelines with respect to latency, cost, and reliability. 
 
+---
+
 ## **8. Conclusion** 
 
 This paper introduced a hybrid sparse–dense retriever to address the inconsistency of standard RAG in cybersecurity, combining BM25 keyword matching with FAISS-based semantic retrieval and augmenting it with regular expression matching for CVE identifiers. Our experiments show that this framework consistently improves context retrieval and LLM accuracy compared to baseline methods. While the current evaluation is limited to CVE- and CWE-focused datasets, future work should extend the approach to broader security contexts, additional identifiers such as CWE and ATT&CK, and diverse model architectures. We believe these findings highlight the importance of robust retrieval strategies in advancing the integration of RAG into real-world CTI systems. 
 
+---
+
 ## **Acknowledgment** 
 
+> **Section Summary:** The first author would like to thank the research experience for undergraduates (REU) program at Rochester Institute of Technology for the opportunity to conduct this research.
+
+
 The first author would like to thank the research experience for undergraduates (REU) program at Rochester Institute of Technology for the opportunity to conduct this research. This material is based upon work supported by the National Science Foundation Award 2447631: Trustworthy AI. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation. 
+
+---
 
 ## **References** 
 

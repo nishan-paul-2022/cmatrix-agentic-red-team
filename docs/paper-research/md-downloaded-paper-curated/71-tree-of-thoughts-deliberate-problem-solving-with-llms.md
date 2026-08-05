@@ -1,5 +1,28 @@
 # **Tree of Thoughts: Deliberate Problem Solving with Large Language Models** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background](#2-background)
+- [3 Tree of Thoughts: Deliberate Problem Solving with LM](#3-tree-of-thoughts-deliberate-problem-solving-with-lm)
+- [4 Experiments](#4-experiments)
+  - [4.1 Game of 24](#4-1-game-of-24)
+  - [4.2 Creative writing](#4-2-creative-writing)
+  - [4.3 Mini crosswords](#4-3-mini-crosswords)
+- [5 Related Work](#5-related-work)
+- [6 Discussion](#6-discussion)
+  - [Broader Impact](#broader-impact)
+  - [Acknowledgements](#acknowledgements)
+- [References](#references)
+- [A Code, Prompts, Trajectories](#a-code-prompts-trajectories)
+- [B Additional Experiment Results](#b-additional-experiment-results)
+  - [B.1 Extension to new tasks (GSM8k, StrategyQA) with zero-shot ToT](#b-1-extension-to-new-tasks-gsm8k-strategyqa-with-zero-shot-tot)
+  - [B.2 Extension to new LMs (GPT-3.5)](#b-2-extension-to-new-lms-gpt-3-5)
+  - [B.3 Cost and efficiency](#b-3-cost-and-efficiency)
+
+---
+
 **Shunyu Yao** Princeton University 
 
 **Dian Yu Jeffrey Zhao Izhak Shafran** Google DeepMind Google DeepMind Google DeepMind 
@@ -8,9 +31,13 @@
 
 **Yuan Cao Karthik Narasimhan** Google DeepMind Princeton University 
 
+---
+
 ## **Abstract** 
 
-Language models are increasingly being deployed for general problem solving across a wide range of tasks, but are still confined to token-level, left-to-right decision-making processes during inference. This means they can fall short in tasks that require exploration, strategic lookahead, or where initial decisions play a pivotal role. To surmount these challenges, we introduce a new framework for language model inference, “Tree of Thoughts” (ToT), which generalizes over the popular “Chain of Thought” approach to prompting language models, and enables exploration over coherent units of text (“thoughts”) that serve as intermediate steps toward problem solving. ToT allows LMs to perform deliberate decision making by considering multiple different reasoning paths and self-evaluating choices to decide the next course of action, as well as looking ahead or backtracking when necessary to make global choices. Our experiments show that ToT significantly enhances language models’ problem-solving abilities on three novel tasks requiring non-trivial planning or search: Game of 24, Creative Writing, and Mini Crosswords. For instance, in Game of 24, while GPT-4 with chain-of-thought prompting only solved 4% of tasks, our method achieved a success rate of 74%. Code repo with all prompts: `https://github.com/princeton-nlp/tree-of-thought-llm` . 
+> Language models are increasingly being deployed for general problem solving across a wide range of tasks, but are still confined to token-level, left-to-right decision-making processes during inference. This means they can fall short in tasks that require exploration, strategic lookahead, or where initial decisions play a pivotal role. To surmount these challenges, we introduce a new framework for language model inference, “Tree of Thoughts” (ToT), which generalizes over the popular “Chain of Thought” approach to prompting language models, and enables exploration over coherent units of text (“thoughts”) that serve as intermediate steps toward problem solving. ToT allows LMs to perform deliberate decision making by considering multiple different reasoning paths and self-evaluating choices to decide the next course of action, as well as looking ahead or backtracking when necessary to make global choices. Our experiments show that ToT significantly enhances language models’ problem-solving abilities on three novel tasks requiring non-trivial planning or search: Game of 24, Creative Writing, and Mini Crosswords. For instance, in Game of 24, while GPT-4 with chain-of-thought prompting only solved 4% of tasks, our method achieved a success rate of 74%. Code repo with all prompts: `https://github.com/princeton-nlp/tree-of-thought-llm` . 
+
+---
 
 ## **1 Introduction** 
 
@@ -61,7 +88,12 @@ To design such a planning process, we return to the origins of artificial intell
 
 Empirically, we propose three new problems that challenge existing LM inference methods even with the state-of-the-art language model, GPT-4 [23]: Game of 24, Creative Writing, and Crosswords (Table 1). These tasks require deductive, mathematical, commonsense, lexical reasoning abilities, and a way to incorporate systematic planning or search. We show ToT obtains superior results on all three tasks by being general and flexible enough to support different levels of thoughts, different ways to generate and evaluate thoughts, and different search algorithms that adapt to the nature of different problems. We also analyze how such choices affect model performances via systematic ablations and discuss future directions to better train and use LMs. 
 
+---
+
 ## **2 Background** 
+
+> **Section Summary:** We first formalize some existing methods that use large language models for problem-solving, which our approach is inspired by and later compared with.
+
 
 We first formalize some existing methods that use large language models for problem-solving, which our approach is inspired by and later compared with. We use _pθ_ to denote a pre-trained LM with parameters _θ_ , and **lowercase letters** _x, y, z, s, · · ·_ **to denote a language sequence** , i.e. _x_ = ( _x_ [1] _, · · · , x_ [ _n_ ]) where each _x_ [ _i_ ] is a token, so that _pθ_ ( _x_ ) =<sup>�</sup><sup>_n_</sup> _i_ =1<sup>_pθ_(</sup><sup>_x_[</sup><sup>_i_]</sup><sup>_|x_[1</sup><sup>_...i_]).We use uppercase</sup> letters _S, · · ·_ to denote a collection of language sequences. 
 
@@ -73,13 +105,18 @@ We first formalize some existing methods that use large language models for prob
 
 **Self-consistency with CoT (CoT-SC)** [36] is an ensemble approach that samples _k_ i.i.d. chains of thought: [ _z_ 1<sup>(</sup><sup>_i_</sup> _···_<sup>)</sup> _n_<sup>_, y_(</sup><sup>_i_)]</sup><sup>_∼pCoT_</sup> _θ_ ( _z_ 1 _···n, y|x_ ) ( _i_ = 1 _· · · k_ ), then returns the most frequent output: arg max _y_ # _{i | y_<sup>(</sup><sup>_i_)</sup> = _y}_ . CoT-SC improves upon CoT, because there are generally different thought processes for the same problem (e.g. different ways to prove the same theorem), and the output decision can be more faithful by exploring a richer set of thoughts. However, within each chain there is no local exploration of different thought steps, and the “most frequent” heuristic only applies when the output space is limited (e.g. multi-choice QA). 
 
+---
+
 ## **3 Tree of Thoughts: Deliberate Problem Solving with LM** 
 
 _A genuine problem-solving process_ involves the repeated use of available information to initiate exploration, which discloses, in turn, more information until a way to attain the solution is finally discovered.—— Newell et al. [21] 
 
 Research on human problem-solving suggests that people search through a combinatorial problemspace – a tree where the nodes represent partial solutions, and the branches correspond to operators that modify them [21, 22]. Which branch to take is determined by heuristics that help to navigate the problem-space and guide the problem-solver towards a solution. This perspective highlights two key shortcomings of existing approaches that use LMs to solve general problems: 1) Locally, they do not explore _different_ continuations within a thought process – the branches of the tree. 2) Globally, they do not incorporate any type of planning, lookahead, or backtracking to help evaluate these different options – the kind of heuristic-guided search that seems characteristic of human problem-solving. 
 
-To address these shortcomings, we introduce _Tree of Thoughts (ToT)_ , a paradigm that allows LMs to explore multiple reasoning paths over thoughts (Figure 1(c)). ToT frames any problem as a search over a tree, where each node is a **state** _s_ = [ _x, z_ 1 _···i_ ] representing a partial solution with the input and the sequence of thoughts so far. A specific instantiation of ToT involves answering four questions: 1. How to **decompose** the intermediate process into thought steps; 2. How to **generate** potential thoughts from each state; 3. How to heuristically **evaluate** states; 4. What **search** algorithm to use. 
+To address these shortcomings, we introduce _Tree of Thoughts (ToT)_ , a paradigm that allows LMs to explore multiple reasoning paths over thoughts (Figure 1(c)). ToT frames any problem as a search over a tree, where each node is a **state** _s_ = [ _x, z_ 1 _···i_ ] representing a partial solution with the input and the sequence of thoughts so far. A specific instantiation of ToT involves answering four questions: 1. How to **decompose** the intermediate process into thought steps:
+- 2. How to **generate** potential thoughts from each state
+- 3. How to heuristically **evaluate** states
+- 4. What **search** algorithm to use.
 
 **1. Thought decomposition.** While CoT samples thoughts coherently without explicit decomposition, ToT leverages problem properties to design and decompose intermediate thought steps. As Table 1 shows, depending on different problems, a thought could be a couple of words (Crosswords), a line of equation (Game of 24), or a whole paragraph of writing plan (Creative Writing). In general, a thought should be “small” enough so that LMs can generate promising and diverse samples (e.g. generating a whole book is usually too “big” to be coherent), yet “big” enough so that LMs can evaluate its prospect toward problem solving (e.g. generating one token is usually too “small” to evaluate). 
 
@@ -123,7 +160,12 @@ For both strategies, we could prompt the LM multiple times to aggregate the valu
 
 Conceptually, ToT has several benefits as a method for general problem-solving with LMs: (1) _Generality._ IO, CoT, CoT-SC, and self-refinement can be seen as special cases of ToT (i.e. trees of limited depth and breadth; Figure 1). (2) _Modularity._ The base LM, as well as the thought decomposition, generation, evaluation, and search procedures can all be varied independently. (3) _Adaptability_ . Different problem properties, LM capabilities, and resource constraints can be accommodated. (4) _Convenience._ No extra training is needed, just a pre-trained LM is sufficient. The next section will show how these conceptual benefits translate to strong empirical performance in different problems. 
 
+---
+
 ## **4 Experiments** 
+
+> **Section Summary:** We propose three tasks that are hard even when sampling from the state-of-the-art language model, GPT-4 [23], using standard IO prompting or chain-of-thought (CoT) prompting.
+
 
 We propose three tasks that are hard even when sampling from the state-of-the-art language model, GPT-4 [23], using standard IO prompting or chain-of-thought (CoT) prompting. We show how 
 
@@ -250,7 +292,12 @@ these across proposals to obtain a sorted list of next thoughts to explore (Figu
 
 **Oracle and ablation studies.** When outputting from the oracle best DFS state (instead of the heuristically determined best state) per task, ToT performance is even higher and actually solves 7/20 games (Table 3, “+best state”), indicating our simple output heuristics can be readily improved. Interestingly, sometimes when the crosswords game is actually solved, the state evaluator might still deem some words as “impossible” and prune — possibly because 5 _×_ 5 crosswords by design have some rare or obselete words that GPT-4 cannot recognize<sup>2</sup> . Given the state evaluation as a pruning heuristic is imperfect, we also explore ablating the pruning, and find the performance generally worse (Table 3, “-prune”). However, it could actually find the correct solution for 4/20 games (though only outputting 1 via heuristic), 3 of which are games ToT+pruning cannot solve within 100 steps. Thus, better heuristics for DFS pruning are critical for problem solving in this case. Lastly, we confirm the importance of backtracking by running an ablation that keeps filling the most promising clue for at most 20 steps, allowing overwrites. This is similar to a “greedy” BFS search with breadth limit of _b_ = 1, and performs poorly with a word level success of only 20% (Table 3, “-backtrack”). 
 
+---
+
 ## **5 Related Work** 
+
+> **Section Summary:** **Planning and decision making.** Smart planning and decision making are critical to achieving predefined goals.
+
 
 **Planning and decision making.** Smart planning and decision making are critical to achieving predefined goals. As they are trained on vast amount of world knowledge and human examples, LMs are known to have already absorbed rich commonsense that makes it possible to propose reasonable plans conditioned on problem setting and environmental states [12, 42, 37, 13, 35, 41, 40]. Our proposed ToT approach extends existing planning formulations by considering multiple potentially feasible plans simultaneously at each problem-solving step, and proceeding with the most promising ones. The integration between thought sampling and value feedback organically integrates planning and decision-making mechanisms, enabling effective search inside a solution tree. On the other hand, traditional decision-making procedures usually require training dedicated reward and policy models as in reinforcement learning (for example CHAI [33]), whereas we use the LM itself to provide the value estimates for decision making. RAP [9] is a concurrent work that treats language model 
 
@@ -265,6 +312,8 @@ reasoning as planning with its internal world model, and proposes a MCTS-based m
 **Program-guided LLM generation.** Our proposal is also related to recent advancements that organize LM’s behavior with systematic procedures [14, 44, 6, 43] or symbolic program guidance. For example, Schlag et al. [27] embeds LMs in an algorithmic search procedure to help solve problems like question answering step-by-step, in which the search trees are expanded by relevant paragraphs that might provide answers. This approach however differs from ours in that trees are expanded by sampling external paragraphs instead of the LM’s own thoughts, and there is no reflection or voting steps. Another approach, LLM+P [18], goes one step further and delegates the actual planning process to a classical planner. 
 
 **Classical search methods.** Last but not least, our approach can be treated as a modern rendition of classical search methods for problem solving. For example it can be considered as a heuristic search algorithm like A* [10], in which the heuristic at each search node is provided by the LM’s selfassessment. From this perspective, our method is also related to NeuroLogic A*esque decoding [19], which is inspired by A* search but introduces look-ahead heuristics that are efficient for LMs to improve the beam-search or top-k sampling decoding. This method however is constrained to sentence generation tasks, whereas our framework are designed for complex, multi-step problem solving guarded by value feedback. 
+
+---
 
 ## **6 Discussion** 
 
@@ -281,6 +330,8 @@ ToT is a framework that empowers LMs to more autonomously and intelligently make
 ### **Acknowledgements** 
 
 SY and KN acknowledge support from an Oracle Collaborative Research award and the National Science Foundation under Grant No. 2239363. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation. SY is also supported by the Harold W. Dodds Fellowship from Princeton. 
+
+---
 
 ## **References** 
 
@@ -378,13 +429,20 @@ SY and KN acknowledge support from an Oracle Collaborative Research award and th
 
 12 
 
+---
+
 ## **A Code, Prompts, Trajectories** 
+
+> **Section Summary:** All code is available at `https://github.com/princeton-nlp/tree-of-thought-llm` .
+
 
 All code is available at `https://github.com/princeton-nlp/tree-of-thought-llm` . 
 
 All prompts are available at `https://github.com/princeton-nlp/tree-of-thought-llm/ tree/master/src/tot/prompts` . 
 
 Trajectories are available at `https://github.com/princeton-nlp/tree-of-thought-llm/ tree/master/logs` . 
+
+---
 
 ## **B Additional Experiment Results** 
 

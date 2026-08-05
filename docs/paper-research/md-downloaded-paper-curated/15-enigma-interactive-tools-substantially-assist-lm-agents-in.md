@@ -1,12 +1,67 @@
 # **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1. Introduction](#1-introduction)
+- [2. The EnIGMA Agent](#2-the-enigma-agent)
+  - [2.1. Interactive Agent Tools (IATs)](#2-1-interactive-agent-tools-iats)
+  - [2.2. EnIGMA Summarizers](#2-2-enigma-summarizers)
+  - [lines), which can exceed the context window of SOTA LMs.](#lines-which-can-exceed-the-context-window-of-sota-lms)
+  - [2.3. Demonstrations and Guidelines](#2-3-demonstrations-and-guidelines)
+- [3. Experiments](#3-experiments)
+  - [3.1. Development Set for the NYU Benchmark](#3-1-development-set-for-the-nyu-benchmark)
+  - [3.2. Experiment Setup](#3-2-experiment-setup)
+- [4. Results](#4-results)
+  - [4.1. Analysis of Agent Behavior and ACI Designs](#4-1-analysis-of-agent-behavior-and-aci-designs)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+  - [how ACI designs affect performance, as discussed below.](#how-aci-designs-affect-performance-as-discussed-below)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+  - [4.2. Analysis of Data Leakage, Soliloquies and Extrapolation](#4-2-analysis-of-data-leakage-soliloquies-and-extrapolation)
+- [5. Related Work](#5-related-work)
+- [6. Conclusion](#6-conclusion)
+- [Acknowledgments](#acknowledgments)
+- [Impact Statement](#impact-statement)
+- [References](#references)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+- [A. Background](#a-background)
+- [B. Development Set](#b-development-set)
+  - [Table 5: Challenges used in the development set.](#table-5-challenges-used-in-the-development-set)
+- [C. Experiments](#c-experiments)
+  - [C.1. Test Benchmarks](#c-1-test-benchmarks)
+  - [C.2. Experiment Setup](#c-2-experiment-setup)
+- [D. EnIGMA - Interfaces and Environment](#d-enigma-interfaces-and-environment)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+- [E. Detailed Results](#e-detailed-results)
+- [F. Analysis of Soliloquies](#f-analysis-of-soliloquies)
+    - [EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities](#enigma-interactive-tools-substantially-assist-lm-agents-in-finding-security-vulnerabilities)
+- [G. Prompts](#g-prompts)
+  - [G.1. Main Agent Prompts](#g-1-main-agent-prompts)
+  - [System Prompt](#system-prompt)
+    - [RESPONSE FORMAT:](#response-format)
+
+---
+
 **Talor Abramovich**<sup>1</sup> **Meet Udeshi**<sup>2</sup> **Minghao Shao**<sup>2</sup> **Kilian Lieret**<sup>3</sup> **Haoran Xi**<sup>2</sup> **Kimberly Milner**<sup>2</sup> **Sofija Jancheska**<sup>2</sup> **John Yang**<sup>4</sup> **Carlos E. Jimenez**<sup>3</sup> **Farshad Khorrami**<sup>2</sup> **Prashanth Krishnamurthy**<sup>2</sup> **Brendan Dolan-Gavitt**<sup>2</sup> **Muhammad Shafique**<sup>5</sup> **Karthik Narasimhan**<sup>3</sup> **Ramesh Karri**<sup>2</sup> **Ofir Press**<sup>3</sup> 
 
 ## **Abstract** 
 
+> **Section Summary:** Although language model (LM) agents have demonstrated increased performance in multiple domains, including coding and web-browsing, their success in cybersecurity has been limited.
+
+
 Although language model (LM) agents have demonstrated increased performance in multiple domains, including coding and web-browsing, their success in cybersecurity has been limited. We present _EnIGMA_ , an LM agent for autonomously solving Capture The Flag (CTF) challenges. We introduce new tools and interfaces to improve the agent’s ability to find and exploit security vulnerabilities, focusing on interactive terminal programs. These novel _Interactive Agent Tools_ enable LM agents, for the first time, to run interactive utilities, such as a debugger and a server connection tool, which are essential for solving these challenges. Empirical analysis on 390 CTF challenges across four benchmarks demonstrate that these new tools and interfaces substantially improve our agent’s performance, achieving state-of-the-art results on NYU CTF, Intercode-CTF, and CyBench. Finally, we analyze data leakage, developing new methods to quantify it and identifying a new phenomenon we term _soliloquizing_ , where the model self-generates hallucinated observations without interacting with the environment.<sup>1</sup> 
 
+---
+
 ## **1. Introduction** 
+
+> **Section Summary:** Advancements in cybersecurity require continuous security analysis of new software systems.
+
 
 Advancements in cybersecurity require continuous security analysis of new software systems. To increase the robustness 
 
@@ -20,9 +75,18 @@ _Proceedings of the 42_<sup>_nd_</sup> _International Conference on Machine Lear
 
 of these systems, existing vulnerabilities must be rapidly detected and patched. With the increasing global connectivity of software via the internet, the attack surface also widens, making it difficult for manual cybersecurity analysis techniques to keep pace with this rapid expansion. These factors have necessitated the development of autonomous exploitation tools that can quickly detect software system vulnerabilities and generate patches to fix them. Cybersecurity competitions, such as the DARPA Cyber-Grand-Challenge (2016) and the DARPA AIxCC (2024), have been designed to motivate the industry to develop such autonomous exploitation tools. 
 
-While language models (LMs) are popularly used to help programmers write short code segments (Chen et al., 2021; Lu et al., 2021; Dakhel et al., 2023), LM-based _agents_ have been introduced to autonomously program, solve bugs and develop new features (Yang et al., 2023a; 2024; Wang et al., 2024a; Wu et al., 2024). An LM _agent_ is a system that works towards a specified goal through repeated LM interaction within an environment, such as an operating system. 
+While language models (LMs) are popularly used to help programmers write short code segments (Chen et al., 2021:
+- Lu et al., 2021
+- Dakhel et al., 2023), LM-based _agents_ have been introduced to autonomously program, solve bugs and develop new features (Yang et al., 2023a
+- 2024
+- Wang et al., 2024a
+- Wu et al., 2024). An LM _agent_ is a system that works towards a specified goal through repeated LM interaction within an environment, such as an operating system.
 
-In cybersecurity, LMs have been employed to develop both defensive and offensive applications (Motlagh et al., 2024). For defense, research leverages LMs to enhance threat detection (Qiang et al., 2022; Maniriho et al., 2022), automate incident response (Nil˘a et al., 2020), and mitigate vulnerabilities (Chakraborty et al., 2021; Li et al., 2021; Hin et al., 2022). For offense, they are used for penetration testing (Deng et al., 2024b), exploiting security flaws, and crafting advanced attacks (Charan et al., 2023; Fang et al., 2024). 
+In cybersecurity, LMs have been employed to develop both defensive and offensive applications (Motlagh et al., 2024). For defense, research leverages LMs to enhance threat detection (Qiang et al., 2022:
+- Maniriho et al., 2022), automate incident response (Nil˘a et al., 2020), and mitigate vulnerabilities (Chakraborty et al., 2021
+- Li et al., 2021
+- Hin et al., 2022). For offense, they are used for penetration testing (Deng et al., 2024b), exploiting security flaws, and crafting advanced attacks (Charan et al., 2023
+- Fang et al., 2024).
 
 An important evaluation setting for LMs in offensive information security is Capture The Flag (CTF) challenges. CTFs are traditionally used to challenge human participants to solve a series of security puzzles or exploit vulnerabilities in simulated computer systems to obtain special strings (“flags”) that have been hidden within the environment. These challenges test expertise in various cybersecurity skills, and are typically divided into six categories based on these, including cryptography (crypto) which involves decrypting ciphertexts, reverse engineering (rev), exploiting web vulnerabilities (web), analyzing data such as network 
 
@@ -56,9 +120,16 @@ Figure 1: _EnIGMA_ is an LM agent fed with CTF challenges from the NYU CTF bench
 
 traffic or memory dumps (forensics), exploiting vulnerabilities in compiled programs (pwn) and miscellaneous (misc). By mimicking real-world hacking scenarios in a controlled environment, CTFs provide a valuable resource to develop and evaluate cybersecurity skillsets (McDaniel et al., 2016; Leune & Petrilli, 2017; Švábenský et al., 2021). 
 
-Recent work extended these challenges for use as a benchmark to evaluate LMs’ cybersecurity capabilities (Yang et al., 2023b; Shao et al., 2024b; Zhang et al., 2024). The feasibility of solving CTF challenges with LM agents was first demonstrated in (Yang et al., 2023a; Shao et al., 2024a). However, these agents are limited in scope and capability and cannot adapt to new strategies after initial attempts fail, resulting in many unsolved challenges. Furthermore, existing agents (Shao et al., 2024b; Zhang et al., 2024) lack suitable interfaces tailored to the cybersecurity domain. 
+Recent work extended these challenges for use as a benchmark to evaluate LMs’ cybersecurity capabilities (Yang et al., 2023b:
+- Shao et al., 2024b
+- Zhang et al., 2024). The feasibility of solving CTF challenges with LM agents was first demonstrated in (Yang et al., 2023a
+- Shao et al., 2024a). However, these agents are limited in scope and capability and cannot adapt to new strategies after initial attempts fail, resulting in many unsolved challenges. Furthermore, existing agents (Shao et al., 2024b
+- Zhang et al., 2024) lack suitable interfaces tailored to the cybersecurity domain.
 
-To address these limitations, we developed EnIGMA (Figure 1), built on top of SWE-agent (Yang et al., 2024), introducing two new interfaces designed to aid in solving cybersecurity challenges. Solving a CTF commonly requires use of interactive tools to perform tasks such as debugging or communicating with a server. Current agents do not natively support such tools (Yang et al., 2024; Shao et al., 2024b; Zhang et al., 2024; Liu et al., 2024). We therefore propose these new _Interactive Agent Tools_ (IATs), interfaces that accommodate programs that require interactive user engagement (Section 2.1). We provide these tools in a non-blocking manner that enables the agent to maintain an interactive session while still being able to access the main shell. In addition, we introduce a summarization tool to allow the agent to efficiently handle long program outputs, which often appear while solving CTFs (Section 2.2). 
+To address these limitations, we developed EnIGMA (Figure 1), built on top of SWE-agent (Yang et al., 2024), introducing two new interfaces designed to aid in solving cybersecurity challenges. Solving a CTF commonly requires use of interactive tools to perform tasks such as debugging or communicating with a server. Current agents do not natively support such tools (Yang et al., 2024:
+- Shao et al., 2024b
+- Zhang et al., 2024
+- Liu et al., 2024). We therefore propose these new _Interactive Agent Tools_ (IATs), interfaces that accommodate programs that require interactive user engagement (Section 2.1). We provide these tools in a non-blocking manner that enables the agent to maintain an interactive session while still being able to access the main shell. In addition, we introduce a summarization tool to allow the agent to efficiently handle long program outputs, which often appear while solving CTFs (Section 2.2).
 
 We extensively evaluate EnIGMA on four benchmarks comprising 390 CTF challenges.We obtain state-of-the-art results on the NYU CTF (Shao et al., 2024b) benchmark by managing to solve more than _three times_ more challenges than the previous best agent of (Shao et al., 2024b). We also 
 
@@ -74,7 +145,12 @@ Our contributions are threefold:
 
 3. A comprehensive quantitative and qualitative analysis of LM agents for CTFs using 390 challenges from four different benchmarks, by which we reveal the new phenomenon of _soliloquizing_ . 
 
+---
+
 ## **2. The EnIGMA Agent** 
+
+> **Section Summary:** We built EnIGMA on top of SWE-agent (Yang et al., 2024), incorporating its Agent-Computer Interface (ACI) concept.
+
 
 We built EnIGMA on top of SWE-agent (Yang et al., 2024), incorporating its Agent-Computer Interface (ACI) concept. Based on the ReAct framework (Yao et al., 2023b), SWEagent operates in a thought-action-observation loop, executing commands in a Dockerized environment to ensure safe and reproducible interactions. While cybersecurity overlaps with software engineering, it demands additional specialized 
 
@@ -133,7 +209,12 @@ We incorporated _demonstrations_ to enhance the agent’s ability to solve new t
 
 in the development set. We use different demonstrations and guidelines for each challenge category. 
 
+---
+
 ## **3. Experiments** 
+
+> **Section Summary:** We now provide details about all experiments we conducted.
+
 
 We now provide details about all experiments we conducted. We examine the development set we used to enable agent development without overfitting on test benchmarks. Then, we frame the setup of all experiments, including test benchmarks, models, metrics and baselines for our comparisons. 
 
@@ -165,7 +246,12 @@ and the agent terminates only upon a successful flag submission, allowing it to 
 
 We also report the **$ Avg. Cost** metric, which represents the average cost of model API calls incurred by EnIGMA across all successfully solved instances. OpenAI and Anthropic models use their official pricing (OpenAI, 2025; Anthropic, 2025), while Llama models follow Together AI’s API rates (Together AI, 2025). The budget per instance is limited to $3; if a run exceeds this budget, the instance is marked as unsolved due to cost constraints (exit_cost). Further details are in Appendix C.2. 
 
+---
+
 ## **4. Results** 
+
+> **Section Summary:** EnIGMA achieves state-of-the-art performance, solving 13.5% (27/200) of NYU CTF benchmark using Claude 3.5 Sonnet.
+
 
 EnIGMA achieves state-of-the-art performance, solving 13.5% (27/200) of NYU CTF benchmark using Claude 3.5 Sonnet. This is more than three times higher than the result of the previous best model, NYU agent (Shao et al., 2024b), which solves at most 4% of the NYU CTF Benchmark using Claude 3.5 Sonnet and 3% using GPT-4 Turbo. 
 
@@ -352,33 +438,73 @@ To test the impact of suppressing soliloquies on EnIGMA’s performance, we trun
 
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
+---
+
 ## **5. Related Work** 
 
-**LM Agents for CTF.** Several LM agent frameworks have been developed for solving CTF challenges in Dockerized environments (Yang et al., 2023a; Shao et al., 2024a;b; Team et al., 2024; Zhang et al., 2024), often using Kali Linux for pre-installed cybersecurity tools. EnIGMA surpasses these baselines by integrating specialized cybersecurity tools and interactive interfaces tailored for LM agents, achieving higher success rates on the InterCode, NYU CTF, and CyBench benchmarks. Unlike prior methods relying on manually crafted sub-tasks, EnIGMA emphasizes generalization, leveraging a development set to build an agent that substantially enhance problem-solving across diverse challenges and benchmarks. 
+**LM Agents for CTF.** Several LM agent frameworks have been developed for solving CTF challenges in Dockerized environments (Yang et al., 2023a:
+- Shao et al., 2024a
+- b
+- Team et al., 2024
+- Zhang et al., 2024), often using Kali Linux for pre-installed cybersecurity tools. EnIGMA surpasses these baselines by integrating specialized cybersecurity tools and interactive interfaces tailored for LM agents, achieving higher success rates on the InterCode, NYU CTF, and CyBench benchmarks. Unlike prior methods relying on manually crafted sub-tasks, EnIGMA emphasizes generalization, leveraging a development set to build an agent that substantially enhance problem-solving across diverse challenges and benchmarks.
 
-**LMs in Offensive Cybersecurity.** As offensive tools, LMs are used to conduct penetration testing, exploit security weaknesses, and craft cyberattacks (Charan et al., 2023; Deng et al., 2024a; Fang et al., 2024). For instance, Meta’s CyberSecEval benchmarks (Bhatt et al., 2023; 2024; Wan et al., 2024), provide problems designed to assess the security risks and capabilities of LMs in assisting with cyberattacks. Similarly, (Phuong et al., 2024; Team et al., 2024) explores the “dangerous capabilities” of LMs, evaluating their performance on several tasks, including CTF challenges, achieving lower results on the latter. Project Naptime (Glazunov & Brand, 2024) and Big Sleep (Allamanis et al., 2024) introduced an agent benchmarked on CyberSecEval2 that discovered a new SQLite vulnerability using tools like a debugger and web browser. Unlike this agent which limits interactions to one command per session, our agent supports nested REPLs for multiple commands session while retaining access to the main shell. 
+**LMs in Offensive Cybersecurity.** As offensive tools, LMs are used to conduct penetration testing, exploit security weaknesses, and craft cyberattacks (Charan et al., 2023:
+- Deng et al., 2024a
+- Fang et al., 2024). For instance, Meta’s CyberSecEval benchmarks (Bhatt et al., 2023
+- 2024
+- Wan et al., 2024), provide problems designed to assess the security risks and capabilities of LMs in assisting with cyberattacks. Similarly, (Phuong et al., 2024
+- Team et al., 2024) explores the “dangerous capabilities” of LMs, evaluating their performance on several tasks, including CTF challenges, achieving lower results on the latter. Project Naptime (Glazunov & Brand, 2024) and Big Sleep (Allamanis et al., 2024) introduced an agent benchmarked on CyberSecEval2 that discovered a new SQLite vulnerability using tools like a debugger and web browser. Unlike this agent which limits interactions to one command per session, our agent supports nested REPLs for multiple commands session while retaining access to the main shell.
 
-**LM Agents.** LM agents have been designed to improve reasoning, acting, and feedback through interaction with external environments (Sumers et al., 2023; Yao et al., 2023b;a; Shinn et al., 2023). These methods have been applied in domains like software engineering (Yang et al., 2024; Wang et al., 2024b; Hong et al., 2024a; Liu et al., 2024) and web navigation (Deng et al., 2023; Hong et al., 2024b). Our work builds on this prior literature; EnIGMA is built on top of SWE-agent (Yang et al., 2024). 
+**LM Agents.** LM agents have been designed to improve reasoning, acting, and feedback through interaction with external environments (Sumers et al., 2023:
+- Yao et al., 2023b
+- a
+- Shinn et al., 2023). These methods have been applied in domains like software engineering (Yang et al., 2024
+- Wang et al., 2024b
+- Hong et al., 2024a
+- Liu et al., 2024) and web navigation (Deng et al., 2023
+- Hong et al., 2024b). Our work builds on this prior literature
+- EnIGMA is built on top of SWE-agent (Yang et al., 2024).
+
+---
 
 ## **6. Conclusion** 
 
+> **Section Summary:** This work presents a novel agent designed to solve CTF challenges.
+
+
 This work presents a novel agent designed to solve CTF challenges. We observe that our novel Interactive Agent Tools and Summarizer interfaces lead to a more than threefold improvement in solved challenges compared to the previous best agent. Future work could build on top of our new Interactive Agent Tools to yield further gains, and improve agents’ performance both in cybersecurity and in other domains, such as software engineering. 
+
+---
 
 ## **Acknowledgments** 
 
+> **Section Summary:** TA and OP are grateful to Maor Ivgi for his NLP course at Tel-Aviv University, which this project spun out of.
+
+
 TA and OP are grateful to Maor Ivgi for his NLP course at Tel-Aviv University, which this project spun out of. KL, JY, CEJ, KN and OP’s work is funded in part by Open Philanthropy, Oracle and the National Science Foundation (Grant No. 2239363). MU, Ming.S., HX, KM, SJ, FK, PK, BDG, Muha.S., and RK’s work is funded in part by NSF CNS #2039615, ARO W911NF-21-1-0155, and DOE DECR0000051. Ming.S. and Muha.S. work was supported in part by the NYUAD Center for Artificial Intelligence and Robotics (CAIR), funded by Tamkeen under the NYUAD Research Institute Award CG010 NYUAD Center for Cyber Security (CCS), funded by Tamkeen under the NYUAD Research Institute Award G1104. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the funding agencies. 
 
+---
+
 ## **Impact Statement** 
+
+> **Section Summary:** This paper introduces an LM agent, EnIGMA, that is able to solve novel Capture The Flag cybersecurity challenges.
+
 
 This paper introduces an LM agent, EnIGMA, that is able to solve novel Capture The Flag cybersecurity challenges. Our hope is that our agent will be used to increase the security and robustness of new software by enabling developers to discover and fix security vulnerabilities before their software is released. Even though these cybersecurity capabilities are demonstrated in restricted environments (i.e. Docker containers), our agent could be used for offensive cybersecurity, to find and exploit vulnerabilities in external software and systems, or to develop malware (Gennari et al., 2024). 
 
 While our work discusses EnIGMA operating autonomously to discover vulnerabilities, future work could incorporate a human-in-the-loop to amplify EnIGMA’s performance. Although existing research has shown that LM-based security exploitation systems incorporating a human-in-the-loop element do not yet surpass the abilities of cybersecurity experts acting alone (Wan et al., 2024; Nimmo & Flossman, 2024; Google, 2025), this could change in the future and enable professionals to find and patch even more security vulnerabilities, leading to more secure software. However, this human-in-the-loop approach might also help amplify the capabilities of an attacker. 
 
-We have notified representatives of the LM providers used in this work (Meta, Anthropic and OpenAI) about our results. Institutes such as the UK AI Safety and the US AI Safety perform research and safety evaluations of AI models, including in cybersecurity (2024; 2024a; 2024b). LM developers and providers pay special attention to the safety of the responses of their models (Bai et al., 2022; Bhatt et al., 2023; Guan et al., 2025) and could in the future build guardrails to prevent LM agents from enabling offensive cybersecurity actions. 
+We have notified representatives of the LM providers used in this work (Meta, Anthropic and OpenAI) about our results. Institutes such as the UK AI Safety and the US AI Safety perform research and safety evaluations of AI models, including in cybersecurity (2024:
+- 2024a
+- 2024b). LM developers and providers pay special attention to the safety of the responses of their models (Bai et al., 2022
+- Bhatt et al., 2023
+- Guan et al., 2025) and could in the future build guardrails to prevent LM agents from enabling offensive cybersecurity actions.
 
 9 
 
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
+
+---
 
 ## **References** 
 
@@ -584,7 +710,12 @@ URL http://dx.doi.org/10.1145/3328778. 3366893.
 
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
+---
+
 ## **A. Background** 
+
+> **Section Summary:** Our work uses LMs as agents to autonomously solve Capture The Flag (CTF) challenges.
+
 
 Our work uses LMs as agents to autonomously solve Capture The Flag (CTF) challenges. Previous CTF benchmarks have shown their ability to serve as effective metrics to gauge the cybersecurity capabilities of LMs in practical scenarios since they fulfill three important benchmark features for LMs (Press, 2024): 
 
@@ -610,9 +741,17 @@ CTF challenges are divided into distinct categories, with six common types frequ
 
 - **Miscellaneous** (misc). Challenges that do not fit into other categories and may require a wide range of security skills, such as data mining or social engineering. 
 
-Popular online CTF platforms include HackTheBox (HTB) (HackTheBox, 2003), CTFTime (CTFtime, 2012), TryHackMe (TryHackMe, 2018) and PicoCTF (picoCTF, 2015). These platforms offer a range of challenges and resources for both beginners and advanced users. CTFs are also a highlight of major cybersecurity conferences like DEFCON, where the DEFCON CTF is one of the most prestigious competitions in the field (Balon & Baggili, 2023). CTFs are widely used in educational settings (Leune et al., 2017; Vykopal et al., 2020; Hanafi et al., 2021), cybersecurity training (Costa et al., 2020; Kaplan et al., 2022), and by organizations to identify and develop talent (Chicone et al., 2018). 
+Popular online CTF platforms include HackTheBox (HTB) (HackTheBox, 2003), CTFTime (CTFtime, 2012), TryHackMe (TryHackMe, 2018) and PicoCTF (picoCTF, 2015). These platforms offer a range of challenges and resources for both beginners and advanced users. CTFs are also a highlight of major cybersecurity conferences like DEFCON, where the DEFCON CTF is one of the most prestigious competitions in the field (Balon & Baggili, 2023). CTFs are widely used in educational settings (Leune et al., 2017:
+- Vykopal et al., 2020
+- Hanafi et al., 2021), cybersecurity training (Costa et al., 2020
+- Kaplan et al., 2022), and by organizations to identify and develop talent (Chicone et al., 2018).
+
+---
 
 ## **B. Development Set** 
+
+> **Section Summary:** Our development set contains 55 challenges collected from the same competitions as in NYU CTF benchmark, but from earlier years (2013-2016).
+
 
 Our development set contains 55 challenges collected from the same competitions as in NYU CTF benchmark, but from earlier years (2013-2016). These challenges span the same six categories as in NYU CTF benchmark, and contain 10 challenges from each of crypto, forensics, pwn, web, 9 rev and 6 misc. The details of challenge names and categories are provided in Table 5. 
 
@@ -686,6 +825,8 @@ Our development set contains 55 challenges collected from the same competitions 
 19 
 
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
+
+---
 
 ## **C. Experiments** 
 
@@ -778,11 +919,16 @@ Table 7: Challenges used in the HTB Benchmark.
 
 
 
+---
+
 ## **D. EnIGMA - Interfaces and Environment** 
 
 We provide in this section details about the environment created for EnIGMA, which is an extension of the one in SWEagent, with specific adaptation to the cybersecurity domain, installing tools and packages observed during evaluation on development set. We further detail in Table 8 the ACIs in EnIGMA supporting the IATs and other cybersecurity tools. 
 
-There is a strong overlap between the tools used in software engineering and those needed for solving CTF challenges— including file editing, code linting and file-system navigation—given that CTF challenges often demand coding skills for effective problem-solving. However, SWE-agent is not fully equipped to solve CTF challenges since it lacks some tools commonly used in the cybersecurity domain. We therefore extend SWE-agent with the tools from (Shao et al., 2024a): disassemble for disassembling binary functions; decompile for decompiling binary functions; check_flag for verifying flags; and give_up for allowing the agent to concede on a challenge. 
+There is a strong overlap between the tools used in software engineering and those needed for solving CTF challenges— including file editing, code linting and file-system navigation—given that CTF challenges often demand coding skills for effective problem-solving. However, SWE-agent is not fully equipped to solve CTF challenges since it lacks some tools commonly used in the cybersecurity domain. We therefore extend SWE-agent with the tools from (Shao et al., 2024a): disassemble for disassembling binary functions:
+- decompile for decompiling binary functions
+- check_flag for verifying flags
+- and give_up for allowing the agent to concede on a challenge.
 
 To further enhance the agent’s capabilities in cybersecurity and minimize setup time during EnIGMA’s runs, which incurs 
 
@@ -813,7 +959,12 @@ Table 8: In additional to the standard Linux Bash commands and the SWE-agent spe
 
 **EnIGMA: Interactive Tools Substantially Assist LM Agents in Finding Security Vulnerabilities** 
 
+---
+
 ## **E. Detailed Results** 
+
+> **Section Summary:** In the following we provide detailed results per-category and per-benchmark.
+
 
 In the following we provide detailed results per-category and per-benchmark. As shown in Table 9, our agent outperforms the NYU agent with Claude 3.5 Sonnet and GPT-4 Turbo in the majority of categories, meaning that the components developed for the cybersecurity domain enhance the model’s ability to solve CTF challenges across most of the categories. Furthermore, analysis of the most frequent commands executed by EnIGMA agent using Claude 3.5 Sonnet, presented in Figure 9, align to our expectations that the agent will invoke the most appropriate tools depending on CTF category. Table 10 shows the average cost per solved benchmark instance for each model, where Claude 3.5 Sonnet and LLaMA 3.1 405B are by far the cheapest, with most categories averaging around half a dollar or less to solve (on average). 
 
@@ -919,7 +1070,12 @@ Crypto (n=109) Rev (n=103) Misc (n=60)<br>python 35% python 16% python 24%<br>ed
 
 Figure 9: Most frequent commands executed by the agent with Claude-3.5 on all three challenge benchmarks. Colors indicate the command category as in Fig. 8. 
 
+---
+
 ## **F. Analysis of Soliloquies** 
+
+> **Section Summary:** A step contains soliloquies if the following two conditions are met
+
 
 A step contains soliloquies if the following two conditions are met 
 
@@ -978,7 +1134,12 @@ Table 15: Comparison of challenges that were either successful in the default se
 
 
 
+---
+
 ## **G. Prompts** 
+
+> **Section Summary:** We provide in this section the details of all the prompt templates we use in EnIGMA, for both the main agent and the LM summarizer.
+
 
 We provide in this section the details of all the prompt templates we use in EnIGMA, for both the main agent and the LM summarizer. 
 

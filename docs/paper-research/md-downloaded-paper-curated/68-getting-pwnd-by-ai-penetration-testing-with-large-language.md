@@ -1,16 +1,52 @@
 # **Getting pwn’d by AI: Penetration Testing with Large Language Models** 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [CCS CONCEPTS](#ccs-concepts)
+  - [• Security and privacy → Systems security .](#security-and-privacy-systems-security)
+- [KEYWORDS](#keywords)
+    - [ACM Reference Format:](#acm-reference-format)
+- [1 INTRODUCTION](#1-introduction)
+- [2 BACKGROUND](#2-background)
+- [3 LLM-BASED PENETRATION TESTING](#3-llm-based-penetration-testing)
+- [3.1 High-Level: Task-Planning Systems](#3-1-high-level-task-planning-systems)
+- [3.2 Low-Level: Attack-Execution System](#3-2-low-level-attack-execution-system)
+- [4 DISCUSSION](#4-discussion)
+- [4.2 Stability and Reproducibility](#4-2-stability-and-reproducibility)
+- [4.3 Ethical Moderation in LLMs](#4-3-ethical-moderation-in-llms)
+- [4.1 Grounding of Results and Hallucinations](#4-1-grounding-of-results-and-hallucinations)
+- [5 A VISION OF AI-AUGMENTED PEN-TESTING](#5-a-vision-of-ai-augmented-pen-testing)
+- [5.1 Integration of High- and Low-Level](#5-1-integration-of-high-and-low-level)
+- [5.2 Investigation of Model Options](#5-2-investigation-of-model-options)
+- [5.3 Memory, Verification, and Reflection](#5-3-memory-verification-and-reflection)
+- [5.4 Prompts for Asking Better Questions](#5-4-prompts-for-asking-better-questions)
+- [6 FINAL ETHICAL CONSIDERATIONS](#6-final-ethical-considerations)
+- [REFERENCES](#references)
+
+---
+
 Andreas Happe andreas.happe@tuwien.ac.at TU Wien Austria 
 
 ## **ABSTRACT** 
 
+> **Section Summary:** The field of software security testing, more specifically penetration testing, requires high levels of expertise and involves many manual testing and analysis steps.
+
+
 The field of software security testing, more specifically penetration testing, requires high levels of expertise and involves many manual testing and analysis steps. This paper explores the potential use of large-language models, such as GPT3.5, to augment penetration testers with AI sparring partners. We explore two distinct use cases: high-level task planning for security testing assignments and lowlevel vulnerability hunting within a vulnerable virtual machine. For the latter, we implemented a closed-feedback loop between LLM-generated low-level actions with a vulnerable virtual machine (connected through SSH) and allowed the LLM to analyze the machine state for vulnerabilities and suggest concrete attack vectors which were automatically executed within the virtual machine. We discuss promising initial results, detail avenues for improvement, and close deliberating on the ethics of AI sparring partners. 
+
+---
 
 ## **CCS CONCEPTS** 
 
 ### • **Security and privacy** → **Systems security** . 
 
+---
+
 ## **KEYWORDS** 
+
+> **Section Summary:** security testing, penetration testing, large language models
+
 
 security testing, penetration testing, large language models 
 
@@ -18,7 +54,12 @@ security testing, penetration testing, large language models
 
 Andreas Happe and Jürgen Cito. 2023. Getting pwn’d by AI: Penetration Testing with Large Language Models. In _Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE ’23), December 3–9, 2023, San Francisco, CA, USA._ ACM, New York, NY, USA, 5 pages. https://doi.org/10. 1145/3611643.3613083 
 
+---
+
 ## **1 INTRODUCTION** 
+
+> **Section Summary:** Large language models (LLMs), such as ChatGPT or GPT3.5, have become a hot topic not only in computer science but also within popular media [12].
+
 
 Large language models (LLMs), such as ChatGPT or GPT3.5, have become a hot topic not only in computer science but also within popular media [12]. The field of cybersecurity and software security testing, more specifically, penetration testing, suffers from a chronic lack of personnel [19], even worse, according to the ISC2 Cybersecurity Workforce Study 2022 [18], while global cybersecurity workforce was growing by 11.1% YoY, this growth was outpaced by the gap’s increase of 26.2% YoY. A recent interview study with penetration testers highlighted the need for human sparring partners [16], i.e., colleagues who offer alternative ideas or approaches 
 
@@ -36,7 +77,12 @@ when stuck. The study also emphasizes that intuition is a big part of detecting 
 
 _Scope._ We also envision other areas where generative AI could be used successfully. One of them is the generation of phishing or vishing messages. For obvious ethical reasons, we did not further analyze attacks that intently try to deceive human beings. Another tedious area where generative AI could improve efficiency would be automated report generation for penetration tests or red teaming campaigns. Anecdotal evidence suggests that penetration testers are already experimenting with generative AI for report generation. 
 
+---
+
 ## **2 BACKGROUND** 
+
+> **Section Summary:** This section highlights the technologies and techniques used.
+
 
 This section highlights the technologies and techniques used. 
 
@@ -88,11 +134,21 @@ Low-Privilege User<br>Init. Prompt Command (SSH)<br>Virtual Machine<br>LLM<br>Ro
 
 identifies new subsequent tasks that are pushed upon the task queue and are eventually executed by the _Task Execution Agent_ . Before a task is executed, a _Context Agent_ is asked to provide sufficient context for the task from memory. Entries in the task queue are prioritized through a _Prioritization Agent_ . All mentioned agents are GPT-4 processes themselves. BabyAGI [25] provides a “pareddown” version of this system in roughly 100 lines of Python code. Jarvis [33] employs agents with different models to create multimodal, multiagent systems. 
 
+---
+
 ## **3 LLM-BASED PENETRATION TESTING** 
+
+> **Section Summary:** We differentiate between two use cases: on a high level, typical questions asked by pen-testers are “what is a good attack methodology”, e.g., “how to attack Active Directory”.
+
 
 We differentiate between two use cases: on a high level, typical questions asked by pen-testers are “what is a good attack methodology”, e.g., “how to attack Active Directory”. These questions should yield tactics as well as potential techniques to achieve those tactics. On the low-level, we assume that the pen-tester has already chosen to employ a tactic against a target system and is searching for appropriate techniques and corresponding procedures. A typical question would be “I want to perform a privilege escalation (tactic), what are the suitable attack vectors against [this concrete Linux system]?”. 
 
+---
+
 ## **3.1 High-Level: Task-Planning Systems** 
+
+> **Section Summary:** For the evaluation, we asked AgentGPT to “Become domain admin in an Active Directory”.
+
 
 For the evaluation, we asked AgentGPT to “Become domain admin in an Active Directory”. The generated document contained highly realistic attack vectors such as password spraying, Kerberoasting, AS-REP roasting, exploiting Active Directory Certificate Services, abusing unconstrained delegation or exploiting group policies. All of those attacks are realistic, feasible, and commonly used during penetration testing. 
 
@@ -101,6 +157,8 @@ In addition, after securing a target company’s approval, we tasked AutoGPT to 
 Getting pwn’d by AI: Penetration Testing with Large Language Models 
 
 ESEC/FSE ’23, December 3–9, 2023, San Francisco, CA, USA 
+
+---
 
 ## **3.2 Low-Level: Attack-Execution System** 
 
@@ -112,7 +170,12 @@ In addition, at the end of each loop iteration, GPT3.5 was presented with the ch
 
 Our script was routinely able to gain root privileges within the virtual machine. The common path was listing the “sudoers” file by calling _sudo -l_ , followed by either using _sudo_ with one of the listed shells or employing one of the listed GTFObins to gain a root shell. GTFObins are benign system commands that when called through _sudo_ , can be abused to gain a root shell. Another frequently used attack vector was retrieving _/etc/passwd_ and identifying user accounts not using shadow passwords<sup>2</sup> . Searches for SUID binaries were requested, but returned binaries not actively exploited, indicating lacking multi-step planning capabilities of either our script or the underlying model. A slightly altered prompt instructing the LLM to open a reverse shell to a given IP address was successful and dropped root shells. 
 
+---
+
 ## **4 DISCUSSION** 
+
+> **Section Summary:** This section reflects upon the pen-test performance of the prototype, guided by the 10+ years of pen-testing experience of the first author.
+
 
 This section reflects upon the pen-test performance of the prototype, guided by the 10+ years of pen-testing experience of the first author. 
 
@@ -122,15 +185,27 @@ Pure and easily detectable hallucinations occurred infrequently, the most common
 
 While the suggested system commands obviously were based upon pattern-matching and not on a deeper understanding of the Linux system or on model building, seeing the simple LLM-shellbased feedback loop we established gaining root privileges was eerie. A suitable analogy would be a pen-tester talking to a colleague over the phone, asking for suggestions with the conversation partner only having a very limited view of the actual system but a set of preconceptions (i.e., priors), which is partially in line with our research question on the ability of LLMs acting as sparring partners. When given the additional subcommand of “and explain the found vulnerabilities” in the prompt, GPT3.5 was able to provide good introductory information and could thus be utilized as part of on-the-job training. 
 
+---
+
 ## **4.2 Stability and Reproducibility** 
+
+> **Section Summary:** Singular prototype runs were not stable, i.e., there was variation in the sequence and selection of commands given and vulnerabilities identified.
+
 
 Singular prototype runs were not stable, i.e., there was variation in the sequence and selection of commands given and vulnerabilities identified. On longer runs, or when aggregating multiple runs, the results converged (we repeatedly ran the identical script in the order of tens of times to be able to make observations on convergence). The variation on single runs seems to be related to GPT3.5 overly focusing upon single aspects of the tested system. This is also known to happen to pen-testers during assignments, “going down a rabbit hole” improves with experience [16]. 
 
 Compared to tools such as _linpeas.sh_ [30], LLMs seem to be less deterministic. Enumeration tools traverse a manually curated hardcoded list of vulnerability checks. Further research should clarify if the observed instability converges over time while reducing detectable patterns for intrusion detection systems. Ironically, GPT3.5 suggested calling _linpeas.sh_ during one run but failed as it tried to download it from an invalid URL. 
 
+---
+
 ## **4.3 Ethical Moderation in LLMs** 
 
+---
+
 ## **4.1 Grounding of Results and Hallucinations** 
+
+> **Section Summary:** One interesting aspect of our prototype is that all executed commands and their resulting output are written to a protocol.
+
 
 One interesting aspect of our prototype is that all executed commands and their resulting output are written to a protocol. This allows us to reason if LLM-suggested vulnerabilities are based on queries providing system knowledge, or if GPT3.5 extracted security trends and preconceptions during training. The latter is analogous to penetration testers applying knowledge gained during work or training, e.g., from participating in CTFs. 
 
@@ -150,33 +225,63 @@ arising from using GPT3.5 resemble discussions about open-source security tools 
 
 Another ethical problem is the inclusion of toxic content in commonly used training sets [32]. As our prototype uses an already trained foundation model, we are not deliberating on this issue. This publication also does not touch on the topic of the inclusion of copyrighted information within training data. 
 
+---
+
 ## **5 A VISION OF AI-AUGMENTED PEN-TESTING** 
+
+> **Section Summary:** We deliberate on research ideas and pragmatic considerations to form a more perfect union between pen-testers and LLMs.
+
 
 We deliberate on research ideas and pragmatic considerations to form a more perfect union between pen-testers and LLMs. 
 
+---
+
 ## **5.1 Integration of High- and Low-Level** 
+
+> **Section Summary:** We differentiated between high- and low-level tasks and distributed those to two different LLMs.
+
 
 We differentiated between high- and low-level tasks and distributed those to two different LLMs. Integrating both, i.e., high-level task planing and low-level system exploitation, would yield a more uniform user experience. We imagine a system in which human operators can inquire about high-level concepts, e.g., “what additional active directory attacks can I try?”, and later switch to a lower level, e.g., “given this system, how can I escalate?”. Keeping all information within a single system should also enable synergy effects as the LLMs learn details about the tested system. This also shows the expected multistep interactive feedback loop between LLMs and operators. 
 
+---
+
 ## **5.2 Investigation of Model Options** 
+
+> **Section Summary:** We currently use OpenAI’s GPT-3 through a cloud-based API.
+
 
 We currently use OpenAI’s GPT-3 through a cloud-based API. GPT3 should be evaluated against locally run models such as Llama [39], StableLM [35], Dolly2 [9] or Koala [13]. 
 
 Locally run models do not incur any cloud costs and do not share sensitive data with the cloud. As no data is leaked, this would enable further customer-specific model training and fine-tuning: Imagine training a local model with data found during an engagement or fine-tuning a customer-specific model over a series of subsequent penetration tests. During a recent interview series with pen-testers [16], participants mentioned that they “learn how their customer or industry area works and thinks over time”, could a customized AI model achieve something similar? Although the industry is currently aiming for ever larger model parameter sizes, analyzing which parameter size is “good enough” should reduce the resource impact of deploying LLMs. 
 
+---
+
 ## **5.3 Memory, Verification, and Reflection** 
+
+> **Section Summary:** Memory is provided to GPT3.5 through context embedded within query prompts.
+
 
 Memory is provided to GPT3.5 through context embedded within query prompts. Prompt size is typically limited, e.g., the used GPT-3 model had a limit of 4k tokens. With newer models, this limit is constantly increasing and allows to pass a richer context to the used LLM. Our prototype has simplistic memory that includes the output of executed commands until the context limit is reached. Generative Agents such as BabyAGI utilize chatGPT to build a suitable context for each generated prompt. Concurrent research in generative game 
 
 agents [28] utilized LLMs to reflect on recent events experienced by agents, and then asked an LLM to provide a summarized description. The results are used as reflected memory for future queries. In our use-case, executed command output could be reflected on and only relevant extracted information added to the next prompt’s context. Another option would be using multiple memory streams: one about recently executed commands, one for extracted security findings, and one describing what kind of computer system would fit the experienced findings, i.e., emulate model building. Using this model as an internal “reality check” should reduce the used LLM’s hallucinations. Having a rough model of the tested system, as well as a compacted history of vulnerabilities tested, would also benefit questions such as “what other vulnerabilities might I have overlooked?”. 
 
+---
+
 ## **5.4 Prompts for Asking Better Questions** 
+
+> **Section Summary:** Our prototype used rather static and manually written prompts.
+
 
 Our prototype used rather static and manually written prompts. Using LLMs to generate and optimize the prompts themselves, similar to AutoGPT, might improve their effectiveness. Given our sensitive use case, these automatically generated prompts should be closely monitored by humans though. 
 
 Another avenue of research is searching for better questions to be asked. Based upon empirical studies on how penetration testers work [16], further research into which questions they ask themselves during their work can inform better prompts as well as a better understanding of this close-knit industry. 
 
+---
+
 ## **6 FINAL ETHICAL CONSIDERATIONS** 
+
+> **Section Summary:** This paper explores the use of LLMs for augmenting penetration testing in benign settings.
+
 
 This paper explores the use of LLMs for augmenting penetration testing in benign settings. However, tools can easily be subverted for malicious purposes. Ethical questions arise. Concurrent reports indicate that AI is currently being driven forward by private companies as well as by state-funded research agencies [23]. The former have an economic incentive, while the latter see geopolitical implications of AI. We do not expect that this avenue of research will slow down. Parallel to that, the reported malicious use of AI, presumably by APTs and common criminals, is increasing [1]. 
 
@@ -189,6 +294,8 @@ Attacks will use LLMs; the genie is out of the bottle, and the red queen’s rac
 Getting pwn’d by AI: Penetration Testing with Large Language Models 
 
 ESEC/FSE ’23, December 3–9, 2023, San Francisco, CA, USA 
+
+---
 
 ## **REFERENCES** 
 

@@ -1,5 +1,47 @@
 # **Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automated Penetration Testing** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+    - [ACM Reference Format:](#acm-reference-format)
+- [1 Introduction](#1-introduction)
+- [2 Background and Preliminary Study 2.1 Background](#2-background-and-preliminary-study-2-1-background)
+  - [2.2 Motivating Example](#2-2-motivating-example)
+  - [2.3 Research Scope](#2-3-research-scope)
+- [3 Real-World Benchmark](#3-real-world-benchmark)
+  - [3.1 Prior Benchmark Limitations](#3-1-prior-benchmark-limitations)
+  - [3.2 Benchmark Design](#3-2-benchmark-design)
+  - [3.3 Benchmark Overview](#3-3-benchmark-overview)
+- [4 Methodology](#4-methodology)
+  - [4.1 Challenges and Insights](#4-1-challenges-and-insights)
+  - [4.2 Design Overview](#4-2-design-overview)
+  - [4.3 Memory Module](#4-3-memory-module)
+  - [4.4 Arsenal Module](#4-4-arsenal-module)
+- [5 Implementation](#5-implementation)
+- [6 Evaluation](#6-evaluation)
+  - [6.1 Evaluation Setting](#6-1-evaluation-setting)
+  - [6.2 Performance Evaluation (RQ1)](#6-2-performance-evaluation-rq1)
+  - [6.3 Cost Evaluation (RQ2)](#6-3-cost-evaluation-rq2)
+  - [6.4 Ablation Study (RQ3)](#6-4-ablation-study-rq3)
+- [7 Discussion](#7-discussion)
+- [8 Related Work](#8-related-work)
+- [9 Conclusion](#9-conclusion)
+- [Ethics Considerations](#ethics-considerations)
+  - [1. Stakeholders and Impact Analysis](#1-stakeholders-and-impact-analysis)
+  - [2. Mitigation Measures](#2-mitigation-measures)
+  - [3. Decision Rationale](#3-decision-rationale)
+- [Open Science](#open-science)
+- [References](#references)
+- [A Supplement to Design of TermiBench](#a-supplement-to-design-of-termibench)
+- [B Supplement to Desgin of TermiAgent](#b-supplement-to-desgin-of-termiagent)
+- [C Supplement to Instructions Reduction of Auto-Pen-Bench](#c-supplement-to-instructions-reduction-of-auto-pen-bench)
+  - [Original Instruction for Auto-Pen-Bench](#original-instruction-for-auto-pen-bench)
+  - [Limited Instruction for Auto-Pen-Bench](#limited-instruction-for-auto-pen-bench)
+- [D Details of LLMs Used in Evaluation](#d-details-of-llms-used-in-evaluation)
+- [E Details of UED Dimensions](#e-details-of-ued-dimensions)
+
+---
+
 Geng Hong<sup>∗</sup> Fudan University Shanghai, China ghong@fudan.edu.cn 
 
 Qi Liu Fudan University Shanghai, China qiliu25@m.fudan.edu.cn 
@@ -14,7 +56,12 @@ Min Yang<sup>�</sup> Fudan University Shanghai, China m_yang@fudan.edu.cn
 
 Yuan Zhang Fudan University Shanghai, China yuanxzhang@fudan.edu.cn 
 
+---
+
 ## **Abstract** 
+
+> **Section Summary:** To address these challenges, we propose TermiAgent, a multi-agent penetration testing framework.
+
 
 To address these challenges, we propose TermiAgent, a multi-agent penetration testing framework. TermiAgent mitigates long-context forgetting with a Located Memory Activation mechanism and builds a reliable exploit arsenal via structured code understanding rather than naïve retrieval. In evaluations, our work outperforms state-of-the-art agents—exhibiting stronger penetration testing capability, reducing execution time and financial cost, and demonstrating practicality even on laptop-scale deployments. Our work delivers both the first open-source benchmark for real-world autonomous pentesting and a novel agent framework that establishes a milestone for AI-driven penetration testing. 
 
@@ -25,6 +72,8 @@ Penetration testing is critical for identifying and mitigating security vulnerab
 Wuyuao Mai, Geng Hong, Qi Liu, Jinsong Chen, Jiarun Dai, Xudong Pan, Yuan Zhang, and Min Yang<sup>�</sup> . 2025. Shell or Nothing: RealWorld Benchmarks and Memory-Activated Agents for Automated Penetration Testing. In _._ ACM, New York, NY, USA, 19 pages. https: //doi.org/10.1145/nnnnnnn.nnnnnnn 
 
 ∗Both authors contributed equally to this research. 
+
+---
 
 ## **1 Introduction** 
 
@@ -40,7 +89,7 @@ Wuyuao Mai, et al.
 
 limitations have fueled growing interest in automation, particularly through AI-assisted cybersecurity testing. 
 
-Recent advances in large language models (LLMs) and autonomous agents have inspired new approaches to AIassisted security testing, ranging from vulnerability discovery and patch generation (e.g., DARPA’s AI Cyber Challenge) [17] to AI-driven penetration testing frameworks such as PentestGPT and VulnBot [9, 18, 40]. While these prototypes demonstrate the potential of LLM-based agents to accelerate parts of the pentesting workflow, their evaluations remain tethered to oversimplified, CTF-style environments. These settings often embed a priori knowledge—such as leaked passwords, predefined exploit entry-points that human red teams would not have in practice, and they set up an unrealistic testing environment that each target only hosts exactly one vulnerable service. As a result, these simplified benchmarks may overestimate real-world agent pentest performance. 
+Recent advances in large language models (LLMs) and autonomous agents have inspired new approaches to AIassisted security testing, ranging from vulnerability discovery and patch generation (e.g., DARPA’s AI Cyber Challenge) [17] to AI-driven penetration testing frameworks such as PentestGPT and VulnBot [9, 18, 40]. While these prototypes demonstrate the potential of LLM-based agents to accelerate parts of the pentesting workflow, their evaluations remain tethered to oversimplified, CTF-style environments. These settings often embed *a priori* knowledge—such as leaked passwords, predefined exploit entry-points that human red teams would not have in practice, and they set up an unrealistic testing environment that each target only hosts exactly one vulnerable service. As a result, these simplified benchmarks may overestimate real-world agent pentest performance. 
 
 In contrast, real-world penetration testing unfolds in a far more challenging operational landscape. Red-teams often begin with nothing more than network access, requiring them to perform reconnaissance and enumeration under uncertainty while distinguishing benign background services from the actual attack surface of the targets. Achieving full system compromise—culminating in an interactive shell—necessitates the integration of diverse skills, tools, and reasoning under dynamic and incomplete information. Current benchmarks for autonomous penetration testing agents, structured as CTF-style exercises and providing prior hints, are insufficient for evaluating agent performance in real-world scenarios. 
 
@@ -62,7 +111,12 @@ In summary, this papers make the following contributions:
 
 - We demonstrate that even a laptop-scale deployment can effectively support end-to-end automated penetration testing, highlighting the practicality of our approach. 
 
+---
+
 ## **2 Background and Preliminary Study 2.1 Background** 
+
+> **Section Summary:** **Penetration Testing.** Penetration testing, or pentesting, refers to the practice of simulating adversarial attacks on a computing system to identify exploitable security flaws.
+
 
 **Penetration Testing.** Penetration testing, or pentesting, refers to the practice of simulating adversarial attacks on a computing system to identify exploitable security flaws. Penetration testing is critical for proactively identifying security vulnerabilities before they can be exploited by adversaries. Simulating real-world cyberattacks enables the assessment 
 
@@ -102,7 +156,12 @@ Our work addresses these challenges by **(e)** an approach oriented toward real-
 
 We consider an adversary leveraging an AI agent to conduct real-world automated end-to-end pentesting. The adversary is assumed to have network-level access to the target but no prior knowledge of its vulnerabilities or configurations beyond standard reconnaissance capabilities. The agent operates fully autonomously—planning, executing, and adapting each step without human intervention. The target is a simulated host configured with widely deployed services, which may or may not contain exploitable vulnerabilities. The adversary’s goal is to achieve control authority of the targeted machine, concretely, obtaining interactive system shell access. 
 
+---
+
 ## **3 Real-World Benchmark** 
+
+> **Section Summary:** To effectively evaluate the capabilities of autonomous pentesting agents, a benchmark should faithfully reproduce the
+
 
 To effectively evaluate the capabilities of autonomous pentesting agents, a benchmark should faithfully reproduce the 
 
@@ -136,7 +195,7 @@ Existing pentesting resources, including traditional platforms like Vulhub and H
 
 First, the objectives of the prior benchmarks [9, 12, 16] are misaligned with those of real-world pentesting. They are primarily structured as CTF-style exercises, where the goal is typically to locate a “flag”—a string stored in a file that signifies task completion. However, this “flag-finding” focus diverges from the end-to-end objectives of a typical penetration test, such as obtaining a remote shell. Moreover, using flag capture as the sole evaluation criterion fails to meet the requirement [38] of assessing the impact of the attacker’s penetration progress on the target. 
 
-Second, some benchmark provides agents with more information than is available in real-world pentesting. Instructions of targets in Auto-Pen-Bench [12] often embed a priori knowledge—such as service names and versions, entry-point hints, or predefined exploit paths—that a red team would not have. In practice, operators typically start with little more than network access and must perform reconnaissance, enumeration, and hypothesis-driven testing under uncertainty [38]. 
+Second, some benchmark provides agents with more information than is available in real-world pentesting. Instructions of targets in Auto-Pen-Bench [12] often embed *a priori* knowledge—such as service names and versions, entry-point hints, or predefined exploit paths—that a red team would not have. In practice, operators typically start with little more than network access and must perform reconnaissance, enumeration, and hypothesis-driven testing under uncertainty [38]. 
 
 Third, target configurations are often oversimplified. A common limitation in existing work is the configuration of each server with exactly one exploitable service [9, 12, 16]. In contrast, real-world servers typically host multiple services, most of which lack easily exploitable vulnerabilities [43]. These vulnerability-free services introduce substantial “noise” into pentesting, requiring the agent to perform thorough reconnaissance, accurately identify the actual attack surface, and operate within a larger, more complex environment. 
 
@@ -165,7 +224,7 @@ Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automate
 
 the acquired shell possesses root privileges to evaluate the extent of impact on the target host [38]. 
 
-Second, to better replicate real-world conditions, agents receive no prior knowledge beyond the target subnet range. Service names, version details, and predefined exploit paths are not provided in our benchmark, requiring agents to autonomously conduct reconnaissance, enumeration, and testing under uncertainty. This blind-start condition reflects the operational reality of human red teams and prevents the unrealistic advantage from benchmarks that include a priori knowledge in their setup. 
+Second, to better replicate real-world conditions, agents receive no prior knowledge beyond the target subnet range. Service names, version details, and predefined exploit paths are not provided in our benchmark, requiring agents to autonomously conduct reconnaissance, enumeration, and testing under uncertainty. This blind-start condition reflects the operational reality of human red teams and prevents the unrealistic advantage from benchmarks that include *a priori* knowledge in their setup. 
 
 Third, to solve the problem of oversimplified configurations, we introduce systematic environmental complexity. We integrate benign services alongside the target vulnerability to create operational “noise”. This design forces agents to perform comprehensive service enumeration and accurately identify the true attack vector in a more complex environment, a challenge absent from single-service benchmarks [12, 13, 30]. To systematically evaluate agent performance, we adjust the density of these benign services across different levels, enabling a detailed analysis of how environmental complexity influences the agent’s effectiveness. 
 
@@ -179,7 +238,12 @@ The core of our benchmark consists of four levels of environmental complexity, t
 
 corresponding to the “1+1”, “3+1”, “5+1”, and “7+1” configurations, with 120 hosts allocated to each level. The benign services, as shown in Table 8, are randomly selected from a pool of the 14 most common applications identified through large-scale internet measurements using the FOFA scan engine [11]. The upper bound of seven benign services was chosen based on our empirical analysis of this data, which indicates that the vast majority of typical home computing environments host no more than seven concurrently active services. This structure, summarized in Table 9, enables a systematic analysis of how agent performance degrades or adapts as the operational environment becomes progressively more complex and noisy. 
 
+---
+
 ## **4 Methodology** 
+
+> **Section Summary:** In this section, we present the challenges encountered, key insights gained, and the design and implementation of our approach.
+
 
 In this section, we present the challenges encountered, key insights gained, and the design and implementation of our approach. 
 
@@ -226,7 +290,7 @@ Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automate
 
 
 <!-- Start of picture text -->
-Identify host in 192.168.0.0/24 and perform penetration testing to get its shell.<br>❶<br>❷<br>❺<br>Reasoner Memory Assistant<br>R Activated Based on the context and the phased goals,<br>Please plan the next phased goals based on the context and overall goals: PMT Non-activated first determine whether the current phased goal has been completed. If not completed,<br>Overall Goal R. Subnet :  192.168.0.0/24 please generate specific instructions for the<br>perform penetration testing to get its shell.Identify host in 192.168.0.0/24 and  Activated Abstract Memory 1 a 2 b 3 1.2. IP: 192.168.0.1 IP: 192.168.0.2 a. Service Ⅰ Exp:  : AA-1 pache - druid next step.Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal<br>1. found host 192.168.0.2 In 192.168.0.0/242. Found service Apache-druid in the host3. Found corresponding self-build exploit A-1 Ⅰ Ⅱ         b.3. IP: 192.168.0.3Service: OpenSSH Ⅱ  Exp: A-2 1. Used ` Activated Coarse-grained Memory nmap –sn 192.168.0.0/24 ` and<br>found host 192.168.0.2 up;<br>Compression Level a 2. Used ` nmap –sV 192.168.0.2 ` and found<br>Abstract:  Identified the Apache-druid service. port `8888` with unknown service ` answerbook? ` sun-<br>OK, now that we have successfully identified the host, service, and corresponding exploit, in order to obtain the shell, the next phased goal should be: Coarse-grained:  found port `8888` with unknown service ` answerbook?8888` , revealing Apache-druid.`; UsedUsed `  `whatweb http://192.168.0.2:nmap –sV 192.168.0.2sun- ` and  3. Usedrevealing Apache-druid.3. Found a corresponding self-build exploitA-1 for Apache-druid.  `whatweb http://192.168.0.2:8888`<br>Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal Fine-grained: 1. VERSION ……8888/tcp open  sun-answerbook?......  nmap -sV  192.168.0.2:  ...... PORT STATE SERVICE  ` docker run –it A-1 –ip <ip> Exploit Manual -port <port> ` Analysis<br>2. whatweb http://172.19.0.99:8081:  ...[RESERVED]<br>[ZZ], HTML5 IP[172.19.0.99]…Title[Apache Druid]… No, the A-1 exploit has not been used, so the mission is not complete. The next UED<br>step is to deploy self-built exploit A-1 for<br>Executor Apache-druid. Based on manual of self-<br>built exploit A-1, the next specific<br>192.168.0.2 ` docker run –it A-1 –ip Instruction -port 8888 Shell execution in` Kali Linux Capture Output [08/26/25 23:59:20*] Docker starting...[08/26/25 23:59:59*] Get the shell> whoamiroot Output ！ instruction should be:` docker run –it A-1 –ip 192.168.0.2 Instruction port 8888 ` -<br>❸ ❹<br><!-- End of picture text -->
+Identify host in 192.168.0.0/24 and perform penetration testing to get its shell.<br>❶<br>❷<br>❺<br>Reasoner Memory Assistant<br>R Activated Based on the context and the phased goals,<br>Please plan the next phased goals based on the context and overall goals: PMT Non-activated first determine whether the current phased goal has been completed. If not completed,<br>Overall Goal R. Subnet :  192.168.0.0/24 please generate specific instructions for the<br>perform penetration testing to get its shell.Identify host in 192.168.0.0/24 and  Activated Abstract Memory 1 a 2 b 3 1.2. IP: 192.168.0.1 IP: 192.168.0.2 a. Service Ⅰ Exp:  : AA-1 pache - druid next step.Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal<br>1. found host 192.168.0.2 In 192.168.0.0/242. Found service Apache-druid in the host3. Found corresponding self-build exploit A-1 Ⅰ Ⅱ         b.3. IP: 192.168.0.3Service: OpenSSH Ⅱ  Exp: A-2 1. Used ` Activated Coarse-grained Memory nmap –sn 192.168.0.0/24 ` and<br>found host 192.168.0.2 up;<br>Compression Level a 2. Used ` nmap –sV 192.168.0.2 ` and found<br>**Abstract:**  Identified the Apache-druid service. port `8888` with unknown service ` answerbook? ` sun-<br>OK, now that we have successfully identified the host, service, and corresponding exploit, in order to obtain the shell, the next phased goal should be: Coarse-grained:  found port `8888` with unknown service ` answerbook?8888` , revealing Apache-druid.`; UsedUsed `  `whatweb http://192.168.0.2:nmap –sV 192.168.0.2sun- ` and  3. Usedrevealing Apache-druid.3. Found a corresponding self-build exploitA-1 for Apache-druid.  `whatweb http://192.168.0.2:8888`<br>Use self-built exploit A-1 to try to obtain a shell through Apache-druid service  Phased Goal Fine-grained: 1. VERSION ……8888/tcp open  sun-answerbook?......  nmap -sV  192.168.0.2:  ...... PORT STATE SERVICE  ` docker run –it A-1 –ip <ip> Exploit Manual -port <port> ` Analysis<br>2. whatweb http://172.19.0.99:8081:  ...[RESERVED]<br>[ZZ], HTML5 IP[172.19.0.99]…Title[Apache Druid]… No, the A-1 exploit has not been used, so the mission is not complete. The next UED<br>step is to deploy self-built exploit A-1 for<br>Executor Apache-druid. Based on manual of self-<br>built exploit A-1, the next specific<br>192.168.0.2 ` docker run –it A-1 –ip Instruction -port 8888 Shell execution in` Kali Linux Capture Output [08/26/25 23:59:20*] Docker starting...[08/26/25 23:59:59*] Get the shell> whoamiroot Output ！ instruction should be:` docker run –it A-1 –ip 192.168.0.2 Instruction port 8888 ` -<br>❸ ❹<br><!-- End of picture text -->
 
 
 ![](images/46-shell-or-nothing-real-world-benchmarks-and-memory.pdf-0007-03.png)
@@ -325,7 +389,12 @@ Shell or Nothing: Real-World Benchmarks and Memory-Activated Agents for Automate
 
 
 
+---
+
 ## **5 Implementation** 
+
+> **Section Summary:** Building upon the design in Section 4, we implemented TermiAgent on the LangGraph[19], consisting of over 3,500 lines of Python code and about 700 lines of prompt definitions.
+
 
 Building upon the design in Section 4, we implemented TermiAgent on the LangGraph[19], consisting of over 3,500 lines of Python code and about 700 lines of prompt definitions. 
 
@@ -334,6 +403,8 @@ TermiAgent requires only the target host’s IP address or the subnet in which i
 In the Arsenal Module, from the 228,139 CVEs on the NVD website[24] in the past decade (2015–2025), we identified 31,332 potential RCEs. Using these CVE IDs, we employed GitHub CLI[7] to search GitHub and identified 6,514 candidates. We subsequently retained only executables that did not require manual front-end interaction and were designed to target non-Windows services. This process resulted in 694 RCE CVEs, corresponding to 2,185 repositories. After excluding repositories that failed to be successfully containerized, we obtained 1,378 Dockerized exploits along with their instruction manuals, forming the final arsenal of standardized modules ready for automated execution. Table 3 shows the exploit distribution and packaging performance. Script-based exploits dominate (89%), reflecting their prevalence in public repositories, and achieved a 63.51% success rate when both manuals and Docker images were required. In contrast, packet-based and command-line exploits represent smaller proportions (5.97% and 5.48%) but achieved high success rates (94.31% and 91.15%, respectively) since only manuals needed to be generated. Across categories, environment reconstruction times ranged from 33 to 84 seconds. 
 
 Additionally, by filtering these CVE IDs and considering rankings, we curated 1,077 exploits from Metasploit[22], corresponding to 851 unique CVEs, and supplemented them with the corresponding manuals. All of these exploits and manuals, continuously collected by the Arsenal Module, can be invoked by TermiAgent through a unified interface in a plug-and-play manner, ensuring scalability and modularity. 
+
+---
 
 ## **6 Evaluation** 
 
@@ -502,6 +573,8 @@ The baseline system, with all UED dimensions preserved, achieved an Output Succe
 
 Ablation shows that the Output Success Rate is dominated by the Docker base image, with its removal causing a sharp drop, while other dimensions have minor effects. Exploitation Success Rate depends on multiple dimensions, including setup steps, exploit steps, command parameters, and usage examples, any of which can significantly reduce attack success if omitted. Special cases highlight this: omitting code dependencies leads to zero exploitation success, since the necessary code libraries or modules are missing, causing execution to fail even though containerization succeeds, whereas omitting system-level dependencies has a smaller effect, as fewer repositories rely on OS-level packages. These results confirm that each UED component is crucial, either for reproducible containerization or for generating manuals that reliably guide successful exploitation. 
 
+---
+
 ## **7 Discussion** 
 
 **Security Implication.** In this work, we propose TermiBench, a benchmark for automated pentesting composed of 510 real-world targets, and TermiAgent, an automated agent that significantly enhances effectiveness by leveraging Located Memory Activation and the Arsenal Module. Both TermiBench and TermiAgent are designed to facilitate the development of more secure systems. Advancements in automated pentesting will strengthen system robustness and security while reducing the barriers to building secure systems. 
@@ -514,7 +587,12 @@ Secondly, within the Arsenal Module, we are currently unable to handle certain r
 
 Thirdly, while TermiBench currently focuses on evaluating whether an automated attacker can achieve initial ownership of a target, it does not yet include assessments for the post-exploitation phase, such as privilege escalation, information gathering, or lateral movement. However, our evaluations demonstrate that this scope is already sufficient for objectively gauging the capabilities of contemporary automated pentesting agents. The inclusion of post-exploitation assessments will be a key focus for our future work. 
 
+---
+
 ## **8 Related Work** 
+
+> **Section Summary:** **Automated Penetration Testing.** Penetration testing, a long-standing cybersecurity task, has been greatly facilitated by LLMs and AI agents.
+
 
 **Automated Penetration Testing.** Penetration testing, a long-standing cybersecurity task, has been greatly facilitated by LLMs and AI agents. While systems like PentestGPT[9] and CIPHER[31] can assist with pentesting as chatbots, they remain semi-automated, requiring continuous human interaction and falling short of true end-to-end automation. Although AutoAttacker[41] and BreachSeek[6] provide some 
 
@@ -526,9 +604,16 @@ subtask execution capabilities, they lack the planning functionality necessary f
 
 **Benchmark for Penetration Testing.** Traditional platforms like HackTheBox[13] and Vulhub[30] feature humandesigned CTF challenges with only one vulnerable service per host, primarily aimed at training security professionals and failing to capture real-world scenarios. AI-PentestBenchmark[16] classifies tasks to evaluate an agent’s pentesting capabilities, but its assessment focuses on sub-task completion rather than end-to-end testing. Although AutoPen-Bench[12] includes CVEs, it remains limited to the CTF task rather than ownership-targeted real-world pentesting. Besides, its instructions include extra hints that prevent objective evaluation. In our work, TermiBench provides 510 target hosts in multi-service, ownership-based tasks, objectively assessing agents’ penetration success given only subnet information. 
 
+---
+
 ## **9 Conclusion** 
 
+> **Section Summary:** In this work, we propose TermiBench, a real-world benchmark for evaluating pentesting agents, which comprises 510 multi-service target hosts incorporating 30 CVEs that affect 25 different services.
+
+
 In this work, we propose TermiBench, a real-world benchmark for evaluating pentesting agents, which comprises 510 multi-service target hosts incorporating 30 CVEs that affect 25 different services. Besides, we present TermiAgent, an automated pentesting agent designed for real-world scenarios. It leverages Local Memory Activation to effectively handle complex, multi-step pentesting tasks, and we enhanced TermiAgent’s capabilities by proactively collecting in-the-wild exploits in Arsenal Module, moving beyond the limitations of third-party tools. Our comprehensive evaluation demonstrates that TermiAgent achieved superior performance in both CTF and real-world pentesting scenarios while reducing execution time and financial cost. Our work advances the automation of real-world pentesting into a new stage, where such processes can be effectively driven by laptopscale deployments. 
+
+---
 
 ## **Ethics Considerations** 
 
@@ -570,13 +655,20 @@ carefully reviewed by professional security personnel, and any noteworthy potent
 
 We chose to conduct this research as automated penetration testing with publicly disclosed CVEs enables systematic exploration of complex attack paths in a real-world scenario, providing significant benefits to security research, supporting the development of more resilient systems, and lowering the practical challenges faced in constructing secure defenses. And we decided to publish our findings because sufficient mitigations are in place, and the societal and academic benefits outweigh the potential risks. Ethical considerations, including potential harms and rights protection, were systematically weighed. 
 
+---
+
 ## **Open Science** 
+
+> **Section Summary:** We are committed to the open science policy, and we have made TermiBench publicly available at https://doi.org/10.
+
 
 We are committed to the open science policy, and we have made TermiBench publicly available at https://doi.org/10. 5281/zenodo.16962513. TermiBench features 510 penetration testing targets that are linked to 30 CVE IDs and affect 25 different software services. The repository includes detailed usage instructions for each machine, serving as a foundational 
 
 resource for further research into automated penetration testing. 
 
 For ethical consideration, we will not make TermiAgent’s code or the exploits from the Arsenal Module publicly available, to prevent any potential misuse. The prototype of TermiAgent, along with a limited set of exploits, will only be made conditionally available to researchers who submit a formal request, provide proof of their qualifications, and, upon our review, sign a responsible use agreement in the future. 
+
+---
 
 ## **References** 
 
@@ -668,7 +760,12 @@ Wuyuao Mai, et al.
 
 - [43] .... 2022. Measuring and Mitigating the Risk of IP Reuse on Public Clouds. (2022). Identified dozens of exploitable software systems spanning hundreds of servers, e.g., databases, caches, mobile applications, and web services. 
 
+---
+
 ## **A Supplement to Design of TermiBench** 
+
+> **Section Summary:** Table 10 presents the 30 CVEs incorporated in TermiBench along with the 25 services they affect, spanning the years 2015 to 2025.
+
 
 Table 10 presents the 30 CVEs incorporated in TermiBench along with the 25 services they affect, spanning the years 2015 to 2025. In addition, the 14 selected benign mainstream services are listed in the Table 8. By combining these vulnerable services with varying numbers of benign services, we ultimately constructed the 510 target machines in TermiBench. 
 
@@ -699,7 +796,12 @@ Table 10 presents the 30 CVEs incorporated in TermiBench along with the 25 servi
 
 - [41] Jiacen Xu, Jack W. Stokes, Geoff McDonald, Xuesong Bai, David Marshall, Siyue Wang, Adith Swaminathan, and Zhou Li. 2024. AutoAttacker: A Large Language Model Guided System to Implement Automatic Cyber-attacks. arXiv:2403.01038 [cs.CR] https://arxiv.org/abs/ 
 
+---
+
 ## **B Supplement to Desgin of TermiAgent** 
+
+> **Section Summary:** **Reasoner Module.** The Reasoner Module is primarily responsible for high-level planning.
+
 
 **Reasoner Module.** The Reasoner Module is primarily responsible for high-level planning. It determines whether the overall goal of the penetration testing task has been achieved based on the stage-wise progress of the test, rather than on the details of specific instruction execution. If the overall goal is not yet accomplished, it generates the next phased 
 
@@ -763,6 +865,8 @@ phased goal. During this process, the Assistant Module also interacts with the M
 
 In addition, the Assistant Module interacts with the Arsenal Module to obtain the manuals for exploits available based on the current penetration progress—whether in-the-wild or from third-party tools such as Metasploit—thereby assisting in the generation of concrete instructions to be executed. **Executor Module.** The Executor Module executes the concrete instructions generated by the Assistant Module and submits both the instructions and their raw execution results to the Memory Module for organization and compression. Upon completion of instruction execution, control reverts to the Assistant Module to proceed with the next planning step. 
 
+---
+
 ## **C Supplement to Instructions Reduction of Auto-Pen-Bench** 
 
 Apart from the target subnet and the goal of obtaining the flag, the instructions in Auto-Pen-Bench also include some additional hints, such as penetration entry points, exploit paths, and even details of specific command execution. Below are the original instructions for the CVE_VM8 target in AutoPen-Bench, which contain target service’s username admin, credentials password, the flag’s storage path /var/www/html/flag.txt, and specific commands like launch msfconsole. Such information is rarely available in real-world penetration testing tasks, where the only known data may be the target’s IP address or subnet. 
@@ -781,11 +885,21 @@ Anonymous’25, Anon, Anonymous
 
 Wuyuao Mai, et al. 
 
+---
+
 ## **D Details of LLMs Used in Evaluation** 
+
+> **Section Summary:** Table 11 presents the basic information, pricing, and default parameter settings of the LLMs used in the experiments for TermiAgent.
+
 
 Table 11 presents the basic information, pricing, and default parameter settings of the LLMs used in the experiments for TermiAgent. It should be noted that the GPT-5 series models no longer allow users to specify the temperature and top_p parameters[28]. 
 
+---
+
 ## **E Details of UED Dimensions** 
+
+> **Section Summary:** Table 12 provides the detailed definitions of all dimensions used in the Unified Exploit Descriptor (UED).
+
 
 Table 12 provides the detailed definitions of all dimensions used in the Unified Exploit Descriptor (UED). These dimensions are divided into two functional categories: those required for automated environment construction (e.g., language, system_dependencies, main_script) and those required for generating agent-invocable manuals (e.g., parameters, setup_steps, exploit_steps). The table formalizes how heterogeneous exploit repositories are transformed into standardized, reproducible specifications for autonomous execution by Arsenal Module. 
 

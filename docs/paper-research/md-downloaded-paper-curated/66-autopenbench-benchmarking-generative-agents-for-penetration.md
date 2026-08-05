@@ -1,5 +1,37 @@
 # AUTOPENBENCH: BENCHMARKING GENERATIVE AGENTS FOR PENETRATION TESTING 
 
+## Table of Contents
+
+  - [Luca Gioacchini, Marco Mellia](#luca-gioacchini-marco-mellia)
+  - [Idilio Drago, Alexander Delsanto](#idilio-drago-alexander-delsanto)
+  - [Giuseppe Siracusano, Roberto Bifulco](#giuseppe-siracusano-roberto-bifulco)
+- [ABSTRACT](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Benchmark Overview](#2-benchmark-overview)
+  - [2.1 Penetration test infrastructure](#2-1-penetration-test-infrastructure)
+  - [2.2 Types of vulnerable machines](#2-2-types-of-vulnerable-machines)
+  - [2.3 Milestones](#2-3-milestones)
+- [3 Generative Agents](#3-generative-agents)
+  - [3.1 Autonomous agent](#3-1-autonomous-agent)
+  - [3.2 Assisted agent](#3-2-assisted-agent)
+  - [3.3 Tools and Structured Output](#3-3-tools-and-structured-output)
+- [4 Experimental Results](#4-experimental-results)
+  - [4.1 Autonomous agent](#4-1-autonomous-agent)
+  - [4.2 Assisted agent](#4-2-assisted-agent)
+- [5 Additional Analysis](#5-additional-analysis)
+  - [5.1 Choice of the LLM](#5-1-choice-of-the-llm)
+  - [5.2 Agent Consistency](#5-2-agent-consistency)
+- [6 Conclusion](#6-conclusion)
+- [Ethics](#ethics)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
+- [A Agents Running Examples](#a-agents-running-examples)
+  - [A.1 Autonomous Agent on AC 0](#a-1-autonomous-agent-on-ac-0)
+  - [A.2 Assisted Agent on AC 0](#a-2-assisted-agent-on-ac-0)
+  - [~~<mark>�</mark>~~](#mark-mark)
+
+---
+
 ### **Luca Gioacchini, Marco Mellia** 
 
 Politecnico di Torino Turin, Italy first.last@polito.it 
@@ -12,13 +44,23 @@ Università di Torino Turin, Italy first.last@unito.it
 
 NEC Laboratories Europe Heidelberg, Germany first.last@neclab.eu 
 
+---
+
 ## **ABSTRACT** 
+
+> **Section Summary:** Generative AI agents, software systems powered by Large Language Models (LLMs), are emerging as a promising approach to automate cybersecurity tasks.
+
 
 Generative AI agents, software systems powered by Large Language Models (LLMs), are emerging as a promising approach to automate cybersecurity tasks. Among the others, penetration testing is a challenging field due to the task complexity and the diverse set of strategies to simulate cyberattacks. Despite growing interest and initial studies in automating penetration testing with generative agents, there remains a significant gap in the form of a comprehensive and standard framework for their evaluation, comparison and development. This paper introduces AUTOPENBENCH, an open benchmark for evaluating generative agents in automated penetration testing. We address the challenges of existing approaches by presenting a comprehensive framework that includes 33 tasks, each representing a vulnerable system that the agent has to attack. Tasks are of increasing difficulty levels and include in-vitro and real-world scenarios. To assess the agent performance we define generic and specific milestones that allow anyone to compare results in a standardised manner and understand the limits of the agent under test. We show the benefits of our methodology by benchmarking two modular agent cognitive architectures: a fully autonomous and a semi-autonomous agent supporting human interaction. Our benchmark lets us compare their performance and limitations. For instance, the fully autonomous agent performs unsatisfactorily achieving a 21% Success Rate across the benchmark, solving 27% of the simple tasks and only one real-world task. In contrast, the assisted agent demonstrates substantial improvements, attaining 64% of success rate. AUTOPENBENCH allows us also to observe how different LLMs like GPT-4o, Gemini Flash or OpenAI o1 impact the ability of the agents to complete the tasks. We believe that our benchmark fills the gap by offering a standard and flexible framework to compare penetration testing agents on a common ground. We hope to extend AUTOPENBENCH along with the research community by making it available under https://github.com/lucagioacchini/auto-pen-bench. 
 
 **_K_ eywords** Generative agents, Large Language Models, Penetration testing, Cybersecurity 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** Penetration testing, or pentesting, consists of performing real-world cyber-attacks to test the effectiveness of an organisation’s security system.
+
 
 Penetration testing, or pentesting, consists of performing real-world cyber-attacks to test the effectiveness of an organisation’s security system. It is a complex and challenging field that requires a diverse set of skills and extensive knowledge [1]. The difficulty in conducting effective pentests has led researchers to explore automated solutions, from automatic tools like Metasploit [2] or OWASP Netattacker [3] to AI-based solutions to enhance and automate various aspects of the process (we refer the reader to [4] for a complete overview). These include deep reinforcement learning approaches to reproduce real pentest scenarios and automate attack paths [5,6], and more traditional rule tree models [7]. 
 
@@ -32,7 +74,12 @@ Our research aligns with the direction established by Cybench, proposing AUTOPEN
 
 AUTOPENBENCH reveals that (i) the fully autonomous agent demonstrates limited effectiveness, achieving only a 21% Success Rate (SR) across our benchmark, with a notable disparity between in-vitro (27% SR) and real-world scenarios (9% SR); (ii) enabling human-machine collaboration pays, resulting in a total SR of 64%, with 59% success on in-vitro tasks and a 73% on real-world challenges. AUTOPENBENCH allows us to seamlessly assess the impact of using different LLMs like GPT-4o, OpenAI o1 or Gemini Flash. The ability to automate and repeat the tasks allows us to compare the inherent randomness of LLMs which penalises the agent reliability for pentesting tasks. 
 
+---
+
 ## **2 Benchmark Overview** 
+
+> **Section Summary:** We build AUTOPENBENCH on top of AgentQuest [19], a modular framework which supports the design of benchmarks and agent architectures.
+
 
 We build AUTOPENBENCH on top of AgentQuest [19], a modular framework which supports the design of benchmarks and agent architectures. In this work, we include 33 pentest tasks organised into 2 difficulty levels: in-vitro and realworld tasks. We structure the tasks as a CTF challenge – i.e. the agent has to discover and exploit a vulnerability to read the content of a flag. Each task involves at least one Docker container (the vulnerable system) and a container hosting the agent pentest workstation. We split each task into milestones to objectively measure and understand the agent progress. In the following, we provide an overview of the penetration test infrastructure, the benchmark categories and the milestones required to evaluate the agent performance. 
 
@@ -169,7 +216,12 @@ Execution steps<br>0 5 10 15 20 25 30 35 40<br>Stage Milestones<br>: Discovery :
 
 Figure 2: Example of commands executed by our autonomous agent when accomplishing a real-world pentest task involving the exploitation of the CVE-2024-36401 for the CVE0 task. Each command corresponds to a reached command milestone, whereas different colours indicate different stage milestones. 
 
+---
+
 ## **3 Generative Agents** 
+
+> **Section Summary:** To assess the capability of generative agents in penetration testing, we use AUTOPENBENCH to test and compare a completely autonomous agent and a human-assisted agent.
+
 
 To assess the capability of generative agents in penetration testing, we use AUTOPENBENCH to test and compare a completely autonomous agent and a human-assisted agent. We design our generative agents relying on the CoALA framework [31]. In a nutshell, CoALA defines an agent through three components: (i) a decision-making procedure, a loop responsible for the agent behaviour relying on a pre-trained LLM; (ii) an action space to perform internal actions through reasoning procedures and external actions through grounding procedures; and (iii) at least one memory component to store recent data related to a specific task (working memory), or across different tasks (semantic, episodic and procedural memory). 
 
@@ -274,7 +326,12 @@ To facilitate this comprehensive interaction, we provide three default tools all
 
 To ensure efficient and error-free communication between the LLM and the testing environment, we implement structured output using the Python library Instructor [43]. This approach prompts the LLM to return the output in a custom JSON format, represented by a Pydantic object [44]. By structuring the output in this manner, we significantly reduce parsing errors. 
 
+---
+
 ## **4 Experimental Results** 
+
+> **Section Summary:** We evaluate the two generative agents performance with AUTOPENBENCH.
+
 
 We evaluate the two generative agents performance with AUTOPENBENCH. To limit the monetary cost deriving from multiple LLM API calls, we run our experiments using gpt-4o-2024-08-06 which results as the currently best LLM for pentesting (see Section 5 for the LLM selection). We fix the seed and set the LLM temperature to 0 to reduce the randomness of the generated output. We set 30 as the step limit for the in-vitro tasks and 60 for the real-world tasks. 
 
@@ -339,7 +396,12 @@ The considerations on the autonomous agent in CRPT tasks are still valid. The as
 
 All in all, our results highlight how a semi-autonomous agent can overcome the limitations of such recent technology. Although we are far away from a fully autonomous agent, continued research and iterative refinement of technologies based on the human-AI collaboration hold promise to efficiently automate penetration tests with minimum domain knowledge requirements. 
 
+---
+
 ## **5 Additional Analysis** 
+
+> **Section Summary:** In this section, we describe how we select the LLM used by our agents in Section 4 demonstrating the applicability of our benchmark across various models.
+
 
 In this section, we describe how we select the LLM used by our agents in Section 4 demonstrating the applicability of our benchmark across various models. Additionally, we investigate the agent consistency in approaching pentest scenarios. 
 
@@ -387,13 +449,23 @@ Discovery Discovery<br>Infiltration Infiltration<br>Detection Detection<br>Escal
 
 Figure 5: Distributions of steps at which the agent achieves each pentest stage over 10 runs of the same task. 
 
+---
+
 ## **6 Conclusion** 
+
+> **Section Summary:** In this work, we developed AUTOPENBENCH, an open-source benchmark for evaluating generative agents in automatic penetration testing.
+
 
 In this work, we developed AUTOPENBENCH, an open-source benchmark for evaluating generative agents in automatic penetration testing. We hope its availability opens to a fair and thorough comparison of agents performance in pentesting. For this, we performed extensive experiments using two modular agent cognitive architectures: a fully autonomous version and a semi-autonomous one supporting human interaction. AUTOPENBENCH let us obtain significant insights into the current capabilities and limitations of AI-driven pentesting. The fully autonomous agent demonstrated limited effectiveness across our benchmark both in simple in-vitro tasks and in more complex real-world scenarios. The inherent randomness of the LLM penalised the model reliability, which is a must in penetration testing. Our assisted agent exhibited substantial improvements, especially in real-world challenges, highlighting the potential of human-AI collaboration. 
 
 Looking ahead, we acknowledge several limitations and opportunities for future work. While our benchmark covers simple penetration testing areas, our goal is to create a comprehensive, common benchmark that serves as a playground for autonomous agent development in cybersecurity. To this end, we make AUTOPENBENCH open and flexible. We plan to extend the benchmark with additional vulnerable containers, encompassing a broader range of scenarios and attack vectors. Furthermore, we aim to expand our analysis to include other LLMs, exploring how different AI architectures perform in pentesting tasks. Additionally, we intend to investigate the potential benefits of incorporating a RAG-based agent module capable of retrieving information about best pentesting practices from cybersecurity manuals, potentially enhancing the agents knowledge base and decision-making capabilities. 
 
+---
+
 ## **Ethics** 
+
+> **Section Summary:** In this work, we introduce novel benchmarks that can help the development of LLM-based agents for penetration testing.
+
 
 In this work, we introduce novel benchmarks that can help the development of LLM-based agents for penetration testing. We believe the use of LLMs for assisting penetration tests would represent a major contribution to increasing the security of connected systems. It will streamline and automate the testing of applications, thus preventing such vulnerabilities from reaching production systems. That is precisely what existing pentesting tools provide, and LLM-based systems would represent a step forward in automating security testing. 
 
@@ -401,11 +473,21 @@ An important question is whether LLM agents could be used to automate attacks ag
 
 13 
 
+---
+
 ## **Acknowledgements** 
+
+> **Section Summary:** This works has been partly supported by NEC Laboratories Europe.
+
 
 This works has been partly supported by NEC Laboratories Europe. Luca Gioacchini has been funded by the PRIN 2022 Project ACRE (AI-Based Causality and Reasoning for Deceptive Assets - 2022EP2L7H). Marco Mellia has been supported by project SERICS (PE00000014) under the MUR National Recovery and Resilience Plan funded by the European Union - NextGenerationEU. Idilio Drago has been supported by the SERICS (PE00000014) Cascate Call Project Q-CPS2 (Quantitative models for Cyber Physical Systems Security). This manuscript reflects only the authors’ views and opinions and the Ministry cannot be considered responsible for them. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Areej Fatima, Tahir Abbas Khan, Tamer Mohamed Abdellatif, Sidra Zulfiqar, Muhammad Asif, Waseem Safi, Hussam Al Hamadi, and Amer Hani Al-Kassem.
+
 
 - [1] Areej Fatima, Tahir Abbas Khan, Tamer Mohamed Abdellatif, Sidra Zulfiqar, Muhammad Asif, Waseem Safi, Hussam Al Hamadi, and Amer Hani Al-Kassem. Impact and Research Challenges of Penetrating Testing and Vulnerability Assessment on Network Threat. In _2023 International Conference on Business Analytics for Technology and Security_ , 2023. 
 
@@ -508,6 +590,8 @@ Yiorkadjis, Kenny Osele, Gautham Raghupathi, Dan Boneh, Daniel E. Ho, and Percy 
 - [47] OpenAI. Reasoning Models - OpenAI, 2024. 
 
 16 
+
+---
 
 ## **A Agents Running Examples** 
 

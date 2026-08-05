@@ -1,10 +1,77 @@
 # **From Capabilities to Performance: Evaluating Key Functional Properties of LLM Architectures in Penetration Testing** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background and Related Works](#2-background-and-related-works)
+  - [Functional Properties as MAS-Inspired In-](#functional-properties-as-mas-inspired-in)
+- [3 A Functional Categorization of LLMs in Cybersecurity (RQ1)](#3-a-functional-categorization-of-llms-in-cybersecurity-rq1)
+- [4 Empirical Performance of LLMs in Penetration Testing (RQ2)](#4-empirical-performance-of-llms-in-penetration-testing-rq2)
+  - [4.1 Benchmarking Environment](#4-1-benchmarking-environment)
+  - [4.2 Evaluation Metrics](#4-2-evaluation-metrics)
+  - [4.3 Task Completion Performance](#4-3-task-completion-performance)
+- [5 Failure Modes and Error Analysis (RQ3)](#5-failure-modes-and-error-analysis-rq3)
+- [6 Achieving Essential Capabilities: An Architectural and Intervention-Based Analysis (RQ4)](#6-achieving-essential-capabilities-an-architectural-and-intervention-based-analysis-rq4)
+- [7 Performance Dependencies of LLM Roles (Revisiting RQ1)](#7-performance-dependencies-of-llm-roles-revisiting-rq1)
+- [8 Conclusion](#8-conclusion)
+- [Limitations](#limitations)
+- [Acknowledgement](#acknowledgement)
+- [References](#references)
+- [A Extended Background and Related Works](#a-extended-background-and-related-works)
+  - [A.1 AI for Cybersecurity and Penetration Testing](#a-1-ai-for-cybersecurity-and-penetration-testing)
+  - [A.2 LLMs for Offensive and Defensive Security](#a-2-llms-for-offensive-and-defensive-security)
+  - [A.3 Security Frameworks and Their Role in AI-Driven Testing](#a-3-security-frameworks-and-their-role-in-ai-driven-testing)
+  - [MITRE ATT&CK and NIST SP 800-115.](#mitre-att-ck-and-nist-sp-800-115)
+- [B RQ1:LLMs in Cybersecurity - A Functional Review](#b-rq1-llms-in-cybersecurity-a-functional-review)
+  - [B.1 LLMs as Autonomous Attackers](#b-1-llms-as-autonomous-attackers)
+  - [B.2 LLMs as Augmented Assistants](#b-2-llms-as-augmented-assistants)
+  - [B.3 LLMs as Hybrid Models](#b-3-llms-as-hybrid-models)
+- [C Functional Property Definitions](#c-functional-property-definitions)
+  - [Multi-Step Strategic Planning & Error Detec-](#multi-step-strategic-planning-error-detec)
+- [D Task Descriptions and Justification](#d-task-descriptions-and-justification)
+  - [D.1 Detailed Task Descriptions](#d-1-detailed-task-descriptions)
+  - [D.1.1 Reconnaissance](#d-1-1-reconnaissance)
+  - [1. Host and Service Enumeration](#1-host-and-service-enumeration)
+  - [2. Directory and Web Enumeration](#2-directory-and-web-enumeration)
+  - [D.1.2 Credential Attacks:](#d-1-2-credential-attacks)
+  - [D.1.3 Exploitation of Known Vulnerabilities:](#d-1-3-exploitation-of-known-vulnerabilities)
+  - [Example Snippet:](#example-snippet)
+  - [D.1.4 Post-Exploitation](#d-1-4-post-exploitation)
+  - [D.1.5 Man-in-the-Middle (MITM)](#d-1-5-man-in-the-middle-mitm)
+  - [D.1.6 Web Exploitation & Injection Attacks :](#d-1-6-web-exploitation-injection-attacks)
+  - [D.1.7 Active Directory (AD) Attacks:](#d-1-7-active-directory-ad-attacks)
+  - [Example Snippet:](#example-snippet)
+  - [Reconnaissance](#reconnaissance)
+  - [Credential Attacks](#credential-attacks)
+  - [Exploitation of Vulnerabilities](#exploitation-of-vulnerabilities)
+  - [Post-Exploitation](#post-exploitation)
+  - [D.2 Subtask Selection](#d-2-subtask-selection)
+  - [MITM & Credential Interception](#mitm-credential-interception)
+  - [Web Exploitation](#web-exploitation)
+  - [Active Directory Attacks](#active-directory-attacks)
+- [E Language and Reasoning Challenges in LLM-Based Penetration Testing](#e-language-and-reasoning-challenges-in-llm-based-penetration-testing)
+  - [Tool Usage, Code Generation, and Debugging](#tool-usage-code-generation-and-debugging)
+  - [E.1 Domain-Specific Language](#e-1-domain-specific-language)
+  - [E.2 Examples for NLP Reasoning](#e-2-examples-for-nlp-reasoning)
+- [F Design Considerations for the Tasks](#f-design-considerations-for-the-tasks)
+  - [F.1 Dataset](#f-1-dataset)
+  - [F.2 LLM Hyperparameters and Model Usage](#f-2-llm-hyperparameters-and-model-usage)
+  - [F.3 Evaluation Methodology](#f-3-evaluation-methodology)
+- [G Ethical or Safety Considerations](#g-ethical-or-safety-considerations)
+
+---
+
 **Lanxiao Huang**<sup>**1***</sup> **Daksh Dave**<sup>**1**</sup> **Tyler Cody**<sup>**2**</sup> **Peter Beling**<sup>**2**</sup> **Ming Jin**<sup>**1**†</sup> 1 Bradley Department of Electrical and Computer Engineering, Virginia Tech 2 National Security Institute, Virginia Tech {hlanxiao, ddave, jinming, tcody, beling}@vt.edu 
 
 ## **Abstract** 
 
+> **Section Summary:** Large Language Models (LLMs) have been explored for automating or enhancing penetration testing tasks, but their effectiveness and reliability across diverse attack phases remain open questions.
+
+
 Large Language Models (LLMs) have been explored for automating or enhancing penetration testing tasks, but their effectiveness and reliability across diverse attack phases remain open questions. This study presents a comprehensive evaluation of multiple LLM-based agents, ranging from singular to modular designs, across realistic penetration testing scenarios, analyzing their empirical performance and recurring failure patterns. We further investigate the impact of core functional capabilities on agent success, operationalized through five targeted augmentations: Global Context Memory (GCM), Inter-Agent Messaging (IAM), Context-Conditioned Invocation (CCI), Adaptive Planning (AP), and Real-Time Monitoring (RTM). These interventions respectively support the capabilities of _Context Coherence & Retention_ , _Inter-Component Coordination & State Management_ , _Tool Usage Accuracy & Selective Execution_ , _Multi-Step Strategic Planning & Error Detection & Recovery_ , and _RealTime Dynamic Responsiveness_ . Our findings reveal that while some architectures natively exhibit select properties, targeted augmentations significantly enhance modular agent performance—particularly in complex, multi-step, and real-time penetration testing scenarios. 
+
+---
 
 ## **1 Introduction** 
 
@@ -34,7 +101,12 @@ map LLMs to the roles of autonomous attackers, augmented assistants, and hybrid 
 
 This paper proceeds as follows. Section 2 (RQ1) characterizes LLM roles in PT. Section 4 (RQ2) presents an experimental study of multiple LLMs on a curated set of PT tasks, followed by Section 5 (RQ3) detailing the most prominent error modes. Section 6 (RQ4) investigates how targeted design augmentations influence key functional capabilities. Section 7 revisits RQ1 and highlights how complexity and risk levels influence these functional roles in real-world testing contexts. Sections 8 concludes with discussions of limitations. 
 
+---
+
 ## **2 Background and Related Works** 
+
+> **Section Summary:** LLMs have rapidly gained traction in both _offensive_ and _defensive_ cybersecurity applications.
+
 
 LLMs have rapidly gained traction in both _offensive_ and _defensive_ cybersecurity applications. On the offensive side, researchers have developed LLMdriven PT frameworks capable of automating reconnaissance, exploit generation, and multi-step attack orchestration (Tete, 2024; Xu et al., 2024a; Ferrag et al., 2025). However, hallucinated commands, 
 
@@ -42,11 +114,20 @@ syntax errors, and context drift remain key limitations. On the defensive side, 
 
 Security frameworks such as _MITRE ATT&CK_ and _NIST SP 800-115_ guide both offensive and defensive strategies (MITRE Corporation, 2025; Scarfone et al., 2008). ATT&CK categorizes adversarial tactics, while NIST outlines procedural standards for vulnerability assessments. Our task design and metric formulation (Section 4) align with these frameworks to ensure practical relevance. 
 
-**Modular Agents and MAS Principles.** Recent work explores modular LLM architectures that adopt Multi-Agent Systems (MAS) principles, where tasks are decomposed into planner, executor, and evaluator roles with shared memory and inter-agent communication. (Deng et al., 2023; Huang and Zhu, 2023; Singer et al., 2025; Zhang et al., 2024b; Zhu et al., 2024). These systems leverage modularity to improve robustness and coordination in complex attack scenarios, showing that MAS-inspired designs can enhance multi-step reasoning and adaptability. However, evaluating the cutting edge of modular agents is complicated by the closed-source nature of some recent systems (Zhu et al., 2024; Singer et al., 2025). Our study, therefore, focuses on reproducible experiments with accessible architectures. We implement PENTESTGPT (Deng et al., 2023) using its public release, and re-implement AUTOATTACKER (Xu et al., 2024b) and PENHEAL (Huang and Zhu, 2023) based on their published descriptions. This approach enables controlled comparison while underscoring the need for greater transparency in modular LLM research. 
+**Modular Agents and MAS Principles.** Recent work explores modular LLM architectures that adopt Multi-Agent Systems (MAS) principles, where tasks are decomposed into planner, executor, and evaluator roles with shared memory and inter-agent communication. (Deng et al., 2023:
+- Huang and Zhu, 2023
+- Singer et al., 2025
+- Zhang et al., 2024b
+- Zhu et al., 2024). These systems leverage modularity to improve robustness and coordination in complex attack scenarios, showing that MAS-inspired designs can enhance multi-step reasoning and adaptability. However, evaluating the cutting edge of modular agents is complicated by the closed-source nature of some recent systems (Zhu et al., 2024
+- Singer et al., 2025). Our study, therefore, focuses on reproducible experiments with accessible architectures. We implement PENTESTGPT (Deng et al., 2023) using its public release, and re-implement AUTOATTACKER (Xu et al., 2024b) and PENHEAL (Huang and Zhu, 2023) based on their published descriptions. This approach enables controlled comparison while underscoring the need for greater transparency in modular LLM research.
 
 ### **Functional Properties as MAS-Inspired In-** 
 
-**terventions.** Conceptual advances in modular agents, together with established principles from the broader MAS literature, highlight the importance of context or situation awareness (Ehtesham et al., 2025; Jiang et al., 2023), inter-agent communication (Ding et al., 2024; Ehtesham et al., 2025), memory sharing (Gao and Zhang, 2024; Jiang et al., 2023), and adaptive planning (Torreno et al., 2017; Liu et al., 2024b) for building reliable autonomous systems. Our investigation into targeted interven- 
+**terventions.** Conceptual advances in modular agents, together with established principles from the broader MAS literature, highlight the importance of context or situation awareness (Ehtesham et al., 2025:
+- Jiang et al., 2023), inter-agent communication (Ding et al., 2024
+- Ehtesham et al., 2025), memory sharing (Gao and Zhang, 2024
+- Jiang et al., 2023), and adaptive planning (Torreno et al., 2017
+- Liu et al., 2024b) for building reliable autonomous systems. Our investigation into targeted interven-
 
 tions (Section 6) can be seen as practical implementations of these MAS-inspired concepts. These modules are designed to strengthen key functional properties such as context retention, strategic planning, and error recovery in LLM-based PT agents. 
 
@@ -54,11 +135,17 @@ tions (Section 6) can be seen as practical implementations of these MAS-inspired
 
 **Our Contributions 1)** We systematically test multiple LLMs (ChatGPT, Claude, PENTESTGPT, etc.) on end-to-end PT tasks, capturing subtask completion rates, false command generation, and ease of use. **2)** Unlike prior single-step or RL-based approaches, we analyze failure modes arising from context fragmentation (especially in multi-agent LLM setups), providing unique empirical data on how these models handle multi-step complexities. **3)** We introduce and evaluate five targeted design augmentations, namely GCM, IAM, CCI, AP and RTM, each aimed at reinforcing a core functional capability essential for reliable PT performance. 
 
+---
+
 ## **3 A Functional Categorization of LLMs in Cybersecurity (RQ1)** 
 
 **LLMs as Autonomous Attackers.** Some LLMs function as _independent_ agents that generate and execute attack strategies with minimal human oversight (Moskal et al., 2023; Beckerich et al., 2023; Happe et al., 2023; Muzsai et al., 2024). They can autonomously discover vulnerabilities, craft exploits, and escalate privileges, posing a dual-use risk if misused by malicious actors. 
 
-**LLMs as Augmented Assistants.** Other LLMs serve as _assistive_ tools for penetration testers by recommending commands, optimizing workflows, or helping with scenario planning (Rando et al., 2023; Roy et al., 2023a; Gadyatskaya and Papuc, 2023; Tann et al., 2023; Naito et al., 2023). These models operate under human supervision, providing valuable code snippets or strategic suggestions, yet leaving critical decisions to security experts. 
+**LLMs as Augmented Assistants.** Other LLMs serve as _assistive_ tools for penetration testers by recommending commands, optimizing workflows, or helping with scenario planning (Rando et al., 2023:
+- Roy et al., 2023a
+- Gadyatskaya and Papuc, 2023
+- Tann et al., 2023
+- Naito et al., 2023). These models operate under human supervision, providing valuable code snippets or strategic suggestions, yet leaving critical decisions to security experts.
 
 **LLMs as Hybrid Models.** Finally, _hybrid_ architectures integrate multiple LLM (or AI) components into modular frameworks, aiming to combine the autonomous adaptability of generalist models with 
 
@@ -99,6 +186,8 @@ Figure 1: The evaluation working flow of LLMGuided Penetration Testing: Ethical 
 the reliability and specialization of structured subagents (Deng et al., 2023; Xu et al., 2024b; Zhang et al., 2024b; Singer et al., 2025; Huang and Zhu, 2023; Zhu et al., 2024). These systems decompose the agent architecture by _functional roles_ , such as reasoning, parsing, generation, or remediation, allowing for more controllable and interpretable behavior. 
 
 This classification provides an initial framework for understanding LLM-driven penetration testing roles. More detailed review can be find in Appendix B. However, it is only a _partial_ answer to **RQ1** . In Section 7, we revisit and refine these categories based on our empirical findings, highlighting deeper nuances such as task complexity, risk levels, and context requirements. 
+
+---
 
 ## **4 Empirical Performance of LLMs in Penetration Testing (RQ2)** 
 
@@ -172,7 +261,12 @@ higher completion rates, likely due to stronger support for _Strategic Planning 
 
 **Ease of Use Metrics** Ease of use results (Table 1) revealed a strong correlation between autonomy and capability embodiment. GPT-4 and Claude required minimal intervention, as did PENHEAL, which benefited from its modular role assignments and use of an Instructor for fallback routing. Gemini and AUTOATTACKER, by contrast, frequently stalled or required guidance, suggesting weak coherence and inconsistent tool execution logic. 
 
+---
+
 ## **5 Failure Modes and Error Analysis (RQ3)** 
+
+> **Section Summary:** Below, we consolidate the primary failure modes (Table 6).
+
 
 Below, we consolidate the primary failure modes (Table 6). 
 
@@ -228,6 +322,8 @@ Table 2: Failure Modes (FMs) mapped to Failure Reasons (FRs) and deeper Root Cau
 
 Figure 5: Risk-Task Matrix with Recommended Human Oversight. Tasks are ordered from least to most complex (bottom to top), with risk levels (Low, Medium, High) categorized along the columns. The intervention score (numerical values) represents the degree of human oversight needed, with higher values indicating greater human involvement. 
 
+---
+
 ## **6 Achieving Essential Capabilities: An Architectural and Intervention-Based Analysis (RQ4)** 
 
 This section examines how the success or failure of LLM-based penetration testing agents stems from their ability to exhibit five core functional capabilities, each aligned with a targeted augmentation: Context Coherence and Retention, InterComponent Coordination and State Management, Tool Usage Accuracy and Selective Execution, Multi-Step Strategic Planning and Error Detection and Recovery, and Real-Time Dynamic Responsiveness. Each corresponds to failure patterns analyzed in Section 5 and is operationalized via targeted augmentations detailed below. Table 3 summarizes their impact on task performance, while Table 4 (Appendix C) traces their influence on capability coverage across agents. 
@@ -264,7 +360,12 @@ tions. We observed agents re-executing already completed subtasks or misusing to
 
 The targeted augmentations introduced in this section directly align with the root causes identified in Table 2. GCM mitigates context loss from long prompts, IAM addresses missing state propagation across agents, CCI reduces prompt drift and suppresses redundant execution, AP remedies brittle stop conditions through dynamic replanning, and RTM compensates for the absence of runtime checks in real-time tasks. Together, these interventions form a structured response to the empirically observed origins of failure, demonstrating how functional scaffolding can translate descriptive error analysis into practical design improvements. 
 
+---
+
 ## **7 Performance Dependencies of LLM Roles (Revisiting RQ1)** 
+
+> **Section Summary:** Our empirical findings highlight that LLM performance in penetration testing is not uniformly deter-
+
 
 Our empirical findings highlight that LLM performance in penetration testing is not uniformly deter- 
 
@@ -280,7 +381,12 @@ mined by architectural design (i.e., single-agent vs. modular), but rather by ho
 
 _augmented assistant_ , and _hybrid_ , are best understood not as fixed identities but as dynamic configurations influenced by task characteristics and the agent’s functional scaffolding. For structured, lowrisk tasks with minimal context dependency (e.g., reconnaissance), LLMs may operate autonomously. In contrast, high-complexity or high-risk scenarios often necessitate assistant or hybrid roles, where functional properties like planning depth, coordination, and error resilience determine operational viability. 
 
+---
+
 ## **8 Conclusion** 
+
+> **Section Summary:** LLM-based agents show strong potential in automating core penetration testing tasks such as reconnaissance and credential exploitation, but remain brittle on complex, multi-phase workflows.
+
 
 LLM-based agents show strong potential in automating core penetration testing tasks such as reconnaissance and credential exploitation, but remain brittle on complex, multi-phase workflows. Common failure modes including looping, context loss, and tool misuse persist across architectures. Our empirical findings align with recent systematic analyses of multi-agent system failures across diverse domains, where inter-agent misalignment and coordination breakdowns emerge as fundamental challenges (Cemri et al., 2025). Furthermore, in our domain-specific setting, all models failed on real-time tasks like MITM, highlighting broader limitations in responsiveness and adaptive control. 
 
@@ -290,15 +396,27 @@ Future work should focus on embedding these capabilities more natively within ag
 
 **Reframing LLM Roles** Our results suggest that the roles defined in RQ1, _autonomous attacker_ , 
 
+---
+
 ## **Limitations** 
 
+> **Section Summary:** This paper focuses on penetration testing tasks drawn from Hack The Box and Metasploitable environments, which may not fully represent larger or more advanced enterprise networks.
+
+
 This paper focuses on penetration testing tasks drawn from Hack The Box and Metasploitable environments, which may not fully represent larger or more advanced enterprise networks. The specific LLM versions and configurations tested here are subject to ongoing updates, and newer models or specialized PT-oriented LLMs might exhibit different strengths. We also relied on text-based command parsing rather than direct integration with network monitoring or live traffic analysis tools. Finally, ethical and regulatory aspects were considered in a controlled lab environment and may differ from real-world engagements where authorization and scope management are more complex. 
+
+---
 
 ## **Acknowledgement** 
 
 The work of L. Huang and M. Jin was partially supported by the National Science Foundation (NSF) under grants ECCS-2500368, ECCS-233177, and IIS-2312794, the Amazon-Virginia Tech Initiative for Efficient and Robust Machine Learning, the Commonwealth Cyber Initiative, and the Deloitte AI Fellowship Program. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - Tarek Ali and Panos Kostakos.
+
 
 - Tarek Ali and Panos Kostakos. 2023. Huntgpt: Integrating machine learning-based anomaly detection and explainable ai with large language models (llms). _arXiv preprint arXiv:2309.16021_ . 
 
@@ -428,6 +546,8 @@ _URL: https://nvlpubs. nist. gov/nistpubs/CSWP/NIST. CSWP_ , 4162018:7.
 
 - Yuxuan Zhu, Antony Kellermann, Akul Gupta, Philip Li, Richard Fang, Rohan Bindu, and Daniel Kang. 2024. Teams of llm agents can exploit zero-day vulnerabilities. _arXiv preprint arXiv:2406.01637_ . 
 
+---
+
 ## **A Extended Background and Related Works** 
 
 In this appendix, we provide an expanded review of prior research on AI-driven cybersecurity, with particular emphasis on penetration testing, LLMs in offensive and defensive roles, and the established frameworks guiding security practices. We also elaborate on how our evaluation methodology aligns with these frameworks and where our contributions fit within the broader literature. 
@@ -436,7 +556,10 @@ In this appendix, we provide an expanded review of prior research on AI-driven c
 
 **AI in Defensive Security.** Machine learning and deep learning methods have been widely adopted for threat detection, intrusion prevention, and vulnerability management (Morovat and Panda, 2020). Neural classifiers excel at spotting anomalous user behaviors or malicious network traffic patterns, while RL-based intrusion response has shown promise in adaptive defensive strategies (Disha and Waheed, 2022; Reaney et al., 2024). Despite these successes, real deployments demand careful tuning to minimize false positives and handle adversarial evasions. 
 
-**AI in Offensive Security.** Comparatively fewer works address fully automated or semi-automated penetration testing via AI (Ghanem and Chen, 2018; Cody et al., 2022; Huang et al., 2022; Wang et al., 2024). RL agents simulate multi-step exploits in controlled labs, but often struggle with scaling to real-world environments due to limited or unrealistic reward structures. Expert systems can automate certain scanning and exploitation tasks, yet they remain brittle against novel vulnerabilities. 
+**AI in Offensive Security.** Comparatively fewer works address fully automated or semi-automated penetration testing via AI (Ghanem and Chen, 2018:
+- Cody et al., 2022
+- Huang et al., 2022
+- Wang et al., 2024). RL agents simulate multi-step exploits in controlled labs, but often struggle with scaling to real-world environments due to limited or unrealistic reward structures. Expert systems can automate certain scanning and exploitation tasks, yet they remain brittle against novel vulnerabilities.
 
 Existing AI approaches for PT underscore both the potential and the limitations of automated offense. Our study diverges by focusing on LLMs, which integrate knowledge from massive pretraining corpora and exhibit advanced contextual reasoning. We investigate how LLMs compare to or complement RL-based methods in real PT workflows, emphasizing interpretability, adaptability, and error modes. 
 
@@ -464,7 +587,12 @@ for penetration testing, from planning and reconnaissance to exploitation and re
 
 In our experiments (Sections A, we structure tasks around reconnaissance, exploitation, privilege escalation, lateral movement, and other phases consistent with NIST PT guidelines. We also map certain LLM-generated behaviors to MITRE ATT&CK techniques. This alignment ensures our benchmarking remains representative of real-world attacker workflows, enabling direct comparisons with established security practices. 
 
+---
+
 ## **B RQ1:LLMs in Cybersecurity - A Functional Review** 
+
+> **Section Summary:** LLMs have emerged as transformative tools in cybersecurity, offering capabilities that range from automating offensive security operations to assisting penetration testers and security analysts.
+
 
 LLMs have emerged as transformative tools in cybersecurity, offering capabilities that range from automating offensive security operations to assisting penetration testers and security analysts. Traditional cybersecurity frameworks, such as NIST and MITRE ATT&CK, provide structured methodologies for understanding threats, yet LLMs introduce new operational paradigms that challenge conventional security assumptions. Their ability to generate, interpret, and execute commands in realtime has led to a classification into three functional roles: autonomous attackers, augmented assistants, and hybrid models. Figure 7 provides a high-level overview of the workflow for PT augmented by LLM that is incorporated into the PT lifecycle with potential failure and ethical risks. 
 
@@ -508,7 +636,12 @@ specific tools and prompts. This modular dispatch framework mitigates context li
 
 Across these frameworks, functional modularity emerges as a unifying design principle: decomposing LLM responsibilities into discrete components improves transparency, error recovery, and scalability, and forms the basis for more robust penetration testing agents in both routine and adversarial environments. 
 
+---
+
 ## **C Functional Property Definitions** 
+
+> **Section Summary:** This section formally defines the five core functional capabilities used throughout our evaluation framework.
+
 
 This section formally defines the five core functional capabilities used throughout our evaluation framework. Each property corresponds to a distinct augmentation mechanism and is aligned with specific failure patterns and subtask dependencies. 
 
@@ -525,6 +658,8 @@ This section formally defines the five core functional capabilities used through
 **Real-Time Dynamic Responsiveness (RTDR).** The capacity to process and act upon dynamic, timing-sensitive environmental feedback. This includes packet-level reactivity in MITM attacks and rapid response to runtime triggers. Without this capability, agents fail in real-time scenarios requiring event-driven control or sub-second responsiveness. 
 
 Table 4 summarizes the degree to which each evaluated agent supports these five properties, as well as their corresponding subtask completion rates (SCR). The table includes both base agents and those with targeted augmentations, offering a comparative view of capability embodiment. 
+
+---
 
 ## **D Task Descriptions and Justification** 
 
@@ -954,7 +1089,7 @@ LLM Usage:
 
 - <mark>echo "Flag so far: $prefix$(printf "% s" "${chars[@]}")"</mark> 
 
-<mark>break fi done if [[ "${chars[-1]}" == "}" ]]; then echo "Flag complete: $prefix$(printf "%s" "${chars[@]}")" break fi done --Result: Flag discovered: HTB{R33se_P@ssw0rd}</mark> 
+<mark>break fi done if [[ "${chars[-1]}" == "}" ]]; then echo "Flag complete: $prefix$(printf "%s" "${chars[@]}")" break fi done --**Result:** Flag discovered: HTB{R33se_P@ssw0rd}</mark> 
 
 - Exploiting VSFTPD backdoor, SSTI payload crafting 
 
@@ -1046,6 +1181,8 @@ By anchoring each tactic to specific MITRE techniques, we can assert that our te
 **Comprehensive Coverage Hypothesis** -By integrating tactics that span from Reconnaissance to Post-Exploitation, the LLM’s performance can be benchmarked across nearly all major MITRE ATT&CK phases. 
 
 - **End-to-End testing with tools for relevance** Having a diverse set of tactics ensures we use tools like Nmap, Hydra, sqlmap, and mimikatz which are industry standards. Testing whether the LLM can accurately generate and adapt commands for these tools ensures practical relevance and immediate applicability in penetration testing scenarios. 
+
+---
 
 ## **E Language and Reasoning Challenges in LLM-Based Penetration Testing** 
 
@@ -1163,6 +1300,8 @@ The server’s configuration (including security settings) is exposed.
 
 LLM achieves command execution, successfully retrieving the flag. 
 
+---
+
 ## **F Design Considerations for the Tasks** 
 
 ### **F.1 Dataset** 
@@ -1183,7 +1322,7 @@ All LLMs evaluated in this study were accessed through their official APIs, usin
 
 - **Maximum tokens** : 2048 
 
-Model Configuration Summary: 
+Model Configuration **Summary:** 
 
 - **GPT-4 (gpt-4)** : Used as a chat-based agent directly through OpenAI’s API. 
 
@@ -1262,7 +1401,12 @@ Failures are determined based on following criterias during empirical evaluation
 
 unencoded SSTI payload resulting in a syntax error). 
 
+---
+
 ## **G Ethical or Safety Considerations** 
+
+> **Section Summary:** The integration LLMs into cybersecurity operations necessitates careful consideration of ethical and safety implications.
+
 
 The integration LLMs into cybersecurity operations necessitates careful consideration of ethical and safety implications. Ensuring compliance with regulatory frameworks such as the General Data Protection Regulation (GDPR) and the Health Insurance Portability and Accountability Act (HIPAA) is paramount. NIST has developed the AI Risk Management Framework (AI RMF) to assist organizations in managing AI-related risks, emphasizing the importance of data privacy and security in AI applications (National Institute of Standards and Technology (NIST), 2024). 
 

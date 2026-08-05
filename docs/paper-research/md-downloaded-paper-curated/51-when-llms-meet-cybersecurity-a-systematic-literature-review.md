@@ -1,5 +1,34 @@
 # WHEN LLMS MEET CYBERSECURITY: A SYSTEMATIC LITERATURE REVIEW 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Preliminary](#2-preliminary)
+  - [2.1 LLMs in Cybersecurity](#2-1-llms-in-cybersecurity)
+  - [2.2 Cybersecurity Categories of LLMs Application](#2-2-cybersecurity-categories-of-llms-application)
+- [3 RQ1: How to construct cybersecurity-oriented domain LLMs?](#3-rq1-how-to-construct-cybersecurity-oriented-domain-llms)
+  - [3.1 Selection of Base Model for Constructing Domain LLM by Evaluating Cybersecurity Capabilities](#3-1-selection-of-base-model-for-constructing-domain-llm-by-evaluating-cybersecurity-capabilities)
+  - [3.2 Key Technologies in Constructing Domain LLMs](#3-2-key-technologies-in-constructing-domain-llms)
+  - [3.3 Fine-tuned Domain LLMs for Cybersecurity](#3-3-fine-tuned-domain-llms-for-cybersecurity)
+- [4 RQ2: What are the potential applications of LLMs in cybersecurity?](#4-rq2-what-are-the-potential-applications-of-llms-in-cybersecurity)
+  - [4.1 Threat Intelligence](#4-1-threat-intelligence)
+  - [4.2 Vulnerability Detection](#4-2-vulnerability-detection)
+  - [4.3 Malware Detection](#4-3-malware-detection)
+  - [4.4 Anomaly Detection](#4-4-anomaly-detection)
+  - [4.5 Fuzz](#4-5-fuzz)
+  - [4.6 Program Repairing](#4-6-program-repairing)
+  - [4.7 LLM Assisted Attack](#4-7-llm-assisted-attack)
+  - [4.8 (In)secure Code Generation](#4-8-in-secure-code-generation)
+  - [4.9 Others](#4-9-others)
+- [5 RQ3: What are the challenge and further research for the application of LLMs in cybersecurity?](#5-rq3-what-are-the-challenge-and-further-research-for-the-application-of-llms-in-cybersecurity)
+  - [5.1 Challenge](#5-1-challenge)
+  - [5.2 Further Research](#5-2-further-research)
+- [6 Conclusion](#6-conclusion)
+- [References](#references)
+
+---
+
 **Jie Zhang**<sup>1</sup><sup>_,_2</sup> **, Haoyu Bu**<sup>1</sup><sup>_,_2</sup> **, Hui Wen**<sup>1</sup><sup>_,_2</sup><sup>_,∗_</sup> **, Yongji Liu**<sup>1</sup><sup>_,_2</sup> **, Haiqiang Fei**<sup>1</sup><sup>_,_2</sup> **, Rongrong Xi**<sup>1</sup><sup>_,_2</sup> **, Lun Li**<sup>1</sup> **, Yun Yang**<sup>1</sup><sup>_,_2</sup> **, Hongsong Zhu**<sup>1</sup><sup>_,_2</sup><sup>_,∗_</sup> **, Dan Meng**<sup>1</sup><sup>_,_2</sup> 
 
 1 Institute of Information Engineering, Chinese Academy of Sciences, Beijing, China 
@@ -8,45 +37,55 @@
 
 ## **ABSTRACT** 
 
-The rapid development of large language models (LLMs) has opened new avenues across various fields, including cybersecurity, which faces an evolving threat landscape and demand for innovative technologies. Despite initial explorations into the application of LLMs in cybersecurity, there is a lack of a comprehensive overview of this research area. This paper addresses this gap by providing a systematic literature review, covering the analysis of over 300 works, encompassing 25 LLMs and more than 10 downstream scenarios. Our comprehensive overview addresses three key research questions: the construction of cybersecurity-oriented LLMs, the application of LLMs to various cybersecurity tasks, the challenges and further research in this area. This study aims to shed light on the extensive potential of LLMs in enhancing cybersecurity practices and serve as a valuable resource for applying LLMs in this field. We also maintain and regularly update a list of practical guides on LLMs for cybersecurity at https://github.com/tmylla/Awesome-LLM4Cybersecurity. 
+> The rapid development of large language models (LLMs) has opened new avenues across various fields, including cybersecurity, which faces an evolving threat landscape and demand for innovative technologies. Despite initial explorations into the application of LLMs in cybersecurity, there is a lack of a comprehensive overview of this research area. This paper addresses this gap by providing a systematic literature review, covering the analysis of over 300 works, encompassing 25 LLMs and more than 10 downstream scenarios. Our comprehensive overview addresses three key research questions: the construction of cybersecurity-oriented LLMs, the application of LLMs to various cybersecurity tasks, the challenges and further research in this area. This study aims to shed light on the extensive potential of LLMs in enhancing cybersecurity practices and serve as a valuable resource for applying LLMs in this field. We also maintain and regularly update a list of practical guides on LLMs for cybersecurity at https://github.com/tmylla/Awesome-LLM4Cybersecurity. 
+
+---
 
 ## **1 Introduction** 
 
-Large language models (LLMs), represented by advanced models such as ChatGPT [1], Llama [2], and their derivatives [3, 4, 5] have marked a significant advancement in artificial intelligence. Leveraging massive data and advanced neural network architectures, these models have demonstrated remarkable capabilities in understanding and generating human language [6, 7]. They not only set new benchmarks for achieving artificial general intelligence (AGI) but also show unique adaptability and effectiveness when collaborating with domain experts [8, 9]. Such research enables LLMs to be tailored to specific challenges in various fields, thereby promoting progress and development in areas such as healthcare, law, education, and software engineering [10, 11, 12, 13, 14, 15]. In the cybersecurity domain, exploring LLM applications can lay the foundations for further model development and utilization while highlighting potential transformative impacts [16, 17, 18, 19, 20]. 
-
-Cybersecurity is a critical issue given the growing number of cyber threats that pose significant risks to individuals, organizations, and governments [21, 22, 23]. The rapid evolution and dynamic nature of cybersecurity pose challenges as adversaries continuously adapt strategies to exploit vulnerabilities and evade detection [24, 25]. While traditional approaches ( _e.g._ , signature-based detection, and rule-based systems) often struggle to keep pace with the evolving threat landscape, advancements in AI, particularly LLMs have opened new avenues for enhancing cybersecurity [26]. On one hand, open-sourced LLMs ( _e.g._ , LLaMA [2, 27]) support the development of cybersecurity-enhanced domain LLMs such as RepairLlama [28] and Hackmentor [29] to address unique cybersecurity challenges. On the other hand, advanced LLMs such as ChatGPT solve complex tasks via prompt engineering, in-context learning, and chains-of-thought despite the lack of cybersecurity-specific training [30]. These preliminary efforts show LLMs can aid cybersecurity tasks with promising results. 
-
-Despite the initial efforts of LLMs in cybersecurity, the field still faces several challenges [17, 31]. First, many studies rely on case studies without comprehensive methodology, raising concerns about scalability and reproducibility. In addition, the field lacks connectivity and in-depth analysis between studies. With the rapid increase in the amount of LLM research in this field, conducting a systematic overview is essential to guide the field into a new stage of 
-
-Table 1: **The main cybersecurity tasks and applications where LLMs have been utilized.** 
-
-||**Vulnerability**<br>**Detection**|**(In)secure**<br>**Code**<br>**Generation**|**Program**<br>**Repairing**|**Binary**|**IT**<br>**Operations**|**Threat**<br>**Intelligence**|**Anomaly**<br>**Detection**|**LLM**<br>**Assisted**<br>**Attack**|**Others**|
-|---|---|---|---|---|---|---|---|---|---|
-|**RQ1**|✓|✓|✓|✓|✓|-|-|-|✓|
-|**RQ2**|✓|✓|✓|-|-|✓|✓|✓|✓|
-|**RQ3**|-|-|-|-|✓|-|✓|✓|-|
+> **Section Summary:** Large language models (LLMs), represented by advanced models such as ChatGPT [1], Llama [2], and their derivatives [3, 4, 5] have marked a significant advancement in artificial intelligence.
 
 
+> Large language models (LLMs), represented by advanced models such as ChatGPT [1], Llama [2], and their derivatives [3, 4, 5] have marked a significant advancement in artificial intelligence. Leveraging massive data and advanced neural network architectures, these models have demonstrated remarkable capabilities in understanding and generating human language [6, 7]. They not only set new benchmarks for achieving artificial general intelligence (AGI) but also show unique adaptability and effectiveness when collaborating with domain experts [8, 9]. Such research enables LLMs to be tailored to specific challenges in various fields, thereby promoting progress and development in areas such as healthcare, law, education, and software engineering [10, 11, 12, 13, 14, 15]. In the cybersecurity domain, exploring LLM applications can lay the foundations for further model development and utilization while highlighting potential transformative impacts [16, 17, 18, 19, 20]. 
 
-development, in which the application of LLM is not just experimental but also has strategic impact [18, 19, 20]. Therefore, this work aims to conduct an extensive review of domain-specific LLMs tailored for cybersecurity, explore the breadth of LLM applications in this area, and identify emerging challenges to lay the foundation for future studies. 
+> Cybersecurity is a critical issue given the growing number of cyber threats that pose significant risks to individuals, organizations, and governments [21, 22, 23]. The rapid evolution and dynamic nature of cybersecurity pose challenges as adversaries continuously adapt strategies to exploit vulnerabilities and evade detection [24, 25]. While traditional approaches ( _e.g._ , signature-based detection, and rule-based systems) often struggle to keep pace with the evolving threat landscape, advancements in AI, particularly LLMs have opened new avenues for enhancing cybersecurity [26]. On one hand, open-sourced LLMs ( _e.g._ , LLaMA [2, 27]) support the development of cybersecurity-enhanced domain LLMs such as RepairLlama [28] and Hackmentor [29] to address unique cybersecurity challenges. On the other hand, advanced LLMs such as ChatGPT solve complex tasks via prompt engineering, in-context learning, and chains-of-thought despite the lack of cybersecurity-specific training [30]. These preliminary efforts show LLMs can aid cybersecurity tasks with promising results. 
 
-This survey aims to provide a comprehensive overview of the application of LLM in cybersecurity. We seek to address three key questions: 
+> Despite the initial efforts of LLMs in cybersecurity, the field still faces several challenges [17, 31]. First, many studies rely on case studies without comprehensive methodology, raising concerns about scalability and reproducibility. In addition, the field lacks connectivity and in-depth analysis between studies. With the rapid increase in the amount of LLM research in this field, conducting a systematic overview is essential to guide the field into a new stage of 
 
-- RQ1: How to construct cybersecurity-oriented domain LLMs? 
+> Table 1: **The main cybersecurity tasks and applications where LLMs have been utilized.** 
 
-- RQ2: What are the potential applications of LLMs in cybersecurity? 
+> ||**Vulnerability**<br>**Detection**|**(In)secure**<br>**Code**<br>**Generation**|**Program**<br>**Repairing**|**Binary**|**IT**<br>**Operations**|**Threat**<br>**Intelligence**|**Anomaly**<br>**Detection**|**LLM**<br>**Assisted**<br>**Attack**|**Others**|
+> |---|---|---|---|---|---|---|---|---|---|
+> |**RQ1**|✓|✓|✓|✓|✓|-|-|-|✓|
+> |**RQ2**|✓|✓|✓|-|-|✓|✓|✓|✓|
+> |**RQ3**|-|-|-|-|✓|-|✓|✓|-|
 
-- RQ3: What are the challenge and further research for the application of LLMs in cybersecurity? 
 
-By exploring these questions, we aim to bridge the gap between the advancement in LLMs and its potential impact on enhancing cybersecurity practices. We will delve into various cybersecurity tasks and applications to which LLMs are applicable, including vulnerability detection, secure code generation, program repair, binary, IT operations, threat intelligence, anomaly detection, and LLM-assisted attack, as shown in Table 1. 
 
-For the first question, we summarize the principles of existing cybersecurity LLMs, detailing their key techniques, the data used for model construction, and well-trained domain LLMs for special tasks. We provide insights into constructing domain models, which are valuable for researchers and practitioners looking to build customized LLMs based on specific requirements, such as computational limits, private data, and local knowledge bases (Section 3). For the second question, we conduct an extensive survey on the usage of existing LLMs in more than 10 cybersecurity tasks, including threat intelligence, vulnerability detection, program repairing, and others. This analysis not only helps us understand how LLMs benefit cybersecurity in various aspects but also allows us to identify their strengths when applied to domain-specific tasks. By demonstrating the diverse capabilities of LLMs, we aim to illustrate their potential to enhance and transform the cybersecurity field (Section 4). The third question highlights the challenges that need to be overcome when applying LLMs in cybersecurity. LLMs’ inherent vulnerabilities and susceptibilities lead to these attack challenges, especially attacks against LLMs and LLM jailbreaking. Additionally, we also explore further research directions for applying LLM to cybersecurity, guiding researchers and practitioners to promote advancement in this field (Section 5). 
+> development, in which the application of LLM is not just experimental but also has strategic impact [18, 19, 20]. Therefore, this work aims to conduct an extensive review of domain-specific LLMs tailored for cybersecurity, explore the breadth of LLM applications in this area, and identify emerging challenges to lay the foundation for future studies. 
 
-In summary, this paper contributes by providing a comprehensive review of the state-of-the-art LLM applications in cybersecurity, highlighting the potential advantages and challenges, and proposing future research directions. The subsequent sections of this paper are organized as follows. Section 2 outlines the scope of this paper. Section 3 summarizes existing LLMs for cybersecurity. Section 4 details how LLMs can be applied to various cybersecurity tasks. Section 5 highlights the challenges and promising opportunities for future research. Section 6 draws the conclusion. 
+> This survey aims to provide a comprehensive overview of the application of LLM in cybersecurity. We seek to address three key questions: 
+
+> - RQ1: How to construct cybersecurity-oriented domain LLMs? 
+
+> - RQ2: What are the potential applications of LLMs in cybersecurity? 
+
+> - RQ3: What are the challenge and further research for the application of LLMs in cybersecurity? 
+
+> By exploring these questions, we aim to bridge the gap between the advancement in LLMs and its potential impact on enhancing cybersecurity practices. We will delve into various cybersecurity tasks and applications to which LLMs are applicable, including vulnerability detection, secure code generation, program repair, binary, IT operations, threat intelligence, anomaly detection, and LLM-assisted attack, as shown in Table 1. 
+
+> For the first question, we summarize the principles of existing cybersecurity LLMs, detailing their key techniques, the data used for model construction, and well-trained domain LLMs for special tasks. We provide insights into constructing domain models, which are valuable for researchers and practitioners looking to build customized LLMs based on specific requirements, such as computational limits, private data, and local knowledge bases (Section 3). For the second question, we conduct an extensive survey on the usage of existing LLMs in more than 10 cybersecurity tasks, including threat intelligence, vulnerability detection, program repairing, and others. This analysis not only helps us understand how LLMs benefit cybersecurity in various aspects but also allows us to identify their strengths when applied to domain-specific tasks. By demonstrating the diverse capabilities of LLMs, we aim to illustrate their potential to enhance and transform the cybersecurity field (Section 4). The third question highlights the challenges that need to be overcome when applying LLMs in cybersecurity. LLMs’ inherent vulnerabilities and susceptibilities lead to these attack challenges, especially attacks against LLMs and LLM jailbreaking. Additionally, we also explore further research directions for applying LLM to cybersecurity, guiding researchers and practitioners to promote advancement in this field (Section 5). 
+
+> In summary, this paper contributes by providing a comprehensive review of the state-of-the-art LLM applications in cybersecurity, highlighting the potential advantages and challenges, and proposing future research directions. The subsequent sections of this paper are organized as follows. Section 2 outlines the scope of this paper. Section 3 summarizes existing LLMs for cybersecurity. Section 4 details how LLMs can be applied to various cybersecurity tasks. Section 5 highlights the challenges and promising opportunities for future research. Section 6 draws the conclusion. 
+
+---
 
 ## **2 Preliminary** 
 
-In this review paper, we systematically investigate the application progress of LLMs in cybersecurity, covering more than 300 academic papers since 2023. Through an exhaustive study and comprehensive analysis, we aim to provide a detailed overview of the current state, challenges, and future directions of LLM applications in cybersecurity. As shown in Figure 1, this emerging research field continues to gain attention, and LLM can be used to solve various tasks. This not only highlights the current and potential impact of LLMs in cybersecurity, but also offers practical guidance for future research. Therefore, this section first summarizes the surveyed papers from two aspects: one is the LLMs used in cybersecurity, and the other is the category of cybersecurity tasks to which LLMs can be applied. 
+> **Section Summary:** In this review paper, we systematically investigate the application progress of LLMs in cybersecurity, covering more than 300 academic papers since 2023.
+
+
+> In this review paper, we systematically investigate the application progress of LLMs in cybersecurity, covering more than 300 academic papers since 2023. Through an exhaustive study and comprehensive analysis, we aim to provide a detailed overview of the current state, challenges, and future directions of LLM applications in cybersecurity. As shown in Figure 1, this emerging research field continues to gain attention, and LLM can be used to solve various tasks. This not only highlights the current and potential impact of LLMs in cybersecurity, but also offers practical guidance for future research. Therefore, this section first summarizes the surveyed papers from two aspects: one is the LLMs used in cybersecurity, and the other is the category of cybersecurity tasks to which LLMs can be applied. 
 
 ### **2.1 LLMs in Cybersecurity** 
 
@@ -140,7 +179,12 @@ Figure 2: **Treemap for cybersecurity categories of LLMs’ application.**
 
 - Others: In addition to the aspects mentioned above, we have also collected some researches which prove the importance of LLMs in the field of cybersecurity, there are fewer application studies of LLM in its field. 
 
+---
+
 ## **3 RQ1: How to construct cybersecurity-oriented domain LLMs?** 
+
+> **Section Summary:** The cybersecurity domain is facing escalating threats, demanding intelligent and efficient solutions to deal with complex and evolving attacks [37, 38, 39].
+
 
 The cybersecurity domain is facing escalating threats, demanding intelligent and efficient solutions to deal with complex and evolving attacks [37, 38, 39]. LLMs provide new opportunities for the cybersecurity community [18, 19]. Trained on massive data, LLMs have acquired rich knowledge and developed strong understanding and reasoning capabilities, providing powerful decision-making for cybersecurity. 
 
@@ -227,6 +271,8 @@ By integrating these techniques, researchers can select appropriate methods to c
 In addition to enhancing the cybersecurity capabilities of general LLMs through SFT and CPT, **specialized securityoriented LLMs can be developed by leveraging innovative model architectures and proprietary large-scale datasets for independent pretraining** . The Machine Language Model (MLM) is a large model designed for the machine language domain, utilizing an innovative architecture to align multimodal data across machine language, natural language, and source code [94, 95, 96]. This approach not only addresses the limitations of existing LLMs in comprehending machine language but also introduces transformative advancements in software reverse engineering and software security detection. TrafficFormer [97] is an efficient pre-training model designed for traffic data. Given the characteristics of traffic data, it introduces fine-grained multi-classification tasks in the pre-training stage to enhance the representation of traffic data; in the fine-tuning stage, it uses the random initialization characteristics of the field to propose a traffic data enhancement method to help the traffic model focus on key information. In this way, the accuracy of the model’s traffic detection and protocol understanding is improved. These developments pave the way for novel research directions in the field of cybersecurity. 
 
 Answer to Q1: For researchers, it is feasible to construct the domain LLM by fine-tuning a general LLM with cybersecurity data using methods such as CPT and SFT, and the implementation technique depends on the specific application scenario, resource availability, and the expected level of performance improvement. 
+
+---
 
 ## **4 RQ2: What are the potential applications of LLMs in cybersecurity?** 
 
@@ -459,6 +505,8 @@ RoBERTa. Next, the embedding is clustered using the HDBSCAN and the fingerprint 
 
 Answer to Q2: LLMs have shown great potential in the field of cybersecurity, assisting in various aspects such as threat intelligence, anomaly detection, vulnerability detection, and so on. LLM security copilot can effectively empower the automation and intelligence of cybersecurity, helping to address security risk challenges. Although relevant research has made certain progress, it is still worth further exploration to better apply LLMs in the field of cybersecurity. 
 
+---
+
 ## **5 RQ3: What are the challenge and further research for the application of LLMs in cybersecurity?** 
 
 ### **5.1 Challenge** 
@@ -532,7 +580,12 @@ In conclusion, the application of LLM-based agents in cybersecurity opens up new
 
 Answer 2 to Q3: Extending the tool-use and API-call capabilities of LLM, coupled with the design of autonomous intelligent agents capable of understanding, planning, and executing complex tasks within cybersecurity applications, will greatly advance the utilization of AI in cybersecurity. 
 
+---
+
 ## **6 Conclusion** 
+
+> **Section Summary:** This paper introduces the methodologies for constructing cybersecurity-oriented domain LLMs, detailing how existing models can be fine-tuned to meet specific needs using target data.
+
 
 This paper introduces the methodologies for constructing cybersecurity-oriented domain LLMs, detailing how existing models can be fine-tuned to meet specific needs using target data. The investigation into the applications of LLMs has shows that LLMs have great potential for a wide range of cybersecurity tasks, such as threat intelligence, vulnerability detection, secure code generation and others. However, we has also acknowledged the inherent vulnerabilities of LLMs, particularly the susceptibility to attacks such as jailbreaking, which pose significant security risks. Mitigating these vulnerabilities is crucial to securely deploying LLMs in sensitive environments. Additionally, we propose future research directions, such as extending the tool-use and API-call capabilities of LLMs, and developing autonomous intelligent agents for complex cybersecurity operations. 
 
@@ -540,7 +593,12 @@ In summary, we bridges the gap between LLM advancements and cybersecurity demand
 
 25 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al.
+
 
 - [1] Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et al. Training language models to follow instructions with human feedback. _Advances in neural information processing systems_ , 35:27730–27744, 2022. 
 

@@ -2,13 +2,56 @@
 
 # D-CIPHER: <u>D</u> namic <u>Collaborative In y</u> telligent Multi-Agent System with <u>Planner</u> and <u>Heterogeneous Executors</u> for Offensive Security 
 
+## Table of Contents
+
+- [I. INTRODUCTION](#i-introduction)
+- [II. RELATED WORK](#ii-related-work)
+- [D-CIPHER Multi-Agent System](#d-cipher-multi-agent-system)
+- [III. D-CIPHER IMPLEMENTATION](#iii-d-cipher-implementation)
+- [A. Context Management](#a-context-management)
+- [B. Environment and Tools](#b-environment-and-tools)
+- [C. Workflow](#c-workflow)
+  - [Hard-coded prompt template](#hard-coded-prompt-template)
+- [IV. EXPERIMENT SETUP](#iv-experiment-setup)
+- [A. Benchmarks](#a-benchmarks)
+- [B. LLM Selection](#b-llm-selection)
+- [C. Evaluation Metrics](#c-evaluation-metrics)
+- [D. MITRE ATT&CK Classification](#d-mitre-att-ck-classification)
+  - [TABLE III](#table-iii)
+- [V. RESULTS](#v-results)
+- [A. Comparison of % solved](#a-comparison-of-solved)
+- [B. Comparison of $ cost](#b-comparison-of-cost)
+- [C. Category-wise comparison](#c-category-wise-comparison)
+- [D. Impact of different configurations](#d-impact-of-different-configurations)
+- [E. Exit Reason Analysis](#e-exit-reason-analysis)
+- [F. Total Conversation Rounds Analysis](#f-total-conversation-rounds-analysis)
+- [G. MITRE ATT&CK Capabilities](#g-mitre-att-ck-capabilities)
+  - [TABLE VII](#table-vii)
+- [VI. DISCUSSION](#vi-discussion)
+- [A. Auto-prompter Failures](#a-auto-prompter-failures)
+- [B. Common Failure Examples](#b-common-failure-examples)
+- [AUTO-PROMPTER GeneratePrompt](#auto-prompter-generateprompt)
+- [GeneratePrompt](#generateprompt)
+- [PLANNER](#planner)
+- [PLANNER](#planner)
+- [C. Ethics](#c-ethics)
+- [VII. CONCLUSION](#vii-conclusion)
+- [REFERENCES](#references)
+
+---
+
 Meet Udeshi*, Minghao Shao*, Haoran Xi*, Nanda Rani, Kimberly Milner, Venkata Sai Charan Putrevu, Brendan Dolan-Gavitt, Sandeep Kumar Shukla, Prashanth Krishnamurthy, Farshad Khorrami, Ramesh Karri, Muhammad Shafique 
 
 **_Abstract_ —Large Language Models (LLMs) have been used in cybersecurity such as autonomous security analysis or penetration testing. Capture the Flag (CTF) challenges serve as benchmarks to assess automated task-planning abilities of LLM agents for cybersecurity. Early attempts to apply LLMs for solving CTF challenges used single-agent systems, where feedback was restricted to a single reasoning-action loop. This approach was inadequate for complex CTF tasks. Inspired by real-world CTF competitions, where teams of experts collaborate, we introduce the D-CIPHER LLM multi-agent framework for collaborative CTF solving. D-CIPHER integrates agents with distinct roles with dynamic feedback loops to enhance reasoning on complex tasks. It introduces the** **_Planner-Executor agent system_ , consisting of a Planner agent for overall problemsolving along with multiple heterogeneous Executor agents for individual tasks, facilitating efficient allocation of responsibilities among the agents. Additionally, D-CIPHER incorporates an** **_Auto-prompter agent_ to improve problem-solving by autogenerating a highly relevant initial prompt. We evaluate D- CIPHER on multiple CTF benchmarks and LLM models via comprehensive studies to highlight the impact of our enhancements. Additionally, we manually map the CTFs in NYU CTF Bench to MITRE ATT&CK techniques that apply for a comprehensive evaluation of D-CIPHER’s offensive security capability. D-CIPHER achieves state-of-the-art performance on three benchmarks: 22.0% on NYU CTF Bench, 22.5% on Cybench, and 44.0% on HackTheBox, which is 2.5% to 8.5% better than previous work. D-CIPHER solves 65% more ATT&CK techniques compared to previous work, demonstrating stronger offensive capability. D-CIPHER is available at https://github.com/ NYU-LLM-CTF/nyuctf agents as the nyuctf_multiagent package. The MITRE ATT&CK techniques mapping is available at https://github.com/NYU-LLM-CTF/NYU** **<u>CTF Bench</u> under the mitre_attack_mapping folder.** 
 
 **_Index Terms_ —Capture The Flag, Large Language Models, Multi-Agent Systems** 
 
+---
+
 ## I. INTRODUCTION 
+
+> **Section Summary:** ARGE language models (LLMs) have demonstrated re- **L** markable potential in cybersecurity applications such as vulnerability detection [2, 16, 23], bug localization [21, 50],
+
 
 ARGE language models (LLMs) have demonstrated re- **L** markable potential in cybersecurity applications such as vulnerability detection [2, 16, 23], bug localization [21, 50], 
 
@@ -53,7 +96,12 @@ We evaluate D-CIPHER seven LLM models, via it’s accuracy on three benchmarks a
 
 The paper is structured as follows: Section II provides background and reviews related work, Section III describes D- CIPHER’s implementation, Section IV outlines the experimental setup, Section V presents the results, Section VI discusses common failures and ethics, and Section VII concludes the paper and proposes directions for future work. 
 
+---
+
 ## II. RELATED WORK 
+
+> **Section Summary:** Autonomous frameworks create a feedback loop to allow the LLM to perform tasks and operate as autonomous agents.
+
 
 Autonomous frameworks create a feedback loop to allow the LLM to perform tasks and operate as autonomous agents. LLMs are supporting function (or tool) calling where actions can be provided that the LLM may choose to “call” as a function. Many “tools” can be provided such as a command line, web search, file editing, and code execution [40]. To help LLMs on long-horizon tasks, plan-and-solve prompting [39] enhances long-term focus via a planning phase before iterative execution to tackle complex tasks [36]. ReAct (reasoning + action) [48] combines step-by-step reasoning with action. The prompting methods in these agents involve static hard-coded templates where environment and task information is filled in. These often fail to adapt to different problems. Autoprompting [33, 51, 52] allows the LLM itself to generate a highly-relevant prompt, invoking factual responses and reducing hallucinations. D-CIPHER incorporates auto-prompting as a separate agent that can explore the environment and generate a better prompt. Expanding on single LLM agents, Multi-agent systems enhance problem-solving by collaboration between specialized agents, working on different aspects of complex tasks [15]. Multi-agent systems are effective in cybersecurity applications such as insider threat detection [34], incident response [22], and improving code safety [26]. 
 
@@ -79,7 +127,12 @@ Recent works build LLM agents targeted towards CTFs. Table I shows a feature com
 
 3 
 
+---
+
 ## **D-CIPHER Multi-Agent System** 
+
+> **Section Summary:** ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0003-02.png)
+
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0003-02.png)
@@ -92,29 +145,55 @@ Fig. 2. Workflow of the D-CIPHER multi-agent system. Execution starts with the A
 
 InterCode-CTF agent [45] reveals that LLM agents demonstrate basic cybersecurity skills but struggle with more complex tasks. The NYU CTF baseline agent [30] integrates external tools and shows improved potential of tool-assisted LLMs to solve CTFs, however the agent exhausts LLM context length when command output history grows. InterCode-CTF manages this by truncating the history to the last few iterations. Even so, agents face issues with longer tasks. Agents perform better with a focused set of tools with well-defined interfaces [47]. EnIGMA [1] agent incorporates interactive tools, in-context learning, and LLM summarizer for context management to achieve state-of-the-art results. HackSynth [25] uses iterative planning and feedback summarization stages which helps to finish multiple tasks and improves overall problem solving. Similarly, Cybench [49] introduces a benchmark of 40 CTFs augmented with step-by-step tasks, focusing LLM agents on each smaller task. Turtayev et al. [36] expand on InterCodeCTF by implementing plan-and-solve prompting, significantly improving on InterCode-CTF benchmark. These works highlight that LLM agents excel at implementing code and executing commands to accomplish small concrete tasks when provided with dynamic feedback and task-specific toolsets. While these works involved multiple LLMs with different tasks such as planning and summarizing along-side a main agent, D-CIPHER is the first work to formulate a multi-agent system for CTFs with division of responsibilities and welldefined interactions for dynamic feedback. 
 
+---
+
 ## III. D-CIPHER IMPLEMENTATION 
+
+> **Section Summary:** The D-CIPHER framework introduces a collaborative LLM multi-agent system.
+
 
 The D-CIPHER framework introduces a collaborative LLM multi-agent system. Each individual agent is based on the NYU CTF baseline agent [31] with upgraded prompts that describe tasks and additional interaction tools for a multiagent collaborative context. We use function calling features 
 
 of current LLMs to prompt for agent actions. The system has three agents: (1) the _Planner agent_ generates the overall plan to solve the CTF challenge, delegating specific tasks to Executors, and revising the plan based on their feedback; (2) the _Executor agent_ performs the task delegated by the Planner and returns a summary; and (3) the _Auto-prompter agent_ generates a dynamic prompt based on it’s exploration of the CTF. Figure 2 shows D-CIPHER’s workflow. 
 
+---
+
 ## _A. Context Management_ 
+
+> **Section Summary:** Each agent maintains a conversation history of LLM inputs and outputs.
+
 
 Each agent maintains a conversation history of LLM inputs and outputs. An LLM agent’s context contains: (1) the system prompt that sets the agent’s role and provides actions, (2) the initial prompt that describes the environment and the task (e.g., CTF challenge or delegated task); and (3) the conversation history of agent actions and observations. Following the ReAct strategy, we prompt the LLM to reason and produce an action. We utilize the function calling features of current LLMs to produce actions, so we do not define a structured format of our own, but instead rely on the LLM provider’s API to parse the actions correctly. At every iteration, the conversation history is sent to the LLM and it generates a message containing the reason and action. Observations from executing the actions are appended to the conversation history. The generated reason, action, and corresponding observation constitutes a “round” of conversation. The agent continue these rounds until the task is complete or the context is full. To avoid filling up the context, we truncate observations to 25,000 characters. We also optionally truncate actions and observations in all but the last few rounds while keeping the reasoning intact, similar to Abramovich et al. [1]. 
 
 4 
 
+---
+
 ## _B. Environment and Tools_ 
 
-All agents interact with the same Linux container environment containing the CTF files and providing network access to the CTF server and the internet to install new packages. The agents have access to the following tools: RunCommand to execute shell commands; CreateFile to create a file; Disassemble and Decompile to trigger Ghidra<sup>1</sup> to reverse engineer a binary; SubmitFlag to submit a CTF flag to solve the challenge; and, Giveup to giveup solving. Unlike EnIGMA [1], we do not implement advanced interfaces or interactive tools. The specialized reverse engineering tools offer the agents access to Ghidra which does not provide a direct command line interface. We also provide special actions for interaction between agents: GeneratePrompt for the Auto-prompter to generate a prompt; Delegate for the Planner to delegate tasks; and, FinishTask for the Executor to terminate and return a task summary. 
+> **Section Summary:** All agents interact with the same Linux container environment containing the CTF files and providing network access to the CTF server and the internet to install new packages.
+
+
+All agents interact with the same Linux container environment containing the CTF files and providing network access to the CTF server and the internet to install new packages. The agents have access to the following tools: RunCommand to execute shell commands:
+- CreateFile to create a file
+- Disassemble and Decompile to trigger Ghidra<sup>1</sup> to reverse engineer a binary
+- SubmitFlag to submit a CTF flag to solve the challenge
+- and, Giveup to giveup solving. Unlike EnIGMA [1], we do not implement advanced interfaces or interactive tools. The specialized reverse engineering tools offer the agents access to Ghidra which does not provide a direct command line interface. We also provide special actions for interaction between agents: GeneratePrompt for the Auto-prompter to generate a prompt
+- Delegate for the Planner to delegate tasks
+- and, FinishTask for the Executor to terminate and return a task summary.
+
+---
 
 ## _C. Workflow_ 
+
+> **Section Summary:** ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-04.png)
+
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0004-04.png)
 
 
-Auto-prompter Autonomously generated after several exploratory turns Challenge: Collision Course Objective: Recover the administrator's password that was encrypted using original database IDs. The password is stored in password.bin and was encrypted using a custom AES implementation. Files Analysis: encrypt_database.py is the main script that processes the database and encrypts the password... Observations: Each ID was hashed using MD5 with a 3-character salt... only first 4 characters are used... The encryption password is created by concatenating all original IDs... Attack Strategy: Since we know original IDs were 1-500..., we can brute force the salt by trying all possible 3-char combinations, find the salt..., use the mapping to recover..., and use my_aes.py to decrypt password.bin. 
+Auto-prompter Autonomously generated after several exploratory turns Challenge: Collision Course **Objective:** Recover the administrator's password that was encrypted using original database IDs. The password is stored in password.bin and was encrypted using a custom AES implementation. Files Analysis: encrypt_database.py is the main script that processes the database and encrypts the password... Observations: Each ID was hashed using MD5 with a 3-character salt... only first 4 characters are used... The encryption password is created by concatenating all original IDs... Attack Strategy: Since we know original IDs were 1-500..., we can brute force the salt by trying all possible 3-char combinations, find the salt..., use the mapping to recover..., and use my_aes.py to decrypt password.bin. 
 
 ### Hard-coded prompt template 
 
@@ -159,11 +238,21 @@ and Executors such that they collaborate to enhance problemsolving. Enhanced foc
 
 For each agent, we define a maximum number of conversation rounds after which the agent is stopped. We also set a maximum cost limit of all agents. Among all agents, only the Planner has access to SubmitFlag or Giveup tools, making it the central agent of D-CIPHER. D-CIPHER terminates when SubmitFlag is called with the correct flag, Giveup is called, the Planner exhausts its rounds, or the cost limit is reached. If a wrong flag is submitted, a negative response is returned and solving may continue. The Auto-prompter and Executor sometimes exhaust their conversation rounds only running commands and fail to produce an output for the Planner by calling GeneratePrompt or FinishTask. In that case, we prompt the agents one last time and insist on producing an output. If the Auto-prompter fails, a hard-coded prompt is used. If the Executor fails, a hard-coded warning is returned. To improve focus and avoid exceeding the LLM context, we truncate the Executor’s conversation history to include only recent actions and observations. 
 
+---
+
 ## IV. EXPERIMENT SETUP 
+
+> **Section Summary:** Each run of D-CIPHER attempts one CTF challenge.
+
 
 Each run of D-CIPHER attempts one CTF challenge. D- CIPHER is configured as follows: a total cost limit of $3, a temperature of 1.0 for each LLM, 5 max rounds for the Autoprompter, 30 max rounds for the Planner, 100 max rounds for each Executor, and each Executor’s conversation history is truncated to last 5 actions and observations. 
 
+---
+
 ## _A. Benchmarks_ 
+
+> **Section Summary:** We evaluate D-CIPHER on NYU CTF Bench [31], Cybench [49], and HackTheBox [17].
+
 
 We evaluate D-CIPHER on NYU CTF Bench [31], Cybench [49], and HackTheBox [17]. As shown in Table II, these benchmarks have 290 CTFs spanning six categories: cryptography (crypto), forensics, binary exploitation (pwn), reverse engineering (rev), web, and miscellaneous (misc). We perform ablation studies on NYU CTF Bench. During development, we use the development set of 55 CTFs introduced in Abramovich et al. [1]. We use the unguided mode of Cybench that does not include additional subtask information with the “hard prompt” that does not contain extra hints. 
 
@@ -180,7 +269,12 @@ BENCHMARKS FOR EVALUATING D-CIPHER.
 
 
 
+---
+
 ## _B. LLM Selection_ 
+
+> **Section Summary:** For our experiments, we use the same LLM for all three agents.
+
 
 For our experiments, we use the same LLM for all three agents. We access LLMs via their APIs. Open-source LLaMa models are accessed via the Together AI platform<sup>2</sup> . 
 
@@ -188,11 +282,21 @@ We use the following LLMs: Claude 3.5 Sonnet ( _claude3-5-sonnet-20241022_ ), GP
 
 D-CIPHER supports different LLMs for each agent. We explore configurations that pair stronger models for the Planner with weaker models for the Executor. The weaker LLMs used include Claude 3.5 Haiku ( _claude-3-5-haiku-20241022_ ), GPT4o Mini ( _gpt-4o-mini-2024-07-18_ ), LLaMa 3.3 70B ( _metallama/Llama-3.3-70B-Instruct-Turbo_ ), and Gemini 1.5 Flash 8B ( _gemini-1.5-flash-8b_ ). GPT 4o Mini ( _gpt-4o-mini-202407-18_ ), LLaMa 3.3 70B ( _meta-llama/Llama-3.3-70B-InstructTurbo_ ), and Gemini 1.5 Flash 8B ( _gemini-1.5-flash-8b_ ). 
 
+---
+
 ## _C. Evaluation Metrics_ 
+
+> **Section Summary:** The primary evaluation metric is percentage of CTFs successfully solved ( _% solved_ ).
+
 
 The primary evaluation metric is percentage of CTFs successfully solved ( _% solved_ ). A CTF is solved when the correct flag is submitted by the Planner or if the correct flag is observed in the agent conversation. The latter prevents failures where the Auto-prompter or Executors find the flag but do not tell the Planner, as only the Planner can submit a flag. False positives are highly unlikely because flags are unique strings with specific formats such as flag _{_ ... _}_ . We also measure the average cost of solved CTFs ( _$ cost_ ). The total cost of one CTF is the US dollar cost of all LLM API calls across agents. The API cost is indicative of the computational resources required to deploy LLMs, so this metric estimates computational resources for solved CTFs. 
 
+---
+
 ## _D. MITRE ATT&CK Classification_ 
+
+> **Section Summary:** The MITRE ATT&CK framework [24] is a popular taxonomy of offensive security tactics, techniques and procedures used to classify cyber attacks [8].
+
 
 The MITRE ATT&CK framework [24] is a popular taxonomy of offensive security tactics, techniques and procedures used to classify cyber attacks [8]. CTF challenges emulate realworld cyberattack scenarios and we can attribute a CTF to a list of ATT&CK techniques that must be employed to solve that CTF. For all the CTFs that an agent solves, we aggregate each CTF’s mapped techniques that the agent successfully employs to comprehensively benchmark its offensive security capability using the ATT&CK framework. 
 
@@ -236,9 +340,16 @@ reflects the category-wise accuracy and offers granular insights into offensive 
 
 performance without the Auto-prompter worsens on GPT 4o and on other benchmarks, while average cost increases, indicating that the Auto-prompter helps overall. 
 
+---
+
 ## V. RESULTS 
 
+---
+
 ## _A. Comparison of_ % solved 
+
+> **Section Summary:** Table III compares the performance of D-CIPHER with other LLM agents across multiple LLMs and benchmarks.
+
 
 Table III compares the performance of D-CIPHER with other LLM agents across multiple LLMs and benchmarks. We run D-CIPHER with five different LLMs, using the same LLM for Planner, Executor, and Auto-prompter in each run. We also rerun the NYU CTF baseline agent with three LLMs to measure the impact of recent updates to the LLM models on NYU CTF Bench. The EnIGMA _% solved_ and _$ cost_ are taken from Abramovich et al. [1]. As EnIGMA sets a new benchmark on Cybench with state-of-the-art results, we do not include comparisons with the earlier baseline agent [49]. 
 
@@ -246,11 +357,21 @@ D-CIPHER with Claude 3.5 Sonnet consistently outperforms the current state-of-th
 
 These results indicate that D-CIPHER improves capabilities across multiple LLM architectures, and the higher performance stems not only from recent LLM updates but also from it’s multi-agent system architecture. Interestingly, D-CIPHER without Auto-prompter with Claude 3.5 Sonnet achieves the highest performance of 22% on NYU CTF Bench. However, 
 
+---
+
 ## _B. Comparison of_ $ cost 
+
+> **Section Summary:** Table III also compares average _$ cost_ of solved challenges.
+
 
 Table III also compares average _$ cost_ of solved challenges. Except for Claude 3.5 Sonnet on NYU CTF Bench, D- CIPHER has a lower average cost across all LLMs and benchmarks. With GPT 4o and GPT 4 Turbo, D-CIPHER lowers the cost by 2 _×_ to 10 _×_ across benchmarks while solving more challenges. Despite having multiple agents, a significant cost reduction indicates that division of responsibilities between agents makes the problem-solving system more efficient. 
 
+---
+
 ## _C. Category-wise comparison_ 
+
+> **Section Summary:** Table III shows the categorywise _% solved_ of D-CIPHER and other works on NYU CTF Bench.
+
 
 Table III shows the categorywise _% solved_ of D-CIPHER and other works on NYU CTF Bench. EnIGMA’s results are computed from their provided transcripts, while NYU CTF baseline’s results are computed from our reruns. D- CIPHER’s performance improvement stays consistent across the CTF categories. D-CIPHER outperforms EnIGMA across all categories except pwn, with a notable improvement in crypto, where its performance doubles from 7.7% to 15.4%. Likewise, on rev, and misc, we see a 9%–12% increase. The improvement is due to the enhanced task decomposition and execution ability of the Planner-Executor system. Especially, crypto and rev frequently have long outputs of disassembled binaries or encrypted files requiring multiple analysis steps that are decomposed by the Planner. 
 
@@ -269,7 +390,12 @@ Fig. 5. _% solved_ by category for D-CIPHER on NYU CTF Bench.
 
 pointing to a common limitation in web CTFs. Figure 5(b) plots the average _$ cost_ . GPT 4o is most cost efficient across categories, while Claude 3.5 Sonnet is moderately higher on forensics, pwn, and rev. GPT 4 Turbo is the costliest among the three LLMs, for forensics, pwn and web, while on other categories has a lower cost but also solves less challenges. crypto has higher cost across LLMs as it may require analysis of long encrypted texts, and many iterations for decryption. 
 
+---
+
 ## _D. Impact of different configurations_ 
+
+> **Section Summary:** _1) Ablation Study:_ D-CIPHER’s special interaction functions allow versatility to configure different types of multiagent systems.
+
 
 _1) Ablation Study:_ D-CIPHER’s special interaction functions allow versatility to configure different types of multiagent systems. We run D-CIPHER with two different configurations: (1) without the Auto-prompter where the hard-coded prompt template is used for the Planner’s initial prompt, and (2) without the Planner where a single Executor is run with the prompt generated by the Auto-prompter. These configurations allow use to examing the impact of Auto-prompter and Planner on D-CIPHER, while also demonstrating the framework’s flexibility to build systems for different problems. 
 
@@ -321,7 +447,12 @@ RESULTS WITH OLDER CLAUDE VERSION.
 
 
 
+---
+
 ## _E. Exit Reason Analysis_ 
+
+> **Section Summary:** Figure 6 shows the percentage breakdown of the challenge termination (exit) reasons of D-CIPHER on NYU CTF Bench.
+
 
 Figure 6 shows the percentage breakdown of the challenge termination (exit) reasons of D-CIPHER on NYU CTF Bench. Exit reasons are of five types: “Solved” when the challenge is solved, “Giveup” when the Planner gives up, “Max cost” when the cost budget is exceeded, “Max rounds” when the Planner 
 
@@ -340,11 +471,21 @@ Fig. 7. Histogram of successful and failed challenges by total conversation roun
 
 conversation rounds are exhausted, and “Error” when the run terminates with an error. For Claude 3.5 Sonnet, max cost is the most dominant exit reason, indicating less propensity to giveup but instead to continue with the challenge till the cost is exhausted. Comparatively, other LLMs have giveup as the most dominant reason. Max rounds are exhausted for only a few challenges. Distribution of exit reasons for GPT 4o and GPT 4 Turbo is similar across categories which shows the holistic capabilities of these models. Claude 3.5 Sonnet sees a high giveup and low success percentage on web challenges, highlighting a gap in capabilities. Examples of common failure reasons are present in Section VI-B. 
 
+---
+
 ## _F. Total Conversation Rounds Analysis_ 
+
+> **Section Summary:** Figure 7 shows a histogram of the total conversation rounds of all agents in D-CIPHER.
+
 
 Figure 7 shows a histogram of the total conversation rounds of all agents in D-CIPHER. Successful challenges take lesser rounds than failed challenges, which may indicate that D- CIPHER only solves easier challenges requiring lesser rounds, but fails on longer challenges. However, it may also indicate that challenges are only solved when the correct path is found early enough, else the agents stray from the goal for many rounds before giving up. Claude 3.5 Sonnet runs for more rounds compared to GPT 4o and GPT 4 Turbo for both success and failure cases, re-iterating it’s propensity to keep going and not give up, which likely helps it solve challenges requiring many rounds. Looking at the Auto-prompter’s impact, we see that it helps solve more challenges faster, increasing efficiency. 
 
+---
+
 ## _G. MITRE ATT&CK Capabilities_ 
+
+> **Section Summary:** As described in Section IV-D, we labeled the 200 CTFs in NYU CTF Bench with MITRE ATT&CK techniques for elaborate analysis into D-CIPHER’s and related agents’ offensive capability.
+
 
 As described in Section IV-D, we labeled the 200 CTFs in NYU CTF Bench with MITRE ATT&CK techniques for elaborate analysis into D-CIPHER’s and related agents’ offensive capability. Table VII shows the breakdown of ATT&CK techniques that apply and how well each agent and each LLM performs on them. The “#CTFs” column shows the number of CTFs labeled with a technique along with a red heatmap to show higher counts. The agent and model columns show how many CTFs were solved by that agent for a particular technique, along with a blue heatmap to show higher count computed across all agents. If an agent solves a CTF mapped to multiple techniques, we consider that the solution has employed all techniques and we increment each count. 
 
@@ -413,9 +554,16 @@ D-CIPHER and EnIGMA solve similar number of techniques, even though D-CIPHER has
 
 D-CIPHER’s results with and without autoprompter compared to NYU CTF Baseline and EnIGMA show that multiagent collaboration improves offensive security capability. This benchmarking of each agent’s offensive capability in terms of MITRE ATT&CK techniques has offered a nuanced perspective and an elaborate comparison metric. The composition of performance on ATT&CK techniques highlights the gaps and provides a guideline for future improvements. 
 
+---
+
 ## VI. DISCUSSION 
 
+---
+
 ## _A. Auto-prompter Failures_ 
+
+> **Section Summary:** As discussed in Section V-D1, D-CIPHER with Autoprompter on Claude 3.5 Sonnet performs worse on pwn challenges of NYU CTF Bench compared to D-CIPHER without
+
 
 As discussed in Section V-D1, D-CIPHER with Autoprompter on Claude 3.5 Sonnet performs worse on pwn challenges of NYU CTF Bench compared to D-CIPHER without 
 
@@ -429,7 +577,12 @@ Auto-prompter. We look at the five pwn challenges where D- CIPHER succeeds witho
 
 From the five cases, we observe that while the Autoprompter helps, it may be making D-CIPHER more susceptible to initial errors that the hard-coded prompt template may be robust to. These limitations lead to missed opportunities to fully exploit the challenge’s vulnerabilities or generate comprehensive and actionable prompts. Future work may combine Auto-prompter generated prompt with hard-coded guidelines. 
 
+---
+
 ## _B. Common Failure Examples_ 
+
+> **Section Summary:** We inspected D-CIPHER’s conversation logs to document the common errors that led to failure.
+
 
 We inspected D-CIPHER’s conversation logs to document the common errors that led to failure. 
 
@@ -444,7 +597,12 @@ We inspected D-CIPHER’s conversation logs to document the common errors that l
 <!-- Start of picture text -->
 AUTO-PROMPTER GeneratePrompt<br><!-- End of picture text -->
 
+---
+
 ## AUTO-PROMPTER GeneratePrompt 
+
+> **Section Summary:** Please use `run_command` tool to explore the challenge, and generate the CTF challenge prompt to solve the challenge using the `generate_prompt` tool."
+
 
 Please use `run_command` tool to explore the challenge, and generate the CTF challenge prompt to solve the challenge using the `generate_prompt` tool." 
 
@@ -455,7 +613,12 @@ Please use `run_command` tool to explore the challenge, and generate the CTF cha
 <!-- Start of picture text -->
 GeneratePrompt<br><!-- End of picture text -->
 
+---
+
 ## GeneratePrompt 
+
+> **Section Summary:** ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-14.png)
+
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-14.png)
@@ -464,7 +627,12 @@ GeneratePrompt<br><!-- End of picture text -->
 <!-- Start of picture text -->
 Use hard-coded prompt<br><!-- End of picture text -->
 
+---
+
 ## PLANNER 
+
+> **Section Summary:** ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-16.png)
+
 
 
 ![](images/28-d-cipher-dynamic-collaborative-intelligent-multi-agent.pdf-0010-16.png)
@@ -484,7 +652,12 @@ and thinks that it needs user input despite being prompted to operate autonomous
 <!-- Start of picture text -->
 PLANNER<br><!-- End of picture text -->
 
+---
+
 ## PLANNER 
+
+> **Section Summary:** <function=run_command>{\"command\": \"file thoroughlyStripped --preserve-dates -d -M -P -k -F -\"}\"</ function>
+
 
 <function=run_command>{\"command\": \"file thoroughlyStripped --preserve-dates -d -M -P -k -F -\"}\"</ function> 
 
@@ -545,11 +718,18 @@ Fig. 10. LLM hallucinates server information. The network access fails and the a
 
 **Calling non-existent functions:** Gemini 1.5 Flash calls nonexisting functions like “decode” and “strip”, which results in the run failing with an error. This may be due to the model confusing the structure of the outputs can generating command-line calls where it should have generated a call to RunCommand with the proper arguments. These issues emphasize proper function calling in LLMs and suggesting that D-CIPHER moves to a simple structure for action generation. 
 
+---
+
 ## _C. Ethics_ 
 
 While advancements in LLMs offer significant advantages for cybersecurity, they also introduce risks, including the potential misuse of these models in adversarial scenarios where safeguards are bypassed [18]. CTFs serve as controlled environments to test deployment of LLM agent technologies, providing insights into their strengths and vulnerabilities. As LLMs evolve, users and decision-makers must address concerns around data security, user privacy, and malicious exploitation by implementing strategies that balance technical capabilities with ethical responsibility [11]. Malicious actors can exploit LLMs for social engineering campaigns or generating harmful code, underscoring the need for ethical protocols and governance [41]. Moreover, the rapid evolution of AI often outpaces existing regulatory frameworks, raising critical questions about data security, user privacy, and accountability [28]. On the other hand, improved cybersecurity automation with the help of AI is necessary to maintain pace with the rapidly evolving software technologies. Developing cybersecurity technologies with this ethical awareness will allow them to be used for making software secure while curtailing misuses. 
 
+---
+
 ## VII. CONCLUSION 
+
+> **Section Summary:** We present D-CIPHER, an LLM multi-agent framework that autonomously solves CTF challenges.
+
 
 We present D-CIPHER, an LLM multi-agent framework that autonomously solves CTF challenges. We propose two 
 
@@ -557,7 +737,12 @@ key innovations: first is the Planner-Executor system with the Planner agent to 
 
 D-CIPHER has limitations which show potential for improvement. There is no direct interaction between each Executor and information exchange is bottlenecked via the Planner. An extension of D-CIPHER can incorporate interactions between Executors operating simultaneously to alleviate the information bottleneck. Another limitation is that early errors in the Auto-prompter exploration have a severe impact on the generated prompt, which biases the Planner in the wrong direction and impacts accuracy and ATT&CK (see Section VI-A). Auto-prompter’s fragility can be reduced by combining the generated prompt with hard-coded directions. D-CIPHER improves cost efficiency over single-agent systems, despite running multiple agents, enabling low-cost deployments. 
 
+---
+
 ## REFERENCES 
+
+> **Section Summary:** - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E.
+
 
 - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E. Jimenez, Farshad Khorrami, Prashanth Krishnamurthy, Brendan Dolan-Gavitt, Muhammad Shafique, Karthik Narasimhan, Ramesh Karri, and Ofir Press. Interactive tools substantially assist LM agents in finding security vulnerabilities, 2025. URL https://arxiv.org/abs/2409.16165v2. 
 

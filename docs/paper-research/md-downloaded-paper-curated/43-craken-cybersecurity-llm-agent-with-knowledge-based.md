@@ -1,14 +1,49 @@
 # **CRAKEN: Cybersecurity LLM Agent with Knowledge-Based Execution** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Background and Related Work](#2-background-and-related-work)
+- [3 CRAKEN Architecture](#3-craken-architecture)
+- [4 Experiment Setup](#4-experiment-setup)
+- [5 Results](#5-results)
+  - [Retrieval Process Analysis. Figure 4 illustrates the](#retrieval-process-analysis-figure-4-illustrates-the)
+  - [5.1 Evaluation on different configurations](#5-1-evaluation-on-different-configurations)
+  - [5.2 Case Study](#5-2-case-study)
+  - [Retrieval for 2019f-cry-macrypto](#retrieval-for-2019f-cry-macrypto)
+- [6 Conclusion](#6-conclusion)
+- [References](#references)
+- [A RAG Algorithms Supported in CRAKEN](#a-rag-algorithms-supported-in-craken)
+- [B Prompt Used in Experiments](#b-prompt-used-in-experiments)
+  - [Planner System Prompt](#planner-system-prompt)
+  - [Executor Prompts](#executor-prompts)
+    - [System Prompt](#system-prompt)
+    - [User Prompt](#user-prompt)
+  - [Decomposition Prompt](#decomposition-prompt)
+  - [Retrieval Prompts](#retrieval-prompts)
+- [C Additional Details of Case Study](#c-additional-details-of-case-study)
+  - [Self-RAG Retriever for 2019f-cry-macrypto](#self-rag-retriever-for-2019f-cry-macrypto)
+
+---
+
 **Minghao Shao**<sup>1</sup><sup>_,_2</sup> **, Haoran Xi**<sup>_∗_1</sup><sup>_∗_</sup> **, Nanda Rani**<sup>3</sup><sup>_∗_</sup> **, Meet Udeshi**<sup>1</sup><sup>_∗_</sup> **, Venkata Sai Charan Putrevu**<sup>1</sup> **, Kimberly Milner**<sup>1</sup> **, Brendan Dolan-Gavitt**<sup>1</sup> **, Sandeep Kumar Shukla**<sup>3</sup> **, Prashanth Krishnamurthy**<sup>1</sup> **, Farshad Khorrami**<sup>1</sup> **, Ramesh Karri**<sup>1</sup> **, Muhammad Shafique**<sup>2</sup> 
 
 1New York University, 2New York University Abu Dhabi, 3Indian Institute of Technology Kanpur 
 
 ## **Abstract** 
 
+> **Section Summary:** Large Language Model (LLM) agents can automate cybersecurity tasks and can adapt to the evolving cybersecurity landscape without re-engineering.
+
+
 Large Language Model (LLM) agents can automate cybersecurity tasks and can adapt to the evolving cybersecurity landscape without re-engineering. While LLM agents have demonstrated cybersecurity capabilities on Capture-The-Flag (CTF) competitions, they have two key limitations: accessing latest cybersecurity expertise beyond training data, and integrating new knowledge into complex task planning. Knowledge-based approaches that incorporate technical understanding into the task-solving automation can tackle these limitations. We present CRAKEN, a knowledge-based LLM agent framework that improves cybersecurity capability through three core mechanisms: contextual decomposition of task-critical information, iterative self-reflected knowledge retrieval, and knowledge-hint injection that transforms insights into adaptive attack strategies. Comprehensive evaluations with different configurations show CRAKEN’s effectiveness in multi-stage vulnerability detection and exploitation compared to previous approaches. Our extensible architecture establishes new methodologies for embedding new security knowledge into LLM-driven cybersecurity agentic systems. With a knowledge database of CTF writeups, CRAKEN obtained an accuracy of 22% on NYU CTF Bench, outperforming prior works by 3% and achieving state-of-the-art results. On evaluation of MITRE ATT&CK techniques, CRAKEN solves 25–30% more techniques than prior work, demonstrating improved cybersecurity capabilities via knowledge-based execution. We make our framework open source to public `https://github.com/NYU-LLM-CTF/nyuctf_agents_craken` . 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** With the ever-growing internet and connected systems, the landscape of cybersecurity threats continues to evolve rapidly, necessitating sophisticated cybersecurity automation.
+
 
 With the ever-growing internet and connected systems, the landscape of cybersecurity threats continues to evolve rapidly, necessitating sophisticated cybersecurity automation. Large Language Model (LLM) based agents have been developed to automate various cybersecurity tasks [21, 13, 2, 20, 52, 5, 46, 8, 9, 48]. LLMs are trained on vast data, making comprehensive automation possible for a specialized domain like cybersecurity by developing LLM agents. However, cybersecurity tasks involve complex reasoning with multi-step planning and execution [1, 39], requiring carefully designed agentic systems with specialized tools. The training data is restricted to a cut-off date, and domain-specific information is abstracted via generalized learning, which may inhibit LLM agents in specialized cybersecurity tasks. Due to this, LLM agents display limited capacity to collate disparate information into coherent, multi-stage exploit strategies. Providing access to domain-specific knowledge such as threats, vulnerabilities, and exploits via in-context examples, web search tools, or retrieval-augmented generation (RAG) can help LLM agents improve their cybersecurity capabilities [34, 11, 28]. In the agentic setting, allowing the agent to decide what 
 
@@ -33,6 +68,8 @@ To enhance the reasoning and retrieval quality of LLM agents, our retrieval proc
 4. An _open-source dataset of CTF writeups_ with real-world procedures of vulnerability discovery, exploit implementation, and attack payloads for knowledge-based automated cybersecurity agents. 
 
 5. _Comprehensive evaluation_ of knowledge-based execution on the performance and cybersecurity capabilities of LLM agents using CTF benchmarks and MITRE ATT&CK classification. 
+
+---
 
 ## **2 Background and Related Work** 
 
@@ -91,6 +128,8 @@ NYU CTF baseline agent [32] and Turtayev et al. [38] incorporate LLMs in a ReAct
 
 **Retrieval Augmented Generation.** For knowledge-intensive tasks, LLMs can be augmented with external non-parametric memory like a searchable database to retrieve information, forming the basis of retrieval-augmented generation (RAG) [19, 18, 43]. RAG improves generation for different domains such as code [44] and cybersecurity [29, 53]. While traditional LLMs retrieve information based on their query, LLM agents operating autonomously can _decide_ when and what to retrieve [17], akin to using a search tool. Self-RAG [3] allows agents to decide when to retrieve and critique the retrieval, providing enhanced generations along with relevant citations. Self-triggered retrieval and critiquing are important for autonomy of LLM agents [35], hence we incorporate Self-RAG into CRAKEN. Graph-based RAG [14, 25] is another enhancement over traditional RAG that is advantageous for agents [12, 16]. Graph-RAG incorporates the topological structure of knowledge bases, particularly relevant for cybersecurity where software systems, vulnerabilities, and exploits are inter-related and applicable in multiple areas. 
 
+---
+
 ## **3 CRAKEN Architecture** 
 
 CRAKEN’s architecture is illustrated in Figure 1, comprising a planner-executor multi-agent system based on D-CIPHER [39], and a robust knowledge retrieval system that incorporates Self-RAG [3] and Graph-RAG [25] methodologies. The _planner-executor multi-agent system_ follows a hierarchical framework. The planner handles the CTF solving process, and strategically delegates tasks to multiple executors. The executors focus on the assigned tasks to complete the objectives set by the planner and return a task summary. Each executor is enhanced via task-specific knowledge from the retriever. We also incorporate the auto-prompter agent from D-CIPHER. 
@@ -148,6 +187,8 @@ flowchart TD
 ```
 Figure 2: Graph-RAG Retrieval 
 
+---
+
 ## **4 Experiment Setup** 
 
 **LLM Selection.** Our LLMs selection is based on the findings in current state-of-the-art approach, D-CIPHER [39], incorporating both top performers from their evaluation and newer models released after their study. We also prioritize tool calling capabilities essential for solving CTFs. We evaluated Claude 3.5 Sonnet ( _claude-3-5-sonnet-20241022_ ) and GPT 4o ( _gpt-4o-2024-11-20_ ) to maintain consistency with D-CIPHER’s evaluation. We also evaluated the latest Claude 3.7 Sonnet ( _claude-37-sonnet-20250219_ ), GPT 4.1 ( _gpt-4.1-2025-04-14_ ), and DeepSeek V3 ( _DeepSeek-V3-0324_ ). All models were accessed via OpenAI and Anthropic APIs. 
@@ -191,6 +232,8 @@ Table 2: Overall and category-wise performance of D-CIPHER and CRAKEN on NYU CTF
 
 
 database. The retriever is called during task delegation and injects a knowledge-based hint for the executor. In the default setting, we only use the classic RAG retriever, and evaluate separately with the Graph-RAG retriever. We do not enable the additional RAG features described in Appendix A. For a fair comparison with prior work, we use a maximum budget of $3.0 for all experiments. Appendix B outlines the prompts used by planner, executor, and RAG system. 
+
+---
 
 ## **5 Results** 
 
@@ -291,7 +334,12 @@ We analyze the retrieval process and solution of _2019f-cry-macrypto_ CTF that i
 
 **4. Repeating Keystream Patterns:** ... 
 
+---
+
 ## **6 Conclusion** 
+
+> **Section Summary:** CRAKEN advances cybersecurity LLM agents by integrating specialized knowledge into the automated agentic system.
+
 
 CRAKEN advances cybersecurity LLM agents by integrating specialized knowledge into the automated agentic system. Our evaluation shows that CRAKEN with Graph-RAG achieves 22% on NYU CTF Bench – a 3% improvement over D-CIPHER (19%), achieving state-of-the-art with an average cost increase of $0.34. Three key insights emerged: first, stronger models derive greater benefits from knowledge integration through superior context processing; second, CRAKEN diversifies the solution space, doubling the number of newly solved challenges; third, Self-RAG with Graph-RAG yields better results for complex security tasks. Beyond cybersecurity, CRAKEN’s approach has the potential to extend to any domain requiring step-by-step planning and specialized knowledge retrieval not covered in model pre-training. Its targeted conversation injection mechanism improves context management, a critical efficiency gain for knowledge-intensive tasks. With CRAKEN, we establish a blueprint for knowledge integration into adaptive security automation which can be extended to other complex automated task planning scenarios. 
 
@@ -303,7 +351,12 @@ CRAKEN advances cybersecurity LLM agents by integrating specialized knowledge in
 
 by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt injection becomes non-trivial when combined with RAG. Malicious actors could theoretically manipulate the agent into accessing and potentially misusing information retrieved from the corpus. Developing cybersecurity technologies to proactively assess prompt injection vulnerabilities and training data integrity will allow AI offensive security agents to face discussions of responsibility, similar to software practices that are more secure while curtailing potential misuses [27, 45]. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E.
+
 
 - [1] Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E. Jimenez, Farshad Khorrami, Prashanth Krishnamurthy, Brendan Dolan-Gavitt, Muhammad Shafique, Karthik Narasimhan, Ramesh Karri, and Ofir Press. Interactive tools substantially assist LM agents in finding security vulnerabilities, 2025. URL `https://arxiv.org/abs/2409.16165v2` . 
 
@@ -419,7 +472,12 @@ by finding and patching vulnerabilities. The vulnerability of CRAKEN to prompt i
 
 13 
 
+---
+
 ## **A RAG Algorithms Supported in CRAKEN** 
+
+> **Section Summary:** Beyond Self-RAG and Graph-RAG, CRAKEN supports other RAG algorithms designed to enhance retrieval accuracy and adaptability.
+
 
 Beyond Self-RAG and Graph-RAG, CRAKEN supports other RAG algorithms designed to enhance retrieval accuracy and adaptability. These algorithms operate independently or in combination, allowing CRAKEN to handle diverse information-seeking tasks. Each strategy targets a specific limitation in standard retrieval pipelines. 
 
@@ -432,6 +490,8 @@ Beyond Self-RAG and Graph-RAG, CRAKEN supports other RAG algorithms designed to 
 - 4 Step-back : When a query is ambiguous or under-specified, this strategy generates a more general or broader "step-back" version of the original query. Retrieval is then performed on the step-back query. The step-back mechanism helps recover background knowledge or indirect clues that may be critical for answering complex, layered questions. 
 
 These retrieval algorithms can be toggled independently via the CRAKEN configuration system, and they can be composed to form hybrid pipelines. This flexibility enables the system to adapt to a wide range of CTF challenges. 
+
+---
 
 ## **B Prompt Used in Experiments** 
 
@@ -509,7 +569,12 @@ Please continue based on your best judgment.
 
 **Generation Grading** You are a grader assessing whether an answer addresses / resolves a question. Give a binary score “yes" or “no". “yes" means that the answer resolves the question. **Question Rewriting** You are a question re-writer that converts an input question to a better version that is optimized for vectorstore retrieval. Look at the input and try to reason about the underlying semantic intent / meaning. 
 
+---
+
 ## **C Additional Details of Case Study** 
+
+> **Section Summary:** Full retrieval for _2019f-cry-macrypto_ as discussed in Section 5.2.
+
 
 Full retrieval for _2019f-cry-macrypto_ as discussed in Section 5.2. 
 

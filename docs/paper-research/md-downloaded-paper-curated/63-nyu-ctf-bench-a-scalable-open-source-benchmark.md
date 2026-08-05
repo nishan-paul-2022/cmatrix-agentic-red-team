@@ -1,12 +1,60 @@
 # **NYU CTF Bench: A Scalable Open-Source Benchmark Dataset for Evaluating LLMs in Offensive Security** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+  - [1.1 Motivation](#1-1-motivation)
+  - [1.2 Contribution](#1-2-contribution)
+  - [1.3 Related Work](#1-3-related-work)
+- [2 NYU CTF Bench](#2-nyu-ctf-bench)
+  - [2.1 Benchmark Structure](#2-1-benchmark-structure)
+  - [2.2 Benchmark Categories](#2-2-benchmark-categories)
+- [3 Automatic CTF Evaluation Framework with LLMs](#3-automatic-ctf-evaluation-framework-with-llms)
+    - [Prompt Example](#prompt-example)
+- [4 Initial Experiments in Solving CTFs with LLMs](#4-initial-experiments-in-solving-ctfs-with-llms)
+  - [4.1 Baseline Performance and Comparison with Human CTF Players](#4-1-baseline-performance-and-comparison-with-human-ctf-players)
+  - [4.2 Ethics Concerning LLMs in Offensive Security](#4-2-ethics-concerning-llms-in-offensive-security)
+- [5 Conclusion and Future Work](#5-conclusion-and-future-work)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
+- [A Some LLM Solutions on CTF Examples](#a-some-llm-solutions-on-ctf-examples)
+    - [LLM Analyzing a Pwn Challenge](#llm-analyzing-a-pwn-challenge)
+    - [[Assistant]](#assistant)
+    - [LLM Solving a Reverse Engineering Challenge](#llm-solving-a-reverse-engineering-challenge)
+- [B Software Included in our Starter Framework](#b-software-included-in-our-starter-framework)
+- [C Case study for web challenge](#c-case-study-for-web-challenge)
+    - [LLM Providing Recon for Hint](#llm-providing-recon-for-hint)
+- [D Whole Challenge List](#d-whole-challenge-list)
+- [NeurIPS Paper Checklist](#neurips-paper-checklist)
+  - [1. Claims](#1-claims)
+  - [2. Limitations](#2-limitations)
+  - [4. Experimental Result Reproducibility](#4-experimental-result-reproducibility)
+  - [5. Open access to data and code](#5-open-access-to-data-and-code)
+  - [6. Experimental Setting/Details](#6-experimental-setting-details)
+  - [7. Experiment Statistical Significance](#7-experiment-statistical-significance)
+  - [8. Experiments Compute Resources](#8-experiments-compute-resources)
+  - [9. Code Of Ethics](#9-code-of-ethics)
+  - [10. Broader Impacts](#10-broader-impacts)
+  - [11. Safeguards](#11-safeguards)
+  - [12. Licenses for existing assets](#12-licenses-for-existing-assets)
+  - [13. New Assets](#13-new-assets)
+  - [14. Crowdsourcing and Research with Human Subjects](#14-crowdsourcing-and-research-with-human-subjects)
+
+---
+
 **Minghao Shao**<sup>1</sup><sup>_,_2</sup><sup>_∗_</sup> **, Sofija Jancheska**<sup>1</sup> **, Meet Udeshi**<sup>_∗_1</sup><sup>_∗_</sup> **, Brendan Dolan-Gavitt**<sup>1</sup><sup>_∗_</sup> **, Haoran Xi**<sup>1</sup> **, Kimberly Milner**<sup>1</sup> **, Boyuan Chen**<sup>1</sup><sup>_,_2</sup> **, Max Yin**<sup>1</sup> **, Siddharth Garg**<sup>1</sup> **Prashanth Krishnamurthy**<sup>1</sup> **, Farshad Khorrami**<sup>1</sup> **, Ramesh Karri**<sup>1</sup> **, Muhammad Shafique**<sup>2</sup> 
 
 - 1New York University, 2New York University Abu Dhabi 
 
 ## **Abstract** 
 
+> **Section Summary:** Large Language Models (LLMs) are being deployed across various domains today.
+
+
 Large Language Models (LLMs) are being deployed across various domains today. However, their capacity to solve Capture the Flag (CTF) challenges in cybersecurity has not been thoroughly evaluated. To address this, we develop a novel method to assess LLMs in solving CTF challenges by creating a scalable, open-source benchmark database specifically designed for these applications. This database includes metadata for LLM testing and adaptive learning, compiling a diverse range of CTF challenges from popular competitions. Utilizing the advanced function calling capabilities of LLMs, we build a fully automated system with an enhanced workflow and support for external tool calls. Our benchmark dataset and automated framework allow us to evaluate the performance of five LLMs, encompassing both black-box and open-source models. This work lays the foundation for future research into improving the efficiency of LLMs in interactive cybersecurity tasks and automated task planning. By providing a specialized benchmark, our project offers an ideal platform for developing, testing, and refining LLM-based approaches to vulnerability detection and resolution. Evaluating LLMs on these challenges and comparing with human performance yields insights into their potential for AI-driven cybersecurity solutions to perform real-world threat management. We make our benchmark dataset open source to public `https://github.com/NYU-LLM-CTF/NYU_CTF_Bench` along with our playground automated framework `https://github.com/NYU-LLM-CTF/llm_ ctf_automation` . 
+
+---
 
 ## **1 Introduction** 
 
@@ -55,7 +103,12 @@ Table 1: Comparison of LLM-Driven CTF Solving
 
 Our work presents an open database with 200 CTF challenges spanning cybersecurity domains and difficulty levels. Additionally, we provide a framework for automated CTF challenge solving using LLMs with cybersecurity tool integration. This framework has been tested on five LLMs (both open and closed-source). Table 1 highlights the unique aspects and innovations of our approach. 
 
+---
+
 ## **2 NYU CTF Bench** 
+
+> **Section Summary:** Our benchmark is based on the CTF competition of New York University’s (NYU) annual Cybersecurity Awareness Week (CSAW), one of the most comprehensive cybersecurity events globally<sup>2</sup> .
+
 
 Our benchmark is based on the CTF competition of New York University’s (NYU) annual Cybersecurity Awareness Week (CSAW), one of the most comprehensive cybersecurity events globally<sup>2</sup> . Over 3,000 students and professionals participate in the CSAW preliminary round, with the final competition bringing together 100-plus teams across five global academic centers. Our initial database comprised 568 CTF challenges sourced from the global CSAW CTF competitions<sup>[34]</sup> . These challenges were created manually and will continue to grow as we gather more challenges from upcoming CSAW CTF events. From this initial pool, we validated 200 challenges across six distinct categories. Table 2 shows the number of validated CTF challenges for each category. 
 
@@ -151,7 +204,12 @@ trigger the vulnerability. Essential tools include Ghidra for decompilation, rad
 
 **Miscellaneous (misc)** challenges encompass a broad range of security tasks, including data analysis, e-discovery, and social engineering. Solving these problems requires skills in data mining, traffic analysis, and scripting for data manipulation and automation. Occasionally, CSAW includes mobile _.apk_ reversing, requiring specific tools and decompilers. These challenges often target emerging vulnerabilities and newer technologies, making them unique compared to other categories. Validation involves applying general CTF principles of identifying and exploiting vulnerabilities, often using Docker containers with exposed ports for server connection or interacting with provided source files. Solvers must research the domain and apply standard exploits. For example, for Android-related challenges, agents need a JDK development environment and the ability to interact with _.dex_ files. 
 
+---
+
 ## **3 Automatic CTF Evaluation Framework with LLMs** 
+
+> **Section Summary:** The framework in Figure 3 includes underlying logic, steps, and the prompt structures used.
+
 
 The framework in Figure 3 includes underlying logic, steps, and the prompt structures used. We discuss input specifications for the models and the methodologies for validating outputs. Critical to maintaining the integrity and robustness of our system, we discuss error handling. This will enable peers to replicate our work and build up on foundational effort. The framework has five modules: 
 
@@ -237,7 +295,12 @@ and Anthropic models offer partial support. Open-source models such as LLaMA 3 a
 
 **5. Prompt Module** Figure 4 illustrates how our system arranges the prompts to solve the CTF challenges. The process, from the challenge.json file to the finished solution, is divided into multiple sections. There is a challenge prompt that includes challenge name, category, host, port, description, and files, stored in a JSON file. A prompt template extracts data from the challenge. The system prompt informs the model of the objective and the flag format for the CTF. A user prompt has an initial message with challenge name, category, description, and files (see Initial Message in Figure4). Finally, the model prompt helps the model understand the challenge’s content and interpret results obtained from executing its commands. By following these suggestions, we reach the solution for the challenge, which is marked as ’solved’ in the figure. 
 
+---
+
 ## **4 Initial Experiments in Solving CTFs with LLMs** 
+
+> **Section Summary:** We configured our framework on a local server that hosts the source code, benchmark database, and Docker images for challenges requiring server-side containers.
+
 
 We configured our framework on a local server that hosts the source code, benchmark database, and Docker images for challenges requiring server-side containers. To ensure seamless operation, we installed all necessary packages and securely stored essential keys and URLs, including API keys for models hosted by OpenAI and Anthropic, as well as URLs for open-source models deployed on our inference server. This setup allows our framework to interact with black-box models linked to our OpenAI and Anthropic accounts and open-source models deployed on inference servers, ensuring smooth and accurate execution of experiments. We utilized GPT and Claude models from OpenAI and Anthropic’s inference APIs, ensuring our accounts had sufficient credits. For open-source models, we deployed them on our inference server equipped with Nvidia A100 GPUs using the VLLM and TGI frameworks. This setup provided our framework with inference URLs, enabling experiments based on the server environment’s capabilities and performance. 
 
@@ -287,13 +350,22 @@ While CTF challenges can be used for benchmarking task planning and automation, 
 
 raises concerns around malicious use<sup>[51]</sup> . However, the benefit of CTFs in cybersecurity education is well-accepted<sup>[30,31]</sup> . In our experiments, we observe no instance where the LLM refuses to solve a challenge due to ethical conflicts, which indicates that current LLMs understand the educational context of CTFs. While this behavior can be misused, further research can help improve LLM alignment and safety. 
 
+---
+
 ## **5 Conclusion and Future Work** 
 
+> **Section Summary:** We developed a scalable, open-source benchmark dataset comprising 200 CTF challenges from seven years of NYU CTF competitions, featuring six categories.
+
+
 We developed a scalable, open-source benchmark dataset comprising 200 CTF challenges from seven years of NYU CTF competitions, featuring six categories. This comprehensive dataset is the foundation of our framework for automating CTF-solving using LLMs. By evaluating three blackbox models and two open-source models, we demonstrated that LLMs show potential in tackling large-scale CTF challenges within time constraints. However, our analysis also revealed several limitations. First, while the initial database contained 567 challenges, not all are included in the current NYU CTF Bench as we have not finished validating them. Consequently, certain categories, such as Incident Response (IR)—which simulates real-world cybersecurity incidents and is more challenging to validate—are not included in our NYU CTF Bench. Additionally, there is an imbalance in the number of challenges across categories. Some categories, like “rev,” “crypto,” “pwn,” and “misc,” contain more challenges, while others, such as “forensics,” and “web,” are underrepresented. Future iterations of this research aim to: (1) Address Dataset Imbalance and Diversity: A balanced distribution of challenges across all categories will enhance the validity of results and allow for fair comparison between different challenge types. Our current database is sourced from a single CTF series, NYU’s CSAW. By incorporating challenges from more competitions, we can increase the diversity of challenges. (2) Enhance Tool/Platform Support: Models sometimes use inappropriate tools, such as C/C++ reverse engineering tools on Python code. Expanding tool and platform support will mitigate such issues. (3) Update model support according to the community roadmaps, ensuring that the framework remains current. 
+
+---
 
 ## **Acknowledgements** 
 
 This work has been supported in parts by the NYUAD Center for Cyber Security (CCS), funded by Tamkeen under the NYUAD Research Institute Award G1104, NYU Abu Dhabi Center for AI and Robotics CG010, Office of Naval Research N00014-22-1-2153, ARO W911NF-22-1-0028, National Science Foundation (NSF) 2016650 and the United Kingdom’s Department for Science Innovation and Technology (DIST) G2-SCH-2024-02-13415. 
+
+---
 
 ## **References** 
 
@@ -413,6 +485,8 @@ P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herb
 
 13 
 
+---
+
 ## **A Some LLM Solutions on CTF Examples** 
 
 #### LLM Analyzing a Pwn Challenge 
@@ -487,11 +561,18 @@ $ sudo chmod +x _∼_ /ctf_files/test.out && echo ’123456789012’ | _∼_ /ct
 
 Figure 7: LLM Solved a Reverse Engineering Challenge in Table 3 by Analyzing Disassembly and Decompilation Outputs. 
 
+---
+
 ## **B Software Included in our Starter Framework** 
 
 The LLM can run commands in an Ubuntu 22.04 container with the following software installed: **System Packages** : build-essential, vim, cmake, git, libgtk2.0-dev, pkg-config, libavcodec-dev, libavformat-dev, libswscale-dev, python3-dev, python3-numpy, python3-pip, libssl-dev, libffi-dev, libtbb2, libtbb-dev, libjpeg-dev, libpng-dev, libtiff-dev, ubuntu-desktop, bc, bsdmainutils, curl, netcat, python3-venv, qemu-user, qemu-user-static, radare2, sagemath. **Python Packages** : pwntools, ipython, gmpy2. 
 
+---
+
 ## **C Case study for web challenge** 
+
+> **Section Summary:** For the 2023 CSAW Quals web challenge, _Smug Dino_ , we analyzed 31 LLM agent conversations powered by either the GPT 3.5 or GPT 4 model.
+
 
 For the 2023 CSAW Quals web challenge, _Smug Dino_ , we analyzed 31 LLM agent conversations powered by either the GPT 3.5 or GPT 4 model. This challenge centered around CVE-2019-20372 and exposed a "hint" HTML page to point to that exploit. Players able to supply some recon of the underlying (and exploitable) NGINX server powering the challenge were provided the year of the CVE along with the nature of the exploit. Of the five available public solutions for this challenge 
 
@@ -520,7 +601,10 @@ In 76% of the GPT 4 transcripts the LLM agent was aware that providing recon to 
 
 Figure 8: LLM Solver Excerpts for the "Smug Dino" Web Challenge in Table 3. 
 
-The above excerpt shows a strategy nearly universally applied by the LLM agent after deciding to pivot from the hint page: to attempt common web exploits on the challenge. In conversations where the flag was successfully retrieved the agent examined headers and link redirections to intuit some sort of smuggling attack. However, often after moving on from failed recon the agents just employed common web CTF solving strategies, such as using _nikto_ to scan the webserver; _sqlmap_ and _xss_ to attempt to leverage the recon entry form for explotation; _dirb_ to enumerate endpoints; and _gobuster_ to perform brute force attacks. 
+The above excerpt shows a strategy nearly universally applied by the LLM agent after deciding to pivot from the hint page: to attempt common web exploits on the challenge. In conversations where the flag was successfully retrieved the agent examined headers and link redirections to intuit some sort of smuggling attack. However, often after moving on from failed recon the agents just employed common web CTF solving strategies, such as using _nikto_ to scan the webserver:
+- _sqlmap_ and _xss_ to attempt to leverage the recon entry form for explotation
+- _dirb_ to enumerate endpoints
+- and _gobuster_ to perform brute force attacks.
 
 |**LLM**|**sqlmap**<br>**(%)**|**dirb (%)**|**nikto (%)**|**gobster**<br>**(%)**|**xss (%)**|
 |---|---|---|---|---|---|
@@ -534,6 +618,8 @@ Table 7: LLM invocation of common web exploit tools on _Smug Dino_
 Each transcript demonstrated a range in the sophistication of tactics; from performing common web exploit techniques such as those listed above; to examining headers and even making inferences on the challenge name to craft CURL payloads capable for performing the required smuggling attack. 
 
 16 
+
+---
 
 ## **D Whole Challenge List** 
 
@@ -786,6 +872,8 @@ Table 12: NYU CTF Web Challenges.
 Table 13: NYU CTF Miscellaneous Challenges. 
 
 20 
+
+---
 
 ## **NeurIPS Paper Checklist** 
 

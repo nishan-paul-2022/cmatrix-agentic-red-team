@@ -1,16 +1,57 @@
 # **SoK: A Comparison of Autonomous Penetration Testing Agents** 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [CCS CONCEPTS](#ccs-concepts)
+- [KEYWORDS](#keywords)
+  - [ACM Reference Format:](#acm-reference-format)
+- [1 INTRODUCTION](#1-introduction)
+- [2 BACKGROUND](#2-background)
+- [2.1 Reinforcement Learning](#2-1-reinforcement-learning)
+- [2.2 Markov Decision Processes](#2-2-markov-decision-processes)
+- [2.3 Deep Reinforcement Learning](#2-3-deep-reinforcement-learning)
+- [3 STATE OF THE ART](#3-state-of-the-art)
+- [3.1 Execution Environments](#3-1-execution-environments)
+- [3.2 Autonomous Penetration Testing Agents](#3-2-autonomous-penetration-testing-agents)
+- [3.3 Related Autonomous Agents](#3-3-related-autonomous-agents)
+- [4 RESEARCH CHALLENGES](#4-research-challenges)
+- [4.1 Partial Observability](#4-1-partial-observability)
+- [4.2 Large Action Space](#4-2-large-action-space)
+- [4.3 Reward Structure](#4-3-reward-structure)
+- [4.4 Adapting to the Real-World](#4-4-adapting-to-the-real-world)
+- [4.5 Comparison](#4-5-comparison)
+- [5 FUTURE RESEARCH DIRECTIONS](#5-future-research-directions)
+- [6 CONCLUSION](#6-conclusion)
+- [ACKNOWLEDGMENTS](#acknowledgments)
+- [REFERENCES](#references)
+
+---
+
 Raphael Simon Royal Military Academy Brussels, Belgium r.simon@cylab.be 
 
 ## **ABSTRACT** 
 
+> **Section Summary:** In the still growing field of cyber security, machine learning methods have largely been employed for detection tasks.
+
+
 In the still growing field of cyber security, machine learning methods have largely been employed for detection tasks. Only a small portion revolves around offensive capabilities. Through the rise of Deep Reinforcement Learning, agents have also emerged with the goal of actively assessing the security of systems by the means of penetration testing. Thus learning the usage of different tools to emulate humans. In this paper we present an overview, and comparison of different autonomous penetration testing agents found within the literature. Various agents have been proposed, making use of distinct methods, but several factors such as modelling of the environment and scenarios, different algorithms, and the difference in chosen methods themselves, make it difficult to draw conclusions on the current state and performance of those agents. This comparison also lets us identify research challenges that present a major limiting factor, such as handling large action spaces, partial observability, defining the right reward structure, and learning in a real-world scenario. 
+
+---
 
 ## **CCS CONCEPTS** 
 
+> **Section Summary:** • **General and reference** → **Surveys and overviews** ; • **Security and privacy** → _Network security_ ; • **Computing methodologies** → _Reinforcement learning_ .
+
+
 • **General and reference** → **Surveys and overviews** ; • **Security and privacy** → _Network security_ ; • **Computing methodologies** → _Reinforcement learning_ . 
 
+---
+
 ## **KEYWORDS** 
+
+> **Section Summary:** Penetration Testing, Deep Reinforcement Learning, Security Automation, Reinforcement Learning
+
 
 Penetration Testing, Deep Reinforcement Learning, Security Automation, Reinforcement Learning 
 
@@ -18,7 +59,12 @@ Penetration Testing, Deep Reinforcement Learning, Security Automation, Reinforce
 
 Raphael Simon and Wim Mees. 2024. SoK: A Comparison of Autonomous Penetration Testing Agents. In _The 19th International Conference on Availability, Reliability and Security (ARES 2024), July 30–August 02, 2024, Vienna, Austria._ ACM, New York, NY, USA, 10 pages. https://doi.org/10.1145/3664476. 3664484 
 
+---
+
 ## **1 INTRODUCTION** 
+
+> **Section Summary:** The world is as connected as it has ever been, and we have long become dependent on it.
+
 
 The world is as connected as it has ever been, and we have long become dependent on it. There have never been more computer systems deployed, that run our critical infrastructures such as health, finance, transportation, energy etc. At the same time, cyber-related threats continue to grow, posing enormous risks, especially for critical infrastructures. Defending those systems is a massive and 
 
@@ -38,9 +84,16 @@ In this paper we present and give a comparative overview of the current autonomo
 
 The structure of this paper is as follows: In Section 2 we establish some of the necessary background for (Deep) Reinforcement Learning. Section 3 gives an overview of the current approaches, divided into two parts: the proposed execution environments for the agents, and the agents themselves. Afterwards, in Section 4 we elaborate on the different challenges that are encountered in this field and look at how the current work tries to handle these challenges. Finally, Section 5 presents the future research directions we have identified. 
 
+---
+
 ## **2 BACKGROUND** 
 
+---
+
 ## **2.1 Reinforcement Learning** 
+
+> **Section Summary:** Reinforcement Learning (RL) is the problem faced by an agent that learns behaviour through trial-and-error interactions with a dynamic environment [13].
+
 
 Reinforcement Learning (RL) is the problem faced by an agent that learns behaviour through trial-and-error interactions with a dynamic environment [13]. The learning happens similarly as it would for animals or us humans, through gaining _reinforcements_ , which 
 
@@ -58,6 +111,8 @@ Actions are chosen according to a _policy_ . It defines the agent’s way of beh
 
 The underlying principle involves iteratively updating the Q- values based on the observed rewards and the maximum Q-value of the next state, emphasizing a balance between exploration and exploitation. 
 
+---
+
 ## **2.2 Markov Decision Processes** 
 
 A Markov decision process (MDP) is a tuple ⟨ _𝑆,𝐴, 𝑃, 𝑅,𝛾_ ⟩, where S is the set of states, A, is the set of actions, _𝑃_ ( _𝑠_<sup>′</sup> | _𝑠,𝑎_ ) is the transition probability from state _𝑠_ to _𝑠_<sup>′</sup> , using action _𝑎_ . _𝑅_ ( _𝑠,𝑎,𝑠_<sup>′</sup> ) is the reward obtained after having taken action _𝑎_ in state _𝑠_ and landing in state _𝑠_<sup>′</sup> , and _𝛾_ is a discount factor [33]. The MDP is a framework that enables us to clearly formulate the problem of RL and reason about the objective and how to achieve it. Another advantage of formulating the problem as a MDP is that we’re able to make use of the Markov Property: _𝑃_ ( _𝑆𝑡_ +1 = _𝑠_<sup>′</sup> | _𝑆𝑡_ = _𝑠_ ) = _𝑃_ ( _𝑆𝑡_ +1 = _𝑠_<sup>′</sup> | _ℎ𝑡_ −1 _,𝑆𝑡_ = _𝑠_ ). It means that the agent has all the necessary information in the current state to take the best decision. In an MDP, all states are assumed to have this property. 
@@ -66,7 +121,12 @@ Several different variations of MDPs exist. One of them, is a partially observab
 
 While the environment can still be Markov, the agent does not know it. Still, there are methods with which to construct a Markov agent state, such as taking in a certain amount of history [18] or making use of recurrent neural networks [11]. 
 
+---
+
 ## **2.3 Deep Reinforcement Learning** 
+
+> **Section Summary:** All components of RL are functions.
+
 
 All components of RL are functions. The policy is a mapping from states to actions, or probabilities of the action set. The value functions are a mapping from states to real numbers. The model is a mapping from state to states and the state update is a mapping from states and observations to states. This opens the door to use Neural Networks (NN) and Deep Learning (DL) techniques to learn or approximate these functions, which has been proven to be incredibly powerful. On the downside, we also have to take care, as we violate certain assumptions from supervised learning, such as the data being independent and identically distributed, and the problems being stationary. 
 
@@ -86,11 +146,21 @@ optimizes both networks simultaneously, enabling efficient learning and faster c
 
 _Proximal Policy Optimization._ (PPO) is a cutting-edge DRL algorithm designed for stability and sample efficiency [28]. PPO operates within an actor-critic framework, utilizing a policy network to select actions and a value function network to estimate state values. Noteworthy for its "clip and trust" strategy, PPO constrains policy updates to a specified range, preventing large policy changes and enhancing stability during training. By iteratively collecting experiences and updating the policy with multiple epochs, PPO strikes a balance between exploration and exploitation. Its robustness, simplicity, and capacity to handle continuous and discrete action spaces make PPO a prominent choice in contemporary reinforcement learning research and applications. 
 
+---
+
 ## **3 STATE OF THE ART** 
+
+> **Section Summary:** The state of the art in this field consists of two big components.
+
 
 The state of the art in this field consists of two big components. 1) The execution environments, in the form of different simulators, which are used to train agents. 2) The penetration testing agents themselves. The execution environments are presented first, since some of the agents discussed in the following section, make use of them. They are also an important part of training agents in general. Lastly, we also consider agents that are not directly trained for penetration testing as a whole, but do perform one of the subdisciplines (like vulnerability scanning) or which are trained for pentesting, but do not make use of DRL. 
 
+---
+
 ## **3.1 Execution Environments** 
+
+> **Section Summary:** To train (Deep) Reinforcement Learning agents, we need the right environment for them to interact with, gather experiences, and learn from those.
+
 
 To train (Deep) Reinforcement Learning agents, we need the right environment for them to interact with, gather experiences, and learn from those. We’ve already introduced the mathematical framework in Section 2. Here, we’re going to present the different simulated environments that have been proposed to train agents. Naturally, these environments represent networks with vulnerable machines in which the agent is confronted to a growing number of available choices, and needing to perform exploration operations and applying the right exploit to a service vulnerable to it. While these can be considered "toy-problems", they deliver an important framework to evaluate different algorithms. 
 
@@ -116,7 +186,12 @@ Raphael Simon and Wim Mees
 
 _NASimEmu._ Janisch et al. have extended the existing NASim project with an emulation functionality through a shared interface [12]. Thus, the action space remains the same (with some exceptions as the authors point out), but the environment can be changed to take agents from a simulation, to an emulation. The emulations run on virtual machines, which are orchestrated via Vagrant. These are configurable Linux and Windows machines, based on Metasploitable3 images, with pre-defined vulnerable services to choose from. The authors map the Exploit and PrivEsc actions already existing in NASim to predefined Metasploit modules. While describing their work, they are also clear about some of the limitations. The emulation does not fully correspond to the simulated environment due to complications implementing some of the features. They do however reason that these limitations can be overcome with future work. 
 
+---
+
 ## **3.2 Autonomous Penetration Testing Agents** 
+
+> **Section Summary:** This section contains the bulk of the work that has been proposed.
+
 
 This section contains the bulk of the work that has been proposed. We qualify autonomous penetration testing agents as agents that make use of RL, DRL, or related forms such as Imitation Learning (IL) in order to make decisions in an environment, for which the goal is to find vulnerabilities in the different components that make up the environment. 
 
@@ -179,7 +254,12 @@ Raphael Simon and Wim Mees
 
 scenario. We only list the best performing algorithm. Finally, the table shows the choice that was made by the corresponding authors for modelling the environment, whether the authors modelled it as an MDP, POMDP, or did not specify a model. 
 
+---
+
 ## **3.3 Related Autonomous Agents** 
+
+> **Section Summary:** Only considering autonomous penetration testing agents results in a very specific and small scope.
+
 
 Only considering autonomous penetration testing agents results in a very specific and small scope. There are closely related agents that also make use of RL, but only focus on one specific vulnerability, instead of penetration testing as a whole. Other work changes the primitive and instead of DRL, makes use of Large Language Models (LLM). 
 
@@ -189,13 +269,23 @@ _Vulnerability Scanners._ Compared to the goal of performing penetration testing
 
 Since the agents are also confronted with a growing amount of choice related to the actions, the DQN architecture is altered to compute a Q-value one action at a time by converting them into a set of action representations. 
 
+---
+
 ## **4 RESEARCH CHALLENGES** 
+
+> **Section Summary:** We’re now going to present the challenges associated to the design, development and deployment of autonomous penetration testing agents.
+
 
 We’re now going to present the challenges associated to the design, development and deployment of autonomous penetration testing agents. Since the goal is to have agents that run in the realworld, some of the challenges we identify here are well-known. An overview of real-world RL challenges has already been provided by Dulac-Arnold et al. [6]. We nevertheless argue that a comparative study of how the challenges are handled specifically by penetration testing agents is important to further describe the current state of the art and identify future research directions. 
 
 One of the first challenges to mention is not about technical aspects of RL, but rather it’s about reproducibility and comparing existing approaches. While performing our literature study, one of the greatest problems we encountered was to be able to actually compare the proposed implementations. This is due to a range of different factors: algorithms, execution environments, modelling of the environment, different goals, reward structures, implementation details, and most importantly, missing code. In Table 1 we see that some use a common simulator, but then there are different choices regarding the scenario, or modifications have been made to the underlying simulator [20]. Since comparing different work is so difficult and intricate, it is also complicated to get a real, objective overview of what works well, and what doesn’t. Some of authors compare their work to other existing implementations [16, 40], but under different circumstances and scenarios, which renders the results questionable. Being hardly able to compare existing work is especially detrimental to evaluating the progress that has been made thus far in addressing the different challenges that follow. 
 
+---
+
 ## **4.1 Partial Observability** 
+
+> **Section Summary:** In the literature we find multiple approaches of modelling the environment for penetration testing (cf.
+
 
 In the literature we find multiple approaches of modelling the environment for penetration testing (cf. Table 1). In general, most approaches that run in a simulated environment, formulate pentesting as an MDP. This formulation is generally ill-suited [25, 26], especially in a real-world scenario [6]. The reasons are that MDPs do not represent the partial observability of the problem at hand. Penetration testing is inherently about the search and discovery of vulnerabilities. It makes little sense to provide observations that already contains all the vulnerabilities that can be found. This is also known to the simulator developers. NASim, CBS, and NASimEmu propose options to set the simulated environment to only partially observable. In contrast, the proposed agents running in a real environment, make use of model-free RL algorithms [14, 17, 23, 34]. In model-free learning, a model of the environment is not available and the agent learns directly from experience [2]. A third method is to take into account the partial observability by modelling the environment as a POMDP [16]. 
 
@@ -213,7 +303,12 @@ The authors of EPPTA model the penetration testing environment as a POMDP. They 
 
 While we’ve mentioned that some simulators offer a model with partial observability, it is difficult to verify whether the authors of the papers using them have actually used this functionality. On one side because it is not explicitly mentioned, on the other, because there is no source code available to independently verify this. 
 
+---
+
 ## **4.2 Large Action Space** 
+
+> **Section Summary:** When starting to reason about the problem of autonomous pentesting, one is quickly confronted with the problem of large action spaces.
+
 
 When starting to reason about the problem of autonomous pentesting, one is quickly confronted with the problem of large action spaces. This is simply a consequence of the discipline. At any given time, while executing a penetration test, a human faces a large amount of different possible actions that can be executed. Taking the scanning phase as an example, there is the question of which type of scan to perform, against which target, using which parameters, and so on. In the current literature, several empirical studies have been conducted to try address the problem, but the results remain varied. Large action spaces on their own might not be a significant problem, but most often we also encounter large state spaces. The challenge lies in the ability to be able to generalize over such a large set of actions and states and still be able to learn a useful policy [5]. In the following we present how the different pentesting agents have tried to address this challenge. 
 
@@ -225,7 +320,12 @@ For their double-agent architecture (DAA), Nguyen et al. [20] use two agents as 
 
 _Synthesis._ While the proposed EPPTA framework is able to handle a large action space [16], we attribute this success more to the powerful hardware that was used and the usage of Sample Factory, rather than a specifically designed approach to handle large action spaces. HA-DRL and DAA both use separate agents, which makes them look quite similar, but they are actually very different approaches. DAA trains agents to execute different tasks, while HADRL partitions the action space over the set of configured agents, such that a single agent has fewer actions to learn. 
 
+---
+
 ## **4.3 Reward Structure** 
+
+> **Section Summary:** _Attack Vector Decoupling._ Zhou et al.
+
 
 _Attack Vector Decoupling._ Zhou et al. chose to decouple the attack vector. This means that the NN is split into two streams, to be able to choose separately on the target, in the form of the value of the host, and the operation/attack to perform. This choice reduces the original action space from _𝑂_ ( _𝑀𝑁_ ) to _𝑂_ ( _𝑀_ + _𝑁_ ) [41]. Their experiments show that making use of decoupling really helps the agent learn in large scale environments. Without decoupling, the agent is barely able to handle an environment with 80 hosts, in contrast to 150 with decoupling. 
 
@@ -251,11 +351,21 @@ _Action Space Representation._ Through the chosen high-level action design, whic
 
 There is a clear gap between where the research wants to be, and where it currently stands. We argue that it might be better to take different approaches. Instead of using general-purpose simulators that offer different scenarios and maybe even have an emulation component, it might be more interesting to use synthetic environments like Maeda et al., or to directly develop a simulator for the specific task that we want to address, such as Kujanpää et al. But this might only work for small environments. In the end, the agent can only learn what the environment allows the agent to learn. More general-purpose simulators are still interesting to benchmark different algorithms ( _cf._ 3.2.2), but it doesn’t serve any good use if the knowledge can’t be transferred to the real-world afterwards. 
 
+---
+
 ## **4.4 Adapting to the Real-World** 
+
+> **Section Summary:** Developing agents to run in a simulated environment is relatively easy.
+
 
 Developing agents to run in a simulated environment is relatively easy. In the best case, there already exist a bunch of simulators and all that’s left is to choose the algorithm and to train the agent with the right hyper-parameters. Adapting to the real-world is a lot more difficult. The simulator that took care of all the necessary abstractions is no longer there. In addition, we’re interacting with real machines now, that exhibit their own behaviour, which has to be accounted for, and that can even break. Another problem is being able to train the agent, such that it has accumulated enough knowledge to be useful. This is one of the challenges we cover here. Second, there is also the challenge of using the right design approach that helps the agent switch between training and execution in the real-world. 
 
+---
+
 ## **4.5 Comparison** 
+
+> **Section Summary:** As we’ve established in the introduction to this Section 4, it is very difficult to qualitatively assess the proposed agents.
+
 
 As we’ve established in the introduction to this Section 4, it is very difficult to qualitatively assess the proposed agents. Here, we perform an indicative evaluation, represented in Table 2. This comparison aims to showcase which methods are able to handle partial observability, while also displaying the largest action space they have been tested with. The numbers have either been taken directly from the paper, or calculated with the provided formula and scenario description. For DQfD-AIPT and Deep Exploit, neither were the case, and thus we were unable to reliably make the count. We’d like to highlight that EPPTA is the only agent running in a simulator that also accounts for partial observability. Whilst there are other agents running in simulations that do achieve to handle a larger 
 
@@ -284,7 +394,12 @@ ARES 2024, July 30–August 02, 2024, Vienna, Austria
 
 action space, they use MDPs for the environment representation, and thus don’t have to account for the added computational difficulties that POMDPs bring along [19]. On the other hand, Maeda et al.’s agent has the largest action space out of the real-world agents, but the agent does not make use of the entire action set. It has to search through 204 PowerShell Empire modules, but for the given task of lateral movement and privilege escalation, only a handful of them are really useful. 
 
+---
+
 ## **5 FUTURE RESEARCH DIRECTIONS** 
+
+> **Section Summary:** Through our study and analysis of the literature and existing methods, we are able to identify a plethora of different research directions and future work still needed to go beyond prototypes.
+
 
 Through our study and analysis of the literature and existing methods, we are able to identify a plethora of different research directions and future work still needed to go beyond prototypes. Starting with simulators. The main limitation is being able to deploy an agent that has been trained in a simulated environment, into the real-world. One promising approach would be to have the agent learn high level actions, but the actual action is executed by an underlying component. The feasibility has already been demonstrated by Kujanpää et al., but their simulator had been created specifically for the problem they intended to solve [14]. Continuing, a more practical comparison between existing methods would be interesting, where they would be tested in the same environment, under the same constraints, to have a better overview of the capabilities of the algorithm. The inclusion of LLMs could also be a very interesting and promising research directions. They could be used to provide an overall strategy or write the commands to be executed, like we have seen demonstrated by Deng et al. [4]. 
 
@@ -294,15 +409,30 @@ are able to converge faster [3, 38].
 
 Finally, the challenges such as large action spaces, and acting under partial observability are not exclusive to autonomous penetration testing agents, but fundamental challenges for the applicability of RL to the real-world. These also require a lot of research to be addressed. For a more complete overview we refer to Dulac-Arnold et al. [6]. 
 
+---
+
 ## **6 CONCLUSION** 
+
+> **Section Summary:** In this work we’ve analysed and compared the different autonomous penetration testing agents and the proposed environments for them to be trained in.
+
 
 In this work we’ve analysed and compared the different autonomous penetration testing agents and the proposed environments for them to be trained in. We’ve also looked at some closely related works like vulnerability scanners and LLMs for pentesting. Through this comparison we have identified several research challenges: handling large action spaces, partial observability, creating adequate reward structures, and taking the agents from a simulated environment into the real world. While good efforts have been made regarding each of the challenges, we’re still far away from going beyond prototypes. Solving or partially addressing these challenges is necessary to be able to have trained agents that can truly serve a purpose in the real world cyber security domain. Lastly, we’ve pointed out several different promising research directions that could drive forward the field. 
 
+---
+
 ## **ACKNOWLEDGMENTS** 
+
+> **Section Summary:** We would like to thank Arbia Riahi for her valuable feedback.
+
 
 We would like to thank Arbia Riahi for her valuable feedback. 
 
+---
+
 ## **REFERENCES** 
+
+> **Section Summary:** - [1] Salim Al Wahaibi, Myles Foley, and Sergio Maffeis.
+
 
 - [1] Salim Al Wahaibi, Myles Foley, and Sergio Maffeis. 2023. {SQIRL}:{Grey-Box} Detection of {SQL} Injection Vulnerabilities Using Reinforcement Learning. In _32nd USENIX Security Symposium (USENIX Security 23)_ . 6097–6114. 
 

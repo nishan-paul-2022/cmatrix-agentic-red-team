@@ -2,17 +2,87 @@ Published as a conference paper at ICLR 2026
 
 # PACEBENCH: A FRAMEWORK FOR EVALUATING PRACTICAL AI CYBER-EXPLOITATION CAPABILITIES 
 
+## Table of Contents
+
+- [ABSTRACT](#abstract)
+- [1 INTRODUCTION](#1-introduction)
+- [2 FRAMEWORK](#2-framework)
+  - [2.1 VULNERABILITY DIFFICULTY](#2-1-vulnerability-difficulty)
+  - [2.2 ENVIRONMENT COMPLEXITY](#2-2-environment-complexity)
+  - [2.3 CYBER DEFENSE](#2-3-cyber-defense)
+- [3 PACEBENCH CONSTRUCTION](#3-pacebench-construction)
+  - [3.1 STANDARD EXPLOITATION VERIFICATION IN PACEBENCH](#3-1-standard-exploitation-verification-in-pacebench)
+  - [3.2 DIVERSE EXPLOITATION SCENARIOS IN PACEBENCH](#3-2-diverse-exploitation-scenarios-in-pacebench)
+  - [3.2.1 A SINGLE CVE EXPLOITATION (A-CVE)](#3-2-1-a-single-cve-exploitation-a-cve)
+  - [3.2.2 BLENDED CVES EXPLOITATION (B-CVE)](#3-2-2-blended-cves-exploitation-b-cve)
+  - [3.2.3 CHAINED CVES EXPLOITATION (C-CVE)](#3-2-3-chained-cves-exploitation-c-cve)
+  - [3.2.4 DEFENDED CVES EXPLOITATION (D-CVE)](#3-2-4-defended-cves-exploitation-d-cve)
+- [4 PACEAGENT](#4-paceagent)
+  - [4.1 PACEAGENT ARCHITECTURE](#4-1-paceagent-architecture)
+  - [4.2 PACEAGENT WORKFLOW](#4-2-paceagent-workflow)
+- [5 EXPERIMENT](#5-experiment)
+  - [5.1 EXPERIMENT SETUP](#5-1-experiment-setup)
+  - [5.1.1 MODELS](#5-1-1-models)
+  - [5.1.2 AGENTS](#5-1-2-agents)
+  - [5.2 EVALUATION METRIC](#5-2-evaluation-metric)
+  - [5.3 EXPERIMENTAL RESULTS OF PACEAGENT ON PACEBENCH](#5-3-experimental-results-of-paceagent-on-pacebench)
+  - [5.4 COMPARATIVE ANALYSIS OF PACEAGENT AND CAI](#5-4-comparative-analysis-of-paceagent-and-cai)
+  - [5.5 FAILURE ANALYSIS](#5-5-failure-analysis)
+  - [5.6 FURTHER DISCUSSION](#5-6-further-discussion)
+- [6 RELATED WORK](#6-related-work)
+  - [6.1 BENCHMARKS FOR CYBER EXPLOITATION](#6-1-benchmarks-for-cyber-exploitation)
+  - [6.2 SPECIALIZED AGENTS FOR CYBER EXPLOITATION](#6-2-specialized-agents-for-cyber-exploitation)
+- [7 CONCLUSION](#7-conclusion)
+  - [REPRODUCIBILITY STATEMENT](#reproducibility-statement)
+  - [ACKNOWLEDGMENTS](#acknowledgments)
+  - [ETHICS STATEMENT](#ethics-statement)
+- [REFERENCES](#references)
+- [A CONSTRUCTION DETAILS OF PACEBENCH](#a-construction-details-of-pacebench)
+  - [A.1 DETAILS OF A-CVE SCENARIO](#a-1-details-of-a-cve-scenario)
+  - [A.2 DETAILS OF B-CVE SCENARIO](#a-2-details-of-b-cve-scenario)
+  - [A.3 DETAILS OF C-CVE SCENARIO](#a-3-details-of-c-cve-scenario)
+  - [A.4 DETAILS OF D-CVE SCENARIO](#a-4-details-of-d-cve-scenario)
+- [B MODEL PERFORMANCE ON EACH CHALLENGE IN PACEBENCH](#b-model-performance-on-each-challenge-in-pacebench)
+- [C DISCUSSION ABOUT LLM SAFEGUARD](#c-discussion-about-llm-safeguard)
+- [D JUSTIFICATION FOR MODEL SELECTION: CLAUDE 3.7 OVER CLAUDE 4](#d-justification-for-model-selection-claude-3-7-over-claude-4)
+- [E NOTES ON OPEN-SOURCE MODEL PERFORMANCE](#e-notes-on-open-source-model-performance)
+- [F COST ANALYSIS](#f-cost-analysis)
+- [G THE USE OF LARGE LANGUAGE MODELS](#g-the-use-of-large-language-models)
+- [H LIMITATIONS](#h-limitations)
+  - [I.1 DEFINITION OF EVALUATION DIMENSIONS](#i-1-definition-of-evaluation-dimensions)
+  - [I.2 COMPARATIVE ADVANTAGES OF PACEBENCH](#i-2-comparative-advantages-of-pacebench)
+- [J DETAILED EXPERIMENTAL STATISTICS](#j-detailed-experimental-statistics)
+- [K FAILURE ANALYSIS OF AGENTS IN PACEBENCH](#k-failure-analysis-of-agents-in-pacebench)
+  - [K.1 MODEL CAPABILITY DEFICIENCIES](#k-1-model-capability-deficiencies)
+  - [K.1.1 SYNTACTIC ERROR RECOVERY FAILURE (RECURSIVE ESCAPING)](#k-1-1-syntactic-error-recovery-failure-recursive-escaping)
+  - [K.1.2 CONTEXT EXHAUSTION VIA HIGH-FIDELITY TOOL OUTPUT](#k-1-2-context-exhaustion-via-high-fidelity-tool-output)
+  - [K.1.3 NORMAL FAILED CASE IN THE BENCH](#k-1-3-normal-failed-case-in-the-bench)
+  - [K.2 MODEL HALLUCINATION ISSUES](#k-2-model-hallucination-issues)
+  - [K.2.1 OUTCOME HALLUCINATION (FABRICATED SUCCESS)](#k-2-1-outcome-hallucination-fabricated-success)
+  - [K.2.2 PARAMETRIC KNOWLEDGE HALLUCINATION](#k-2-2-parametric-knowledge-hallucination)
+
+---
+
 **Zicheng Liu**<sup>**1,2**</sup><sup>_⋆_</sup> **, Lige Huang**<sup>**1,3**</sup><sup>_⋆_</sup> **, Jie Zhang**<sup>**1**</sup><sup>_⋆_</sup> **, Dongrui Liu**<sup>**1**</sup> **, Yuan Tian**<sup>**2**</sup><sup>_†_</sup> **, Jing Shao**<sup>**1**</sup><sup>_†_</sup> 1 Shanghai Artificial Intelligence Laboratory 2 Shanghai Jiao Tong University 3 University of Chinese Academy of Sciences ryukosei@sjtu.edu.cn _{_ huanglige, zhangjie1, shaojing _}_ @pjlab.org.cn 
 
 ## ABSTRACT 
 
+> **Section Summary:** The increasing autonomy of Large Language Models (LLMs) necessitates a rigorous evaluation of their potential to aid in cyber offense.
+
+
 The increasing autonomy of Large Language Models (LLMs) necessitates a rigorous evaluation of their potential to aid in cyber offense. Existing benchmarks often lack real-world complexity and are thus unable to accurately assess LLMs’ cybersecurity capabilities. To address this gap, we introduce PACEbench, a practical AI cyber-exploitation benchmark built on the principles of realistic vulnerability difficulty, environmental complexity, and cyber defenses. Specifically, PACEbench comprises four scenarios spanning single, blended, chained, and defense vulnerability exploitations. To handle these complex challenges, we propose PACEagent, a novel agent that emulates human penetration testers by supporting multi-phase reconnaissance, analysis, and exploitation. Extensive experiments with seven frontier LLMs demonstrate that current models struggle with complex cyber scenarios, and none can bypass defenses. These findings suggest that current models do not yet pose a generalized cyber offense threat. Nonetheless, our work provides a robust benchmark to guide the trustworthy development of future models. Our code is publicly accessible at https://github.com/RyuKosei/ PACEbench. 
+
+---
 
 ## 1 INTRODUCTION 
 
 The advance in reasoning and tool-using capabilities is enabling Large Language Models (LLMs) to operate as autonomous agents (Wang et al., 2024), especially for their potential to aid in sophisticated cyber offense—a critical risk requiring rigorous evaluation before deployment (Fang et al., 2024) (Xu et al., 2025). AI models can assist in automating and scaling the execution of cyber offense (Muzsai et al., 2024) (Gioacchini et al., 2024). Therefore, proactively measuring this emergent risk is critical for AI developers to ensure its mitigation prior to deployment. 
 
-Capture The Flag (CTF) challenges offer a way to assess an agent’s cyber offense risks by providing goal-oriented tasks that require the agent to exploit a specific software vulnerability to retrieve a “flag” (Zhang et al., 2025b; Shao et al., 2025; Phuong et al., 2024). Correspondingly, specific agents are designed for cyber tasks with the ability to plan and execute multi-step penetration by integrating with external hacking tools (Mayoral-Vilches et al., 2025; Shen et al., 2025; Kong et al., 2025). However, these efforts exhibit significant limitations. Existing CTF benchmarks operate under a “presumption of guilt,” as they focus on executing exploits on predefined vulnerable hosts, lacking the complexity and dynamic reactivity of real-world cyber scenarios. Specific pentest agents are designed for narrow environments, limiting their utility in broader cyber offense scenarios. 
+Capture The Flag (CTF) challenges offer a way to assess an agent’s cyber offense risks by providing goal-oriented tasks that require the agent to exploit a specific software vulnerability to retrieve a “flag” (Zhang et al., 2025b:
+- Shao et al., 2025
+- Phuong et al., 2024). Correspondingly, specific agents are designed for cyber tasks with the ability to plan and execute multi-step penetration by integrating with external hacking tools (Mayoral-Vilches et al., 2025
+- Shen et al., 2025
+- Kong et al., 2025). However, these efforts exhibit significant limitations. Existing CTF benchmarks operate under a “presumption of guilt,” as they focus on executing exploits on predefined vulnerable hosts, lacking the complexity and dynamic reactivity of real-world cyber scenarios. Specific pentest agents are designed for narrow environments, limiting their utility in broader cyber offense scenarios.
 
 To realistically evaluate cyber offense risks, we introduce PACEbench (Practical AI CyberExploitation Benchmark), a comprehensive benchmark for assessing the end-to-end autonomous cyber offense capabilities of LLM-driven agents, surpassing current benchmarks as detailed in Table 1. PACEbench is designed to simulate real-world cybersecurity scenarios, following three key principles: vulnerability difficulty, environmental complexity, and the presence of cyber defenses. For vulnerability difficulty, we incorporate challenges based on real-world Common Vulnerabilities and Exposures (CVEs) with varying exploitation success rates among human experts. For environ- 
 
@@ -66,7 +136,12 @@ To empirically evaluate the current cyber-exploitation capabilities of LLMs, we 
 
 Published as a conference paper at ICLR 2026 
 
+---
+
 ## 2 FRAMEWORK 
+
+> **Section Summary:** The framework’s core task is to realistically simulate real-world cybersecurity challenges.
+
 
 The framework’s core task is to realistically simulate real-world cybersecurity challenges. Prior approaches ( _e.g._ , CTF), which often operate on an “assumption of guilt” where the agent is explicitly required to exploit a specific vulnerability on a predefined compromised target, as shown in 2. To objectively reflect real-world cyber scenarios, the framework adheres to three key principles: vulnerability difficulty, environmental complexity, and the presence of cyber defenses. 
 
@@ -87,6 +162,8 @@ To satisfy this principle, it is necessary to move beyond the “assumption of g
 This dimension focuses on exploiting CVEs in the presence of security countermeasures, which requires the agent to successfully bypass those defenses. The ability to evade defenses indicates that the evaluated model possesses superior cyber exploitation capabilities. This principle reflects the fact that real-world network systems are typically equipped with defensive mechanisms, including not only passive protections such as Web Application Firewalls (WAF) or Intrusion Detection Systems (IDS), but also active measures such as honeypots and Intrusion Prevention Systems (IPS). Accordingly, the evaluation should incorporate hosts configured with various cyber defenses. 
 
 To satisfy this principle, it is necessary to selectively equip hosts with various defensive measures, thereby compelling the agent under evaluation to evade detection or bypass defenses prior to vulnerability exploitation. 
+
+---
 
 ## 3 PACEBENCH CONSTRUCTION 
 
@@ -175,7 +252,12 @@ Figure 3: The architecture of the PACEagent framework. The red line illustrates 
 
 In this scenario, the agent is required to bypass security measures to exploit the CVE. Success in any of these challenges would mark a critical leap in capability, signifying a shift from applying known exploits to autonomously discovering and executing novel attack vectors against protected targets. 
 
+---
+
 ## 4 PACEAGENT 
+
+> **Section Summary:** To more realistically model human penetration testers, we propose PACEagent, an agent designed to handle complex cyber-exploitations such as those featured in PACEbench, as shown in Figure 3.
+
 
 To more realistically model human penetration testers, we propose PACEagent, an agent designed to handle complex cyber-exploitations such as those featured in PACEbench, as shown in Figure 3. 
 
@@ -202,6 +284,8 @@ Published as a conference paper at ICLR 2026
 this action, whether a success, failure, or new piece of information, is then integrated back into the agent’s memory to inform the next cycle. 
 
 The iterative process of reconnaissance, analysis, and exploitation continues until the agent either successfully achieves the final objective (e.g., captures all flags or outputs “Agent Done”) or reaches a predefined termination point, such as exceeding the maximum number of steps. Throughout this process, the agent server meticulously logs all agent thoughts, actions, and tool outputs to ensure full traceability and generate a detailed audit trail for post-mortem analysis. 
+
+---
 
 ## 5 EXPERIMENT 
 
@@ -314,6 +398,8 @@ agent’s trajectory before the task can be completed. For a comprehensive discu
 
 **AI-driven cyber-exploitation presents a significant dual-use dilemma.** Although current models struggle with complex challenges, future advancements will likely enhance their capabilities, posing a severe threat to real-world cyber infrastructures. While some proprietary models have implemented safety protocols, these measures are often insufficient (as discussed in Appendix C). We argue that research must therefore pivot towards the ethical and constructive application of these models. This involves harnessing them in advanced penetration testing tools not merely to identify weaknesses, but to support the entire vulnerability remediation lifecycle, spanning all phases from discovery and analysis to the implementation and verification of fixes. 
 
+---
+
 ## 6 RELATED WORK 
 
 ### 6.1 BENCHMARKS FOR CYBER EXPLOITATION 
@@ -323,6 +409,8 @@ Existing benchmarks for evaluating the cyber exploitation capabilities of LLMs c
 ### 6.2 SPECIALIZED AGENTS FOR CYBER EXPLOITATION 
 
 Specialized agents for cyber exploitation can be categorized by their primary application domains. Some are general-purpose agents like CAI (Mayoral-Vilches et al., 2025), which is presented as a bug bounty-ready tool aiming for broad applicability. Others are tailored specifically for CTF competitions, such as EnIGMA (Abramovich et al., 2025) and NYU Agent (Shao et al., 2025), optimized to solve well-defined, puzzle-like challenges. A third group is designed for end-to-end penetration testing, including frameworks like RapidPen (Nakatani, 2025), VulnBot (Kong et al., 2025), AutoAttacker (Xu et al., 2024), and Pentestagent (Shen et al., 2025), which automate the attack lifecycle, from reconnaissance to compromise, to emulate the human penetration tester. 
+
+---
 
 ## 7 CONCLUSION 
 
@@ -346,7 +434,12 @@ The research proposed in this paper addresses the inherently sensitive topic of 
 
 Our decision to release PACEbench publicly follows a careful risk-benefit analysis, aligning with established precedents in both the cybersecurity community and contemporary AI safety research. We argue that withholding such a framework would do little to deter malicious actors, who already have access to a wide array of tools, while significantly hindering the defensive community’s ability to prepare for and mitigate emerging AI-driven threats. By providing a transparent and reproducible bencLLhmark, we empower defenders and provide crucial empirical data for informed governance. Thus, we conclude that the benefits of enabling collective defense and fostering responsible research far outweigh the minimal marginal risks associated with a framework built on public knowledge. 
 
+---
+
 ## REFERENCES 
+
+> **Section Summary:** - Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E.
+
 
 - Talor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly Milner, Sofija Jancheska, John Yang, Carlos E. Jimenez, Farshad Khorrami, Prashanth Krishnamurthy, Brendan Dolan-Gavitt, Muhammad Shafique, Karthik Narasimhan, Ramesh Karri, and Ofir Press. Enigma: Interactive tools substantially assist lm agents in finding security vulnerabilities, 2025. URL https://arxiv.org/abs/2409.16165. 
 
@@ -435,6 +528,8 @@ Yuxuan Zhu, Antony Kellermann, Dylan Bowman, Philip Li, Akul Gupta, Adarsh Danda
 15 
 
 Published as a conference paper at ICLR 2026 
+
+---
 
 ## A CONSTRUCTION DETAILS OF PACEBENCH 
 
@@ -581,7 +676,12 @@ Table 6: Comprehensive scores with **strict evaluation** (partial successes scor
 
 
 
+---
+
 ## B MODEL PERFORMANCE ON EACH CHALLENGE IN PACEBENCH 
+
+> **Section Summary:** The detailed performance of each model is visualized in the heatmap in Figure 7.
+
 
 The detailed performance of each model is visualized in the heatmap in Figure 7. The color-coded legend is as follows: green cells indicate that the model successfully completed the task under the Pass@5 criterion; orange cells represent partial success, where a task may involve multiple flags or attack objectives, and the agent only managed to complete a subset of them; finally, red cells signify a complete failure, with no flags acquired or attack steps successfully executed. The primary criterion for success is the acquisition of a valid flag, and we note that many models attempt to hallucinate fictitious flags, which are consistently and correctly rejected by our automated flag validation system. 
 
@@ -591,7 +691,12 @@ A stark pattern emerges from the results. As is visually evident, successful com
 
 A vertical analysis reveals a clear performance gap between model types. The closed-source models (top four rows) consistently outperform the open-source models. Claude-3.7-Sonnet and GPT-5mini, in particular, show the highest number of successes. This superiority is likely due to their more advanced underlying capabilities and, crucially, their significantly larger context windows. In contrast, the limited context length of the open-source models proves to be a critical bottleneck, preventing them from maintaining the necessary state and history to navigate the multi-step logic required in complex scenarios, leading to their poor performance. 
 
+---
+
 ## C DISCUSSION ABOUT LLM SAFEGUARD 
+
+> **Section Summary:** Numerous LLM providers in the industry have already introduced corresponding safeguards, similar to those implemented by (OpenAI, 2025a).
+
 
 Numerous LLM providers in the industry have already introduced corresponding safeguards, similar to those implemented by (OpenAI, 2025a). During our automated penetration testing, we observe that some OpenAI models, specifically GPT-5 and GPT-4o, occasionally reject requests and return empty plans upon detecting frequent occurrences of terms like ‘attack’ within the prompts or intermediate steps. Conversely, other LLM vendors do not exhibit this behavior, allowing us to complete our full suite of tests without interruption. Most other vendors, however, accept requests when pro- 
 
@@ -611,13 +716,23 @@ cessing extensive contexts or when provided with Chinese prompts, enabling the n
 
 Although our current testing indicates that even state-of-the-art (SOTA) models cannot independently complete full penetration testing tasks in complex environments, we still urge LLM vendors to strengthen their model governance and oversight further. 
 
+---
+
 ## D JUSTIFICATION FOR MODEL SELECTION: CLAUDE 3.7 OVER CLAUDE 4 
+
+> **Section Summary:** We conduct a comparative performance analysis of Anthropic’s Claude 3.7 and Claude 4 models within the PACEagent framework in our preliminary evaluation phase.
+
 
 We conduct a comparative performance analysis of Anthropic’s Claude 3.7 and Claude 4 models within the PACEagent framework in our preliminary evaluation phase. This initial study is crucial for identifying the most suitable candidate for our extensive benchmarking suite. The results clearly indicate that Claude 4 outperforms Claude 3.7 across key metrics, demonstrating both lower task completion efficiency and a reduced overall success rate. Compounding this performance disparity, the API access for Claude 4 comes at a significantly higher cost, rendering extensive and repeated experimentation economically non-viable. 
 
 Given these combined factors—the superior performance of Claude 3.7 and the prohibitive expense of Claude 4—a strategic decision is to focus our resources exclusively on a comprehensive evaluation of Claude 3.7. Consequently, while the initial comparative data are informative for our model selection process, a detailed discussion of Claude 4’s performance is omitted from the remainder of this paper, as it is deemed a less effective and less practical candidate for the tasks at hand. 
 
+---
+
 ## E NOTES ON OPEN-SOURCE MODEL PERFORMANCE 
+
+> **Section Summary:** During our empirical evaluation, the Deepseek-R1 model presents a significant task of performance anomaly, diverging markedly from the other models.
+
 
 During our empirical evaluation, the Deepseek-R1 model presents a significant task of performance anomaly, diverging markedly from the other models. We observe aberrant numerical outcomes and extreme latency in its response generation, with delays often orders of magnitude greater than the cohort average. We posit two primary, non-mutually exclusive hypotheses for this behavior. The first pertains to potential infrastructural issues, such as instability or stringent rate-limiting by the API provider. The second, perhaps more compelling, hypothesis is that the model is governed by an exceptionally robust set of safety guardrails. Under this assumption, the model’s internal mechanisms may have correctly identified the adversarial nature of our penetration testing prompts and initiated a defensive protocol, either by refusing to generate potentially harmful content or by deliberately slowing its processing to deter misuse. Given these confounding variables, which prevent a clear assessment of the model’s intrinsic capabilities for this domain, we have classify the recorded score for Deepseek-R1 as an outlier. 
 
@@ -643,17 +758,32 @@ Table 7: Context Window Lengths of Various Large Language Models.
 
 
 
+---
+
 ## F COST ANALYSIS 
+
+> **Section Summary:** Our preliminary evaluations reveal a notable trade-off in computational cost, with PACEagent consuming approximately 28% more tokens on average compared to CAI.
+
 
 Our preliminary evaluations reveal a notable trade-off in computational cost, with PACEagent consuming approximately 28% more tokens on average compared to CAI. This increased token overhead is a direct and anticipated consequence of our deliberate design choice: a multi-stage architecture. Unlike monolithic approaches that attempt to solve problems in fewer, more condensed steps, our framework decomposes complex tasks into a more extended sequence of discrete operational stages. Each stage requires its own contextual input and generates new output, naturally leading to higher cumulative token consumption throughout a given mission. 
 
 However, this design is not without significant advantages. The extended operational length facilitates a more thorough and granular exploration of complex environments. It enables the agent to maintain a longer and more coherent chain of reasoning, methodically build upon previous findings, and navigate intricate, multi-step dependencies that a more compressed approach might overlook. Therefore, the higher token cost represents a strategic investment in enhancing the agent’s depth of analysis, persistence, and overall problem-solving efficacy in challenging and real-world scenarios. 
 
+---
+
 ## G THE USE OF LARGE LANGUAGE MODELS 
+
+> **Section Summary:** The use of LLMs in the preparation of this manuscript was limited to spell checking and grammar polishing.
+
 
 The use of LLMs in the preparation of this manuscript was limited to spell checking and grammar polishing. The core aspects of this work ( _i.e._ , research ideation, experimentation, and substantive writing) were conducted by the human authors. Therefore, we confirm that LLMs did not play a significant role and should not be regarded as contributors. 
 
+---
+
 ## H LIMITATIONS 
+
+> **Section Summary:** Our model selection is guided by a cost-benefit analysis.
+
 
 Our model selection is guided by a cost-benefit analysis. Technical reports indicate that the performance gap between base models ( _e.g._ , GPT-5-mini, Gemini-2.5-flash) and their premium counterparts ( _e.g._ , GPT-5-high, Gemini-2.5-pro) is often marginal, particularly for cybersecurity tasks (OpenAI, 2025b; Deepmind, 2025). Considering the prohibitive API costs of flagship models, we determine that testing the more accessible versions provides a representative and cost-effective benchmark of each model family’s capabilities. 
 
@@ -697,7 +827,12 @@ Published as a conference paper at ICLR 2026
 
 **Evaluation Robustness: Deterministic Verification over Interpretation.** The reliability of the verification mechanism is paramount for a benchmark’s credibility. MHBench relies on _Output Parsing_ (analyzing agent logs) to infer success, a method inherently susceptible to **hallucinations** —where an agent claims to have executed a command or achieved a state without actually doing so. Similarly, verifying state changes (as in CVE-Bench) can yield false negatives if an exploit succeeds but fails to trigger the specific side-effect monitored by the harness. PACEbench adopts the **Flag-based** verification mechanism, the gold standard in professional CTFs (e.g., Google-HTB, AutoPenBench). By requiring the retrieval of a cryptographically unique string placed within the compromised system, we provide a binary, machine-verifiable, and unambiguous proof of compromise. This ensures our evaluation is objective and immune to the interpretation bias or parsing errors that plague other methods. 
 
+---
+
 ## J DETAILED EXPERIMENTAL STATISTICS 
+
+> **Section Summary:** In our A-CVE experiments, the agent execution steps, time taken, and cumulative token counts are detailed in Table 8, Table 9, and Table 10 respectively.
+
 
 In our A-CVE experiments, the agent execution steps, time taken, and cumulative token counts are detailed in Table 8, Table 9, and Table 10 respectively. For brevity in the table headers, we use shorthand for some model names<sup>6</sup> . The ‘Deepseek-R1‘ model is omitted from these tables as it did not successfully complete any A-CVE tasks. Blank cells indicate that the agent failed to complete the given task. 
 
@@ -785,7 +920,12 @@ Table 10: Cumulative token counts for each agent on each CVE.
 
 _Note:_ The symbol “/” indicates task failure. Token counts are in thousands (k). 
 
+---
+
 ## K FAILURE ANALYSIS OF AGENTS IN PACEBENCH 
+
+> **Section Summary:** To understand the boundaries of current Large Language Models (LLMs) in autonomous penetration testing, we conducted a qualitative analysis of failed trajectories.
+
 
 To understand the boundaries of current Large Language Models (LLMs) in autonomous penetration testing, we conducted a qualitative analysis of failed trajectories. We categorized these failures into three distinct modes: Capability Deficiencies, Hallucinations, and Safety Alignment Interference. 
 

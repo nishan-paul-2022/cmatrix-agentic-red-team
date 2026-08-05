@@ -1,5 +1,31 @@
 # **RedTeamLLM: an Agentic AI framework for offensive security** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 State of the Art](#2-state-of-the-art)
+  - [2.1 Research challenges for Agentic AI](#2-1-research-challenges-for-agentic-ai)
+  - [2.2 Cognitive Architectures](#2-2-cognitive-architectures)
+  - [2.3 Agentic AI and cybersecurity](#2-3-agentic-ai-and-cybersecurity)
+- [3 Requirements](#3-requirements)
+- [4 RedTeamLLM](#4-redteamllm)
+  - [4.1 The Architecture](#4-1-the-architecture)
+  - [4.2 Features](#4-2-features)
+  - [4.3 Memory management](#4-3-memory-management)
+  - [4.4 The Security Model](#4-4-the-security-model)
+- [5 Implementation](#5-implementation)
+  - [5.1 Three-Step Pipeline](#5-1-three-step-pipeline)
+  - [5.2 Sample Run](#5-2-sample-run)
+- [6 Evaluation](#6-evaluation)
+  - [6.1 Use cases](#6-1-use-cases)
+  - [6.2 Cognitive steps](#6-2-cognitive-steps)
+  - [6.3 Reasoning: a strong optimization lever](#6-3-reasoning-a-strong-optimization-lever)
+- [7 Conclusions and Perspectives](#7-conclusions-and-perspectives)
+- [References](#references)
+
+---
+
 **Brian Challita**<sup>1</sup> , **Pierre Parrend**<sup>1</sup><sup>_,_2</sup> , 
 
 1Laboratoire de Recherche de l’EPITA, 14-16 Rue Voltaire, 94270 Le Kremlin-Bicˆetre, France 2ICube, UMR 7357, Universit´e de Strasbourg, CNRS, 300 bd S´ebastien Brant - CS 10413 - F-67412 Illkirch Cedex 
@@ -8,11 +34,19 @@ _{_ brian.challita, pierre.parrend _}_ @epita.fr
 
 ## **Abstract** 
 
+> **Section Summary:** From automated intrusion testing to discovery of zero-day attacks before software launch, agentic AI calls for great promises in security engineering.
+
+
 From automated intrusion testing to discovery of zero-day attacks before software launch, agentic AI calls for great promises in security engineering. This strong capability is bound with a similar threat: the security and research community must build up its models before the approach is leveraged by malicious actors for cybercrime. We therefore propose and evaluate RedTeamLLM, an integrated architecture with a comprehensive security model for automatization of pentest tasks. RedTeamLLM follows three key steps: summarizing, reasoning and act, which embed its operational capacity. This novel framework addresses four open challenges: plan correction, memory management, context window constraint, and generality vs. specialization. Evaluation is performed through the automated resolution of a range of entry-level, but not trivial, CTF challenges. The contribution of the reasoning capability of our agentic AI framework is specifically evaluated. 
 
 Keywords: Cyberdefense; AI for cybersecurity; generative AI; Agentic AI; offensive security 
 
+---
+
 ## **1 Introduction** 
+
+> **Section Summary:** The recent strengthening of Agentic AI [Hughes _et al._ , 2025] approaches poses major challenges in the domains of cyberwarfare and geopolitics [Oesch _et al._ , 2025].
+
 
 The recent strengthening of Agentic AI [Hughes _et al._ , 2025] approaches poses major challenges in the domains of cyberwarfare and geopolitics [Oesch _et al._ , 2025]. LLMs are already commonly used for cyber operations for augmenting human capabilities and automating common tasks [Yao _et al._ , 2024; Chowdhury _et al._ , 2024]. They already pose significant ethical and societal challenges [Malatji and Tolah, 2024], and a great threat of proliferation of cyberdefence and -attack capabilities , which were so far only available for nation-state level actors. Whereas there current recognized capabilities are still bound to the rapid analysis of malicious code or rapid decision taking in alert triage, and they pose significant trust issues [Sun _et al._ , 2024], there expressivity and knowledgebase are rapidly ramping up. In this context, Agentic AI, _i.e._ autonomous AI systems that are capable of performing a set of complex tasks that span over long periods of time without human supervision [Acharya _et al._ , 2025], is opening a 
 
@@ -32,13 +66,18 @@ We therefore propose the RedTeamLLM model to the community, as a proof-of-concep
 
 The remainder of this paper is organised as follows: Section 2 presents the state of the art. Section 3 defines the requirements, and section 4 present the RedTeamLLM model for agentic-AI based offensive cybersecurity operations. Section 5 presents the implementation and section 6 the evaluation of the model. Section 7 concludes this work. 
 
+---
+
 ## **2 State of the Art** 
 
 The advent, under the form of LLMs, of computing processes capable of generating structured output beyond existing text, is a key driver for a renewed development of agent-based models, with so-called ‘agentic AI’ models [Shavit _et al._ , 2023], which are able both to devise technical processes and technically correct pieces of code. These novel kind of agents support multiple, complex and dynamic goals and can operated in dynamic environments while taking a rich context into account [Acharya _et al._ , 2025]. They thus open novel challenges and opportunity, both as generic problem-solving agents and for highly complex and technical environment like cybersecurity operations. 
 
 ### **2.1 Research challenges for Agentic AI** 
 
-The four main challenges in Agentic AI are: analysis, reliability, human factor, and production. These challenges can be mapped to the taxonomy of prompt engineering techniques by [Sahoo _et al._ , 2024]: _Analysis:_ Reasoning and Logic, knowledge-based reasoning and generation, meta-cognition and self-reflection; _Reliability:_ reduce hallucination, finetuning and optimisation, improving consistency and coherence, efficiency; _Human factor:_ user interaction, understanding user intent, managing emotion and tones; _production:_ code generation and execution. 
+The four main challenges in Agentic AI are: analysis, reliability, human factor, and production. These challenges can be mapped to the taxonomy of prompt engineering techniques by [Sahoo _et al._ , 2024]: _Analysis:_ Reasoning and Logic, knowledge-based reasoning and generation, meta-cognition and self-reflection:
+- _Reliability:_ reduce hallucination, finetuning and optimisation, improving consistency and coherence, efficiency
+- _Human factor:_ user interaction, understanding user intent, managing emotion and tones
+- _production:_ code generation and execution.
 
 The first issue for supporting reasoning and logic is the capability to address complex tasks, to decompose them and to handle each individual step. The first such model, chainof-thought (CoT), is capable of structured reasoning through step-by-step processing and proves to be competitive for math benchmarks and common sense reasoning benchmarks [Wei _et al._ , 2022]. Automatic chain-of-thought (Auto-CoT) automatize the generation of CoTs by generating alternative questions and multiple alternative reasoning for each to consolidate a final set of demonstrations [Zhang _et al._ , 2022]. 
 
@@ -74,7 +113,12 @@ Recent offensive-security agents all converge on a narrow design spectrum: a fro
 
 to validate the current action rather than to update or backtrack the plan itself [Xu _et al._ , 2024]. LLM-Directed Agent preserves the classic four-stage ReAct chain (NLTG → CFG → CG → NLTP) and likewise discards alternative branches once the CFG selects one [Laney, 2024]. One-Day Vulnerabilities’ Exploit [Fang _et al._ , 2024a] and Hack-Websites [Fang _et al._ , 2024b] expose different toolsets to the same ReAct controller, and performance collapses as soon as GPT4 is replaced by weaker models. CyberSecEval 3 uses an even leaner single-prompt ReAct wrapper to probe Llama3 and contemporaries, finding that all models stall long before complex exploitation [Wan _et al._ , 2024]. HackSynth strips the pattern down to just a Planner and a Summariser —- still a think-then-act loop—and shows that temperature and context-window size, not architectural novelty, dominate success rates [Muzsai _et al._ , 2024]. The sole departure from ReAct is PenTestAgent, which hard-codes a pentesting workflow (Reconnaissance → Search → Planning → Execution) without agentic recursion [Shen _et al._ , 2024], and PenTestGPT, whose Plan-and-Execute modules shuffle intermediate results between Reasoning, Generation and Parsing stages but never revisit earlier strategies once execution starts [Deng _et al._ , 2024]. Although defensive models exhibit promising properties [Ismail _et al._ , 2025], the exploitation of Agentic AI for malicious operations is a key concern to the community [Malatji and Tolah, 2024]. Across current systems, memory is used only as a scratch-pad for latest observations; none implement hierarchical plan refinement, long-horizon memory, or roll-back of faulty plans. 
 
+---
+
 ## **3 Requirements** 
+
+> **Section Summary:** In this section we explicit the specific challenges of agentic AI offensive cybersecurity operations.We address context window’s limit, continuous improvement, genericity and automation.
+
 
 In this section we explicit the specific challenges of agentic AI offensive cybersecurity operations.We address context window’s limit, continuous improvement, genericity and automation. One major issue of LLM agent-based systems is their limited context window. Complex tasks usually require many iterations between the agent and a changing environment especially using ReAct, so tracking what has happened is essential for high-quality results. A common way to address this challenge is recursive planning [Prasad _et al._ , 2023], in which a task is broken down into many subtasks that are executed individually; each subtask then passes the key points of its outcome to the next ones. A difficulty arises when a subtask fails, potentially blocking the subtasks that follow. To prevent this, a plan-correction mechanism [Wang _et al._ , 2024] is applied: whenever a subtask fails, the overall plan is adjusted so execution can proceed smoothly. These two techniques are crucial for building a high-performance agent, but further refinements are still possible. Repeating the same mistakes on every run wastes time, money, and computation. Introducing a memory manager during task planning lets the agent avoid exploratory paths that have already failed. Moreover, genericity is essential. Allowing the agent full freedom to choose its own tools and techniques fosters creativity and broadens its capabilities beyond a fixed toolset. In our case, the agent has unrestricted execution privileges through root access to a terminal. Finally a key part to consider is automation; refining an agent system is important but 
 
@@ -92,7 +136,12 @@ Consolidated requirements for our penetration-testing agent are thus:
 
 5. **Automation** — Automating the interaction of the agent with its designated environment; in our case a terminal. 
 
+---
+
 ## **4 RedTeamLLM** 
+
+> **Section Summary:** In this section, we propose a novel architecture, supported features and related memory management mechanism for an offensive cybersecurity agentic model.
+
 
 In this section, we propose a novel architecture, supported features and related memory management mechanism for an offensive cybersecurity agentic model. Given the high capability and autonomy of the RedTeamLLM model, a robust security model is also required. 
 
@@ -150,7 +199,12 @@ Figure 4: Security layers wrapping the LLM agent
 
 The LLM itself is used in its default configuration, and with a benevolent user that have not intend to abuse it. Consequently, typical threats like prompt injection attacks 
 
+---
+
 ## **5 Implementation** 
+
+> **Section Summary:** The proof of concept for the RedTeamLLM model, that we evaluate in following section, entails the **ReAct** component for task execution.
+
 
 The proof of concept for the RedTeamLLM model, that we evaluate in following section, entails the **ReAct** component for task execution. The current state of the implementation also covers **ADaPT** for recursive planning, **Memory management** for continuous improvement, and **Plan correction** to support operation continuity after task failure. However, these are less mature, and not evaluated here. RedTeamLLM and related tests are avalaible for the community<sup>4</sup> . 
 
@@ -185,6 +239,8 @@ A sample run proceeds as follows:
 6. The reasoner produces further thoughts, and the loop continues until the reasoner stops recommending actions. 
 
 7. At that point, the system prompts the user for input (e.g., Continue” or a new task). 
+
+---
 
 ## **6 Evaluation** 
 
@@ -230,7 +286,12 @@ These results highlight the contribution of the reasoning step to security opera
 
 Figure 8: CTF level completed by the RedTeamLLM framework without and with reasoning for the 5 use cases 
 
+---
+
 ## **7 Conclusions and Perspectives** 
+
+> **Section Summary:** Beyond generative AI and now wide-spread Large Language Models (LLMs), Agentic AI is opening wide novel opportunities and threat to global security, and cybersecurity in particular.
+
 
 Beyond generative AI and now wide-spread Large Language Models (LLMs), Agentic AI is opening wide novel opportunities and threat to global security, and cybersecurity in particular. The objective of this work is to specify a reference model for agentic AI as applied to offensive cyber operations, so that the community can better understand these tools and their capability, leverage them for securing their information systems, and control this novel attack vector. 
 
@@ -238,7 +299,12 @@ In this work, we define the key requirements for offensive agentic AI, propose a
 
 The key insight of this study is that leveraging the dual capability of LLMs to analyze and decompose processes, on the one hand, and to generate code for well-defined tasks, on the other, brings a radical improvement to automation and genericity of ReACT-based offensive cybersecurity frameworks. These first promising results pave the way to structuring the research effort in agentic AI for global security, in particular _wrt._ methodologies for evaluation of cost and automation capabilities of these models. The evaluation of recursive planning, memory management and plan correction is also a necessity to better understand the underlying mechanics and capabilities of agentic models. 
 
+---
+
 ## **References** 
+
+> **Section Summary:** - [Acharya _et al._ , 2025] Deepak Bhaskar Acharya, Karthigeyan Kuppan, and B Divya.
+
 
 - [Acharya _et al._ , 2025] Deepak Bhaskar Acharya, Karthigeyan Kuppan, and B Divya. Agentic ai: Autonomous intelligence for complex goals–a comprehensive survey. _IEEE Access_ , 2025. 
 

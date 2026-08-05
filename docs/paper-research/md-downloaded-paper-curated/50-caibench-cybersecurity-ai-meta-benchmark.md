@@ -1,4 +1,46 @@
-## **Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents** 
+# **Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents** 
+
+## Table of Contents
+
+- [Cybersecurity AI Benchmark (CAIBench): A Meta-Benchmark for Evaluating Cybersecurity AI Agents](#cybersecurity-ai-benchmark-caibench-a-meta-benchmark-for-evaluating-cybersecurity-ai-agents)
+  - [1 Introduction](#1-introduction)
+    - [1.1 State of the Art](#1-1-state-of-the-art)
+    - [1.2 Research Contributions](#1-2-research-contributions)
+  - [2 CAIBench Architecture: A Meta-Benchmark Framework](#2-caibench-architecture-a-meta-benchmark-framework)
+    - [2.1 Benchmarks](#2-1-benchmarks)
+    - [2.2 Reproducibility: Evaluation Methodology and Infrastructure](#2-2-reproducibility-evaluation-methodology-and-infrastructure)
+  - [3 Results: Empirical Evaluation of AI Agent Capabilities](#3-results-empirical-evaluation-of-ai-agent-capabilities)
+    - [3.1 Overall Performance Across Categories](#3-1-overall-performance-across-categories)
+    - [3.2 Jeopardy-Style CTF Results](#3-2-jeopardy-style-ctf-results)
+    - [3.3 Knowledge Benchmark Results](#3-3-knowledge-benchmark-results)
+    - [3.4 Privacy Benchmark Results: CyberPII-Bench](#3-4-privacy-benchmark-results-cyberpii-bench)
+    - [3.5 Cyber Range Exercise Results](#3-5-cyber-range-exercise-results)
+    - [3.6 Attack and Defense CTF Results](#3-6-attack-and-defense-ctf-results)
+  - [4 Discussion](#4-discussion)
+  - [5 Conclusion and Future Work](#5-conclusion-and-future-work)
+  - [6 Acknowledgements](#6-acknowledgements)
+  - [References](#references)
+  - [A CyberPII-Bench Details](#a-cyberpii-bench-details)
+  - [B Attack/Defense CTF Rules and Scoring](#b-attack-defense-ctf-rules-and-scoring)
+    - [B.1 Competition Format](#b-1-competition-format)
+    - [B.2 Scoring System](#b-2-scoring-system)
+    - [B.3 Flag System](#b-3-flag-system)
+    - [B.4 Game Termination](#b-4-game-termination)
+  - [C Attack/Defense Timelines](#c-attack-defense-timelines)
+    - [C.1 alias1 vs gpt-5](#c-1-alias1-vs-gpt-5)
+    - [C.2 alias1 vs claude-sonnet-4](#c-2-alias1-vs-claude-sonnet-4)
+  - [D CAI Configuration for Attack & Defense Scenarios](#d-cai-configuration-for-attack-defense-scenarios)
+    - [D.1 Agent Configuration Structure](#d-1-agent-configuration-structure)
+    - [D.2 Red Team Agent Prompt](#d-2-red-team-agent-prompt)
+    - [D.3 Blue Team Agent Prompt](#d-3-blue-team-agent-prompt)
+    - [D.4 Shared Configuration](#d-4-shared-configuration)
+  - [E <u>Jeopardy-Style</u> CTF Challenges](#e-u-jeopardy-style-u-ctf-challenges)
+    - [E.1 Base Challenges](#e-1-base-challenges)
+    - [E.2 Cybench Challenges](#e-2-cybench-challenges)
+    - [E.3 RCTF2 Challenges](#e-3-rctf2-challenges)
+    - [E.4 AutoPenBench Challenges](#e-4-autopenbench-challenges)
+
+---
 
 **María Sanz-Gómez**<sup>1</sup> **, Víctor Mayoral-Vilches**<sup>1</sup> **, Francesco Balassone**<sup>1,2</sup> **, Luis Javier Navarrete-Lozano**<sup>1</sup> **, Cristóbal R. J. Veas Chavez**<sup>1</sup> **and Maite del Mundo de Torres**<sup>1</sup> 
 
@@ -10,7 +52,7 @@
 
 ###### **Abstract** 
 
-Cybersecurity spans multiple interconnected domains, complicating the development of meaningful, labor-relevant benchmarks. Existing benchmarks assess isolated skills rather than integrated performance. We find that pre-trained knowledge of cybersecurity in LLMs does not imply attack and defense abilities, revealing a gap between knowledge and capability. To address this limitation, we present the Cybersecurity AI Benchmark (CAIBench), a modular meta-benchmark framework that allows evaluating LLM models and agents across offensive and defensive cybersecurity domains, taking a step towards meaningfully measuring their labor-relevance. CAIBench integrates five evaluation categories, covering over 10,000 instances: Jeopardy-style CTFs, Attack and Defense CTFs, Cyber Range exercises, knowledge benchmarks, and privacy assessments. Key novel contributions include systematic simultaneous offensive-defensive evaluation, robotics-focused cybersecurity challenges (RCTF2), and privacy-preserving performance assessment (CyberPII-Bench). Evaluation of state-of-the-art AI models reveals saturation on security knowledge metrics ( 70% success) but substantial degradation in multi-step adversarial (A&D) scenarios (20-40% success), or worse in robotic targets (22% success). The combination of framework scaffolding and LLM model choice significantly impacts performance; we find that proper matches improve up to 2.6 _×_ variance in Attack and Defense CTFs. These results demonstrate a pronounced gap between conceptual knowledge and adaptive capability, emphasizing the need for a meta-benchmark. 
+> Cybersecurity spans multiple interconnected domains, complicating the development of meaningful, labor-relevant benchmarks. Existing benchmarks assess isolated skills rather than integrated performance. We find that pre-trained knowledge of cybersecurity in LLMs does not imply attack and defense abilities, revealing a gap between knowledge and capability. To address this limitation, we present the Cybersecurity AI Benchmark (CAIBench), a modular meta-benchmark framework that allows evaluating LLM models and agents across offensive and defensive cybersecurity domains, taking a step towards meaningfully measuring their labor-relevance. CAIBench integrates five evaluation categories, covering over 10,000 instances: Jeopardy-style CTFs, Attack and Defense CTFs, Cyber Range exercises, knowledge benchmarks, and privacy assessments. Key novel contributions include systematic simultaneous offensive-defensive evaluation, robotics-focused cybersecurity challenges (RCTF2), and privacy-preserving performance assessment (CyberPII-Bench). Evaluation of state-of-the-art AI models reveals saturation on security knowledge metrics ( 70% success) but substantial degradation in multi-step adversarial (A&D) scenarios (20-40% success), or worse in robotic targets (22% success). The combination of framework scaffolding and LLM model choice significantly impacts performance; we find that proper matches improve up to 2.6 _×_ variance in Attack and Defense CTFs. These results demonstrate a pronounced gap between conceptual knowledge and adaptive capability, emphasizing the need for a meta-benchmark. 
 
 ### **1 Introduction** 
 

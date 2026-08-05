@@ -1,5 +1,30 @@
 # **BreachSeek: A Multi-Agent Automated Penetration Tester** 
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [1 Introduction](#1-introduction)
+- [2 Literature Review](#2-literature-review)
+- [3 Model Architecture and Implementation](#3-model-architecture-and-implementation)
+  - [3.1 Graph-Based Approach Using LangGraph](#3-1-graph-based-approach-using-langgraph)
+  - [3.2 General Model Workflow](#3-2-general-model-workflow)
+  - [3.3 Specific Architecture for Penetration Testing](#3-3-specific-architecture-for-penetration-testing)
+  - [3.4 Implementation Environment](#3-4-implementation-environment)
+  - [3.5 Testing Methodology](#3-5-testing-methodology)
+  - [3.6 Web UI](#3-6-web-ui)
+- [4 Results](#4-results)
+- [5 Future Work](#5-future-work)
+  - [5.1 Human Intervention](#5-1-human-intervention)
+  - [5.2 Fine Tuning](#5-2-fine-tuning)
+  - [5.3 Retrieval-Augmented Generation (RAG)](#5-3-retrieval-augmented-generation-rag)
+  - [5.4 Dynamic and Engaging Responses for Enhanced Interaction](#5-4-dynamic-and-engaging-responses-for-enhanced-interaction)
+  - [5.5 Multi-Modality](#5-5-multi-modality)
+- [6 Conclusion](#6-conclusion)
+- [References](#references)
+- [A Appendix](#a-appendix)
+
+---
+
 **Ibrahim AlShehri**<sup>1*</sup> **Adnan AlShehri**<sup>1*</sup> **Abdulrahman AlMalki**<sup>1*</sup> `ibrahimalshehri@pm.me adnan66b@gmail.com almalki` ~~`a`~~ `bdulrahman@outlook.com` 
 
 **Majed Bamardouf**<sup>1*</sup> **Alaqsa Akbar**<sup>1*</sup> `majedTB12@gmail.com alaqsaakbar@hotmail.com` 
@@ -8,43 +33,55 @@
 
 > * Equal contribution 
 
+---
+
 ## **Abstract** 
 
-_The increasing complexity and scale of modern digital environments have exposed significant gaps in traditional cybersecurity penetration testing methods, which are often time-consuming, labor-intensive, and unable to rapidly adapt to emerging threats. There is a critical need for an automated solution that can efficiently identify and exploit vulnerabilities across diverse systems without extensive human intervention. BreachSeek addresses this challenge by providing an AIdriven multi-agent software platform that leverages Large Language Models (LLMs) integrated through LangChain and LangGraph in Python. This system enables autonomous agents to conduct thorough penetration testing by identifying vulnerabilities, simulating a variety of cyberattacks, executing exploits, and generating comprehensive security reports. In preliminary evaluations, BreachSeek successfully exploited vulnerabilities in exploitable machines within local networks, demonstrating its practical effectiveness. Future developments aim to expand its capabilities, positioning it as an indispensable tool for cybersecurity professionals._ 
+> _The increasing complexity and scale of modern digital environments have exposed significant gaps in traditional cybersecurity penetration testing methods, which are often time-consuming, labor-intensive, and unable to rapidly adapt to emerging threats. There is a critical need for an automated solution that can efficiently identify and exploit vulnerabilities across diverse systems without extensive human intervention. BreachSeek addresses this challenge by providing an AIdriven multi-agent software platform that leverages Large Language Models (LLMs) integrated through LangChain and LangGraph in Python. This system enables autonomous agents to conduct thorough penetration testing by identifying vulnerabilities, simulating a variety of cyberattacks, executing exploits, and generating comprehensive security reports. In preliminary evaluations, BreachSeek successfully exploited vulnerabilities in exploitable machines within local networks, demonstrating its practical effectiveness. Future developments aim to expand its capabilities, positioning it as an indispensable tool for cybersecurity professionals._ 
+
+---
 
 ## **1 Introduction** 
 
-The rapid evolution of cyber threats has underscored the limitations of traditional cybersecurity practices, particularly in the domain of penetration testing. Manual penetration testing, 
+> **Section Summary:** The rapid evolution of cyber threats has underscored the limitations of traditional cybersecurity practices, particularly in the domain of penetration testing.
 
-while thorough, is inherently time-consuming and increasingly ineffective in keeping pace with the growing sophistication and diversity of cyberattacks. In an era where networks and applications are constantly exposed to new vulnerabilities, there is a pressing need for automated solutions that can efficiently identify, exploit, and report on these weaknesses. 
 
-Recent advancements in Artificial Intelligence (AI) and Natural Language Processing (NLP) have opened up new possibilities for automating complex tasks, including cybersecurity. Large Language Models (LLMs), renowned for their capabilities in natural language understanding and generation, have demonstrated the potential to perform tasks that traditionally required significant human expertise. Despite these advancements, the application of LLMs in cybersecurity, particularly for automating penetration testing, remains largely underexplored, presenting an opportunity to revolutionize how security assessments are conducted. 
+> The rapid evolution of cyber threats has underscored the limitations of traditional cybersecurity practices, particularly in the domain of penetration testing. Manual penetration testing, 
 
-BreachSeek addresses this critical gap by introducing an AI-driven, multi-agent software platform specifically designed to automate penetration testing for websites and networks. The platform leverages the power of LLMs through LangChain and LangGraph in Python, allowing autonomous agents to identify vulnerabilities, simulate a variety of sophisticated cyberattacks, and execute exploits with minimal human intervention. By automating these processes, BreachSeek not only accelerates the penetration testing workflow but also enhances the accuracy and comprehensiveness of 
+> while thorough, is inherently time-consuming and increasingly ineffective in keeping pace with the growing sophistication and diversity of cyberattacks. In an era where networks and applications are constantly exposed to new vulnerabilities, there is a pressing need for automated solutions that can efficiently identify, exploit, and report on these weaknesses. 
 
-1 
+> Recent advancements in Artificial Intelligence (AI) and Natural Language Processing (NLP) have opened up new possibilities for automating complex tasks, including cybersecurity. Large Language Models (LLMs), renowned for their capabilities in natural language understanding and generation, have demonstrated the potential to perform tasks that traditionally required significant human expertise. Despite these advancements, the application of LLMs in cybersecurity, particularly for automating penetration testing, remains largely underexplored, presenting an opportunity to revolutionize how security assessments are conducted. 
 
-the results, providing a robust solution to the everevolving landscape of cybersecurity threats. 
+> BreachSeek addresses this critical gap by introducing an AI-driven, multi-agent software platform specifically designed to automate penetration testing for websites and networks. The platform leverages the power of LLMs through LangChain and LangGraph in Python, allowing autonomous agents to identify vulnerabilities, simulate a variety of sophisticated cyberattacks, and execute exploits with minimal human intervention. By automating these processes, BreachSeek not only accelerates the penetration testing workflow but also enhances the accuracy and comprehensiveness of 
 
-One of the key technical innovations in BreachSeek is the use of multiple AI agents, each with a distinct focus, to manage the complexity and breadth of tasks involved in penetration testing. This approach ensures that the system avoids running out of context window, a common limitation in LLMs, and allows for the separation of concerns. Each agent is tasked with a specific aspect of the testing process, ensuring a high level of specialization and accuracy. This design principle not only optimizes the performance of individual agents but also contributes to the overall efficiency and effectiveness of the platform. 
+> 1 
 
-The platform’s scalability further enhances its utility, enabling it to be deployed in a wide range of environments, from small to large-scale networks. By deploying multiple agents in different containers, BreachSeek can efficiently manage large volumes of data and complex network architectures, making it adaptable to various cybersecurity needs. This scalability is particularly beneficial for organizations that operate in sectors with high security demands, such as finance, healthcare, and government, where the ability to rapidly and accurately identify vulnerabilities is crucial. 
+> the results, providing a robust solution to the everevolving landscape of cybersecurity threats. 
 
-In summary, BreachSeek represents a significant advancement in the field of automated cybersecurity penetration testing. By combining the power of AI-driven agents with the flexibility and scalability required in modern network environments, BreachSeek offers a comprehensive solution that addresses the limitations of traditional penetration testing methods. As cyber threats continue to evolve, tools like BreachSeek will become increasingly vital in ensuring the security and resilience of digital infrastructure. 
+> One of the key technical innovations in BreachSeek is the use of multiple AI agents, each with a distinct focus, to manage the complexity and breadth of tasks involved in penetration testing. This approach ensures that the system avoids running out of context window, a common limitation in LLMs, and allows for the separation of concerns. Each agent is tasked with a specific aspect of the testing process, ensuring a high level of specialization and accuracy. This design principle not only optimizes the performance of individual agents but also contributes to the overall efficiency and effectiveness of the platform. 
+
+> The platform’s scalability further enhances its utility, enabling it to be deployed in a wide range of environments, from small to large-scale networks. By deploying multiple agents in different containers, BreachSeek can efficiently manage large volumes of data and complex network architectures, making it adaptable to various cybersecurity needs. This scalability is particularly beneficial for organizations that operate in sectors with high security demands, such as finance, healthcare, and government, where the ability to rapidly and accurately identify vulnerabilities is crucial. 
+
+> In summary, BreachSeek represents a significant advancement in the field of automated cybersecurity penetration testing. By combining the power of AI-driven agents with the flexibility and scalability required in modern network environments, BreachSeek offers a comprehensive solution that addresses the limitations of traditional penetration testing methods. As cyber threats continue to evolve, tools like BreachSeek will become increasingly vital in ensuring the security and resilience of digital infrastructure. 
+
+---
 
 ## **2 Literature Review** 
 
-Recent advancements in large language models (LLMs) have significantly impacted the field of cybersecurity, particularly in the automation of penetration testing. Traditionally, penetration testing has been a manual and labor-intensive process, requiring significant expertise and time. However, the introduction of tools like PentestGPT marks a turning point in how these tasks can be automated. PentestGPT leverages the extensive knowledge embedded in LLMs to perform tasks traditionally handled by human penetration testers. This tool has been evaluated using a benchmark created from popular platforms like HackTheBox and VulnHub, which includes 182 sub-tasks aligned with OWASP’s top 10 vulnerabilities. The results indicate a remarkable improvement in task completion rates, with Pentest- 
+> **Section Summary:** Recent advancements in large language models (LLMs) have significantly impacted the field of cybersecurity, particularly in the automation of penetration testing.
 
-GPT outperforming previous models like GPT3.5 and GPT-4 by significant margins. This underscores its effectiveness in maintaining context throughout complex testing scenarios, a critical challenge in the application of LLMs to penetration testing tasks [1]. 
 
-In a broader context, the use of generative AI in penetration testing offers both opportunities and challenges. On one hand, generative models can quickly identify vulnerabilities and generate test scenarios that might be missed by human testers. For example, tools like Mayhem utilize techniques such as fuzzing and symbolic execution to uncover vulnerabilities in a fraction of the time it would take a human tester. These models also bring a level of creativity to the process, simulating novel attack vectors that enhance the robustness of penetration testing. On the other hand, challenges remain, particularly regarding the models’ ability to fully grasp the broader context of testing scenarios. This can lead to incomplete or inaccurate results, highlighting the need for further refinement of these models to ensure they meet the specific needs of different organizations [2]. BreachSeek addresses some of these challenges by employing multiple AI agents to manage context windows, ensuring a more comprehensive understanding throughout the penetration testing process. Unlike other tools, BreachSeek doesn’t just generate text-based outputs but also executes commands within a terminal, directly interacting with the target environment. 
+> Recent advancements in large language models (LLMs) have significantly impacted the field of cybersecurity, particularly in the automation of penetration testing. Traditionally, penetration testing has been a manual and labor-intensive process, requiring significant expertise and time. However, the introduction of tools like PentestGPT marks a turning point in how these tasks can be automated. PentestGPT leverages the extensive knowledge embedded in LLMs to perform tasks traditionally handled by human penetration testers. This tool has been evaluated using a benchmark created from popular platforms like HackTheBox and VulnHub, which includes 182 sub-tasks aligned with OWASP’s top 10 vulnerabilities. The results indicate a remarkable improvement in task completion rates, with Pentest- 
 
-LLMs are not only transforming penetration testing but are also being integrated into various aspects of cybersecurity. Their applications extend to defensive measures, such as risk management and automated vulnerability fixing. In these areas, LLMs help automate complex tasks, reducing the need for human intervention and allowing for faster, more efficient responses to security threats. However, the effectiveness of LLMs is often limited by their ability to maintain context over extended interactions, a challenge that continues to be a focal point in ongoing research. Future advancements are expected to improve the adaptability of LLMs to specific organizational environments, enabling them to continuously learn and remain effective against evolving cybersecurity threats [3]. Additionally, BreachSeek uniquely contributes to this space by generating a comprehensive, formatted PDF report that captures the entire journey of the penetration testing process, providing valuable insights that are automatically documented and ready for review. 
+> GPT outperforming previous models like GPT3.5 and GPT-4 by significant margins. This underscores its effectiveness in maintaining context throughout complex testing scenarios, a critical challenge in the application of LLMs to penetration testing tasks [1]. 
 
-The integration of LLMs into cybersecurity, particularly in automated penetration testing, represents a significant step forward in enhancing security measures. However, these advancements 
+> In a broader context, the use of generative AI in penetration testing offers both opportunities and challenges. On one hand, generative models can quickly identify vulnerabilities and generate test scenarios that might be missed by human testers. For example, tools like Mayhem utilize techniques such as fuzzing and symbolic execution to uncover vulnerabilities in a fraction of the time it would take a human tester. These models also bring a level of creativity to the process, simulating novel attack vectors that enhance the robustness of penetration testing. On the other hand, challenges remain, particularly regarding the models’ ability to fully grasp the broader context of testing scenarios. This can lead to incomplete or inaccurate results, highlighting the need for further refinement of these models to ensure they meet the specific needs of different organizations [2]. BreachSeek addresses some of these challenges by employing multiple AI agents to manage context windows, ensuring a more comprehensive understanding throughout the penetration testing process. Unlike other tools, BreachSeek doesn’t just generate text-based outputs but also executes commands within a terminal, directly interacting with the target environment. 
 
-2 
+> LLMs are not only transforming penetration testing but are also being integrated into various aspects of cybersecurity. Their applications extend to defensive measures, such as risk management and automated vulnerability fixing. In these areas, LLMs help automate complex tasks, reducing the need for human intervention and allowing for faster, more efficient responses to security threats. However, the effectiveness of LLMs is often limited by their ability to maintain context over extended interactions, a challenge that continues to be a focal point in ongoing research. Future advancements are expected to improve the adaptability of LLMs to specific organizational environments, enabling them to continuously learn and remain effective against evolving cybersecurity threats [3]. Additionally, BreachSeek uniquely contributes to this space by generating a comprehensive, formatted PDF report that captures the entire journey of the penetration testing process, providing valuable insights that are automatically documented and ready for review. 
+
+> The integration of LLMs into cybersecurity, particularly in automated penetration testing, represents a significant step forward in enhancing security measures. However, these advancements 
+
+> 2 
 
 
 ```mermaid
@@ -76,9 +113,11 @@ flowchart LR
 ```
 
 
-Figure 1: The general workflow of such models 
+> Figure 1: The general workflow of such models 
 
-come with their own set of challenges that researchers and practitioners must continue to address to fully realize the potential of these technologies. The continued refinement of tools like PentestGPT, alongside broader applications of generative AI in cybersecurity, will likely shape the future of how organizations defend against increasingly sophisticated cyber threats. 
+> come with their own set of challenges that researchers and practitioners must continue to address to fully realize the potential of these technologies. The continued refinement of tools like PentestGPT, alongside broader applications of generative AI in cybersecurity, will likely shape the future of how organizations defend against increasingly sophisticated cyber threats. 
+
+---
 
 ## **3 Model Architecture and Implementation** 
 
@@ -156,7 +195,12 @@ Figure 2: The specific workflow used by our model
 
 As part of the product suite we offer, a web UI was developed using NextJS for the front-end and FastAPI for the back-end. A sample from the web UI can be seen in the appendix. 
 
+---
+
 ## **4 Results** 
+
+> **Section Summary:** The efficacy of our model was initially evaluated through qualitative assessment.
+
 
 The efficacy of our model was initially evaluated through qualitative assessment. Future work will incorporate quantitative measures using established benchmarks and standardized examinations. 
 
@@ -165,6 +209,8 @@ Potential benchmarks may include the OWASP Web Security Testing Guide (WSTG) [4]
 In our preliminary testing, the model successfully exploited a Metasploitable 2 machine, achieving root access with approximately 150,000 tokens. This demonstrates the model’s capability to perform complex penetration testing tasks autonomously. 
 
 Moreover, our findings suggest that minor adjustments to the workflow and system prompts enable the creation of systems capable of addressing challenges in diverse domains. This versatility indicates the potential for developing generalpurpose workflows based on our approach. 
+
+---
 
 ## **5 Future Work** 
 
@@ -198,9 +244,16 @@ Whether a user prefers a witty companion, a laid-back conversationalist, or a ta
 
 To further expand the capabilities of BreachSeek, future iterations will introduce multi-modal input support, allowing users to submit images and videos as part of the penetration testing process. This feature will enable the system to analyze visual content, such as screenshots of network setups or video recordings of security camera feeds, providing a more comprehensive analysis and enabling more sophisticated testing scenarios. By incorporating multiple data types, BreachSeek will be better equipped to handle a broader range of penetration testing challenges. 
 
+---
+
 ## **6 Conclusion** 
 
+> **Section Summary:** BreachSeek, a multi-agent automated penetration testing platform, addresses critical gaps in traditional cybersecurity practices by leveraging Large Language Models through LangGraph.
+
+
 BreachSeek, a multi-agent automated penetration testing platform, addresses critical gaps in traditional cybersecurity practices by leveraging Large Language Models through LangGraph. Its graph-based architecture, comprising specialized agents like the supervisor, pentester, and recorder, enables efficient task distribution and mitigates context window limitations. Deployed in a Docker-based Kali Linux environment, BreachSeek demonstrated its effectiveness by successfully exploiting a Metasploitable 2 machine within 150,000 tokens. While initially evaluated qualitatively, future work will incorporate quantitative measures using benchmarks like OWASP WSTG and OSCP exam content. Planned enhancements include a user permission system for human oversight, fine-tuning with specialized cybersecurity data, integration of Retrieval-Augmented Generation (RAG), enhanced dynamic and responsive interactions according to user preference, and multimodal input support. These advancements, coupled with BreachSeek’s ability to generate comprehensive security reports, position it as a powerful, adaptable tool in the evolving landscape of AIdriven cybersecurity solutions, promising continued innovation in automated penetration testing and defense against sophisticated cyber threats. 
+
+---
 
 ## **References** 
 
@@ -218,7 +271,12 @@ The code used for the model can be found here: `https://github.com/snow10100/pen
 
 5 
 
+---
+
 ## **A Appendix** 
+
+> **Section Summary:** *Screenshot of BreachSeek UI: Model status is 'Idle'.
+
 
 
 *Screenshot of BreachSeek UI: Model status is 'Idle'. Shows sections for Findings, Running commands, and a 'Generate a Report' button.*

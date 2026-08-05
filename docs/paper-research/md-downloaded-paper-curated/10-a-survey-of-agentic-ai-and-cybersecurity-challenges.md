@@ -1,5 +1,47 @@
 # **A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and** 
 
+## Table of Contents
+
+- [MAANAK GUPTA, Tennessee Tech University, United States](#maanak-gupta-tennessee-tech-university-united-states)
+- [ELISA BERTINO, Purdue University, United States](#elisa-bertino-purdue-university-united-states)
+    - [ACM Reference Format:](#acm-reference-format)
+  - [1 Introduction](#1-introduction)
+  - [2 Related Work](#2-related-work)
+  - [3 What is Agentic AI?](#3-what-is-agentic-ai)
+  - [4 Applications of Agentic AI to Cybersecurity](#4-applications-of-agentic-ai-to-cybersecurity)
+  - [4.1 Autonomous Cyber Defense and Operation](#4-1-autonomous-cyber-defense-and-operation)
+  - [4.2 Agentic Threat Intelligence and Adversarial Analysis](#4-2-agentic-threat-intelligence-and-adversarial-analysis)
+  - [4.4 Simulation, Training, and Testing](#4-4-simulation-training-and-testing)
+    - [Key Takeaways from Section 4](#key-takeaways-from-section-4)
+  - [5 Agentic AI-Enabled Cyber Attacks](#5-agentic-ai-enabled-cyber-attacks)
+  - [5.1 Insider Threats and Autonomous Exploits](#5-1-insider-threats-and-autonomous-exploits)
+  - [5.2 Agentic AI for Ransomware Operations](#5-2-agentic-ai-for-ransomware-operations)
+  - [5.3 Agentic AI in Social Engineering and Financial Fraud](#5-3-agentic-ai-in-social-engineering-and-financial-fraud)
+  - [6 Security of Agentic AI](#6-security-of-agentic-ai)
+  - [6.1 Conceptual Risk Models and Threat Taxonomies](#6-1-conceptual-risk-models-and-threat-taxonomies)
+  - [6.2 System-Level Vulnerabilities and Security Controls for Agentic AI](#6-2-system-level-vulnerabilities-and-security-controls-for-agentic-ai)
+  - [6.3 Prompt Injection and Tool Invocation Risks](#6-3-prompt-injection-and-tool-invocation-risks)
+  - [6.4 Multi-Agent Security, Collusion, and Information Flow](#6-4-multi-agent-security-collusion-and-information-flow)
+  - [6.5 Autonomy, Identity, Governance, and Resources](#6-5-autonomy-identity-governance-and-resources)
+  - [6.6 Assurance, Testing, and Infrastructure](#6-6-assurance-testing-and-infrastructure)
+  - [6.7 Reasoning, Memory, and Human Factors](#6-7-reasoning-memory-and-human-factors)
+    - [Key Takeaways from Section 6](#key-takeaways-from-section-6)
+  - [6.8 Benchmarks for Agentic AI Security](#6-8-benchmarks-for-agentic-ai-security)
+  - [7 Quantum Computing and Agentic AI in Cybersecurity](#7-quantum-computing-and-agentic-ai-in-cybersecurity)
+  - [7.1 Quantum Agents and Multi-Agent Autonomy](#7-1-quantum-agents-and-multi-agent-autonomy)
+  - [7.2 Quantum Machine Learning for Security Analytics](#7-2-quantum-machine-learning-for-security-analytics)
+  - [7.3 Quantum-Resilient Trust, Identity, and Governance](#7-3-quantum-resilient-trust-identity-and-governance)
+  - [8 Prototype Agentic AI Implementations for Cybersecurity](#8-prototype-agentic-ai-implementations-for-cybersecurity)
+  - [8.1 Adaptive Offensive and Defensive Agents](#8-1-adaptive-offensive-and-defensive-agents)
+  - [28](#28)
+  - [8.2 SOC Triage Agent](#8-2-soc-triage-agent)
+  - [8.3 Anomaly and IDS Agent](#8-3-anomaly-and-ids-agent)
+  - [9 Directions of Future Research](#9-directions-of-future-research)
+  - [10 Conclusion](#10-conclusion)
+  - [References](#references)
+
+---
+
 # **Use-case Prototypes** 
 
 SAHAYA JESTUS LAZER, Tennessee Tech University, United States 
@@ -8,7 +50,12 @@ KSHITIZ ARYAL, University of Nebraska Omaha, United States
 
 ## MAANAK GUPTA, Tennessee Tech University, United States 
 
+---
+
 ## ELISA BERTINO, Purdue University, United States 
+
+> **Section Summary:** Agentic AI marks an important transition from single-step generative models to systems capable of reasoning, planning, acting, and adapting over long-lasting tasks.
+
 
 Agentic AI marks an important transition from single-step generative models to systems capable of reasoning, planning, acting, and adapting over long-lasting tasks. By integrating memory, tool use, and iterative decision cycles, these systems enable continuous, autonomous workflows in real-world environments. This survey examines the implications of agentic AI for cybersecurity. On the defensive side, agentic capabilities enable continuous monitoring, autonomous incident response, adaptive threat hunting, and fraud detection at scale. Conversely, the same properties amplify adversarial power by accelerating reconnaissance, exploitation, coordination, and social-engineering attacks. These dual-use dynamics expose fundamental gaps in existing governance, assurance, and accountability mechanisms, which were largely designed for non-autonomous and short-lived AI systems. To address these challenges, we survey emerging threat models, security frameworks, and evaluation pipelines tailored to agentic systems, and analyze systemic risks including agent collusion, cascading failures, oversight evasion, and memory poisoning. Finally, we present three representative use-case implementations that illustrate how agentic AI behaves in practical cybersecurity workflows, and how design choices shape reliability, safety, and operational effectiveness. 
 
@@ -360,7 +407,7 @@ _4.4.1 Automated Cyber Range Generation._ Cyber range construction has tradition
 
 Current systems exhibit clear limitations. ARCeR validates configuration and deployment but does not assess scenario realism, threat coverage, or training effectiveness [97]. Human review therefore remains necessary to evaluate instructional value and fidelity to real world attacks. Existing work suggests that agentic automation can accelerate range creation without replacing expert scenario design. Policy analysis further frames automated cyber ranges as shared infrastructure for training and safety evaluation as agentic AI adoption increases [15]. An open problem is how to validate that automatically generated ranges reflect evolving threats and learning objectives rather than producing environments that are structurally correct but substantively limited. 
 
-_4.4.2 High-Fidelity Training Environments for Autonomous Cyber Defense._ High-fidelity training environments address a gap in autonomous cyber defense research by providing shared settings that support both simulation and emulation under a common configuration model [115]. Earlier environments typically favored abstract simulation for scalability or ad hoc testbeds for realism, making it difficult to compare results or transfer trained policies. Cyberwheel exemplifies this class of environments by combining simulation and emulation through graph-based network definitions that specify topology, adversary behavior, actions, observations, and rewards. Agents are trained in simulation and evaluated in virtualized environments that reuse the same configurations and expose detector level observations derived from logs. This design supports reproducibility and enables controlled sim to real transfer within the defined environment, but introduce tradeoffs. Cyberwheel emphasizes experimental consistency and comparability but requires detailed configuration of networks, detectors, and reward functions, which increases setup effort and relies on human expert [115]. The environment also depends on predefined adversary models, detection probabilities, and logging behavior, which limits exposure to unmodeled attacks and operational noise. Cyberwheel illustrates how standardized environments can Manuscript submitted to ACM 
+_4.4.2 High-Fidelity Training Environments for Autonomous Cyber Defense._ High-fidelity training environments address a gap in autonomous cyber defense research by providing shared settings that support both simulation and emulation under a common configuration model [115]. Earlier environments typically favored abstract simulation for scalability or *ad hoc* testbeds for realism, making it difficult to compare results or transfer trained policies. Cyberwheel exemplifies this class of environments by combining simulation and emulation through graph-based network definitions that specify topology, adversary behavior, actions, observations, and rewards. Agents are trained in simulation and evaluated in virtualized environments that reuse the same configurations and expose detector level observations derived from logs. This design supports reproducibility and enables controlled sim to real transfer within the defined environment, but introduce tradeoffs. Cyberwheel emphasizes experimental consistency and comparability but requires detailed configuration of networks, detectors, and reward functions, which increases setup effort and relies on human expert [115]. The environment also depends on predefined adversary models, detection probabilities, and logging behavior, which limits exposure to unmodeled attacks and operational noise. Cyberwheel illustrates how standardized environments can Manuscript submitted to ACM 
 
 A Survey of Agentic AI and Cybersecurity: Challenges, Opportunities and Use-case Prototypes 
 
