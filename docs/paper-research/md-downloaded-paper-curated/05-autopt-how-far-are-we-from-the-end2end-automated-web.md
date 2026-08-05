@@ -162,6 +162,8 @@ sequenceDiagram
     Env-->>Agent: Task Fails due to Context Window Overflow (128k limit exceeded)
 ```
 
+*Fig. 1. Motivating example illustrating the repetitive failure loop of a direct ReAct agent.*
+
 ### 4.2 Preliminary Experiments
 
 > 📊 **Table 2: Model Selection Pre-Experiment (Xray Execution Task)**
@@ -206,7 +208,12 @@ sequenceDiagram
 
 ### 5.1 Overview
 
-AutoPT mitigates agent breakdown by structuring testing into a **Penetration Testing State Machine (PSM)** composed of **Agent States** and **Rule States**.
+In response to the challenges raised in the previous section, we propose **AutoPT**, an end-to-end penetration testing framework built around the concept of a **Finite State Machine (FSM)**. The full task is decomposed into multiple states, and the workflow is completed through explicit state transitions. As shown in the figure below, AutoPT contains two distinct state types:
+
+- **Agent States**: vulnerability scanning, reconnaissance, and exploitation states, each powered by an LLM-based agent and the external tools required for that subtask.
+- **Rule States**: vulnerability selection and completion check states, which enforce deterministic rule-based matching to improve efficiency and reduce error propagation.
+
+The system interacts with target websites and internet information through the external tools attached to these modules. In the following sections, we explain the design rationale and engineering details behind AutoPT.
 
 ```mermaid
 flowchart TD
@@ -221,29 +228,52 @@ flowchart TD
     S2 -- "Vulnerability Library Exhausted" --> F_FAIL["Final State: FAILED"]
 ```
 
+*Fig. 2. AutoPT workflow overview.*
+
 ### 5.2 Design Rationale & Formal Definitions
 
+In accordance with the preliminary conclusions of Section 4.2, we design AutoPT to address three core challenges:
+
+1. **History Maintenance:** Use inter-state outputs rather than maintaining a full dialog history for the entire end-to-end penetration testing system.
+2. **Cycling Failure:** Prevent the model from being trapped in repetitive attempts on a single local failure.
+3. **Model Capability Limits:** Reduce task difficulty through external constraints and state-machine control.
+
+AutoPT aims to make the system more suitable for end-to-end penetration testing by letting the architecture enforce structure instead of relying on prompt engineering alone. We draw inspiration from traditional state-machine design, divide the end-to-end task into multiple states, and solve subtasks through explicit transitions. Each state solves its own task independently, passes only the essential information to the next state, and avoids preserving the entire task context across the full workflow. This helps ensure that errors do not propagate through the entire process and allows corrective behavior to be applied at the appropriate state boundary.
+
 #### Definition 1 (Finite State Machine - FSM)
-A Finite State Machine $\mathcal{FSM}$ is defined as a 6-tuple:
-$$\mathcal{M} = (S, s_0, \Sigma, \delta, O, F)$$
-where $S$ is a finite set of states, $s_0 \in S$ is the initial state, $\Sigma$ is the alphabet of input symbols, $\delta: S 	imes \Sigma 	o S$ is the transition function, $O: S 	imes \Sigma 	o \Gamma$ is the output function producing symbols in $\Gamma$, and $F \subseteq S$ is the set of accepting final states.
+A finite state machine $\text{FSM}$ is a state-labeled, attributed automaton
+$$
+\mathcal{M} = (S, s_0, \Sigma, \delta, O, F)
+$$
+where $S$ is a set of states, $s_0 \in S$ is the initial state, $\Sigma$ is a set of input symbols, $\delta : S \times \Sigma \to S$ is the transition function, $O : S \times \Sigma \to \Gamma$ is an output function producing symbols in $\Gamma$, and $F \subseteq S$ is the set of final or accepting states.
+
+In a finite state machine, the state carries information about the history of the machine and tracks how the machine reaches its current situation. We decompose the end-to-end penetration testing process into multiple states and model each stage as part of a state machine. In AutoPT, each node is treated as a Mealy-style machine, where the system prompt or the contextual interaction from the previous state is taken as the input symbol.
 
 #### Definition 2 (Pen-testing State Machine - PSM)
-We formalize the Pen-testing State Machine as a specialized Mealy-style machine:
-$$\mathcal{PSM} = (S, s_0, \Sigma, \delta, O, F)$$
+We formalize the Pen-testing State Machine as a six-tuple:
+$$
+\mathcal{PSM} = (S, s_0, \Sigma, \delta, O, F)
+$$
 
-- **State Set ($S$):** Predefined task configurations split into Agent States ($S_{agent} = \{	ext{Scanning}, 	ext{Reconnaissance}, 	ext{Exploitation}\}$) and Rule States ($S_{rule} = \{	ext{Selection}, 	ext{Check}\}$).
-- **Initial State ($s_0$):** Initialized with target IP, port, and task objective string $T$.
-- **Input Alphabet ($\Sigma$):** Defined as $\Sigma = \{O, T_{env}\}$, comprising output context $O$ from the preceding state and optional environment feedback $T_{env}$.
-- **Transition Function ($\delta$):** $\delta: S 	imes \Sigma 	o S$, mapping current state and processed inter-state outputs to the next state node.
-- **Output Function ($O$):** $O: S 	imes \Sigma 	o \Gamma$, generating structured context updates via LLM agent execution or deterministic rule evaluation.
-- **Final States ($F$):** $F = \{	ext{Success}, 	ext{Failed}\} \subseteq S$.
+- **State Set ($S$):** Each state corresponds to a predefined situation or configuration of the system. After entering a given state, the PSM executes a set of expected operations.
+- **Initial State ($s_0$):** When the target machine IP, port, and task target are received, AutoPT is initialized and the process begins from the initial state.
+- **Input Alphabet ($\Sigma$):** We define $\Sigma$ as the message set formed by the context output $O$ from the previous state and optional environment feedback $T_{env}$.
+- **Transition Function ($\delta$):** $\delta : S \times \Sigma \to S$, mapping the current state and input symbol to the next state.
+- **Output Function ($O$):** $O : S \times \Sigma \to \Gamma$, where $\Gamma$ is the message set emitted by the current state and its tool interactions.
+- **Final States ($F$):** The accepting terminal states of the process: **Success** and **Failed**.
+
+Similar to the traditional FSM, the output function differs per node. In particular, AutoPT partitions its states into:
+
+- **Agent States**: LLM-driven states using role-play prompts and task-specific tools.
+- **Rule States**: deterministic states that sanitize and match contextual information to enforce structural constraints.
+
+This division directly addresses the challenge of maintaining full context history. Instead of retaining all previous dialogue, each state only needs the core task context and the output of the previous state.
 
 ### 5.3 Implementation
 
 #### 5.3.1 Agent State Process
 
-Agent states combine role-play system prompts, task-specific tools, and iteration limits to execute sub-tasks.
+Agent states combine role-play system prompts, task-specific tools, and iteration limits to execute subtasks.
 
 ```python
 # Pseudocode representation of Algorithm 1: Agent State Process
@@ -253,17 +283,17 @@ def agent_state_process(P_init, I_input, Model_L, Tools_T, Max_Iter, Parse_F, Ou
     while step <= Max_Iter:
         llm_response = Model_L(P_star)
         L_out, T_inv, T_in = Parse_F(llm_response)
-        
+
         if T_inv is not None:
             T_out = Tools_T.execute(T_inv, T_in)
             P_star += L_out + T_out
         else:
             P_star += L_out
-            
+
         if Model_L.exits_state():
             break
         step += 1
-        
+
     Gamma = Output_Parse_O(P_star)
     return Gamma
 ```
@@ -275,7 +305,7 @@ def agent_state_process(P_init, I_input, Model_L, Tools_T, Max_Iter, Parse_F, Ou
 
 #### 5.3.2 Rule State Process
 
-Rule states sanitize context (removing scanner header noise like `[INFO]`) and apply deterministic matching logic without consuming LLM API calls.
+Rule states sanitize context (for example, removing scanner header noise such as `[INFO]`) and apply deterministic matching logic without consuming LLM API calls.
 
 ```python
 # Pseudocode representation of Algorithm 2: Rule State Process
@@ -293,19 +323,23 @@ def psm_process(IP, Task_Target_T, System_Prompt_P, PSM_Graph):
     Gamma = System_Prompt_P + IP + Task_Target_T
     Gamma_history = [Gamma]
     current_state = PSM_Graph.s0
-    
+
     while current_state not in PSM_Graph.F:
         if current_state.type == "Agent":
-            Gamma = agent_state_process(current_state.prompt, Gamma, current_state.model, 
+            Gamma = agent_state_process(current_state.prompt, Gamma, current_state.model,
                                         current_state.tools, current_state.max_iter)
         else:
             Gamma = rule_state_process(Gamma, current_state.rules)
-            
+
         current_state = PSM_Graph.delta(current_state, Gamma)
         Gamma_history.append(Gamma)
-        
+
     return current_state, Gamma_history
 ```
+
+*Fig. 3. An example process of an Agent state (Exploit state).* 
+
+*Fig. 4. An example process of a Rule state (Selection state).*
 
 ---
 
@@ -366,6 +400,8 @@ GPT-3.5 + ReAct      : 0.0%
 GPT-3.5 + PTT        : 0.0%
 ─────────────────────────────────────────────────────────────
 ```
+
+*Fig. 5. Overall performance of agents based on the GPT-3.5, GPT-4o, and GPT-4o mini models in the ReAct, PTT, and AutoPT architectures.*
 
 > 🔑 **Answer to RQ2**  
 > AutoPT doubles completion rates on simple tasks and yields a **~10× improvement on complex tasks** relative to ReAct baselines.
@@ -449,7 +485,7 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 28. M. Hasibuan and A. M. Elhanafi. 2022. Black-box penetration testing using Kali Linux. *SUDO Jurnal*, 1(4):171–177.
 29. Z. Hu et al. 2020. Automated penetration testing using deep reinforcement learning. *EuroS&PW '20*, 2–10.
 30. L. Huang et al. 2023. A survey on hallucination in large language models. *arXiv:2309.01210*.
-31. S. Jan et al. 2016. Automated testing of web services for XML injection. *ISSTA '16*, 12–23.
+31. S. Jan et al. 2016. Automated testing of web services for XML injection. *ISSTA '16*, 12–31.
 32. H. Jin et al. 2024. GUARD: Role-playing to generate natural-language jailbreaks. *arXiv:2402.03299*.
 33. N. Koroniotis et al. 2021. Deep learning-based penetration testing in IoT. *TrustCom '21*, 887–894.
 34. Y. Li et al. 2024. Personal LLM agents: Insights and survey. *arXiv:2401.05459*.
@@ -464,7 +500,7 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 43. OpenAI. 2023. *GPT-3.5 Model Specification*. [https://platform.openai.com](https://platform.openai.com)
 44. OpenAI. 2024. *GPT-4o Mini: Advancing Cost-Efficient Intelligence*. [https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/)
 45. OpenAI. 2024. *Hello GPT-4o*. [https://openai.com/index/hello-gpt-4o/](https://openai.com/index/hello-gpt-4o/)
-46. W. J. Price. 1989. A benchmark tutorial. *IEEE Micro*, 9(5):28–43.
+46. W. J. Price. 1989. A benchmark tutorial. *IEEE Micro*, 9(5):28–46.
 47. X. Qiu et al. 2014. An automated method of penetration testing. *IEEE CCITAC '14*, 211–216.
 48. E. Rich et al. 2008. *Automata, Computability and Complexity: Theory and Applications*. Pearson.
 49. M. I. P. Salas and E. Martins. 2015. Black-box vulnerability detection in web services. *IEEE Latin America Trans.*, 13(3):707–712.
@@ -489,4 +525,4 @@ All benchmark entries, Docker environment deployment scripts, preliminary experi
 68. Z. Yuan et al. 2024. LLM inference unveiled: Survey and roofline insights. *arXiv:2402.16363*.
 69. C. Zhang et al. 2024. Exploring LLM-based fuzz driver generation. *ISSTA '24*, 1223–1235.
 70. J. Zhao et al. 2015. Penetration testing automation assessment based on rule tree. *IEEE CYBER '15*, 1829–1833.
-71. Y. Zhou and D. Evans. 2014. SSOScan: Automated testing for single sign-on vulnerabilities. *USENIX Security '14*, 495–510.
+71. Y. Zhou and D. Evans. 2014. SSOScan: Automated testing for single sign-on vulnerabilities. *USENIX Security '14*, 495–511.

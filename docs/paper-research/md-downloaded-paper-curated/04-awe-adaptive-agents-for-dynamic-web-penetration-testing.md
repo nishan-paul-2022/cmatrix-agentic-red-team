@@ -6,6 +6,9 @@
 
 > 💡 *The authors contributed equally to this work.*  
 > 📖 *Workshop on LLM Assisted Security and Trust Exploration (LAST-X) 2026*  
+> 📅 *27 February 2026, San Diego, CA, USA*  
+> 🔖 *ISBN 978-1-970672-05-3*  
+> 🌍 *DOI: [10.14722/last-x.2026.23037](https://dx.doi.org/10.14722/last-x.2026.23037)*  
 > 🔗 **Repository:** [https://github.com/stuxlabs/AWE](https://github.com/stuxlabs/AWE)
 
 ---
@@ -96,8 +99,8 @@ We assume an automated adversary that interacts with the application strictly th
 
 * 🌐 **Black-box Interaction:** Craft arbitrary HTTP requests and observe responses without source-code access, server configuration details, or privileged capabilities.
 * 🔑 **Authenticated Probing:** Authenticate using benign registration or low-privilege accounts (when available) to explore restricted endpoints and input channels.
-* 🤖 **LLM-Assisted Input Generation:** Employ commercial LLM APIs to synthesize context-aware payloads and adapt strategies based on prior observations, subject to cost-bounded operation.
-* ⏱️ **Time-Bounded Evaluation:** Probe each target endpoint under a strict temporal budget ($\le 10$ minutes), reflecting rate limits, detection risk, and API costs.
+* 🤖 **LLM-Assisted Input Generation:** Employ commercial LLM APIs to synthesize context-aware payloads and adapt strategies based on prior observations, subject to cost-bounded operation. The LLM serves as a flexible generator of candidate attack inputs.
+* ⏱️ **Time-Bounded Evaluation:** Probe each target endpoint under a strict temporal budget ($\le 10$ minutes), reflecting practical constraints imposed by rate limiting, detection risk, and LLM API costs.
 
 > 🎯 **Attacker Goals**  
 > Identify injection-class vulnerabilities through controlled input manipulation and exploit behavioral abnormalities (e.g., response timing, error structures, output differences) to infer server-side faults.
@@ -373,17 +376,22 @@ The Foundation Layer provides shared infrastructure across all specialized agent
 
 ## V. METHODOLOGY
 
+This section outlines our evaluation methodology, including benchmark selection, baselines, model experiments, configuration, and metrics. The goal is to assess AWE's effectiveness and efficiency under realistic attacker constraints while enabling reproducible comparison with state-of-the-art systems.
+
 ### A. Benchmarks
 
-| Benchmark | Size / Scope | Focus & Purpose |
-|---|---|---|
-| **XBOW Benchmark** [[14](#14)] | 104 containerized applications (26 categories) | Primary evaluation benchmark for end-to-end autonomous exploitation, flag retrieval, and comparative efficiency against MAPTA. |
-| **DVWA** [[13](#13)] | Configurable vulnerability suites | Controlled baseline testing for model selection (Sonnet 4 vs GPT-4o vs Gemini 2.0 Flash) and payload iteration metrics. |
+We evaluate AWE on two complementary benchmarks to assess both competitive performance and controlled vulnerability analysis.
+
+**XBOW Benchmark** [[14](#14)]: Our primary evaluation uses the XBOW benchmark, a curated suite of 104 vulnerable web applications spanning 26 vulnerability categories. Each challenge is deployed as an isolated container and embeds a hidden flag that is accessible only through a complete end-to-end exploit. XBOW provides substantial heterogeneity: vulnerabilities range from straightforward reflected XSS to multi-stage chains involving authentication, authorization, and context-specific sanitization bypasses. Injection-related categories constitute a majority of the benchmark, mimicking the state of real-world vulnerabilities. Challenges differ in exploitation complexity — some are solvable through single-step injections, whereas others require the adversary to combine multiple findings, sequence authenticated requests, or adapt payloads to nontrivial server-side filters. This diversity makes XBOW a suitable testbed for evaluating AWE's ability to perform adaptive exploitation at scale.
+
+**DVWA** [[13](#13)]: For controlled model-selection experiments and fine-grained analysis of exploitation behavior, we use DVWA (Damn Vulnerable Web Application). DVWA offers repeatable vulnerability configurations and configurable security levels, enabling systematic testing across multiple difficulty regimes. We focus on reflected and stored XSS, DOM-based XSS, error-based SQL injection, and time-based blind SQL injection. Because the application is deterministic across runs, DVWA supports statistical comparison of model behavior under identical conditions. Each model is evaluated across multiple independent trials (n=10) per vulnerability type to obtain robust estimates of success rates and convergence behavior.
+
+This combination of controlled and large-scale testing provides a comprehensive view of AWE's capabilities, limitations, and efficiency.
 
 ---
 
 ### B. Baseline
-We compare AWE against **MAPTA** [[12](#12)] on the XBOW Benchmark. MAPTA utilizes `GPT-5` in extended-reasoning mode inside an isolated sandbox environment, achieving a 76.9% solve rate under generous compute and time limits. MAPTA represents the current state-of-the-art general-purpose autonomous testing agent.
+We compare AWE against **MAPTA** [[12](#12)] on the XBOW Benchmark as it is the strongest publicly available autonomous penetration-testing framework. MAPTA adopts a general-purpose multi-agent architecture in which a central LLM orchestrates reconnaissance, execution within an isolated sandbox, and exploit validation. MAPTA's published evaluation reports a 76.9% solve rate on XBOW under generous compute and time budgets. Its architecture embodies the prevailing paradigm of broad, reasoning-centric agents, making it an appropriate baseline for measuring the benefits of AWE's specialization-oriented design. We use MAPTA's publicly reported per-challenge results for all comparisons.
 
 ---
 
@@ -429,11 +437,15 @@ A challenge is strictly marked as **Solved** ($\text{Solve Rate} = 1$) only if t
 ## VI. EVALUATION
 
 ### A. Evaluation on DVWA
-To isolate model reasoning capability, AWE was evaluated across 5 vulnerability classes in DVWA using three distinct LLMs: **Claude Sonnet 4**, **GPT-4o**, and **Gemini 2.0 Flash**.
+
+We evaluate AWE through a two-stage methodology. First, we conduct controlled experiments on DVWA to isolate the contribution of the underlying language model and justify our choice of Claude Sonnet 4. Second, we benchmark AWE against MAPTA, the most diverse publicly documented autonomous penetration-testing system, on the full 104-challenge XBOW benchmark.
+
+DVWA provides a stable, deterministic environment that enables fine-grained comparison of LLM behavior independent of broader architectural factors. We executed AWE with three LLMs — **Claude Sonnet 4**, **GPT-4o**, and **Gemini 2.0 Flash** — using identical agent logic and verification procedures across five representative vulnerability classes. Across all models, reflected XSS served as a baseline of capability, with each model achieving 100% success. Performance diverged sharply, however, once contextual reasoning or iterative inference became essential. Claude Sonnet 4 consistently outperformed both GPT-4o and Gemini on stored XSS with CSP enforcement and blind SQL injection — the two categories that require AWE's most complex reasoning loops.
 
 ```
 Reflected XSS       [####################] 100% (All Models)
 Error SQLi          [####################] 100% (All Models)
+DOM XSS             [################----] 80% (All Models)
 
 Stored XSS (CSP)    [#############-------] 67% (Claude Sonnet 4)
                     [#############-------] 67% (GPT-4o)
@@ -444,11 +456,13 @@ Blind SQLi          [##############------] 70% (Claude Sonnet 4)
                     [###########---------] 55% (Gemini 2.0 Flash)
 ```
 
-> 📌 **Figure 3 Summary: Vulnerability Detection Success Rates on DVWA**  
-> While all models achieve 100% on Reflected XSS and Error-based SQLi, **Claude Sonnet 4** demonstrates superior performance on complex context-dependent vulnerabilities like Stored XSS with CSP (67%) and Blind SQLi (70%).
+> 📌 **Figure 3: Comparative performance of Claude Sonnet 4, GPT-4o, and Gemini 2.0 Flash across five vulnerability categories.**  
+> For CSP-enforced stored XSS, Claude and GPT-4o tied at 67%, whereas Gemini dropped to 50%. For blind SQLi, Claude reached 70%, GPT-4o 60%, and Gemini 55%. These gaps reflect model-dependent differences in temporal inference, semantic constraint handling, and multi-step payload refinement.
 
-> 📌 **Figure 4 Summary: Payload Iteration Efficiency**  
-> Claude Sonnet 4 converged in **10–40 payload attempts**, whereas GPT-4o required ~20% more iterations and Gemini 2.0 Flash required ~40% more attempts, demonstrating higher reasoning stability in payload mutation.
+> 📌 **Figure 4: Average number of payload iterations required for successful exploitation by each model.**  
+> Claude Sonnet 4 converges in the fewest attempts (**10–40**), followed by GPT-4o with about 20% more iterations and Gemini 2.0 Flash with about 40% more. This demonstrates Claude's superior efficiency and reasoning stability. AWE performs many such cycles for complex vulnerability classes, so convergence stability directly affects time and cost.
+
+Collectively, these DVWA results demonstrate that Claude Sonnet 4 provides the best balance of accuracy and reasoning efficiency. For this reason, all subsequent experiments use Claude Sonnet 4 as AWE's underlying model.
 
 ---
 
@@ -485,7 +499,7 @@ Blind SQLi          [##############------] 70% (Claude Sonnet 4)
 | 🖥️ **Command Injection**| 11 | 9 | **82%** | 5 | 45% | 🔴 -37.0% |
 
 > 📊 **Key Insight: Injection Superiority**  
-> AWE outperforms MAPTA significantly on **XSS (87% vs 57%)** and **Blind SQLi (67% vs 33%)** due to its domain-specific mutation logic, context analysis, and Playwright verification engine. MAPTA achieves higher scores on long-horizon reasoning challenges (e.g., privilege escalation, business logic).
+> AWE dominates on the injection classes it explicitly targets. AWE's strongest result appears in XSS: across 23 challenges, it solves 20, substantially surpassing MAPTA's 13. The XSS cases solved exclusively by AWE typically require precise alignment between payload structure and the reflection context (e.g., attribute-versus-string contexts), adaptive filter bypassing based on observed responses, and reasoning about multi-encoding transformations. MAPTA's general-purpose reasoning pipeline often failed to infer these context-specific constraints. AWE also performs well on blind SQL injection due to its structured inference workflow and backend-specific timing probes. Conversely, MAPTA substantially outperforms AWE in categories involving long-horizon procedural reasoning, such as privilege escalation, insecure deserialization, and business logic flaws, which exceed the current capabilities of AWE's specialized-agent design.
 
 ---
 
@@ -506,22 +520,29 @@ pie title AWE Failure Categorization (50 Challenges)
 
 ### E. Efficiency Analysis
 
+AWE's primary strength is efficiency. Over the full benchmark, AWE consumed 1.12M tokens compared to MAPTA's 54.9M — an approximately 98% reduction. This efficiency stems from two architectural choices: specialized agents avoid the expansive search spaces characteristic of general-purpose reasoning, and memory-guided heuristics significantly reduce redundant attempts.
+
+Time-to-solve exhibits a consistent 4–5× speedup across percentiles. The median solve time for AWE is **35.7 seconds** compared to MAPTA's **156.2 seconds**. These gains demonstrate that targeted vulnerability analysis can dramatically reduce overhead without sacrificing performance on its intended classes.
+
 ```
 Token Consumption Comparison:
 AWE   [#-----------------------------------] 1.12M Tokens
-MAPTA [####################################] 54.87M Tokens (49x higher)
+MAPTA [####################################] 54.87M Tokens (~98% reduction)
 
 Average Execution Time per Challenge:
 AWE   [#######-----------------------------] 53.1s
-MAPTA [####################################] 190.8s (3.6x slower)
+MAPTA [####################################] 190.8s (4–5× faster)
+
+Median Solve Time:
+AWE   35.7s  vs  MAPTA 156.2s
 ```
 
 ---
 
 ### F. Summary
-Our evaluation highlights a fundamental architectural trade-off:
-* 🌐 **General-Purpose Flexibility (MAPTA):** Delivers broader coverage across complex multi-step reasoning tasks via unconstrained sandbox execution.
-* ⚙️ **Domain-Specific Specialization (AWE):** Delivers superior accuracy on targeted injection classes, achieving a **98% token reduction**, **3.6× faster execution**, and **64% lower overall cost**.
+Our evaluation highlights a clear architectural trade-off:
+* 🌐 **General-Purpose Flexibility (MAPTA):** Achieves broader coverage due to its highly expressive sandbox and frontier-grade model, enabling multi-step exploitation across numerous vulnerability categories.
+* ⚙️ **Domain-Specific Specialization (AWE):** Shows that architectural specialization can outperform general-purpose reasoning by large margins on targeted vulnerability classes, even when using a smaller model. The efficiency benefits — **63% cost reduction**, **4.4× faster solves**, and **98% fewer tokens** — suggest that specialized systems may be preferable for high-frequency testing and integration into continuous assessment pipelines.
 
 ---
 
@@ -531,7 +552,9 @@ AWE demonstrates that architectural specialization can materially improve the re
 
 Across XSS and blind SQLi, AWE's performance stems from explicit modeling of the execution context — reflection positions, sanitization behavior, SQL operator boundaries — and conditioning payload generation on these abstractions. These constraints reduce the search space an LLM must navigate and yield more stable exploit synthesis than unconstrained reasoning. That AWE outperforms MAPTA on these tasks, despite using a substantially weaker model, suggests that exploit success depends at least as much on architectural priors as on raw model capability.
 
-At the same time, our evaluation shows that specialization does not replace broad autonomous reasoning. MAPTA's advantages are pronounced on multi-step exploitation involving authentication workflows, privilege escalation, and semantic business logic. The contrasting strengths suggest future systems should adopt hybrid architectures combining structured pipelines with exploratory planning.
+At the same time, our evaluation shows that specialization does not replace broad autonomous reasoning. MAPTA's advantages are pronounced on multi-step exploitation involving authentication workflows, privilege escalation, and semantic business logic. These tasks require long-horizon planning and cross-endpoint state tracking capabilities deliberately outside AWE's design. The contrasting strengths of the two systems indicate that effective autonomous penetration testing will likely require hybrid architectures that combine structured vulnerability analysis with general-purpose exploratory reasoning.
+
+AWE's efficiency — 98% fewer tokens, **63% lower cost**, and **4.4× faster solves** — suggests immediate applicability in continuous or high-frequency testing settings where general-purpose agents remain prohibitively expensive. The ability to embed domain knowledge into agent design also opens the door for adaptive long-term learning: storing filter signatures, past bypasses, and effective payload patterns may enable stable performance across evolving application landscapes.
 
 ---
 
@@ -539,10 +562,10 @@ At the same time, our evaluation shows that specialization does not replace broa
 
 > ⚠️ **Key Constraints & Boundaries**
 
-* 🛑 **Scope Restrictions:** Targets injection-centric vulnerabilities; does not handle complex business logic, authentication workflows, or protocol smuggling.
-* 🔗 **Limited Multi-Step Planning:** Specialized agents operate in isolated pipelines without coordinating multi-stage chains (e.g., `Default Credentials ➡️ IDOR ➡️ Privilege Escalation`).
-* 🧩 **Heuristic Dependency:** Sanitization models rely on structural assumptions that may fail against heavily obfuscated or proprietary sinks.
-* 🤖 **LLM Sensitivity:** Model updates or API behavioral shifts can affect payload mutation stability.
+* 🛑 **Scope Restrictions:** The system targets injection-centric vulnerabilities and does not attempt reasoning-heavy categories such as business logic, complex authentication workflows, or protocol-level issues (e.g., request smuggling or desynchronization).
+* 🔗 **Limited Multi-Step Planning:** AWE's agents operate in largely independent pipelines and do not coordinate multi-stage exploitation sequences. Tasks requiring chained discovery (e.g., `Default Credentials ➡️ IDOR ➡️ Privilege Escalation`) fall outside its reach.
+* 🧩 **Heuristic Dependency (Reliance on heuristic abstractions):** While effective, AWE's context and filter models encode assumptions about server behavior and sanitization patterns. Highly idiosyncratic frameworks or obfuscated sinks may invalidate these abstractions.
+* 🤖 **LLM Sensitivity:** Although Claude Sonnet 4 performed best in our analysis, model-dependent reasoning variability remains a systemic constraint; shifts in model behavior or pricing may affect long-term stability.
 
 ---
 
@@ -550,7 +573,7 @@ At the same time, our evaluation shows that specialization does not replace broa
 
 This work introduces **AWE**, a specialized multi-agent system that rethinks how LLMs can support autonomous web exploitation. By embedding domain knowledge into the architecture rather than relying solely on free-form reasoning, AWE achieves high accuracy on targeted vulnerability classes and delivers large efficiency gains over a state-of-the-art general-purpose system. The contrast with MAPTA underscores a central insight: **precision exploitation benefits from structure, while broad coverage benefits from flexibility.**
 
-Future directions point toward hybrid paradigms: combining specialized domain agents for injection semantics with high-level planner agents capable of orchestrating complex multi-step attacks.
+A natural direction forward is the integration of these paradigms — combining specialized agents that capture the semantics of injection vulnerabilities with higher-level agents capable of planning multi-step attacks. Such hybrid approaches may enable autonomous penetration testing systems that are both scalable and semantically capable, bringing fully automated web security analysis closer to practical reality.
 
 ---
 
