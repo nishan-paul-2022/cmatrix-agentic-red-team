@@ -225,12 +225,12 @@ To tackle Cybench, we design an LM-based agent. The agent acts based on its memo
 
 ```mermaid
 flowchart LR
-    Mem[Memory m_t] --> Act
-    Act((1. Act)) --> Resp[Response r_t / Action a_t]
-    Resp --> Exec((2. Execute))
-    Exec --> Env[Environment s_{t-1}]
-    Env --> Obs[Observation o_t / Env s_t]
-    Obs --> Upd((3. Update))
+    Mem["Memory m_t"] --> Act
+    Act(("1. Act")) --> Resp["Response r_t / Action a_t"]
+    Resp --> Exec(("2. Execute"))
+    Exec --> Env["Environment s_{t-1}"]
+    Env --> Obs["Observation o_t / Env s_t"]
+    Obs --> Upd(("3. Update"))
     Resp --> Upd
     Upd --> Mem
 ```
