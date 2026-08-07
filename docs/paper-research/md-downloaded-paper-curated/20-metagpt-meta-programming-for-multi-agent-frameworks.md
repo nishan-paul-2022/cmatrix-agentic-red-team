@@ -661,156 +661,156 @@ Sirui Hong conducted most of the experiments and designed the executable feedbac
 
 ## References
 
-Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., & Schulz, E. (2023). Playing repeated games with large language models. *arXiv preprint*.
+1. Akata, E., Schulz, L., Coda-Forno, J., Oh, S. J., Bethge, M., & Schulz, E. (2023). Playing repeated games with large language models. *arXiv preprint*.
 
-Austin, J., Odena, A., Nye, M. W., Bosma, M., Michalewski, H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., & Sutton, C. (2021). Program synthesis with large language models.
+2. Austin, J., Odena, A., Nye, M. W., Bosma, M., Michalewski, H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., & Sutton, C. (2021). Program synthesis with large language models.
 
-Bakhtin, A., Brown, N., Dinan, E., Farina, G., Flaherty, C., Fried, D., Goff, A., Gray, J., Hu, H., et al. (2022). Human-level play in the game of diplomacy by combining language models with strategic reasoning. *Science*.
+3. Bakhtin, A., Brown, N., Dinan, E., Farina, G., Flaherty, C., Fried, D., Goff, A., Gray, J., Hu, H., et al. (2022). Human-level play in the game of diplomacy by combining language models with strategic reasoning. *Science*.
 
-Balzer, R. (1985). A 15 year perspective on automatic programming. *TSE*.
+4. Balzer, R. (1985). A 15 year perspective on automatic programming. *TSE*.
 
-Belbin, R. M. (2012). *Team Roles at Work*. Routledge.
+5. Belbin, R. M. (2012). *Team Roles at Work*. Routledge.
 
-Cai, T., Wang, X., Ma, T., Chen, X., & Zhou, D. (2023). Large language models as tool makers. *arXiv preprint*.
+6. Cai, T., Wang, X., Ma, T., Chen, X., & Zhou, D. (2023). Large language models as tool makers. *arXiv preprint*.
 
-Chase, H. (2022). LangChain. https://github.com/hwchase17/langchain
+7. Chase, H. (2022). LangChain. https://github.com/hwchase17/langchain
 
-Chen, B., Zhang, F., Nguyen, A., Zan, D., Lin, Z., Lou, J.-G., & Chen, W. (2022). CodeT: Code generation with generated tests.
+8. Chen, B., Zhang, F., Nguyen, A., Zan, D., Lin, Z., Lou, J.-G., & Chen, W. (2022). CodeT: Code generation with generated tests.
 
-Chen, J., Jiang, Y., Lu, J., & Zhang, L. (2024). S-agents: Self-organizing agents in open-ended environment. *arXiv preprint*.
+9. Chen, J., Jiang, Y., Lu, J., & Zhang, L. (2024). S-agents: Self-organizing agents in open-ended environment. *arXiv preprint*.
 
-Chen, M., Tworek, J., Jun, H., Yuan, Q., de Oliveira Pinto, H. P., Kaplan, J., Edwards, H., Burda, Y., Joseph, N., Brockman, G., Ray, A., Puri, R., Krueger, G., Petrov, M., Khlaaf, H., Sastry, G., Mishkin, P., Chan, B., Gray, S., Ryder, N., ... Zaremba, W. (2021a). Evaluating large language models trained on code.
+10. Chen, M., Tworek, J., Jun, H., Yuan, Q., de Oliveira Pinto, H. P., Kaplan, J., Edwards, H., Burda, Y., Joseph, N., Brockman, G., Ray, A., Puri, R., Krueger, G., Petrov, M., Khlaaf, H., Sastry, G., Mishkin, P., Chan, B., Gray, S., Ryder, N., ... Zaremba, W. (2021a). Evaluating large language models trained on code.
 
-Chen, W., Su, Y., Zuo, J., Yang, C., Yuan, C., Qian, C., Chan, C.-M., Qin, Y., Lu, Y., Xie, R., Liu, Z., Sun, M., & Zhou, J. (2023). AgentVerse: Facilitating multi-agent collaboration and exploring emergent behaviors in agents.
+11. Chen, W., Su, Y., Zuo, J., Yang, C., Yuan, C., Qian, C., Chan, C.-M., Qin, Y., Lu, Y., Xie, R., Liu, Z., Sun, M., & Zhou, J. (2023). AgentVerse: Facilitating multi-agent collaboration and exploring emergent behaviors in agents.
 
-Chen, X., Liu, C., & Song, D. (2018). Execution-guided neural program synthesis. *ICLR*.
+12. Chen, X., Liu, C., & Song, D. (2018). Execution-guided neural program synthesis. *ICLR*.
 
-Chen, X., Song, D., & Tian, Y. (2021b). Latent execution for neural program synthesis beyond domain-specific languages. *NeurIPS*.
+13. Chen, X., Song, D., & Tian, Y. (2021b). Latent execution for neural program synthesis beyond domain-specific languages. *NeurIPS*.
 
-Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra, G., Roberts, A., Barham, P., Chung, H. W., Sutton, C., Gehrmann, S., Schuh, P., Shi, K., Tsvyashchenko, S., Maynez, J., Rao, A., Barnes, P., Tay, Y., Shazeer, N., Prabhakaran, V., Reif, E., ... Zoph, B. (2022). PaLM: Scaling language modeling with pathways.
+14. Chowdhery, A., Narang, S., Devlin, J., Bosma, M., Mishra, G., Roberts, A., Barham, P., Chung, H. W., Sutton, C., Gehrmann, S., Schuh, P., Shi, K., Tsvyashchenko, S., Maynez, J., Rao, A., Barnes, P., Tay, Y., Shazeer, N., Prabhakaran, V., Reif, E., ... Zoph, B. (2022). PaLM: Scaling language modeling with pathways.
 
-DeMarco, T., & Lister, T. R. (2013). *Peopleware: Productive Projects and Teams*. Addison-Wesley.
+15. DeMarco, T., & Lister, T. R. (2013). *Peopleware: Productive Projects and Teams*. Addison-Wesley.
 
-Dong, Y., Jiang, X., Jin, Z., & Li, G. (2023). Self-collaboration code generation via ChatGPT. *arXiv preprint*.
+16. Dong, Y., Jiang, X., Jin, Z., & Li, G. (2023). Self-collaboration code generation via ChatGPT. *arXiv preprint*.
 
-Du, Y., Li, S., Torralba, A., Tenenbaum, J. B., & Mordatch, I. (2023). Improving factuality and reasoning in language models through multiagent debate.
+17. Du, Y., Li, S., Torralba, A., Tenenbaum, J. B., & Mordatch, I. (2023). Improving factuality and reasoning in language models through multiagent debate.
 
-Elazar, Y., Kassner, N., Ravfogel, S., Ravichander, A., Hovy, E., Schütze, H., & Goldberg, Y. (2021). Measuring and improving consistency in pretrained language models. *TACL*.
+18. Elazar, Y., Kassner, N., Ravfogel, S., Ravichander, A., Hovy, E., Schütze, H., & Goldberg, Y. (2021). Measuring and improving consistency in pretrained language models. *TACL*.
 
-Feng, Z., Guo, D., Tang, D., Duan, N., Feng, X., Gong, M., Shou, L., Qin, B., Liu, T., Jiang, D., et al. (2020). CodeBERT: A pre-trained model for programming and natural languages. *arXiv preprint*.
+19. Feng, Z., Guo, D., Tang, D., Duan, N., Feng, X., Gong, M., Shou, L., Qin, B., Liu, T., Jiang, D., et al. (2020). CodeBERT: A pre-trained model for programming and natural languages. *arXiv preprint*.
 
-Fernando, C., Banarse, D., Michalewski, H., Osindero, S., & Rocktäschel, T. (2023). PromptBreeder: Self-referential self-improvement via prompt evolution. *arXiv preprint*.
+20. Fernando, C., Banarse, D., Michalewski, H., Osindero, S., & Rocktäschel, T. (2023). PromptBreeder: Self-referential self-improvement via prompt evolution. *arXiv preprint*.
 
-Finn, C., Abbeel, P., & Levine, S. (2017). Model-agnostic meta-learning for fast adaptation of deep networks. *ICML*.
+21. Finn, C., Abbeel, P., & Levine, S. (2017). Model-agnostic meta-learning for fast adaptation of deep networks. *ICML*.
 
-Fried, D., Aghajanyan, A., Lin, J., Wang, S., Wallace, E., Shi, F., Zhong, R., Yih, W.-t., Zettlemoyer, L., & Lewis, M. (2022). Incoder: A generative model for code infilling and synthesis. *arXiv preprint*.
+22. Fried, D., Aghajanyan, A., Lin, J., Wang, S., Wallace, E., Shi, F., Zhong, R., Yih, W.-t., Zettlemoyer, L., & Lewis, M. (2022). Incoder: A generative model for code infilling and synthesis. *arXiv preprint*.
 
-Good, I. J. (1965). Speculations concerning the first ultraintelligent machine. *Advances in Computers*.
+23. Good, I. J. (1965). Speculations concerning the first ultraintelligent machine. *Advances in Computers*.
 
-Hao, R., Hu, L., Qi, W., Wu, Q., Zhang, Y., & Nie, L. (2023). ChatLLM Network: More brains, more intelligence. *arXiv preprint*.
+24. Hao, R., Hu, L., Qi, W., Wu, Q., Zhang, Y., & Nie, L. (2023). ChatLLM Network: More brains, more intelligence. *arXiv preprint*.
 
-Hochreiter, S., Younger, A. S., & Conwell, P. R. (2001). Learning to learn using gradient descent. In *Lecture Notes on Computer Science 2130, Proceedings of the International Conference on Artificial Neural Networks (ICANN-2001)*, pp. 87–94. Springer.
+25. Hochreiter, S., Younger, A. S., & Conwell, P. R. (2001). Learning to learn using gradient descent. In *Lecture Notes on Computer Science 2130, Proceedings of the International Conference on Artificial Neural Networks (ICANN-2001)*, pp. 87–94. Springer.
 
-Hong, S., Lin, Y., Liu, B., Wu, B., Li, D., Chen, J., Zhang, J., Wang, J., Zhang, L., Zhuge, M., et al. (2024). Data Interpreter: An LLM agent for data science. *arXiv preprint* arXiv:2402.18679.
+26. Hong, S., Lin, Y., Liu, B., Wu, B., Li, D., Chen, J., Zhang, J., Wang, J., Zhang, L., Zhuge, M., et al. (2024). Data Interpreter: An LLM agent for data science. *arXiv preprint* arXiv:2402.18679.
 
-Jiang, X., Dong, Y., Wang, L., Shang, Q., & Li, G. (2023). Self-planning code generation with large language model. *arXiv preprint*.
+27. Jiang, X., Dong, Y., Wang, L., Shang, Q., & Li, G. (2023). Self-planning code generation with large language model. *arXiv preprint*.
 
-Li, G., Hammoud, H. A. A. K., Itani, H., Khizbullin, D., & Ghanem, B. (2023). CAMEL: Communicative agents for "mind" exploration of large scale language model society. *arXiv preprint*.
+28. Li, G., Hammoud, H. A. A. K., Itani, H., Khizbullin, D., & Ghanem, B. (2023). CAMEL: Communicative agents for "mind" exploration of large scale language model society. *arXiv preprint*.
 
-Li, Y., Choi, D., Chung, J., Kushman, N., Schrittwieser, J., Leblond, R., Eccles, T., Keeling, J., Gimeno, F., Dal Lago, A., et al. (2022). Competition-level code generation with AlphaCode. *Science*.
+29. Li, Y., Choi, D., Chung, J., Kushman, N., Schrittwieser, J., Leblond, R., Eccles, T., Keeling, J., Gimeno, F., Dal Lago, A., et al. (2022). Competition-level code generation with AlphaCode. *Science*.
 
-Liang, T., He, Z., Jiao, W., Wang, X., Wang, Y., Wang, R., Yang, Y., Tu, Z., & Shi, S. (2023). Encouraging divergent thinking in large language models through multi-agent debate. *arXiv preprint*.
+30. Liang, T., He, Z., Jiao, W., Wang, X., Wang, Y., Wang, R., Yang, Y., Tu, Z., & Shi, S. (2023). Encouraging divergent thinking in large language models through multi-agent debate. *arXiv preprint*.
 
-Lin, B. Y., Fu, Y., Yang, K., Ammanabrolu, P., Brahman, F., Huang, S., Bhagavatula, C., Choi, Y., & Ren, X. (2023). SwiftSage: A generative agent with fast and slow thinking for complex interactive tasks. *arXiv preprint*.
+31. Lin, B. Y., Fu, Y., Yang, K., Ammanabrolu, P., Brahman, F., Huang, S., Bhagavatula, C., Choi, Y., & Ren, X. (2023). SwiftSage: A generative agent with fast and slow thinking for complex interactive tasks. *arXiv preprint*.
 
-Liu, R., Yang, R., Jia, C., Zhang, G., Zhou, D., Dai, A. M., Yang, D., & Vosoughi, S. (2023a). Training socially aligned language models in simulated human society. *arXiv preprint*.
+32. Liu, R., Yang, R., Jia, C., Zhang, G., Zhou, D., Dai, A. M., Yang, D., & Vosoughi, S. (2023a). Training socially aligned language models in simulated human society. *arXiv preprint*.
 
-Liu, Y., Tang, X., Cai, Z., Lu, J., Zhang, Y., Shao, Y., Deng, Z., Hu, H., Yang, Z., An, K., et al. (2023b). ML-Bench: Large language models leverage open-source libraries for machine learning tasks. *arXiv preprint* arXiv:2311.09835.
+33. Liu, Y., Tang, X., Cai, Z., Lu, J., Zhang, Y., Shao, Y., Deng, Z., Hu, H., Yang, Z., An, K., et al. (2023b). ML-Bench: Large language models leverage open-source libraries for machine learning tasks. *arXiv preprint* arXiv:2311.09835.
 
-Luo, Z., Xu, C., Zhao, P., Sun, Q., Geng, X., Hu, W., Tao, C., Ma, J., Lin, Q., & Jiang, D. (2023). WizardCoder: Empowering code large language models with Evol-Instruct. *arXiv preprint*.
+34. Luo, Z., Xu, C., Zhao, P., Sun, Q., Geng, X., Hu, W., Tao, C., Ma, J., Lin, Q., & Jiang, D. (2023). WizardCoder: Empowering code large language models with Evol-Instruct. *arXiv preprint*.
 
-Manakul, P., Liusie, A., & Gales, M. J. F. (2023). SelfCheckGPT: Zero-resource black-box hallucination detection for generative large language models. *arXiv preprint*.
+35. Manakul, P., Liusie, A., & Gales, M. J. F. (2023). SelfCheckGPT: Zero-resource black-box hallucination detection for generative large language models. *arXiv preprint*.
 
-Manifesto, A. (2001). Manifesto for agile software development. Snowbird, UT.
+36. Manifesto, A. (2001). Manifesto for agile software development. Snowbird, UT.
 
-McCarthy, J. (1978). History of LISP. In *History of Programming Languages*.
+37. McCarthy, J. (1978). History of LISP. In *History of Programming Languages*.
 
-Muennighoff, N., Liu, Q., Zebaze, A., Zheng, Q., Hui, B., Zhuo, T. Y., Singh, S., Tang, X., Von Werra, L., & Longpre, S. (2023). OctoPack: Instruction tuning code large language models. *arXiv preprint* arXiv:2308.07124.
+38. Muennighoff, N., Liu, Q., Zebaze, A., Zheng, Q., Hui, B., Zhuo, T. Y., Singh, S., Tang, X., Von Werra, L., & Longpre, S. (2023). OctoPack: Instruction tuning code large language models. *arXiv preprint* arXiv:2308.07124.
 
-Ni, A., Iyer, S., Radev, D., Stoyanov, V., Yih, W.-t., Wang, S., & Lin, X. V. (2023). Lever: Learning to verify language-to-code generation with execution. *ICML*.
+39. Ni, A., Iyer, S., Radev, D., Stoyanov, V., Yih, W.-t., Wang, S., & Lin, X. V. (2023). Lever: Learning to verify language-to-code generation with execution. *ICML*.
 
-Nijkamp, E., Pang, B., Hayashi, H., Tu, L., Wang, H., Zhou, Y., Savarese, S., & Xiong, C. (2023). CodeGen: An open large language model for code with multi-turn program synthesis.
+40. Nijkamp, E., Pang, B., Hayashi, H., Tu, L., Wang, H., Zhou, Y., Savarese, S., & Xiong, C. (2023). CodeGen: An open large language model for code with multi-turn program synthesis.
 
-OpenAI. (2023). GPT-4 technical report.
+41. OpenAI. (2023). GPT-4 technical report.
 
-Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. *arXiv preprint*.
+42. Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., & Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. *arXiv preprint*.
 
-Qian, C., Cong, X., Yang, C., Chen, W., Su, Y., Xu, J., Liu, Z., & Sun, M. (2023). Communicative agents for software development.
+43. Qian, C., Cong, X., Yang, C., Chen, W., Su, Y., Xu, J., Liu, Z., & Sun, M. (2023). Communicative agents for software development.
 
-Qin, Y., Liang, S., Ye, Y., Zhu, K., Yan, L., Lu, Y., Lin, Y., Cong, X., Tang, X., Qian, B., et al. (2023). ToolLLM: Facilitating large language models to master 16000+ real-world APIs. *arXiv preprint* arXiv:2307.16789.
+44. Qin, Y., Liang, S., Ye, Y., Zhu, K., Yan, L., Lu, Y., Lin, Y., Cong, X., Tang, X., Qian, B., et al. (2023). ToolLLM: Facilitating large language models to master 16000+ real-world APIs. *arXiv preprint* arXiv:2307.16789.
 
-Rozière, B., Gehring, J., Gloeckle, F., Sootla, S., Gat, I., Tan, X. E., Adi, Y., Liu, J., Remez, T., Rapin, J., et al. (2023). Code Llama: Open foundation models for code. *arXiv preprint*.
+45. Rozière, B., Gehring, J., Gloeckle, F., Sootla, S., Gat, I., Tan, X. E., Adi, Y., Liu, J., Remez, T., Rapin, J., et al. (2023). Code Llama: Open foundation models for code. *arXiv preprint*.
 
-Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., & Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. *arXiv preprint*.
+46. Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Cancedda, N., & Scialom, T. (2023). Toolformer: Language models can teach themselves to use tools. *arXiv preprint*.
 
-Schmidhuber, J. (1987). Evolutionary principles in self-referential learning, or on learning how to learn: The meta-meta-... hook. *PhD thesis*.
+47. Schmidhuber, J. (1987). Evolutionary principles in self-referential learning, or on learning how to learn: The meta-meta-... hook. *PhD thesis*.
 
-Schmidhuber, J. (1993a). A self-referential weight matrix. In *Proceedings of the International Conference on Artificial Neural Networks*, Amsterdam, pp. 446–451. Springer.
+48. Schmidhuber, J. (1993a). A self-referential weight matrix. In *Proceedings of the International Conference on Artificial Neural Networks*, Amsterdam, pp. 446–451. Springer.
 
-Schmidhuber, J. (1993b). A 'self-referential' weight matrix. In *ICANN'93: Proceedings of the International Conference on Artificial Neural Networks* Amsterdam, The Netherlands 13–16 September 1993 3.
+49. Schmidhuber, J. (1993b). A 'self-referential' weight matrix. In *ICANN'93: Proceedings of the International Conference on Artificial Neural Networks* Amsterdam, The Netherlands 13–16 September 1993 3.
 
-Schmidhuber, J. (2003). Gödel machines: Self-referential universal problem solvers making provably optimal self-improvements. *Technical Report IDSIA-19-03*, arXiv:cs.LO/0309048 v3, IDSIA, Manno-Lugano, Switzerland.
+50. Schmidhuber, J. (2003). Gödel machines: Self-referential universal problem solvers making provably optimal self-improvements. *Technical Report IDSIA-19-03*, arXiv:cs.LO/0309048 v3, IDSIA, Manno-Lugano, Switzerland.
 
-Schmidhuber, J. (2006). Gödel machines: Fully self-referential optimal universal self-improvers. In B. Goertzel & C. Pennachin (Eds.), *Artificial General Intelligence*, pp. 199–226. Springer Verlag.
+51. Schmidhuber, J. (2006). Gödel machines: Fully self-referential optimal universal self-improvers. In B. Goertzel & C. Pennachin (Eds.), *Artificial General Intelligence*, pp. 199–226. Springer Verlag.
 
-Schmidhuber, J. (2009). Ultimate cognition à la Gödel. *Cognitive Computation*, 1(2), 177–193.
+52. Schmidhuber, J. (2009). Ultimate cognition à la Gödel. *Cognitive Computation*, 1(2), 177–193.
 
-Schmidhuber, J. (2015). On learning to think: Algorithmic information theory for novel combinations of reinforcement learning controllers and recurrent neural world models. *arXiv preprint*.
+53. Schmidhuber, J. (2015). On learning to think: Algorithmic information theory for novel combinations of reinforcement learning controllers and recurrent neural world models. *arXiv preprint*.
 
-Schmidhuber, J., Zhao, J., & Schraudolph, N. N. (1998). Reinforcement learning with self-modifying policies. In *Learning to Learn*.
+54. Schmidhuber, J., Zhao, J., & Schraudolph, N. N. (1998). Reinforcement learning with self-modifying policies. In *Learning to Learn*.
 
-Shinn, N., Labash, B., & Gopinath, A. (2023). Reflexion: An autonomous agent with dynamic memory and self-reflection. *arXiv preprint*.
+55. Shinn, N., Labash, B., & Gopinath, A. (2023). Reflexion: An autonomous agent with dynamic memory and self-reflection. *arXiv preprint*.
 
-Skreta, M., Yoshikawa, N., Arellano-Rubach, S., Ji, Z., Kristensen, L. B., Darvish, K., Aspuru-Guzik, A., Shkurti, F., & Garg, A. (2023). Errors are useful prompts: Instruction guided task programming with verifier-assisted iterative prompting. *arXiv preprint*.
+56. Skreta, M., Yoshikawa, N., Arellano-Rubach, S., Ji, Z., Kristensen, L. B., Darvish, K., Aspuru-Guzik, A., Shkurti, F., & Garg, A. (2023). Errors are useful prompts: Instruction guided task programming with verifier-assisted iterative prompting. *arXiv preprint*.
 
-Soloway, E. (1986). Learning to program = learning to construct mechanisms and explanations. *Communications of the ACM*.
+57. Soloway, E. (1986). Learning to program = learning to construct mechanisms and explanations. *Communications of the ACM*.
 
-Talebirad, Y., & Nadiri, A. (2023). Multi-agent collaboration: Harnessing the power of intelligent LLM agents.
+58. Talebirad, Y., & Nadiri, A. (2023). Multi-agent collaboration: Harnessing the power of intelligent LLM agents.
 
-Tang, X., Qian, B., Gao, R., Chen, J., Chen, X., & Gerstein, M. (2023a). BioCoder: A benchmark for bioinformatics code generation with contextual pragmatic knowledge. *arXiv preprint* arXiv:2308.16458.
+59. Tang, X., Qian, B., Gao, R., Chen, J., Chen, X., & Gerstein, M. (2023a). BioCoder: A benchmark for bioinformatics code generation with contextual pragmatic knowledge. *arXiv preprint* arXiv:2308.16458.
 
-Tang, X., Zou, A., Zhang, Z., Zhao, Y., Zhang, X., Cohan, A., & Gerstein, M. (2023b). MedAgents: Large language models as collaborators for zero-shot medical reasoning. *arXiv preprint* arXiv:2311.10537.
+60. Tang, X., Zou, A., Zhang, Z., Zhao, Y., Zhang, X., Cohan, A., & Gerstein, M. (2023b). MedAgents: Large language models as collaborators for zero-shot medical reasoning. *arXiv preprint* arXiv:2311.10537.
 
-Torantulino et al. (2023). Auto-GPT. https://github.com/Significant-Gravitas/Auto-GPT
+61. Torantulino et al. (2023). Auto-GPT. https://github.com/Significant-Gravitas/Auto-GPT
 
-Waldinger, R. J., & Lee, R. C. T. (1969). PROW: A step toward automatic program writing. In D. E. Walker & L. M. Norton (Eds.), *Proceedings of the 1st International Joint Conference on Artificial Intelligence (IJCAI)*.
+62. Waldinger, R. J., & Lee, R. C. T. (1969). PROW: A step toward automatic program writing. In D. E. Walker & L. M. Norton (Eds.), *Proceedings of the 1st International Joint Conference on Artificial Intelligence (IJCAI)*.
 
-Wang, G., Xie, Y., Jiang, Y., Mandlekar, A., Xiao, C., Zhu, Y., Fan, L., & Anandkumar, A. (2023a). Voyager: An open-ended embodied agent with large language models. *arXiv preprint*.
+63. Wang, G., Xie, Y., Jiang, Y., Mandlekar, A., Xiao, C., Zhu, Y., Fan, L., & Anandkumar, A. (2023a). Voyager: An open-ended embodied agent with large language models. *arXiv preprint*.
 
-Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., et al. (2023b). A survey on large language model based autonomous agents. *arXiv preprint*.
+64. Wang, L., Ma, C., Feng, X., Zhang, Z., Yang, H., Zhang, J., Chen, Z., Tang, J., Chen, X., Lin, Y., et al. (2023b). A survey on large language model based autonomous agents. *arXiv preprint*.
 
-Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., & Zhou, D. (2022). Self-consistency improves chain of thought reasoning in language models. *arXiv preprint*.
+65. Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., & Zhou, D. (2022). Self-consistency improves chain of thought reasoning in language models. *arXiv preprint*.
 
-Wang, Z., Mao, S., Wu, W., Ge, T., Wei, F., & Ji, H. (2023c). Unleashing cognitive synergy in large language models: A task-solving agent through multi-persona self-collaboration. *arXiv preprint*.
+66. Wang, Z., Mao, S., Wu, W., Ge, T., Wei, F., & Ji, H. (2023c). Unleashing cognitive synergy in large language models: A task-solving agent through multi-persona self-collaboration. *arXiv preprint*.
 
-Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., Le, Q. V., Zhou, D., et al. (2022). Chain-of-thought prompting elicits reasoning in large language models. *NeurIPS*.
+67. Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., Le, Q. V., Zhou, D., et al. (2022). Chain-of-thought prompting elicits reasoning in large language models. *NeurIPS*.
 
-Wooldridge, M., & Jennings, N. R. (1998). Pitfalls of agent-oriented development. In *Proceedings of the Second International Conference on Autonomous Agents*. https://doi.org/10.1145/280765.280867
+68. Wooldridge, M., & Jennings, N. R. (1998). Pitfalls of agent-oriented development. In *Proceedings of the Second International Conference on Autonomous Agents*. https://doi.org/10.1145/280765.280867
 
-Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2022). ReAct: Synergizing reasoning and acting in language models. *arXiv preprint*.
+69. Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2022). ReAct: Synergizing reasoning and acting in language models. *arXiv preprint*.
 
-Zelikman, E., Lorch, E., Mackey, L., & Kalai, A. T. (2023). Self-taught optimizer (STOP): Recursively self-improving code generation. *arXiv preprint*.
+70. Zelikman, E., Lorch, E., Mackey, L., & Kalai, A. T. (2023). Self-taught optimizer (STOP): Recursively self-improving code generation. *arXiv preprint*.
 
-Zhang, H., Du, W., Shan, J., Zhou, Q., Du, Y., Tenenbaum, J. B., Shu, T., & Gan, C. (2023a). Building cooperative embodied agents modularly with large language models. *arXiv preprint*.
+71. Zhang, H., Du, W., Shan, J., Zhou, Q., Du, Y., Tenenbaum, J. B., Shu, T., & Gan, C. (2023a). Building cooperative embodied agents modularly with large language models. *arXiv preprint*.
 
-Zhang, Z., Yao, Y., Zhang, A., Tang, X., Ma, X., He, Z., Wang, Y., Gerstein, M., Wang, R., Liu, G., et al. (2023b). Igniting language intelligence: The hitchhiker's guide from chain-of-thought reasoning to language agents. *arXiv preprint* arXiv:2311.11797.
+72. Zhang, Z., Yao, Y., Zhang, A., Tang, X., Ma, X., He, Z., Wang, Y., Gerstein, M., Wang, R., Liu, G., et al. (2023b). Igniting language intelligence: The hitchhiker's guide from chain-of-thought reasoning to language agents. *arXiv preprint* arXiv:2311.11797.
 
-Zhao, X., Li, M., Weber, C., Hafez, M. B., & Wermter, S. (2023). Chat with the environment: Interactive multimodal perception using large language models. *arXiv preprint*.
+73. Zhao, X., Li, M., Weber, C., Hafez, M. B., & Wermter, S. (2023). Chat with the environment: Interactive multimodal perception using large language models. *arXiv preprint*.
 
-Zheng, Q., Xia, X., Zou, X., Dong, Y., Wang, S., Xue, Y., Wang, Z., Shen, L., Wang, A., Li, Y., Su, T., Yang, Z., & Tang, J. (2023). CodeGeeX: A pre-trained model for code generation with multilingual evaluations on HumanEval-X.
+74. Zheng, Q., Xia, X., Zou, X., Dong, Y., Wang, S., Xue, Y., Wang, Z., Shen, L., Wang, A., Li, Y., Su, T., Yang, Z., & Tang, J. (2023). CodeGeeX: A pre-trained model for code generation with multilingual evaluations on HumanEval-X.
 
-Zhou, S., Xu, F. F., Zhu, H., Zhou, X., Lo, R., Sridhar, A., Cheng, X., Bisk, Y., Fried, D., Alon, U., et al. (2023a). WebArena: A realistic web environment for building autonomous agents. *arXiv preprint*.
+75. Zhou, S., Xu, F. F., Zhu, H., Zhou, X., Lo, R., Sridhar, A., Cheng, X., Bisk, Y., Fried, D., Alon, U., et al. (2023a). WebArena: A realistic web environment for building autonomous agents. *arXiv preprint*.
 
-Zhou, W., Jiang, Y. E., Long, L., Wu, L., Wang, T., Qiu, S., Zhang, J., Chen, J., Wu, R., Wang, S., et al. (2023b). Agents: An open-source framework for autonomous language agents. *arXiv preprint* arXiv:2309.07870.
+76. Zhou, W., Jiang, Y. E., Long, L., Wu, L., Wang, T., Qiu, S., Zhang, J., Chen, J., Wu, R., Wang, S., et al. (2023b). Agents: An open-source framework for autonomous language agents. *arXiv preprint* arXiv:2309.07870.
 
-Zhuge, M., Liu, H., Faccio, F., Ashley, D. R., Csordás, R., Gopalakrishnan, A., Hamdi, A., Hammoud, H. A. A. K., Herrmann, V., Irie, K., et al. (2023). Mindstorms in natural language-based societies of mind. *arXiv preprint*.
+77. Zhuge, M., Liu, H., Faccio, F., Ashley, D. R., Csordás, R., Gopalakrishnan, A., Hamdi, A., Hammoud, H. A. A. K., Herrmann, V., Irie, K., et al. (2023). Mindstorms in natural language-based societies of mind. *arXiv preprint*.
